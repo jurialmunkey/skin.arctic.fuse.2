@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<window type="dialog" id="1193">
+    <include>Action_Blur_Onload</include>
+    <onload>ClearProperty(Background.HideArtwork,Home)</onload>
+    <onload>SetProperty(TMDbHelper.WidgetContainer,50)</onload>
+    <defaultcontrol always="true">9001</defaultcontrol>
+    <onload>SetFocus(9001)</onload>
+    <controls>
+
+
+        <control type="button" id="9001">
+            <texturefocus />
+            <texturenofocus />
+            <onfocus>AlarmClock(RepWin,SetFocus(9002),00:01,silent)</onfocus>
+        </control>
+
+        <control type="button" id="9002">
+            <texturefocus />
+            <texturenofocus />
+
+            <onfocus condition="!Container(50).IsUpdating + !Integer.IsEqual(Container(50).NumItems,0)">SetFocus(50)</onfocus>
+            <onfocus condition="!Container(50).IsUpdating + Integer.IsEqual(Container(50).NumItems,0)">PreviousMenu</onfocus>
+            <onfocus condition="Container(50).IsUpdating">AlarmClock(ReFocus,SetFocus(9001),00:00,silent)</onfocus>
+            <onfocus condition="Container(50).IsUpdating">AlarmClock(RepWin,SetFocus(50),00:01,silent)</onfocus>
+        </control>
+
+        <include>Defs_TMDbHelper_Loader</include>
+
+        <include content="Object_Hidden_List">
+            <param name="id">50</param>
+            <content limit="1">$VAR[Path_VideoOSD_TMDbType,plugin://plugin.video.themoviedb.helper/?info=details&amp;tmdb_type=,]$VAR[Path_VideoOSD_TMDbQuery]</content>
+            <onfocus>Action(Info)</onfocus>
+            <onfocus>Dialog.Close(1193,force)</onfocus>
+        </include>
+
+        <include>OSD_VideoBackground_Dialog</include>
+
+        <control type="group">
+            <visible>!$EXP[Exp_InfoDialogs]</visible>
+            <include content="Furniture_Top_Left">
+                <param name="label">$LOCALIZE[19033]</param>
+            </include>
+            <include>Furniture_Top_Right</include>
+            <include>Furniture_Bottom</include>
+
+            <include content="Furniture_Busy">
+                <param name="hasspinner">true</param>
+                <param name="spinspinner">true</param>
+                <param name="icon">special://skin/extras/icons/kodi.png</param>
+                <param name="spinnervisible">[!Window.IsActive(DialogVolumeBar.xml) | Player.Muted]</param>
+                <param name="visible_delay">400</param>
+                <param name="windowopen_condition">False</param>
+                <param name="haslabel">false</param>
+                <param name="visible">[[!Window.IsActive(DialogVolumeBar.xml) | Player.Muted]]</param>
+            </include>
+        </control>
+
+    </controls>
+</window>

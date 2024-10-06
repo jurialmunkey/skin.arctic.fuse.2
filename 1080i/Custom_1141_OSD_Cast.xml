@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<window type="dialog" id="1141">
+    <defaultcontrol always="true">6501</defaultcontrol>
+    <onload>CancelAlarm(osd_timeout,true)</onload>
+    <onload>SetProperty(TMDbHelper.WidgetContainer,6501,1141)</onload>
+    <onload>Skin.SetString(VideoOSD.PersonCredits.CastCrew,cast)</onload>
+    <include>Animation_OSD_Dialog_WindowChange</include>
+    <controls>
+
+        <include content="Defs_TMDbHelper_Loader">
+            <param name="label">$VAR[Label_Title]</param>
+        </include>
+
+        <include content="OSD_CastInfo_ExpandGroup">
+
+            <include content="OSD_Info_Viewline">
+                <param name="label">[CAPITALIZE]$INFO[Skin.String(VideoOSD.PersonCredits.CastCrew)][/CAPITALIZE]$VAR[Label_OSD_Title, (,)]</param>
+            </include>
+
+            <!-- Cast Icon -->
+            <include content="OSD_Info_Tray">
+                <param name="icon">$INFO[Container(6501).ListItem.Icon]</param>
+                <param name="role">$INFO[Container(6501).ListItem.Label]</param>
+                <param name="name">$VAR[Label_OSD_CastMember_Appearances]</param>
+                <param name="text">$INFO[Container(99950).ListItem.Plot]</param>
+            </include>
+
+            <!-- Cast List -->
+            <include content="List_Poster_Row">
+                <param name="orientation">horizontal</param>
+                <param name="control">fixedlist</param>
+                <param name="id">6501</param>
+                <content>$VAR[Path_OSD_Cast]</content>
+                <include>OSD_List_Dimensions</include>
+
+                <onfocus>SetProperty(TMDbHelper.WidgetContainer,6501,1141)</onfocus>
+
+                <onup condition="Skin.String(VideoOSD.PersonCredits.CastCrew,cast)">PreviousMenu</onup>
+                <onup condition="Skin.String(VideoOSD.PersonCredits.CastCrew,crew)">Skin.SetString(VideoOSD.PersonCredits.CastCrew,cast)</onup>
+                <ondown condition="Skin.String(VideoOSD.PersonCredits.CastCrew,cast)">Skin.SetString(VideoOSD.PersonCredits.CastCrew,crew)</ondown>
+
+
+                <include>Animation_OSD_Dialog_VisibleChange</include>
+
+                <include content="Animation_Busy_Fade">
+                    <param name="end">0</param>
+                    <param name="id">6501</param>
+                </include>
+
+                <!-- <onfocus condition="Player.Paused + !String.IsEmpty(Window(Home).Property(OSDExtendedInfo))">PlayerControl(Play)</onfocus>
+                <onfocus condition="Player.Paused + !String.IsEmpty(Window(Home).Property(OSDExtendedInfo))">ClearProperty(OSDExtendedInfo,Home)</onfocus>
+
+                <onclick>SetProperty(OSDExtendedInfo,1,Home)</onclick>
+                <onclick condition="!Player.Paused">Pause</onclick> -->
+                <onclick>Action(Info)</onclick>
+            </include>
+        </include>
+
+        <control type="group">
+            <left>view_pad</left>
+            <include>OSD_List_Dimensions</include>
+            <control type="group">
+                <top>-80</top>
+                <include content="Widget_Busy">
+                    <param name="label">$LOCALIZE[206]...</param>
+                    <param name="visible">Container(6501).IsUpdating</param>
+                    <visible>Integer.IsEqual(Window.Property(TMDBHelper.WidgetContainer),6501)</visible>
+                </include>
+            </control>
+        </control>
+    </controls>
+</window>

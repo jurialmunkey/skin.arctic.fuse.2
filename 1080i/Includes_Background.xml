@@ -1,0 +1,353 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<includes>
+
+    <include name="Background_BusyLoader">
+        <control type="group">
+            <visible>Window.IsVisible(DialogBusy.xml)</visible>
+            <animation effect="fade" start="0" end="100" time="5000" tween="cubic" easing="inout" reversible="true">Visible</animation>
+            <animation effect="fade" start="100" end="0" time="1000" tween="cubic" easing="inout" reversible="true">Hidden</animation>
+            <control type="multiimage">
+                <timeperimage>50</timeperimage>
+                <aspectratio align="center" aligny="center">stretch</aspectratio>
+                <fadetime>10</fadetime>
+                <colordiffuse>55ffffff</colordiffuse>
+                <imagepath>resource://resource.images.arctic.waves/</imagepath>
+                <randomize>false</randomize>
+            </control>
+        </control>
+    </include>
+
+    <include name="Background_Notification_Overlay">
+        <param name="colordiffuse">main_bg_70</param>
+        <definition>
+            <control type="image" id="$PARAM[id]">
+                <right>0</right>
+                <top>0</top>
+                <height>50%</height>
+                <width>100%</width>
+                <aspectratio>stretch</aspectratio>
+                <texture colordiffuse="$PARAM[colordiffuse]">shadows/cornerspot.png</texture>
+                <visible>$EXP[Exp_Notification_IsActive]</visible>
+                <include content="Animation_Fade_In">
+                    <param name="type">Visible</param>
+                    <param name="delay">150</param>
+                    <param name="time">300</param>
+                    <param name="reversible">true</param>
+                </include>
+                <include content="Animation_Fade_Out">
+                    <param name="type">Hidden</param>
+                    <param name="reversible">true</param>
+                    <param name="time">300</param>
+                </include>
+            </control>
+        </definition>
+    </include>
+
+    <include name="Background_FlixArt">
+        <param name="flixart_size_w">flixart_size_w</param>
+        <param name="flixart_size_h">flixart_size_h</param>
+        <param name="right">0</param>
+        <param name="diffuse">diffuse/flixart.png</param>
+        <param name="aspectratio">scale</param>
+        <param name="fadetime">background_fadetime</param>
+        <definition>
+            <control type="image">
+                <fadetime>$PARAM[fadetime]</fadetime>
+                <right>$PARAM[right]</right>
+                <top>0</top>
+                <height>$PARAM[flixart_size_h]</height>
+                <width>$PARAM[flixart_size_w]</width>
+                <aspectratio scalediffuse="false" align="$PARAM[align]" aligny="$PARAM[aligny]">$PARAM[aspectratio]</aspectratio>
+                <texture background="true" diffuse="$PARAM[diffuse]">$VAR[Image_Foreground]</texture>
+                <animation effect="fade" start="100" end="0" reversible="false" time="300" condition="$EXP[Exp_BackgroundArtwork_IsHidden]">Conditional</animation>
+                <animation effect="fade" start="0" end="100" reversible="false" delay="300" time="background_fadetime" condition="!$EXP[Exp_BackgroundArtwork_IsHidden]">Conditional</animation>
+                <include>Background_NotVideo</include>
+            </control>
+        </definition>
+    </include>
+
+    <include name="Background_Fanart">
+        <param name="fadetime">background_fadetime</param>
+        <param name="texture">$VAR[Image_Foreground]</param>
+        <definition>
+            <control type="image">
+                <fadetime>$PARAM[fadetime]</fadetime>
+                <aspectratio scalediffuse="false">scale</aspectratio>
+                <texture background="true">$PARAM[texture]</texture>
+                <animation effect="fade" start="100" end="0" reversible="false" time="300" condition="$EXP[Exp_BackgroundArtwork_IsHidden]">Conditional</animation>
+                <animation effect="fade" start="0" end="100" reversible="false" delay="300" time="background_fadetime" condition="!$EXP[Exp_BackgroundArtwork_IsHidden]">Conditional</animation>
+                <include>Background_NotVideo</include>
+            </control>
+        </definition>
+    </include>
+
+    <include name="Background_Artwork">
+        <param name="fadetime">background_fadetime</param>
+        <definition>
+            <include content="Background_FlixArt" condition="!Skin.String(Background.ArtworkStyle,Fanart) + !Skin.String(Background.ArtworkStyle,Simple)">
+                <param name="fadetime">$PARAM[fadetime]</param>
+            </include>
+            <include content="Background_FlixArt" condition="Skin.String(Background.ArtworkStyle,Simple)">
+                <param name="fadetime">$PARAM[fadetime]</param>
+                <param name="diffuse">diffuse/flixart_new.png</param>
+            </include>
+            <include content="Background_Fanart" condition="Skin.String(Background.ArtworkStyle,Fanart)">
+                <param name="fadetime">$PARAM[fadetime]</param>
+            </include>
+        </definition>
+    </include>
+
+    <include name="Background_Blur_Quadrants">
+        <control type="group">
+            <!-- Left -->
+            <control type="group">
+                <right>$PARAM[flixart_size_w]</right>
+                <width>150%</width>
+                <!-- Top  -->
+                <control type="image">
+                    <fadetime>$PARAM[fadetime]</fadetime>
+                    <height>$PARAM[flixart_size_h]</height>
+                    <texture background="true" flipx="true" flipy="false">$VAR[Image_Background]</texture>
+                </control>
+                <!-- Bottom -->
+                <control type="image">
+                    <fadetime>$PARAM[fadetime]</fadetime>
+                    <height>$PARAM[flixart_size_h]</height>
+                    <top>$PARAM[flixart_size_h]</top>
+                    <texture background="true" flipx="true" flipy="true">$VAR[Image_Background]</texture>
+                </control>
+            </control>
+
+            <!-- Right -->
+            <control type="group">
+                <right>0</right>
+                <width>$PARAM[flixart_size_w]</width>
+                <!-- Top  -->
+                <control type="image">
+                    <fadetime>$PARAM[fadetime]</fadetime>
+                    <height>$PARAM[flixart_size_h]</height>
+                    <texture background="true" flipx="false" flipy="false">$VAR[Image_Background]</texture>
+                </control>
+                <!-- Bottom -->
+                <control type="image">
+                    <fadetime>$PARAM[fadetime]</fadetime>
+                    <height>$PARAM[flixart_size_h]</height>
+                    <top>$PARAM[flixart_size_h]</top>
+                    <texture background="true" flipx="false" flipy="true">$VAR[Image_Background]</texture>
+                </control>
+            </control>
+
+        </control>
+    </include>
+
+    <include name="Background_Blur_Cheater">
+        <control type="group">
+            <centertop>50%</centertop>
+            <height>108000</height>
+            <control type="image">
+                <fadetime>$PARAM[fadetime]</fadetime>
+                <width>192000</width>
+                <height>108000</height>
+                <centertop>64%</centertop>
+                <texture background="true">$VAR[Image_Background]</texture>
+            </control>
+        </control>
+    </include>
+
+    <include name="Background_Blur">
+        <param name="flixart_size_w">flixart_size_w</param>
+        <param name="flixart_size_h">flixart_size_h</param>
+        <param name="fadetime">background_fadetime</param>
+        <definition>
+            <control type="group">
+                <include>Background_NotVideo</include>
+                <include content="Background_Blur_Quadrants" condition="Skin.HasSetting(TMDbHelper.EnableBlur) + !Skin.String(Background.ArtworkStyle,Fanart)">
+                    <param name="flixart_size_w">$PARAM[flixart_size_w]</param>
+                    <param name="flixart_size_h">$PARAM[flixart_size_h]</param>
+                    <param name="fadetime">$PARAM[fadetime]</param>
+                </include>
+                <include content="Background_Blur_Cheater" condition="!Skin.HasSetting(TMDbHelper.EnableBlur) + !Skin.String(Background.ArtworkStyle,Fanart)">
+                    <param name="fadetime">$PARAM[fadetime]</param>
+                </include>
+                <include content="Background_Image" condition="Skin.String(Background.ArtworkStyle,Fanart)">
+                    <param name="fadetime">$PARAM[fadetime]</param>
+                </include>
+            </control>
+        </definition>
+    </include>
+
+    <include name="Background_StartUp">
+        <param name="colordiffuse">main_back</param>
+        <definition>
+            <control type="image">
+                <texture colordiffuse="$VAR[ColorBackground]">common/white.png</texture>
+            </control>
+            <control type="multiimage">
+                <imagepath colordiffuse="$PARAM[colordiffuse]">$VAR[Image_StartUp]</imagepath>
+                <randomize>true</randomize>
+                <timeperimage>5000</timeperimage>
+                <fadetime>2000</fadetime>
+                <aspectratio>scale</aspectratio>
+            </control>
+        </definition>
+    </include>
+
+    <include name="Background_Image">
+        <param name="texture">$VAR[Image_SimpleBackground]</param>
+        <definition>
+            <control type="image">
+                <fadetime>$PARAM[fadetime]</fadetime>
+                <aspectratio align="left">scale</aspectratio>
+                <texture background="true">$PARAM[texture]</texture>
+                <include>Background_NotVideo</include>
+            </control>
+        </definition>
+    </include>
+
+    <include name="Background_NotVideo">
+        <param name="fade_end">0</param>
+        <definition>
+            <visible>$EXP[Exp_Video_IsNotPlaying]</visible>
+            <animation effect="fade" start="100" end="0" time="400" tween="sine" easing="in" reversible="false">Hidden</animation>
+            <animation effect="fade" start="0" end="100" time="400" tween="sine" easing="in" reversible="false">Visible</animation>
+        </definition>
+    </include>
+
+    <include name="Background_Video">
+        <control type="group">
+            <description>On-screen videowindow for background video</description>
+            <control type="group">
+                <top>0</top>
+                <height>flixart_size_h</height>
+                <visible>![$EXP[Exp_Video_IsNotPlaying]]</visible>
+                <control type="videowindow">
+                    <right>0</right>
+                    <width>flixart_size_w</width>
+                </control>
+                <control type="image">
+                    <right>0</right>
+                    <width>flixart_size_w</width>
+                    <texture colordiffuse="black">diffuse/flixart_invert.png</texture>
+                </control>
+                <control type="image">
+                    <left>0</left>
+                    <right>flixart_size_w</right>
+                    <texture colordiffuse="black">common/white.png</texture>
+                </control>
+            </control>
+            <control type="image">
+                <top>flixart_size_h</top>
+                <texture colordiffuse="black">common/white.png</texture>
+            </control>
+        </control>
+    </include>
+
+    <include name="Background_Transition">
+        <param name="windowopen_condition">True</param>
+        <param name="windowclose_condition">True</param>
+        <!-- <param name="windowopen_condition">$EXP[Exp_PlainBackgroundWindows_Prev]</param>
+        <param name="windowclose_condition">$EXP[Exp_PlainBackgroundWindows_Next]</param> -->
+        <definition>
+            <!-- <control type="image">
+                <texture colordiffuse="$VAR[ColorBackground]">common/white.png</texture>
+                <animation type="WindowClose" condition="$PARAM[windowclose_condition]">
+                    <effect type="fade" start="0" end="100" time="400" tween="sine" easing="out" />
+                </animation>
+                <animation type="WindowOpen" condition="$PARAM[windowopen_condition]">
+                    <effect type="fade" start="100" end="0" time="400" tween="sine" easing="out" />
+                </animation>
+            </control> -->
+        </definition>
+    </include>
+
+    <include name="Background_Main_Plain">
+        <control type="group">
+            <description>Plain background used to prevent fadetime transitions</description>
+            <include content="Background_Blur" condition="!Skin.String(Background.ArtworkStyle,Simple)">
+                <param name="fadetime">0</param>
+            </include>
+            <include content="Background_Artwork">
+                <param name="fadetime">0</param>
+            </include>
+        </control>
+    </include>
+
+    <include name="Background_Main_Standard">
+        <control type="group">
+            <animation effect="fade" start="0" end="100" time="background_fadetime">Visible</animation>
+            <animation effect="fade" start="100" end="0" time="background_fadetime">Hidden</animation>
+            <include condition="!Skin.String(Background.ArtworkStyle,Simple)">Background_Blur</include>
+            <include>Background_Artwork</include>
+        </control>
+    </include>
+
+    <include name="Background_Main_Overlay">
+        <include condition="System.HasAddon(resource.images.arctic.waves)">Background_BusyLoader</include>
+        <control type="image">
+            <texture colordiffuse="$VAR[ColorBackground]">background/combined_flixart.png</texture>
+        </control>
+        <include>Background_Notification_Overlay</include>
+        <control type="image">
+            <texture colordiffuse="$VAR[ColorBackground]">background/combined_overlay.png</texture>
+
+            <visible>$EXP[Exp_BackgroundArtwork_IsOverlay]</visible>
+
+            <include content="Animation_Fade_In">
+                <param name="type">Visible</param>
+            </include>
+            <!-- <include content="Animation_Fade_In">
+                <param name="type">WindowOpen</param>
+            </include> -->
+            <include content="Animation_Fade_Out">
+                <param name="type">Hidden</param>
+            </include>
+            <!-- <include content="Animation_Fade_Out">
+                <param name="type">WindowClose</param>
+            </include> -->
+        </control>
+    </include>
+
+    <include name="Background_HolidayTheme_FrostOverlay">
+        <control type="image">
+            <texture background="true">holiday/winter/frost.png</texture>
+            <aspectratio>stretch</aspectratio>
+            <visible>$EXP[Exp_Christmas_Theme]</visible>
+            <visible>!Skin.HasSetting(HolidayMode.Australia)</visible>
+        </control>
+    </include>
+
+    <include name="Background_Main">
+        <param name="plain_background">false</param>
+        <param name="video_background">!Skin.HasSetting(Background.DisableVideo)</param>
+        <param name="include_layer">Items_Null</param>
+        <definition>
+            <include condition="$PARAM[video_background]">Background_Video</include>
+            <include condition="$PARAM[plain_background]">Background_Main_Plain</include>
+            <include condition="!$PARAM[plain_background]">Background_Main_Standard</include>
+            <include>$PARAM[include_layer]</include>
+            <include>Background_Main_Overlay</include>
+            <include condition="Skin.HasSetting(EnableHolidayTheme) + Skin.HasSetting(HolidayMode.Frost)">Background_HolidayTheme_FrostOverlay</include>
+        </definition>
+    </include>
+
+    <include name="Background">
+        <param name="plain_background">$EXP[Exp_PlainBackgroundWindows]</param>
+        <definition>
+
+            <!-- Standard Background -->
+            <include condition="!$EXP[Exp_PlainBackgroundWindows]">Background_Main</include>
+            <include condition="!$EXP[Exp_PlainBackgroundWindows]">Background_Transition</include>
+
+            <!-- Plain Background -->
+            <include content="Background_Main" condition="$EXP[Exp_PlainBackgroundWindows]">
+                <param name="plain_background">true</param>
+            </include>
+            <include content="Background_Transition" condition="$EXP[Exp_PlainBackgroundWindows]">
+                <param name="windowopen_condition">!$EXP[Exp_PlainBackgroundWindows_Prev]</param>
+                <param name="windowclose_condition">!$EXP[Exp_PlainBackgroundWindows_Next]</param>
+            </include>
+        </definition>
+
+    </include>
+
+</includes>

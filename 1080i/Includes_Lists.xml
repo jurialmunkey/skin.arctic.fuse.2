@@ -1,0 +1,1097 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<includes>
+
+    <!-- ============= -->
+    <!-- Movement Defs -->
+    <!-- ============= -->
+    <!-- 7 Item: Poster, Square -->
+    <include name="List_Poster_Row_Movement">
+        <movement>view_poster_movement</movement>
+    </include>
+    <!-- 5 Item: Card -->
+    <include name="List_Card_Row_Movement">
+        <movement>view_card_movement</movement>
+    </include>
+    <!-- 4 Item: Landscape -->
+    <include name="List_Landscape_Row_Movement">
+        <movement>view_landscape_movement</movement>
+    </include>
+    <!-- 3 Item: Board -->
+    <include name="List_Board_Row_Movement">
+        <movement>view_board_movement</movement>
+    </include>
+    <!-- 1 Item: Banner -->
+    <include name="List_Banner_Row_Movement">
+        <movement>0</movement>
+    </include>
+
+    <include name="List_Button_Row">
+        <param name="item_h">80</param>
+        <param name="itemlayout_h">120</param>
+        <param name="detailed">false</param>
+        <param name="orientation">horizontal</param>
+        <param name="control">fixedlist</param>
+        <param name="item_w">240</param>
+        <param name="itemlayout_w">280</param>
+        <param name="itemlayout_include">Layout_Button</param>
+        <definition>
+            <include content="List_Core">
+                <param name="id">$PARAM[id]</param>
+                <param name="detailed">$PARAM[detailed]</param>
+                <param name="orientation">$PARAM[orientation]</param>
+                <param name="control">$PARAM[control]</param>
+                <param name="item_w">$PARAM[item_w]</param>
+                <param name="item_h">$PARAM[item_h]</param>
+                <param name="itemlayout_w">$PARAM[itemlayout_w]</param>
+                <param name="itemlayout_h">$PARAM[itemlayout_h]</param>
+                <param name="itemlayout_include">$PARAM[itemlayout_include]</param>
+                <param name="offset_x">$PARAM[offset_x]</param>
+                <param name="offset_y">$PARAM[offset_y]</param>
+                <param name="icon">$PARAM[icon]</param>
+                <param name="misc">$PARAM[misc]</param>
+                <param name="variation">$PARAM[variation]</param>
+                <param name="indicator">$PARAM[indicator]</param>
+                <nested />
+            </include>
+        </definition>
+    </include>
+
+    <include name="List_Reviews_Row">
+        <param name="item_h">view_poster_item_h</param>
+        <param name="itemlayout_h">view_poster_itemlayout_h</param>
+        <param name="item_w">view_board_item_w</param>
+        <param name="itemlayout_w">view_board_itemlayout_w</param>
+        <definition>
+            <include content="List_Core">
+                <param name="orientation">horizontal</param>
+                <param name="control">fixedlist</param>
+                <param name="id">$PARAM[id]</param>
+                <param name="item_w">$PARAM[item_w]</param>
+                <param name="item_h">$PARAM[item_h]</param>
+                <param name="itemlayout_w">$PARAM[itemlayout_w]</param>
+                <param name="itemlayout_h">$PARAM[itemlayout_h]</param>
+                <param name="itemlayout_include">Layout_Reviews</param>
+                <param name="icon">$PARAM[icon]</param>
+                <param name="textcolor">$PARAM[textcolor]</param>
+                <param name="offset_x">$PARAM[offset_x]</param>
+                <param name="offset_y">$PARAM[offset_y]</param>
+                <param name="shadow_colordiffuse">$PARAM[shadow_colordiffuse]</param>
+                <param name="hidden_button_enabled">$PARAM[hidden_button_enabled]</param>
+                <param name="hidden_button">$PARAM[hidden_button]</param>
+                <nested />
+                <include>List_Board_Row_Movement</include>
+            </include>
+        </definition>
+    </include>
+
+    <include name="List_EPGGrid">
+        <param name="channelheight">80</param>
+        <param name="channelwidth">520</param>
+        <param name="include_channels">Layout_PVRGuide_Channels</param>
+        <param name="include_programs">Layout_PVRGuide_Programs</param>
+        <definition>
+            <control type="epggrid" id="$PARAM[id]">
+                <nested />
+                <scrolltime tween="quadratic">300</scrolltime>
+                <timeblocks>24</timeblocks>
+                <rulerunit>6</rulerunit>
+                <rulerdatelayout height="105" />
+                <rulerlayout height="55">
+                    <control type="group">
+                        <bottom>5</bottom>
+                        <top>-10</top>
+                        <control type="image">
+                            <width>1</width>
+                            <texture colordiffuse="main_fg_30">common/white.png</texture>
+                            <bottom>15</bottom>
+                            <top>15</top>
+                        </control>
+                        <control type="label">
+                            <bottom>5</bottom>
+                            <left>10</left>
+                            <align>left</align>
+                            <aligny>center</aligny>
+                            <font>font_tiny</font>
+                            <label>$INFO[ListItem.Label]</label>
+                            <textcolor>main_fg_70</textcolor>
+                            <shadowcolor>main_bg_12</shadowcolor>
+                        </control>
+                    </control>
+                </rulerlayout>
+                <channellayout height="$PARAM[channelheight]" width="$PARAM[channelwidth]">
+                    <include content="$PARAM[include_channels]">
+                        <param name="detailed">$PARAM[detailed]</param>
+                        <param name="item_h">$PARAM[channelheight]</param>
+                    </include>
+                </channellayout>
+                <focusedchannellayout height="$PARAM[channelheight]" width="$PARAM[channelwidth]">
+                    <include content="$PARAM[include_channels]">
+                        <param name="selected">false</param>
+                        <param name="detailed">$PARAM[detailed]</param>
+                        <param name="item_h">$PARAM[channelheight]</param>
+                        <visible>[$EXP[Exp_PVRGuide_NoFocus]]</visible>
+                    </include>
+                    <include content="$PARAM[include_channels]">
+                        <param name="selected">true</param>
+                        <param name="detailed">$PARAM[detailed]</param>
+                        <param name="item_h">$PARAM[channelheight]</param>
+                        <visible>![$EXP[Exp_PVRGuide_NoFocus]]</visible>
+                    </include>
+                </focusedchannellayout>
+                <itemlayout height="$PARAM[channelheight]" width="480">
+                    <include content="$PARAM[include_programs]">
+                        <param name="detailed">$PARAM[detailed]</param>
+                    </include>
+                </itemlayout>
+                <focusedlayout height="$PARAM[channelheight]" width="480">
+                    <include content="$PARAM[include_programs]">
+                        <param name="selected">false</param>
+                        <param name="visible">[$EXP[Exp_PVRGuide_NoFocus]]</param>
+                        <param name="detailed">$PARAM[detailed]</param>
+                    </include>
+                    <include content="$PARAM[include_programs]">
+                        <param name="selected">true</param>
+                        <param name="visible">![$EXP[Exp_PVRGuide_NoFocus]]</param>
+                        <param name="detailed">$PARAM[detailed]</param>
+                    </include>
+                </focusedlayout>
+            </control>
+        </definition>
+    </include>
+
+    <include name="List_DialogSelect">
+        <param name="item_height">80</param>
+        <param name="detailed">false</param>
+        <param name="itemlayout_include">Layout_DialogSelect</param>
+        <param name="control">list</param>
+        <param name="orientation">vertical</param>
+        <definition>
+            <include content="List_Core">
+                <param name="orientation">$PARAM[orientation]</param>
+                <param name="control">$PARAM[control]</param>
+                <param name="id">$PARAM[id]</param>
+                <param name="altfocus">$PARAM[altfocus]</param>
+                <param name="item_h">$PARAM[item_height]</param>
+                <param name="itemlayout_h">$PARAM[item_height]</param>
+                <param name="item_w">$PARAM[item_w]</param>
+                <param name="itemlayout_w">$PARAM[itemlayout_w]</param>
+                <param name="itemlayout_include">$PARAM[itemlayout_include]</param>
+                <param name="detailed">$PARAM[detailed]</param>
+                <param name="variation">$PARAM[variation]</param>
+                <param name="misc">$PARAM[misc]</param>
+                <param name="icon">$PARAM[icon]</param>
+                <param name="offset_x">0</param>
+                <param name="offset_y">0</param>
+                <param name="textcolor">$PARAM[textcolor]</param>
+                <param name="hidden_button_enabled">$PARAM[hidden_button_enabled]</param>
+                <param name="hidden_button">$PARAM[hidden_button]</param>
+                <nested />
+            </include>
+        </definition>
+    </include>
+
+    <include name="List_MediaListOverview">
+        <param name="item_height">80</param>
+        <param name="detailed">false</param>
+        <param name="control">list</param>
+        <param name="orientation">vertical</param>
+        <param name="altfocus">false</param>
+        <param name="misc">0</param>
+        <param name="focusedlayout_h">280</param>
+        <definition>
+            <include content="List_Core">
+                <param name="orientation">$PARAM[orientation]</param>
+                <param name="control">$PARAM[control]</param>
+                <param name="id">$PARAM[id]</param>
+                <param name="altfocus">$PARAM[altfocus]</param>
+                <param name="item_h">$PARAM[item_height]</param>
+                <param name="itemlayout_h">$PARAM[item_height]</param>
+                <param name="item_w">$PARAM[item_w]</param>
+                <param name="itemlayout_w">$PARAM[itemlayout_w]</param>
+                <param name="itemlayout_include">Layout_MediaList</param>
+                <param name="detailed">$PARAM[detailed]</param>
+                <param name="variation">$PARAM[variation]</param>
+                <param name="misc">40</param>
+                <param name="icon">$PARAM[icon]</param>
+                <param name="offset_x">0</param>
+                <param name="offset_y">0</param>
+                <param name="textcolor">$PARAM[textcolor]</param>
+                <param name="hidden_button_enabled">$PARAM[hidden_button_enabled]</param>
+                <param name="hidden_button">$PARAM[hidden_button]</param>
+                <param name="focusedlayout_special">true</param>
+                <preloaditems>0</preloaditems>
+
+                <include content="Object_FocusedLayout">
+                    <param name="width">$PARAM[itemlayout_w]</param>
+                    <param name="height">$PARAM[focusedlayout_h]</param>
+                    <control type="group">
+                        <control type="group">
+                            <animation effect="fade" start="100" end="0" condition="[Control.HasFocus($PARAM[id]) | $PARAM[altfocus]]">Conditional</animation>
+                            <include content="Layout_MediaList_Detailed">
+                                <param name="focusedlayout">true</param>
+                                <param name="selected">false</param>
+                                <param name="item_w">$PARAM[item_w]</param>
+                                <param name="item_h">$PARAM[focusedlayout_h]</param>
+                                <param name="misc">$PARAM[misc]</param>
+                                <param name="id">$PARAM[id]</param>
+                                <param name="detailed">$PARAM[detailed]</param>
+                                <param name="indicator">$PARAM[indicator]</param>
+                                <param name="variation">$PARAM[variation]</param>
+                                <param name="diffuse">$PARAM[diffuse]</param>
+                                <param name="icon">$PARAM[icon]</param>
+                                <param name="textcolor">$PARAM[textcolor]</param>
+                                <param name="shadow_colordiffuse">$PARAM[shadow_colordiffuse]</param>
+                            </include>
+                        </control>
+                        <control type="group">
+                            <animation effect="fade" start="100" end="0" condition="![Control.HasFocus($PARAM[id]) | $PARAM[altfocus]]">Conditional</animation>
+                            <include content="Layout_MediaList_Detailed">
+                                <param name="focusedlayout">true</param>
+                                <param name="selected">true</param>
+                                <param name="item_w">$PARAM[item_w]</param>
+                                <param name="item_h">$PARAM[focusedlayout_h]</param>
+                                <param name="misc">$PARAM[misc]</param>
+                                <param name="id">$PARAM[id]</param>
+                                <param name="detailed">$PARAM[detailed]</param>
+                                <param name="indicator">$PARAM[indicator]</param>
+                                <param name="variation">$PARAM[variation]</param>
+                                <param name="diffuse">$PARAM[diffuse]</param>
+                                <param name="icon">$PARAM[icon]</param>
+                                <param name="textcolor">$PARAM[textcolor]</param>
+                                <param name="shadow_colordiffuse">$PARAM[shadow_colordiffuse]</param>
+                            </include>
+                        </control>
+                    </control>
+                </include>
+                <nested />
+            </include>
+        </definition>
+    </include>
+
+    <include name="List_IconBrowser">
+        <param name="item_w">520</param>
+        <param name="item_h">140</param>
+        <param name="itemlayout_w">560</param>
+        <param name="itemlayout_h">180</param>
+        <definition>
+            <include content="List_Core">
+                <param name="orientation">vertical</param>
+                <param name="control">panel</param>
+                <param name="id">$PARAM[id]</param>
+                <param name="item_w">$PARAM[item_w]</param>
+                <param name="item_h">$PARAM[item_h]</param>
+                <param name="itemlayout_w">$PARAM[itemlayout_w]</param>
+                <param name="itemlayout_h">$PARAM[itemlayout_h]</param>
+                <param name="itemlayout_include">Layout_IconBrowser</param>
+                <param name="detailed">$PARAM[detailed]</param>
+                <param name="offset_y">40</param>
+                <param name="offset_x">40</param>
+                <nested />
+            </include>
+        </definition>
+    </include>
+
+    <include name="List_AddonCategories">
+        <param name="itemlayout_include">Layout_Iconic</param>
+        <param name="width">440</param>
+        <param name="height">80</param>
+        <param name="detailed">false</param>
+        <param name="orientation">vertical</param>
+        <param name="control">list</param>
+        <definition>
+            <include content="List_Core">
+                <param name="orientation">$PARAM[orientation]</param>
+                <param name="control">$PARAM[control]</param>
+                <param name="id">$PARAM[id]</param>
+                <param name="item_w">$PARAM[width]</param>
+                <param name="item_h">$PARAM[height]</param>
+                <param name="itemlayout_w">$PARAM[width]</param>
+                <param name="itemlayout_h">$PARAM[height]</param>
+                <param name="offset_x">0</param>
+                <param name="offset_y">0</param>
+                <param name="itemlayout_include">$PARAM[itemlayout_include]</param>
+                <param name="altfocus">$PARAM[altfocus]</param>
+                <param name="detailed">$PARAM[detailed]</param>
+                <param name="misc">$PARAM[misc]</param>
+                <param name="textcolor">$PARAM[textcolor]</param>
+                <nested />
+            </include>
+        </definition>
+    </include>
+
+    <include name="List_PVRRecordings">
+        <param name="orientation">vertical</param>
+        <param name="control">list</param>
+        <param name="item_h">120</param>
+        <param name="itemlayout_h">120</param>
+        <param name="itemlayout_include">Layout_PVRRecordings</param>
+        <param name="detailed">true</param>
+        <definition>
+            <include content="List_Core">
+                <param name="orientation">$PARAM[orientation]</param>
+                <param name="control">$PARAM[control]</param>
+                <param name="id">$PARAM[id]</param>
+                <param name="item_h">$PARAM[item_h]</param>
+                <param name="itemlayout_h">$PARAM[itemlayout_h]</param>
+                <param name="itemlayout_include">$PARAM[itemlayout_include]</param>
+                <param name="misc">$PARAM[misc]</param>
+                <param name="detailed">$PARAM[detailed]</param>
+                <param name="offset_y">0</param>
+                <param name="offset_x">0</param>
+                <param name="textcolor">$PARAM[textcolor]</param>
+                <nested />
+                <movement>3</movement>
+                <focusposition>2</focusposition>
+            </include>
+        </definition>
+    </include>
+
+    <include name="_List_Card_Row">
+        <param name="control">fixedlist</param>
+        <param name="altfocus">false</param>
+        <param name="detailed">false</param>
+        <param name="indicator">true</param>
+        <param name="offset_x">view_offx</param>
+        <param name="offset_y">80</param>
+        <param name="item_w">view_card_item_w</param>
+        <param name="item_h">view_poster_item_h</param>
+        <param name="itemlayout_w">view_card_itemlayout_w</param>
+        <param name="itemlayout_h">view_poster_itemlayout_h</param>
+        <param name="itemlayout_include">Layout_Card</param>
+        <param name="hidden_button_enabled">false</param>
+        <param name="hidden_button">List_Widget_Row_HiddenButton</param>
+        <definition>
+            <include content="List_Core">
+                <param name="orientation">horizontal</param>
+                <param name="control">$PARAM[control]</param>
+                <param name="id">$PARAM[id]</param>
+
+                <param name="item_w">view_poster_item_w</param>
+                <param name="item_h">view_poster_item_h</param>
+                <param name="itemlayout_w">view_poster_itemlayout_w</param>
+                <param name="itemlayout_h">view_poster_itemlayout_h</param>
+                <param name="itemlayout_include">Layout_Poster</param>
+
+                <param name="focusedlayout_special">true</param>
+                <param name="offset_y">$PARAM[offset_y]</param>
+                <param name="offset_x">$PARAM[offset_x]</param>
+                <param name="detailed">$PARAM[detailed]</param>
+
+                <param name="hidden_button_enabled">$PARAM[hidden_button_enabled]</param>
+                <param name="hidden_button">$PARAM[hidden_button]</param>
+                <nested />
+                <focusedlayout width="$PARAM[itemlayout_w]" height="$PARAM[itemlayout_h]">
+                    <include condition="$PARAM[hidden_button_enabled]" content="$PARAM[hidden_button]">
+                        <param name="id">$PARAM[id]</param>
+                    </include>
+                    <control type="group">
+                        <left>$PARAM[offset_x]</left>
+                        <right>-$PARAM[offset_x]</right>
+                        <top>$PARAM[offset_y]</top>
+                        <bottom>-$PARAM[offset_y]</bottom>
+                        <control type="group">
+                            <animation effect="fade" start="100" end="0" condition="[Control.HasFocus($PARAM[id]) | $PARAM[altfocus]]">Conditional</animation>
+                            <include content="$PARAM[itemlayout_include]">
+                                <param name="selected">false</param>
+                                <param name="item_w">$PARAM[item_w]</param>
+                                <param name="item_h">$PARAM[item_h]</param>
+                                <param name="misc">$PARAM[misc]</param>
+                                <param name="id">$PARAM[id]</param>
+                                <param name="detailed">$PARAM[detailed]</param>
+                                <param name="indicator">$PARAM[indicator]</param>
+                                <param name="variation">$PARAM[variation]</param>
+                                <param name="diffuse">$PARAM[diffuse]</param>
+                                <param name="icon">$PARAM[icon]</param>
+                                <param name="textcolor">$PARAM[textcolor]</param>
+                                <param name="shadow_colordiffuse">$PARAM[shadow_colordiffuse]</param>
+                            </include>
+                        </control>
+                        <control type="group">
+                            <animation effect="fade" start="100" end="0" condition="![Control.HasFocus($PARAM[id]) | $PARAM[altfocus]]">Conditional</animation>
+                            <include content="$PARAM[itemlayout_include]">
+                                <param name="selected">true</param>
+                                <param name="item_w">$PARAM[item_w]</param>
+                                <param name="item_h">$PARAM[item_h]</param>
+                                <param name="misc">$PARAM[misc]</param>
+                                <param name="id">$PARAM[id]</param>
+                                <param name="detailed">$PARAM[detailed]</param>
+                                <param name="indicator">$PARAM[indicator]</param>
+                                <param name="variation">$PARAM[variation]</param>
+                                <param name="diffuse">$PARAM[diffuse]</param>
+                                <param name="icon">$PARAM[icon]</param>
+                                <param name="textcolor">$PARAM[textcolor]</param>
+                                <param name="shadow_colordiffuse">$PARAM[shadow_colordiffuse]</param>
+                            </include>
+                        </control>
+                    </control>
+                </focusedlayout>
+            </include>
+        </definition>
+    </include>
+
+    <include name="List_Card_Row">
+        <definition>
+            <include content="_List_Card_Row">
+                <param name="misc">$PARAM[misc]</param>
+                <param name="id">$PARAM[id]</param>
+                <param name="detailed">$PARAM[detailed]</param>
+                <param name="indicator">$PARAM[indicator]</param>
+                <param name="variation">$PARAM[variation]</param>
+                <param name="diffuse">$PARAM[diffuse]</param>
+                <param name="icon">$PARAM[icon]</param>
+                <param name="textcolor">$PARAM[textcolor]</param>
+                <param name="shadow_colordiffuse">$PARAM[shadow_colordiffuse]</param>
+                <param name="offset_x">$PARAM[offset_x]</param>
+                <param name="offset_y">$PARAM[offset_y]</param>
+                <param name="control">fixedlist</param>
+                <param name="hidden_button_enabled">$PARAM[hidden_button_enabled]</param>
+                <param name="hidden_button">$PARAM[hidden_button]</param>
+                <nested />
+                <include>List_Card_Row_Movement</include>
+            </include>
+        </definition>
+    </include>
+
+    <include name="List_Banner_Row">
+        <definition>
+            <include content="List_Core">
+                <param name="orientation">horizontal</param>
+                <param name="control">fixedlist</param>
+                <param name="id">$PARAM[id]</param>
+                <param name="item_w">view_banner_item_w</param>
+                <param name="item_h">view_poster_item_h</param>
+                <param name="itemlayout_w">view_banner_itemlayout_w</param>
+                <param name="itemlayout_h">view_poster_itemlayout_h</param>
+                <param name="itemlayout_include">Layout_Banner</param>
+                <param name="offset_y">$PARAM[offset_y]</param>
+                <param name="detailed">$PARAM[detailed]</param>
+                <param name="hidden_button_enabled">$PARAM[hidden_button_enabled]</param>
+                <param name="hidden_button">$PARAM[hidden_button]</param>
+                <nested />
+                <include>List_Banner_Row_Movement</include>
+            </include>
+        </definition>
+    </include>
+
+    <include name="List_Gallery_Row">
+        <definition>
+            <include content="List_Core">
+                <param name="orientation">horizontal</param>
+                <param name="control">wraplist</param>
+                <param name="id">$PARAM[id]</param>
+                <param name="item_w">view_banner_item_w</param>
+                <param name="item_h">750</param>
+                <param name="itemlayout_w">view_banner_itemlayout_w</param>
+                <param name="itemlayout_h">790</param>
+                <param name="itemlayout_include">Layout_Gallery</param>
+                <param name="offset_y">$PARAM[offset_y]</param>
+                <param name="detailed">$PARAM[detailed]</param>
+                <param name="hidden_button_enabled">$PARAM[hidden_button_enabled]</param>
+                <param name="hidden_button">$PARAM[hidden_button]</param>
+                <nested />
+                <include>List_Banner_Row_Movement</include>
+            </include>
+        </definition>
+    </include>
+
+    <include name="List_Poster_Row">
+        <param name="focusedlayout_special">false</param>
+        <param name="control">fixedlist</param>
+        <param name="orientation">horizontal</param>
+        <definition>
+            <include content="List_Core">
+                <param name="orientation">$PARAM[orientation]</param>
+                <param name="control">$PARAM[control]</param>
+                <param name="id">$PARAM[id]</param>
+                <param name="item_w">view_poster_item_w</param>
+                <param name="item_h">view_poster_item_h</param>
+                <param name="itemlayout_w">view_poster_itemlayout_w</param>
+                <param name="itemlayout_h">view_poster_itemlayout_h</param>
+                <param name="itemlayout_include">Layout_Poster</param>
+                <param name="focusedlayout_special">$PARAM[focusedlayout_special]</param>
+                <param name="offset_y">$PARAM[offset_y]</param>
+                <param name="offset_x">$PARAM[offset_x]</param>
+                <param name="icon">$PARAM[icon]</param>
+                <param name="detailed">$PARAM[detailed]</param>
+                <param name="hidden_button_enabled">$PARAM[hidden_button_enabled]</param>
+                <param name="hidden_button">$PARAM[hidden_button]</param>
+                <nested />
+                <include>List_Poster_Row_Movement</include>
+            </include>
+        </definition>
+    </include>
+
+
+    <include name="List_Overview_Row">
+        <param name="focusedlayout_special">false</param>
+        <param name="control">fixedlist</param>
+        <definition>
+            <include content="List_Core">
+                <param name="id">$PARAM[id]</param>
+                <param name="detailed">true</param>
+                <param name="orientation">$PARAM[orientation]</param>
+                <param name="control">$PARAM[control]</param>
+                <param name="item_w">view_board_item_w</param>
+                <param name="item_h">view_poster_item_h</param>
+                <param name="itemlayout_w">view_board_itemlayout_w</param>
+                <param name="itemlayout_h">view_poster_itemlayout_h</param>
+                <param name="itemlayout_include">Layout_Detailed</param>
+                <param name="focusedlayout_special">$PARAM[focusedlayout_special]</param>
+                <param name="offset_x">$PARAM[offset_x]</param>
+                <param name="offset_y">$PARAM[offset_y]</param>
+                <param name="icon">$PARAM[icon]</param>
+                <param name="misc">190</param>
+                <param name="hidden_button_enabled">$PARAM[hidden_button_enabled]</param>
+                <param name="hidden_button">$PARAM[hidden_button]</param>
+                <nested />
+                <include>List_Board_Row_Movement</include>
+            </include>
+        </definition>
+    </include>
+
+    <include name="List_Signpost_Row">
+        <param name="focusedlayout_special">false</param>
+        <param name="control">fixedlist</param>
+        <definition>
+            <include content="List_Core">
+                <param name="id">$PARAM[id]</param>
+                <param name="detailed">true</param>
+                <param name="orientation">horizontal</param>
+                <param name="control">$PARAM[control]</param>
+                <param name="item_w">view_board_item_w</param>
+                <param name="item_h">view_poster_item_h</param>
+                <param name="itemlayout_w">view_board_itemlayout_w</param>
+                <param name="itemlayout_h">view_poster_itemlayout_h</param>
+                <param name="itemlayout_include">Layout_Signpost</param>
+                <param name="focusedlayout_special">$PARAM[focusedlayout_special]</param>
+                <param name="offset_x">$PARAM[offset_x]</param>
+                <param name="offset_y">$PARAM[offset_y]</param>
+                <param name="icon">$PARAM[icon]</param>
+                <param name="misc">156</param>
+                <param name="hidden_button_enabled">$PARAM[hidden_button_enabled]</param>
+                <param name="hidden_button">$PARAM[hidden_button]</param>
+                <nested />
+                <include>List_Board_Row_Movement</include>
+            </include>
+        </definition>
+    </include>
+
+    <include name="List_Landscape_Row">
+        <param name="item_w">view_landscape_item_w</param>
+        <param name="item_h">view_landscape_item_h</param>
+        <param name="itemlayout_w">view_landscape_itemlayout_w</param>
+        <param name="itemlayout_h">view_poster_itemlayout_h</param>
+        <param name="control">fixedlist</param>
+        <param name="orientation">horizontal</param>
+        <definition>
+            <include content="List_Core">
+                <param name="orientation">$PARAM[orientation]</param>
+                <param name="control">$PARAM[control]</param>
+                <param name="id">$PARAM[id]</param>
+                <param name="item_w">$PARAM[item_w]</param>
+                <param name="item_h">$PARAM[item_h]</param>
+                <param name="itemlayout_w">$PARAM[itemlayout_w]</param>
+                <param name="itemlayout_h">$PARAM[itemlayout_h]</param>
+                <param name="itemlayout_include">Layout_Landscape</param>
+                <param name="icon">$PARAM[icon]</param>
+                <param name="textcolor">$PARAM[textcolor]</param>
+                <param name="offset_x">$PARAM[offset_x]</param>
+                <param name="offset_y">$PARAM[offset_y]</param>
+                <param name="shadow_colordiffuse">$PARAM[shadow_colordiffuse]</param>
+                <param name="hidden_button_enabled">$PARAM[hidden_button_enabled]</param>
+                <param name="hidden_button">$PARAM[hidden_button]</param>
+                <nested />
+                <include>List_Landscape_Row_Movement</include>
+            </include>
+        </definition>
+    </include>
+
+    <include name="List_Board_Row">
+        <param name="item_w">view_board_item_w</param>
+        <param name="item_h">view_poster_item_h</param>
+        <param name="itemlayout_w">view_board_itemlayout_w</param>
+        <param name="itemlayout_h">view_poster_itemlayout_h</param>
+        <definition>
+            <include content="List_Core">
+                <param name="orientation">horizontal</param>
+                <param name="control">fixedlist</param>
+                <param name="id">$PARAM[id]</param>
+                <param name="item_w">$PARAM[item_w]</param>
+                <param name="item_h">$PARAM[item_h]</param>
+                <param name="itemlayout_w">$PARAM[itemlayout_w]</param>
+                <param name="itemlayout_h">$PARAM[itemlayout_h]</param>
+                <param name="itemlayout_include">Layout_Landscape</param>
+                <param name="diffuse">diffuse/landscape_w520_h294.png</param>
+                <param name="detailed">true</param>
+                <param name="variation">false</param>
+                <param name="icon">$PARAM[icon]</param>
+                <param name="textcolor">$PARAM[textcolor]</param>
+                <param name="offset_x">$PARAM[offset_x]</param>
+                <param name="offset_y">$PARAM[offset_y]</param>
+                <param name="shadow_colordiffuse">$PARAM[shadow_colordiffuse]</param>
+                <param name="hidden_button_enabled">$PARAM[hidden_button_enabled]</param>
+                <param name="hidden_button">$PARAM[hidden_button]</param>
+                <nested />
+                <include>List_Board_Row_Movement</include>
+            </include>
+        </definition>
+    </include>
+
+    <include name="List_Placard_Row">
+        <param name="item_w">view_board_item_w</param>
+        <param name="item_h">view_poster_item_h</param>
+        <param name="itemlayout_w">view_board_itemlayout_w</param>
+        <param name="itemlayout_h">view_poster_itemlayout_h</param>
+        <definition>
+            <include content="List_Core">
+                <param name="orientation">horizontal</param>
+                <param name="control">fixedlist</param>
+                <param name="id">$PARAM[id]</param>
+                <param name="item_w">$PARAM[item_w]</param>
+                <param name="item_h">$PARAM[item_h]</param>
+                <param name="itemlayout_w">$PARAM[itemlayout_w]</param>
+                <param name="itemlayout_h">$PARAM[itemlayout_h]</param>
+                <param name="itemlayout_include">Layout_Landscape</param>
+                <param name="diffuse">diffuse/landscape_w520_h294.png</param>
+                <param name="detailed">true</param>
+                <param name="variation">true</param>
+                <param name="icon">$PARAM[icon]</param>
+                <param name="textcolor">$PARAM[textcolor]</param>
+                <param name="offset_x">$PARAM[offset_x]</param>
+                <param name="offset_y">$PARAM[offset_y]</param>
+                <param name="shadow_colordiffuse">$PARAM[shadow_colordiffuse]</param>
+                <param name="hidden_button_enabled">$PARAM[hidden_button_enabled]</param>
+                <param name="hidden_button">$PARAM[hidden_button]</param>
+                <nested />
+                <include>List_Board_Row_Movement</include>
+            </include>
+        </definition>
+    </include>
+
+    
+    <include name="List_Square_Row">
+        <param name="item_w">view_poster_item_w</param>
+        <param name="item_h">view_poster_item_h</param>
+        <param name="itemlayout_w">view_poster_itemlayout_w</param>
+        <param name="itemlayout_h">view_poster_itemlayout_h</param>
+        <param name="orientation">horizontal</param>
+        <param name="use_movement">true</param>
+        <param name="control">fixedlist</param>
+        <definition>
+            <include content="List_Core">
+                <param name="orientation">$PARAM[orientation]</param>
+                <param name="control">$PARAM[control]</param>
+                <param name="id">$PARAM[id]</param>
+                <param name="item_w">$PARAM[item_w]</param>
+                <param name="item_h">$PARAM[item_h]</param>
+                <param name="itemlayout_w">$PARAM[itemlayout_w]</param>
+                <param name="itemlayout_h">$PARAM[itemlayout_h]</param>
+                <param name="offset_x">$PARAM[offset_x]</param>
+                <param name="offset_y">$PARAM[offset_y]</param>
+                <param name="variation">$PARAM[variation]</param>
+                <param name="itemlayout_include">Layout_Square</param>
+                <param name="hidden_button_enabled">$PARAM[hidden_button_enabled]</param>
+                <param name="hidden_button">$PARAM[hidden_button]</param>
+                <include condition="$PARAM[use_movement]">List_Poster_Row_Movement</include>
+                <nested />
+            </include>
+        </definition>
+    </include>
+
+    <include name="List_Circle_Row">
+        <param name="item_w">view_poster_item_w</param>
+        <param name="item_h">view_poster_item_h</param>
+        <param name="itemlayout_w">view_poster_itemlayout_w</param>
+        <param name="itemlayout_h">view_poster_itemlayout_h</param>
+        <param name="orientation">horizontal</param>
+        <param name="use_movement">true</param>
+        <param name="control">fixedlist</param>
+        <definition>
+            <include content="List_Core">
+                <param name="orientation">$PARAM[orientation]</param>
+                <param name="control">$PARAM[control]</param>
+                <param name="id">$PARAM[id]</param>
+                <param name="item_w">$PARAM[item_w]</param>
+                <param name="item_h">$PARAM[item_h]</param>
+                <param name="itemlayout_w">$PARAM[itemlayout_w]</param>
+                <param name="itemlayout_h">$PARAM[itemlayout_h]</param>
+                <param name="offset_x">$PARAM[offset_x]</param>
+                <param name="offset_y">$PARAM[offset_y]</param>
+                <param name="itemlayout_include">Layout_Circle</param>
+                <param name="hidden_button_enabled">$PARAM[hidden_button_enabled]</param>
+                <param name="hidden_button">$PARAM[hidden_button]</param>
+                <include condition="$PARAM[use_movement]">List_Poster_Row_Movement</include>
+                <nested />
+            </include>
+        </definition>
+    </include>
+
+    <include name="List_Ring_Row">
+        <param name="item_w">view_landscape_item_w</param>
+        <param name="item_h">135</param>
+        <param name="itemlayout_w">view_landscape_itemlayout_w</param>
+        <param name="itemlayout_h">175</param>
+        <param name="orientation">horizontal</param>
+        <param name="use_movement">true</param>
+        <param name="control">fixedlist</param>
+        <definition>
+            <include content="List_Core">
+                <param name="orientation">$PARAM[orientation]</param>
+                <param name="control">$PARAM[control]</param>
+                <param name="id">$PARAM[id]</param>
+                <param name="item_w">$PARAM[item_w]</param>
+                <param name="item_h">$PARAM[item_h]</param>
+                <param name="itemlayout_w">$PARAM[itemlayout_w]</param>
+                <param name="itemlayout_h">$PARAM[itemlayout_h]</param>
+                <param name="offset_x">$PARAM[offset_x]</param>
+                <param name="offset_y">$PARAM[offset_y]</param>
+                <param name="itemlayout_include">Layout_Ring</param>
+                <param name="hidden_button_enabled">$PARAM[hidden_button_enabled]</param>
+                <param name="hidden_button">$PARAM[hidden_button]</param>
+                <include condition="$PARAM[use_movement]">List_Landscape_Row_Movement</include>
+                <nested />
+            </include>
+        </definition>
+    </include>
+
+    <include name="List_ButtonMenu_Row_HiddenButton_View_OnFocus">
+        <param name="condition">true</param>
+        <definition>
+            <onfocus condition="$PARAM[condition]">ClearProperty($PARAM[prefix]SpecialFolderPath)</onfocus>
+            <onfocus condition="$PARAM[condition]">ClearProperty($PARAM[prefix]SpecialFolderLabel)</onfocus>
+            <onfocus condition="$PARAM[condition]">ClearProperty($PARAM[prefix]SpecialFolderStyle)</onfocus>
+            <onfocus condition="$PARAM[condition]">ClearProperty($PARAM[prefix]SpecialFolderSortBy)</onfocus>
+            <onfocus condition="$PARAM[condition]">ClearProperty($PARAM[prefix]SpecialFolderSortOrder)</onfocus>
+            <onfocus condition="$PARAM[condition]">ClearProperty($PARAM[prefix]SpecialFolderLimit)</onfocus>
+            <!-- Update Path -->
+            <onfocus condition="$PARAM[condition] + !String.IsEmpty($PARAM[container]ListItem.FolderPath) + $PARAM[container]ListItem.IsFolder">SetProperty($PARAM[prefix]SpecialFolderPath,$INFO[$PARAM[container]ListItem.FolderPath])</onfocus>
+            <onfocus condition="$PARAM[condition] + !String.IsEmpty($PARAM[container]ListItem.FolderPath) + $PARAM[container]ListItem.IsFolder">SetProperty($PARAM[prefix]SpecialFolderLabel,$INFO[$PARAM[container]ListItem.Label])</onfocus>
+        </definition>
+    </include>
+
+    <include name="List_ButtonMenu_Row_HiddenButton_View">
+        <control type="button">
+            <visible allowhiddenfocus="true">false</visible>
+            <animation effect="fade" start="0" end="0" time="400" reversible="false">Focus</animation>
+            <include>List_ButtonMenu_Row_HiddenButton_View_OnFocus</include>
+        </control>
+    </include>
+
+    <include name="List_ButtonMenu_Row_HiddenButton_Home_Categories_OnFocus">
+        <param name="condition">true</param>
+        <definition>
+            <include content="Action_Widgets_ResetPosition_OnFocus">
+                <param name="condition">Container(400).HasPrevious</param>
+            </include>
+            <onfocus>AlarmClock(SwitchAdaptiveWidget,RunScript(script.skinvariables,run_executebuiltin=special://skin/shortcuts/builtins/skinvariables-specialfolderpath.json,use_rules,condition=$PARAM[condition],prefix=$PARAM[prefix]),00:00,silent)</onfocus>
+        </definition>
+    </include>
+
+    <include name="List_ButtonMenu_Row_HiddenButton_Home_Categories">
+        <control type="button">
+            <visible allowhiddenfocus="true">false</visible>
+            <animation effect="fade" start="0" end="0" time="400" reversible="false">Focus</animation>
+            <include content="List_ButtonMenu_Row_HiddenButton_Home_Categories_OnFocus">
+                <param name="prefix">$PARAM[prefix]</param>
+            </include>
+        </control>
+    </include>
+
+    <include name="List_ButtonMenu_Row_HiddenButton_Home_OnFocus">
+        <param name="condition">true</param>
+        <definition>
+            <include content="Action_Widgets_ResetPosition_OnFocus">
+                <param name="condition">Container(400).HasPrevious</param>
+            </include>
+            <onfocus>RunScript(script.skinvariables,run_executebuiltin=special://skin/shortcuts/builtins/skinvariables-specialfolderpath.json,use_rules,condition=$PARAM[condition],prefix=$PARAM[prefix])</onfocus>
+        </definition>
+    </include>
+
+    <include name="List_ButtonMenu_Row_HiddenButton_Home">
+        <control type="button">
+            <visible allowhiddenfocus="true">false</visible>
+            <animation effect="fade" start="0" end="0" time="600" reversible="false">Focus</animation>
+            <include content="List_ButtonMenu_Row_HiddenButton_Home_OnFocus">
+                <param name="prefix">$PARAM[prefix]</param>
+            </include>
+        </control>
+    </include>
+
+    <include name="List_ButtonMenu_Row_HiddenButton_ERow_OnFocus">
+        <param name="condition">true</param>
+        <param name="prefix" />
+        <definition>
+            <onfocus condition="$PARAM[condition]">$INFO[$PARAM[container]ListItem.Property(onfocus_one)]</onfocus>
+            <onfocus condition="$PARAM[condition]">$INFO[$PARAM[container]ListItem.Property(onfocus_two)]</onfocus>
+        </definition>
+    </include>
+    <include name="List_ButtonMenu_Row_HiddenButton_ERow">
+        <control type="button">
+            <visible allowhiddenfocus="true">false</visible>
+            <animation effect="fade" start="0" end="0" time="200" reversible="false">Focus</animation>
+            <include>List_ButtonMenu_Row_HiddenButton_ERow_OnFocus</include>
+        </control>
+    </include>
+
+    <include name="List_ButtonMenu_Row">
+        <param name="control">list</param>
+        <param name="itemlayout_w">240</param>
+        <param name="font">font_mini_bold</param>
+        <param name="color_fo">main_fg_100</param>
+        <param name="color_nf">main_fg_30</param>
+        <param name="altfocus">false</param>
+        <param name="offset_x">40</param>
+        <param name="hidden_button">List_ButtonMenu_Row_HiddenButton_View</param>
+        <param name="backing">false</param>
+        <param name="label_fo">true</param>
+        <param name="underline">false</param>
+        <definition>
+            <control type="$PARAM[control]" id="$PARAM[id]">
+                <nested />
+                <include content="$PARAM[hidden_button]_OnFocus">
+                    <param name="id">$PARAM[id]</param>
+                    <param name="container">Container($PARAM[id]).</param>
+                    <param name="prefix">$PARAM[hidden_button_prefix]</param>
+                </include>
+                <orientation>horizontal</orientation>
+                <scrolltime tween="quadratic">400</scrolltime>
+                <itemlayout height="120" width="$PARAM[itemlayout_w]">
+                    <control type="group">
+                        <animation effect="fadediffuse" start="FFFFFFFF" end="FFFF0000" condition="String.IsEqual(ListItem.Property(disabled),True)">Conditional</animation>
+                        <left>$PARAM[offset_x]</left>
+                        <right>-$PARAM[offset_x]</right>
+                        <height>120</height>
+
+                        <control type="group">
+                            <right>40</right>
+                            <height>40</height>
+                            <centertop>50%</centertop>
+                            <control type="label">
+                                <height>20</height>
+                                <centertop>18</centertop>
+                                <aligny>center</aligny>
+                                <align>center</align>
+                                <font>$PARAM[font]</font>
+                                <textcolor>$PARAM[color_nf]</textcolor>
+                                <label>$INFO[ListItem.Label]</label>
+                            </control>
+                        </control>
+                    </control>
+                </itemlayout>
+                <focusedlayout height="120" width="$PARAM[itemlayout_w]">
+                    <include content="$PARAM[hidden_button]">
+                        <param name="id">$PARAM[id]</param>
+                        <param name="prefix">$PARAM[hidden_button_prefix]</param>
+                    </include>
+                    <control type="group">
+                        <left>$PARAM[offset_x]</left>
+                        <right>-$PARAM[offset_x]</right>
+                        <height>120</height>
+                        <control type="group">
+                            <right>40</right>
+                            <height>40</height>
+                            <centertop>50%</centertop>
+                            <visible>![Control.HasFocus($PARAM[id]) | $PARAM[altfocus]]</visible>
+                            <animation effect="fadediffuse" start="FFFFFFFF" end="FFFF0000" condition="String.IsEqual(ListItem.Property(disabled),True)">Conditional</animation>
+
+                            <control type="group">
+                                <visible>$PARAM[label_fo]</visible>
+                                <control type="label">
+                                    <height>20</height>
+                                    <centertop>18</centertop>
+                                    <aligny>center</aligny>
+                                    <align>center</align>
+                                    <font>$PARAM[font]</font>
+                                    <textcolor>$PARAM[color_fo]</textcolor>
+                                    <label>$INFO[ListItem.Label]</label>
+                                </control>
+                                <control type="group">
+                                    <control type="image">
+                                        <include>Texture_Highlight_Scrollbar_V</include>
+                                        <height>8</height>
+                                        <width>40</width>
+                                        <centerleft>50%</centerleft>
+                                        <centerbottom>-5</centerbottom>
+                                        <visible>$PARAM[underline]</visible>
+                                    </control>
+                                </control>
+                            </control>
+                            <control type="group">
+                                <visible>![$PARAM[label_fo]]</visible>
+                                <control type="label">
+                                    <height>20</height>
+                                    <centertop>18</centertop>
+                                    <aligny>center</aligny>
+                                    <align>center</align>
+                                    <font>$PARAM[font]</font>
+                                    <textcolor>$PARAM[color_nf]</textcolor>
+                                    <label>$INFO[ListItem.Label]</label>
+                                </control>
+                            </control>
+                        </control>
+                        <control type="group">
+                            <right>40</right>
+                            <height>40</height>
+                            <visible>[Control.HasFocus($PARAM[id]) | $PARAM[altfocus]]</visible>
+                            <centertop>50%</centertop>
+                            <control type="image">
+                                <height>80</height>
+                                <centertop>50%</centertop>
+                                <left>-20</left>
+                                <right>-20</right>
+                                <include>Texture_Menu_Highlight_H</include>
+                                <!-- <centertop>50%</centertop>
+                                <height>256</height>
+                                <left>-60</left>
+                                <right>-60</right>
+                                <include>Texture_MainMenu_Highlight_V</include> -->
+                            </control>
+                            <control type="label">
+                                <height>20</height>
+                                <centertop>18</centertop>
+                                <aligny>center</aligny>
+                                <align>center</align>
+                                <font>$PARAM[font]</font>
+                                <include>Color_SelectedText</include>
+                                <label>$INFO[ListItem.Label]</label>
+                                <animation effect="fadediffuse" start="FFFFFFFF" end="FFFF0000" condition="String.IsEqual(ListItem.Property(disabled),True)">Conditional</animation>
+                            </control>
+                        </control>
+                    </control>
+                </focusedlayout>
+            </control>
+        </definition>
+    </include>
+
+    <include name="List_Widget_Row_HiddenButton">
+        <control type="button">
+            <visible allowhiddenfocus="true">false</visible>
+            <animation effect="fade" start="0" end="0" time="600" reversible="false">Focus</animation>
+            <include content="List_Widget_Row_HiddenButton_OnFocus">
+                <param name="id">$PARAM[id]</param>
+            </include>
+        </control>
+    </include>
+
+    <include name="List_Widget_Row_HiddenButton_OnFocus">
+        <param name="condition">true</param>
+        <definition>
+            <onfocus condition="$PARAM[condition]">SetProperty(WidgetMeta.$PARAM[id].Label,$ESCINFO[$PARAM[container]ListItem.Label])</onfocus>
+            <onfocus condition="$PARAM[condition]">SetProperty(WidgetMeta.$PARAM[id].Title,$ESCINFO[$PARAM[container]ListItem.Title])</onfocus>
+            <onfocus condition="$PARAM[condition]">SetProperty(WidgetMeta.$PARAM[id].TVShowTitle,$ESCINFO[$PARAM[container]ListItem.TVShowTitle])</onfocus>
+            <onfocus condition="$PARAM[condition]">SetProperty(WidgetMeta.$PARAM[id].Genre,$ESCINFO[$PARAM[container]ListItem.Genre])</onfocus>
+            <onfocus condition="$PARAM[condition]">SetProperty(WidgetMeta.$PARAM[id].Year,$ESCINFO[$PARAM[container]ListItem.Year])</onfocus>
+            <onfocus condition="$PARAM[condition]">SetProperty(WidgetMeta.$PARAM[id].Studio,$ESCINFO[$PARAM[container]ListItem.Studio])</onfocus>
+            <onfocus condition="$PARAM[condition]">SetProperty(WidgetMeta.$PARAM[id].FolderPath,$ESCINFO[$PARAM[container]ListItem.FolderPath])</onfocus>
+        </definition>
+    </include>
+
+    <include name="List_Core">
+        <param name="orientation">horizontal</param>
+        <param name="control">list</param>
+        <param name="id" />
+        <param name="preloaditems">2</param>
+        <param name="tween">quadratic</param>
+        <param name="scrolltime">400</param>
+        <param name="viewtype">list</param>
+        <param name="offset_x">view_offx</param>
+        <param name="offset_y">80</param>
+        <param name="itemlayout_w" />
+        <param name="itemlayout_h" />
+        <param name="item_w" />
+        <param name="item_h" />
+        <param name="itemlayout_include" />
+        <param name="focusedlayout_special">false</param>
+        <param name="altfocus">false</param>
+        <param name="detailed">false</param>
+        <param name="indicator">true</param>
+        <param name="hidden_button_enabled">false</param>
+        <param name="hidden_button">List_Widget_Row_HiddenButton</param>
+        <definition>
+            <control type="$PARAM[control]" id="$PARAM[id]">
+                <nested />
+                <include content="$PARAM[hidden_button]_OnFocus" condition="$PARAM[hidden_button_enabled]">
+                    <param name="prefix">$PARAM[hidden_button_prefix]</param>
+                    <param name="container">Container($PARAM[id]).</param>
+                    <param name="id">$PARAM[id]</param>
+                </include>
+                <orientation>$PARAM[orientation]</orientation>
+                <preloaditems>$PARAM[preloaditems]</preloaditems>
+                <scrolltime tween="$PARAM[tween]">$PARAM[scrolltime]</scrolltime>
+                <itemlayout width="$PARAM[itemlayout_w]" height="$PARAM[itemlayout_h]">
+                    <control type="group">
+                        <left>$PARAM[offset_x]</left>
+                        <right>-$PARAM[offset_x]</right>
+                        <top>$PARAM[offset_y]</top>
+                        <bottom>-$PARAM[offset_y]</bottom>
+                        <include content="$PARAM[itemlayout_include]">
+                            <param name="selected">false</param>
+                            <param name="item_w">$PARAM[item_w]</param>
+                            <param name="item_h">$PARAM[item_h]</param>
+                            <param name="misc">$PARAM[misc]</param>
+                            <param name="id">$PARAM[id]</param>
+                            <param name="detailed">$PARAM[detailed]</param>
+                            <param name="indicator">$PARAM[indicator]</param>
+                            <param name="variation">$PARAM[variation]</param>
+                            <param name="diffuse">$PARAM[diffuse]</param>
+                            <param name="icon">$PARAM[icon]</param>
+                            <param name="textcolor">$PARAM[textcolor]</param>
+                            <param name="shadow_colordiffuse">$PARAM[shadow_colordiffuse]</param>
+                        </include>
+                    </control>
+                </itemlayout>
+                <include content="Object_FocusedLayout" condition="!$PARAM[focusedlayout_special]">
+                    <param name="width">$PARAM[itemlayout_w]</param>
+                    <param name="height">$PARAM[itemlayout_h]</param>
+                    <include condition="$PARAM[hidden_button_enabled]" content="$PARAM[hidden_button]">
+                        <param name="id">$PARAM[id]</param>
+                        <param name="prefix">$PARAM[hidden_button_prefix]</param>
+                    </include>
+                    <control type="group">
+                        <left>$PARAM[offset_x]</left>
+                        <right>-$PARAM[offset_x]</right>
+                        <top>$PARAM[offset_y]</top>
+                        <bottom>-$PARAM[offset_y]</bottom>
+                        <control type="group">
+                            <animation effect="fade" start="100" end="0" condition="[Control.HasFocus($PARAM[id]) | $PARAM[altfocus]]">Conditional</animation>
+                            <include content="$PARAM[itemlayout_include]">
+                                <param name="focusedlayout">true</param>
+                                <param name="selected">false</param>
+                                <param name="item_w">$PARAM[item_w]</param>
+                                <param name="item_h">$PARAM[item_h]</param>
+                                <param name="misc">$PARAM[misc]</param>
+                                <param name="id">$PARAM[id]</param>
+                                <param name="detailed">$PARAM[detailed]</param>
+                                <param name="indicator">$PARAM[indicator]</param>
+                                <param name="variation">$PARAM[variation]</param>
+                                <param name="diffuse">$PARAM[diffuse]</param>
+                                <param name="icon">$PARAM[icon]</param>
+                                <param name="textcolor">$PARAM[textcolor]</param>
+                                <param name="shadow_colordiffuse">$PARAM[shadow_colordiffuse]</param>
+                            </include>
+                        </control>
+                        <control type="group">
+                            <animation effect="fade" start="100" end="0" condition="![Control.HasFocus($PARAM[id]) | $PARAM[altfocus]]">Conditional</animation>
+                            <include content="$PARAM[itemlayout_include]">
+                                <param name="focusedlayout">true</param>
+                                <param name="selected">true</param>
+                                <param name="item_w">$PARAM[item_w]</param>
+                                <param name="item_h">$PARAM[item_h]</param>
+                                <param name="misc">$PARAM[misc]</param>
+                                <param name="id">$PARAM[id]</param>
+                                <param name="detailed">$PARAM[detailed]</param>
+                                <param name="indicator">$PARAM[indicator]</param>
+                                <param name="variation">$PARAM[variation]</param>
+                                <param name="diffuse">$PARAM[diffuse]</param>
+                                <param name="icon">$PARAM[icon]</param>
+                                <param name="textcolor">$PARAM[textcolor]</param>
+                                <param name="shadow_colordiffuse">$PARAM[shadow_colordiffuse]</param>
+                            </include>
+                        </control>
+                    </control>
+                </include>
+            </control>
+        </definition>
+    </include>
+
+</includes>

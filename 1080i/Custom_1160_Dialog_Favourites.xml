@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<window type="dialog" id="1160">
+    <defaultcontrol always="true">450</defaultcontrol>
+    <controls>
+
+        <include>Defs_TMDbHelper_Loader</include>
+
+        <control type="group">
+            <include>Dimension_DialogWideMenu</include>
+            <include>Animation_Right_Delay</include>
+            <include content="Dialog_Dim_Side">
+                <param name="slide_animation">False</param>
+            </include>
+            <include content="Dialog_Foreground_Side">
+                <param name="dialog_size">Dimension_DialogWideMenu</param>
+                <param name="slide_animation">False</param>
+                <param name="topline">true</param>
+                <param name="subline">true</param>
+
+                <!-- Header -->
+                <include content="Dialog_Head">
+                    <param name="label">$LOCALIZE[1036]</param>
+                </include>
+                <include>Dialog_Head_CloseButton</include>
+
+                <!-- Content -->
+                <control type="group">
+                    <include>Dimension_Dialog_Body</include>
+                    <include content="List_DialogSelect">
+                        <param name="id">450</param>
+                        <param name="detailed">True</param>
+                        <param name="item_height">100</param>
+                        <param name="textcolor">dialog_fg</param>
+                        <include>Dimension_Dialog_Body_Group</include>
+                        <pagecontrol>61</pagecontrol>
+                        <onright>61</onright>
+                        <onleft>Close</onleft>
+                        <onclick>RunScript(script.skinvariables,run_executebuiltin=special://skin/shortcuts/builtins/skinvariables-openfavourite.json,use_rules,folderpath=$INFO[Container(450).ListItem.FolderPath])</onclick>
+                        <content>favourites://</content>
+                    </include>
+                    <include content="Dialog_Scrollbar">
+                        <param name="id">61</param>
+                        <onleft>450</onleft>
+                        <right>0</right>
+                    </include>
+                </control>
+            </include>
+
+        </control>
+
+    </controls>
+</window>

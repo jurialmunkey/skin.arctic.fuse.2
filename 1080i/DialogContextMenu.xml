@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<window type="dialog">
+    <defaultcontrol>996</defaultcontrol>
+    <coordinates>
+        <origin x="0" y="0" />
+    </coordinates>
+    <onload>AlarmClock(Refocus,SetFocus(1001),00:00,silent)</onload>
+    <controls>
+
+        <!-- Small Menu -->
+        <include content="Dialog_ContextMenu" condition="Window.IsVisible(1160) | Window.IsVisible(favouritesbrowser) | Window.IsVisible(filemanager)">
+            <param name="include_fullmenu">false</param>
+            <param name="dialog_size">Dimension_DialogSideMenu</param>
+            <param name="button_width">dialog_main_button_w</param>
+            <param name="lines_right">0</param>
+        </include>
+
+        <!-- Large Menu -->
+        <include content="Dialog_ContextMenu" condition="![Window.IsVisible(1160) | Window.IsVisible(favouritesbrowser) | Window.IsVisible(filemanager)]">
+            <param name="include_fullmenu">true</param>
+            <param name="dialog_size">Dimension_DialogHugeMenu</param>
+            <param name="button_width">764</param>
+            <param name="lines_right">476</param>
+        </include>
+    </controls>
+</window>

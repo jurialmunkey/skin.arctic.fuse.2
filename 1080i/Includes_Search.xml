@@ -1,0 +1,703 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<includes>
+
+    <include name="Search_View_User">
+        <include>DialogInfo_Recommendations_BackgroundLoader</include>
+
+        <include>Background</include>
+
+        <control type="group">
+            <include>Search_Group</include>
+            <include>Search_Panel</include>
+
+            <include content="DialogInfo_Recommendations_Group">
+                <control type="group">
+                    <!-- <include>DialogInfo_Recommendations_InfoPanel</include> -->
+                    <include content="DialogInfo_Recommendations_Widgets_Grouplist">
+                        <param name="onup">333</param>
+                        <param name="widget_windowchange_animation">false</param>
+                        <include>skinvariables-searchmenu-widgets</include>
+                        <include>DialogInfo_Widget_EndLine</include>
+                    </include>
+                    <visible>!String.IsEmpty(Control.GetLabel(9099).index(1))</visible>
+                    <include content="Animation_ConditionalFade">
+                        <param name="condition">[String.IsEmpty(Control.GetLabel(9099).index(1)) | Integer.IsEqual(Container(5000).NumItems,0)]</param>
+                    </include>
+                </control>
+
+                <include>Search_Widgets_NoResults</include>
+            </include>
+
+            <control type="group">
+                <include>Animation_Group_Bumper</include>
+                <visible>!$EXP[Exp_InfoDialogs]</visible>
+                <visible>String.IsEmpty(Control.GetLabel(9099).index(1)) | Integer.IsEqual(Container(5000).NumItems,0)</visible>
+                <include>Furniture_Top_Left</include>
+            </control>
+        </control>
+
+
+
+        <control type="group">
+            <visible>!$EXP[Exp_InfoDialogs]</visible>
+            <include>Furniture_Top_Right</include>
+            <visible>String.IsEmpty(Control.GetLabel(9099).index(1)) | Integer.IsEqual(Container(5000).NumItems,0)</visible>
+        </control>
+        <control type="group">
+            <visible>!$EXP[Exp_InfoDialogs]</visible>
+            <include>Furniture_Bottom_Right</include>
+        </control>
+
+        <include>View_Dialog_Plot</include>
+    </include>
+
+    <include name="Search_View_Discover">
+
+        <include content="Object_Hidden_Button">
+            <param name="id">64</param>
+            <onfocus>$VAR[Action_Var_Search_ToMediaFilter]</onfocus>
+        </include>
+
+
+        <include>DialogInfo_Recommendations_BackgroundLoader</include>
+
+        <include>Background</include>
+
+        <control type="group">
+            <include>Search_Group</include>
+            <include>Search_Panel</include>
+
+            <include content="DialogInfo_Recommendations_Group">
+                <control type="group">
+                    <include>DialogInfo_Recommendations_InfoPanel</include>
+                    <include content="DialogInfo_Recommendations_Widgets_Grouplist">
+                        <param name="onup">333</param>
+                        <param name="widget_windowchange_animation">false</param>
+
+                        <animation effect="slide" start="0" end="0,440" condition="true">Conditional</animation>
+
+                        <include content="_Widget_Row">
+                            <param name="id">5001</param>
+                            <param name="groupid">5101</param>
+                            <param name="label">$VAR[Label_Discover_TMDbType]$INFO[Control.GetLabel(9099).index(1), [COLOR=main_fg_30]&gt;[/COLOR] [CAPITALIZE],[/CAPITALIZE]]</param>
+                            <param name="include">List_Poster_Row</param>
+                            <param name="visible">True</param>
+                            <param name="detailed">String.IsEqual(ListItem.Label,$LOCALIZE[31046])</param>
+
+                            <param name="altvisible">[[Control.HasFocus(9099) | ControlGroup(9090).HasFocus()] + System.IdleTime(1) + !System.IdleTime(2)]</param>
+                            <param name="busy_isupdating">[[Control.HasFocus(9099) | ControlGroup(9090).HasFocus()] + System.IdleTime(1) + !System.IdleTime(2)]</param>
+                            <param name="busy_visible">[Integer.IsEqual(Container(5001).NumItems,0) | Container(5001).IsUpdating]</param>
+
+                            <param name="widgetfade_include">true</param>
+
+                            <include content="Action_View_Movement_OnLeft">
+                                <param name="id">5001</param>
+                                <param name="menuid">9090</param>
+                                <param name="onwrap">[False]</param>
+                            </include>
+                            <include content="Action_View_Movement_OnRight">
+                                <param name="id">5001</param>
+                                <param name="menuid">9090</param>
+                                <param name="onwrap">[False]</param>
+                                <param name="onbump">[True]</param>
+                            </include>
+                            <include content="Action_View_Movement_OnBack">
+                                <param name="id">5001</param>
+                                <param name="onleft">9090</param>
+                                <param name="backid">5000</param>
+                                <param name="menuid">9090</param>
+                                <param name="onback">[Integer.IsEqual(Container(5001).CurrentItem,1)]</param>
+                            </include>
+
+                            <onfocus>SetProperty(TMDbHelper.WidgetContainer,5001)</onfocus>
+                            <onfocus>ClearProperty(Background.ShowOverlay,Home)</onfocus>
+
+                            <!-- <content>
+                                <item>
+                                    <label>$LOCALIZE[31046]</label>
+                                    <icon>fallback/no-results.png</icon>
+                                    <visible>Integer.IsEqual(Container(5001).NumItems,0) | [Integer.IsEqual(Container(5001).NumItems,1) + String.IsEqual(Container(5001).ListItemAbsolute(0).Label,$LOCALIZE[31046])]</visible>
+                                </item>
+                            </content> -->
+
+                            <content browse="$VAR[Defs_BrowseLimitedLists]" target="videos">$INFO[window(home).property(tmdbhelper.userdiscover.folderpath)]$INFO[Control.GetLabel(9099).index(1),&amp;with_text_query=,]</content>
+
+                        </include>
+
+                        <include content="DialogInfo_Widget_EndLine">
+                            <param name="label">$LOCALIZE[31135]$INFO[Container(5001).CurrentPage, , $LOCALIZE[20163] ]$INFO[Container(5001).NumPages]</param>
+                        </include>
+                    </include>
+                    <include content="Animation_ConditionalFade">
+                        <param name="condition">[Integer.IsEqual(Container(5000).NumItems,0)]</param>
+                    </include>
+                </control>
+
+                <include>Search_Widgets_NoResults</include>
+            </include>
+
+            <control type="group">
+                <include>Animation_Group_Bumper</include>
+                <visible>!$EXP[Exp_InfoDialogs]</visible>
+                <include>Furniture_Top_Left</include>
+            </control>
+
+        </control>
+
+        <control type="group">
+            <visible>!$EXP[Exp_InfoDialogs]</visible>
+            <include>Furniture_Top_Right</include>
+            <include>Furniture_Bottom_Right</include>
+        </control>
+
+        <include>View_Dialog_Plot</include>
+
+    </include>
+
+
+    <include name="Search_Window_Def">
+        <defaultcontrol>9992</defaultcontrol>
+        <menucontrol>9992</menucontrol>
+        <include>Action_Blur_Onload</include>
+
+        <onload condition="$EXP[Exp_FullPanelWindows_Prev] + String.IsEmpty(Window(Home).Property(CustomSearchTerm)) + !Window.Previous(1185) + !Window.Previous(1105)">SetFocus(9992)</onload>
+        <onload condition="$EXP[Exp_FullPanelWindows_Prev] + String.IsEmpty(Window(Home).Property(CustomSearchTerm)) + [Window.Previous(1185) | Window.Previous(1105)]">SetFocus(9994,0,absolute)</onload>
+
+
+        <onload condition="!String.IsEmpty(Window(Home).Property(CustomSearchTerm))">SetFocus(9099)</onload>
+        <onload condition="!String.IsEmpty(Window(Home).Property(CustomSearchTerm)) + Window.IsVisible(1105)">AlarmClock(refocus,RunScript(script.skinvariables,set_editcontrol=9099,window_id=1105,setfocus=9992,text=$INFO[Window(Home).Property(CustomSearchTerm)]),00:01,silent)</onload>
+        <onload condition="!String.IsEmpty(Window(Home).Property(CustomSearchTerm)) + Window.IsVisible(1185)">AlarmClock(refocus,RunScript(script.skinvariables,set_editcontrol=9099,window_id=1185,setfocus=9992,text=$INFO[Window(Home).Property(CustomSearchTerm)]),00:01,silent)</onload>
+        <onload>ClearProperty(CustomSearchTerm,Home)</onload>
+
+        <onunload condition="!String.IsEmpty(Control.GetLabel(9099).index(1))">RunScript(script.skinvariables,add_skinstring_history=SearchHistory,value=$VAR[Path_SearchTerm])</onunload>
+
+        <onload>SetProperty(TMDbHelper.WidgetContainer,5001)</onload>
+    </include>
+
+    <include name="Search_Panel_Edit">
+        <control type="edit" id="9099">
+            <height>80</height>
+            <left>40</left>
+            <right>40</right>
+            <centertop>100</centertop>
+            <font>font_midi_black</font>
+            <textoffsetx>40</textoffsetx>
+            <align>left</align>
+            <ondown>9992</ondown>
+            <onright>5000</onright>
+            <onleft>noop</onleft>
+            <onfocus>SetProperty(Background.ShowOverlay,True,Home)</onfocus>
+        </control>
+    </include>
+
+    <include name="Search_Panel_Keyboard">
+        <control type="panel" id="9992">
+            <orientation>vertical</orientation>
+            <onup>9099</onup>
+            <ondown>9994</ondown>
+            <onright>5000</onright>
+            <onleft>noop</onleft>
+            <width>360</width>
+            <height>180</height>
+            <centerleft>50%</centerleft>
+            <onfocus>SetProperty(Background.ShowOverlay,True,Home)</onfocus>
+
+            <itemlayout width="40" height="60">
+                <control type="label">
+                    <font>font_main</font>
+                    <label>$INFO[ListItem.Label]</label>
+                    <textcolor>main_fg_30</textcolor>
+                    <align>center</align>
+                    <height>35</height>
+                </control>
+            </itemlayout>
+
+            <focusedlayout width="40" height="60">
+
+                <control type="group">
+                    <control type="label">
+                        <font>font_main_black</font>
+                        <label>$INFO[ListItem.Label]</label>
+                        <textcolor>main_fg_100</textcolor>
+                        <align>center</align>
+                        <height>35</height>
+                    </control>
+                    <control type="image">
+                        <include>Texture_Highlight_Scrollbar_H</include>
+                        <height>scrollbar_w</height>
+                        <bottom>10</bottom>
+                        <width>75%</width>
+                        <centerleft>50%</centerleft>
+                    </control>
+                </control>
+            </focusedlayout>
+
+            <content>
+                <item>
+                    <label>A</label>
+                    <onclick>SetFocus(9099)</onclick>
+                    <include>Object_SearchLetter_Click_a</include>
+                    <onclick>SetFocus(9992)</onclick>
+                </item>
+                <item>
+                    <label>B</label>
+                    <onclick>SetFocus(9099)</onclick>
+                    <include>Object_SearchLetter_Click_b</include>
+                    <onclick>SetFocus(9992)</onclick>
+                </item>
+                <item>
+                    <label>C</label>
+                    <onclick>SetFocus(9099)</onclick>
+                    <include>Object_SearchLetter_Click_c</include>
+                    <onclick>SetFocus(9992)</onclick>
+                </item>
+                <item>
+                    <label>D</label>
+                    <onclick>SetFocus(9099)</onclick>
+                    <include>Object_SearchLetter_Click_d</include>
+                    <onclick>SetFocus(9992)</onclick>
+                </item>
+                <item>
+                    <label>E</label>
+                    <onclick>SetFocus(9099)</onclick>
+                    <include>Object_SearchLetter_Click_e</include>
+                    <onclick>SetFocus(9992)</onclick>
+                </item>
+                <item>
+                    <label>F</label>
+                    <onclick>SetFocus(9099)</onclick>
+                    <include>Object_SearchLetter_Click_f</include>
+                    <onclick>SetFocus(9992)</onclick>
+                </item>
+                <item>
+                    <label>G</label>
+                    <onclick>SetFocus(9099)</onclick>
+                    <include>Object_SearchLetter_Click_g</include>
+                    <onclick>SetFocus(9992)</onclick>
+                </item>
+                <item>
+                    <label>H</label>
+                    <onclick>SetFocus(9099)</onclick>
+                    <include>Object_SearchLetter_Click_h</include>
+                    <onclick>SetFocus(9992)</onclick>
+                </item>
+                <item>
+                    <label>I</label>
+                    <onclick>SetFocus(9099)</onclick>
+                    <include>Object_SearchLetter_Click_i</include>
+                    <onclick>SetFocus(9992)</onclick>
+                </item>
+                <item>
+                    <label>J</label>
+                    <onclick>SetFocus(9099)</onclick>
+                    <include>Object_SearchLetter_Click_j</include>
+                    <onclick>SetFocus(9992)</onclick>
+                </item>
+                <item>
+                    <label>K</label>
+                    <onclick>SetFocus(9099)</onclick>
+                    <include>Object_SearchLetter_Click_k</include>
+                    <onclick>SetFocus(9992)</onclick>
+                </item>
+                <item>
+                    <label>L</label>
+                    <onclick>SetFocus(9099)</onclick>
+                    <include>Object_SearchLetter_Click_l</include>
+                    <onclick>SetFocus(9992)</onclick>
+                </item>
+                <item>
+                    <label>M</label>
+                    <onclick>SetFocus(9099)</onclick>
+                    <include>Object_SearchLetter_Click_m</include>
+                    <onclick>SetFocus(9992)</onclick>
+                </item>
+                <item>
+                    <label>N</label>
+                    <onclick>SetFocus(9099)</onclick>
+                    <include>Object_SearchLetter_Click_n</include>
+                    <onclick>SetFocus(9992)</onclick>
+                </item>
+                <item>
+                    <label>O</label>
+                    <onclick>SetFocus(9099)</onclick>
+                    <include>Object_SearchLetter_Click_o</include>
+                    <onclick>SetFocus(9992)</onclick>
+                </item>
+                <item>
+                    <label>P</label>
+                    <onclick>SetFocus(9099)</onclick>
+                    <include>Object_SearchLetter_Click_p</include>
+                    <onclick>SetFocus(9992)</onclick>
+                </item>
+                <item>
+                    <label>Q</label>
+                    <onclick>SetFocus(9099)</onclick>
+                    <include>Object_SearchLetter_Click_q</include>
+                    <onclick>SetFocus(9992)</onclick>
+                </item>
+                <item>
+                    <label>R</label>
+                    <onclick>SetFocus(9099)</onclick>
+                    <include>Object_SearchLetter_Click_r</include>
+                    <onclick>SetFocus(9992)</onclick>
+                </item>
+                <item>
+                    <label>S</label>
+                    <onclick>SetFocus(9099)</onclick>
+                    <include>Object_SearchLetter_Click_s</include>
+                    <onclick>SetFocus(9992)</onclick>
+                </item>
+                <item>
+                    <label>T</label>
+                    <onclick>SetFocus(9099)</onclick>
+                    <include>Object_SearchLetter_Click_t</include>
+                    <onclick>SetFocus(9992)</onclick>
+                </item>
+                <item>
+                    <label>U</label>
+                    <onclick>SetFocus(9099)</onclick>
+                    <include>Object_SearchLetter_Click_u</include>
+                    <onclick>SetFocus(9992)</onclick>
+                </item>
+                <item>
+                    <label>V</label>
+                    <onclick>SetFocus(9099)</onclick>
+                    <include>Object_SearchLetter_Click_v</include>
+                    <onclick>SetFocus(9992)</onclick>
+                </item>
+                <item>
+                    <label>W</label>
+                    <onclick>SetFocus(9099)</onclick>
+                    <include>Object_SearchLetter_Click_w</include>
+                    <onclick>SetFocus(9992)</onclick>
+                </item>
+                <item>
+                    <label>X</label>
+                    <onclick>SetFocus(9099)</onclick>
+                    <include>Object_SearchLetter_Click_x</include>
+                    <onclick>SetFocus(9992)</onclick>
+                </item>
+                <item>
+                    <label>Y</label>
+                    <onclick>SetFocus(9099)</onclick>
+                    <include>Object_SearchLetter_Click_y</include>
+                    <onclick>SetFocus(9992)</onclick>
+                </item>
+                <item>
+                    <label>Z</label>
+                    <onclick>SetFocus(9099)</onclick>
+                    <include>Object_SearchLetter_Click_z</include>
+                    <onclick>SetFocus(9992)</onclick>
+                </item>
+                <item>
+                    <label>_</label>
+                    <onclick>SetFocus(9099)</onclick>
+                    <include>Object_SearchLetter_Click__</include>
+                    <onclick>SetFocus(9992)</onclick>
+                </item>
+                <!-- <item>
+                    <label>&lt;</label>
+                    <onclick>SetFocus(9099)</onclick>
+                    <include>Object_SearchLetter_Click_&lt;</include>
+                    <onclick>SetFocus(9992)</onclick>
+                </item> -->
+            </content>
+        </control>
+        <control type="panel" id="9994">
+            <orientation>horizontal</orientation>
+            <onup>9992</onup>
+            <ondown>SetFocus(9993,0,absolute)</ondown>
+            <onright>5000</onright>
+            <onleft>noop</onleft>
+            <top>-10</top>
+            <width>240</width>
+            <height>60</height>
+            <centerleft>50%</centerleft>
+
+            <itemlayout width="60" height="60">
+                <control type="label">
+                    <font>font_mini_iconic</font>
+                    <label>$INFO[ListItem.Label]</label>
+                    <textcolor>main_fg_30</textcolor>
+                    <align>center</align>
+                </control>
+            </itemlayout>
+
+            <focusedlayout width="60" height="60">
+
+                <control type="group">
+                    <control type="label">
+                        <font>font_mini_iconic</font>
+                        <label>$INFO[ListItem.Label]</label>
+                        <textcolor>main_fg_100</textcolor>
+                        <align>center</align>
+                    </control>
+                    <control type="image">
+                        <include>Texture_Highlight_Scrollbar_H</include>
+                        <height>scrollbar_w</height>
+                        <bottom>0</bottom>
+                        <width>36</width>
+                        <centerleft>50%</centerleft>
+                    </control>
+                </control>
+            </focusedlayout>
+
+            <content>
+
+                <item>
+                    <description>Discover</description>
+                    <label>&#xf0b0;</label>
+                    <!-- <label>&#xf002;</label> -->
+                    <onclick>SetProperty(CustomSearchTerm,$INFO[Control.GetLabel(9099).index(1)],Home)</onclick>
+                    <onclick>ReplaceWindow(1105)</onclick>
+                    <visible>Window.IsVisible(1185)</visible>
+                </item>
+                <item>
+                    <description>Search</description>
+                    <label>&#xf002;</label>
+                    <!-- <label>&#xf0b0;</label> -->
+                    <onclick>SetProperty(CustomSearchTerm,$INFO[Control.GetLabel(9099).index(1)],Home)</onclick>
+                    <onclick>ReplaceWindow(1185)</onclick>
+                    <visible>Window.IsVisible(1105)</visible>
+                </item>
+
+
+                <item>
+                    <description>Keyboard</description>
+                    <label>&#xf11c;</label>
+                    <onclick>SetFocus(9099)</onclick>
+                    <onclick>Action(Select)</onclick>
+                    <onclick>SetFocus(9994)</onclick>
+                </item>
+
+                <item>
+                    <description>Backspace</description>
+                    <label>&#xf55a;</label>
+                    <onclick>SetFocus(9099)</onclick>
+                    <include>Object_SearchLetter_Click_&lt;</include>
+                    <onclick>SetFocus(9994)</onclick>
+                </item>
+
+                <item>
+                    <description>Clear</description>
+                    <label>&#xf071;</label>
+                    <onclick>SetFocus(9099)</onclick>
+                    <onclick condition="Window.Isvisible(1185)">RunScript(script.skinvariables,set_editcontrol=9099,window_id=1185,setfocus=9994)</onclick>
+                    <onclick condition="Window.Isvisible(1105)">RunScript(script.skinvariables,set_editcontrol=9099,window_id=1105,setfocus=9994)</onclick>
+                    <onclick condition="Window.IsVisible(1105)">RunPlugin(plugin://plugin.video.themoviedb.helper/?info=user_discover&amp;tmdb_type=tv&amp;method=clear)</onclick>
+                </item>
+            </content>
+        </control>
+    </include>
+
+    <include name="Search_Panel_Autocomplete">
+        <control type="fixedlist" id="9993">
+            <onup>9994</onup>
+            <onright>5000</onright>
+            <onleft>noop</onleft>
+            <onfocus>SetProperty(Background.ShowOverlay,True,Home)</onfocus>
+
+            <orientation>vertical</orientation>
+
+            <focusposition>4</focusposition>
+            <movement>4</movement>
+
+            <top>50</top>
+            <height>540</height>
+            <width>360</width>
+            <centerleft>50%</centerleft>
+
+            <onclick>SetFocus(9099)</onclick>
+            <onclick>RunScript(script.skinvariables,set_editcontrol=9099,window_id=1105,setfocus=9993,text=$INFO[Container(9993).ListItem.Label])</onclick>
+
+            <itemlayout height="60">
+                <control type="label">
+                    <font>font_main</font>
+                    <label>$INFO[ListItem.Label]</label>
+                    <textcolor>main_fg_30</textcolor>
+                    <align>center</align>
+                    <height>35</height>
+                </control>
+            </itemlayout>
+
+            <focusedlayout height="60">
+                <control type="label">
+                    <font>font_main</font>
+                    <label>$INFO[ListItem.Label]</label>
+                    <textcolor>main_fg_30</textcolor>
+                    <align>center</align>
+                    <height>35</height>
+                    <visible>!Control.HasFocus(9993)</visible>
+                </control>
+
+                <control type="group">
+                    <visible>Control.HasFocus(9993)</visible>
+                    <control type="label">
+                        <font>font_main_bold</font>
+                        <label>$INFO[ListItem.Label]</label>
+                        <textcolor>main_fg_90</textcolor>
+                        <height>35</height>
+                        <align>center</align>
+                    </control>
+                    <control type="image">
+                        <height>scrollbar_w</height>
+                        <bottom>10</bottom>
+                        <include>Texture_Highlight_Scrollbar_H</include>
+                        <width>50%</width>
+                        <centerleft>50%</centerleft>
+                    </control>
+                </control>
+            </focusedlayout>
+
+            <content>$VAR[Path_Search_Autocomplete]</content>
+        </control>
+    </include>
+
+    <include name="Search_Panel_DiscoverFilter">
+        <control type="list" id="9993">
+            <onup>9994</onup>
+            <onright>5000</onright>
+            <onleft>noop</onleft>
+            <onfocus>SetProperty(Background.ShowOverlay,True,Home)</onfocus>
+
+            <orientation>vertical</orientation>
+
+            <focusposition>4</focusposition>
+            <movement>4</movement>
+
+            <top>50</top>
+            <height>540</height>
+            <width>360</width>
+            <centerleft>50%</centerleft>
+
+            <onclick condition="String.IsEmpty(Container(9993).ListItem.Property(override_onclick))">RunPlugin($INFO[Container(9993).ListItem.FolderPath])</onclick>
+
+            <itemlayout height="60">
+                <control type="label">
+                    <font>font_main</font>
+                    <label>$INFO[ListItem.Label]</label>
+                    <textcolor>main_fg_30</textcolor>
+                    <align>center</align>
+                    <height>35</height>
+                </control>
+            </itemlayout>
+
+            <focusedlayout height="60">
+                <control type="label">
+                    <font>font_main</font>
+                    <label>$INFO[ListItem.Label]</label>
+                    <textcolor>main_fg_30</textcolor>
+                    <align>center</align>
+                    <height>35</height>
+                    <visible>!Control.HasFocus(9993)</visible>
+                </control>
+
+                <control type="group">
+                    <visible>Control.HasFocus(9993)</visible>
+                    <control type="label">
+                        <font>font_main_bold</font>
+                        <label>$INFO[ListItem.Label]</label>
+                        <textcolor>main_fg_90</textcolor>
+                        <height>35</height>
+                        <align>center</align>
+                    </control>
+                    <control type="image">
+                        <height>scrollbar_w</height>
+                        <bottom>10</bottom>
+                        <include>Texture_Highlight_Scrollbar_H</include>
+                        <width>50%</width>
+                        <centerleft>50%</centerleft>
+                    </control>
+                </control>
+            </focusedlayout>
+
+            <content>
+                <item>
+                    <label>$LOCALIZE[31324]: $VAR[Label_Discover_TMDbType]</label>
+                    <property name="override_onclick">true</property>
+                    <onclick condition="Skin.String(Discover.TMDbType,movie)">Skin.SetString(Discover.TMDbType,tv)</onclick>
+                    <onclick condition="!Skin.String(Discover.TMDbType,movie)">Skin.SetString(Discover.TMDbType,movie)</onclick>
+                    <!-- <onclick>RunPlugin(plugin://plugin.video.themoviedb.helper/?info=user_discover&amp;tmdb_type=tv&amp;method=clear)</onclick> -->
+                </item>
+            </content>
+
+            <content>plugin://plugin.video.themoviedb.helper/?info=user_discover&amp;tmdb_type=$INFO[Skin.String(Discover.TMDbType)]&amp;method=skip$INFO[Window(Home).Property(TMDbHelper.UserDiscover.ParamsDict),&amp;reload=,]</content>
+        </control>
+    </include>
+
+    <include name="Search_Group">
+        <include content="Hub_Menu_Slide">
+            <param name="condition">!ControlGroup(5000).HasFocus() + !Control.HasFocus(330) + !Control.HasFocus(332) + !Control.HasFocus(333)</param>
+        </include>
+        <include content="Home_Menu_Vert_Background">
+            <param name="width">view_menu_main</param>
+        </include>
+    </include>
+
+
+    <include name="Search_Panel">
+        <control type="group">
+            <left>-view_menu_main</left>
+            <width>view_menu_main</width>
+
+            <include content="Hub_Menu_Fade">
+                <param name="condition">[!ControlGroup(5000).HasFocus() + !Control.HasFocus(330) + !Control.HasFocus(332) + !Control.HasFocus(333)]</param>
+            </include>
+
+            <include>Search_Panel_Edit</include>
+
+            <control type="grouplist" id="9090">
+                <top>200</top>
+                <onup>9099</onup>
+                <ondown>noop</ondown>
+                <include>Search_Panel_Keyboard</include>
+                <include condition="Window.IsVisible(1185)">Search_Panel_Autocomplete</include>
+                <include condition="Window.IsVisible(1105)">Search_Panel_DiscoverFilter</include>
+            </control>
+
+        </control>
+    </include>
+
+    <include name="Search_Widgets_NoResults">
+        <control type="group">
+            <visible>[String.IsEmpty(Control.GetLabel(9099).index(1)) + Window.IsVisible(1185)] | Integer.IsEqual(Container(5000).NumItems,0)</visible>
+            <control type="grouplist">
+                <left>view_pad</left>
+                <right>view_pad</right>
+                <top>view_top</top>
+                <bottom>view_pad</bottom>
+                <orientation>vertical</orientation>
+                <control type="group">
+                    <height>120</height>
+                    <include content="Info_Title_Text">
+                        <param name="label">$LOCALIZE[31046]</param>
+                        <param name="wrapmultiline">false</param>
+                        <param name="visible">true</param>
+                        <param name="width">info_plot_w</param>
+                        <param name="height">132</param>
+                        <param name="colordiffuse">main_fg</param>
+                    </include>
+                </control>
+                <control type="textbox">
+                    <top>17</top>
+                    <font>font_main_plot</font>
+                    <label>$LOCALIZE[31500] "[CAPITALIZE]$VAR[Path_SearchTerm, , ][/CAPITALIZE]".[CR]$LOCALIZE[31501].</label>
+                    <align>left</align>
+                    <height>90</height>
+                    <textcolor>main_fg_30</textcolor>
+                </control>
+            </control>
+        </control>
+    </include>
+
+    <variable name="Search_Content_Discover">
+        <value condition="String.IsEqual(Container(5099).ListItem.Property(guid),guid-libraryall)">$VAR[Path_DiscoverWidgets_Join]$VAR[Path_DiscoverWidgets_Film,&amp;&amp;,]$VAR[Path_DiscoverWidgets_Show,&amp;&amp;,]</value>
+        <value condition="String.IsEqual(Container(5099).ListItem.Property(guid),guid-librarymovies)">$VAR[Path_DiscoverWidgets_Join]$VAR[Path_DiscoverWidgets_Film,&amp;&amp;,]</value>
+        <value condition="String.IsEqual(Container(5099).ListItem.Property(guid),guid-librarytvshows)">$VAR[Path_DiscoverWidgets_Join]$VAR[Path_DiscoverWidgets_Show,&amp;&amp;,]</value>
+        <value condition="String.IsEqual(Container(5099).ListItem.Property(guid),guid-discoverall)">$VAR[Path_DiscoverWidgets_Join]$VAR[Path_DiscoverWidgets_Film,&amp;&amp;,]$VAR[Path_DiscoverWidgets_Show,&amp;&amp;,]</value>
+        <value condition="String.IsEqual(Container(5099).ListItem.Property(guid),guid-discovermovies)">$VAR[Path_DiscoverWidgets_Join]$VAR[Path_DiscoverWidgets_Film,&amp;&amp;,]</value>
+        <value condition="String.IsEqual(Container(5099).ListItem.Property(guid),guid-discovertvshows)">$VAR[Path_DiscoverWidgets_Join]$VAR[Path_DiscoverWidgets_Show,&amp;&amp;,]</value>
+        <value>-</value>
+    </variable>
+
+</includes>

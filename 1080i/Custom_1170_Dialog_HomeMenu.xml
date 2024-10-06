@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<window type="dialog" id="1170">
+    <defaultcontrol>7000</defaultcontrol>
+    <onload>AlarmClock(refocus,SetFocus(7021),00:00,silent)</onload>
+    <include>Action_ButtonMenu_Onload</include>
+    <controls>
+
+        <control type="group">
+            <include>Dimension_DialogSideMenu</include>
+            <include>Animation_Right_Delay</include>
+            <include content="Dialog_Dim_Side">
+                <param name="slide_animation">false</param>
+            </include>
+
+            <include content="Dialog_Foreground_Side">
+                <param name="dialog_size">Dimension_DialogSideMenu</param>
+                <param name="topline">true</param>
+                <param name="subline">false</param>
+
+                <!-- Header -->
+                <include content="Dialog_Head">
+                    <param name="label">$LOCALIZE[33063]</param>
+                </include>
+                <include>Dialog_Head_CloseButton</include>
+
+                <!-- Content -->
+                <control type="group">
+                    <include>Dimension_Dialog_Body</include>
+
+                    <control type="group" id="7000">
+                        <include>Dimension_Dialog_Body_Group</include>
+
+                        <include content="ButtonMenu_Layout" condition="Skin.String(OptionsTiles.Layout,$NUMBER[2])">
+                            <param name="layout_include">ButtonMenu_Layout_Two</param>
+                        </include>
+                        <include content="ButtonMenu_Layout" condition="Skin.String(OptionsTiles.Layout,$NUMBER[3])">
+                            <param name="layout_include">ButtonMenu_Layout_Three</param>
+                        </include>
+                        <include content="ButtonMenu_Layout" condition="Skin.String(OptionsTiles.Layout,$NUMBER[4])">
+                            <param name="layout_include">ButtonMenu_Layout_Four</param>
+                        </include>
+
+                        <control type="image">
+                            <top>300</top>
+                            <left>20</left>
+                            <right>20</right>
+                            <height>1</height>
+                            <texture colordiffuse="dialog_fg_12">common/white.png</texture>
+                        </control>
+
+                        <include content="List_DialogSelect">
+                            <param name="id">8000</param>
+                            <param name="itemlayout_include">Layout_MenuList</param>
+                            <top>320</top>
+                            <bottom>80</bottom>
+                            <orientation>vertical</orientation>
+                            <onup>7020</onup>
+                            <ondown>SetFocus(6000,2)</ondown>
+                            <onleft>Close</onleft>
+                            <oninfo>Close</oninfo>
+                            <onright>-</onright>
+                            <content>
+                                <include>skinvariables-powermainmenu-staticitems</include>
+                            </content>
+                        </include>
+
+                        <control type="group">
+                            <visible>Player.HasMedia</visible>
+                            <include>ButtonMenu_PlayerControls</include>
+                        </control>
+
+                        <control type="group">
+                            <visible>!Player.HasMedia</visible>
+                            <include>ButtonMenu_OptionsTray</include>
+                        </control>
+
+                    </control>
+                </control>
+
+            </include>
+        </control>
+
+
+    </controls>
+</window>

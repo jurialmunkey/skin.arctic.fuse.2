@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<includes>
+
+    <include name="OSD_CastInfo_ExpandGroup">
+        <control type="group">
+            <height>400</height>
+            <bottom>view_pad</bottom>
+            <nested />
+        </control>
+    </include>
+
+    <include name="OSD_List_Dimensions">
+        <height>450</height>
+        <bottom>100</bottom>
+    </include>
+
+    <include name="OSD_Info_Viewline">
+        <definition>
+            <include content="Info_Viewline">
+                <param name="label">$PARAM[label]</param>
+                <top>-140</top>
+                <nested />
+            </include>
+        </definition>
+    </include>
+
+    <include name="OSD_Info_Tray">
+        <param name="icon">$VAR[Image_OSD_Poster]</param>
+        <param name="role">$VAR[Label_NowPlayingTitle]</param>
+        <param name="name">$VAR[Label_NowPlayingSubLabel]</param>
+        <param name="text">$INFO[VideoPlayer.Plot]</param>
+        <param name="fallback_icon">special://skin/extras/icons/photo-film.png</param>
+        <definition>
+            <control type="group">
+                <height>60</height>
+                <centerbottom>20</centerbottom>
+                <left>view_pad</left>
+                <right>view_pad</right>
+
+                <control type="group">
+                    <centertop>50%</centertop>
+                    <height>80</height>
+                    <left>-40</left>
+                    <include content="Object_InfoCircle">
+                        <param name="icon">$PARAM[fallback_icon]</param>
+                        <param name="role">$PARAM[role]</param>
+                        <param name="name">$PARAM[name]</param>
+                        <param name="fallback_role">$LOCALIZE[33029]</param>
+                        <param name="textcolor_top">$PARAM[textcolor_top]</param>
+                        <param name="textcolor_sub">$PARAM[textcolor_sub]</param>
+                        <include content="Object_InfoCircle_Image">
+                            <param name="colordiffuse">white</param>
+                            <param name="icon">$PARAM[icon]</param>
+                        </include>
+                    </include>
+                </control>
+
+                <!-- Info Box -->
+                <control type="textbox">
+                    <top>-4</top>
+                    <left>460</left>
+                    <right>0</right>
+                    <label>$PARAM[text]</label>
+                    <font>font_mini_cond</font>
+                    <textcolor>panel_fg_70</textcolor>
+                </control>
+            </control>
+        </definition>
+    </include>
+
+    <include name="OSD_CastInfo_Details">
+        <control type="group">
+            <top>0</top>
+            <control type="grouplist">
+                <left>1190</left>
+                <orientation>vertical</orientation>
+                <itemgap>0</itemgap>
+                <control type="group">
+                    <height>75</height>
+                    <control type="group">
+                        <centertop>50%</centertop>
+                        <height>60</height>
+                        <control type="group">
+                            <height>60</height>
+                            <width>60</width>
+                            <include content="Object_Control">
+                                <param name="control">image</param>
+                                <bordersize>2</bordersize>
+                                <bordertexture colordiffuse="panel_fg_100">common/circle.png</bordertexture>
+                                <texture colordiffuse="panel_bg_70">common/circle.png</texture>
+                            </include>
+                            <include content="Object_Control">
+                                <param name="control">image</param>
+                                <bordersize>2</bordersize>
+                                <aspectratio scalediffuse="false">scale</aspectratio>
+                                <texture diffuse="common/circle.png" colordiffuse="panel_fg_100">$PARAM[icon]</texture>
+                            </include>
+                        </control>
+                        <control type="group">
+                            <left>80</left>
+                            <control type="label">
+                                <label>$PARAM[mainlabel]</label>
+                                <font>font_mini_bold</font>
+                                <textcolor>panel_fg_100</textcolor>
+                                <height>30</height>
+                            </control>
+                            <control type="label">
+                                <label>$PARAM[sublabel]</label>
+                                <font>font_mini_plot</font>
+                                <textcolor>panel_fg_70</textcolor>
+                                <height>30</height>
+                                <top>30</top>
+                            </control>
+                        </control>
+                    </control>
+                </control>
+                <control type="textbox">
+                    <top>20</top>
+                    <label>$PARAM[plotlabel]</label>
+                    <font>font_mini_plot</font>
+                    <textcolor>panel_fg_70</textcolor>
+                    <height>190</height>
+                </control>
+            </control>
+        </control>
+    </include>
+
+</includes>

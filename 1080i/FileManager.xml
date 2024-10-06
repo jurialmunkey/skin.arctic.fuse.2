@@ -1,0 +1,360 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<window>
+    <defaultcontrol always="true">5</defaultcontrol>
+    <include>Action_Blur_Onload</include>
+    <include>Action_BlurImage_SimpleBackground_Onload</include>
+    <controls>
+        <include>Defs_TMDbHelper_Loader</include>
+        <include>Background</include>
+
+        <include content="Settings_Dialog">
+            <include content="Settings_Main_Group">
+
+                <include content="Settings_Left_Group">
+                    <include content="Settings_Left_Content">
+                        <control type="list" id="3">
+                            <onright>5</onright>
+                            <right>40</right>
+                            <itemlayout height="80">
+                                <control type="label">
+                                    <textoffsetx>40</textoffsetx>
+                                    <textcolor>main_fg_70</textcolor>
+                                    <label>$INFO[ListItem.Label]</label>
+                                </control>
+                            </itemlayout>
+                            <focusedlayout height="80">
+                                <control type="label">
+                                    <visible>[ControlGroup(30040).HasFocus()]</visible>
+                                    <textoffsetx>40</textoffsetx>
+                                    <textcolor>main_fg_70</textcolor>
+                                    <label>$INFO[ListItem.Label]</label>
+                                </control>
+                                <control type="group">
+                                    <visible>![ControlGroup(30040).HasFocus()]</visible>
+                                    <control type="image">
+                                        <include>Texture_Menu_Highlight_H</include>
+                                    </control>
+                                    <control type="label">
+                                        <include>Color_SelectedText</include>
+                                        <textcolor>main_fg_70</textcolor>
+                                        <textoffsetx>40</textoffsetx>
+                                        <label>$INFO[ListItem.Label]</label>
+                                    </control>
+                                </control>
+                            </focusedlayout>
+                            <content>
+                                <item id="1">
+                                    <label>$LOCALIZE[744]</label>
+                                </item>
+                                <item id="2">
+                                    <label>$LOCALIZE[39031]</label>
+                                </item>
+                            </content>
+                        </control>
+                    </include>
+                </include>
+
+                <include content="Settings_Right_Group">
+
+                    <control type="group" id="5">
+                        <control type="group">
+
+                            <visible>Container(3).HasFocus(1)</visible>
+
+                            <control type="group">
+                                <width>50%</width>
+
+                                <include content="List_AddonCategories">
+                                    <param name="id">20</param>
+                                    <param name="detailed">true</param>
+                                    <param name="width" />
+                                    <param name="textcolor">main_fg</param>
+                                    <onleft>SetFocus($VAR[Action_SettingsSwitcher_FocusID])</onleft>
+                                    <pagecontrol>60</pagecontrol>
+                                    <onright>60</onright>
+                                    <onleft>3</onleft>
+                                    <!-- <right>0</right> -->
+                                    <include content="Dimension_Padding">
+                                        <param name="pad">20</param>
+                                    </include>
+                                </include>
+
+                                <control type="group">
+                                    <centerright>0</centerright>
+                                    <bottom>20</bottom>
+                                    <top>20</top>
+                                    <width>scrollbar_w</width>
+
+                                    <control type="image">
+                                        <texture colordiffuse="main_fg_12" border="4">scrollbar/scrollv_line.png</texture>
+                                    </control>
+
+                                    <control type="scrollbar" id="60">
+                                        <orientation>vertical</orientation>
+                                        <texturesliderbar colordiffuse="main_logo" border="4">scrollbar/scrollv.png</texturesliderbar>
+                                        <showonepage>false</showonepage>
+                                        <include>Texture_Scrollbar_V</include>
+                                        <onleft>20</onleft>
+                                        <onright>21</onright>
+                                    </control>
+                                </control>
+
+                                <control type="group">
+                                    <height>40</height>
+                                    <centerbottom>-60</centerbottom>
+                                    <left>40</left>
+                                    <right>20</right>
+
+                                    <control type="label">
+                                        <font>font_hint_black</font>
+                                        <height>10</height>
+                                        <textcolor>main_fg_30</textcolor>
+                                        <label>$INFO[Control.GetLabel(12)]</label>
+                                    </control>
+
+                                    <control type="label">
+                                        <include>Defs_Label_FooterItem</include>
+                                        <wrapmultiline>false</wrapmultiline>
+                                        <label>$INFO[Control.GetLabel(101)]</label>
+                                        <haspath>true</haspath>
+                                    </control>
+
+                                </control>
+
+                            </control>
+
+                            <control type="group">
+                                <right>0</right>
+                                <width>50%</width>
+
+                                <include content="List_AddonCategories">
+                                    <param name="id">21</param>
+                                    <param name="detailed">true</param>
+                                    <param name="width" />
+                                    <param name="textcolor">main_fg</param>
+                                    <onleft>60</onleft>
+                                    <pagecontrol>61</pagecontrol>
+                                    <onright>61</onright>
+                                    <!-- <left>0</left> -->
+                                    <include content="Dimension_Padding">
+                                        <param name="pad">20</param>
+                                    </include>
+                                </include>
+                                <control type="group">
+                                    <centerright>-20</centerright>
+                                    <bottom>20</bottom>
+                                    <top>20</top>
+                                    <width>scrollbar_w</width>
+
+                                    <!-- <control type="image">
+                                        <texture colordiffuse="main_fg_12" border="4">scrollbar/scrollv_line.png</texture>
+                                    </control> -->
+
+                                    <control type="scrollbar" id="61">
+                                        <orientation>vertical</orientation>
+                                        <texturesliderbackground colordiffuse="main_fg_12" border="4">scrollbar/scrollv_line.png</texturesliderbackground>
+                                        <texturesliderbar colordiffuse="main_logo" border="4">scrollbar/scrollv.png</texturesliderbar>
+                                        <showonepage>false</showonepage>
+                                        <include>Texture_Scrollbar_V</include>
+                                        <onleft>21</onleft>
+                                    </control>
+                                </control>
+
+                                <control type="group">
+                                    <height>40</height>
+                                    <centerbottom>-60</centerbottom>
+                                    <left>40</left>
+                                    <right>20</right>
+
+                                    <control type="label">
+                                        <font>font_hint_black</font>
+                                        <height>10</height>
+                                        <textcolor>main_fg_30</textcolor>
+                                        <label>$INFO[Control.GetLabel(13)]</label>
+                                    </control>
+
+                                    <control type="label">
+                                        <include>Defs_Label_FooterItem</include>
+                                        <wrapmultiline>false</wrapmultiline>
+                                        <label>$INFO[Control.GetLabel(102)]</label>
+                                        <haspath>true</haspath>
+                                    </control>
+                                </control>
+
+                            </control>
+                        </control>
+
+                        <control type="group">
+
+                            <visible>Container(3).HasFocus(2)</visible>
+
+
+                            <control type="group">
+                                <width>50%</width>
+
+                                <include content="List_AddonCategories">
+                                    <param name="id">8000</param>
+                                    <param name="detailed">true</param>
+                                    <param name="width" />
+                                    <param name="textcolor">main_fg</param>
+                                    <onleft>3</onleft>
+                                    <onright>8001</onright>
+                                    <include content="Dimension_Padding">
+                                        <param name="pad">20</param>
+                                    </include>
+
+                                    <content>
+                                        <item>
+                                            <label>$LOCALIZE[3]</label>
+                                            <property name="path">sources://video/</property>
+                                            <property name="target">videos</property>
+                                            <onclick>ActivateWindow(videos,sources://video/,return)</onclick>
+                                        </item>
+                                        <item>
+                                            <label>$LOCALIZE[2]</label>
+                                            <property name="path">sources://music/</property>
+                                            <property name="target">music</property>
+                                            <onclick>ActivateWindow(music,sources://music/,return)</onclick>
+                                        </item>
+                                        <item>
+                                            <label>$LOCALIZE[1]</label>
+                                            <property name="path">sources://pictures/</property>
+                                            <property name="target">pictures</property>
+                                            <onclick>ActivateWindow(pictures,sources://pictures/,return)</onclick>
+                                        </item>
+                                        <item>
+                                            <label>$LOCALIZE[0]</label>
+                                            <property name="path">sources://programs/</property>
+                                            <property name="target">programs</property>
+                                            <onclick>ActivateWindow(programs,sources://programs/,return)</onclick>
+                                        </item>
+                                        <item>
+                                            <label>$LOCALIZE[10821]</label>
+                                            <property name="path">sources://games/</property>
+                                            <property name="target">games</property>
+                                            <onclick>ActivateWindow(games,sources://games/,return)</onclick>
+                                        </item>
+
+                                    </content>
+
+
+                                </include>
+
+                                <control type="group">
+                                    <height>40</height>
+                                    <centerbottom>-60</centerbottom>
+                                    <left>40</left>
+                                    <right>20</right>
+
+                                    <control type="label">
+                                        <font>font_hint_black</font>
+                                        <height>10</height>
+                                        <textcolor>main_fg_30</textcolor>
+                                        <label>$INFO[Container(8000).NumItems,, $LOCALIZE[127]]</label>
+                                    </control>
+
+                                    <control type="label">
+                                        <include>Defs_Label_FooterItem</include>
+                                        <wrapmultiline>false</wrapmultiline>
+                                        <label>$LOCALIZE[20108]</label>
+                                        <haspath>true</haspath>
+                                    </control>
+                                </control>
+
+                                <control type="group">
+                                    <centerright>0</centerright>
+                                    <bottom>20</bottom>
+                                    <top>20</top>
+                                    <width>scrollbar_w</width>
+
+                                    <control type="image">
+                                        <texture colordiffuse="main_fg_12" border="4">scrollbar/scrollv_line.png</texture>
+                                    </control>
+                                </control>
+                            </control>
+
+                            <control type="group">
+                                <right>0</right>
+                                <width>50%</width>
+                                <include content="List_AddonCategories">
+                                    <param name="id">8001</param>
+                                    <param name="detailed">true</param>
+                                    <param name="width" />
+                                    <param name="textcolor">main_fg</param>
+                                    <onleft>8000</onleft>
+                                    <pagecontrol>62</pagecontrol>
+                                    <onright>62</onright>
+                                    <include content="Dimension_Padding">
+                                        <param name="pad">20</param>
+                                    </include>
+
+                                    <content target="$INFO[Container(8000).ListItem.Property(target)]">$INFO[Container(8000).ListItem.Property(path)]</content>
+
+
+                                </include>
+                                <control type="group">
+                                    <centerright>-20</centerright>
+                                    <bottom>20</bottom>
+                                    <top>20</top>
+                                    <width>scrollbar_w</width>
+                                    <control type="scrollbar" id="62">
+                                        <orientation>vertical</orientation>
+                                        <texturesliderbackground colordiffuse="main_fg_12" border="4">scrollbar/scrollv_line.png</texturesliderbackground>
+                                        <texturesliderbar colordiffuse="main_logo" border="4">scrollbar/scrollv.png</texturesliderbar>
+                                        <showonepage>false</showonepage>
+                                        <include>Texture_Scrollbar_V</include>
+                                        <onleft>8001</onleft>
+                                    </control>
+                                </control>
+
+                                <control type="group">
+                                    <height>40</height>
+                                    <centerbottom>-60</centerbottom>
+                                    <left>40</left>
+                                    <right>20</right>
+
+                                    <control type="label">
+                                        <font>font_hint_black</font>
+                                        <height>10</height>
+                                        <textcolor>main_fg_30</textcolor>
+                                        <label>$INFO[Container(8001).NumItems,, $LOCALIZE[127]]</label>
+                                    </control>
+
+                                    <control type="label">
+                                        <include>Defs_Label_FooterItem</include>
+                                        <wrapmultiline>false</wrapmultiline>
+                                        <label>$INFO[Container(8000).ListItem.Property(path)]</label>
+                                        <haspath>true</haspath>
+                                    </control>
+                                </control>
+
+                            </control>
+                        </control>
+                    </control>
+
+                </include>
+            </include>
+        </include>
+
+
+        <include content="Object_Hidden_Button">
+            <param name="id">101</param>
+            <param name="control">label</param>
+        </include>
+        <include content="Object_Hidden_Button">
+            <param name="id">12</param>
+            <param name="control">label</param>
+        </include>
+
+        <include content="Object_Hidden_Button">
+            <param name="id">102</param>
+            <param name="control">label</param>
+        </include>
+        <include content="Object_Hidden_Button">
+            <param name="id">13</param>
+            <param name="control">label</param>
+        </include>
+
+    </controls>
+
+</window>

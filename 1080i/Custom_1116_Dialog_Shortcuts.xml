@@ -1,0 +1,967 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<window type="dialog" id="1116">
+    <defaultcontrol always="true">22001</defaultcontrol>
+    <onload condition="!String.IsEmpty(Window(Home).Property(Shortcuts.Position))">RunScript(script.skinvariables,run_executebuiltin=special://skin/shortcuts/builtins/skinvariables-refocuscustomwidgets.json,use_rules=True,attempts=5)</onload>
+    <onunload>ClearProperty(Shortcuts.Position,Home)</onunload>
+    <onunload>ClearProperty(Shortcuts.Category,Home)</onunload>
+    <controls>
+
+        <include content="Object_Hidden_List">
+            <param name="id">29303</param>
+            <content>$VAR[Path_SkinVariables_Home29303FilterPath]</content>
+            <visible>String.StartsWith(Window(Home).Property(Shortcuts.Category),guid-)</visible>
+        </include>
+        <include content="Object_Hidden_List">
+            <param name="id">29313</param>
+            <content>$VAR[Path_SkinVariables_Home29313FilterPath]</content>
+            <visible>String.StartsWith(Container(22001).ListItem.Property(sidemenu_guid),guid-)</visible>
+        </include>
+
+        <include content="Object_Hidden_Button">
+            <param name="id">29999</param>
+
+            <onfocus condition="String.IsEmpty(Window(Home).Property(Shortcuts.EditMenu.Previous))">PreviousMenu</onfocus>
+            <onfocus condition="!String.IsEmpty(Window(Home).Property(Shortcuts.EditMenu.Previous))">SetFocus(22001)</onfocus>
+
+            <onfocus>SetProperty(Shortcuts.EditMenu,$INFO[Window(Home).Property(Shortcuts.EditMenu.Previous)],Home)</onfocus>
+            <onfocus>SetProperty(Shortcuts.EditMode,$INFO[Window(Home).Property(Shortcuts.EditMode.Previous)],Home)</onfocus>
+            <onfocus>SetProperty(Shortcuts.EditGUID,$INFO[Window(Home).Property(Shortcuts.EditGUID.Previous)],Home)</onfocus>
+            <onfocus>SetProperty(Shortcuts.Category,$INFO[Window(Home).Property(Shortcuts.Category.Previous)],Home)</onfocus>
+
+            <onfocus>ClearProperty(Shortcuts.EditMenu.Previous,Home)</onfocus>
+            <onfocus>ClearProperty(Shortcuts.EditMode.Previous,Home)</onfocus>
+            <onfocus>ClearProperty(Shortcuts.EditGUID.Previous,Home)</onfocus>
+            <onfocus>ClearProperty(Shortcuts.Category.Previous,Home)</onfocus>
+        </include>
+
+        <include content="Object_Hidden_Button">
+            <param name="id">25998</param>
+            <onfocus>SetProperty(Shortcuts.Category,$INFO[Container(25001).ListItem.Property(guid)],Home)</onfocus>
+            <onfocus>SetFocus(23062)</onfocus>
+
+        </include>
+
+        <include content="Object_Hidden_Button">
+            <param name="id">25999</param>
+
+            <onfocus condition="!String.IsEmpty(Container(25001).ListItem.Property(guid))">RunPlugin($INFO[Container(22001).ListItem.Property(url)]&amp;func=do_edit&amp;&amp;sidemenu_guid&amp;&amp;$INFO[Container(25001).ListItem.Property(guid)])</onfocus>
+            <onfocus condition="String.IsEmpty(Container(25001).ListItem.Property(guid)) + !String.IsEmpty(Container(22001).ListItem.Property(sidemenu_guid))">RunPlugin($INFO[Container(22001).ListItem.Property(url),,&amp;func=do_toggle&amp;&amp;sidemenu_guid])</onfocus>
+
+            <onfocus>SetFocus(23061)</onfocus>
+
+        </include>
+
+        <control type="group">
+            <include>Dimension_DialogFullMenu</include>
+            <include>Animation_Right_Delay</include>
+            <include content="Dialog_Dim_Side">
+                <param name="slide_condition">True</param>
+            </include>
+
+            <!-- Bottom Layer -->
+            <include content="Dialog_Background_Side">
+                <param name="slide_condition">True</param>
+                <param name="dialog_size">Dimension_DialogFullMenu</param>
+                <!-- Side Buttons -->
+                <control type="group">
+                    <include>Dimension_Dialog_Body</include>
+                    <control type="grouplist" id="9000">
+                        <include>Dialog_Side_Grouplist_Def</include>
+                        <onright>22001</onright>
+                        <onback>29999</onback>
+                        <!-- <onup>9005</onup>
+                        <ondown>9003</ondown> -->
+
+                        <include content="Dialog_Side_Button">
+                            <param name="id">01</param>
+                            <param name="label">$LOCALIZE[186]</param>
+                            <param name="icon">special://skin/extras/icons/circle-check.png</param>
+                            <onclick>SetFocus(29999)</onclick>
+                            <onback>29999</onback>
+                        </include>
+
+                        <include content="Dialog_Side_Button">
+                            <param name="id">03</param>
+                            <param name="label">$LOCALIZE[409]</param>
+                            <param name="icon">special://skin/extras/icons/triangle-exclamation.png</param>
+                            <onclick>RunPlugin(plugin://script.skinvariables/?info=get_shortcuts_node&amp;edit=True&amp;skin=$VAR[Path_SkinVariables_SkinFolder]$INFO[Window(Home).Property(Shortcuts.EditMenu),&amp;,]$INFO[Window(Home).Property(Shortcuts.EditMode),&amp;,]$INFO[Window(Home).Property(Shortcuts.EditGUID),&amp;,]&amp;func=do_refresh&amp;&amp;restore::True&amp;&amp;executebuiltin::ActivateWindow(1116))</onclick>
+                            <onback>29999</onback>
+                        </include>
+
+                        <include content="Dialog_Side_Button">
+                            <param name="id">04</param>
+                            <param name="label">$LOCALIZE[31533]</param>
+                            <param name="icon">special://skin/extras/icons/list-ol.png</param>
+                            <param name="visible">[String.IsEqual(Window(Home).Property(Shortcuts.EditMode),mode=widgets) | String.IsEqual(Window(Home).Property(Shortcuts.EditMode),mode=submenu) | String.EndsWith(Window(Home).Property(Shortcuts.EditMenu),-widgetsonly) | String.EndsWith(Window(Home).Property(Shortcuts.EditMenu),-globalwidgets) | String.IsEmpty(Window(Home).Property(Shortcuts.EditMode))]</param>
+                            <onclick>ClearProperty(Shortcuts.Groupings.Links,Home)</onclick>
+                            <onclick>RunPlugin($INFO[Container(22001).ListItem.Property(url),,&amp;func=do_list_add&amp;&amp;item_limit::80]$VAR[Path_Shortcut_UseRawPath]$VAR[Path_Shortcut_UseCategory])</onclick>
+                            <onback>29999</onback>
+                        </include>
+
+                        <include content="Dialog_Side_Button">
+                            <param name="id">05</param>
+                            <param name="label">$LOCALIZE[31534]</param>
+                            <param name="icon">special://skin/extras/icons/trash-can.png</param>
+                            <param name="visible">[String.IsEqual(Window(Home).Property(Shortcuts.EditMode),mode=widgets) | String.IsEqual(Window(Home).Property(Shortcuts.EditMode),mode=submenu) | String.EndsWith(Window(Home).Property(Shortcuts.EditMenu),-widgetsonly) | String.EndsWith(Window(Home).Property(Shortcuts.EditMenu),-globalwidgets) | String.IsEmpty(Window(Home).Property(Shortcuts.EditMode))]</param>
+                            <onclick>ClearProperty(Shortcuts.Category,Home)</onclick>
+                            <onclick>ClearProperty(Shortcuts.Groupings.Links,Home)</onclick>
+                            <onclick>RunPlugin($INFO[Container(22001).ListItem.Property(url),,&amp;func=do_list_del]$VAR[Path_Shortcut_UseRawPath])</onclick>
+                            <onback>29999</onback>
+                        </include>
+                    </control>
+                </control>
+            </include>
+
+            <include content="Dialog_Foreground_Side">
+                <param name="dialog_size">Dimension_DialogFullMenu</param>
+                <param name="slide_condition">True</param>
+                <param name="lines_right">640</param>
+                <param name="topline">true</param>
+                <param name="subline">true</param>
+
+                <!-- Categories Filter -->
+                <control type="group">
+                    <left>0</left>
+                    <right>640</right>
+                    <height>80</height>
+                    <centertop>100</centertop>
+                    <control type="grouplist" id="26062">
+                        <!-- <left>20</left>
+                        <right>-20</right> -->
+                        <right>60</right>
+                        <left>60</left>
+                        <!-- <left>40</left> -->
+                        <onup>SetFocus(22001,9999,absolute)</onup>
+                        <ondown>SetFocus(22001,0,absolute)</ondown>
+                        <orientation>vertical</orientation>
+                        <!-- Filter Categories -->
+                        <control type="grouplist" id="27062">
+                            <align>right</align>
+                            <orientation>horizontal</orientation>
+                            <height>80</height>
+                            <include content="Settings_Button">
+                                <param name="dialog">true</param>
+                                <param name="id">23062</param>
+                                <!-- <param name="groupid">24062</param>
+                                <param name="toplabel">$LOCALIZE[587] [LOWERCASE]$LOCALIZE[31150][/LOWERCASE]</param>
+                                <param name="sublabel">$VAR[Label_SkinVariables_FilterPath]</param>
+                                <param name="sublabel_visible">True</param> -->
+                                <label>$LOCALIZE[587]: $VAR[Label_SkinVariables_FilterPath]      </label>
+                                <visible>[String.IsEqual(Window(Home).Property(Shortcuts.EditMenu),menu=homemenu) + String.IsEmpty(Window(Home).Property(Shortcuts.EditMode)) + String.IsEmpty(Window(Home).Property(Shortcuts.EditGUID))]</visible>
+                                <onclick>SetProperty(SideOptions.List,Filter)</onclick>
+                                <onclick>SetFocus(25001)</onclick>
+                                <onback>29999</onback>
+                                <width>auto</width>
+                            </include>
+                        </control>
+                        <include content="Settings_Image">
+                            <param name="id">25062</param>
+                            <param name="buttonid">23062</param>
+                            <param name="icon">$VAR[Image_SkinVariables_FilterPath]</param>
+                            <visible>[String.IsEqual(Window(Home).Property(Shortcuts.EditMenu),menu=homemenu) + String.IsEmpty(Window(Home).Property(Shortcuts.EditMode)) + String.IsEmpty(Window(Home).Property(Shortcuts.EditGUID))]</visible>
+                            <height>83</height>
+                        </include>
+                    </control>
+                </control>
+
+                <!-- Header -->
+                <!-- $VAR[Label_Shortcut_SubHeader_CategoryFilterName, > ,] -->
+                <include content="Dialog_Head">
+                    <param name="label">$VAR[Label_Shortcut_TopHeader]</param>
+                    <param name="sublabel">$VAR[Label_Shortcut_SubHeader_GroupName]$INFO[Container(22001).ListItem.Property(name), > ,]$VAR[Label_Shortcut_SubHeader_EditMode, > ,]</param>
+                    <param name="sublabel_include">true</param>
+                </include>
+                <include>Dialog_Head_CloseButton</include>
+                <control type="label">
+                    <font>font_tiny</font>
+                    <align>left</align>
+                    <textcolor>dialog_fg_30</textcolor>
+                    <label>$INFO[Window(Home).Property(Shortcuts.EditMenu)]$INFO[Window(Home).Property(Shortcuts.EditMode), — ,]$INFO[Window(Home).Property(Shortcuts.EditGUID), — ,]</label>
+                    <bottom>40</bottom>
+                    <height>40</height>
+                    <left>view_pad</left>
+                    <right>view_pad</right>
+                </control>
+
+
+
+                <!-- Content -->
+                <control type="group">
+                    <include>Dimension_Dialog_Body</include>
+                    <control type="group">
+                        <include>Dimension_Dialog_Body_Group</include>
+                        <control type="group">
+                            <right>640</right>
+
+
+
+
+                            <include content="List_DialogSelect">
+                                <param name="id">22001</param>
+                                <param name="item_height">100</param>
+                                <param name="textcolor">dialog_fg_70</param>
+                                <param name="itemlayout_include">Layout_Shortcuts</param>
+                                <param name="altfocus">[!Control.HasFocus(23062) + !ControlGroup(9000).HasFocus()]</param>
+                                <param name="misc">120</param>
+                                <param name="detailed">false</param>
+                                <!-- <param name="detailed">$EXP[Shortcuts_Dialog_Exp_IsWidgetMode]</param> -->
+
+                                <content>plugin://script.skinvariables/?info=get_shortcuts_node&amp;edit=true&amp;skin=$VAR[Path_SkinVariables_SkinFolder]$INFO[Window(Home).Property(SkinVariables.ShortcutsNode.Reload),&amp;reload=,]$INFO[Window(Home).Property(Shortcuts.EditMenu),&amp;,]$INFO[Window(Home).Property(Shortcuts.EditMode),&amp;,]$INFO[Window(Home).Property(Shortcuts.EditGUID),&amp;,]$VAR[Path_SkinVariables_FilterPath]</content>
+
+                                <onfocus>SetFocus(22900)</onfocus>
+
+                                <onup>23062</onup>
+                                <ondown>23062</ondown>
+                                <onleft>9000</onleft>
+                                <onright>29012</onright>
+                                <onback>29999</onback>
+                                <onclick>noop</onclick>
+                            </include>
+
+                            <control type="grouplist" id="22900">
+                                <orientation>horizontal</orientation>
+                                <itemgap>-16</itemgap>
+
+                                <visible>!Control.HasFocus(23062) + !ControlGroup(9000).HasFocus()</visible>
+
+                                <onup condition="!String.IsEmpty(Container(22001).ListItemNoWrap(-1).Label)">Control.Move(22001,-1)</onup>
+                                <ondown condition="!String.IsEmpty(Container(22001).ListItemNoWrap(1).Label)">Control.Move(22001,1)</ondown>
+                                <onup condition="String.IsEmpty(Container(22001).ListItemNoWrap(-1).Label)">23062</onup>
+                                <ondown condition="String.IsEmpty(Container(22001).ListItemNoWrap(1).Label)">23062</ondown>
+
+                                <onleft>9000</onleft>
+                                <onright>29012</onright>
+                                <onback>29999</onback>
+
+                                <animation effect="slide" start="0" end="0,100" condition="Container(22001).Position(1)">Conditional</animation>
+                                <animation effect="slide" start="0" end="0,200" condition="Container(22001).Position(2)">Conditional</animation>
+                                <animation effect="slide" start="0" end="0,300" condition="Container(22001).Position(3)">Conditional</animation>
+                                <animation effect="slide" start="0" end="0,400" condition="Container(22001).Position(4)">Conditional</animation>
+                                <animation effect="slide" start="0" end="0,500" condition="Container(22001).Position(5)">Conditional</animation>
+                                <animation effect="slide" start="0" end="0,600" condition="Container(22001).Position(6)">Conditional</animation>
+                                <animation effect="slide" start="0" end="0,700" condition="Container(22001).Position(7)">Conditional</animation>
+
+                                <height>64</height>
+                                <centertop>50</centertop>
+
+                                <align>right</align>
+                                <right>20</right>
+
+                                <!-- <control type="button" id="22902">
+                                    <texturenofocus colordiffuse="dialog_fg_30">special://skin/extras/icons/circle-plus.png</texturenofocus>
+                                    <texturefocus colordiffuse="$VAR[ColorSelected]">special://skin/extras/icons/circle-plus.png</texturefocus>
+                                    <onclick condition="!$EXP[Shortcuts_Dialog_Exp_IsWidgetMode]">SetProperty(Shortcuts.Groupings.Links,Links,Home)</onclick>
+                                    <onclick condition="$EXP[Shortcuts_Dialog_Exp_IsWidgetMode]">ClearProperty(Shortcuts.Groupings.Links,Home)</onclick>
+                                    <onclick>RunPlugin($INFO[Container(22001).ListItem.Property(url),,&amp;func=do_new]$VAR[Path_Shortcut_UseRawPath]$VAR[Path_Shortcut_UseCategory])</onclick>
+                                    <onback>29999</onback>
+                                    <width>64</width>
+                                    <height>64</height>
+                                </control> -->
+
+                                <control type="button" id="22903">
+                                    <texturenofocus colordiffuse="$VAR[ColorSelected]">special://skin/extras/icons/circle-arrow-up.png</texturenofocus>
+                                    <texturefocus colordiffuse="$VAR[ColorSelected]">special://skin/extras/icons/circle-arrow-up.png</texturefocus>
+                                    <onclick>RunPlugin($INFO[Container(22001).ListItem.Property(url),,&amp;func=do_move&amp;&amp;move::-1&amp;&amp;window_prop::url]$INFO[Container(22001).ListItem(-1).Property(item),&amp;&amp;offset::,])</onclick>
+                                    <onback>29999</onback>
+                                    <width>64</width>
+                                    <height>64</height>
+                                    <animation effect="fade" start="100" end="30" condition="!Control.HasFocus(22903)">Conditional</animation>
+                                </control>
+
+                                <control type="button" id="22904">
+                                    <texturenofocus colordiffuse="$VAR[ColorSelected]">special://skin/extras/icons/circle-arrow-down.png</texturenofocus>
+                                    <texturefocus colordiffuse="$VAR[ColorSelected]">special://skin/extras/icons/circle-arrow-down.png</texturefocus>
+                                    <onclick>RunPlugin($INFO[Container(22001).ListItem.Property(url),,&amp;func=do_move&amp;&amp;move::1&amp;&amp;window_prop::url]$INFO[Container(22001).ListItem(1).Property(item),&amp;&amp;offset::,])</onclick>
+                                    <onback>29999</onback>
+                                    <width>64</width>
+                                    <height>64</height>
+                                    <animation effect="fade" start="100" end="30" condition="!Control.HasFocus(22904)">Conditional</animation>
+                                </control>
+                            </control>
+
+                        </control>
+                        <control type="group">
+                            <right>0</right>
+                            <width>640</width>
+                            <include content="Dialog_Outline_InnerBox">
+                                <top>-20</top>
+                                <bottom>-20</bottom>
+                                <left>20</left>
+                                <right>20</right>
+                                <control type="group">
+                                    <include content="Dimension_Padding">
+                                        <param name="pad">20</param>
+                                    </include>
+
+                                    <control type="image">
+                                        <width>1</width>
+                                        <texture colordiffuse="dialog_fg_12">common/white.png</texture>
+                                        <left>100</left>
+                                    </control>
+
+                                    <control type="grouplist" id="29000">
+                                        <orientation>vertical</orientation>
+                                        <!-- <top>-40</top> -->
+                                        <!-- <height>120</height> -->
+                                        <width>120</width>
+                                        <align>left</align>
+                                        <left>-40</left>
+                                        <top>-50</top>
+                                        <onback>29999</onback>
+                                        <onright>23001</onright>
+                                        <onleft>22001</onleft>
+
+                                        <include content="Dialog_Side_Button">
+                                            <param name="id">12</param>
+                                            <param name="baseid">29</param>
+                                            <param name="label">$LOCALIZE[35261]</param>
+                                            <param name="icon">special://skin/extras/icons/circle-plus.png</param>
+                                            <onclick condition="!$EXP[Shortcuts_Dialog_Exp_IsWidgetMode]">SetProperty(Shortcuts.Groupings.Links,Links,Home)</onclick>
+                                            <onclick condition="$EXP[Shortcuts_Dialog_Exp_IsWidgetMode]">ClearProperty(Shortcuts.Groupings.Links,Home)</onclick>
+                                            <onclick>RunPlugin($INFO[Container(22001).ListItem.Property(url),,&amp;func=do_new]$VAR[Path_Shortcut_UseRawPath]$VAR[Path_Shortcut_UseCategory])</onclick>
+                                            <onback>29999</onback>
+                                        </include>
+
+                                        <!-- Shortcuts -->
+                                        <include content="Dialog_Side_Button">
+                                            <param name="dialog">true</param>
+                                            <!-- <param name="vertical">false</param> -->
+                                            <!-- <param name="itemgap">0</param> -->
+                                            <param name="baseid">29</param>
+                                            <param name="id">02</param>
+                                            <param name="control">button</param>
+                                            <param name="label">$LOCALIZE[31511]</param>
+                                            <param name="visible">[!String.IsEqual(Container(22001).ListItem.Property(disabled),True) + !String.IsEqual(Container(22001).ListItem.Property(blank),True)]</param>
+                                            <param name="icon">special://skin/extras/icons/share.png</param>
+                                            <onclick condition="!$EXP[Shortcuts_Dialog_Exp_IsWidgetMode]">SetProperty(Shortcuts.Groupings.Links,Links,Home)</onclick>
+                                            <onclick condition="$EXP[Shortcuts_Dialog_Exp_IsWidgetMode]">ClearProperty(Shortcuts.Groupings.Links,Home)</onclick>
+                                            <onclick>RunPlugin($INFO[Container(22001).ListItem.Property(url),,&amp;func=do_choose]$VAR[Path_Shortcut_UseRawPath])</onclick>
+                                            <onback>29999</onback>
+                                            <!-- <onup>23001</onup> -->
+                                            <!-- <ondown>23002</ondown> -->
+                                        </include>
+
+                                        <!-- Action -->
+                                        <include content="Dialog_Side_Button">
+                                            <param name="dialog">true</param>
+                                            <!-- <param name="vertical">false</param> -->
+                                            <!-- <param name="itemgap">0</param> -->
+                                            <param name="baseid">29</param>
+                                            <param name="id">03</param>
+                                            <param name="control">button</param>
+                                            <param name="label">$LOCALIZE[15217]</param>
+                                            <param name="visible">[!String.IsEqual(Container(22001).ListItem.Property(disabled),True) + !String.IsEqual(Container(22001).ListItem.Property(blank),True)]</param>
+                                            <param name="icon">special://skin/extras/icons/terminal.png</param>
+                                            <onclick condition="!$EXP[Shortcuts_Dialog_Exp_IsWidgetMode]">SetProperty(Shortcuts.Groupings.Links,Links,Home)</onclick>
+                                            <onclick condition="$EXP[Shortcuts_Dialog_Exp_IsWidgetMode]">ClearProperty(Shortcuts.Groupings.Links,Home)</onclick>
+                                            <onclick>RunPlugin($INFO[Container(22001).ListItem.Property(url),,&amp;func=do_action]$VAR[Path_Shortcut_UseRawPath])</onclick>
+                                            <onback>29999</onback>
+                                            <!-- <onup>23001</onup> -->
+                                            <!-- <ondown>23002</ondown> -->
+                                        </include>
+
+                                        <!-- Rename -->
+                                        <include content="Dialog_Side_Button">
+                                            <param name="dialog">true</param>
+                                            <!-- <param name="vertical">false</param> -->
+                                            <!-- <param name="itemgap">0</param> -->
+                                            <param name="baseid">29</param>
+                                            <param name="id">04</param>
+                                            <param name="control">button</param>
+                                            <param name="label">$LOCALIZE[118]</param>
+                                            <param name="icon">special://skin/extras/icons/i-cursor.png</param>
+                                            <param name="visible">[!String.IsEqual(Container(22001).ListItem.Property(disabled),True) + !String.IsEqual(Container(22001).ListItem.Property(blank),True)]</param>
+                                            <onclick>RunPlugin($INFO[Container(22001).ListItem.Property(url),,&amp;func=do_edit])</onclick>
+                                            <onback>29999</onback>
+                                            <!-- <onup>23001</onup> -->
+                                            <!-- <ondown>23002</ondown> -->
+                                        </include>
+
+                                        <!-- Icon -->
+                                        <include content="Dialog_Side_Button">
+                                            <param name="dialog">true</param>
+                                            <!-- <param name="vertical">false</param> -->
+                                            <!-- <param name="itemgap">0</param> -->
+                                            <param name="baseid">29</param>
+                                            <param name="id">05</param>
+                                            <param name="control">button</param>
+                                            <param name="label">$LOCALIZE[31274]</param>
+                                            <param name="icon">special://skin/extras/icons/image.png</param>
+                                            <param name="visible">[!String.IsEqual(Container(22001).ListItem.Property(disabled),True) + !String.IsEqual(Container(22001).ListItem.Property(blank),True)]</param>
+                                            <!-- <onclick>RunPlugin($INFO[Container(22001).ListItem.Property(url),,&amp;func=do_icon])</onclick> -->
+                                            <onclick>SetProperty(url,$INFO[Container(22001).ListItem.Property(url)],1117)</onclick>
+                                            <onclick>ActivateWindow(1117)</onclick>
+                                            <onback>29999</onback>
+                                            <!-- <onup>23001</onup> -->
+                                            <!-- <ondown>23002</ondown> -->
+                                        </include>
+
+                                        <!-- Delete -->
+                                        <include content="Dialog_Side_Button">
+                                            <param name="dialog">true</param>
+                                            <!-- <param name="vertical">false</param> -->
+                                            <!-- <param name="itemgap">0</param> -->
+                                            <param name="baseid">29</param>
+                                            <param name="id">07</param>
+                                            <param name="label">$LOCALIZE[117]</param>
+                                            <param name="icon">special://skin/extras/icons/trash-can.png</param>
+                                            <param name="visible">!String.IsEqual(Container(22001).ListItem.Property(blank),True)</param>
+                                            <onclick>RunPlugin($INFO[Container(22001).ListItem.Property(url),,&amp;func=do_delete&amp;&amp;False])</onclick>
+                                            <onback>29999</onback>
+                                            <!-- <onup>23001</onup> -->
+                                            <!-- <ondown>23002</ondown> -->
+                                        </include>
+                                    </control>
+                                    <control type="grouplist" id="23000">
+
+                                        <left>120</left>
+
+                                        <onleft>29012</onleft>
+                                        <onup>23003</onup>
+                                        <onback>29999</onback>
+                                        <pagecontrol>61</pagecontrol>
+                                        <onright>61</onright>
+                                        <orientation>vertical</orientation>
+
+                                        <!-- Disable / Enable -->
+                                        <include content="Settings_Button">
+                                            <param name="dialog">true</param>
+                                            <param name="id">23001</param>
+                                            <param name="control">button</param>
+                                            <label>$VAR[Label_Shortcut_EnableDisable]</label>
+                                            <onclick>RunPlugin($INFO[Container(22001).ListItem.Property(url),,&amp;func=do_toggle])</onclick>
+                                            <onback>29999</onback>
+                                            <visible>!String.IsEqual(Container(22001).ListItem.Property(blank),True)</visible>
+                                        </include>
+
+                                        <!-- Open In Dialog Item -->
+                                        <include content="Settings_Button">
+                                            <param name="dialog">true</param>
+                                            <param name="id">23002</param>
+                                            <param name="control">radiobutton</param>
+                                            <label>$LOCALIZE[31443]</label>
+
+                                            <selected>!String.IsEmpty(Container(22001).ListItem.Property(path_opendialog))</selected>
+                                            <onclick>RunPlugin($INFO[Container(22001).ListItem.Property(url),,&amp;func=do_toggle&amp;&amp;path_opendialog])</onclick>
+
+                                            <onback>29999</onback>
+
+                                            <visible>!String.IsEqual(Container(22001).ListItem.Property(blank),True)</visible>
+                                            <visible>!String.IsEmpty(Container(22001).ListItem.Property(path))</visible>
+                                            <visible>!String.IsEmpty(Container(22001).ListItem.Property(target))</visible>
+                                            <visible>!$EXP[Shortcuts_Dialog_Exp_IsWidgetMode]</visible>
+                                        </include>
+
+                                        <!-- Open In Expanded Dialog Item -->
+                                        <include content="Settings_Button">
+                                            <param name="dialog">true</param>
+                                            <param name="id">23004</param>
+                                            <param name="control">radiobutton</param>
+                                            <label> -- $LOCALIZE[39123]</label>
+
+                                            <selected>!String.IsEmpty(Container(22001).ListItem.Property(path_opendialog_expanded))</selected>
+                                            <onclick>RunPlugin($INFO[Container(22001).ListItem.Property(url),,&amp;func=do_toggle&amp;&amp;path_opendialog_expanded])</onclick>
+
+                                            <onback>29999</onback>
+
+                                            <visible>!String.IsEqual(Container(22001).ListItem.Property(blank),True)</visible>
+                                            <visible>!String.IsEmpty(Container(22001).ListItem.Property(path))</visible>
+                                            <visible>!String.IsEmpty(Container(22001).ListItem.Property(target))</visible>
+                                            <visible>!String.IsEmpty(Container(22001).ListItem.Property(path_opendialog))</visible>
+                                            <visible>!$EXP[Shortcuts_Dialog_Exp_IsWidgetMode]</visible>
+                                        </include>
+
+                                        <!-- ================ -->
+                                        <!-- SideMenu Options -->
+                                        <!-- ================ -->
+                                        <include content="Settings_Label">
+                                            <param name="dialog">true</param>
+                                            <param name="id">23090</param>
+                                            <label>$LOCALIZE[31416] $LOCALIZE[33063]</label>
+
+                                            <visible>[String.IsEqual(Window(Home).Property(Shortcuts.EditMenu),menu=sidemenu) + String.IsEmpty(Window(Home).Property(Shortcuts.EditMode)) + String.IsEmpty(Window(Home).Property(Shortcuts.EditGUID))]</visible>
+                                            <visible>[!String.IsEqual(Container(22001).ListItem.Property(disabled),True) + !String.IsEqual(Container(22001).ListItem.Property(blank),True)]</visible>
+
+                                            <onback>29999</onback>
+                                        </include>
+
+                                        <!-- SideMenu: Edit widgets -->
+                                        <include content="Settings_Button">
+                                            <param name="dialog">true</param>
+                                            <param name="id">23093</param>
+                                            <label>$LOCALIZE[31328]</label>
+                                            <visible>[!String.IsEqual(Container(22001).ListItem.Property(disabled),True) + !String.IsEqual(Container(22001).ListItem.Property(blank),True)]</visible>
+                                            <visible>[String.IsEqual(Window(Home).Property(Shortcuts.EditMenu),menu=sidemenu) + String.IsEmpty(Window(Home).Property(Shortcuts.EditMode)) + String.IsEmpty(Window(Home).Property(Shortcuts.EditGUID))]</visible>
+
+                                            <onclick>SetProperty(Shortcuts.EditMenu.Previous,$INFO[Window(Home).Property(Shortcuts.EditMenu)],Home)</onclick>
+                                            <onclick>SetProperty(Shortcuts.EditMode.Previous,$INFO[Window(Home).Property(Shortcuts.EditMode)],Home)</onclick>
+                                            <onclick>SetProperty(Shortcuts.EditGUID.Previous,$INFO[Window(Home).Property(Shortcuts.EditGUID)],Home)</onclick>
+                                            <onclick>SetProperty(Shortcuts.Category.Previous,$INFO[Window(Home).Property(Shortcuts.Category)],Home)</onclick>
+
+                                            <onclick>SetProperty(Shortcuts.EditGUID,guid=$INFO[Container(22001).ListItem.Property(guid)],Home)</onclick>
+                                            <onclick>SetProperty(Shortcuts.EditMenu,menu=$INFO[Container(22001).ListItem.Property(menu)],Home)</onclick>
+                                            <onclick>SetProperty(Shortcuts.EditMode,mode=widgets,Home)</onclick>
+                                            <onclick>ClearProperty(Shortcuts.Category,Home)</onclick>
+
+                                            <onback>29999</onback>
+                                        </include>
+
+                                        <!-- =============== -->
+                                        <!-- Submenu Options -->
+                                        <!-- =============== -->
+                                        <include content="Settings_Label">
+                                            <param name="dialog">true</param>
+                                            <param name="id">23904</param>
+                                            <label>$LOCALIZE[1034] $LOCALIZE[33063]</label>
+                                            <visible>[[String.IsEqual(Window(Home).Property(Shortcuts.EditMenu),menu=homemenu) | String.IsEqual(Window(Home).Property(Shortcuts.EditMenu),menu=1101menu) | String.IsEqual(Window(Home).Property(Shortcuts.EditMenu),menu=1102menu) | String.IsEqual(Window(Home).Property(Shortcuts.EditMenu),menu=1103menu) | String.IsEqual(Window(Home).Property(Shortcuts.EditMenu),menu=1104menu) | String.IsEqual(Window(Home).Property(Shortcuts.EditMenu),menu=1106menu) | String.IsEqual(Window(Home).Property(Shortcuts.EditMenu),menu=1107menu) | String.IsEqual(Window(Home).Property(Shortcuts.EditMenu),menu=1108menu) | String.IsEqual(Window(Home).Property(Shortcuts.EditMenu),menu=1109menu)] + [[String.IsEmpty(Window(Home).Property(Shortcuts.EditMode)) + String.IsEmpty(Window(Home).Property(Shortcuts.EditGUID))] | String.IsEqual(Window(Home).Property(Shortcuts.EditMode),mode=submenu)]] | String.IsEqual(Container(22001).ListItem.Property(path),Custom_Submenu)</visible>
+                                            <visible>[!String.IsEqual(Container(22001).ListItem.Property(disabled),True) + !String.IsEqual(Container(22001).ListItem.Property(blank),True)]</visible>
+                                            <visible>!$EXP[Shortcuts_Dialog_Exp_WidgetsOnly]</visible>
+                                            <onback>29999</onback>
+                                        </include>
+
+                                        <!-- Submenu: Use as Widget -->
+                                        <include content="Settings_Button">
+                                            <param name="dialog">true</param>
+                                            <param name="id">23047</param>
+                                            <param name="control">radiobutton</param>
+                                            <label>$LOCALIZE[31040]</label>
+
+                                            <visible>String.IsEqual(Window(Home).Property(Shortcuts.EditMenu),menu=homemenu) | String.IsEqual(Window(Home).Property(Shortcuts.EditMenu),menu=1101menu) | String.IsEqual(Window(Home).Property(Shortcuts.EditMenu),menu=1102menu) | String.IsEqual(Window(Home).Property(Shortcuts.EditMenu),menu=1103menu) | String.IsEqual(Window(Home).Property(Shortcuts.EditMenu),menu=1104menu) | String.IsEqual(Window(Home).Property(Shortcuts.EditMenu),menu=1106menu) | String.IsEqual(Window(Home).Property(Shortcuts.EditMenu),menu=1107menu) | String.IsEqual(Window(Home).Property(Shortcuts.EditMenu),menu=1108menu) | String.IsEqual(Window(Home).Property(Shortcuts.EditMenu),menu=1109menu)</visible>
+                                            <visible>String.IsEmpty(Window(Home).Property(Shortcuts.EditMode))</visible>
+                                            <visible>[!String.IsEqual(Container(22001).ListItem.Property(disabled),True) + !String.IsEqual(Container(22001).ListItem.Property(blank),True)]</visible>
+                                            <visible>!$EXP[Shortcuts_Dialog_Exp_WidgetsOnly]</visible>
+
+                                            <selected>[String.IsEqual(Container(22001).ListItem.Property(use_as_widget),True)]</selected>
+                                            <onclick>RunPlugin($INFO[Container(22001).ListItem.Property(url),,&amp;func=do_toggle&amp;&amp;use_as_widget])</onclick>
+                                            <onback>29999</onback>
+                                        </include>
+
+                                        <!-- Submenu: Edit widgets -->
+                                        <include content="Settings_Button">
+                                            <param name="dialog">true</param>
+                                            <param name="id">23054</param>
+                                            <label>$LOCALIZE[31328]</label>
+
+                                            <visible>[[String.IsEqual(Window(Home).Property(Shortcuts.EditMenu),menu=homemenu) | String.IsEqual(Window(Home).Property(Shortcuts.EditMenu),menu=1101menu) | String.IsEqual(Window(Home).Property(Shortcuts.EditMenu),menu=1102menu) | String.IsEqual(Window(Home).Property(Shortcuts.EditMenu),menu=1103menu) | String.IsEqual(Window(Home).Property(Shortcuts.EditMenu),menu=1104menu) | String.IsEqual(Window(Home).Property(Shortcuts.EditMenu),menu=1106menu) | String.IsEqual(Window(Home).Property(Shortcuts.EditMenu),menu=1107menu) | String.IsEqual(Window(Home).Property(Shortcuts.EditMenu),menu=1108menu) | String.IsEqual(Window(Home).Property(Shortcuts.EditMenu),menu=1109menu)] + String.IsEqual(Window(Home).Property(Shortcuts.EditMode),mode=submenu)]</visible>
+                                            <visible>[!String.IsEqual(Container(22001).ListItem.Property(disabled),True) + !String.IsEqual(Container(22001).ListItem.Property(blank),True)]</visible>
+                                            <visible>!$EXP[Shortcuts_Dialog_Exp_WidgetsOnly]</visible>
+
+                                            <visible>[String.IsEqual(Container(22001).ListItem.Property(use_as_widget),True)]</visible>
+
+                                            <onclick>SetProperty(Shortcuts.EditMenu.Previous,$INFO[Window(Home).Property(Shortcuts.EditMenu)],Home)</onclick>
+                                            <onclick>SetProperty(Shortcuts.EditMode.Previous,$INFO[Window(Home).Property(Shortcuts.EditMode)],Home)</onclick>
+                                            <onclick>SetProperty(Shortcuts.EditGUID.Previous,$INFO[Window(Home).Property(Shortcuts.EditGUID)],Home)</onclick>
+                                            <onclick>SetProperty(Shortcuts.Category.Previous,$INFO[Window(Home).Property(Shortcuts.Category)],Home)</onclick>
+
+                                            <onclick>SetProperty(Shortcuts.EditGUID,guid=$INFO[Container(22001).ListItem.Property(guid)],Home)</onclick>
+                                            <onclick>SetProperty(Shortcuts.EditMenu,menu=$INFO[Container(22001).ListItem.Property(menu)],Home)</onclick>
+                                            <onclick>SetProperty(Shortcuts.EditMode,mode=widgets,Home)</onclick>
+
+                                            <onclick>ClearProperty(Shortcuts.Category,Home)</onclick>
+
+                                            <onback>29999</onback>
+                                        </include>
+
+                                        <!-- Submenu: Submenu List -->
+                                        <include content="Settings_Stacked_Button">
+                                            <param name="dialog">true</param>
+                                            <param name="id">23041</param>
+                                            <param name="groupid">24041</param>
+                                            <param name="toplabel">$LOCALIZE[31003]</param>
+                                            <param name="sublabel">$INFO[Container(22001).ListItem.Property(submenulist_path)]</param>
+                                            <param name="sublabel_visible">!String.IsEmpty(Container(22001).ListItem.Property(submenulist_path))</param>
+                                            <visible>String.IsEqual(Window(Home).Property(Shortcuts.EditMenu),menu=homemenu) | String.IsEqual(Window(Home).Property(Shortcuts.EditMenu),menu=1101menu) | String.IsEqual(Window(Home).Property(Shortcuts.EditMenu),menu=1102menu) | String.IsEqual(Window(Home).Property(Shortcuts.EditMenu),menu=1103menu) | String.IsEqual(Window(Home).Property(Shortcuts.EditMenu),menu=1104menu) | String.IsEqual(Window(Home).Property(Shortcuts.EditMenu),menu=1106menu) | String.IsEqual(Window(Home).Property(Shortcuts.EditMenu),menu=1107menu) | String.IsEqual(Window(Home).Property(Shortcuts.EditMenu),menu=1108menu) | String.IsEqual(Window(Home).Property(Shortcuts.EditMenu),menu=1109menu)</visible>
+                                            <visible>String.IsEmpty(Window(Home).Property(Shortcuts.EditMode))</visible>
+                                            <visible>String.IsEmpty(Window(Home).Property(Shortcuts.EditGUID))</visible>
+                                            <visible>[!String.IsEqual(Container(22001).ListItem.Property(disabled),True) + !String.IsEqual(Container(22001).ListItem.Property(blank),True)]</visible>
+                                            <visible>!$EXP[Shortcuts_Dialog_Exp_WidgetsOnly]</visible>
+                                            <visible>[String.IsEqual(Container(22001).ListItem.Property(use_as_widget),True)]</visible>
+                                            <onclick>ClearProperty(Shortcuts.Groupings.Links,Home)</onclick>
+                                            <onclick condition="String.IsEmpty(Container(22001).ListItem.Property(submenulist_path))">RunPlugin($INFO[Container(22001).ListItem.Property(url),,&amp;func=do_choose&amp;&amp;submenulist&amp;&amp;use_rawpath::True])</onclick>
+                                            <onclick condition="!String.IsEmpty(Container(22001).ListItem.Property(submenulist_path))">RunPlugin($INFO[Container(22001).ListItem.Property(url),,&amp;func=do_toggle&amp;&amp;submenulist_path])</onclick>
+                                            <onback>29999</onback>
+                                        </include>
+
+                                        <!-- Submenu: Submenu Sort By -->
+                                        <include content="Settings_Button">
+                                            <param name="dialog">true</param>
+                                            <param name="id">23044</param>
+                                            <label> -- $LOCALIZE[31016]</label>
+                                            <label2>[CAPITALIZE]$INFO[Container(22001).ListItem.Property(submenulist_sortby)][/CAPITALIZE]</label2>
+                                            <visible>!String.IsEmpty(Container(22001).ListItem.Property(submenulist_path))</visible>
+                                            <visible>[!String.IsEqual(Container(22001).ListItem.Property(disabled),True) + !String.IsEqual(Container(22001).ListItem.Property(blank),True)]</visible>
+                                            <visible>!$EXP[Shortcuts_Dialog_Exp_WidgetsOnly]</visible>
+
+                                            <onclick>RunPlugin($INFO[Container(22001).ListItem.Property(url),,&amp;func=do_edit&amp;&amp;submenulist_sortby&amp;&amp;default&amp;label&amp;random&amp;dateadded&amp;lastplayed&amp;playcount&amp;year&amp;rating&amp;userrating&amp;votes&amp;genre&amp;country&amp;studio&amp;playlist&amp;episodenumber&amp;season&amp;totalepisodes&amp;watchedepisodes&amp;tvshowstatus&amp;tvshowtitle&amp;file&amp;title&amp;track&amp;time&amp;artist&amp;album&amp;lastupdated&amp;lastused&amp;date&amp;&amp;Sort by&amp;&amp;True])</onclick>
+
+                                            <onback>29999</onback>
+                                        </include>
+
+                                        <!-- Submenu: Submenu Sort Order -->
+                                        <include content="Settings_Button">
+                                            <param name="dialog">true</param>
+                                            <param name="id">23045</param>
+                                            <param name="control">radiobutton</param>
+                                            <label> -- $LOCALIZE[31517]</label>
+                                            <visible>!String.IsEmpty(Container(22001).ListItem.Property(submenulist_path))</visible>
+                                            <visible>[!String.IsEqual(Container(22001).ListItem.Property(disabled),True) + !String.IsEqual(Container(22001).ListItem.Property(blank),True)]</visible>
+                                            <visible>!String.IsEmpty(Container(22001).ListItem.Property(submenulist_sortby)) + !String.IsEqual(Container(22001).ListItem.Property(submenulist_sortby),random)</visible>
+                                            <visible>!$EXP[Shortcuts_Dialog_Exp_WidgetsOnly]</visible>
+                                            <visible>[String.IsEqual(Container(22001).ListItem.Property(use_as_widget),True)]</visible>
+                                            <selected>!String.IsEmpty(Container(22001).ListItem.Property(submenulist_sortorder))</selected>
+                                            <onclick>RunPlugin($INFO[Container(22001).ListItem.Property(url),,&amp;func=do_toggle&amp;&amp;submenulist_sortorder])</onclick>
+                                            <onback>29999</onback>
+                                        </include>
+
+                                        <!-- Submenu: Submenu Sort Limit -->
+                                        <include content="Settings_Button">
+                                            <param name="dialog">true</param>
+                                            <param name="id">23046</param>
+                                            <label> -- $LOCALIZE[31188]</label>
+                                            <visible>!String.IsEmpty(Container(22001).ListItem.Property(submenulist_path))</visible>
+                                            <visible>[!String.IsEqual(Container(22001).ListItem.Property(disabled),True) + !String.IsEqual(Container(22001).ListItem.Property(blank),True)]</visible>
+                                            <visible>!$EXP[Shortcuts_Dialog_Exp_WidgetsOnly]</visible>
+                                            <visible>[String.IsEqual(Container(22001).ListItem.Property(use_as_widget),True)]</visible>
+                                            <label2>$INFO[Container(22001).ListItem.Property(submenulist_limit)]</label2>
+                                            <onclick>RunPlugin($INFO[Container(22001).ListItem.Property(url),,&amp;func=do_numeric&amp;&amp;submenulist_limit&amp;&amp;heading::Limit])</onclick>
+                                            <onback>29999</onback>
+                                        </include>
+
+                                        <!-- Submenu: Submenu Widget -->
+                                        <include content="Settings_Button">
+                                            <param name="dialog">true</param>
+                                            <param name="id">23042</param>
+                                            <label>$LOCALIZE[31516]</label>
+                                            <visible>String.IsEqual(Container(22001).ListItem.Property(path),Custom_Submenu)</visible>
+                                            <visible>[!String.IsEqual(Container(22001).ListItem.Property(disabled),True) + !String.IsEqual(Container(22001).ListItem.Property(blank),True)]</visible>
+                                            <visible>!$EXP[Shortcuts_Dialog_Exp_WidgetsOnly]</visible>
+                                            <visible>[String.IsEqual(Container(22001).ListItem.Property(use_as_widget),True)]</visible>
+
+                                            <onclick>SetProperty(Shortcuts.EditMenu.Previous,$INFO[Window(Home).Property(Shortcuts.EditMenu)],Home)</onclick>
+                                            <onclick>SetProperty(Shortcuts.EditMode.Previous,$INFO[Window(Home).Property(Shortcuts.EditMode)],Home)</onclick>
+                                            <onclick>SetProperty(Shortcuts.EditGUID.Previous,$INFO[Window(Home).Property(Shortcuts.EditGUID)],Home)</onclick>
+                                            <onclick>SetProperty(Shortcuts.Category.Previous,$INFO[Window(Home).Property(Shortcuts.Category)],Home)</onclick>
+
+                                            <onclick>SetProperty(Shortcuts.EditGUID,guid=$INFO[Container(22001).ListItem.Property(guid)],Home)</onclick>
+                                            <onclick>SetProperty(Shortcuts.EditMenu,menu=$INFO[Container(22001).ListItem.Property(menu)],Home)</onclick>
+                                            <onclick>SetProperty(Shortcuts.EditMode,mode=submenu,Home)</onclick>
+
+                                            <onback>29999</onback>
+                                        </include>
+
+                                        <!-- Submenu: Submenu Items -->
+                                        <include content="Settings_Button">
+                                            <param name="dialog">true</param>
+                                            <param name="id">23043</param>
+                                            <label>$LOCALIZE[31516]</label>
+
+                                            <visible>String.IsEqual(Window(Home).Property(Shortcuts.EditMenu),menu=homemenu) | String.IsEqual(Window(Home).Property(Shortcuts.EditMenu),menu=1101menu) | String.IsEqual(Window(Home).Property(Shortcuts.EditMenu),menu=1102menu) | String.IsEqual(Window(Home).Property(Shortcuts.EditMenu),menu=1103menu) | String.IsEqual(Window(Home).Property(Shortcuts.EditMenu),menu=1104menu) | String.IsEqual(Window(Home).Property(Shortcuts.EditMenu),menu=1106menu) | String.IsEqual(Window(Home).Property(Shortcuts.EditMenu),menu=1107menu) | String.IsEqual(Window(Home).Property(Shortcuts.EditMenu),menu=1108menu) | String.IsEqual(Window(Home).Property(Shortcuts.EditMenu),menu=1109menu)</visible>
+                                            <visible>String.IsEmpty(Window(Home).Property(Shortcuts.EditMode))</visible>
+                                            <visible>String.IsEmpty(Window(Home).Property(Shortcuts.EditGUID))</visible>
+
+                                            <visible>String.IsEmpty(Container(22001).ListItem.Property(submenulist_path))</visible>
+                                            <visible>[!String.IsEqual(Container(22001).ListItem.Property(disabled),True) + !String.IsEqual(Container(22001).ListItem.Property(blank),True)]</visible>
+                                            <visible>!$EXP[Shortcuts_Dialog_Exp_WidgetsOnly]</visible>
+                                            <visible>[String.IsEqual(Container(22001).ListItem.Property(use_as_widget),True)]</visible>
+
+                                            <onclick>SetProperty(Shortcuts.EditMenu.Previous,$INFO[Window(Home).Property(Shortcuts.EditMenu)],Home)</onclick>
+                                            <onclick>SetProperty(Shortcuts.EditMode.Previous,$INFO[Window(Home).Property(Shortcuts.EditMode)],Home)</onclick>
+                                            <onclick>SetProperty(Shortcuts.EditGUID.Previous,$INFO[Window(Home).Property(Shortcuts.EditGUID)],Home)</onclick>
+                                            <onclick>SetProperty(Shortcuts.Category.Previous,$INFO[Window(Home).Property(Shortcuts.Category)],Home)</onclick>
+
+                                            <onclick>SetProperty(Shortcuts.EditGUID,guid=$INFO[Container(22001).ListItem.Property(guid)],Home)</onclick>
+                                            <onclick>SetProperty(Shortcuts.EditMenu,menu=$INFO[Container(22001).ListItem.Property(menu)],Home)</onclick>
+                                            <onclick>SetProperty(Shortcuts.EditMode,mode=submenu,Home)</onclick>
+
+                                            <onback>29999</onback>
+                                        </include>
+
+                                        <!-- ================ -->
+                                        <!-- Category Options -->
+                                        <!-- ================ -->
+                                        <include content="Settings_Label">
+                                            <param name="dialog">true</param>
+                                            <param name="id">23905</param>
+                                            <label>$LOCALIZE[21866] $LOCALIZE[33063]</label>
+                                            <visible>[[String.IsEqual(Window(Home).Property(Shortcuts.EditMenu),menu=homemenu) | String.IsEqual(Window(Home).Property(Shortcuts.EditMenu),menu=1101menu) | String.IsEqual(Window(Home).Property(Shortcuts.EditMenu),menu=1102menu) | String.IsEqual(Window(Home).Property(Shortcuts.EditMenu),menu=1103menu) | String.IsEqual(Window(Home).Property(Shortcuts.EditMenu),menu=1104menu) | String.IsEqual(Window(Home).Property(Shortcuts.EditMenu),menu=1106menu) | String.IsEqual(Window(Home).Property(Shortcuts.EditMenu),menu=1107menu) | String.IsEqual(Window(Home).Property(Shortcuts.EditMenu),menu=1108menu) | String.IsEqual(Window(Home).Property(Shortcuts.EditMenu),menu=1109menu)] + String.IsEmpty(Window(Home).Property(Shortcuts.EditMode)) + String.IsEmpty(Window(Home).Property(Shortcuts.EditGUID))]</visible>
+                                            <visible>[!String.IsEqual(Container(22001).ListItem.Property(disabled),True) + !String.IsEqual(Container(22001).ListItem.Property(blank),True)]</visible>
+                                            <visible>[!String.IsEqual(Container(22001).ListItem.Property(use_as_widget),True)]</visible>
+                                            <onback>29999</onback>
+                                        </include>
+                                        <!-- Category: Edit widgets -->
+                                        <include content="Settings_Button">
+                                            <param name="dialog">true</param>
+                                            <param name="id">23064</param>
+                                            <label>$LOCALIZE[31328]</label>
+
+                                            <visible>[[String.IsEqual(Window(Home).Property(Shortcuts.EditMenu),menu=homemenu) | String.IsEqual(Window(Home).Property(Shortcuts.EditMenu),menu=1101menu) | String.IsEqual(Window(Home).Property(Shortcuts.EditMenu),menu=1102menu) | String.IsEqual(Window(Home).Property(Shortcuts.EditMenu),menu=1103menu) | String.IsEqual(Window(Home).Property(Shortcuts.EditMenu),menu=1104menu) | String.IsEqual(Window(Home).Property(Shortcuts.EditMenu),menu=1106menu) | String.IsEqual(Window(Home).Property(Shortcuts.EditMenu),menu=1107menu) | String.IsEqual(Window(Home).Property(Shortcuts.EditMenu),menu=1108menu) | String.IsEqual(Window(Home).Property(Shortcuts.EditMenu),menu=1109menu)] + String.IsEmpty(Window(Home).Property(Shortcuts.EditMode)) + String.IsEmpty(Window(Home).Property(Shortcuts.EditGUID))]</visible>
+                                            <visible>[!String.IsEqual(Container(22001).ListItem.Property(disabled),True) + !String.IsEqual(Container(22001).ListItem.Property(blank),True)]</visible>
+                                            <visible>!$EXP[Shortcuts_Dialog_Exp_WidgetsOnly]</visible>
+                                            <visible>[!String.IsEqual(Container(22001).ListItem.Property(use_as_widget),True)]</visible>
+
+                                            <onclick>SetProperty(Shortcuts.EditMenu.Previous,$INFO[Window(Home).Property(Shortcuts.EditMenu)],Home)</onclick>
+                                            <onclick>SetProperty(Shortcuts.EditMode.Previous,$INFO[Window(Home).Property(Shortcuts.EditMode)],Home)</onclick>
+                                            <onclick>SetProperty(Shortcuts.EditGUID.Previous,$INFO[Window(Home).Property(Shortcuts.EditGUID)],Home)</onclick>
+                                            <onclick>SetProperty(Shortcuts.Category.Previous,$INFO[Window(Home).Property(Shortcuts.Category)],Home)</onclick>
+
+                                            <onclick>SetProperty(Shortcuts.EditGUID,guid=$INFO[Container(22001).ListItem.Property(guid)],Home)</onclick>
+                                            <onclick>SetProperty(Shortcuts.EditMenu,menu=$INFO[Container(22001).ListItem.Property(menu)],Home)</onclick>
+                                            <onclick>SetProperty(Shortcuts.EditMode,mode=widgets,Home)</onclick>
+
+                                            <onclick>ClearProperty(Shortcuts.Category,Home)</onclick>
+
+                                            <onback>29999</onback>
+                                        </include>
+
+                                        <!-- =========== -->
+                                        <!-- Hub Options -->
+                                        <!-- =========== -->
+                                        <include content="Settings_Label">
+                                            <param name="dialog">true</param>
+                                            <param name="id">23906</param>
+                                            <label>$LOCALIZE[31026] $LOCALIZE[33063]</label>
+                                            <visible>[[String.IsEqual(Window(Home).Property(Shortcuts.EditMenu),menu=homemenu) | String.IsEqual(Window(Home).Property(Shortcuts.EditMenu),menu=1101menu) | String.IsEqual(Window(Home).Property(Shortcuts.EditMenu),menu=1102menu) | String.IsEqual(Window(Home).Property(Shortcuts.EditMenu),menu=1103menu) | String.IsEqual(Window(Home).Property(Shortcuts.EditMenu),menu=1104menu) | String.IsEqual(Window(Home).Property(Shortcuts.EditMenu),menu=1106menu) | String.IsEqual(Window(Home).Property(Shortcuts.EditMenu),menu=1107menu) | String.IsEqual(Window(Home).Property(Shortcuts.EditMenu),menu=1108menu) | String.IsEqual(Window(Home).Property(Shortcuts.EditMenu),menu=1109menu)] + String.IsEmpty(Window(Home).Property(Shortcuts.EditMode)) + String.IsEmpty(Window(Home).Property(Shortcuts.EditGUID))]</visible>
+                                            <visible>[!String.IsEqual(Container(22001).ListItem.Property(disabled),True) + !String.IsEqual(Container(22001).ListItem.Property(blank),True)]</visible>
+                                            <visible>[!String.IsEqual(Container(22001).ListItem.Property(use_as_widget),True)]</visible>
+                                            <onback>29999</onback>
+                                        </include>
+
+                                        <!-- Hub: Edit global widgets -->
+                                        <include content="Settings_Button">
+                                            <param name="dialog">true</param>
+                                            <param name="id">23066</param>
+                                            <label>$LOCALIZE[31521]</label>
+
+                                            <visible>[[String.IsEqual(Window(Home).Property(Shortcuts.EditMenu),menu=homemenu) | String.IsEqual(Window(Home).Property(Shortcuts.EditMenu),menu=1101menu) | String.IsEqual(Window(Home).Property(Shortcuts.EditMenu),menu=1102menu) | String.IsEqual(Window(Home).Property(Shortcuts.EditMenu),menu=1103menu) | String.IsEqual(Window(Home).Property(Shortcuts.EditMenu),menu=1104menu) | String.IsEqual(Window(Home).Property(Shortcuts.EditMenu),menu=1106menu) | String.IsEqual(Window(Home).Property(Shortcuts.EditMenu),menu=1107menu) | String.IsEqual(Window(Home).Property(Shortcuts.EditMenu),menu=1108menu) | String.IsEqual(Window(Home).Property(Shortcuts.EditMenu),menu=1109menu)] + String.IsEmpty(Window(Home).Property(Shortcuts.EditMode)) + String.IsEmpty(Window(Home).Property(Shortcuts.EditGUID))]</visible>
+                                            <visible>[!String.IsEqual(Container(22001).ListItem.Property(disabled),True) + !String.IsEqual(Container(22001).ListItem.Property(blank),True)]</visible>
+                                            <visible>!$EXP[Shortcuts_Dialog_Exp_WidgetsOnly]</visible>
+                                            <visible>[!String.IsEqual(Container(22001).ListItem.Property(use_as_widget),True)]</visible>
+
+                                            <onclick>SetProperty(Shortcuts.EditMenu.Previous,$INFO[Window(Home).Property(Shortcuts.EditMenu)],Home)</onclick>
+                                            <onclick>SetProperty(Shortcuts.EditMode.Previous,$INFO[Window(Home).Property(Shortcuts.EditMode)],Home)</onclick>
+                                            <onclick>SetProperty(Shortcuts.EditGUID.Previous,$INFO[Window(Home).Property(Shortcuts.EditGUID)],Home)</onclick>
+                                            <onclick>SetProperty(Shortcuts.Category.Previous,$INFO[Window(Home).Property(Shortcuts.Category)],Home)</onclick>
+
+                                            <onclick>ClearProperty(Shortcuts.EditGUID,Home)</onclick>
+                                            <onclick>SetProperty(Shortcuts.EditMenu,menu=$INFO[Container(22001).ListItem.Property(menu)]-globalwidgets,Home)</onclick>
+                                            <onclick>ClearProperty(Shortcuts.EditMode,Home)</onclick>
+
+                                            <onclick>ClearProperty(Shortcuts.Category,Home)</onclick>
+
+                                            <onback>29999</onback>
+                                        </include>
+
+
+
+
+
+
+                                        <!-- ============== -->
+                                        <!-- Widget Options -->
+                                        <!-- ============== -->
+                                        <include content="Settings_Label">
+                                            <param name="dialog">true</param>
+                                            <param name="id">23902</param>
+                                            <label>$LOCALIZE[31282] $LOCALIZE[33063]</label>
+                                            <visible>$EXP[Shortcuts_Dialog_Exp_IsWidgetMode] | [String.IsEqual(Container(22001).ListItem.Property(use_as_widget),True)]</visible>
+                                            <onback>29999</onback>
+                                            <visible>[!String.IsEqual(Container(22001).ListItem.Property(disabled),True) + !String.IsEqual(Container(22001).ListItem.Property(blank),True)]</visible>
+                                            <visible>!$EXP[Shortcuts_Dialog_Exp_WidgetsOnly]</visible>
+                                        </include>
+
+                                        <!-- Widgets: Style -->
+                                        <include content="Settings_Button">
+                                            <param name="dialog">true</param>
+                                            <param name="id">23006</param>
+                                            <param name="control">button</param>
+                                            <label>$LOCALIZE[736]</label>
+                                            <label2>$VAR[Label_Shortcut_Widget_Style]</label2>
+                                            <onclick>$VAR[Action_Shortcut_SetWidgetStyle]</onclick>
+                                            <visible>$EXP[Shortcuts_Dialog_Exp_IsWidgetMode]</visible>
+                                            <onback>29999</onback>
+                                            <visible>[!String.IsEqual(Container(22001).ListItem.Property(disabled),True) + !String.IsEqual(Container(22001).ListItem.Property(blank),True)]</visible>
+                                            <visible>!$EXP[Shortcuts_Dialog_Exp_WidgetsOnly]</visible>
+                                        </include>
+
+                                        <!-- Widgets: Sort by -->
+                                        <include content="Settings_Button">
+                                            <param name="dialog">true</param>
+                                            <param name="id">23007</param>
+                                            <param name="control">button</param>
+                                            <label>$LOCALIZE[31016]</label>
+                                            <label2>[CAPITALIZE]$INFO[Container(22001).ListItem.Property(widget_sortby)][/CAPITALIZE]</label2>
+                                            <onclick>RunPlugin($INFO[Container(22001).ListItem.Property(url),,&amp;func=do_edit&amp;&amp;widget_sortby&amp;&amp;default&amp;label&amp;random&amp;dateadded&amp;lastplayed&amp;playcount&amp;year&amp;rating&amp;userrating&amp;votes&amp;genre&amp;country&amp;studio&amp;playlist&amp;episodenumber&amp;season&amp;totalepisodes&amp;watchedepisodes&amp;tvshowstatus&amp;tvshowtitle&amp;file&amp;title&amp;track&amp;time&amp;artist&amp;album&amp;lastupdated&amp;lastused&amp;date&amp;&amp;Sort by&amp;&amp;True])</onclick>
+                                            <visible>$EXP[Shortcuts_Dialog_Exp_IsWidgetMode]</visible>
+                                            <onback>29999</onback>
+                                            <visible>[!String.IsEqual(Container(22001).ListItem.Property(disabled),True) + !String.IsEqual(Container(22001).ListItem.Property(blank),True)]</visible>
+                                            <visible>!$EXP[Shortcuts_Dialog_Exp_WidgetsOnly]</visible>
+                                        </include>
+
+                                        <!-- Widgets: Sort order -->
+                                        <include content="Settings_Button">
+                                            <param name="dialog">true</param>
+                                            <param name="id">23008</param>
+                                            <param name="control">radiobutton</param>
+                                            <label>$LOCALIZE[31517]</label>
+                                            <selected>!String.IsEmpty(Container(22001).ListItem.Property(widget_sortorder))</selected>
+                                            <onclick>RunPlugin($INFO[Container(22001).ListItem.Property(url),,&amp;func=do_toggle&amp;&amp;widget_sortorder])</onclick>
+                                            <visible>!String.IsEmpty(Container(22001).ListItem.Property(widget_sortby))</visible>
+                                            <visible>!String.IsEqual(Container(22001).ListItem.Property(widget_sortby),random)</visible>
+                                            <visible>$EXP[Shortcuts_Dialog_Exp_IsWidgetMode]</visible>
+                                            <onback>29999</onback>
+                                            <visible>[!String.IsEqual(Container(22001).ListItem.Property(disabled),True) + !String.IsEqual(Container(22001).ListItem.Property(blank),True)]</visible>
+                                            <visible>!$EXP[Shortcuts_Dialog_Exp_WidgetsOnly]</visible>
+                                        </include>
+
+                                        <!-- Widgets: Limit -->
+                                        <include content="Settings_Button">
+                                            <param name="dialog">true</param>
+                                            <param name="id">23009</param>
+                                            <param name="control">button</param>
+                                            <label>$LOCALIZE[31188]</label>
+                                            <label2>$INFO[Container(22001).ListItem.Property(widget_limit)]</label2>
+                                            <onclick>RunPlugin($INFO[Container(22001).ListItem.Property(url),,&amp;func=do_numeric&amp;&amp;widget_limit&amp;&amp;heading::Limit])</onclick>
+                                            <visible>$EXP[Shortcuts_Dialog_Exp_IsWidgetMode]</visible>
+                                            <onback>29999</onback>
+                                            <visible>[!String.IsEqual(Container(22001).ListItem.Property(disabled),True) + !String.IsEqual(Container(22001).ListItem.Property(blank),True)]</visible>
+                                            <visible>!$EXP[Shortcuts_Dialog_Exp_WidgetsOnly]</visible>
+                                        </include>
+
+                                        <!-- Widgets: Stacked Parent -->
+                                        <include content="Settings_Stacked_Button">
+                                            <param name="dialog">true</param>
+                                            <param name="id">23011</param>
+                                            <param name="groupid">24011</param>
+                                            <param name="control">button</param>
+                                            <param name="toplabel">$LOCALIZE[31389]</param>
+                                            <param name="sublabel">$LOCALIZE[31388] = $VAR[Label_Shortcut_StackedParent]</param>
+                                            <param name="sublabel_visible">true</param>
+                                            <onclick condition="!String.IsEqual(Container(22001).ListItem.Property(widget_parent),1) + !String.IsEqual(Container(22001).ListItem.Property(widget_parent),2)">RunPlugin($INFO[Container(22001).ListItem.Property(url),,&amp;func=do_edit&amp;&amp;widget_parent&amp;&amp;1])</onclick>
+                                            <onclick condition="String.IsEqual(Container(22001).ListItem.Property(widget_parent),1)">RunPlugin($INFO[Container(22001).ListItem.Property(url),,&amp;func=do_edit&amp;&amp;widget_parent&amp;&amp;2])</onclick>
+                                            <onclick condition="String.IsEqual(Container(22001).ListItem.Property(widget_parent),2)">RunPlugin($INFO[Container(22001).ListItem.Property(url),,&amp;func=do_edit&amp;&amp;widget_parent&amp;&amp;0])</onclick>
+                                            <visible>$EXP[Shortcuts_Dialog_Exp_IsWidgetMode]</visible>
+                                            <onback>29999</onback>
+                                            <visible>[!String.IsEqual(Container(22001).ListItem.Property(disabled),True) + !String.IsEqual(Container(22001).ListItem.Property(blank),True)]</visible>
+                                            <visible>String.StartsWith(Container(22001).ListItem.Property(path),Stacked_)</visible>
+                                        </include>
+
+                                        <!-- Widgets: Autoscroll -->
+                                        <include content="Settings_Button">
+                                            <param name="dialog">true</param>
+                                            <param name="id">23010</param>
+                                            <param name="control">radiobutton</param>
+                                            <label>$LOCALIZE[31185]</label>
+                                            <selected>!String.IsEmpty(Container(22001).ListItem.Property(widget_autoscroll))</selected>
+                                            <onclick>RunPlugin($INFO[Container(22001).ListItem.Property(url),,&amp;func=do_toggle&amp;&amp;widget_autoscroll])</onclick>
+                                            <visible>$EXP[Shortcuts_Dialog_Exp_IsWidgetMode]</visible>
+                                            <onback>29999</onback>
+                                            <visible>[!String.IsEqual(Container(22001).ListItem.Property(disabled),True) + !String.IsEqual(Container(22001).ListItem.Property(blank),True)]</visible>
+                                            <visible>!$EXP[Shortcuts_Dialog_Exp_WidgetsOnly]</visible>
+                                        </include>
+
+                                        <!-- Submenu: Widget Style -->
+                                        <include content="Settings_Button">
+                                            <param name="dialog">true</param>
+                                            <param name="id">23049</param>
+                                            <label> -- $LOCALIZE[736]</label>
+                                            <visible>[!String.IsEqual(Container(22001).ListItem.Property(disabled),True) + !String.IsEqual(Container(22001).ListItem.Property(blank),True)]</visible>
+                                            <visible>[String.IsEqual(Container(22001).ListItem.Property(use_as_widget),True)]</visible>
+                                            <visible>!$EXP[Shortcuts_Dialog_Exp_WidgetsOnly]</visible>
+                                            <label2>$VAR[Label_Shortcut_Widget_Style]</label2>
+                                            <onclick>$VAR[Action_Shortcut_SetWidgetStyle]</onclick>
+                                            <onback>29999</onback>
+                                        </include>
+
+                                        <!-- Submenu: Widget Sort by -->
+                                        <include content="Settings_Button">
+                                            <param name="dialog">true</param>
+                                            <param name="id">23050</param>
+                                            <label> -- $LOCALIZE[31016]</label>
+                                            <visible>[!String.IsEqual(Container(22001).ListItem.Property(disabled),True) + !String.IsEqual(Container(22001).ListItem.Property(blank),True)]</visible>
+                                            <visible>[String.IsEqual(Container(22001).ListItem.Property(use_as_widget),True)]</visible>
+                                            <visible>!$EXP[Shortcuts_Dialog_Exp_WidgetsOnly]</visible>
+                                            <label2>[CAPITALIZE]$INFO[Container(22001).ListItem.Property(widget_sortby)][/CAPITALIZE]</label2>
+                                            <onclick>RunPlugin($INFO[Container(22001).ListItem.Property(url),,&amp;func=do_edit&amp;&amp;widget_sortby&amp;&amp;default&amp;label&amp;random&amp;dateadded&amp;lastplayed&amp;playcount&amp;year&amp;rating&amp;userrating&amp;votes&amp;genre&amp;country&amp;studio&amp;playlist&amp;episodenumber&amp;season&amp;totalepisodes&amp;watchedepisodes&amp;tvshowstatus&amp;tvshowtitle&amp;file&amp;title&amp;track&amp;time&amp;artist&amp;album&amp;lastupdated&amp;lastused&amp;date&amp;&amp;Sort by&amp;&amp;True])</onclick>
+                                            <onback>29999</onback>
+                                        </include>
+
+                                        <!-- Submenu: Widget Sort order -->
+                                        <include content="Settings_Button">
+                                            <param name="dialog">true</param>
+                                            <param name="control">radiobutton</param>
+                                            <param name="id">23051</param>
+                                            <label> -- $LOCALIZE[31517]</label>
+                                            <visible>[!String.IsEqual(Container(22001).ListItem.Property(disabled),True) + !String.IsEqual(Container(22001).ListItem.Property(blank),True)]</visible>
+                                            <visible>[String.IsEqual(Container(22001).ListItem.Property(use_as_widget),True)]</visible>
+                                            <visible>!String.IsEmpty(Container(22001).ListItem.Property(widget_sortby)) + !String.IsEqual(Container(22001).ListItem.Property(widget_sortby),random)</visible>
+                                            <visible>!$EXP[Shortcuts_Dialog_Exp_WidgetsOnly]</visible>
+                                            <selected>!String.IsEmpty(Container(22001).ListItem.Property(widget_sortorder))</selected>
+                                            <onclick>RunPlugin($INFO[Container(22001).ListItem.Property(url),,&amp;func=do_toggle&amp;&amp;widget_sortorder])</onclick>
+                                            <onback>29999</onback>
+                                        </include>
+
+                                        <!-- Submenu: Widget Limit -->
+                                        <include content="Settings_Button">
+                                            <param name="dialog">true</param>
+                                            <param name="id">23052</param>
+                                            <label> -- $LOCALIZE[31188]</label>
+                                            <visible>[!String.IsEqual(Container(22001).ListItem.Property(disabled),True) + !String.IsEqual(Container(22001).ListItem.Property(blank),True)]</visible>
+                                            <visible>[String.IsEqual(Container(22001).ListItem.Property(use_as_widget),True)]</visible>
+                                            <visible>!$EXP[Shortcuts_Dialog_Exp_WidgetsOnly]</visible>
+                                            <label2>$INFO[Container(22001).ListItem.Property(widget_limit)]</label2>
+                                            <onclick>RunPlugin($INFO[Container(22001).ListItem.Property(url),,&amp;func=do_numeric&amp;&amp;widget_limit&amp;&amp;heading::Limit])</onclick>
+                                            <onback>29999</onback>
+                                        </include>
+
+                                        <!-- Submenu: Widget Autoscroll -->
+                                        <include content="Settings_Button">
+                                            <param name="dialog">true</param>
+                                            <param name="control">radiobutton</param>
+                                            <param name="id">23053</param>
+                                            <label> -- $LOCALIZE[31185]</label>
+                                            <visible>[!String.IsEqual(Container(22001).ListItem.Property(disabled),True) + !String.IsEqual(Container(22001).ListItem.Property(blank),True)]</visible>
+                                            <visible>[String.IsEqual(Container(22001).ListItem.Property(use_as_widget),True)]</visible>
+                                            <visible>!$EXP[Shortcuts_Dialog_Exp_WidgetsOnly]</visible>
+                                            <selected>!String.IsEmpty(Container(22001).ListItem.Property(widget_autoscroll))</selected>
+                                            <onclick>RunPlugin($INFO[Container(22001).ListItem.Property(url),,&amp;func=do_toggle&amp;&amp;widget_autoscroll])</onclick>
+                                            <onback>29999</onback>
+                                        </include>
+
+
+
+                                        <!-- ================ -->
+                                        <!-- Dummy Nav Button -->
+                                        <!-- ================ -->
+                                        <include content="Settings_Button">
+                                            <param name="dialog">true</param>
+                                            <param name="id">23003</param>
+                                            <param name="control">button</param>
+                                            <visible>False</visible>
+                                            <onback>29999</onback>
+                                        </include>
+                                    </control>
+                                </control>
+                            </include>
+                        </control>
+                    </control>
+                    <include content="Dialog_Scrollbar">
+                        <param name="id">61</param>
+                        <onleft>23001</onleft>
+                    </include>
+                </control>
+            </include>
+        </control>
+
+        <include content="Furniture_Busy">
+            <param name="hasspinner">true</param>
+            <param name="spinspinner">true</param>
+            <param name="icon">special://skin/extras/icons/kodi.png</param>
+            <param name="haslabel">false</param>
+            <param name="spinnervisible">[!Window.IsActive(DialogVolumeBar.xml) | Player.Muted]</param>
+            <param name="visible_delay">1200</param>
+            <param name="windowopen_condition">False</param>
+            <param name="visible">Container(22001).IsUpdating</param>
+        </include>
+
+    </controls>
+</window>

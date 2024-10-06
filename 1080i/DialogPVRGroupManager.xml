@@ -1,0 +1,280 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<window>
+    <defaultcontrol always="true">29</defaultcontrol>
+    <controls>
+
+        <control type="radiobutton" id="25">
+            <visible allowhiddenfocus="true">false</visible>
+            <width>1</width>
+            <height>1</height>
+            <label>_</label>
+        </control>
+
+        <control type="label" id="20">
+            <visible>false</visible>
+            <width>1</width>
+            <height>1</height>
+        </control>
+
+        <control type="group">
+            <include>Dimension_DialogFullMenu</include>
+            <include>Animation_Right_Delay</include>
+            <include content="Dialog_Dim_Side">
+                <param name="slide_condition">True</param>
+            </include>
+
+            <!-- Bottom Layer -->
+            <include content="Dialog_Background_Side">
+                <param name="slide_condition">True</param>
+                <param name="dialog_size">Dimension_DialogFullMenu</param>
+
+                <!-- Side Buttons -->
+                <control type="group">
+                    <include>Dimension_Dialog_Body</include>
+                    <control type="grouplist" id="9000">
+                        <include>Dialog_Side_Grouplist_Def</include>
+                        <onright>13</onright>
+                        <onleft>Close</onleft>
+                        <include content="DialogInfo_Button">
+                            <param name="vertical">true</param>
+                            <param name="id">29</param>
+                            <param name="groupid">9101</param>
+                            <param name="sliceid">9201</param>
+                            <param name="label">$LOCALIZE[186]</param>
+                            <param name="icon">special://skin/extras/icons/circle-check.png</param>
+                            <include content="DialogInfo_Button_HintLabel">
+                                <param name="label">$LOCALIZE[186]</param>
+                            </include>
+                        </include>
+                        <include content="DialogInfo_Button">
+                            <param name="vertical">true</param>
+                            <param name="id">26</param>
+                            <param name="groupid">9102</param>
+                            <param name="sliceid">9202</param>
+                            <param name="label">$LOCALIZE[15019]</param>
+                            <param name="icon">special://skin/extras/icons/circle-plus.png</param>
+                            <include content="DialogInfo_Button_HintLabel">
+                                <param name="label">$LOCALIZE[15019]</param>
+                            </include>
+                        </include>
+                        <include content="DialogInfo_Button">
+                            <param name="vertical">true</param>
+                            <param name="id">27</param>
+                            <param name="groupid">9103</param>
+                            <param name="sliceid">9203</param>
+                            <param name="label">$LOCALIZE[118]</param>
+                            <param name="icon">special://skin/extras/icons/i-cursor.png</param>
+                            <include content="DialogInfo_Button_HintLabel">
+                                <param name="label">$LOCALIZE[118]</param>
+                            </include>
+                        </include>
+                        <include content="DialogInfo_Button">
+                            <param name="vertical">true</param>
+                            <param name="id">9004</param>
+                            <param name="groupid">9104</param>
+                            <param name="sliceid">9204</param>
+                            <param name="label">$VAR[Label_PVRGrpMgr_HideGroup]</param>
+                            <param name="icon">$VAR[Image_PVRGrpMgr_HideGroup]</param>
+                            <include content="DialogInfo_Button_HintLabel">
+                                <param name="label">$VAR[Label_PVRGrpMgr_HideGroup]</param>
+                            </include>
+                            <onclick>SetFocus(25)</onclick>
+                            <onclick>Action(Select)</onclick>
+                            <onclick>SetFocus(9004)</onclick>
+                        </include>
+                        <include content="DialogInfo_Button">
+                            <param name="vertical">true</param>
+                            <param name="id">28</param>
+                            <param name="groupid">9105</param>
+                            <param name="sliceid">9205</param>
+                            <param name="label">$LOCALIZE[117]</param>
+                            <param name="icon">special://skin/extras/icons/delete-left.png</param>
+                            <include content="DialogInfo_Button_HintLabel">
+                                <param name="label">$LOCALIZE[117]</param>
+                            </include>
+                        </include>
+                        <include content="DialogInfo_Button">
+                            <param name="vertical">true</param>
+                            <param name="id">35</param>
+                            <param name="groupid">9106</param>
+                            <param name="sliceid">9206</param>
+                            <param name="label">$LOCALIZE[184]</param>
+                            <param name="icon">special://skin/extras/icons/image.png</param>
+                            <include content="DialogInfo_Button_HintLabel">
+                                <param name="label">$LOCALIZE[184]</param>
+                            </include>
+                        </include>
+                        <include content="DialogInfo_Button">
+                            <param name="vertical">true</param>
+                            <param name="id">34</param>
+                            <param name="groupid">9107</param>
+                            <param name="sliceid">9207</param>
+                            <param name="label">$VAR[Label_PVRChannelMgrToggle]</param>
+                            <param name="icon">special://skin/extras/icons/right-left.png</param>
+                            <include content="DialogInfo_Button_HintLabel">
+                                <param name="label">$VAR[Label_PVRChannelMgrToggle]</param>
+                            </include>
+                        </include>
+                    </control>
+                </control>
+            </include>
+
+            <include content="Dialog_Foreground_Side">
+                <param name="dialog_size">Dimension_DialogFullMenu</param>
+                <param name="lines_right">0</param>
+                <param name="topline">false</param>
+                <param name="subline">false</param>
+
+                <!-- Header -->
+                <include content="Dialog_Head">
+                    <param name="id">1</param>
+                    <param name="label">$LOCALIZE[19048] - $VAR[Label_PVRChannelMgrHeader]$INFO[Container(13).NumItems, (,)]</param>
+                </include>
+                <include>Dialog_Head_CloseButton</include>
+
+                <!-- Content -->
+                <control type="group">
+                    <include>Dimension_Dialog_Body</include>
+                    <control type="group">
+                        <include>Dimension_Dialog_Body_Group</include>
+
+                        <!-- Left Group -->
+                        <control type="group">
+                            <width>33.33%</width>
+                            <control type="group">
+                                <control type="image">
+                                    <texture colordiffuse="main_fg_12">common/white.png</texture>
+                                    <height>1</height>
+                                    <top>-20</top>
+                                    <left>20</left>
+                                    <right>20</right>
+                                </control>
+
+                                <control type="image">
+                                    <texture colordiffuse="main_fg_12">common/white.png</texture>
+                                    <height>1</height>
+                                    <bottom>-20</bottom>
+                                    <left>20</left>
+                                    <right>20</right>
+                                </control>
+                                <include content="Settings_Label">
+                                    <param name="id">8020</param>
+                                    <param name="control">label</param>
+                                    <description>channel options Header</description>
+                                    <label>$LOCALIZE[19146]: $INFO[Control.GetLabel(20)]</label>
+                                    <top>-40</top>
+                                    <height>10</height>
+                                    <align>center</align>
+                                </include>
+                                <include content="List_DialogSelect">
+                                    <param name="id">13</param>
+                                    <param name="itemlayout_include">Layout_ChannelManager</param>
+                                    <param name="item_height">80</param>
+                                    <param name="detailed">false</param>
+                                    <param name="misc">String.IsEqual(Container(13).CurrentItem,ListItem.CurrentItem)</param>
+                                    <onright>11</onright>
+                                    <onleft>9000</onleft>
+                                    <onback>9000</onback>
+                                </include>
+                            </control>
+                        </control>
+
+                        <!-- Middle Group -->
+                        <control type="group">
+                            <centerleft>50%</centerleft>
+                            <width>33.33%</width>
+
+                            <include content="Dialog_Outline_InnerBox">
+                                <top>-20</top>
+                                <bottom>-20</bottom>
+                                <right>20</right>
+                                <left>20</left>
+                            </include>
+
+                            <control type="group">
+                                <left>40</left>
+                                <right>40</right>
+                                <include content="Settings_Label">
+                                    <param name="id">21</param>
+                                    <param name="control">label</param>
+                                    <description>channel options Header</description>
+                                    <top>-40</top>
+                                    <height>10</height>
+                                    <align>center</align>
+                                </include>
+                                <include content="List_DialogSelect">
+                                    <param name="id">11</param>
+                                    <param name="itemlayout_include">Layout_ChannelManager</param>
+                                    <param name="item_height">80</param>
+                                    <param name="detailed">false</param>
+                                    <pagecontrol>62</pagecontrol>
+                                    <onright>62</onright>
+                                    <onleft>13</onleft>
+                                    <onback>9000</onback>
+                                </include>
+
+                            </control>
+                            <include content="Dialog_Scrollbar">
+                                <param name="id">62</param>
+                                <onleft>11</onleft>
+                                <onright>12</onright>
+                                <top>0</top>
+                                <bottom>0</bottom>
+                                <centerright>0</centerright>
+                                <texturesliderbackground colordiffuse="dialog_fg_12" border="4">scrollbar/scrollv_line.png</texturesliderbackground>
+                                <onback>9000</onback>
+                            </include>
+                        </control>
+
+                        <!-- Right Group -->
+                        <control type="group">
+                            <right>0</right>
+                            <width>33.33%</width>
+
+                            <include content="Dialog_Outline_InnerBox">
+                                <top>-20</top>
+                                <bottom>-20</bottom>
+                                <right>20</right>
+                                <left>20</left>
+                            </include>
+
+                            <control type="group">
+                                <left>40</left>
+                                <right>40</right>
+                                <include content="Settings_Label">
+                                    <param name="id">22</param>
+                                    <param name="control">label</param>
+                                    <description>channel options Header</description>
+                                    <top>-40</top>
+                                    <height>10</height>
+                                    <align>center</align>
+                                </include>
+                                <include content="List_DialogSelect">
+                                    <param name="id">12</param>
+                                    <param name="itemlayout_include">Layout_ChannelManager</param>
+                                    <param name="item_height">80</param>
+                                    <param name="detailed">false</param>
+                                    <pagecontrol>63</pagecontrol>
+                                    <onright>63</onright>
+                                    <onleft>62</onleft>
+                                    <onback>9000</onback>
+                                </include>
+
+                            </control>
+                            <include content="Dialog_Scrollbar">
+                                <param name="id">63</param>
+                                <onleft>12</onleft>
+                                <top>0</top>
+                                <bottom>0</bottom>
+                                <centerright>0</centerright>
+                                <onback>9000</onback>
+                                <texturesliderbackground colordiffuse="dialog_fg_12" border="4">scrollbar/scrollv_line.png</texturesliderbackground>
+                            </include>
+                        </control>
+                    </control>
+                </control>
+            </include>
+
+        </control>
+    </controls>
+</window>

@@ -1,0 +1,512 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<includes>
+
+    <variable name="Path_HolidayMode">
+        <value condition="Skin.HasSetting(HolidayMode.Australia)">summer</value>
+        <value>winter</value>
+    </variable>
+
+    <variable name="Path_Search_Autocomplete">
+        <value condition="Window.IsMedia">plugin://script.skinvariables/?info=get_container_labels$VAR[Action_View_ContainerID,&amp;containers=,]&amp;infolabel=label&amp;reload=$INFO[Container.NumItems]$INFO[Control.GetLabel(19).index(1),&amp;filter_key=label&amp;filter_value=,]</value>
+        <value condition="$EXP[Exp_AutoCompletion_IsEnabled] + $EXP[Path_SearchTerm_Exp]">plugin://plugin.program.autocompletion?info=autocomplete&amp;&amp;id=$VAR[Path_SearchTerm]</value>
+        <value>plugin://script.skinvariables/?info=get_split_string&amp;infolabel=Skin.String(SearchHistory)&amp;reload=$INFO[Skin.String(SearchHistory)]</value>
+    </variable>
+
+    <variable name="Path_SkinVariables_FilterPath">
+        <value condition="String.IsEqual(Window(Home).Property(Shortcuts.Category),Global)">&amp;exclude_key=sidemenu_guid&amp;exclude_value=guid</value>
+        <value condition="String.StartsWith(Window(Home).Property(Shortcuts.Category),guid-)">&amp;filter_key=sidemenu_guid&amp;filter_value=$INFO[Window(Home).Property(Shortcuts.Category)]&amp;filter_empty=true</value>
+    </variable>
+
+    <variable name="Path_SkinVariables_Home29303FilterPath">
+        <value condition="String.StartsWith(Window(Home).Property(Shortcuts.Category),guid-)">plugin://script.skinvariables/?info=get_shortcuts_node&amp;edit=False&amp;skin=$VAR[Path_SkinVariables_SkinFolder]$INFO[Window(Home).Property(SkinVariables.ShortcutsNode.Reload),&amp;reload=,]&amp;menu=sidemenu&amp;filter_key=guid&amp;filter_value=$INFO[Window(Home).Property(Shortcuts.Category)]</value>
+        <value>noop</value>
+    </variable>
+
+    <variable name="Path_SkinVariables_Home29313FilterPath">
+        <value condition="String.StartsWith(Container(22001).ListItem.Property(sidemenu_guid),guid-)">plugin://script.skinvariables/?info=get_shortcuts_node&amp;edit=False&amp;skin=$VAR[Path_SkinVariables_SkinFolder]$INFO[Window(Home).Property(SkinVariables.ShortcutsNode.Reload),&amp;reload=,]&amp;menu=sidemenu&amp;filter_key=guid&amp;filter_value=$INFO[Container(22001).ListItem.Property(sidemenu_guid)]</value>
+        <value>noop</value>
+    </variable>
+
+    <variable name="Path_SkinVariables_1304_EditMode">
+        <value condition="!String.EndsWith(Container(304).ListItem.Property(menu),-widgetsonly) + !String.EndsWith(Container(304).ListItem.Property(menu),-globalwidgets)">$INFO[Container(304).ListItem.Property(mode),mode=,]</value>
+    </variable>
+
+    <variable name="Path_SkinVariables_1304_EditGUID">
+        <value condition="String.IsEqual(Container(304).ListItem.Property(menu),sidemenu) + !String.EndsWith(Container(304).ListItem.Property(menu),-widgetsonly) + !String.EndsWith(Container(304).ListItem.Property(menu),-globalwidgets)">$INFO[Container(303).ListItem.Property(guid),guid=,]</value>
+        <value condition="!String.IsEqual(Container(304).ListItem.Property(menu),sidemenu) + !String.EndsWith(Container(304).ListItem.Property(menu),-widgetsonly) + !String.EndsWith(Container(304).ListItem.Property(menu),-globalwidgets)">$INFO[Container(300).ListItem.Property(guid),guid=,]</value>
+    </variable>
+
+    <variable name="Path_SkinVariables_SkinFolder">
+        <value condition="!String.IsEmpty(Skin.String(SkinVariables.SkinUser))">skin.arctic.fuse$INFO[Skin.String(SkinVariables.SkinUser),-,]</value>
+        <value>skin.arctic.fuse</value>
+    </variable>
+
+    <variable name="Path_SkinVariables_SkinUserSlug">
+        <value condition="!String.IsEmpty(Skin.String(SkinVariables.SkinUser))">$INFO[Skin.String(SkinVariables.SkinUser)]</value>
+        <value>defaultuser</value>
+    </variable>
+
+    <variable name="Path_Shortcut_UseCategory">
+        <value condition="String.StartsWith(Window(Home).Property(Shortcuts.Category),guid-)">&amp;&amp;sidemenu_guid::$INFO[Window(Home).Property(Shortcuts.Category)]</value>
+    </variable>
+
+    <variable name="Path_Shortcut_UseRawPath">
+        <value condition="String.IsEqual(Window(Home).Property(Shortcuts.EditMenu),menu=searchmenu)">&amp;&amp;grouping::grouping://shortcuts/search/&amp;&amp;use_rawpath::True</value>
+        <value condition="$EXP[Shortcuts_Dialog_Exp_IsWidgetMode]">&amp;&amp;use_rawpath::True</value>
+    </variable>
+
+    <variable name="Path_Shortcut_EditMenu">
+        <value condition="!String.IsEmpty(Window(Home).Property(Shortcuts.EditMenu))">$INFO[Window(Home).Property(Shortcuts.EditMenu)]</value>
+        <value>menu=sidemenu</value>
+    </variable>
+
+    <variable name="Path_Shortcut_Hub_Prefix">
+        <value condition="String.IsEqual(Container(22001).ListItem.Property(path),ActivateWindow(Home))">home</value>
+        <value condition="String.IsEqual(Container(22001).ListItem.Property(path),ActivateWindow(1101))">1101</value>
+        <value condition="String.IsEqual(Container(22001).ListItem.Property(path),ActivateWindow(1102))">1102</value>
+        <value condition="String.IsEqual(Container(22001).ListItem.Property(path),ActivateWindow(1103))">1103</value>
+        <value condition="String.IsEqual(Container(22001).ListItem.Property(path),ActivateWindow(1104))">1104</value>
+        <value condition="String.IsEqual(Container(22001).ListItem.Property(path),ActivateWindow(1106))">1106</value>
+        <value condition="String.IsEqual(Container(22001).ListItem.Property(path),ActivateWindow(1107))">1107</value>
+        <value condition="String.IsEqual(Container(22001).ListItem.Property(path),ActivateWindow(1108))">1108</value>
+        <value condition="String.IsEqual(Container(22001).ListItem.Property(path),ActivateWindow(1109))">1109</value>
+    </variable>
+
+    <variable name="Path_SearchFilter_Node">
+        <value condition="[String.IsEqual(Window.Property(SearchDiscover.FilterLabel),Genre) + String.IsEmpty(Window.Property(SearchDiscover.GenreLabel))] | [String.IsEqual(Window.Property(SearchDiscover.FilterLabel),Studio) + String.IsEmpty(Window.Property(SearchDiscover.StudioLabel))] | [String.IsEqual(Window.Property(SearchDiscover.FilterLabel),Director) + String.IsEmpty(Window.Property(SearchDiscover.DirectorLabel))]">plugin://script.skinvariables/?info=get_container_labels&amp;containers=52&amp;infolabel=$INFO[Window.Property(SearchDiscover.FilterLabel)]&amp;numitems=$INFO[Container(52).NumItems]</value>
+        <value>plugin://script.skinvariables/?info=get_container_labels&amp;containers=52&amp;infolabel=$INFO[Window.Property(SearchDiscover.FilterLabel)]&amp;numitems=$INFO[Container(52).NumItems]</value>
+    </variable>
+
+    <variable name="Path_Spotlight_Default_ViewContainer">
+        <value condition="!String.IsEmpty(Container(300).ListItem.Property(spotlight_path))">311</value>
+        <value condition="Window.IsVisible(Home) + !String.IsEmpty(Container(303).ListItem.Property(spotlight_path))">311</value>
+        <value condition="Window.IsVisible(Home) + !String.IsEmpty(Skin.String(Hub.Home.Spotlight.Path))">311</value>
+        <value condition="Window.IsVisible(1101) + !String.IsEmpty(Skin.String(Hub.1101.Spotlight.Path))">311</value>
+        <value condition="Window.IsVisible(1102) + !String.IsEmpty(Skin.String(Hub.1102.Spotlight.Path))">311</value>
+        <value condition="Window.IsVisible(1103) + !String.IsEmpty(Skin.String(Hub.1103.Spotlight.Path))">311</value>
+        <value condition="Window.IsVisible(1104) + !String.IsEmpty(Skin.String(Hub.1104.Spotlight.Path))">311</value>
+        <value condition="Window.IsVisible(1106) + !String.IsEmpty(Skin.String(Hub.1106.Spotlight.Path))">311</value>
+        <value condition="Window.IsVisible(1107) + !String.IsEmpty(Skin.String(Hub.1107.Spotlight.Path))">311</value>
+        <value condition="Window.IsVisible(1108) + !String.IsEmpty(Skin.String(Hub.1108.Spotlight.Path))">311</value>
+        <value condition="Window.IsVisible(1109) + !String.IsEmpty(Skin.String(Hub.1109.Spotlight.Path))">311</value>
+        <value>300</value>
+    </variable>
+
+    <variable name="Path_Spotlight_SlideShow_Content">
+        <value condition="Window.IsVisible(Home) + !String.IsEmpty(Skin.String(Hub.Home.Spotlight.Fallback))">$INFO[Skin.String(Hub.Home.Spotlight.Fallback)]</value>
+        <value condition="Window.IsVisible(1101) + !String.IsEmpty(Skin.String(Hub.1101.Spotlight.Fallback))">$INFO[Skin.String(Hub.1101.Spotlight.Fallback)]</value>
+        <value condition="Window.IsVisible(1102) + !String.IsEmpty(Skin.String(Hub.1102.Spotlight.Fallback))">$INFO[Skin.String(Hub.1102.Spotlight.Fallback)]</value>
+        <value condition="Window.IsVisible(1103) + !String.IsEmpty(Skin.String(Hub.1103.Spotlight.Fallback))">$INFO[Skin.String(Hub.1103.Spotlight.Fallback)]</value>
+        <value condition="Window.IsVisible(1104) + !String.IsEmpty(Skin.String(Hub.1104.Spotlight.Fallback))">$INFO[Skin.String(Hub.1104.Spotlight.Fallback)]</value>
+        <value condition="Window.IsVisible(1106) + !String.IsEmpty(Skin.String(Hub.1106.Spotlight.Fallback))">$INFO[Skin.String(Hub.1106.Spotlight.Fallback)]</value>
+        <value condition="Window.IsVisible(1107) + !String.IsEmpty(Skin.String(Hub.1107.Spotlight.Fallback))">$INFO[Skin.String(Hub.1107.Spotlight.Fallback)]</value>
+        <value condition="Window.IsVisible(1108) + !String.IsEmpty(Skin.String(Hub.1108.Spotlight.Fallback))">$INFO[Skin.String(Hub.1108.Spotlight.Fallback)]</value>
+        <value condition="Window.IsVisible(1109) + !String.IsEmpty(Skin.String(Hub.1109.Spotlight.Fallback))">$INFO[Skin.String(Hub.1109.Spotlight.Fallback)]</value>
+        <value condition="!String.IsEmpty(Weather.FanartCode) + Weather.IsFetched">resource://resource.images.weatherfanart.multi/$INFO[Weather.FanartCode]/</value>
+        <value>$VAR[Image_StartUp]</value>
+    </variable>
+
+    <variable name="Path_Spotlight_Fallback_Content">
+        <value condition="Window.IsVisible(Home) + !String.IsEmpty(Skin.String(Hub.Home.Spotlight.Path))">$INFO[Skin.String(Hub.Home.Spotlight.Path)]</value>
+        <value condition="Window.IsVisible(1101) + !String.IsEmpty(Skin.String(Hub.1101.Spotlight.Path))">$INFO[Skin.String(Hub.1101.Spotlight.Path)]</value>
+        <value condition="Window.IsVisible(1102) + !String.IsEmpty(Skin.String(Hub.1102.Spotlight.Path))">$INFO[Skin.String(Hub.1102.Spotlight.Path)]</value>
+        <value condition="Window.IsVisible(1103) + !String.IsEmpty(Skin.String(Hub.1103.Spotlight.Path))">$INFO[Skin.String(Hub.1103.Spotlight.Path)]</value>
+        <value condition="Window.IsVisible(1104) + !String.IsEmpty(Skin.String(Hub.1104.Spotlight.Path))">$INFO[Skin.String(Hub.1104.Spotlight.Path)]</value>
+        <value condition="Window.IsVisible(1106) + !String.IsEmpty(Skin.String(Hub.1106.Spotlight.Path))">$INFO[Skin.String(Hub.1106.Spotlight.Path)]</value>
+        <value condition="Window.IsVisible(1107) + !String.IsEmpty(Skin.String(Hub.1107.Spotlight.Path))">$INFO[Skin.String(Hub.1107.Spotlight.Path)]</value>
+        <value condition="Window.IsVisible(1108) + !String.IsEmpty(Skin.String(Hub.1108.Spotlight.Path))">$INFO[Skin.String(Hub.1108.Spotlight.Path)]</value>
+        <value condition="Window.IsVisible(1109) + !String.IsEmpty(Skin.String(Hub.1109.Spotlight.Path))">$INFO[Skin.String(Hub.1109.Spotlight.Path)]</value>
+    </variable>
+
+    <variable name="Path_Spotlight_Fallback_Target">
+        <value condition="Window.IsVisible(Home) + !String.IsEmpty(Skin.String(Hub.Home.Spotlight.Target))">$INFO[Skin.String(Hub.Home.Spotlight.Target)]</value>
+        <value condition="Window.IsVisible(1101) + !String.IsEmpty(Skin.String(Hub.1101.Spotlight.Target))">$INFO[Skin.String(Hub.1101.Spotlight.Target)]</value>
+        <value condition="Window.IsVisible(1102) + !String.IsEmpty(Skin.String(Hub.1102.Spotlight.Target))">$INFO[Skin.String(Hub.1102.Spotlight.Target)]</value>
+        <value condition="Window.IsVisible(1103) + !String.IsEmpty(Skin.String(Hub.1103.Spotlight.Target))">$INFO[Skin.String(Hub.1103.Spotlight.Target)]</value>
+        <value condition="Window.IsVisible(1104) + !String.IsEmpty(Skin.String(Hub.1104.Spotlight.Target))">$INFO[Skin.String(Hub.1104.Spotlight.Target)]</value>
+        <value condition="Window.IsVisible(1106) + !String.IsEmpty(Skin.String(Hub.1106.Spotlight.Target))">$INFO[Skin.String(Hub.1106.Spotlight.Target)]</value>
+        <value condition="Window.IsVisible(1107) + !String.IsEmpty(Skin.String(Hub.1107.Spotlight.Target))">$INFO[Skin.String(Hub.1107.Spotlight.Target)]</value>
+        <value condition="Window.IsVisible(1108) + !String.IsEmpty(Skin.String(Hub.1108.Spotlight.Target))">$INFO[Skin.String(Hub.1108.Spotlight.Target)]</value>
+        <value condition="Window.IsVisible(1109) + !String.IsEmpty(Skin.String(Hub.1109.Spotlight.Target))">$INFO[Skin.String(Hub.1109.Spotlight.Target)]</value>
+        <value>videos</value>
+    </variable>
+
+    <variable name="Path_Spotlight_Target">
+        <value condition="!String.IsEmpty(Container(300).ListItem.Property(spotlight_path)) + !String.IsEmpty(Container(300).ListItem.Property(spotlight_target))">$INFO[Container(300).ListItem.Property(spotlight_target)]</value>
+        <value condition="!String.IsEmpty(Container(303).ListItem.Property(spotlight_path)) + !String.IsEmpty(Container(303).ListItem.Property(spotlight_target))">$INFO[Container(303).ListItem.Property(spotlight_target)]</value>
+        <value>$VAR[Path_Spotlight_Fallback_Target]</value>
+    </variable>
+
+    <variable name="Path_Spotlight_Fallback_SortBy">
+        <value condition="Window.IsVisible(Home) + !String.IsEmpty(Skin.String(Hub.Home.Spotlight.SortBy))">$INFO[Skin.String(Hub.Home.Spotlight.SortBy)]</value>
+        <value condition="Window.IsVisible(1101) + !String.IsEmpty(Skin.String(Hub.1101.Spotlight.SortBy))">$INFO[Skin.String(Hub.1101.Spotlight.SortBy)]</value>
+        <value condition="Window.IsVisible(1102) + !String.IsEmpty(Skin.String(Hub.1102.Spotlight.SortBy))">$INFO[Skin.String(Hub.1102.Spotlight.SortBy)]</value>
+        <value condition="Window.IsVisible(1103) + !String.IsEmpty(Skin.String(Hub.1103.Spotlight.SortBy))">$INFO[Skin.String(Hub.1103.Spotlight.SortBy)]</value>
+        <value condition="Window.IsVisible(1104) + !String.IsEmpty(Skin.String(Hub.1104.Spotlight.SortBy))">$INFO[Skin.String(Hub.1104.Spotlight.SortBy)]</value>
+        <value condition="Window.IsVisible(1106) + !String.IsEmpty(Skin.String(Hub.1106.Spotlight.SortBy))">$INFO[Skin.String(Hub.1106.Spotlight.SortBy)]</value>
+        <value condition="Window.IsVisible(1107) + !String.IsEmpty(Skin.String(Hub.1107.Spotlight.SortBy))">$INFO[Skin.String(Hub.1107.Spotlight.SortBy)]</value>
+        <value condition="Window.IsVisible(1108) + !String.IsEmpty(Skin.String(Hub.1108.Spotlight.SortBy))">$INFO[Skin.String(Hub.1108.Spotlight.SortBy)]</value>
+        <value condition="Window.IsVisible(1109) + !String.IsEmpty(Skin.String(Hub.1109.Spotlight.SortBy))">$INFO[Skin.String(Hub.1109.Spotlight.SortBy)]</value>
+        <value>random</value>
+    </variable>
+
+    <variable name="Path_DiscoverWidgets_Base">
+        <value>plugin://plugin.video.themoviedb.helper/?info=discover&amp;with_separator=AND&amp;with_id=True$VAR[Path_Param_Widget]$VAR[Path_SearchTerm,&amp;with_text_query=,]$INFO[Window.Property(SearchDiscover.ProviderID),&amp;with_watch_providers=,]$INFO[Window.Property(SearchDiscover.CastID),&amp;with_cast=,]$INFO[Window.Property(SearchDiscover.CrewID),&amp;with_crew=,]$INFO[Window.Property(SearchDiscover.PeopleID),&amp;with_people=,]$INFO[Window.Property(SearchDiscover.KeywordID),&amp;with_keywords=,]$VAR[Path_DiscoverWidgets_VoteLow,&amp;vote_count.gte=,]$VAR[Path_DiscoverWidgets_VoteHigh,&amp;vote_count.lte=,]$VAR[Path_DiscoverWidgets_RatingLow,&amp;vote_average.gte=,]$VAR[Path_DiscoverWidgets_RatingHigh,&amp;vote_average.lte=,]</value>
+    </variable>
+
+    <variable name="Path_DiscoverWidgets_YearLow">
+        <value condition="!String.IsEmpty(Window.Property(SearchDiscover.YearLow))">$INFO[Window.Property(SearchDiscover.YearLow)]</value>
+    </variable>
+
+    <variable name="Path_DiscoverWidgets_YearHigh">
+        <value condition="!String.IsEmpty(Window.Property(SearchDiscover.YearHigh))">$INFO[Window.Property(SearchDiscover.YearHigh)]</value>
+    </variable>
+
+    <variable name="Path_DiscoverWidgets_VoteLow">
+        <value condition="!String.IsEmpty(Skin.String(SearchDiscover.VoteLow))">$INFO[Skin.String(SearchDiscover.VoteLow)]</value>
+    </variable>
+
+    <variable name="Path_DiscoverWidgets_VoteHigh">
+        <value condition="!String.IsEmpty(Skin.String(SearchDiscover.VoteHigh))">$INFO[Skin.String(SearchDiscover.VoteHigh)]</value>
+    </variable>
+
+    <variable name="Path_DiscoverWidgets_RatingLow">
+        <value condition="!String.IsEmpty(Window.Property(SearchDiscover.RatingLow))">$INFO[Window.Property(SearchDiscover.RatingLow)]</value>
+    </variable>
+
+    <variable name="Path_DiscoverWidgets_RatingHigh">
+        <value condition="!String.IsEmpty(Window.Property(SearchDiscover.RatingHigh))">$INFO[Window.Property(SearchDiscover.RatingHigh)]</value>
+    </variable>
+
+    <variable name="Path_DiscoverWidgets_FilmSort">
+        <value condition="!String.IsEmpty(Window.Property(SearchDiscover.FilmSort))">$INFO[Window.Property(SearchDiscover.FilmSort)]</value>
+        <value>popularity.desc</value>
+    </variable>
+
+    <variable name="Path_DiscoverWidgets_ShowSort">
+        <value condition="!String.IsEmpty(Window.Property(SearchDiscover.ShowSort))">$INFO[Window.Property(SearchDiscover.ShowSort)]</value>
+        <value>popularity.desc</value>
+    </variable>
+
+    <variable name="Path_DiscoverWidgets_JoinSort">
+        <value condition="String.IsEqual(Window.Property(SearchDiscover.FilmSort),revenue.desc)">revenue</value>
+        <value condition="String.IsEqual(Window.Property(SearchDiscover.FilmSort),vote_average.desc)">rating</value>
+        <value condition="String.IsEqual(Window.Property(SearchDiscover.FilmSort),vote_count.desc)">votes</value>
+        <value>popularity</value>
+    </variable>
+
+    <variable name="Path_DiscoverWidgets_SortBy">
+        <value condition="String.IsEmpty(Window.Property(Discover.TMDb)) + !String.IsEmpty(Window.Property(SearchDiscover.SortBy))">$INFO[Window.Property(SearchDiscover.SortBy)]</value>
+        <value condition="String.IsEmpty(Window.Property(Discover.TMDb))">title</value>
+    </variable>
+    <variable name="Path_DiscoverWidgets_SortOrder">
+        <value condition="String.IsEmpty(Window.Property(Discover.TMDb))">$INFO[Window.Property(SearchDiscover.SortOrder)]</value>
+    </variable>
+    <variable name="Path_DiscoverWidgets_ItemLimit">
+        <value condition="String.IsEmpty(Window.Property(Discover.TMDb))">$INFO[Skin.String(SearchDiscover.ItemLimit)]</value>
+    </variable>
+
+    <variable name="Path_DiscoverWidgets_Join">
+        <value condition="!String.IsEmpty(Window.Property(Discover.TMDb))">plugin://script.skinvariables/?info=get_filter_dir&amp;library=video$VAR[Path_DiscoverWidgets_JoinSort,&amp;sort_by=,&amp;sort_how=desc]</value>
+        <value>plugin://script.skinvariables/?info=get_filter_dir&amp;library=video$VAR[Path_SearchTerm,&amp;filter_key__title=title&amp;filter_value__title=,]$INFO[Window.Property(SearchDiscover.GenreLabel),&amp;filter_key__genre=genre&amp;filter_value__genre=,]$INFO[Window.Property(SearchDiscover.StudioLabel),&amp;filter_key__studio=studio&amp;filter_value__studio=,]$INFO[Window.Property(SearchDiscover.DirectorLabel),&amp;filter_key__director=director&amp;filter_value__director=,]$INFO[Window.Property(SearchDiscover.WriterLabel),&amp;filter_key__writer=writer&amp;filter_value__writer=,]$INFO[Window.Property(SearchDiscover.CountryLabel),&amp;filter_key__country=country&amp;filter_value__country=,]$INFO[Window.Property(SearchDiscover.YearLow),&amp;filter_key__yearlow=year&amp;filter_operator__yearlow=ge&amp;filter_value__yearlow=,]$INFO[Window.Property(SearchDiscover.YearHigh),&amp;filter_key__yearhigh=year&amp;filter_operator__yearhigh=le&amp;filter_value__yearhigh=,]$INFO[Window.Property(SearchDiscover.RatingLow),&amp;filter_key__ratinglow=rating&amp;filter_operator__ratinglow=ge&amp;filter_value__ratinglow=,]$INFO[Window.Property(SearchDiscover.RatingHigh),&amp;filter_key__ratinghigh=rating&amp;filter_operator__ratinghigh=le&amp;filter_value__ratinghigh=,]</value>
+    </variable>
+
+    <variable name="Path_DiscoverWidgets_Film">
+        <value condition="!String.IsEmpty(Window.Property(Discover.TMDb))">$VAR[Path_DiscoverWidgets_Base,,&amp;tmdb_type=movie&amp;length=2]$VAR[Path_DiscoverWidgets_FilmSort,&amp;sort_by=,]$VAR[Path_DiscoverWidgets_YearLow,&amp;primary_release_date.gte=,]$VAR[Path_DiscoverWidgets_YearHigh,&amp;primary_release_date.lte=,]$INFO[Window.Property(SearchDiscover.FilmGenreID),&amp;with_genres=,]</value>
+        <value>videodb://movies/titles</value>
+    </variable>
+
+    <variable name="Path_DiscoverWidgets_Show">
+        <value condition="!String.IsEmpty(Window.Property(Discover.TMDb)) + String.IsEmpty(Window.Property(SearchDiscover.CastID)) + String.IsEmpty(Window.Property(SearchDiscover.CrewID))">$VAR[Path_DiscoverWidgets_Base,,&amp;tmdb_type=tv&amp;length=2]$VAR[Path_DiscoverWidgets_ShowSort,&amp;sort_by=,]$VAR[Path_DiscoverWidgets_YearLow,&amp;first_air_date.gte=,]$VAR[Path_DiscoverWidgets_YearHigh,&amp;first_air_date.lte=,]$INFO[Window.Property(SearchDiscover.ShowGenreID),&amp;with_genres=,]</value>
+        <value>videodb://tvshows/titles</value>
+    </variable>
+
+    <variable name="Path_PersonSearch">
+        <value condition="!String.IsEmpty(Control.GetLabel(8001).index(1))">plugin://plugin.video.themoviedb.helper/?info=search&amp;tmdb_type=person&amp;query=$INFO[Control.GetLabel(8001).index(1)]$VAR[Path_Param_Widget]</value>
+        <value>plugin://plugin.video.themoviedb.helper/?info=trending_week&amp;tmdb_type=person$VAR[Path_Param_Widget]</value>
+    </variable>
+
+    <variable name="Path_KeywordSearch">
+        <value condition="!String.IsEmpty(Control.GetLabel(8001).index(1))">plugin://plugin.video.themoviedb.helper/?info=search&amp;tmdb_type=keyword&amp;query=$INFO[Control.GetLabel(8001).index(1)]$VAR[Path_Param_Widget]</value>
+        <value>plugin://plugin.video.themoviedb.helper/?info=all_items&amp;tmdb_type=keyword$VAR[Path_Param_Widget]&amp;sort_by=random</value>
+    </variable>
+
+    <variable name="Path_SearchTerm">
+        <value condition="Window.IsVisible(1105) | Window.IsVisible(1185)">$INFO[Control.GetLabel(9099).index(1)]</value>
+        <value>$INFO[Control.GetLabel(19).index(1)]</value>
+    </variable>
+    <expression name="Path_SearchTerm_Exp">[[[Window.IsVisible(1105) | Window.IsVisible(1185)] + !String.IsEmpty(Control.GetLabel(9099).index(1))] | [Window.IsMedia + !String.IsEmpty(Control.GetLabel(19).index(1))]]</expression>
+
+    <variable name="Path_Search_Filter">
+        <value condition="!String.IsEmpty(Control.GetLabel(9003).index(1))">$INFO[Control.GetLabel(9003).index(1),&amp;filter_key=year&amp;filter_value=,]</value>
+        <value condition="!String.IsEmpty(Control.GetLabel(9004).index(1))">$INFO[Control.GetLabel(9004).index(1),&amp;filter_key=genre&amp;filter_value=,]</value>
+    </variable>
+
+    <variable name="Path_Discover_Content">
+        <value condition="String.IsEqual(Container(55).ListItemAbsolute(0).FolderPath,plugin://plugin.video.themoviedb.helper/?info=discover&amp;tmdb_type=movie&amp;with_id=True)">plugin://plugin.video.themoviedb.helper/?info=discover&amp;tmdb_type=movie&amp;with_id=True&amp;sort_by=popularity.desc</value>
+        <value condition="String.IsEqual(Container(55).ListItemAbsolute(0).FolderPath,plugin://plugin.video.themoviedb.helper/?info=discover&amp;tmdb_type=tv&amp;with_id=True)">plugin://plugin.video.themoviedb.helper/?info=discover&amp;tmdb_type=tv&amp;with_id=True&amp;sort_by=popularity.desc</value>
+        <value>$INFO[Container(55).ListItemAbsolute(0).FolderPath]</value>
+    </variable>
+
+    <variable name="Path_VideoOSD_TMDbType">
+        <value condition="VideoPlayer.Content(movies)">movie</value>
+        <value condition="VideoPlayer.Content(episodes)">tv</value>
+    </variable>
+
+    <variable name="Path_VideoOSD_TMDbQuery">
+        <value condition="VideoPlayer.Content(movies) + !String.IsEmpty(VideoPlayer.IMDBNumber) + String.StartsWith(VideoPlayer.IMDBNumber,tt)">$INFO[VideoPlayer.IMDBNumber,&amp;imdb_id=,]</value>
+
+        <value condition="VideoPlayer.Content(movies)">$INFO[Window(Home).Property(TMDbHelper.Player.TMDb_ID),&amp;tmdb_id=,]$INFO[Player.Title,&amp;query=,]$INFO[VideoPlayer.Year,&amp;year=,]</value>
+
+        <value condition="VideoPlayer.Content(episodes)">$INFO[Window(Home).Property(TMDbHelper.Player.TVShow.TMDb_ID),&amp;tmdb_id=,]$INFO[VideoPlayer.TVShowTitle,&amp;query=,]$INFO[VideoPlayer.Season,&amp;season=,]$INFO[VideoPlayer.Episode,&amp;episode=,]$INFO[VideoPlayer.Year,&amp;episode_year=,]</value>
+    </variable>
+
+    <variable name="Path_VideoOSD_PersonCredits">
+        <value condition="String.IsEmpty(Window.Property(TMDb_ID))">plugin://plugin.video.themoviedb.helper/</value>
+        <value condition="Skin.String(VideoOSD.PersonCredits.WidgetInfo,crew)">plugin://plugin.video.themoviedb.helper/?info=crew_in_both&amp;tmdb_type=person&amp;limit=50$INFO[Window.Property(TMDb_ID),&amp;tmdb_id=,]$VAR[Path_Param_Widget]</value>
+        <value condition="Skin.String(VideoOSD.PersonCredits.WidgetInfo,films)">plugin://plugin.video.themoviedb.helper/?info=stars_in_movies&amp;tmdb_type=person&amp;limit=50$INFO[Window.Property(TMDb_ID),&amp;tmdb_id=,]$VAR[Path_Param_VideoOSD_SortKey_MovieCredits]$VAR[Path_Param_Widget]</value>
+        <value condition="Skin.String(VideoOSD.PersonCredits.WidgetInfo,shows)">plugin://plugin.video.themoviedb.helper/?info=stars_in_tvshows&amp;tmdb_type=person&amp;limit=50$INFO[Window.Property(TMDb_ID),&amp;tmdb_id=,]$VAR[Path_Param_VideoOSD_SortKey_TVShowCredits]$VAR[Path_Param_Widget]</value>
+    </variable>
+
+    <variable name="Path_Param_VideoOSD_SortKey_MovieCredits">
+        <value condition="Skin.String(VideoOSD.PersonCredits.SortKey,popular)">&amp;sort_key=popularity</value>
+        <value condition="Skin.String(VideoOSD.PersonCredits.SortKey,rating)">&amp;sort_key=vote_average</value>
+        <value condition="Skin.String(VideoOSD.PersonCredits.SortKey,votes)">&amp;sort_key=vote_count</value>
+        <value condition="Skin.String(VideoOSD.PersonCredits.SortKey,date)">&amp;sort_key=release_date</value>
+    </variable>
+
+    <variable name="Path_Param_VideoOSD_SortKey_TVShowCredits">
+        <value condition="Skin.String(VideoOSD.PersonCredits.SortKey,popular)">&amp;sort_key=popularity</value>
+        <value condition="Skin.String(VideoOSD.PersonCredits.SortKey,rating)">&amp;sort_key=vote_average</value>
+        <value condition="Skin.String(VideoOSD.PersonCredits.SortKey,votes)">&amp;sort_key=vote_count</value>
+        <value condition="Skin.String(VideoOSD.PersonCredits.SortKey,date)">&amp;sort_key=first_air_date</value>
+    </variable>
+
+    <variable name="Path_Param_Widget">
+        <value>&amp;nextpage=false&amp;fanarttv=false&amp;cacheonly=true&amp;length=1</value>
+    </variable>
+
+    <variable name="Path_Param_SortKey_MovieCredits">
+        <value condition="Skin.String(VideoInfo.PersonCredits.SortKey,popular)">&amp;sort_key=popularity</value>
+        <value condition="Skin.String(VideoInfo.PersonCredits.SortKey,rating)">&amp;sort_key=vote_average</value>
+        <value condition="Skin.String(VideoInfo.PersonCredits.SortKey,votes)">&amp;sort_key=vote_count</value>
+        <value condition="Skin.String(VideoInfo.PersonCredits.SortKey,date)">&amp;sort_key=release_date</value>
+    </variable>
+
+    <variable name="Path_Param_SortKey_TVShowCredits">
+        <value condition="Skin.String(VideoInfo.PersonCredits.SortKey,popular)">&amp;sort_key=popularity</value>
+        <value condition="Skin.String(VideoInfo.PersonCredits.SortKey,rating)">&amp;sort_key=vote_average</value>
+        <value condition="Skin.String(VideoInfo.PersonCredits.SortKey,votes)">&amp;sort_key=vote_count</value>
+        <value condition="Skin.String(VideoInfo.PersonCredits.SortKey,date)">&amp;sort_key=first_air_date</value>
+    </variable>
+
+    <variable name="Path_Param_SortKey">
+        <value condition="String.IsEqual(Window.Property(Item_Type),type=tv)">$VAR[Path_Param_SortKey_TVShowCredits]</value>
+        <value>$VAR[Path_Param_SortKey_MovieCredits]</value>
+    </variable>
+
+    <variable name="Path_Param_Query">
+        <value condition="[String.IsEqual(Container(99950).ListItem.DBType,movie) | String.IsEqual(Container(99950).ListItem.DBType,tvshow)] + !String.IsEmpty(Container(99950).ListItem.Property(tmdb_id))">&amp;tmdb_id=$INFO[Container(99950).ListItem.Property(tmdb_id)]</value>
+        <value condition="[String.IsEqual(Container(99950).ListItem.DBType,season) | String.IsEqual(Container(99950).ListItem.DBType,episode)] + !String.IsEmpty(Container(99950).ListItem.Property(tvshow.tmdb_id))">&amp;tmdb_id=$INFO[Container(99950).ListItem.Property(tvshow.tmdb_id)]</value>
+        <value condition="[String.IsEqual(ListItem.DBType,movie) | String.IsEqual(ListItem.DBType,tvshow)] + !String.IsEmpty(ListItem.UniqueID(tmdb))">&amp;tmdb_id=$INFO[ListItem.UniqueID(tmdb)]</value>
+        <value condition="[String.IsEqual(ListItem.DBType,season) | String.IsEqual(ListItem.DBType,episode)] + !String.IsEmpty(ListItem.UniqueID(tvshow.tmdb))">&amp;tmdb_id=$INFO[ListItem.UniqueID(tvshow.tmdb)]</value>
+        <value condition="String.IsEqual(ListItem.DBType,movie) + !String.IsEmpty(ListItem.Property(imdb_id))">&amp;imdb_id=$INFO[ListItem.Property(imdb_id)]</value>
+        <value condition="String.IsEqual(ListItem.DBType,movie) + !String.IsEmpty(ListItem.IMDBNumber) + String.StartsWith(ListItem.IMDBNumber,tt)">&amp;imdb_id=$INFO[ListItem.IMDBNumber]</value>
+        <value condition="[String.IsEqual(ListItem.DBType,season) | String.IsEqual(ListItem.DBType,episode)] + !String.IsEmpty(ListItem.TvShowTitle)">&amp;query=$INFO[ListItem.TvShowTitle]$INFO[ListItem.Year,&amp;episode_year=,]</value>
+        <value condition="[String.IsEqual(ListItem.DBType,movie) | String.IsEqual(ListItem.DBType,season) | String.IsEqual(ListItem.DBType,episode)] + !String.IsEmpty(ListItem.Title)">&amp;query=$INFO[ListItem.Title]$INFO[ListItem.Year,&amp;year=,]</value>
+        <value condition="[String.IsEqual(ListItem.DBType,movie) | String.IsEqual(ListItem.DBType,season) | String.IsEqual(ListItem.DBType,episode)]">$INFO[ListItem.Label,&amp;query=,]</value>
+    </variable>
+
+    <variable name="Path_Param_Type">
+        <value condition="String.IsEqual(Container(99950).ListItem.DBType,movie)">type=movie</value>
+        <value condition="String.IsEqual(Container(99950).ListItem.DBType,tvshow) | String.IsEqual(Container(99950).ListItem.DBType,season) | String.IsEqual(Container(99950).ListItem.DBType,episode)">type=tv</value>
+        <value condition="String.IsEqual(ListItem.DBType,movie)">type=movie</value>
+        <value condition="String.IsEqual(ListItem.DBType,tvshow) | String.IsEqual(ListItem.DBType,season) | String.IsEqual(ListItem.DBType,episode)">type=tv</value>
+        <value condition="$EXP[Exp_IsPersonInfo]">type=person</value>
+    </variable>
+
+    <variable name="Path_Param_Number">
+        <value condition="String.IsEqual(ListItem.DBType,episode) + !String.IsEmpty(ListItem.Season) + !String.IsEmpty(ListItem.Episode)">&amp;season=$INFO[ListItem.Season]&amp;episode=$INFO[ListItem.Episode]</value>
+        <value condition="String.IsEqual(ListItem.DBType,season) + !String.IsEmpty(ListItem.Season)">&amp;season=$INFO[ListItem.Season]</value>
+    </variable>
+
+    <variable name="Path_OSD_Episodes">
+        <value condition="!Integer.IsEqual(VideoPlayer.PlaylistLength,1) + !Integer.IsEqual(VideoPlayer.PlaylistLength,0) + Integer.IsLess(VideoPlayer.PlaylistPosition,VideoPlayer.PlaylistLength)">playlistvideo://?reload=$INFO[VideoPlayer.Season,,_]$INFO[VideoPlayer.Episode]</value>
+        <value condition="VideoPlayer.Content(episodes) + !String.IsEmpty(VideoPlayer.TvShowDBID) + !String.IsEmpty(VideoPlayer.Season)">videodb://tvshows/titles/$INFO[VideoPlayer.TvShowDBID]/$INFO[VideoPlayer.Season]/?tvshowid=$INFO[VideoPlayer.TvShowDBID]</value>
+        <value condition="VideoPlayer.Content(episodes)">plugin://plugin.video.themoviedb.helper/?info=episodes&amp;type=tv$INFO[Window(Home).Property(TMDbHelper.Player.TVShow.TMDb_ID),&amp;tmdb_id=,]$INFO[VideoPlayer.TVShowTitle,&amp;query=,]$INFO[VideoPlayer.Season,&amp;season=,]$VAR[Path_Param_Widget]</value>
+    </variable>
+
+    <variable name="Path_OSD_Cast">
+        <value condition="VideoPlayer.Content(movies) + !String.IsEmpty(VideoPlayer.IMDBNumber) + String.StartsWith(VideoPlayer.IMDBNumber,tt)">plugin://plugin.video.themoviedb.helper/?info=$INFO[Skin.String(VideoOSD.PersonCredits.CastCrew)]&amp;type=movie$INFO[VideoPlayer.IMDBNumber,&amp;imdb_id=,]</value>
+
+        <value condition="VideoPlayer.Content(movies)">plugin://plugin.video.themoviedb.helper/?info=$INFO[Skin.String(VideoOSD.PersonCredits.CastCrew)]&amp;type=movie$INFO[Window(Home).Property(TMDbHelper.Player.TMDb_ID),&amp;tmdb_id=,]$INFO[Player.Title,&amp;query=,]$INFO[VideoPlayer.Year,&amp;year=,]</value>
+
+        <value condition="VideoPlayer.Content(episodes)">plugin://plugin.video.themoviedb.helper/?info=$INFO[Skin.String(VideoOSD.PersonCredits.CastCrew)]&amp;type=tv$INFO[Window(Home).Property(TMDbHelper.Player.TVShow.TMDb_ID),&amp;tmdb_id=,]$INFO[VideoPlayer.TVShowTitle,&amp;query=,]$INFO[VideoPlayer.Season,&amp;season=,]$INFO[VideoPlayer.Episode,&amp;episode=,]$INFO[VideoPlayer.Year,&amp;episode_year=,]</value>
+    </variable>
+
+    <variable name="Path_OSD_NextRecommendation">
+        <value condition="VideoPlayer.Content(movies) + !String.IsEmpty(VideoPlayer.IMDBNumber) + String.StartsWith(VideoPlayer.IMDBNumber,tt)">plugin://plugin.video.themoviedb.helper/?info=next_recommendation&amp;type=movie$INFO[VideoPlayer.IMDBNumber,&amp;imdb_id=,]</value>
+        <value condition="VideoPlayer.Content(movies)">plugin://plugin.video.themoviedb.helper/?info=next_recommendation&amp;type=movie$INFO[Window(Home).Property(TMDbHelper.Player.TMDb_ID),&amp;tmdb_id=,]$INFO[Player.Title,&amp;query=,]$INFO[VideoPlayer.Year,&amp;year=,]</value>
+        <value condition="VideoPlayer.Content(episodes)">plugin://plugin.video.themoviedb.helper/?info=next_recommendation&amp;type=tv$INFO[Window(Home).Property(TMDbHelper.Player.TVShow.TMDb_ID),&amp;tmdb_id=,]$INFO[VideoPlayer.TVShowTitle,&amp;query=,]$INFO[VideoPlayer.Season,&amp;season=,]$INFO[VideoPlayer.Episode,&amp;episode=,]$INFO[VideoPlayer.Year,&amp;episode_year=,]</value>
+    </variable>
+
+    <variable name="Path_FromStudio">
+        <value condition="!String.IsEmpty(Container(99950).ListItem.Property(Network.1.TMDb_ID))">$INFO[Container(99950).ListItem.Property(Network.1.TMDb_ID),&amp;type=tv&amp;with_networks=,&amp;with_id=True]</value>
+        <value condition="!String.IsEmpty(Container(99950).ListItem.Property(Network.2.TMDb_ID))">$INFO[Container(99950).ListItem.Property(Network.2.TMDb_ID),&amp;type=tv&amp;with_networks=,&amp;with_id=True]</value>
+        <value condition="!String.IsEmpty(Container(99950).ListItem.Property(Network.3.TMDb_ID))">$INFO[Container(99950).ListItem.Property(Network.3.TMDb_ID),&amp;type=tv&amp;with_networks=,&amp;with_id=True]</value>
+        <value condition="!String.IsEmpty(Container(99950).ListItem.Property(Studio.1.TMDb_ID))">$INFO[Container(99950).ListItem.Property(Studio.1.TMDb_ID),&amp;type=movie&amp;with_companies=,&amp;with_id=True]</value>
+        <value condition="!String.IsEmpty(Container(99950).ListItem.Property(Studio.2.TMDb_ID))">$INFO[Container(99950).ListItem.Property(Studio.2.TMDb_ID),&amp;type=movie&amp;with_companies=,&amp;with_id=True]</value>
+        <value condition="!String.IsEmpty(Container(99950).ListItem.Property(Studio.3.TMDb_ID))">$INFO[Container(99950).ListItem.Property(Studio.3.TMDb_ID),&amp;type=movie&amp;with_companies=,&amp;with_id=True]</value>
+    </variable>
+
+    <variable name="Path_FromCreator">
+        <value condition="!String.IsEmpty(Container(99950).ListItem.Property(Creator.1.TMDb_ID))">$INFO[Container(99950).ListItem.Property(Creator.1.TMDb_ID),&amp;tmdb_id=,]</value>
+        <value condition="!String.IsEmpty(Container(99950).ListItem.Property(Creator.2.TMDb_ID))">$INFO[Container(99950).ListItem.Property(Creator.2.TMDb_ID),&amp;tmdb_id=,]</value>
+        <value condition="!String.IsEmpty(Container(99950).ListItem.Property(Creator.3.TMDb_ID))">$INFO[Container(99950).ListItem.Property(Creator.3.TMDb_ID),&amp;tmdb_id=,]</value>
+    </variable>
+
+    <variable name="Path_FromWriter">
+        <value condition="!String.IsEmpty(Container(99950).ListItem.Property(Writer.1.Name)) + !String.IsEmpty(Container(99950).ListItem.Property(Writer.1.job)) + String.IsEqual(Container(99950).ListItem.Property(Writer.1.job),Screenplay)">$INFO[Container(99950).ListItem.Property(Writer.1.TMDb_ID),&amp;tmdb_id=,]</value>
+        <value condition="!String.IsEmpty(Container(99950).ListItem.Property(Writer.2.Name)) + !String.IsEmpty(Container(99950).ListItem.Property(Writer.2.job)) + String.IsEqual(Container(99950).ListItem.Property(Writer.2.job),Screenplay)">$INFO[Container(99950).ListItem.Property(Writer.2.TMDb_ID),&amp;tmdb_id=,]</value>
+        <value condition="!String.IsEmpty(Container(99950).ListItem.Property(Writer.3.Name)) + !String.IsEmpty(Container(99950).ListItem.Property(Writer.3.job)) + String.IsEqual(Container(99950).ListItem.Property(Writer.3.job),Screenplay)">$INFO[Container(99950).ListItem.Property(Writer.3.TMDb_ID),&amp;tmdb_id=,]</value>
+        <value condition="!String.IsEmpty(Container(99950).ListItem.Property(Writer.4.Name)) + !String.IsEmpty(Container(99950).ListItem.Property(Writer.4.job)) + String.IsEqual(Container(99950).ListItem.Property(Writer.4.job),Screenplay)">$INFO[Container(99950).ListItem.Property(Writer.4.TMDb_ID),&amp;tmdb_id=,]</value>
+        <value condition="!String.IsEmpty(Container(99950).ListItem.Property(Writer.5.Name)) + !String.IsEmpty(Container(99950).ListItem.Property(Writer.5.job)) + String.IsEqual(Container(99950).ListItem.Property(Writer.5.job),Screenplay)">$INFO[Container(99950).ListItem.Property(Writer.5.TMDb_ID),&amp;tmdb_id=,]</value>
+        <value condition="!String.IsEmpty(Container(99950).ListItem.Property(Writer.6.Name)) + !String.IsEmpty(Container(99950).ListItem.Property(Writer.6.job)) + String.IsEqual(Container(99950).ListItem.Property(Writer.6.job),Screenplay)">$INFO[Container(99950).ListItem.Property(Writer.6.TMDb_ID),&amp;tmdb_id=,]</value>
+        <value condition="!String.IsEmpty(Container(99950).ListItem.Property(Writer.7.Name)) + !String.IsEmpty(Container(99950).ListItem.Property(Writer.7.job)) + String.IsEqual(Container(99950).ListItem.Property(Writer.7.job),Screenplay)">$INFO[Container(99950).ListItem.Property(Writer.7.TMDb_ID),&amp;tmdb_id=,]</value>
+        <value condition="!String.IsEmpty(Container(99950).ListItem.Property(Writer.8.Name)) + !String.IsEmpty(Container(99950).ListItem.Property(Writer.8.job)) + String.IsEqual(Container(99950).ListItem.Property(Writer.8.job),Screenplay)">$INFO[Container(99950).ListItem.Property(Writer.8.TMDb_ID),&amp;tmdb_id=,]</value>
+        <value condition="!String.IsEmpty(Container(99950).ListItem.Property(Writer.9.Name)) + !String.IsEmpty(Container(99950).ListItem.Property(Writer.9.job)) + String.IsEqual(Container(99950).ListItem.Property(Writer.9.job),Screenplay)">$INFO[Container(99950).ListItem.Property(Writer.9.TMDb_ID),&amp;tmdb_id=,]</value>
+        <!-- <value condition="!String.IsEmpty(Container(99950).ListItem.Writer)">$INFO[Container(99950).ListItem.Writer,&amp;query=,]</value>
+        <value>$INFO[ListItem.Writer,&amp;query=,]</value> -->
+    </variable>
+
+
+    <variable name="Path_FromDirector">
+        <value condition="!String.IsEmpty(Container(99950).ListItem.Property(Director.1.Name)) + !String.IsEmpty(Container(99950).ListItem.Property(Director.1.job)) + String.IsEqual(Container(99950).ListItem.Property(Director.1.job),Director)">$INFO[Container(99950).ListItem.Property(Director.1.TMDb_ID),&amp;tmdb_id=,]</value>
+        <value condition="!String.IsEmpty(Container(99950).ListItem.Property(Director.2.Name)) + !String.IsEmpty(Container(99950).ListItem.Property(Director.2.job)) + String.IsEqual(Container(99950).ListItem.Property(Director.2.job),Director)">$INFO[Container(99950).ListItem.Property(Director.2.TMDb_ID),&amp;tmdb_id=,]</value>
+        <value condition="!String.IsEmpty(Container(99950).ListItem.Property(Director.3.Name)) + !String.IsEmpty(Container(99950).ListItem.Property(Director.3.job)) + String.IsEqual(Container(99950).ListItem.Property(Director.3.job),Director)">$INFO[Container(99950).ListItem.Property(Director.3.TMDb_ID),&amp;tmdb_id=,]</value>
+        <value condition="!String.IsEmpty(Container(99950).ListItem.Property(Director.4.Name)) + !String.IsEmpty(Container(99950).ListItem.Property(Director.4.job)) + String.IsEqual(Container(99950).ListItem.Property(Director.4.job),Director)">$INFO[Container(99950).ListItem.Property(Director.4.TMDb_ID),&amp;tmdb_id=,]</value>
+        <value condition="!String.IsEmpty(Container(99950).ListItem.Property(Director.5.Name)) + !String.IsEmpty(Container(99950).ListItem.Property(Director.5.job)) + String.IsEqual(Container(99950).ListItem.Property(Director.5.job),Director)">$INFO[Container(99950).ListItem.Property(Director.5.TMDb_ID),&amp;tmdb_id=,]</value>
+        <value condition="!String.IsEmpty(Container(99950).ListItem.Property(Director.6.Name)) + !String.IsEmpty(Container(99950).ListItem.Property(Director.6.job)) + String.IsEqual(Container(99950).ListItem.Property(Director.6.job),Director)">$INFO[Container(99950).ListItem.Property(Director.6.TMDb_ID),&amp;tmdb_id=,]</value>
+        <value condition="!String.IsEmpty(Container(99950).ListItem.Property(Director.7.Name)) + !String.IsEmpty(Container(99950).ListItem.Property(Director.7.job)) + String.IsEqual(Container(99950).ListItem.Property(Director.7.job),Director)">$INFO[Container(99950).ListItem.Property(Director.7.TMDb_ID),&amp;tmdb_id=,]</value>
+        <value condition="!String.IsEmpty(Container(99950).ListItem.Property(Director.8.Name)) + !String.IsEmpty(Container(99950).ListItem.Property(Director.8.job)) + String.IsEqual(Container(99950).ListItem.Property(Director.8.job),Director)">$INFO[Container(99950).ListItem.Property(Director.8.TMDb_ID),&amp;tmdb_id=,]</value>
+        <value condition="!String.IsEmpty(Container(99950).ListItem.Property(Director.9.Name)) + !String.IsEmpty(Container(99950).ListItem.Property(Director.9.job)) + String.IsEqual(Container(99950).ListItem.Property(Director.9.job),Director)">$INFO[Container(99950).ListItem.Property(Director.9.TMDb_ID),&amp;tmdb_id=,]</value>
+        <!-- <value condition="!String.IsEmpty(Container(99950).ListItem.Director)">$INFO[Container(99950).ListItem.Director,&amp;query=,]</value>
+        <value>$INFO[ListItem.Director,&amp;query=,]</value> -->
+    </variable>
+
+    <variable name="Path_Encoded_AlbumArtist">
+        <value condition="!String.IsEmpty(Window.Property(Encoded.ListItem.AlbumArtist))">$INFO[Window.Property(Encoded.ListItem.AlbumArtist)]</value>
+        <value>$INFO[ListItem.AlbumArtist]</value>
+    </variable>
+
+    <variable name="Path_Encoded_Artist">
+        <value condition="!String.IsEmpty(Window.Property(Encoded.ListItem.Artist))">$INFO[Window.Property(Encoded.ListItem.Artist)]</value>
+        <value>$INFO[ListItem.Artist]</value>
+    </variable>
+
+    <variable name="Path_Encoded_Album">
+        <value condition="!String.IsEmpty(Window.Property(Encoded.ListItem.Album))">$INFO[Window.Property(Encoded.ListItem.Album)]</value>
+        <value>$INFO[ListItem.Album]</value>
+    </variable>
+
+    <variable name="Path_Encoded_Title">
+        <value condition="!String.IsEmpty(Window.Property(Encoded.ListItem.Title))">$INFO[Window.Property(Encoded.ListItem.Title)]</value>
+        <value>$INFO[ListItem.Title]</value>
+    </variable>
+
+    <variable name="Path_Encoded_TVShowTitle">
+        <value condition="!String.IsEmpty(Window.Property(Encoded.ListItem.TVShowTitle))">$INFO[Window.Property(Encoded.ListItem.TVShowTitle)]</value>
+        <value>$INFO[ListItem.TVShowTitle]</value>
+    </variable>
+
+    <variable name="Path_Encoded_Label">
+        <value condition="!String.IsEmpty(Window.Property(Encoded.ListItem.Label))">$INFO[Window.Property(Encoded.ListItem.Label)]</value>
+        <value>$INFO[ListItem.Label]</value>
+    </variable>
+
+    <variable name="Path_Encoded_Set">
+        <value condition="!String.IsEmpty(Window.Property(Encoded.ListItem.Set))">$INFO[Window.Property(Encoded.ListItem.Set)]</value>
+        <value>$INFO[ListItem.Set]</value>
+    </variable>
+
+    <variable name="Path_Youtube_Query">
+        <value condition="[String.IsEqual(ListItem.DBType,set) | ListItem.IsCollection] + !String.IsEmpty(ListItem.Set)">$VAR[Path_Encoded_Set]</value>
+        <value condition="String.IsEqual(ListItem.DBType,movie) + !String.IsEmpty(ListItem.Title)">$VAR[Path_Encoded_Title]$INFO[ListItem.Year, ,] Movie</value>
+        <value condition="String.IsEqual(ListItem.DBType,tvshow) + !String.IsEmpty(ListItem.Title)">$VAR[Path_Encoded_Title]$INFO[ListItem.Year, ,]</value>
+        <value condition="String.IsEqual(ListItem.DBType,season) + !String.IsEmpty(ListItem.TVShowTitle)">$VAR[Path_Encoded_TVShowTitle]$INFO[ListItem.Season, Season ,]</value>
+        <value condition="String.IsEqual(ListItem.DBType,episode) + !String.IsEmpty(ListItem.Title)">$VAR[Path_Encoded_TVShowTitle,, ]$VAR[Path_Encoded_Title]</value>
+        <value condition="[String.IsEqual(ListItem.DBType,actor) | String.IsEqual(ListItem.Property(item.type),person)] + !String.IsEmpty(ListItem.Label)">$VAR[Path_Encoded_Label]</value>
+        <value condition="String.IsEqual(ListItem.DBType,artist) + !String.IsEmpty(ListItem.AlbumArtist)">$VAR[Path_Encoded_AlbumArtist] Music</value>
+        <value condition="String.IsEqual(ListItem.DBType,artist) + !String.IsEmpty(ListItem.Artist)">$VAR[Path_Encoded_Artist] Music</value>
+        <value condition="String.IsEqual(ListItem.DBType,album) + !String.IsEmpty(ListItem.Album)">$VAR[Path_Encoded_AlbumArtist,, ]$VAR[Path_Encoded_Album] Music</value>
+        <value condition="String.IsEqual(ListItem.DBType,song) + !String.IsEmpty(ListItem.Title) + !String.IsEmpty(ListItem.AlbumArtist)">$VAR[Path_Encoded_AlbumArtist,, ]$VAR[Path_Encoded_Title] Music</value>
+        <value condition="String.IsEqual(ListItem.DBType,song) + !String.IsEmpty(ListItem.Title)">$VAR[Path_Encoded_Artist,, ]$VAR[Path_Encoded_Title] Music</value>
+        <value condition="!String.IsEmpty(ListItem.TvShowTitle)">$VAR[Path_Encoded_TVShowTitle]</value>
+        <value condition="!String.IsEmpty(ListItem.AlbumArtist)">$VAR[Path_Encoded_AlbumArtist]</value>
+        <value condition="!String.IsEmpty(ListItem.Artist)">$VAR[Path_Encoded_Artist]</value>
+        <value condition="!String.IsEmpty(ListItem.Title)">$VAR[Path_Encoded_Title]</value>
+        <value condition="!String.IsEmpty(ListItem.Label)">$VAR[Path_Encoded_Label]</value>
+    </variable>
+
+    <variable name="Path_Wikipedia_Title">
+        <value condition="!String.IsEmpty(ListItem.TVShowTitle)">$INFO[ListItem.TVShowTitle]</value>
+        <value condition="!String.IsEmpty(ListItem.Title)">$INFO[ListItem.Title]</value>
+        <value>$INFO[ListItem.Label]</value>
+    </variable>
+
+    <variable name="Path_Wikipedia_Type">
+        <value condition="String.IsEqual(ListItem.DBType,tvshow)">tv</value>
+        <value condition="String.IsEqual(ListItem.DBType,season)">tv</value>
+        <value condition="String.IsEqual(ListItem.DBType,episode)">tv</value>
+        <value condition="String.IsEqual(ListItem.DBType,movie)">movie</value>
+    </variable>
+
+    <variable name="Path_ContextParams_Query">
+        <value condition="!String.IsEmpty(Container(99950).ListItem.Property(base_tvshowtitle))">$INFO[Container(99950).ListItem.Property(base_tvshowtitle)]</value>
+        <value condition="!String.IsEmpty(Container(99950).ListItem.Property(base_Title))">$INFO[Container(99950).ListItem.Property(base_Title)]</value>
+        <value condition="!String.IsEmpty(Container(99950).ListItem.Property(base_label))">$INFO[Container(99950).ListItem.Property(base_label)]</value>
+    </variable>
+
+    <variable name="Path_ContextParams_TMDbType">
+        <value condition="String.IsEqual(Container(99950).ListItem.Property(base_dbtype),tvshow)">tv</value>
+        <value condition="String.IsEqual(Container(99950).ListItem.Property(base_dbtype),season)">tv</value>
+        <value condition="String.IsEqual(Container(99950).ListItem.Property(base_dbtype),episode)">tv</value>
+        <value condition="String.IsEqual(Container(99950).ListItem.Property(base_dbtype),movie)">movie</value>
+    </variable>
+
+    <variable name="Path_CollectionNode_Target">
+        <value condition="Window.IsVisible(MyMusicNav.xml)">music</value>
+        <value>videos</value>
+    </variable>
+
+    <variable name="Path_MusicOSD_TrackList">
+        <value condition="!String.IsEmpty(Container(9801).ListItem.Property(folderpath))">$INFO[Container(9801).ListItem.Property(folderpath)]</value>
+        <value condition="!String.IsEmpty(Container(9801).ListItem.FolderPath)">$INFO[Container(9801).ListItem.FolderPath]</value>
+        <!-- <value condition="!String.IsEmpty(Container(9801).ListItem.Album)">musicdb://songs/?xsp={"rules":{"and":[{"field":"album","operator":"is","value":["$INFO[Container(9801).ListItem.Album]"]}]},"type":"songs"}</value> -->
+        <value>-</value>
+    </variable>
+
+    <variable name="Path_VideoInfo_Trailers">
+        <value condition="String.IsEqual(ListItem.DBType,musicvideo)">$VAR[Path_Youtube_Query,plugin://plugin.video.youtube/kodion/search/query/?q=,&amp;search_type=notvalid]</value>
+        <value>$VAR[Path_VideoInfo_Generic,,&amp;info=videos]</value>
+    </variable>
+
+    <variable name="Path_VideoInfo_Generic">
+        <value condition="!String.IsEmpty(Container(99950).ListItem.Property(TMDb_ID)) + String.IsEqual(Container(99950).ListItem.DBType,movie)">plugin://plugin.video.themoviedb.helper?tmdb_id=$INFO[Container(99950).ListItem.Property(TMDb_ID)]&amp;tmdb_type=movie$VAR[Path_Param_Widget]</value>
+        <value condition="!String.IsEmpty(Container(99950).ListItem.Property(TMDb_ID)) + String.IsEqual(Container(99950).ListItem.DBType,tvshow)">plugin://plugin.video.themoviedb.helper?tmdb_id=$INFO[Container(99950).ListItem.Property(TMDb_ID)]&amp;tmdb_type=tv$VAR[Path_Param_Widget]</value>
+        <value condition="!String.IsEmpty(Container(99950).ListItem.Property(TVShow.TMDb_ID)) + String.IsEqual(Container(99950).ListItem.DBType,season)">plugin://plugin.video.themoviedb.helper?tmdb_id=$INFO[Container(99950).ListItem.Property(TVShow.TMDb_ID)]&amp;tmdb_type=tv$INFO[Container(99950).ListItem.Season,&amp;season=,]$VAR[Path_Param_Widget]</value>
+        <value condition="!String.IsEmpty(Container(99950).ListItem.Property(TVShow.TMDb_ID)) + String.IsEqual(Container(99950).ListItem.DBType,episode)">plugin://plugin.video.themoviedb.helper?tmdb_id=$INFO[Container(99950).ListItem.Property(TVShow.TMDb_ID)]&amp;tmdb_type=tv$INFO[Container(99950).ListItem.Season,&amp;season=,]$INFO[Container(99950).ListItem.Episode,&amp;episode=,]$VAR[Path_Param_Widget]</value>
+        <value>-</value>
+    </variable>
+
+    <variable name="Path_MusicInfo_ArtistFolder">
+        <value condition="String.IsEmpty(ListItem.DBID)">$ESCINFO[ListItem.FolderPath]</value>
+        <value condition="!String.IsEmpty(ListItem.DBID)">musicdb://artists/$INFO[ListItem.DBID]/?albumartistsonly=true</value>
+    </variable>
+
+    <variable name="Path_IconSelector_Filter">
+        <value condition="!String.IsEmpty(Window.Property(SelectionList))">$INFO[Container(8100).ListItem.Property(filter)]</value>
+        <value>$INFO[Control.GetLabel(8001).index(1),&amp;filter_key=label&amp;filter_value=,]</value>
+    </variable>
+
+</includes>

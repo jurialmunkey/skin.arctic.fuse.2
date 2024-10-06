@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<window type="window" id="1198">
+    <onload condition="Skin.HasSetting(SkinUserLogin.StartupLoginScreen) + !Skin.HasSetting(SkinUserLogin.Disabled) + String.IsEmpty(Window(Home).Property(StartupReplaceWindow))">SetProperty(StartupReplaceWindow,1195,Home)</onload>
+
+    <onload>AlarmClock(RepWin,SetFocus(9002),00:01,silent)</onload>
+    <onload>AlarmClock(SplashTimeOut,noop,00:59,silent)</onload>
+    <onload condition="String.IsEmpty(Window.Property(ReloadDone))">SetProperty(InitStatus,$LOCALIZE[31145])</onload>
+
+    <!-- Start TMDbH service -->
+    <onload condition="String.IsEmpty(Window.Property(ReloadDone))">Skin.SetBool(TMDbHelper.Service)</onload>
+    <onload condition="String.IsEmpty(Window.Property(ReloadDone)) + !Skin.HasSetting(DefaultConfig.InitDone)">Skin.SetBool(TMDbHelper.EnableBlur)</onload>
+    <onload condition="String.IsEmpty(Window.Property(ReloadDone)) + !Skin.HasSetting(DefaultConfig.InitDone)">Skin.SetBool(TMDbHelper.EnableCrop)</onload>
+    <onload condition="String.IsEmpty(Window.Property(ReloadDone))">Skin.Reset(TMDbHelper.DisableArtwork)</onload>
+    <onload condition="String.IsEmpty(Window.Property(ReloadDone))">Skin.SetBool(TMDbHelper.UseLocalWidgetContainer)</onload>
+    <onload condition="String.IsEmpty(Window.Property(ReloadDone))">Skin.SetString(TMDbHelper.MonitorContainer,99950)</onload>
+    <onload condition="String.IsEmpty(Window.Property(ReloadDone))">Skin.SetBool(TMDbHelper.DirectCallAuto)</onload>
+    <onload condition="String.IsEmpty(Window.Property(ReloadDone))">Skin.SetBool(DefaultConfig.InitDone)</onload>
+
+    <!-- Set Default Config -->
+    <include>Action_ButtonMenu_Onload</include>
+    <onload condition="String.IsEmpty(Skin.String(Navigation.OnBack))">Skin.SetString(Navigation.OnBack,Parent)</onload>
+    <onload>Skin.SetString(SkinConstant.Numeric.00,$NUMBER[0])</onload>
+    <onload>Skin.SetString(SkinConstant.Numeric.01,$NUMBER[1])</onload>
+    <onload>Skin.SetString(SkinConstant.Numeric.02,$NUMBER[2])</onload>
+    <onload>Skin.SetString(SkinConstant.Numeric.03,$NUMBER[3])</onload>
+    <onload>Skin.SetString(SkinConstant.Numeric.04,$NUMBER[4])</onload>
+    <onload>Skin.SetString(SkinConstant.Numeric.05,$NUMBER[5])</onload>
+    <onload>Skin.SetString(SkinConstant.Numeric.06,$NUMBER[6])</onload>
+    <onload>Skin.SetString(SkinConstant.Numeric.07,$NUMBER[7])</onload>
+    <onload>Skin.SetString(SkinConstant.Numeric.08,$NUMBER[8])</onload>
+    <onload>Skin.SetString(SkinConstant.Numeric.09,$NUMBER[9])</onload>
+    <onload>Skin.SetString(SkinConstant.Numeric.10,$NUMBER[10])</onload>
+    <onload>Skin.SetString(SkinConstant.Numeric.11,$NUMBER[11])</onload>
+    <onload>Skin.SetString(SkinConstant.Numeric.12,$NUMBER[12])</onload>
+    <onload>Skin.SetString(SkinConstant.Numeric.13,$NUMBER[13])</onload>
+    <onload>Skin.SetString(SkinConstant.Numeric.14,$NUMBER[14])</onload>
+    <onload>Skin.SetString(SkinConstant.Numeric.15,$NUMBER[15])</onload>
+    <onload>Skin.SetString(SkinConstant.Numeric.16,$NUMBER[16])</onload>
+    <onload>Skin.SetString(SkinConstant.Numeric.17,$NUMBER[17])</onload>
+    <onload>Skin.SetString(SkinConstant.Numeric.18,$NUMBER[18])</onload>
+    <onload>Skin.SetString(SkinConstant.Numeric.19,$NUMBER[19])</onload>
+
+    <!-- Set Default Spotlights -->
+    <onload condition="String.IsEmpty(Skin.String(Hub.Home.Spotlight.Path))">Skin.SetString(Hub.Home.Spotlight.Path,special://skin/extras/playlists/RandomMovies.xsp)</onload>
+    <onload condition="String.IsEmpty(Skin.String(Hub.Home.Spotlight.Target))">Skin.SetString(Hub.Home.Spotlight.Target,videos)</onload>
+    <onload condition="String.IsEmpty(Skin.String(Hub.1101.Spotlight.Path))">Skin.SetString(Hub.1101.Spotlight.Path,special://skin/extras/playlists/RandomMovies.xsp)</onload>
+    <onload condition="String.IsEmpty(Skin.String(Hub.1101.Spotlight.Target))">Skin.SetString(Hub.1101.Spotlight.Target,videos)</onload>
+    <onload condition="String.IsEmpty(Skin.String(Hub.1102.Spotlight.Path))">Skin.SetString(Hub.1102.Spotlight.Path,special://skin/extras/playlists/RandomTvShows.xsp)</onload>
+    <onload condition="String.IsEmpty(Skin.String(Hub.1102.Spotlight.Target))">Skin.SetString(Hub.1102.Spotlight.Target,videos)</onload>
+    <onload condition="String.IsEmpty(Skin.String(Hub.1103.Spotlight.Path))">Skin.SetString(Hub.1103.Spotlight.Path,special://skin/extras/playlists/RandomArtists.xsp)</onload>
+    <onload condition="String.IsEmpty(Skin.String(Hub.1103.Spotlight.Target))">Skin.SetString(Hub.1103.Spotlight.Target,music)</onload>
+    <onload condition="String.IsEmpty(Skin.String(Hub.1104.Spotlight.Path))">Skin.SetString(Hub.1104.Spotlight.Path,pvr://channels/tv/*)</onload>
+    <onload condition="String.IsEmpty(Skin.String(Hub.1104.Spotlight.Target))">Skin.SetString(Hub.1104.Spotlight.Target,tvguide)</onload>
+
+    <!-- Set Default Ratings -->
+    <onload condition="String.IsEmpty(Skin.String(CustomRating.Movies.Item01))">Skin.SetString(CustomRating.Movies.Item01,Kodi)</onload>
+    <onload condition="String.IsEmpty(Skin.String(CustomRating.Movies.Item02))">Skin.SetString(CustomRating.Movies.Item02,TMDb)</onload>
+    <onload condition="String.IsEmpty(Skin.String(CustomRating.Movies.Item03))">Skin.SetString(CustomRating.Movies.Item03,Trakt)</onload>
+    <onload condition="String.IsEmpty(Skin.String(CustomRating.Movies.Item04))">Skin.SetString(CustomRating.Movies.Item04,Awards)</onload>
+    <onload condition="String.IsEmpty(Skin.String(CustomRating.TVShows.Item01))">Skin.SetString(CustomRating.TVShows.Item01,Kodi)</onload>
+    <onload condition="String.IsEmpty(Skin.String(CustomRating.TVShows.Item02))">Skin.SetString(CustomRating.TVShows.Item02,TMDb)</onload>
+    <onload condition="String.IsEmpty(Skin.String(CustomRating.TVShows.Item03))">Skin.SetString(CustomRating.TVShows.Item03,Trakt)</onload>
+    <onload condition="String.IsEmpty(Skin.String(CustomRating.TVShows.Item04))">Skin.SetString(CustomRating.TVShows.Item04,Awards)</onload>
+
+    <!-- Build includes for textures / views / menus -->
+    <onload condition="String.IsEmpty(Window.Property(ReloadDone)) + ![Skin.HasSetting(SkinUserLogin.StartupLoginScreen) + !Skin.HasSetting(SkinUserLogin.Disabled) + String.IsEmpty(Window(Home).Property(StartupReplaceWindow))]">RunScript($VAR[Action_Var_BuildTextures],get_values=true)</onload>
+    <onload condition="String.IsEmpty(Window.Property(ReloadDone))">RunScript(script.skinvariables,action=buildviews,no_reload)</onload>
+    <onload condition="String.IsEmpty(Window.Property(ReloadDone))">Skin.SetString(SkinVariables.SkinUser.ExecuteBuiltIn,"RunScript($VAR[Action_Var_BuildTextures],get_values=true,reload=Home)")</onload>
+    <onload condition="!String.IsEmpty(Window.Property(ReloadDone))">SetProperty(InitStatus,$LOCALIZE[31248])</onload>
+    <onload>SetProperty(ReloadDone,1)</onload>
+    <onload>SetProperty(ReloadDone,1,Home)</onload>
+    <onunload>ClearProperty(StartupReplaceWindow,Home)</onunload>
+    <controls>
+
+        <control type="button" id="9001">
+            <texturefocus />
+            <texturenofocus />
+            <onfocus condition="[System.HasPVRAddon + !PVR.HasTVChannels + !Pvr.HasRadioChannels]">SetProperty(InitStatus,$LOCALIZE[31249])</onfocus>
+            <onfocus condition="![System.HasPVRAddon + !PVR.HasTVChannels + !Pvr.HasRadioChannels]">SetProperty(InitStatus,$LOCALIZE[31358])</onfocus>
+            <onfocus>AlarmClock(RepWin,SetFocus(9002),00:01,silent)</onfocus>
+        </control>
+        <control type="button" id="9002">
+            <texturefocus />
+            <texturenofocus />
+
+            <onfocus condition="String.IsEmpty(Window(Home).Property(StartupReplaceWindow)) + [!String.IsEmpty(Skin.String(Startup.VideoPath)) | !Skin.HasSetting(Startup.WaitForLoad)]">ReplaceWindow($INFO[System.StartupWindow])</onfocus>
+            <onfocus condition="!String.IsEmpty(Window(Home).Property(StartupReplaceWindow)) + [!String.IsEmpty(Skin.String(Startup.VideoPath)) | !Skin.HasSetting(Startup.WaitForLoad)]">ReplaceWindow($INFO[Window(Home).Property(StartupReplaceWindow)])</onfocus>
+            <onfocus condition="!String.IsEmpty(Skin.String(Startup.VideoPath))">PlayMedia($ESCINFO[Skin.String(Startup.VideoPath)])</onfocus>
+
+            <onfocus condition="Skin.HasSetting(Startup.WaitForLoad) + String.IsEmpty(Skin.String(Startup.VideoPath)) + [System.HasPVRAddon + !PVR.HasTVChannels + !Pvr.HasRadioChannels]">AlarmClock(ReFocus,SetFocus(9001),00:00,silent)</onfocus>
+            <onfocus condition="Skin.HasSetting(Startup.WaitForLoad) + String.IsEmpty(Skin.String(Startup.VideoPath)) + String.IsEmpty(Window(Home).Property(StartupReplaceWindow))">AlarmClock(RepWin,ReplaceWindow($INFO[System.StartupWindow]),00:01,silent)</onfocus>
+            <onfocus condition="Skin.HasSetting(Startup.WaitForLoad) + String.IsEmpty(Skin.String(Startup.VideoPath)) + !String.IsEmpty(Window(Home).Property(StartupReplaceWindow))">AlarmClock(RepWin,ReplaceWindow($INFO[Window(Home).Property(StartupReplaceWindow)]),00:01,silent)</onfocus>
+        </control>
+        <control type="group">
+            <visible>String.IsEmpty(Skin.String(Startup.VideoPath))</visible>
+            <include>Background_StartUp</include>
+            <include>Object_StartUp_Logo</include>
+            <control type="label">
+                <centertop>610</centertop>
+                <height>40</height>
+                <aligny>center</aligny>
+                <align>center</align>
+                <textcolor>main_logo</textcolor>
+                <label>$INFO[Window.Property(InitStatus)]...</label>
+            </control>
+            <control type="group">
+                <centertop>700</centertop>
+                <height>80</height>
+                <include content="Object_BusySpinner">
+                    <param name="colordiffuse">main_fg</param>
+                    <param name="haslabel">false</param>
+                </include>
+            </control>
+        </control>
+
+
+    </controls>
+</window>

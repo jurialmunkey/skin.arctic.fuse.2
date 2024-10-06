@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<window>
+
+    <defaultcontrol>450</defaultcontrol>
+    <controls>
+
+        <include content="Object_Hidden_Button">
+            <param name="id">413</param>
+        </include>
+        <include content="Object_Hidden_Button">
+            <param name="id">414</param>
+        </include>
+        <include content="Object_Hidden_Button">
+            <param name="id">415</param>
+        </include>
+        <include content="Object_Hidden_Button">
+            <param name="id">416</param>
+        </include>
+
+        <control type="group">
+            <include>Dimension_DialogWideMenu</include>
+            <include>Animation_Right_Delay</include>
+            <include content="Dialog_Dim_Side">
+                <!-- <param name="slide_condition">ControlGroup(9000).HasFocus() | Control.IsVisible(450)</param> -->
+                <param name="slide_condition">True</param>
+            </include>
+
+            <!-- Bottom Layer -->
+            <include content="Dialog_Background_Side">
+                <!-- <param name="slide_condition">ControlGroup(9000).HasFocus() | Control.IsVisible(450)</param> -->
+                <param name="slide_condition">True</param>
+                <param name="dialog_size">Dimension_DialogWideMenu</param>
+                <!-- Side Buttons -->
+                <control type="group">
+                    <include>Dimension_Dialog_Body</include>
+                    <control type="grouplist" id="9000">
+                        <include>Dialog_Side_Grouplist_Def</include>
+                        <onleft>Close</onleft>
+                        <onright condition="Control.IsVisible(450)">450</onright>
+                        <onright condition="Control.IsVisible(451)">451</onright>
+                        <include content="Dialog_Side_Button">
+                            <param name="id">01</param>
+                            <param name="label">$LOCALIZE[186]</param>
+                            <param name="icon">special://skin/extras/icons/circle-check.png</param>
+                            <param name="visible">Control.IsEnabled(413) + Control.IsVisible(413) + Control.IsVisible(450)</param>
+                            <onclick>SendClick(413)</onclick>
+                        </include>
+                        <include content="Dialog_Side_Button">
+                            <param name="id">02</param>
+                            <param name="label">$LOCALIZE[222]</param>
+                            <param name="icon">special://skin/extras/icons/circle-xmark.png</param>
+                            <param name="visible">Control.IsEnabled(414) + Control.IsVisible(414)</param>
+                            <onclick>SendClick(414)</onclick>
+                        </include>
+                        <include content="Dialog_Side_Button">
+                            <param name="id">03</param>
+                            <param name="label">$LOCALIZE[119]</param>
+                            <param name="icon">special://skin/extras/icons/circle-plus.png</param>
+                            <param name="visible">Control.IsEnabled(415) + Control.IsVisible(415)</param>
+                            <onclick>SendClick(415)</onclick>
+                        </include>
+                        <include content="Dialog_Side_Button">
+                            <param name="id">04</param>
+                            <param name="label">$LOCALIZE[1000]</param>
+                            <param name="icon">special://skin/extras/icons/image.png</param>
+                            <param name="visible">Control.IsVisible(451) + [String.IsEqual(Control.GetLabel(411),$LOCALIZE[13511]) | String.IsEqual(Control.GetLabel(411),$LOCALIZE[20437])]</param>
+                            <param name="control">radiobutton</param>
+                            <param name="radiocross">true</param>
+                            <selected>!Skin.HasSetting(Dialog.DisableArtworkPreview)</selected>
+                            <onclick>Skin.ToggleSetting(Dialog.DisableArtworkPreview)</onclick>
+                        </include>
+                    </control>
+                </control>
+            </include>
+
+            <include content="Dialog_Foreground_Side">
+                <param name="dialog_size">Dimension_DialogWideMenu</param>
+                <!-- <param name="slide_condition">ControlGroup(9000).HasFocus() | Control.IsVisible(450)</param> -->
+                <param name="slide_condition">True</param>
+                <param name="lines_right">0</param>
+                <param name="topline">true</param>
+                <param name="subline">true</param>
+
+                <!-- Header -->
+                <include content="Dialog_Head">
+                    <param name="id">411</param>
+                </include>
+                <include content="Dialog_Head">
+                    <param name="id">9901</param>
+                    <param name="visible">String.IsEmpty(Control.GetLabel(411))</param>
+                    <param name="label">$LOCALIZE[424]</param>
+                </include>
+                <include>Dialog_Head_CloseButton</include>
+
+                <!-- Content -->
+                <control type="group">
+                    <include>Dimension_Dialog_Body</include>
+                    <control type="group">
+                        <include>Dimension_Dialog_Body_Group</include>
+                        <include content="List_DialogSelect">
+                            <param name="id">450</param>
+                            <param name="detailed">True</param>
+                            <param name="item_height">100</param>
+                            <param name="textcolor">dialog_fg</param>
+                            <pagecontrol>61</pagecontrol>
+                            <onleft>9000</onleft>
+                            <onright>61</onright>
+                        </include>
+
+                        <include content="List_IconBrowser">
+                            <param name="id">451</param>
+                            <param name="item_h">160</param>
+                            <param name="itemlayout_h">200</param>
+                            <param name="item_w">150</param>
+                            <param name="itemlayout_w">190</param>
+                            <param name="detailed">true</param>
+                            <param name="textcolor">dialog_fg</param>
+                            <top>-20</top>
+                            <bottom>-20</bottom>
+                            <left>-20</left>
+                            <right>-20</right>
+                            <onleft>9000</onleft>
+                            <onright>62</onright>
+                            <pagecontrol>62</pagecontrol>
+                        </include>
+                    </control>
+
+                    <include content="Dialog_Scrollbar">
+                        <param name="id">61</param>
+                        <visible>Control.IsVisible(450)</visible>
+                        <onleft>450</onleft>
+                    </include>
+                    <include content="Dialog_Scrollbar">
+                        <param name="id">62</param>
+                        <visible>Control.IsVisible(451)</visible>
+                        <onleft>451</onleft>
+                    </include>
+                </control>
+            </include>
+
+        </control>
+
+        <control type="group">
+            <left>120</left>
+            <right>-120</right>
+            <visible>!Skin.HasSetting(Dialog.DisableArtworkPreview)</visible>
+            <include>Animation_Right_Delay</include>
+            <include content="Animation_SlideIn_Dialog_Side">
+                <param name="slide_condition">True</param>
+                <!-- <param name="slide_condition">ControlGroup(9000).HasFocus()</param> -->
+            </include>
+            <control type="group">
+                <include content="Dialog_Preview_Def">
+                    <param name="icon">$INFO[Container(451).ListItem.Icon]</param>
+                </include>
+                <visible>Control.IsVisible(451)</visible>
+                <visible>String.IsEqual(Control.GetLabel(411),$LOCALIZE[13511]) | String.IsEqual(Control.GetLabel(411),$LOCALIZE[20437])</visible>
+                <animation effect="slide" end="0,200" condition="Container(451).Row(2) | Container(451).Row(3)">Conditional</animation>
+            </control>
+        </control>
+    </controls>
+</window>

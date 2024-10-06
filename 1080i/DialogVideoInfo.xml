@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<window type="dialog">
+    <include content="Object_DefaultControl">
+        <param name="always">true</param>
+        <param name="defaultcontrol">8</param>
+    </include>
+
+    <menucontrol>9000</menucontrol>
+
+    <include>DialogInfo_Onload</include>
+
+    <controls>
+
+        <control type="button" id="8">
+            <texturenofocus />
+            <texturefocus />
+            <font />
+            <ondown>5000</ondown>
+            <onright>9000</onright>
+            <onleft>9000</onleft>
+            <onfocus>ClearProperty(Background.DialogInfo.HideArtwork,Home)</onfocus>
+        </control>
+
+        <include>Defs_TMDbHelper_Loader</include>
+
+        <include condition="Window.IsVisible(fullscreenvideo)">OSD_VideoBackground_Dialog</include>
+
+        <control type="group">
+            <include>DialogInfo_Main_Group</include>
+            <control type="group">
+                <include>DialogInfo_Body_Group</include>
+                <control type="group">
+                    <include content="DialogInfo_Info_Group">
+                        <param name="extended_include">DialogInfo_VideoDetails</param>
+                    </include>
+                </control>
+            </control>
+        </control>
+
+        <control type="group">
+            <include content="Animation_Slide_In">
+                <param name="type">WindowOpen</param>
+                <param name="posy">160</param>
+                <param name="delay">400</param>
+            </include>
+            <include content="Animation_Slide_Out">
+                <param name="type">WindowClose</param>
+                <param name="posy">160</param>
+            </include>
+            <include>DialogInfo_Widget_Group</include>
+            <control type="grouplist" id="5000">
+                <include>DialogInfo_Widget_Grouplist</include>
+
+                <onup>8</onup>
+                <onback>8</onback>
+                <ondown>330</ondown>
+
+                <include condition="!String.IsEqual(ListItem.Property(tmdb_type),person)">DialogInfo_VideoWidgets</include>
+                <include condition="String.IsEqual(ListItem.Property(tmdb_type),person)">DialogInfo_PersonWidgets</include>
+
+                <include content="_Widget_Row">
+                    <param name="id">5020</param>
+                    <param name="groupid">5120</param>
+                    <param name="label">Gallery</param>
+                    <param name="include">List_Gallery_Row</param>
+                    <param name="visible">$EXP[Exp_InfoDialogs_WidgetsGroup_HasFocus]</param>
+                    <param name="widgetfade_include">true</param>
+                    <param name="include_movement">false</param>
+                    <param name="set_widgetcontainer">false</param>
+                    <param name="widget_hideartwork">true</param>
+                    <param name="widgetheight">widget_gallery_items_h</param>
+                    <param name="altvisible">!String.IsEqual(Window.Property(CurrentID),Container(99950).ListItem.Property(base_label))</param>
+                    <onfocus>SetProperty(CurrentID,$INFO[Container(99950).ListItem.Property(base_label)])</onfocus>
+
+                    <content>
+                        <item>
+                            <icon>$INFO[ListItem.Art(thumb)]</icon>
+                            <visible>!String.IsEmpty(ListItem.Art(thumb))</visible>
+                            <visible>Window.IsVisible(DialogVideoInfo.xml)</visible>
+                        </item>
+                        <item>
+                            <icon>$INFO[ListItem.Art(fanart)]</icon>
+                            <visible>!String.IsEmpty(ListItem.Art(fanart))</visible>
+                        </item>
+                        <item>
+                            <icon>$INFO[Container(99950).ListItem.Art(fanart)]</icon>
+                            <visible>!String.IsEmpty(Container(99950).ListItem.Art(fanart))</visible>
+                            <visible>!String.IsEqual(Container(99950).ListItem.Art(fanart),ListItem.Art(fanart))</visible>
+                        </item>
+                        <item>
+                            <icon>$INFO[ListItem.Art(fanart1)]</icon>
+                            <visible>!String.IsEmpty(ListItem.Art(fanart1))</visible>
+                            <visible>!String.IsEqual(ListItem.Art(fanart1),ListItem.Art(fanart))</visible>
+                        </item>
+                        <item>
+                            <icon>$INFO[ListItem.Art(fanart2)]</icon>
+                            <visible>!String.IsEmpty(ListItem.Art(fanart2))</visible>
+                            <visible>!String.IsEqual(ListItem.Art(fanart2),ListItem.Art(fanart))</visible>
+                        </item>
+                        <item>
+                            <icon>$INFO[ListItem.Art(fanart3)]</icon>
+                            <visible>!String.IsEmpty(ListItem.Art(fanart3))</visible>
+                            <visible>!String.IsEqual(ListItem.Art(fanart3),ListItem.Art(fanart))</visible>
+                        </item>
+                        <item>
+                            <icon>$INFO[ListItem.Art(fanart4)]</icon>
+                            <visible>!String.IsEmpty(ListItem.Art(fanart4))</visible>
+                            <visible>!String.IsEqual(ListItem.Art(fanart4),ListItem.Art(fanart))</visible>
+                        </item>
+                        <item>
+                            <icon>$INFO[ListItem.Art(fanart5)]</icon>
+                            <visible>!String.IsEmpty(ListItem.Art(fanart5))</visible>
+                            <visible>!String.IsEqual(ListItem.Art(fanart5),ListItem.Art(fanart))</visible>
+                        </item>
+                        <item>
+                            <icon>$INFO[ListItem.Art(discart)]</icon>
+                            <visible>!String.IsEmpty(ListItem.Art(discart))</visible>
+                        </item>
+                        <item>
+                            <icon>$INFO[ListItem.Art(clearart)]</icon>
+                            <visible>!String.IsEmpty(ListItem.Art(clearart))</visible>
+                        </item>
+                        <item>
+                            <icon>$INFO[ListItem.Art(clearlogo)]</icon>
+                            <visible>!String.IsEmpty(ListItem.Art(clearlogo))</visible>
+                        </item>
+                        <item>
+                            <icon>$INFO[ListItem.Art(album.discart)]</icon>
+                            <visible>String.IsEmpty(ListItem.Art(discart))</visible>
+                            <visible>!String.IsEmpty(ListItem.Art(album.discart))</visible>
+                        </item>
+                        <item>
+                            <icon>$INFO[ListItem.Art(artist.clearlogo)]</icon>
+                            <visible>String.IsEmpty(ListItem.Art(clearlogo))</visible>
+                            <visible>!String.IsEmpty(ListItem.Art(artist.clearlogo))</visible>
+                        </item>
+                        <item>
+                            <icon>$INFO[ListItem.Art(artist.clearart)]</icon>
+                            <visible>String.IsEmpty(ListItem.Art(clearart))</visible>
+                            <visible>!String.IsEmpty(ListItem.Art(artist.clearart))</visible>
+                        </item>
+                        <item>
+                            <icon>$INFO[ListItem.Art(artist.landscape)]</icon>
+                            <visible>String.IsEmpty(ListItem.Art(landscape))</visible>
+                            <visible>!String.IsEmpty(ListItem.Art(artist.landscape))</visible>
+                        </item>
+                    </content>
+                    <include condition="Window.IsVisible(DialogVideoInfo.xml) + !String.IsEqual(ListItem.Property(tmdb_type),person)">DialogInfo_VideoFanartContent</include>
+                    <include condition="Window.IsVisible(DialogVideoInfo.xml) + String.IsEqual(ListItem.Property(tmdb_type),person)">DialogInfo_PersonImageContent</include>
+
+
+                </include>
+
+
+                <include>DialogInfo_Widget_EndLine</include>
+            </control>
+        </control>
+
+        <include>DialogInfo_Furniture</include>
+        <include>DialogInfo_PlotBox</include>
+
+
+
+
+    </controls>
+</window>

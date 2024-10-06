@@ -1,0 +1,805 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<includes>
+
+    <include name="Keyboard_Mini_Autocomplete">
+        <control type="group">
+            <visible>$EXP[Exp_AutoCompletion_IsEnabled]</visible>
+            <include content="Dialog_Background_Blur">
+                <param name="shadow">true</param>
+                <param name="diffuse">diffuse/dialog_w1120_h400.png</param>
+            </include>
+
+            <animation effect="slide" start="0" end="0,-60" time="400" condition="$EXP[Exp_AutoCompletion_IsEnabled] + !Integer.IsEqual(Container(8000).NumItems,0)" tween="cubic" easing="out" reversible="false">Conditional</animation>
+            <animation effect="slide" start="0,-60" end="0" time="400" condition="![$EXP[Exp_AutoCompletion_IsEnabled] + !Integer.IsEqual(Container(8000).NumItems,0)]" tween="cubic" easing="out" reversible="false">Conditional</animation>
+
+            <control type="fixedlist" id="8000">
+                <height>80</height>
+                <top>0</top>
+                <left>20</left>
+                <right>30</right>
+                <orientation>horizontal</orientation>
+                <focusposition>2</focusposition>
+                <movement>2</movement>
+                <onup>8004</onup>
+                <ondown>312</ondown>
+                <itemlayout width="247" height="80">
+                    <control type="label">
+                        <height>55</height>
+                        <font>font_mini</font>
+                        <align>center</align>
+                        <textcolor>dialog_fg_30</textcolor>
+                        <label>$INFO[ListItem.Label]</label>
+                    </control>
+                </itemlayout>
+                <focusedlayout width="247" height="80" condition="!Control.HasFocus(8000)">
+                    <control type="label">
+                        <height>55</height>
+                        <font>font_mini</font>
+                        <align>center</align>
+                        <textcolor>dialog_fg_30</textcolor>
+                        <label>$INFO[ListItem.Label]</label>
+                    </control>
+                </focusedlayout>
+                <focusedlayout width="247" height="80" condition="Control.HasFocus(8000)">
+                    <control type="image">
+                        <include>Texture_Highlight_Scrollbar_H</include>
+                        <height>scrollbar_w</height>
+                        <bottom>20</bottom>
+                        <!-- <centerbottom>20</centerbottom> -->
+                        <width>75%</width>
+                        <centerleft>50%</centerleft>
+                    </control>
+                    <control type="label">
+                        <height>55</height>
+                        <align>center</align>
+                        <font>font_mini_black</font>
+                        <textcolor>dialog_fg_90</textcolor>
+                        <label>$INFO[ListItem.Label]</label>
+                    </control>
+                </focusedlayout>
+                <content>plugin://plugin.program.autocompletion?info=autocomplete&amp;&amp;id=$INFO[Control.GetLabel(312).index(1)]</content>
+            </control>
+        </control>
+    </include>
+
+    <include name="Keyboard_Mini">
+        <control type="image">
+            <texture colordiffuse="panel_bg_70" flipx="true">background/combined_flixart.png</texture>
+            <include>Animation_FadeIn</include>
+            <include>Animation_FadeOut</include>
+        </control>
+        <control type="group">
+            <left>view_pad</left>
+            <right>view_pad</right>
+            <control type="group">
+                <bottom>40</bottom>
+                <right>-40</right>
+                <width>1040</width>
+                <height>360</height>
+                <include>Animation_SlideIn_Dialog</include>
+                <include>Keyboard_Mini_Autocomplete</include>
+                <control type="group">
+                    <include content="Dialog_Background_Blur">
+                        <param name="diffuse">diffuse/dialog_w1120_h400.png</param>
+                    </include>
+                    <control type="image">
+                        <texture colordiffuse="dialog_fg_12" border="20">common/dialog.png</texture>
+                    </control>
+
+                    <control type="group">
+                        <include>Dialog_Group</include>
+                        <control type="label" id="314" description="Text Entry (Chinese)">
+                            <align>center</align>
+                            <font>font_mini</font>
+                            <textcolor>dialog_fg_90</textcolor>
+                            <top>-40</top>
+                            <height>40</height>
+                            <left>260</left>
+                        </control>
+                        <control type="label">
+                            <align>left</align>
+                            <height>40</height>
+                            <top>0</top>
+                            <label>$LOCALIZE[31158]</label>
+                            <font>font_hint_black</font>
+                            <textcolor>dialog_fg_70</textcolor>
+                            <textoffsetx>5</textoffsetx>
+                        </control>
+                        <control type="grouplist">
+                            <orientation>vertical</orientation>
+                            <itemgap>10</itemgap>
+                            <left>0</left>
+                            <right>0</right>
+                            <top>0</top>
+                            <bottom>-30</bottom>
+                            <control type="group" description="Text Entry">
+                                <orientation>horizontal</orientation>
+                                <itemgap>0</itemgap>
+                                <height>80</height>
+                                <include content="Object_Keyboard_Mini_Button" description="Layout">
+                                    <param name="id">309</param>
+                                    <width>auto</width>
+                                    <textoffsetx>5</textoffsetx>
+                                    <align>left</align>
+                                    <onup>8000</onup>
+                                    <ondown>302</ondown>
+                                    <onleft>312</onleft>
+                                    <onright>312</onright>
+                                    <top>30</top>
+                                </include>
+                                <control type="group" id="8312">
+                                    <left>240</left>
+                                    <right>0</right>
+                                    <height>80</height>
+                                    <control type="image">
+                                        <texture colordiffuse="dialog_fg_12" border="40">common/menu.png</texture>
+                                        <visible>!Control.HasFocus(312)</visible>
+                                    </control>
+                                    <control type="image">
+                                        <include>Texture_Menu_Highlight_H</include>
+                                        <visible>Control.HasFocus(312)</visible>
+                                    </control>
+                                    <control type="edit" id="312">
+                                        <texturenofocus />
+                                        <texturefocus />
+                                        <top>30</top>
+                                        <height>40</height>
+                                        <align>center</align>
+                                        <textoffsetx>40</textoffsetx>
+                                        <onleft>309</onleft>
+                                        <onright>309</onright>
+                                        <onup>8000</onup>
+                                        <ondown>8001</ondown>
+                                        <font>font_main</font>
+                                    </control>
+                                    <control type="group">
+                                        <height>40</height>
+                                        <description>Text Entry (Chinese)</description>
+                                        <control type="label" id="313">
+                                            <align>center</align>
+                                            <font>font_hint_black</font>
+                                            <textcolor>dialog_fg_70</textcolor>
+                                        </control>
+                                        <control type="label">
+                                            <align>center</align>
+                                            <font>font_hint_black</font>
+                                            <include>Color_SelectedText</include>
+                                            <visible>Control.HasFocus(312)</visible>
+                                            <label>$INFO[Control.GetLabel(313)]</label>
+                                        </control>
+                                    </control>
+                                    <control type="group">
+                                        <visible>String.IsEmpty(Control.GetLabel(313))</visible>
+                                        <height>40</height>
+                                        <control type="label" id="311">
+                                            <align>center</align>
+                                            <font>font_hint_black</font>
+                                            <textcolor>dialog_fg_70</textcolor>
+                                        </control>
+                                        <control type="label">
+                                            <align>center</align>
+                                            <font>font_hint_black</font>
+                                            <include>Color_SelectedText</include>
+                                            <visible>Control.HasFocus(312)</visible>
+                                            <label>$INFO[Control.GetLabel(311)]</label>
+                                        </control>
+                                    </control>
+                                </control>
+                            </control>
+
+
+                            <control type="group" description="Top Row">
+                                <height>40</height>
+                                <control type="grouplist" description="Letters" id="8001">
+                                    <centertop>50%</centertop>
+                                    <orientation>horizontal</orientation>
+                                    <itemgap>0</itemgap>
+                                    <height>80</height>
+                                    <onleft>102</onleft>
+                                    <onright>100</onright>
+                                    <include content="Object_Keyboard_Mini_Button" description="Shift">
+                                        <param name="id">302</param>
+                                        <param name="control">radiobutton</param>
+                                        <label>20178</label>
+                                        <align>left</align>
+                                        <width>240</width>
+                                        <textoffsetx>5</textoffsetx>
+                                        <onup>309</onup>
+                                        <ondown>303</ondown>
+                                    </include>
+                                    <include content="Object_Keyboard_Mini_Button" description="Letters">
+                                        <param name="id">120</param>
+                                        <onup>312</onup>
+                                        <ondown>140</ondown>
+                                        <left>30</left>
+                                        <!-- <left>25</left> -->
+                                    </include>
+                                    <include content="Object_Keyboard_Mini_Button" description="Letters">
+                                        <param name="id">121</param>
+                                        <onup>312</onup>
+                                        <ondown>141</ondown>
+                                    </include>
+                                    <include content="Object_Keyboard_Mini_Button" description="Letters">
+                                        <param name="id">122</param>
+                                        <onup>312</onup>
+                                        <ondown>142</ondown>
+                                    </include>
+                                    <include content="Object_Keyboard_Mini_Button" description="Letters">
+                                        <param name="id">123</param>
+                                        <onup>312</onup>
+                                        <ondown>143</ondown>
+                                    </include>
+                                    <include content="Object_Keyboard_Mini_Button" description="Letters">
+                                        <param name="id">124</param>
+                                        <onup>312</onup>
+                                        <ondown>144</ondown>
+                                    </include>
+                                    <include content="Object_Keyboard_Mini_Button" description="Letters">
+                                        <param name="id">125</param>
+                                        <onup>312</onup>
+                                        <ondown>145</ondown>
+                                    </include>
+                                    <include content="Object_Keyboard_Mini_Button" description="Letters">
+                                        <param name="id">126</param>
+                                        <onup>312</onup>
+                                        <ondown>146</ondown>
+                                    </include>
+                                    <include content="Object_Keyboard_Mini_Button" description="Letters">
+                                        <param name="id">127</param>
+                                        <onup>312</onup>
+                                        <ondown>147</ondown>
+                                    </include>
+                                    <include content="Object_Keyboard_Mini_Button" description="Letters">
+                                        <param name="id">128</param>
+                                        <onup>312</onup>
+                                        <ondown>148</ondown>
+                                    </include>
+                                    <include content="Object_Keyboard_Mini_Button" description="Letters">
+                                        <param name="id">129</param>
+                                        <onup>312</onup>
+                                        <ondown>149</ondown>
+                                    </include>
+                                    <include content="Object_Keyboard_Mini_Button" description="Letters">
+                                        <param name="id">130</param>
+                                        <onup>312</onup>
+                                        <ondown>150</ondown>
+                                    </include>
+                                    <include content="Object_Keyboard_Mini_Button" description="Letters">
+                                        <param name="id">131</param>
+                                        <onup>312</onup>
+                                        <ondown>151</ondown>
+                                    </include>
+                                </control>
+                                <control type="grouplist" description="Numbers">
+                                    <centertop>50%</centertop>
+                                    <orientation>horizontal</orientation>
+                                    <itemgap>0</itemgap>
+                                    <height>80</height>
+                                    <align>right</align>
+                                    <right>20</right>
+                                    <onleft>131</onleft>
+                                    <onright>302</onright>
+                                    <include content="Object_Keyboard_Mini_Button" description="Digits">
+                                        <param name="id">100</param>
+                                        <onup>312</onup>
+                                        <ondown>103</ondown>
+                                    </include>
+                                    <include content="Object_Keyboard_Mini_Button" description="Digits">
+                                        <param name="id">101</param>
+                                        <onup>312</onup>
+                                        <ondown>104</ondown>
+                                    </include>
+                                    <include content="Object_Keyboard_Mini_Button" description="Digits">
+                                        <param name="id">102</param>
+                                        <onup>312</onup>
+                                        <ondown>105</ondown>
+                                    </include>
+                                </control>
+                            </control>
+
+
+                            <control type="group" description="Mid Row">
+                                <height>40</height>
+                                <control type="grouplist" description="Letters">
+                                    <centertop>50%</centertop>
+                                    <orientation>horizontal</orientation>
+                                    <itemgap>0</itemgap>
+                                    <height>80</height>
+                                    <onleft>105</onleft>
+                                    <onright>103</onright>
+                                    <include content="Object_Keyboard_Mini_Button" description="CapsLock">
+                                        <param name="id">303</param>
+                                        <param name="control">radiobutton</param>
+                                        <label>20179</label>
+                                        <align>left</align>
+                                        <width>240</width>
+                                        <textoffsetx>5</textoffsetx>
+                                        <onup>302</onup>
+                                        <ondown>304</ondown>
+                                    </include>
+                                    <include content="Object_Keyboard_Mini_Button" description="Letters">
+                                        <param name="id">140</param>
+                                        <onup>120</onup>
+                                        <ondown>160</ondown>
+                                        <left>30</left>
+                                        <!-- <left>45</left> -->
+                                    </include>
+                                    <include content="Object_Keyboard_Mini_Button" description="Letters">
+                                        <param name="id">141</param>
+                                        <onup>121</onup>
+                                        <ondown>161</ondown>
+                                    </include>
+                                    <include content="Object_Keyboard_Mini_Button" description="Letters">
+                                        <param name="id">142</param>
+                                        <onup>122</onup>
+                                        <ondown>162</ondown>
+                                    </include>
+                                    <include content="Object_Keyboard_Mini_Button" description="Letters">
+                                        <param name="id">143</param>
+                                        <onup>123</onup>
+                                        <ondown>163</ondown>
+                                    </include>
+                                    <include content="Object_Keyboard_Mini_Button" description="Letters">
+                                        <param name="id">144</param>
+                                        <onup>124</onup>
+                                        <ondown>164</ondown>
+                                    </include>
+                                    <include content="Object_Keyboard_Mini_Button" description="Letters">
+                                        <param name="id">145</param>
+                                        <onup>125</onup>
+                                        <ondown>165</ondown>
+                                    </include>
+                                    <include content="Object_Keyboard_Mini_Button" description="Letters">
+                                        <param name="id">146</param>
+                                        <onup>126</onup>
+                                        <ondown>166</ondown>
+                                    </include>
+                                    <include content="Object_Keyboard_Mini_Button" description="Letters">
+                                        <param name="id">147</param>
+                                        <onup>127</onup>
+                                        <ondown>167</ondown>
+                                    </include>
+                                    <include content="Object_Keyboard_Mini_Button" description="Letters">
+                                        <param name="id">148</param>
+                                        <onup>128</onup>
+                                        <ondown>168</ondown>
+                                    </include>
+                                    <include content="Object_Keyboard_Mini_Button" description="Letters">
+                                        <param name="id">149</param>
+                                        <onup>129</onup>
+                                        <ondown>169</ondown>
+                                    </include>
+                                    <include content="Object_Keyboard_Mini_Button" description="Letters">
+                                        <param name="id">150</param>
+                                        <onup>130</onup>
+                                        <ondown>170</ondown>
+                                    </include>
+                                    <include content="Object_Keyboard_Mini_Button" description="Letters">
+                                        <param name="id">151</param>
+                                        <onup>131</onup>
+                                        <ondown>171</ondown>
+                                    </include>
+                                </control>
+                                <control type="grouplist" description="Numbers">
+                                    <centertop>50%</centertop>
+                                    <orientation>horizontal</orientation>
+                                    <itemgap>0</itemgap>
+                                    <height>80</height>
+                                    <align>right</align>
+                                    <right>20</right>
+                                    <onleft>151</onleft>
+                                    <onright>303</onright>
+                                    <include content="Object_Keyboard_Mini_Button" description="Digits">
+                                        <param name="id">103</param>
+                                        <onup>100</onup>
+                                        <ondown>106</ondown>
+                                    </include>
+                                    <include content="Object_Keyboard_Mini_Button" description="Digits">
+                                        <param name="id">104</param>
+                                        <onup>101</onup>
+                                        <ondown>107</ondown>
+                                    </include>
+                                    <include content="Object_Keyboard_Mini_Button" description="Digits">
+                                        <param name="id">105</param>
+                                        <onup>102</onup>
+                                        <ondown>108</ondown>
+                                    </include>
+                                </control>
+                            </control>
+
+                            <control type="group" description="Low Row">
+                                <height>40</height>
+                                <control type="grouplist" description="Letters">
+                                    <centertop>50%</centertop>
+                                    <orientation>horizontal</orientation>
+                                    <itemgap>0</itemgap>
+                                    <height>80</height>
+                                    <onleft>108</onleft>
+                                    <onright>106</onright>
+                                    <include content="Object_Keyboard_Mini_Button" description="Symbols">
+                                        <param name="id">304</param>
+                                        <param name="control">radiobutton</param>
+                                        <label>@#!*</label>
+                                        <width>240</width>
+                                        <textoffsetx>5</textoffsetx>
+                                        <align>left</align>
+                                        <onup>303</onup>
+                                        <ondown>300</ondown>
+                                    </include>
+                                    <include content="Object_Keyboard_Mini_Button" description="Letters">
+                                        <param name="id">160</param>
+                                        <onup>140</onup>
+                                        <ondown>32</ondown>
+                                        <left>30</left>
+                                        <!-- <left>65</left> -->
+                                    </include>
+                                    <include content="Object_Keyboard_Mini_Button" description="Letters">
+                                        <param name="id">161</param>
+                                        <onup>141</onup>
+                                        <ondown>32</ondown>
+                                    </include>
+                                    <include content="Object_Keyboard_Mini_Button" description="Letters">
+                                        <param name="id">162</param>
+                                        <onup>142</onup>
+                                        <ondown>32</ondown>
+                                    </include>
+                                    <include content="Object_Keyboard_Mini_Button" description="Letters">
+                                        <param name="id">163</param>
+                                        <onup>143</onup>
+                                        <ondown>32</ondown>
+                                    </include>
+                                    <include content="Object_Keyboard_Mini_Button" description="Letters">
+                                        <param name="id">164</param>
+                                        <onup>144</onup>
+                                        <ondown>32</ondown>
+                                    </include>
+                                    <include content="Object_Keyboard_Mini_Button" description="Letters">
+                                        <param name="id">165</param>
+                                        <onup>145</onup>
+                                        <ondown>32</ondown>
+                                    </include>
+                                    <include content="Object_Keyboard_Mini_Button" description="Letters">
+                                        <param name="id">166</param>
+                                        <onup>146</onup>
+                                        <ondown>32</ondown>
+                                    </include>
+                                    <include content="Object_Keyboard_Mini_Button" description="Letters">
+                                        <param name="id">167</param>
+                                        <onup>147</onup>
+                                        <ondown>32</ondown>
+                                    </include>
+                                    <include content="Object_Keyboard_Mini_Button" description="Letters">
+                                        <param name="id">168</param>
+                                        <onup>148</onup>
+                                        <ondown>32</ondown>
+                                    </include>
+                                    <include content="Object_Keyboard_Mini_Button" description="Letters">
+                                        <param name="id">169</param>
+                                        <onup>149</onup>
+                                        <ondown>32</ondown>
+                                    </include>
+                                    <include content="Object_Keyboard_Mini_Button" description="Letters">
+                                        <param name="id">170</param>
+                                        <onup>150</onup>
+                                        <ondown>32</ondown>
+                                    </include>
+                                    <include content="Object_Keyboard_Mini_Button" description="Letters">
+                                        <param name="id">171</param>
+                                        <onup>151</onup>
+                                        <ondown>32</ondown>
+                                    </include>
+                                </control>
+                                <control type="grouplist" description="Numbers">
+                                    <centertop>50%</centertop>
+                                    <orientation>horizontal</orientation>
+                                    <itemgap>0</itemgap>
+                                    <height>80</height>
+                                    <align>right</align>
+                                    <right>20</right>
+                                    <onleft>171</onleft>
+                                    <onright>304</onright>
+                                    <include content="Object_Keyboard_Mini_Button" description="Digits">
+                                        <param name="id">106</param>
+                                        <onup>103</onup>
+                                        <ondown>109</ondown>
+                                    </include>
+                                    <include content="Object_Keyboard_Mini_Button" description="Digits">
+                                        <param name="id">107</param>
+                                        <onup>104</onup>
+                                        <ondown>110</ondown>
+                                    </include>
+                                    <include content="Object_Keyboard_Mini_Button" description="Digits">
+                                        <param name="id">108</param>
+                                        <onup>105</onup>
+                                        <ondown>111</ondown>
+                                    </include>
+                                </control>
+                            </control>
+
+                            <control type="group" description="Opt Row">
+                                <height>40</height>
+                                <control type="grouplist" description="Options" id="8004">
+                                    <centertop>50%</centertop>
+                                    <orientation>horizontal</orientation>
+                                    <itemgap>10</itemgap>
+                                    <height>80</height>
+                                    <onleft>111</onleft>
+                                    <onright>109</onright>
+                                    <include content="Object_Keyboard_Mini_Button" description="Left">
+                                        <param name="id">305</param>
+                                        <font>font_main_iconic</font>
+                                        <label>&#xf0a8;</label>
+                                        <onup>304</onup>
+                                        <ondown>8000</ondown>
+                                    </include>
+                                    <include content="Object_Keyboard_Mini_Button" description="Right">
+                                        <param name="id">306</param>
+                                        <font>font_main_iconic</font>
+                                        <label>&#xf0a9;</label>
+                                        <onup>304</onup>
+                                        <ondown>8000</ondown>
+                                    </include>
+                                    <include content="Object_Keyboard_Mini_Button" description="Cancel">
+                                        <param name="id">301</param>
+                                        <font>font_main_iconic</font>
+                                        <label>&#xf05c;</label>
+                                        <onup>304</onup>
+                                        <ondown>8000</ondown>
+                                    </include>
+                                    <include content="Object_Keyboard_Mini_Button" description="Done">
+                                        <param name="id">300</param>
+                                        <font>font_main_iconic</font>
+                                        <label>&#xf05d;</label>
+                                        <onup>304</onup>
+                                        <ondown>8000</ondown>
+                                    </include>
+                                    <include content="Object_Keyboard_Mini_Button" description="Backspace">
+                                        <param name="id">8</param>
+                                        <font>font_main_iconic</font>
+                                        <label>&#xf55a;</label>
+                                        <onup>304</onup>
+                                        <ondown>8000</ondown>
+                                    </include>
+                                    <include content="Object_Keyboard_Mini_Button" description="Space">
+                                        <param name="id">32</param>
+                                        <label>20182</label>
+                                        <textoffsetx>5</textoffsetx>
+                                        <width>auto</width>
+                                        <onup>163</onup>
+                                        <ondown>8000</ondown>
+                                        <left>120</left>
+                                    </include>
+                                    <include content="Object_Keyboard_Mini_Button" description="IP Address">
+                                        <param name="id">307</param>
+                                        <label>IP</label>
+                                        <width>auto</width>
+                                        <textoffsetx>5</textoffsetx>
+                                        <onup>171</onup>
+                                        <ondown>300</ondown>
+                                        <left>250</left>
+                                    </include>
+                                </control>
+                                <control type="grouplist" description="Numbers">
+                                    <centertop>50%</centertop>
+                                    <orientation>horizontal</orientation>
+                                    <itemgap>0</itemgap>
+                                    <height>80</height>
+                                    <align>right</align>
+                                    <right>20</right>
+                                    <onleft>307</onleft>
+                                    <onright>300</onright>
+                                    <include content="Object_Keyboard_Mini_Button" description="Digits">
+                                        <param name="id">109</param>
+                                        <onup>106</onup>
+                                        <ondown>8000</ondown>
+                                    </include>
+                                    <include content="Object_Keyboard_Mini_Button" description="Digits">
+                                        <param name="id">110</param>
+                                        <onup>107</onup>
+                                        <ondown>8000</ondown>
+                                    </include>
+                                    <include content="Object_Keyboard_Mini_Button" description="Digits">
+                                        <param name="id">111</param>
+                                        <onup>108</onup>
+                                        <ondown>8000</ondown>
+                                    </include>
+                                </control>
+                            </control>
+                        </control>
+                    </control>
+                </control>
+            </control>
+        </control>
+    </include>
+
+    <include name="Keyboard_Mini_Numeric">
+        <control type="image">
+            <texture colordiffuse="panel_bg_70" flipx="true">background/combined_flixart.png</texture>
+            <include>Animation_FadeIn</include>
+            <include>Animation_FadeOut</include>
+        </control>
+        <control type="group">
+            <left>view_pad</left>
+            <right>view_pad</right>
+            <control type="group">
+                <bottom>40</bottom>
+                <right>-40</right>
+                <width>320</width>
+                <height>370</height>
+                <include>Animation_SlideIn_Dialog</include>
+                <control type="group">
+                    <include content="Dialog_Background_Blur" condition="$EXP[Exp_AutoCompletion_IsEnabled]">
+                        <param name="shadow">false</param>
+                        <param name="diffuse">diffuse/dialog_w480_h400.png</param>
+                    </include>
+                </control>
+                <control type="group">
+                    <include content="Dialog_Background_Blur">
+                        <param name="diffuse">diffuse/dialog_w480_h400.png</param>
+                    </include>
+                    <bottom>60</bottom>
+                    <control type="image">
+                        <texture colordiffuse="dialog_fg_12" border="20">common/dialog.png</texture>
+                    </control>
+                    <control type="group" id="7000">
+                        <include>Dialog_Group</include>
+                        <control type="group">
+                            <height>80</height>
+                            <control type="image">
+                                <texture colordiffuse="dialog_fg_12" border="40">common/menu.png</texture>
+                            </control>
+                            <control type="label" id="1">
+                                <align>center</align>
+                                <font>font_hint_black</font>
+                                <textcolor>dialog_fg_70</textcolor>
+                                <height>40</height>
+                            </control>
+                            <control type="label" id="4">
+                                <top>30</top>
+                                <height>40</height>
+                                <align>center</align>
+                                <textoffsetx>40</textoffsetx>
+                                <font>font_main</font>
+                            </control>
+                            <control type="image">
+                                <height>1</height>
+                                <centerbottom>-30</centerbottom>
+                                <left>20</left>
+                                <right>20</right>
+                                <texture colordiffuse="dialog_fg_12">common/white.png</texture>
+                            </control>
+                        </control>
+
+                        <control type="grouplist">
+                            <orientation>vertical</orientation>
+                            <itemgap>-20</itemgap>
+                            <top>120</top>
+                            <bottom>-40</bottom>
+                            <control type="grouplist" description="Row 1">
+                                <orientation>horizontal</orientation>
+                                <itemgap>10</itemgap>
+                                <height>80</height>
+                                <include content="Object_Keyboard_Mini_Button" description="Number">
+                                    <param name="id">11</param>
+                                    <label>$NUMBER[1]</label>
+                                    <onup>21</onup>
+                                    <ondown>16</ondown>
+                                </include>
+                                <include content="Object_Keyboard_Mini_Button" description="Number">
+                                    <param name="id">12</param>
+                                    <label>$NUMBER[2]</label>
+                                    <onup>9002</onup>
+                                    <ondown>17</ondown>
+                                </include>
+                                <include content="Object_Keyboard_Mini_Button" description="Number">
+                                    <param name="id">13</param>
+                                    <label>$NUMBER[3]</label>
+                                    <onup>20</onup>
+                                    <ondown>18</ondown>
+                                </include>
+                                <include content="Object_Keyboard_Mini_Button" description="Number">
+                                    <param name="id">14</param>
+                                    <label>$NUMBER[4]</label>
+                                    <onup>22</onup>
+                                    <ondown>19</ondown>
+                                </include>
+                                <include content="Object_Keyboard_Mini_Button" description="Number">
+                                    <param name="id">15</param>
+                                    <label>$NUMBER[5]</label>
+                                    <onup>23</onup>
+                                    <ondown>10</ondown>
+                                </include>
+                            </control>
+                            <control type="grouplist" description="Row 2">
+                                <orientation>horizontal</orientation>
+                                <itemgap>10</itemgap>
+                                <height>80</height>
+                                <include content="Object_Keyboard_Mini_Button" description="Number">
+                                    <param name="id">16</param>
+                                    <label>$NUMBER[6]</label>
+                                    <onup>11</onup>
+                                    <ondown>21</ondown>
+                                </include>
+                                <include content="Object_Keyboard_Mini_Button" description="Number">
+                                    <param name="id">17</param>
+                                    <label>$NUMBER[7]</label>
+                                    <onup>12</onup>
+                                    <ondown>9002</ondown>
+                                </include>
+                                <include content="Object_Keyboard_Mini_Button" description="Number">
+                                    <param name="id">18</param>
+                                    <label>$NUMBER[8]</label>
+                                    <onup>13</onup>
+                                    <ondown>20</ondown>
+                                </include>
+                                <include content="Object_Keyboard_Mini_Button" description="Number">
+                                    <param name="id">19</param>
+                                    <label>$NUMBER[9]</label>
+                                    <onup>14</onup>
+                                    <ondown>22</ondown>
+                                </include>
+                                <include content="Object_Keyboard_Mini_Button" description="Number">
+                                    <param name="id">10</param>
+                                    <label>$NUMBER[0]</label>
+                                    <onup>15</onup>
+                                    <ondown>23</ondown>
+                                </include>
+                            </control>
+                        </control>
+                    </control>
+                    <control type="grouplist" id="9000">
+                        <right>40</right>
+                        <left>40</left>
+                        <height>80</height>
+                        <bottom>-72</bottom>
+                        <align>center</align>
+                        <orientation>horizontal</orientation>
+                        <itemgap>10</itemgap>
+                        <include content="Object_Keyboard_Mini_Button" description="Done">
+                            <height>65</height>
+                            <param name="id">21</param>
+                            <font>font_main_iconic</font>
+                            <label>&#xf05d;</label>
+                            <onup>16</onup>
+                            <ondown>11</ondown>
+                        </include>
+                        <include content="Object_Keyboard_Mini_Button" description="Cancel">
+                            <height>65</height>
+                            <param name="id">9002</param>
+                            <font>font_main_iconic</font>
+                            <label>&#xf05c;</label>
+                            <onclick>Close</onclick>
+                            <onup>17</onup>
+                            <ondown>12</ondown>
+                        </include>
+                        <include content="Object_Keyboard_Mini_Button" description="Left">
+                            <height>65</height>
+                            <param name="id">20</param>
+                            <font>font_main_iconic</font>
+                            <label>&#xf0a8;</label>
+                            <onup>18</onup>
+                            <ondown>13</ondown>
+                        </include>
+                        <include content="Object_Keyboard_Mini_Button" description="Right">
+                            <height>65</height>
+                            <param name="id">22</param>
+                            <font>font_main_iconic</font>
+                            <label>&#xf0a9;</label>
+                            <onup>19</onup>
+                            <ondown>14</ondown>
+                        </include>
+                        <include content="Object_Keyboard_Mini_Button" description="Backspace">
+                            <height>65</height>
+                            <param name="id">23</param>
+                            <font>font_main_iconic</font>
+                            <label>&#xf55a;</label>
+                            <onup>10</onup>
+                            <ondown>15</ondown>
+                        </include>
+                    </control>
+                </control>
+            </control>
+        </control>
+    </include>
+
+</includes>

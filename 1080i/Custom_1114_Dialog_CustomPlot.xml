@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<window type="dialog" id="1114">
+    <defaultcontrol always="true">8000</defaultcontrol>
+    <onunload>ClearProperty(header,1114)</onunload>
+    <onunload>ClearProperty(textbox,1114)</onunload>
+    <onunload>ClearProperty(poster,1114)</onunload>
+    <onunload>ClearProperty(landscape,1114)</onunload>
+    <onunload>ClearProperty(clearlogo,1114)</onunload>
+    <onunload>ClearProperty(icon,1114)</onunload>
+    <onunload>ClearProperty(path,1114)</onunload>
+    <onunload>ClearProperty(trailer,1114)</onunload>
+    <onunload>ClearProperty(tmdb_id,1114)</onunload>
+    <onunload>ClearProperty(tmdb_type,1114)</onunload>
+    <controls>
+
+        <include content="Object_Hidden_List" condition="!String.IsEmpty(Window.Property(tmdb_type)) + !String.IsEmpty(Window.Property(tmdb_id))">
+            <param name="id">99950</param>
+            <content limit="1">$INFO[Window.Property(tmdb_id),plugin://plugin.video.themoviedb.helper/?info=details&amp;tmdb_id=,]$INFO[Window.Property(tmdb_type),&amp;tmdb_type=,]</content>
+        </include>
+        <include content="Object_Hidden_Button" condition="String.IsEmpty(Window.Property(path))">
+            <param name="id">8000</param>
+            <onleft>Close</onleft>
+            <onclick>Close</onclick>
+            <onup>Control.Message(61,pageup)</onup>
+            <ondown>Control.Message(61,pagedown)</ondown>
+        </include>
+
+        <include content="DialogInfo_CustomPlot" condition="![!String.IsEmpty(Window.Property(poster)) | !String.IsEmpty(Window.Property(icon))]">
+            <param name="size">Dimension_DialogHugeMenu</param>
+            <param name="include_artwork">false</param>
+        </include>
+        <include content="DialogInfo_CustomPlot" condition="!String.IsEmpty(Window.Property(poster)) | !String.IsEmpty(Window.Property(icon))">
+            <param name="size">Dimension_DialogFullMenu</param>
+            <param name="include_artwork">true</param>
+        </include>
+
+        <include content="Furniture_Busy" condition="!String.IsEmpty(Window.Property(tmdb_type)) + !String.IsEmpty(Window.Property(tmdb_id))">
+            <param name="hasspinner">true</param>
+            <param name="spinspinner">true</param>
+            <param name="icon">special://skin/extras/icons/kodi.png</param>
+            <param name="spinnervisible">[!Window.IsActive(DialogVolumeBar.xml) | Player.Muted]</param>
+            <param name="haslabel">false</param>
+            <param name="visible_delay">800</param>
+            <param name="windowopen_delay">800</param>
+            <param name="visible">[[!Window.IsActive(DialogVolumeBar.xml) | Player.Muted] + !String.IsEmpty(Window.Property(tmdb_type)) + !String.IsEmpty(Window.Property(tmdb_id)) + Container(99950).IsUpdating]</param>
+        </include>
+    </controls>
+</window>

@@ -1,0 +1,817 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<includes>
+
+    <include name="Keyboard_Standard">
+        <control type="group">
+            <include>Dimension_DialogKeyboard</include>
+            <include>Animation_SlideIn_Dialog</include>
+
+            <include content="Object_Dim_Bottom">
+                <param name="flipy">false</param>
+                <top>-320</top>
+                <bottom>-320</bottom>
+                <left>keyboard_shadow_x</left>
+                <right>keyboard_shadow_x</right>
+                <animation effect="slide" end="0,-80" time="200" condition="$EXP[Exp_AutoCompletion_IsEnabled] + !Integer.IsEqual(Container(8000).NumItems,0)">Conditional</animation>
+            </include>
+
+            <control type="group">
+                <left>60</left>
+                <right>-60</right>
+                <control type="group">
+                    <visible>$EXP[Exp_AutoCompletion_IsEnabled]</visible>
+                    <include content="Dialog_Background_Blur">
+                        <param name="shadow">false</param>
+                        <param name="diffuse">diffuse/dialog_w1120_h400.png</param>
+                    </include>
+                    <animation effect="slide" start="0" end="0,-80" time="400" condition="$EXP[Exp_AutoCompletion_IsEnabled] + !Integer.IsEqual(Container(8000).NumItems,0)" tween="cubic" easing="out" reversible="false">Conditional</animation>
+                    <animation effect="slide" start="0,-80" end="0" time="400" condition="![$EXP[Exp_AutoCompletion_IsEnabled] + !Integer.IsEqual(Container(8000).NumItems,0)]" tween="cubic" easing="out" reversible="false">Conditional</animation>
+                    <control type="fixedlist" id="8000">
+                        <height>160</height>
+                        <top>-40</top>
+                        <width>1600</width>
+                        <centerleft>50%</centerleft>
+                        <orientation>horizontal</orientation>
+                        <focusposition>3</focusposition>
+                        <movement>2</movement>
+                        <onup>8004</onup>
+                        <ondown>312</ondown>
+                        <itemlayout width="265" height="160">
+                            <control type="label">
+                                <font>font_mini</font>
+                                <align>center</align>
+                                <textcolor>dialog_fg_30</textcolor>
+                                <label>$INFO[ListItem.Label]</label>
+                            </control>
+                        </itemlayout>
+                        <focusedlayout width="265" height="160" condition="!Control.HasFocus(8000)">
+                            <control type="label">
+                                <font>font_mini</font>
+                                <align>center</align>
+                                <textcolor>dialog_fg_30</textcolor>
+                                <label>$INFO[ListItem.Label]</label>
+                            </control>
+                        </focusedlayout>
+                        <focusedlayout width="265" height="160" condition="Control.HasFocus(8000)">
+                            <control type="image">
+                                <include>Texture_Highlight_Scrollbar_H</include>
+                                <height>scrollbar_w</height>
+                                <bottom>40</bottom>
+                                <width>75%</width>
+                                <centerleft>50%</centerleft>
+                            </control>
+                            <control type="label">
+                                <align>center</align>
+                                <font>font_mini_black</font>
+                                <textcolor>dialog_fg_90</textcolor>
+                                <label>$INFO[ListItem.Label]</label>
+                            </control>
+                        </focusedlayout>
+                        <content>plugin://plugin.program.autocompletion?info=autocomplete&amp;&amp;id=$INFO[Control.GetLabel(312).index(1)]</content>
+                    </control>
+                </control>
+                <control type="group">
+                    <include content="Dialog_Background_Blur">
+                        <param name="shadow">false</param>
+                        <param name="diffuse">diffuse/dialog_w1120_h400.png</param>
+                    </include>
+                    <control type="image">
+                        <texture colordiffuse="dialog_fg_12" border="20">common/dialog.png</texture>
+                    </control>
+                    <control type="group">
+                        <top>-120</top>
+                        <height>120</height>
+                        <left>255</left>
+                        <include content="Object_Control" description="Text Entry (Chinese)">
+                            <param name="id">313</param>
+                            <param name="control">label</param>
+                            <width>100%</width>
+                            <align>center</align>
+                            <height>40</height>
+                            <font>font_head_black</font>
+                            <textcolor>dialog_fg_90</textcolor>
+                        </include>
+                        <include content="Object_Control" description="Text Choices (Chinese)">
+                            <param name="id">314</param>
+                            <param name="control">label</param>
+                            <width>100%</width>
+                            <align>center</align>
+                            <height>80</height>
+                            <font>font_midi</font>
+                            <textcolor>dialog_fg_90</textcolor>
+                            <bottom>0</bottom>
+                        </include>
+                    </control>
+                    <control type="grouplist">
+                        <include>Dialog_Group</include>
+                        <orientation>vertical</orientation>
+                        <itemgap>keyboard_pad</itemgap>
+                        <control type="grouplist" description="Text Entry">
+                            <orientation>horizontal</orientation>
+                            <itemgap>keyboard_pad</itemgap>
+                            <height>80</height>
+                            <include content="Object_Keyboard_Button" description="Layout">
+                                <param name="id">309</param>
+                                <height>80</height>
+                                <width>keyboard_shift_w</width>
+                                <onup>8000</onup>
+                                <ondown>302</ondown>
+                            </include>
+                            <control type="group" id="8312">
+                                <height>80</height>
+                                <align>left</align>
+                                <textoffsetx>40</textoffsetx>
+                                <width>keyboard_edit_w</width>
+                                <control type="image">
+                                    <texture colordiffuse="dialog_fg_12" border="40">common/menu.png</texture>
+                                    <visible>!Control.HasFocus(312)</visible>
+                                </control>
+                                <control type="image">
+                                    <include>Texture_Menu_Highlight_H</include>
+                                    <visible>Control.HasFocus(312)</visible>
+                                </control>
+                                <control type="edit" id="312">
+                                    <texturenofocus />
+                                    <texturefocus />
+                                    <top>30</top>
+                                    <height>40</height>
+                                    <align>center</align>
+                                    <textoffsetx>40</textoffsetx>
+                                    <width>keyboard_edit_w</width>
+                                    <onup>8000</onup>
+                                    <ondown>8001</ondown>
+                                    <font>font_main</font>
+                                </control>
+                                <control type="label" id="311">
+                                    <align>center</align>
+                                    <height>40</height>
+                                    <font>font_hint_black</font>
+                                    <textcolor>dialog_fg_70</textcolor>
+                                </control>
+                                <control type="label">
+                                    <align>center</align>
+                                    <height>40</height>
+                                    <font>font_hint_black</font>
+                                    <include>Color_SelectedText</include>
+                                    <visible>Control.HasFocus(312)</visible>
+                                    <label>$INFO[Control.GetLabel(311)]</label>
+                                </control>
+                            </control>
+                        </control>
+
+
+                        <control type="group" description="Top Row">
+                            <height>80</height>
+                            <control type="grouplist" description="Letters" id="8001">
+                                <orientation>horizontal</orientation>
+                                <itemgap>keyboard_pad</itemgap>
+                                <height>80</height>
+                                <onleft>102</onleft>
+                                <onright>100</onright>
+                                <include content="Object_Keyboard_Button" description="Shift">
+                                    <param name="id">302</param>
+                                    <param name="control">radiobutton</param>
+                                    <label>20178</label>
+                                    <align>left</align>
+                                    <textoffsetx>30</textoffsetx>
+                                    <width>keyboard_shift_w</width>
+                                    <onup>309</onup>
+                                    <ondown>303</ondown>
+                                </include>
+                                <include content="Object_Keyboard_Button" description="Letters">
+                                    <param name="id">120</param>
+                                    <include>Texture_KeyboardButton</include>
+                                    <onup>312</onup>
+                                    <ondown>140</ondown>
+                                </include>
+                                <include content="Object_Keyboard_Button" description="Letters">
+                                    <param name="id">121</param>
+                                    <include>Texture_KeyboardButton</include>
+                                    <onup>312</onup>
+                                    <ondown>141</ondown>
+                                </include>
+                                <include content="Object_Keyboard_Button" description="Letters">
+                                    <param name="id">122</param>
+                                    <include>Texture_KeyboardButton</include>
+                                    <onup>312</onup>
+                                    <ondown>142</ondown>
+                                </include>
+                                <include content="Object_Keyboard_Button" description="Letters">
+                                    <param name="id">123</param>
+                                    <include>Texture_KeyboardButton</include>
+                                    <onup>312</onup>
+                                    <ondown>143</ondown>
+                                </include>
+                                <include content="Object_Keyboard_Button" description="Letters">
+                                    <param name="id">124</param>
+                                    <include>Texture_KeyboardButton</include>
+                                    <onup>312</onup>
+                                    <ondown>144</ondown>
+                                </include>
+                                <include content="Object_Keyboard_Button" description="Letters">
+                                    <param name="id">125</param>
+                                    <include>Texture_KeyboardButton</include>
+                                    <onup>312</onup>
+                                    <ondown>145</ondown>
+                                </include>
+                                <include content="Object_Keyboard_Button" description="Letters">
+                                    <param name="id">126</param>
+                                    <include>Texture_KeyboardButton</include>
+                                    <onup>312</onup>
+                                    <ondown>146</ondown>
+                                </include>
+                                <include content="Object_Keyboard_Button" description="Letters">
+                                    <param name="id">127</param>
+                                    <include>Texture_KeyboardButton</include>
+                                    <onup>312</onup>
+                                    <ondown>147</ondown>
+                                </include>
+                                <include content="Object_Keyboard_Button" description="Letters">
+                                    <param name="id">128</param>
+                                    <include>Texture_KeyboardButton</include>
+                                    <onup>312</onup>
+                                    <ondown>148</ondown>
+                                </include>
+                                <include content="Object_Keyboard_Button" description="Letters">
+                                    <param name="id">129</param>
+                                    <include>Texture_KeyboardButton</include>
+                                    <onup>312</onup>
+                                    <ondown>149</ondown>
+                                </include>
+                                <include content="Object_Keyboard_Button" description="Letters">
+                                    <param name="id">130</param>
+                                    <include>Texture_KeyboardButton</include>
+                                    <onup>312</onup>
+                                    <ondown>150</ondown>
+                                </include>
+                                <include content="Object_Keyboard_Button" description="Letters">
+                                    <param name="id">131</param>
+                                    <include>Texture_KeyboardButton</include>
+                                    <onup>312</onup>
+                                    <ondown>151</ondown>
+                                </include>
+                            </control>
+                            <control type="grouplist" description="Numbers">
+                                <orientation>horizontal</orientation>
+                                <itemgap>keyboard_pad</itemgap>
+                                <height>80</height>
+                                <align>right</align>
+                                <onleft>131</onleft>
+                                <onright>302</onright>
+                                <include content="Object_Keyboard_Button" description="Digits">
+                                    <param name="id">100</param>
+                                    <include>Texture_KeyboardButton</include>
+                                    <onup>312</onup>
+                                    <ondown>103</ondown>
+                                </include>
+                                <include content="Object_Keyboard_Button" description="Digits">
+                                    <param name="id">101</param>
+                                    <include>Texture_KeyboardButton</include>
+                                    <onup>312</onup>
+                                    <ondown>104</ondown>
+                                </include>
+                                <include content="Object_Keyboard_Button" description="Digits">
+                                    <param name="id">102</param>
+                                    <include>Texture_KeyboardButton</include>
+                                    <onup>312</onup>
+                                    <ondown>105</ondown>
+                                </include>
+                            </control>
+                        </control>
+
+
+                        <control type="group" description="Mid Row">
+                            <height>80</height>
+                            <control type="grouplist" description="Letters">
+                                <orientation>horizontal</orientation>
+                                <itemgap>keyboard_pad</itemgap>
+                                <height>80</height>
+                                <onleft>105</onleft>
+                                <onright>103</onright>
+                                <include content="Object_Keyboard_Button" description="CapsLock">
+                                    <param name="id">303</param>
+                                    <param name="control">radiobutton</param>
+                                    <label>20179</label>
+                                    <textoffsetx>30</textoffsetx>
+                                    <align>left</align>
+                                    <width>keyboard_shift_w</width>
+                                    <onup>302</onup>
+                                    <ondown>307</ondown>
+                                </include>
+                                <include content="Object_Keyboard_Button" description="Letters">
+                                    <param name="id">140</param>
+                                    <include>Texture_KeyboardButton</include>
+                                    <onup>120</onup>
+                                    <ondown>160</ondown>
+                                </include>
+                                <include content="Object_Keyboard_Button" description="Letters">
+                                    <param name="id">141</param>
+                                    <include>Texture_KeyboardButton</include>
+                                    <onup>121</onup>
+                                    <ondown>161</ondown>
+                                </include>
+                                <include content="Object_Keyboard_Button" description="Letters">
+                                    <param name="id">142</param>
+                                    <include>Texture_KeyboardButton</include>
+                                    <onup>122</onup>
+                                    <ondown>162</ondown>
+                                </include>
+                                <include content="Object_Keyboard_Button" description="Letters">
+                                    <param name="id">143</param>
+                                    <include>Texture_KeyboardButton</include>
+                                    <onup>123</onup>
+                                    <ondown>163</ondown>
+                                </include>
+                                <include content="Object_Keyboard_Button" description="Letters">
+                                    <param name="id">144</param>
+                                    <include>Texture_KeyboardButton</include>
+                                    <onup>124</onup>
+                                    <ondown>164</ondown>
+                                </include>
+                                <include content="Object_Keyboard_Button" description="Letters">
+                                    <param name="id">145</param>
+                                    <include>Texture_KeyboardButton</include>
+                                    <onup>125</onup>
+                                    <ondown>165</ondown>
+                                </include>
+                                <include content="Object_Keyboard_Button" description="Letters">
+                                    <param name="id">146</param>
+                                    <include>Texture_KeyboardButton</include>
+                                    <onup>126</onup>
+                                    <ondown>166</ondown>
+                                </include>
+                                <include content="Object_Keyboard_Button" description="Letters">
+                                    <param name="id">147</param>
+                                    <include>Texture_KeyboardButton</include>
+                                    <onup>127</onup>
+                                    <ondown>167</ondown>
+                                </include>
+                                <include content="Object_Keyboard_Button" description="Letters">
+                                    <param name="id">148</param>
+                                    <include>Texture_KeyboardButton</include>
+                                    <onup>128</onup>
+                                    <ondown>168</ondown>
+                                </include>
+                                <include content="Object_Keyboard_Button" description="Letters">
+                                    <param name="id">149</param>
+                                    <include>Texture_KeyboardButton</include>
+                                    <onup>129</onup>
+                                    <ondown>169</ondown>
+                                </include>
+                                <include content="Object_Keyboard_Button" description="Letters">
+                                    <param name="id">150</param>
+                                    <include>Texture_KeyboardButton</include>
+                                    <onup>130</onup>
+                                    <ondown>170</ondown>
+                                </include>
+                                <include content="Object_Keyboard_Button" description="Letters">
+                                    <param name="id">151</param>
+                                    <include>Texture_KeyboardButton</include>
+                                    <onup>131</onup>
+                                    <ondown>171</ondown>
+                                </include>
+                            </control>
+                            <control type="grouplist" description="Numbers">
+                                <orientation>horizontal</orientation>
+                                <itemgap>keyboard_pad</itemgap>
+                                <height>80</height>
+                                <align>right</align>
+                                <onleft>151</onleft>
+                                <onright>303</onright>
+                                <include content="Object_Keyboard_Button" description="Digits">
+                                    <param name="id">103</param>
+                                    <include>Texture_KeyboardButton</include>
+                                    <onup>100</onup>
+                                    <ondown>106</ondown>
+                                </include>
+                                <include content="Object_Keyboard_Button" description="Digits">
+                                    <param name="id">104</param>
+                                    <include>Texture_KeyboardButton</include>
+                                    <onup>101</onup>
+                                    <ondown>107</ondown>
+                                </include>
+                                <include content="Object_Keyboard_Button" description="Digits">
+                                    <param name="id">105</param>
+                                    <include>Texture_KeyboardButton</include>
+                                    <onup>102</onup>
+                                    <ondown>108</ondown>
+                                </include>
+                            </control>
+                        </control>
+
+                        <control type="group" description="Low Row">
+                            <height>80</height>
+                            <control type="grouplist" description="Letters">
+                                <orientation>horizontal</orientation>
+                                <itemgap>keyboard_pad</itemgap>
+                                <height>80</height>
+                                <onleft>108</onleft>
+                                <onright>106</onright>
+                                <include content="Object_Keyboard_Button" description="IP Address">
+                                    <param name="id">307</param>
+                                    <label>IP</label>
+                                    <include>Texture_KeyboardButton</include>
+                                    <onup>303</onup>
+                                    <ondown>300</ondown>
+                                </include>
+                                <include content="Object_Keyboard_Button" description="Symbols">
+                                    <param name="id">304</param>
+                                    <label>@#!*</label>
+                                    <width>keyboard_done_w</width>
+                                    <onup>303</onup>
+                                    <ondown>301</ondown>
+                                </include>
+                                <include content="Object_Keyboard_Button" description="Letters">
+                                    <param name="id">160</param>
+                                    <include>Texture_KeyboardButton</include>
+                                    <onup>140</onup>
+                                    <ondown>32</ondown>
+                                </include>
+                                <include content="Object_Keyboard_Button" description="Letters">
+                                    <param name="id">161</param>
+                                    <include>Texture_KeyboardButton</include>
+                                    <onup>141</onup>
+                                    <ondown>32</ondown>
+                                </include>
+                                <include content="Object_Keyboard_Button" description="Letters">
+                                    <param name="id">162</param>
+                                    <include>Texture_KeyboardButton</include>
+                                    <onup>142</onup>
+                                    <ondown>32</ondown>
+                                </include>
+                                <include content="Object_Keyboard_Button" description="Letters">
+                                    <param name="id">163</param>
+                                    <include>Texture_KeyboardButton</include>
+                                    <onup>143</onup>
+                                    <ondown>32</ondown>
+                                </include>
+                                <include content="Object_Keyboard_Button" description="Letters">
+                                    <param name="id">164</param>
+                                    <include>Texture_KeyboardButton</include>
+                                    <onup>144</onup>
+                                    <ondown>32</ondown>
+                                </include>
+                                <include content="Object_Keyboard_Button" description="Letters">
+                                    <param name="id">165</param>
+                                    <include>Texture_KeyboardButton</include>
+                                    <onup>145</onup>
+                                    <ondown>32</ondown>
+                                </include>
+                                <include content="Object_Keyboard_Button" description="Letters">
+                                    <param name="id">166</param>
+                                    <include>Texture_KeyboardButton</include>
+                                    <onup>146</onup>
+                                    <ondown>32</ondown>
+                                </include>
+                                <include content="Object_Keyboard_Button" description="Letters">
+                                    <param name="id">167</param>
+                                    <include>Texture_KeyboardButton</include>
+                                    <onup>147</onup>
+                                    <ondown>8</ondown>
+                                </include>
+                                <include content="Object_Keyboard_Button" description="Letters">
+                                    <param name="id">168</param>
+                                    <include>Texture_KeyboardButton</include>
+                                    <onup>148</onup>
+                                    <ondown>8</ondown>
+                                </include>
+                                <include content="Object_Keyboard_Button" description="Letters">
+                                    <param name="id">169</param>
+                                    <include>Texture_KeyboardButton</include>
+                                    <onup>149</onup>
+                                    <ondown>8</ondown>
+                                </include>
+                                <include content="Object_Keyboard_Button" description="Letters">
+                                    <param name="id">170</param>
+                                    <include>Texture_KeyboardButton</include>
+                                    <onup>150</onup>
+                                    <ondown>305</ondown>
+                                </include>
+                                <include content="Object_Keyboard_Button" description="Letters">
+                                    <param name="id">171</param>
+                                    <include>Texture_KeyboardButton</include>
+                                    <onup>151</onup>
+                                    <ondown>306</ondown>
+                                </include>
+                            </control>
+                            <control type="grouplist" description="Numbers">
+                                <orientation>horizontal</orientation>
+                                <itemgap>keyboard_pad</itemgap>
+                                <height>80</height>
+                                <align>right</align>
+                                <onleft>171</onleft>
+                                <onright>307</onright>
+                                <include content="Object_Keyboard_Button" description="Digits">
+                                    <param name="id">106</param>
+                                    <include>Texture_KeyboardButton</include>
+                                    <onup>103</onup>
+                                    <ondown>109</ondown>
+                                </include>
+                                <include content="Object_Keyboard_Button" description="Digits">
+                                    <param name="id">107</param>
+                                    <include>Texture_KeyboardButton</include>
+                                    <onup>104</onup>
+                                    <ondown>110</ondown>
+                                </include>
+                                <include content="Object_Keyboard_Button" description="Digits">
+                                    <param name="id">108</param>
+                                    <include>Texture_KeyboardButton</include>
+                                    <onup>105</onup>
+                                    <ondown>111</ondown>
+                                </include>
+                            </control>
+                        </control>
+
+                        <control type="group" description="Opt Row">
+                            <height>80</height>
+                            <control type="grouplist" description="Options" id="8004">
+                                <orientation>horizontal</orientation>
+                                <itemgap>keyboard_pad</itemgap>
+                                <height>80</height>
+                                <onleft>111</onleft>
+                                <onright>109</onright>
+                                <include content="Object_Keyboard_Button" description="Done">
+                                    <param name="id">300</param>
+                                    <label>20177</label>
+                                    <width>keyboard_done_w</width>
+                                    <onup>307</onup>
+                                    <ondown>8000</ondown>
+                                </include>
+                                <include content="Object_Keyboard_Button" description="Cancel">
+                                    <param name="id">301</param>
+                                    <include>Texture_KeyboardButton</include>
+                                    <font>font_main_iconic</font>
+                                    <label>&#xf05c;</label>
+                                    <onup>304</onup>
+                                    <ondown>8000</ondown>
+                                </include>
+                                <include content="Object_Keyboard_Button" description="Space">
+                                    <param name="id">32</param>
+                                    <label>20182</label>
+                                    <width>keyboard_spacebar_w</width>
+                                    <onup>163</onup>
+                                    <ondown>8000</ondown>
+                                </include>
+                                <include content="Object_Keyboard_Button" description="Backspace">
+                                    <param name="id">8</param>
+                                    <label>20181</label>
+                                    <width>keyboard_backspace_w</width>
+                                    <onup>168</onup>
+                                    <ondown>8000</ondown>
+                                </include>
+                                <include content="Object_Keyboard_Button" description="Left">
+                                    <param name="id">305</param>
+                                    <include>Texture_KeyboardButton</include>
+                                    <font>font_main_iconic</font>
+                                    <label>&#xf0a8;</label>
+                                    <onup>170</onup>
+                                    <ondown>8000</ondown>
+                                </include>
+                                <include content="Object_Keyboard_Button" description="Right">
+                                    <param name="id">306</param>
+                                    <include>Texture_KeyboardButton</include>
+                                    <font>font_main_iconic</font>
+                                    <label>&#xf0a9;</label>
+                                    <onup>171</onup>
+                                    <ondown>8000</ondown>
+                                </include>
+                            </control>
+                            <control type="grouplist" description="Numbers">
+                                <orientation>horizontal</orientation>
+                                <itemgap>keyboard_pad</itemgap>
+                                <height>80</height>
+                                <align>right</align>
+                                <onleft>306</onleft>
+                                <onright>300</onright>
+                                <include content="Object_Keyboard_Button" description="Digits">
+                                    <param name="id">109</param>
+                                    <include>Texture_KeyboardButton</include>
+                                    <onup>106</onup>
+                                    <ondown>8000</ondown>
+                                </include>
+                                <include content="Object_Keyboard_Button" description="Digits">
+                                    <param name="id">110</param>
+                                    <include>Texture_KeyboardButton</include>
+                                    <onup>107</onup>
+                                    <ondown>8000</ondown>
+                                </include>
+                                <include content="Object_Keyboard_Button" description="Digits">
+                                    <param name="id">111</param>
+                                    <include>Texture_KeyboardButton</include>
+                                    <onup>108</onup>
+                                    <ondown>8000</ondown>
+                                </include>
+                            </control>
+                        </control>
+                    </control>
+                </control>
+            </control>
+        </control>
+    </include>
+
+    <include name="Keyboard_Numeric">
+        <control type="image">
+            <include>Animation_FadeIn</include>
+            <include>Animation_FadeOut</include>
+            <texture colordiffuse="panel_bg_70">common/white.png</texture>
+        </control>
+        <control type="group">
+            <include>Animation_SlideIn_Dialog</include>
+            <control type="group">
+                <include>Dimension_DialogNumeric</include>
+                <control type="group">
+                    <include content="Dialog_Background_Blur">
+                    </include>
+                    <include content="Dialog_Head">
+                        <param name="textcolor">main_fg_100</param>
+                        <param name="top">40</param>
+                        <param name="left">40</param>
+                        <param name="right">40</param>
+                    </include>
+                    <include content="Dialog_Overlay_Mode_Glass">
+                        <param name="flipped">false</param>
+                    </include>
+                    <control type="group">
+                        <bottom>120</bottom>
+                        <control type="image">
+                            <top>120</top>
+                            <height>1</height>
+                            <texture colordiffuse="dialog_fg_12">common/white.png</texture>
+                            <left>40</left>
+                            <right>40</right>
+                        </control>
+                        <control type="group" id="7000">
+                            <include content="Dialog_Group">
+                                <param name="top">160</param>
+                            </include>
+                            <control type="group">
+                                <height>80</height>
+                                <control type="image">
+                                    <texture colordiffuse="dialog_fg_12" border="40">common/menu.png</texture>
+                                </control>
+                                <include content="Object_Keyboard_Button" description="Display">
+                                    <param name="id">4</param>
+                                    <param name="control">label</param>
+                                    <align>center</align>
+                                    <textoffset>40</textoffset>
+                                    <width>100%</width>
+                                    <disabledcolor>dialog_bg_30</disabledcolor>
+                                </include>
+                                <control type="image">
+                                    <height>1</height>
+                                    <centerbottom>-30</centerbottom>
+                                    <left>20</left>
+                                    <right>20</right>
+                                    <texture colordiffuse="dialog_fg_12">common/white.png</texture>
+                                </control>
+                            </control>
+                            <control type="group">
+                                <top>140</top>
+                                <control type="group">
+                                    <control type="grouplist">
+                                        <orientation>vertical</orientation>
+                                        <itemgap>keyboard_pad</itemgap>
+                                        <control type="grouplist" description="Row 1">
+                                            <orientation>horizontal</orientation>
+                                            <itemgap>keyboard_pad</itemgap>
+                                            <height>80</height>
+                                            <onleft>11</onleft>
+                                            <onright>23</onright>
+                                            <include content="Object_Keyboard_Button" description="Number">
+                                                <param name="id">11</param>
+                                                <include>Texture_KeyboardButton</include>
+                                                <label>$NUMBER[1]</label>
+                                                <ondown>14</ondown>
+                                            </include>
+                                            <include content="Object_Keyboard_Button" description="Number">
+                                                <param name="id">12</param>
+                                                <include>Texture_KeyboardButton</include>
+                                                <label>$NUMBER[2]</label>
+                                                <ondown>15</ondown>
+                                            </include>
+                                            <include content="Object_Keyboard_Button" description="Number">
+                                                <param name="id">13</param>
+                                                <include>Texture_KeyboardButton</include>
+                                                <label>$NUMBER[3]</label>
+                                                <ondown>16</ondown>
+                                            </include>
+                                            <include content="Object_Keyboard_Button" description="Back">
+                                                <param name="id">23</param>
+                                                <width>170</width>
+                                                <!-- <include>Texture_KeyboardButton</include> -->
+                                                <label>&#xf55a;</label>
+                                                <font>font_main_iconic</font>
+                                                <ondown>21</ondown>
+                                            </include>
+                                        </control>
+                                        <control type="grouplist" description="Row 2">
+                                            <orientation>horizontal</orientation>
+                                            <itemgap>keyboard_pad</itemgap>
+                                            <height>80</height>
+                                            <onleft>14</onleft>
+                                            <onright>10</onright>
+                                            <include content="Object_Keyboard_Button" description="Number">
+                                                <param name="id">14</param>
+                                                <include>Texture_KeyboardButton</include>
+                                                <label>$NUMBER[4]</label>
+                                                <onup>11</onup>
+                                                <ondown>17</ondown>
+                                            </include>
+                                            <include content="Object_Keyboard_Button" description="Number">
+                                                <param name="id">15</param>
+                                                <include>Texture_KeyboardButton</include>
+                                                <label>$NUMBER[5]</label>
+                                                <onup>12</onup>
+                                                <ondown>18</ondown>
+                                            </include>
+                                            <include content="Object_Keyboard_Button" description="Number">
+                                                <param name="id">16</param>
+                                                <include>Texture_KeyboardButton</include>
+                                                <label>$NUMBER[6]</label>
+                                                <onup>13</onup>
+                                                <ondown>19</ondown>
+                                            </include>
+                                            <include content="Object_Keyboard_Button" description="Number">
+                                                <param name="id">10</param>
+                                                <width>170</width>
+                                                <!-- <include>Texture_KeyboardButton</include> -->
+                                                <label>$NUMBER[0]</label>
+                                                <onup>18</onup>
+                                            </include>
+                                        </control>
+                                        <control type="grouplist" description="Row 3" id="7003">
+                                            <orientation>horizontal</orientation>
+                                            <itemgap>keyboard_pad</itemgap>
+                                            <height>80</height>
+                                            <onleft>17</onleft>
+                                            <onright>22</onright>
+                                            <include content="Object_Keyboard_Button" description="Number">
+                                                <param name="id">17</param>
+                                                <include>Texture_KeyboardButton</include>
+                                                <label>$NUMBER[7]</label>
+                                                <onup>14</onup>
+                                                <ondown>9000</ondown>
+                                            </include>
+                                            <include content="Object_Keyboard_Button" description="Number">
+                                                <param name="id">18</param>
+                                                <include>Texture_KeyboardButton</include>
+                                                <label>$NUMBER[8]</label>
+                                                <onup>15</onup>
+                                                <ondown>9000</ondown>
+                                            </include>
+                                            <include content="Object_Keyboard_Button" description="Number">
+                                                <param name="id">19</param>
+                                                <include>Texture_KeyboardButton</include>
+                                                <label>$NUMBER[9]</label>
+                                                <onup>16</onup>
+                                                <ondown>9000</ondown>
+                                            </include>
+                                            <include content="Object_Keyboard_Button" description="Left">
+                                                <param name="id">20</param>
+                                                <include>Texture_KeyboardButton</include>
+                                                <font>font_main_iconic</font>
+                                                <label>&#xf0a8;</label>
+                                                <onup>19</onup>
+                                                <ondown>9000</ondown>
+                                            </include>
+                                            <include content="Object_Keyboard_Button" description="Right">
+                                                <param name="id">22</param>
+                                                <include>Texture_KeyboardButton</include>
+                                                <font>font_main_iconic</font>
+                                                <label>&#xf0a9;</label>
+                                                <onup>21</onup>
+                                                <ondown>9000</ondown>
+                                            </include>
+                                        </control>
+                                    </control>
+
+                                </control>
+                            </control>
+                        </control>
+                    </control>
+                    <control type="grouplist" id="9000">
+                        <right>40</right>
+                        <left>40</left>
+                        <height>80</height>
+                        <bottom>20</bottom>
+                        <align>center</align>
+                        <orientation>horizontal</orientation>
+                        <itemgap>20</itemgap>
+                        <onup>7003</onup>
+                        <control type="button" id="21">
+                            <width>210</width>
+                            <label>$LOCALIZE[186]</label>
+                            <include>defs_dialog_button</include>
+                        </control>
+                        <control type="button" id="9002">
+                            <width>210</width>
+                            <label>$LOCALIZE[222]</label>
+                            <onclick>Close</onclick>
+                            <include>defs_dialog_button</include>
+                        </control>
+                    </control>
+                </control>
+            </control>
+        </control>
+    </include>
+</includes>

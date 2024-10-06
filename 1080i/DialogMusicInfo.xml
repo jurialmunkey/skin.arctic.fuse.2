@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<window type="dialog">
+    <include content="Object_DefaultControl">
+        <param name="always">true</param>
+        <param name="defaultcontrol">4000</param>
+    </include>
+
+    <menucontrol>4000</menucontrol>
+    <include>DialogInfo_Onload</include>
+
+    <onload>RunPlugin("plugin://script.skinvariables/?info=get_encoded_string&amp;window_prop=Encoded.ListItem.Artist&amp;&amp;$INFO[ListItem.Artist]")</onload>
+    <onload>RunPlugin("plugin://script.skinvariables/?info=get_encoded_string&amp;window_prop=Encoded.ListItem.AlbumArtist&amp;&amp;$INFO[ListItem.AlbumArtist]")</onload>
+    <onload>RunPlugin("plugin://script.skinvariables/?info=get_encoded_string&amp;window_prop=Encoded.ListItem.Album&amp;&amp;$INFO[ListItem.Album]")</onload>
+    <onload>RunPlugin("plugin://script.skinvariables/?info=get_encoded_string&amp;window_prop=Encoded.ListItem.Title&amp;&amp;$INFO[ListItem.Title]")</onload>
+    <onload>RunPlugin("plugin://script.skinvariables/?info=get_encoded_string&amp;window_prop=Encoded.ListItem.Label&amp;&amp;$INFO[ListItem.Label]")</onload>
+    <controls>
+
+        <control type="button" id="4000">
+            <texturenofocus />
+            <texturefocus />
+            <font />
+            <ondown>5000</ondown>
+            <onright>9000</onright>
+            <onleft>9000</onleft>
+            <onfocus>ClearProperty(Background.DialogInfo.HideArtwork,Home)</onfocus>
+        </control>
+
+        <include>Defs_TMDbHelper_Loader</include>
+
+        <control type="group">
+            <include>DialogInfo_Main_Group</include>
+            <control type="group">
+                <include>DialogInfo_Body_Group</include>
+                <control type="group">
+                    <include content="DialogInfo_Info_Group">
+                        <param name="extended_include">DialogInfo_MusicDetails</param>
+                    </include>
+                </control>
+            </control>
+        </control>
+
+        <control type="group">
+            <include content="Animation_Slide_In">
+                <param name="type">WindowOpen</param>
+                <param name="posy">160</param>
+                <param name="delay">200</param>
+            </include>
+            <include content="Animation_Slide_Out">
+                <param name="type">WindowClose</param>
+                <param name="posy">160</param>
+            </include>
+            <include>DialogInfo_Widget_Group</include>
+            <control type="grouplist" id="5000">
+                <include>DialogInfo_Widget_Grouplist</include>
+
+                <onup>4000</onup>
+                <onback>4000</onback>
+
+                <include>DialogInfo_MusicWidgets</include>
+
+                <include>DialogInfo_Widget_EndLine</include>
+            </control>
+        </control>
+
+        <include>DialogInfo_Furniture</include>
+        <include>DialogInfo_PlotBox</include>
+
+    </controls>
+</window>

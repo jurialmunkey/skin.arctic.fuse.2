@@ -1,0 +1,219 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<includes>
+
+    <!-- ============== -->
+    <!-- Colour Schemes -->
+    <!-- ============== -->
+    <expression name="Exp_DialogTheme_IsLight">[String.IsEqual(Skin.CurrentColourTheme,Skin default - Light dialogs) | String.IsEqual(Skin.CurrentColourTheme,Dark Grey - Light dialogs)]</expression>
+    <expression name="Exp_DialogTheme_IsAdaptive">[Skin.String(Background.DialogImage,Adaptive) + !$EXP[Exp_DialogTheme_IsLight]]</expression>
+
+    <variable name="Exp_Var_DialogTheme_IsLight">
+        <value condition="$EXP[Exp_DialogTheme_IsLight]">True</value>
+    </variable>
+    <variable name="Exp_Var_DialogTheme_IsAdaptive">
+        <value condition="$EXP[Exp_DialogTheme_IsAdaptive]">True</value>
+    </variable>
+    <variable name="Exp_Var_DialogTheme_IsStandard">
+        <value condition="!$EXP[Exp_DialogTheme_IsAdaptive] + !$EXP[Exp_DialogTheme_IsLight] + !Skin.String(Background.DialogImage,Slate) + !Skin.String(Background.DialogImage,Coal)">True</value>
+    </variable>
+    <variable name="Exp_Var_DialogTheme_IsSlate">
+        <value condition="!$EXP[Exp_DialogTheme_IsAdaptive] + !$EXP[Exp_DialogTheme_IsLight] + Skin.String(Background.DialogImage,Slate)">True</value>
+    </variable>
+    <variable name="Exp_Var_DialogTheme_IsCoal">
+        <value condition="!$EXP[Exp_DialogTheme_IsAdaptive] + !$EXP[Exp_DialogTheme_IsLight] + Skin.String(Background.DialogImage,Coal)">True</value>
+    </variable>
+
+    <expression name="Exp_ColourTheme_IsGrey">[String.IsEqual(Skin.CurrentColourTheme,Dark Grey) | String.IsEqual(Skin.CurrentColourTheme,Dark Grey - Light dialogs)]</expression>
+    <expression name="Exp_ColourTheme_IsBlack">[String.IsEqual(Skin.CurrentColourTheme,SKINDEFAULT) | String.IsEqual(Skin.CurrentColourTheme,Skin default - Light dialogs)]</expression>
+
+    <expression name="Exp_ColourHighlight_IsAqua">[String.IsEqual(Skin.String(focuscolor.name),ff0091ea) + String.IsEqual(Skin.String(gradientcolor.name),ff00bfa5) + Skin.HasSetting(DisableMonochromeHighlight) + Skin.HasSetting(RevertSelectedText)]</expression>
+    <expression name="Exp_ColourHighlight_IsTropical">[String.IsEqual(Skin.String(focuscolor.name),fff4511e) + String.IsEqual(Skin.String(gradientcolor.name),ffe91e63) + Skin.HasSetting(DisableMonochromeHighlight) + Skin.HasSetting(RevertSelectedText)]</expression>
+
+    <expression name="Exp_ColourHighlight_IsWhite">[String.IsEmpty(Skin.String(focuscolor.name)) + String.IsEmpty(Skin.String(gradientcolor.name)) + !Skin.HasSetting(DisableMonochromeHighlight) + !Skin.HasSetting(RevertSelectedText)]</expression>
+    <expression name="Exp_ColourHighlight_IsMiami">[String.IsEqual(Skin.String(focuscolor.name),ffe91e63) + String.IsEqual(Skin.String(gradientcolor.name),ffb635e5) + Skin.HasSetting(DisableMonochromeHighlight) + Skin.HasSetting(RevertSelectedText)]</expression>
+
+    <expression name="Exp_ColourHighlight_IsBlue">[String.IsEqual(Skin.String(focuscolor.name),ff0091ea) + String.IsEqual(Skin.String(gradientcolor.name),ff0091ea) + !Skin.HasSetting(DisableMonochromeHighlight) + Skin.HasSetting(RevertSelectedText)]</expression>
+    <expression name="Exp_ColourHighlight_IsCoral">[String.IsEqual(Skin.String(focuscolor.name),ffe53564) + String.IsEqual(Skin.String(gradientcolor.name),ffe53564) + !Skin.HasSetting(DisableMonochromeHighlight) + Skin.HasSetting(RevertSelectedText)]</expression>
+    <expression name="Exp_ColourHighlight_IsOrange">[String.IsEqual(Skin.String(focuscolor.name),ffe55e35) + String.IsEqual(Skin.String(gradientcolor.name),ffe55e35) + !Skin.HasSetting(DisableMonochromeHighlight) + Skin.HasSetting(RevertSelectedText)]</expression>
+    <expression name="Exp_ColourHighlight_IsPurple">[String.IsEqual(Skin.String(focuscolor.name),ff5528a8) + String.IsEqual(Skin.String(gradientcolor.name),ff5528a8) + !Skin.HasSetting(DisableMonochromeHighlight) + Skin.HasSetting(RevertSelectedText)]</expression>
+    <expression name="Exp_ColourHighlight_IsCustom">[![$EXP[Exp_ColourHighlight_IsAqua] | $EXP[Exp_ColourHighlight_IsTropical] | $EXP[Exp_ColourHighlight_IsMiami] | $EXP[Exp_ColourHighlight_IsWhite] | $EXP[Exp_ColourHighlight_IsBlue] | $EXP[Exp_ColourHighlight_IsCoral] | $EXP[Exp_ColourHighlight_IsOrange] | $EXP[Exp_ColourHighlight_IsPurple]]]</expression>
+
+    <expression name="Exp_ColourPreset_BrightWhite">[$EXP[Exp_ColourHighlight_IsWhite] + [String.IsEmpty(Skin.String(Background.DialogImage)) | Skin.String(Background.DialogImage,Adaptive)] + [Skin.String(Background.Image,special://skin/extras/backgrounds/blur/purple_blur.jpg) | String.IsEmpty(Skin.String(Background.Image))]]</expression>
+    <expression name="Exp_ColourPreset_MiamiVaporwave">[$EXP[Exp_ColourHighlight_IsMiami] + [String.IsEmpty(Skin.String(Background.DialogImage)) | Skin.String(Background.DialogImage,Adaptive)] + [Skin.String(Background.Image,special://skin/extras/backgrounds/blur/purple_blur.jpg) | String.IsEmpty(Skin.String(Background.Image))]]</expression>
+    <expression name="Exp_ColourPreset_AquaClassic">[$EXP[Exp_ColourHighlight_IsAqua] + [Skin.String(Background.DialogImage,Green) | Skin.String(Background.DialogImage,Adaptive)] + Skin.String(Background.Image,special://skin/extras/backgrounds/blur/green_blur.jpg)]</expression>
+    <expression name="Exp_ColourPreset_TropicalSunset">[$EXP[Exp_ColourHighlight_IsTropical] + [Skin.String(Background.DialogImage,Blush) | Skin.String(Background.DialogImage,Adaptive)] + Skin.String(Background.Image,special://skin/extras/backgrounds/blur/pink_blur.jpg)]</expression>
+    <expression name="Exp_ColourPreset_BlueSlate">[$EXP[Exp_ColourHighlight_IsBlue] + [Skin.String(Background.DialogImage,Slate) | Skin.String(Background.DialogImage,Adaptive)] + Skin.String(Background.Image,special://skin/extras/backgrounds/blur/slate_blur.jpg)]</expression>
+    <expression name="Exp_ColourPreset_MidnightPurple">[$EXP[Exp_ColourHighlight_IsPurple] + [Skin.String(Background.DialogImage,Coal) | Skin.String(Background.DialogImage,Adaptive)] + Skin.String(Background.Image,special://skin/extras/backgrounds/blur/coal_blur.jpg)]</expression>
+
+    <variable name="Exp_Var_ColourPreset_BrightWhite">
+        <value condition="$EXP[Exp_ColourPreset_BrightWhite]">True</value>
+    </variable>
+    <variable name="Exp_Var_ColourPreset_MiamiVaporwave">
+        <value condition="$EXP[Exp_ColourPreset_MiamiVaporwave]">True</value>
+    </variable>
+    <variable name="Exp_Var_ColourPreset_AquaClassic">
+        <value condition="$EXP[Exp_ColourPreset_AquaClassic]">True</value>
+    </variable>
+    <variable name="Exp_Var_ColourPreset_TropicalSunset">
+        <value condition="$EXP[Exp_ColourPreset_TropicalSunset]">True</value>
+    </variable>
+    <variable name="Exp_Var_ColourPreset_BlueSlate">
+        <value condition="$EXP[Exp_ColourPreset_BlueSlate]">True</value>
+    </variable>
+    <variable name="Exp_Var_ColourPreset_MidnightPurple">
+        <value condition="$EXP[Exp_ColourPreset_MidnightPurple]">True</value>
+    </variable>
+
+    <!-- ============== -->
+    <!-- Home Side Menu -->
+    <!-- ============== -->
+    <expression name="Exp_IsWindow_Movies">[Container.Content(movies) | Container.Content(sets) | String.StartsWith(Container.FolderPath,videodb://movies/) | String.StartsWith(Container.FolderPath,library://video/movies/)]</expression>
+    <expression name="Exp_IsWindow_TVShows">[Container.Content(tvshows) | Container.Content(seasons) | Container.Content(episodes) | String.StartsWith(Container.FolderPath,videodb://tvshows/) | String.StartsWith(Container.FolderPath,library://video/tvshows/) | Window.IsVisible(1130) | Window.IsVisible(1131)]</expression>
+    <expression name="Exp_IsWindow_Music">[Window.IsVisible(MyMusicNav.xml) | Container.Content(musicvideos)]</expression>
+
+    <expression name="Exp_HomeMenu_HasFocus">[Control.HasFocus(303) | Control.HasFocus(307) | Control.HasFocus(308) | Control.HasFocus(309) | Control.HasFocus(331)]</expression>
+
+
+    <expression name="Exp_HomeMenu_IsExpanded">[Skin.HasSetting(Home.ExpandedMenu)]</expression>
+
+    <expression name="Exp_Navigation_OnWrap">[!Window.IsVisible(Home)]</expression>
+    <expression name="Exp_Navigation_OnBump">[!$EXP[Exp_Navigation_OnWrap]]</expression>
+
+    <expression name="Exp_Navigation_OnMenu">[Window.IsVisible(1185) | Window.IsVisible(1105)]</expression>
+    <expression name="Exp_Navigation_OnParent">[Skin.String(Navigation.OnBack,Parent)]</expression>
+    <expression name="Exp_Navigation_OnPrevious">[Skin.String(Navigation.OnBack,Previous) | String.IsEmpty(Skin.String(Navigation.OnBack))]</expression>
+
+    <expression name="Exp_Window_IsHub">[Window.IsVisible(Home) | Window.IsVisible(1101) | Window.IsVisible(1102) | Window.IsVisible(1103) | Window.IsVisible(1104) | Window.IsVisible(1106) | Window.IsVisible(1107) | Window.IsVisible(1108) | Window.IsVisible(1109)]</expression>
+
+    <expression name="Exp_Window_IsHub_Prev">[Window.Previous(Home) | Window.Previous(1101) | Window.Previous(1102) | Window.Previous(1103) | Window.Previous(1104) | Window.Previous(1106) | Window.Previous(1107) | Window.Previous(1108) | Window.Previous(1109)]</expression>
+
+
+    <expression name="Exp_ReverseTransition">[False]</expression>
+
+    <!-- ==== -->
+    <!-- Hubs -->
+    <!-- ==== -->
+
+    <expression name="Exp_Hubs_Spotlight_HasItems">[!Integer.IsEqual(Container(301).NumItems,0) | Container(301).IsUpdating]</expression>
+
+    <expression name="Exp_Hubs_Spotlight_SlideDown">[Integer.IsEqual(Window.Property(TMDBHelper.WidgetContainer),301)]</expression>
+
+    <expression name="Exp_Hubs_Widgets_SlideDown">[String.IsEmpty(Window.Property(Slide.WidgetContainer)) | $EXP[Exp_Hubs_Categories_HasFocus]]</expression>
+
+    <expression name="Exp_Hubs_Categories_SlideDown">[String.IsEmpty(Window.Property(Slide.WidgetContainer))]</expression>
+
+    <expression name="Exp_Hubs_Categories_HasFocus">[Integer.IsEqual(Window.Property(Slide.WidgetContainer),300) | Control.HasFocus(300)]</expression>
+    <expression name="Exp_Hubs_Submenu_HasFocus">[Integer.IsEqual(Window.Property(Slide.WidgetContainer),3002) | ControlGroup(3002).HasFocus()]</expression>
+
+
+    <!-- ============== -->
+    <!-- Standard Views -->
+    <!-- ============== -->
+
+    <expression name="Exp_InfoDialogs_WidgetsGroup_HasFocus">[ControlGroup(5000).HasFocus()]</expression>
+
+    <expression name="Exp_IsAlphabetStrip">[String.IsEqual(Container.SortMethod,$LOCALIZE[20376]) | String.IsEqual(Container.SortMethod,$LOCALIZE[556]) | String.IsEqual(Container.SortMethod,$LOCALIZE[551]) | String.IsEqual(Container.SortMethod,$LOCALIZE[21899]) | String.IsEqual(Container.SortMethod,$LOCALIZE[557]) | String.IsEqual(Container.SortMethod,$LOCALIZE[558]) | String.IsEqual(Container.SortMethod,$LOCALIZE[578])]</expression>
+
+    <expression name="Exp_PVRGuide_NoFocus">[Control.HasFocus(28) | Control.HasFocus(11)]</expression>
+
+    <expression name="Exp_View_Scrollbar_Midi_V">[Control.IsVisible(550)]</expression>
+    <expression name="Exp_View_Scrollbar_Mini_V">[Control.IsVisible(551)]</expression>
+    <expression name="Exp_View_Scrollbar_Maxi_V">[Control.IsVisible(552) | [$EXP[Exp_View_WallMode] + $EXP[Exp_View_WallVert]]]</expression>
+    <expression name="Exp_View_ScrollFilter_HasFocus">[Control.HasFocus(60) | Control.HasFocus(19) | Control.HasFocus(600) | Control.HasFocus(601) | $EXP[Exp_View_SortModeButtons_HasFocus]]</expression>
+    <expression name="Exp_View_SortModeButtons_HasFocus">[ControlGroup(8000).HasFocus() | [Control.HasFocus(330) + Integer.IsEqual(Window.Property(List.ViewContainer,8000))]]</expression>
+
+    <expression name="Exp_View_WallMode">[Control.IsVisible(500) | Control.IsVisible(510) | Control.IsVisible(520) | Control.IsVisible(530) | Control.IsVisible(540) | Control.IsVisible(560)]</expression>
+
+    <expression name="Exp_View_WallVert">[String.IsEqual(Skin.AspectRatio,16:9) + !Skin.HasSetting(View.SwitchWallOrientation)]</expression>
+
+    <expression name="Exp_View_503">$EXP[Exp_View_502]</expression>
+    <expression name="Exp_View_513">$EXP[Exp_View_512]</expression>
+    <expression name="Exp_View_523">$EXP[Exp_View_522]</expression>
+
+    <expression name="Exp_View_FullSize">[[Window.IsVisible(videos) | Window.IsVisible(music) | Window.IsVisible(programs) | Window.IsVisible(pictures) | Window.IsVisible(games)] + [Control.IsVisible(552) | Control.IsVisible(500) | Control.IsVisible(510) | Control.IsVisible(520) | Control.IsVisible(530) | Control.IsVisible(540) | Control.IsVisible(560)]]</expression>
+
+    <expression name="Exp_View_MidiSize">[[Window.IsVisible(videos) | Window.IsVisible(music) | Window.IsVisible(programs) | Window.IsVisible(pictures) | Window.IsVisible(games)] + [Control.IsVisible(550)]]</expression>
+
+    <!-- Scrollbar -->
+    <expression name="Exp_FurnitureFooter_Left_IsVisible">[![Control.IsVisible(502) | Control.IsVisible(512) | Control.IsVisible(522)] | $EXP[Exp_View_ScrollFilter_HasFocus]]</expression>
+
+    <expression name="Exp_BackgroundArtwork_IsHidden">[[!$EXP[Exp_InfoDialogs] + [Window.IsVisible(favouritesbrowser) | Window.IsVisible(weather) | Window.IsVisible(1185) | !String.IsEmpty(Window.Property(Background.HideArtwork))]] | [$EXP[Exp_InfoDialogs] + !String.IsEmpty(Window(Home).Property(Background.DialogInfo.HideArtwork))]]</expression>
+
+    <expression name="Exp_BackgroundArtwork_IsOverlay">[$EXP[Exp_BackgroundArtwork_IsHidden] | [!$EXP[Exp_InfoDialogs] + !String.IsEmpty(Window(Home).Property(Background.ShowOverlay))] | $EXP[Exp_InfoDialogs]]</expression>
+
+    <expression name="Exp_Notification_IsActive">[Window.IsActive(DialogExtendedProgressBar.xml) | Window.IsActive(DialogNotification.xml) | Skin.HasSetting(Furniture.EnableClock) | [Skin.HasSetting(Furniture.EnableNowPlaying) + Player.HasMedia]]</expression>
+
+    <!-- ================= -->
+    <!-- Windows / Dialogs -->
+    <!-- ================= -->
+    <expression name="Exp_PVRWindows">[Window.IsVisible(MyPVRGuide.xml) | Window.IsVisible(MyPVRChannels.xml) | Window.IsVisible(MyPVRTimers.xml) | Window.IsVisible(MyPVRRecordings.xml) | Window.IsVisible(MyPVRSearch.xml)]</expression>
+
+    <expression name="Exp_InfoDialogs">[Window.IsVisible(DialogVideoInfo.xml) | Window.IsVisible(DialogMusicInfo.xml)]</expression>
+
+    <expression name="Exp_PlainBackgroundWindows">[Window.IsVisible(SettingsCategory.xml) | Window.IsVisible(SkinSettings.xml) | Window.IsVisible(SettingsProfile.xml) | Window.IsVisible(SettingsSystemInfo.xml) | Window.IsVisible(addonbrowser) | Window.IsVisible(filemanager) | Window.IsVisible(1115) | Window.IsVisible(Settings.xml) | Window.IsVisible(eventlog) | Window.IsVisible(SettingsScreenCalibration.xml)]</expression>
+    <expression name="Exp_PlainBackgroundWindows_Next">[Window.Next(SettingsCategory.xml) | Window.Next(SkinSettings.xml) | Window.Next(SettingsProfile.xml) | Window.Next(SettingsSystemInfo.xml) | Window.Next(addonbrowser) | Window.Next(filemanager) | Window.Next(1115) | Window.Next(Settings.xml) | Window.Next(eventlog) | Window.Next(SettingsScreenCalibration.xml)]</expression>
+    <expression name="Exp_PlainBackgroundWindows_Prev">[Window.Previous(SettingsCategory.xml) | Window.Previous(SkinSettings.xml) | Window.Previous(SettingsProfile.xml) | Window.Previous(SettingsSystemInfo.xml) | Window.Previous(addonbrowser) | Window.Previous(filemanager) | Window.Previous(1115) | Window.Previous(Settings.xml) | Window.Previous(eventlog) | Window.Previous(SettingsScreenCalibration.xml)]</expression>
+
+    <expression name="Exp_SettingsSwitcherWindows">[Window.IsVisible(SettingsCategory.xml) | Window.IsVisible(SkinSettings.xml) | Window.IsVisible(SettingsProfile.xml) | Window.IsVisible(SettingsSystemInfo.xml)]</expression>
+    <expression name="Exp_SettingsSwitcherWindows_Next">[Window.Next(SettingsCategory.xml) | Window.Next(SkinSettings.xml) | Window.Next(SettingsProfile.xml) | Window.Next(SettingsSystemInfo.xml)]</expression>
+    <expression name="Exp_SettingsSwitcherWindows_Prev">[Window.Previous(SettingsCategory.xml) | Window.Previous(SkinSettings.xml) | Window.Previous(SettingsProfile.xml) | Window.Previous(SettingsSystemInfo.xml)]</expression>
+
+    <expression name="Exp_FullPanelWindows_Next">[Window.Next(1105) | Window.Next(1185) | [[Window.Next(Home) | Window.Next(1115)] + $EXP[Exp_HomeMenu_IsExpanded]]]</expression>
+    <expression name="Exp_FullPanelWindows_Prev">[Window.Previous(1105) | Window.Previous(1185) | [[Window.Previous(Home) | Window.Previous(1115)] + $EXP[Exp_HomeMenu_IsExpanded]]]</expression>
+    <expression name="Exp_FullPanelWindows">[Window.IsVisible(1105) | Window.IsVisible(1185) | [[Window.IsVisible(Home) | Window.IsVisible(1115)] + $EXP[Exp_HomeMenu_IsExpanded]]]</expression>
+
+    <expression name="Exp_MiniPanelWindows_Next">[[[Window.Next(Home) | Window.IsVisible(1115)] + !$EXP[Exp_HomeMenu_IsExpanded]] | $EXP[Exp_SettingsSwitcherWindows_Next]]</expression>
+    <expression name="Exp_MiniPanelWindows_Prev">[[[Window.Previous(Home) | Window.Previous(1115)] + !$EXP[Exp_HomeMenu_IsExpanded]] | $EXP[Exp_SettingsSwitcherWindows_Prev]]</expression>
+    <expression name="Exp_MiniPanelWindows">[[[Window.IsVisible(Home) | Window.IsVisible(1115)] + !$EXP[Exp_HomeMenu_IsExpanded]] | $EXP[Exp_SettingsSwitcherWindows]]</expression>
+
+    <expression name="Exp_NonePanelWindows_Next">[!$EXP[Exp_MiniPanelWindows_Next] + !$EXP[Exp_FullPanelWindows_Next]]</expression>
+    <expression name="Exp_NonePanelWindows_Prev">[!$EXP[Exp_MiniPanelWindows_Prev] + !$EXP[Exp_FullPanelWindows_Prev]]</expression>
+    <expression name="Exp_NonePanelWindows">[!$EXP[Exp_MiniPanelWindows] + !$EXP[Exp_FullPanelWindows]]</expression>
+
+
+    <!-- =============== -->
+    <!-- ListItem Status -->
+    <!-- =============== -->
+    <expression name="Exp_IsFolder">[String.IsEqual(ListItem.DBType,tvshow) | String.IsEqual(ListItem.DBType,season) | String.IsEqual(ListItem.DBType,set) | String.IsEqual(ListITem.DBType,artist)]</expression>
+
+    <expression name="Exp_IsGenre">[String.IsEqual(ListItem.DBType,genre) | String.IsEqual(ListItem.Property(dbtype),genre)]</expression>
+
+    <expression name="Exp_IsStudio">[String.IsEqual(ListItem.DBType,studio) | String.IsEqual(ListItem.Property(dbtype),studio)]</expression>
+
+    <expression name="Exp_IsCountry">[String.IsEqual(ListItem.DBType,country) | String.IsEqual(ListItem.Property(dbtype),country)]</expression>
+
+    <expression name="Exp_HasWatchedProgress">[!Skin.HasSetting(Indicator.DisableProgress) + [[ListItem.IsResumable + !Integer.IsEqual(ListItem.PercentPlayed,0) + !Integer.IsEqual(ListItem.PercentPlayed,100)] | [!String.IsEmpty(ListItem.Property(WatchedProgress)) + !Integer.IsEqual(ListItem.Property(WatchedProgress),0) + !Integer.IsEqual(ListItem.Property(WatchedProgress),100)] | [!Integer.IsEqual(ListItem.Progress,0) + !Integer.IsEqual(ListItem.Progress,100)]]]</expression>
+
+    <expression name="Exp_IsPVRItem">[!String.IsEmpty(ListItem.ChannelNumberLabel) | String.IsEqual(ListItem.Path,pvr://channels/tv/)]</expression>
+
+    <expression name="Exp_InfoDialogs_Cast_IsLocal">[Skin.HasSetting(Info.UseLocalCast) | [Integer.IsEqual(Container(5003).NumItems,0) + !Container(5003).IsUpdating]]</expression>
+
+
+    <!-- === -->
+    <!-- OSD -->
+    <!-- === -->
+    <expression name="Exp_OSD_HasPlaylist">[VideoPlayer.Content(episodes) | VideoPlayer.Content(livetv) | [VideoPlayer.Content(movies) + !Integer.IsEqual(VideoPlayer.PlaylistLength,1) + !Integer.IsEqual(VideoPlayer.PlaylistLength,0)]]</expression>
+
+    <expression name="Exp_OSD_PVRChannelSwitch">[VideoPlayer.Content(livetv) + [!String.IsEmpty(PVR.ChannelNumberInput) | Player.ShowInfo]]</expression>
+
+    <expression name="Exp_OSD_DelayInfo">[System.IdleTime(3) + Skin.HasSetting(OSD.AutoInfoOnPause) + Player.Paused]</expression>
+
+    <expression name="Exp_OSD_QuickInfo">[[$EXP[Exp_OSD_PVRChannelSwitch] | Window.IsVisible(fullscreeninfo) | $EXP[Exp_OSD_DelayInfo]] + !Window.IsActive(videoosd)]</expression>
+
+    <expression name="Exp_OSD_HideControls">[Window.IsActive(videobookmarks) | Window.IsActive(pvrchannelguide) | Window.IsActive(1140) | Window.IsActive(1141) | Window.IsActive(1142) | Window.IsActive(DialogPVRChannelsOSD.xml) | Window.IsActive(1143)]</expression>
+
+
+    <!-- ==== -->
+    <!-- Misc -->
+    <!-- ==== -->
+    <expression name="Exp_AutoCompletion_IsEnabled">[System.HasAddon(plugin.program.autocompletion) + System.AddonIsEnabled(plugin.program.autocompletion) + !Skin.HasSetting(Keyboard.DisableAutoCompletion)]</expression>
+
+    <expression name="Exp_Video_IsNotPlaying">[!Player.HasVideo | Player.Paused | Skin.HasSetting(Background.DisableVideo) | Window.IsVisible(1123)]</expression>
+
+    <expression name="Exp_Furniture_PVR">[[Window.IsVisible(MyPVRGuide.xml) | Window.IsVisible(MyPVRChannels.xml)] + !Window.IsVisible(DialogPVRInfo.xml)]</expression>
+
+    <expression name="Exp_Christmas_Theme">[System.Date(12-01,01-07) + Skin.HasSetting(EnableHolidayTheme) + [[!Window.IsVisible(visualisation) + !VideoPlayer.IsFullscreen] | Window.IsActive(fullscreeninfo)]]</expression>
+
+    <expression name="Exp_Halloween_Theme">[System.Date(10-30,11-01) + Skin.HasSetting(EnableHolidayTheme) + [[!Window.IsVisible(visualisation) + !VideoPlayer.IsFullscreen] | Window.IsActive(fullscreeninfo)]]</expression>
+
+</includes>

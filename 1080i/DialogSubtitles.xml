@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<window>
+
+    <controls>
+
+        <control type="group">
+            <include>Dimension_DialogFullMenu</include>
+            <include>Animation_Right_Delay</include>
+            <include content="Dialog_Dim_Side">
+                <param name="slide_condition">True</param>
+            </include>
+
+            <!-- Bottom Layer -->
+            <include content="Dialog_Background_Side">
+                <param name="slide_condition">True</param>
+                <param name="dialog_size">Dimension_DialogFullMenu</param>
+                <!-- Side Buttons -->
+                <control type="group">
+                    <include>Dimension_Dialog_Body</include>
+                    <control type="grouplist" id="9000">
+                        <include>Dialog_Side_Grouplist_Def</include>
+                        <onright>150</onright>
+                        <onleft>Close</onleft>
+                        <include content="DialogInfo_Button">
+                            <param name="vertical">true</param>
+                            <param name="id">160</param>
+                            <param name="groupid">9102</param>
+                            <param name="sliceid">9202</param>
+                            <param name="label">$LOCALIZE[413]</param>
+                            <param name="icon">special://skin/extras/icons/circle-plus.png</param>
+                            <param name="textcolor">dialog_fg</param>
+                            <include content="DialogInfo_Button_HintLabel">
+                                <param name="textcolor">dialog_fg</param>
+                                <param name="label">$LOCALIZE[413]</param>
+                            </include>
+                        </include>
+                    </control>
+                </control>
+            </include>
+
+            <include content="Dialog_Foreground_Side">
+                <param name="dialog_size">Dimension_DialogFullMenu</param>
+                <param name="slide_condition">True</param>
+                <param name="lines_right">0</param>
+                <param name="topline">false</param>
+                <param name="subline">false</param>
+
+                <!-- Header -->
+                <include content="Dialog_Head">
+                    <param name="id">100</param>
+                </include>
+                <include>Dialog_Head_CloseButton</include>
+
+                <!-- Content -->
+                <control type="group">
+                    <include>Dimension_Dialog_Body</include>
+                    <control type="group">
+                        <left>settings_category_w</left>
+                        <include content="Dialog_Outline_InnerBox">
+                            <left>40</left>
+                            <right>40</right>
+                            <control type="group">
+                                <include>Dimension_Dialog_Body_Group</include>
+                                <include content="List_DialogSelect">
+                                    <param name="id">120</param>
+                                    <param name="itemlayout_include">Layout_DialogSubtitles</param>
+                                    <param name="item_height">100</param>
+                                    <param name="textcolor">dialog_fg</param>
+                                    <onleft>150</onleft>
+                                    <onright>61</onright>
+                                    <pagecontrol>61</pagecontrol>
+                                </include>
+                            </control>
+                        </include>
+                    </control>
+
+                    <control type="group">
+                        <include>Dimension_Dialog_Body_Group</include>
+
+                        <control type="group">
+                            <width>settings_category_w</width>
+
+                            <control type="group">
+                                <right>20</right>
+                                <left>20</left>
+                                <top>-20</top>
+                                <bottom>-20</bottom>
+                                <control type="image">
+                                    <top>0</top>
+                                    <height>1</height>
+                                    <texture colordiffuse="dialog_fg_12">common/white.png</texture>
+                                    <right>$PARAM[lines_right]</right>
+                                </control>
+                                <control type="image">
+                                    <bottom>0</bottom>
+                                    <height>1</height>
+                                    <texture colordiffuse="dialog_fg_12">common/white.png</texture>
+                                    <right>$PARAM[lines_right]</right>
+                                </control>
+                            </control>
+
+                            <include content="List_DialogSelect">
+                                <param name="id">150</param>
+                                <param name="textcolor">dialog_fg</param>
+                                <onright>120</onright>
+                                <onleft>9000</onleft>
+                            </include>
+
+                            <control type="image" id="110" description="Service Logo">
+                                <height>dialog_button_w</height>
+                                <bottom>0</bottom>
+                                <aspectratio aligny="bottom">keep</aspectratio>
+                            </control>
+
+                            <control type="label" id="130" description="Textbox">
+                                <height>40</height>
+                                <font>font_tiny</font>
+                                <align>center</align>
+                                <top>-40</top>
+                                <textcolor>dialog_fg_70</textcolor>
+                            </control>
+                        </control>
+                    </control>
+
+                    <control type="group">
+
+                        <height>40</height>
+                        <bottom>-40</bottom>
+                        <left>40</left>
+                        <right>40</right>
+
+                        <control type="label" id="140" description="Textbox">
+                            <font>font_tiny</font>
+                            <align>right</align>
+                            <textcolor>dialog_fg_70</textcolor>
+                        </control>
+
+                        <control type="label" description="Filename">
+                            <font>font_tiny</font>
+                            <align>left</align>
+                            <label>$INFO[Player.FileName]</label>
+                            <textcolor>dialog_fg_70</textcolor>
+                        </control>
+                    </control>
+
+                    <include content="Dialog_Scrollbar">
+                        <param name="id">61</param>
+                        <onleft>120</onleft>
+                    </include>
+                </control>
+            </include>
+
+        </control>
+
+
+    </controls>
+</window>

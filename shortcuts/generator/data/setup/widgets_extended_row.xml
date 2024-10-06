@@ -1,0 +1,80 @@
+<contents>
+    <value name="widget_include_condition">String.IsEqual(Window(Home).Property(Hubs.ExtendedWidgetGUID),{parent_item_guid})</value>
+    <rules name="widget_visible">
+        <rule>
+            <condition>{item_path}&lt;&lt;Stacked_</condition>
+            <value>Control.IsVisible({widget_prev_id})</value>
+        </rule>
+        <rule>
+            <condition>True</condition>
+            <value>True</value>
+        </rule>
+    </rules>
+    <rules name="widget_altvisible">
+        <rule>
+            <condition>{item_path}&lt;&lt;Stacked_</condition>
+            <value>Control.HasFocus({widget_prev_id})</value>
+        </rule>
+        <rule>
+            <condition>True</condition>
+            <value>False</value>
+        </rule>
+    </rules>
+
+    <value name="widget_id">$MATH[5000 + {enum_x}]</value>
+    <value name="widget_group_id">$MATH[5000 + 100 + {enum_x}]</value>
+    <rules name="widget_prev_id">
+        <rule>
+            <condition>{item_widget_parent}!=</condition>
+            <value>$MATH[5000 + {enum_x} - 1 - {item_widget_parent}]</value>
+        </rule>
+        <rule>
+            <condition>True</condition>
+            <value>$MATH[5000 + {enum_x} - 1]</value>
+        </rule>
+    </rules>
+    <value name="widget_next_id">$MATH[5000 + {enum_x} + 1]</value>
+    <value name="widget_nextnext_id">$MATH[5000 + {enum_x} + 2]</value>
+    <value name="widget_nextnextnext_id">$MATH[5000 + {enum_x} + 3]</value>
+
+    <value name="widget_widgetfade_include">True</value>
+    <rules name="widget_include">
+        <rule>
+            <condition>{item_widget_style}==Landscape</condition>
+            <value>List_Landscape_Row</value>
+        </rule>
+        <rule>
+            <condition>{item_widget_style}==Poster</condition>
+            <value>List_Poster_Row</value>
+        </rule>
+        <rule>
+            <condition>{item_widget_style}==Square</condition>
+            <value>List_Square_Row</value>
+        </rule>
+        <rule>
+            <condition>{item_widget_style}==Circle</condition>
+            <value>List_Circle_Row</value>
+        </rule>
+        <rule>
+            <condition>{item_widget_style}==Card</condition>
+            <value>List_Card_Row</value>
+        </rule>
+        <rule>
+            <condition>{item_widget_style}==Board</condition>
+            <value>List_Board_Row</value>
+        </rule>
+        <rule>
+            <condition>{item_widget_style}==Placard</condition>
+            <value>List_Placard_Row</value>
+        </rule>
+        <rule>
+            <condition>{item_widget_style}==Banner</condition>
+            <value>List_Banner_Row</value>
+        </rule>
+        <rule>
+            <condition>True</condition>
+            <value>List_Landscape_Row</value>
+        </rule>
+    </rules>
+    <value name="widget_detailed">False</value>
+</contents>

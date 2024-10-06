@@ -1,0 +1,113 @@
+{
+    "operations": [
+        {
+            "infolabels": {
+                "skinuser": "Skin.String(SkinVariables.SkinUser)"
+            },
+            "values": {
+                "skinuser_prefix": [
+                    {
+                        "rules": ["{get_values}!=true"],
+                        "value": ""
+                    },
+                    {
+                        "rules": ["{skinuser}!="],
+                        "value": "{skinuser}."
+                    },
+                    "defaultuser."
+                ],
+                "defaultuser_prefix": [
+                    {
+                        "rules": ["{get_values}==true"],
+                        "value": ""
+                    },
+                    {
+                        "rules": ["{skinuser}!="],
+                        "value": "{skinuser}."
+                    },
+                    "defaultuser."
+                ],
+                "skindir": [
+                    {
+                        "rules": ["{skinuser}!="],
+                        "value": "ArcticFuse-{skinuser}"
+                    },
+                    "ArcticFuse-defaultuser"
+                ]
+            }
+        },
+        {
+            "infolabels": {
+                "skinstring_focuscolor_name": "Skin.String({skinuser_prefix}focuscolor.name)",
+                "skinstring_gradientcolor_name": "Skin.String({skinuser_prefix}gradientcolor.name)",
+                "skinstring_watchedprogresscolor_name": "Skin.String({skinuser_prefix}watchedprogresscolor.name)",
+                "skinstring_background_dialogimage": "Skin.String({skinuser_prefix}Background.DialogImage)",
+                "skinstring_background_image": "Skin.String({skinuser_prefix}Background.Image)",
+                "skinstring_lastbuildtime": "Skin.String(Shortcuts.RebuildDateTime)"
+            },
+            "values": {
+                "skinsetting_revertedselectedtext": [
+                    {
+                        "rules": ["Skin.HasSetting({skinuser_prefix}RevertSelectedText)"],
+                        "value": "SetBool"
+                    },
+                    "Reset"
+                ],
+                "skinsetting_disablemonochromehighlight": [
+                    {
+                        "rules": ["Skin.HasSetting({skinuser_prefix}DisableMonochromeHighlight)"],
+                        "value": "SetBool"
+                    },
+                    "Reset"
+                ],
+                "color_highlight": [
+                    {
+                        "rules": ["{skinstring_focuscolor_name}!="],
+                        "value": "{skinstring_focuscolor_name}"
+                    },
+                    "ffffffff"
+                ],
+                "color_gradient": [
+                    {
+                        "rules": [
+                            "Skin.HasSetting({skinuser_prefix}DisableMonochromeHighlight)",
+                            "{skinstring_gradientcolor_name}!="],
+                        "value": "{skinstring_gradientcolor_name}"
+                    },
+                    {
+                        "rules": ["{skinstring_focuscolor_name}!="],
+                        "value": "{skinstring_focuscolor_name}"
+                    },
+                    "ffffffff"
+                ],
+                "color_progress": [
+                    {
+                        "rules": ["{skinstring_watchedprogresscolor_name}!="],
+                        "value": "{skinstring_watchedprogresscolor_name}"
+                    },
+                    "ff03b585"
+                ],
+                "reload_window": [
+                    {
+                        "rules": ["{reload}!="],
+                        "value": "reload={reload}"
+                    },
+                    "no_reload"
+                ]
+            }
+
+        }
+    ],
+    "actions": [
+        "ClearProperty(TMDbHelper.Blur.Fallback,Home)",
+        "Skin.SetString({defaultuser_prefix}focuscolor.name,{color_highlight})",
+        "Skin.SetString({defaultuser_prefix}gradientcolor.name,{color_gradient})",
+        "Skin.SetString({defaultuser_prefix}watchedprogresscolor.name,{color_progress})",
+        "Skin.SetString({defaultuser_prefix}Background.DialogImage,{skinstring_background_dialogimage})",
+        "Skin.SetString({defaultuser_prefix}Background.Image,{skinstring_background_image})",
+        "Skin.{skinsetting_revertedselectedtext}({defaultuser_prefix}RevertSelectedText)",
+        "Skin.{skinsetting_disablemonochromehighlight}({defaultuser_prefix}DisableMonochromeHighlight)",
+        "route=action=buildtemplate&force&no_reload=true&template=textures&color_highlight={color_highlight}&color_gradient={color_gradient}&color_progress={color_progress}&skindir={skindir}",
+        "RunScript(script.texturemaker,bg={color_highlight},fg={color_gradient},alpha=1.0,folder={skindir},selectbox_thin=special://skin/extras/textures/selectbox_thin.png,scrollv=special://skin/extras/textures/scrollv.png,scrollh=special://skin/extras/textures/scrollh.png,underline=special://skin/extras/textures/underline.png,box=special://skin/extras/textures/box.png,circle=special://skin/extras/textures/circle.png,menu=special://skin/extras/textures/menu.png,menumain+overlay+slicing{{240|80}}=special://skin/extras/textures/menumain.png,buttonmain+slicing{{240|80}}=special://skin/extras/textures/menumain.png,main=special://skin/extras/textures/main.png,circlebuttondialog=special://skin/extras/textures/circlebutton.png,{reload_window})"
+    ]
+}

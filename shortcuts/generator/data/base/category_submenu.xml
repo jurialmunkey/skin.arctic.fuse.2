@@ -1,0 +1,75 @@
+<contents>
+    <value name="comments">Dynamic Submenus</value>
+    <template>generator/data/parts/basic_include.xmltemplate</template>
+    <condition>!Skin.HasSetting(Hub.{window_id}.DisableSubmenu)</condition>
+    <value name="includes_name">skinvariables-{item}-submenu</value>
+    <value name="includes_part">
+        <items menu="{item}">
+            <item>
+                <template>
+                    <![CDATA[
+                    <include content="Hub_Submenu_List">
+                        <param name="id">{submenu_item_x}302</param>
+                        <param name="hidden_button">List_ButtonMenu_Row_HiddenButton_Home</param>
+                        <param name="hidden_button_prefix">{submenu_item_x}302</param>
+                        <param name="window_id">{window_id}</param>
+                        <param name="submenu_widget_id">{submenu_widget_id}</param>
+                        <include content="Action_SkinVariables_ShortcutList_Onclick">
+                            <param name="id">{submenu_item_x}302</param>
+                        </include>
+                        <content>{parts_content}</content>
+                        <visible>String.IsEqual(Container(300).ListItem.Property(guid),{item_guid})</visible>
+                        <visible>!String.IsEmpty(Container(300).ListItem.Property(use_as_widget))</visible>
+                    </include>
+                    ]]>
+                </template>
+                <datafile>generator/data/setup/submenu_row.xml</datafile>
+                <condition>{item_submenulist_path}==</condition>
+                <condition>{item_disabled}!=True</condition>
+                <value name="parts_content">
+                    <items menu="{item_menu}" item="{item_x}" mode="submenu">
+                        <item>
+                            <template>generator/data/parts/menu_item.xmltemplate</template>
+                            <datafile>generator/data/setup/onclick_path.xml</datafile>
+                            <condition>{item_disabled}!=True</condition>
+                            <value name="parts_visible">True</value>
+                            <value name="parts_additional">
+                                <template>
+                                    <![CDATA[
+                                    <property name="widget_style">{item_widget_style}</property>
+                                    <property name="widget_sortby">{item_widget_sortby}</property>
+                                    <property name="widget_sortorder">{item_widget_sortorder}</property>
+                                    <property name="widget_limit">{item_widget_limit}</property>
+                                    <property name="widget_path">{item_widget_path}</property>
+                                    <label2>{parts_sublabel}</label2>
+                                    <onclick>Dialog.Close(1170,true)</onclick>
+                                    ]]>
+                                </template>
+                                <datafile>generator/data/setup/category_sublabel.xml</datafile>
+                            </value>
+                        </item>
+                    </items>
+                </value>
+            </item>
+            <item>
+                <template>
+                    <![CDATA[
+                    <include content="Hub_Submenu_List">
+                        <param name="id">{submenu_item_x}302</param>
+                        <param name="hidden_button">List_ButtonMenu_Row_HiddenButton_Home</param>
+                        <param name="hidden_button_prefix">{submenu_item_x}302</param>
+                        <param name="window_id">{window_id}</param>
+                        <param name="submenu_widget_id">{submenu_widget_id}</param>
+                        <content target="{submenu_target}" sortby="{submenu_sortby}" sortorder="{submenu_sortorder}" limit="{submenu_limit}" browse="$VAR[Defs_BrowseLimitedLists]">{submenu_path}</content>
+                        <visible>String.IsEqual(Container(300).ListItem.Property(guid),{item_guid})</visible>
+                        <visible>!String.IsEmpty(Container(300).ListItem.Property(use_as_widget))</visible>
+                    </include>
+                    ]]>
+                </template>
+                <datafile>generator/data/setup/submenu_row.xml</datafile>
+                <condition>{item_submenulist_path}!=</condition>
+                <condition>{item_disabled}!=True</condition>
+            </item>
+        </items>
+    </value>
+</contents>

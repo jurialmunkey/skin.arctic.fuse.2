@@ -1,0 +1,101 @@
+{
+    "infolabels": {
+        "widget_style_302": "Container({prefix}).ListItem.Property(widget_style)",
+        "widget_style_300": "Container(300).ListItem.Property(widget_style)",
+        "widget_sortby_302": "Container({prefix}).ListItem.Property(widget_sortby)",
+        "widget_sortby_300": "Container(300).ListItem.Property(widget_sortby)",
+        "widget_sortorder_302": "Container({prefix}).ListItem.Property(widget_sortorder)",
+        "widget_sortorder_300": "Container(300).ListItem.Property(widget_sortorder)",
+        "widget_limit_302": "Container({prefix}).ListItem.Property(widget_limit)",
+        "widget_limit_300": "Container(300).ListItem.Property(widget_limit)",
+        "widget_path_302": "Container({prefix}).ListItem.Property(widget_path)",
+        "widget_list_302": "Container({prefix}).ListItem.Property(path)",
+        "widget_folderpath_302": "Container({prefix}).ListItem.FolderPath",
+        "widget_label_302": "Container({prefix}).ListItem.Label"
+    },
+    "values": {
+        "widget_style": [
+            {
+                "rules": ["!String.IsEmpty(Container({prefix}).ListItem.Property(widget_style))"],
+                "value": "{widget_style_302}"
+            },
+            "{widget_style_300}"
+        ],
+        "widget_sortby": [
+            {
+                "rules": ["!String.IsEmpty(Container({prefix}).ListItem.Property(widget_sortby))"],
+                "value": "{widget_sortby_302}"
+            },
+            "{widget_sortby_300}"
+        ],
+        "widget_sortorder": [
+            {
+                "rules": ["!String.IsEmpty(Container({prefix}).ListItem.Property(widget_sortorder))"],
+                "value": "{widget_sortorder_302}"
+            },
+            "{widget_sortorder_300}"
+        ],
+        "widget_limit": [
+            {
+                "rules": ["!String.IsEmpty(Container({prefix}).ListItem.Property(widget_limit))"],
+                "value": "{widget_limit_302}"
+            },
+            "{widget_limit_300}"
+        ],
+        "widget_folderpath": [
+            {
+                "rules": ["!String.IsEmpty(Container({prefix}).ListItem.Property(widget_path)) + [!String.IsEmpty(Container(300).ListItem.Property(use_as_widget))]"],
+                "value": "{widget_path_302}"
+            },
+            {
+                "rules": ["String.IsEmpty(Container({prefix}).ListItem.Property(widget_path)) + !String.IsEmpty(Container({prefix}).ListItem.Property(path)) + !String.IsEmpty(Container({prefix}).ListItem.Property(target)) + [!String.IsEmpty(Container(300).ListItem.Property(use_as_widget))]"],
+                "value": "{widget_list_302}"
+            },
+            {
+                "rules": ["String.IsEmpty(Container({prefix}).ListItem.Property(widget_path)) + String.IsEmpty(Container({prefix}).ListItem.Property(path)) + !String.IsEmpty(Container({prefix}).ListItem.FolderPath) + Container({prefix}).ListItem.IsFolder + [!String.IsEmpty(Container(300).ListItem.Property(use_as_widget))]"],
+                "value": "{widget_folderpath_302}"
+            },
+            ""
+        ],
+        "widget_label": [
+            {
+                "rules": ["!String.IsEmpty(Container({prefix}).ListItem.Property(widget_path)) + [!String.IsEmpty(Container(300).ListItem.Property(use_as_widget))]"],
+                "value": "{widget_label_302}"
+            },
+            {
+                "rules": ["String.IsEmpty(Container({prefix}).ListItem.Property(widget_path)) + !String.IsEmpty(Container({prefix}).ListItem.Property(path)) + !String.IsEmpty(Container({prefix}).ListItem.Property(target)) + [!String.IsEmpty(Container(300).ListItem.Property(use_as_widget))]"],
+                "value": "{widget_label_302}"
+            },
+            {
+                "rules": ["String.IsEmpty(Container({prefix}).ListItem.Property(widget_path)) + String.IsEmpty(Container({prefix}).ListItem.Property(path)) + !String.IsEmpty(Container({prefix}).ListItem.FolderPath) + Container({prefix}).ListItem.IsFolder + [!String.IsEmpty(Container(300).ListItem.Property(use_as_widget))]"],
+                "value": "{widget_label_302}"
+            },
+            ""
+        ]
+    },
+    "actions": [
+        "ClearProperty(Item.{prefix}.SpecialFolderPath)",
+        "ClearProperty(Item.{prefix}.SpecialFolderLabel)",
+        "ClearProperty(Item.{prefix}.SpecialFolderStyle)",
+        "ClearProperty(Item.{prefix}.SpecialFolderSortBy)",
+        "ClearProperty(Item.{prefix}.SpecialFolderSortOrder)",
+        "ClearProperty(Item.{prefix}.SpecialFolderLimit)",
+        {
+            "rules": ["![{condition}]"],
+            "value": "noop"
+        },
+        {
+            "rules": ["Container({prefix}).IsUpdating"],
+            "value": [
+                "sleep=0.8",
+                "RunScript(script.skinvariables,run_executebuiltin=special://skin/shortcuts/builtins/skinvariables-specialfolderpath.json,use_rules,condition={condition},prefix={prefix})"
+            ]
+        },
+        "SetProperty(Item.{prefix}.SpecialFolderPath,{widget_folderpath})",
+        "SetProperty(Item.{prefix}.SpecialFolderLabel,{widget_label})",
+        "SetProperty(Item.{prefix}.SpecialFolderStyle,{widget_style})",
+        "SetProperty(Item.{prefix}.SpecialFolderSortBy,{widget_sortby})",
+        "SetProperty(Item.{prefix}.SpecialFolderSortOrder,{widget_sortorder})",
+        "SetProperty(Item.{prefix}.SpecialFolderLimit,{widget_limit})"
+    ]
+}

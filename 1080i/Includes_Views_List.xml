@@ -1,0 +1,359 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<includes>
+
+    <!-- Media List -->
+    <include name="View_550_MediaList">
+        <!-- <include content="View_MediaList_Include" condition="Window.IsVisible(music)">
+            <param name="id">550</param>
+            <param name="viewtype_label">$LOCALIZE[31479]</param>
+            <param name="visible">$EXP[Exp_View_550]</param>
+            <param name="right">560</param>
+            <param name="focusposition">1</param>
+            <param name="movement">4</param>
+            <param name="top">240</param>
+            <param name="scrollbar_id">65</param>
+            <param name="overlay">false</param>
+            <include>View_MediaList_Square</include>
+        </include> -->
+        <!-- <include content="View_MediaList_Include" condition="Window.IsVisible(videos)">
+            <param name="id">550</param>
+            <param name="viewtype_label">$LOCALIZE[31480]</param>
+            <param name="visible">$EXP[Exp_View_550]</param>
+            <param name="right">400</param>
+            <param name="top">240</param>
+            <param name="focusposition">1</param>
+            <param name="movement">4</param>
+            <param name="scrollbar_id">65</param>
+            <param name="overlay">false</param>
+            <include>View_MediaList_Poster</include>
+        </include> -->
+        <!-- <include content="View_MediaListOverview_Include">
+            <param name="id">550</param>
+            <param name="viewtype_label">$LOCALIZE[31480]</param>
+            <param name="visible">$EXP[Exp_View_550]</param>
+            <param name="right">560</param>
+            <param name="top">50</param>
+            <param name="focusposition">1</param>
+            <param name="movement">2</param>
+            <param name="scrollbar_id">66</param>
+            <param name="overlay">true</param>
+            <include>View_MediaListOverview_Artwork</include>
+        </include> -->
+        <include content="View_MediaListOverview_Include" condition="!Window.IsVisible(videos)">
+            <param name="id">550</param>
+            <param name="viewtype_label">$LOCALIZE[31480]</param>
+            <param name="visible">$EXP[Exp_View_550]</param>
+            <param name="right">560</param>
+            <param name="top">290</param>
+            <param name="focusposition">0</param>
+            <param name="movement">2</param>
+            <param name="scrollbar_id">65</param>
+            <param name="overlay">false</param>
+            <include>View_MediaList_Square</include>
+        </include>
+        <include content="View_MediaListOverview_Include" condition="Window.IsVisible(videos)">
+            <param name="id">550</param>
+            <param name="viewtype_label">$LOCALIZE[31480]</param>
+            <param name="visible">$EXP[Exp_View_550]</param>
+            <param name="right">400</param>
+            <param name="top">290</param>
+            <param name="focusposition">0</param>
+            <param name="movement">2</param>
+            <param name="scrollbar_id">65</param>
+            <param name="overlay">false</param>
+            <include>View_MediaList_Poster</include>
+        </include>
+    </include>
+    <include name="View_551_Landscape_MediaList">
+        <include content="View_MediaList_Include">
+            <param name="id">551</param>
+            <param name="viewtype_label">$LOCALIZE[31480]</param>
+            <param name="visible">$EXP[Exp_View_551]</param>
+            <param name="right">900</param>
+            <param name="top">400</param>
+            <param name="focusposition">1</param>
+            <param name="movement">2</param>
+            <param name="scrollbar_id">64</param>
+            <param name="overlay">false</param>
+            <include content="View_MediaList_PosterLandscape">
+                <param name="flipx">false</param>
+            </include>
+        </include>
+    </include>
+
+    <include name="View_552_Information_MediaList">
+        <include content="View_MediaListOverview_Include">
+            <param name="id">552</param>
+            <param name="viewtype_label">$LOCALIZE[31559]</param>
+            <param name="visible">$EXP[Exp_View_552]</param>
+            <param name="right">560</param>
+            <param name="top">50</param>
+            <param name="focusposition">0</param>
+            <param name="movement">5</param>
+            <param name="scrollbar_id">66</param>
+            <param name="overlay">true</param>
+            <include>View_MediaListOverview_Artwork</include>
+        </include>
+        <!-- <include content="View_MediaList_Include">
+            <param name="id">552</param>
+            <param name="viewtype_label">$LOCALIZE[31559]</param>
+            <param name="visible">$EXP[Exp_View_552]</param>
+            <param name="left">900</param>
+            <param name="top">0</param>
+            <param name="focusposition">4</param>
+            <param name="movement">4</param>
+            <param name="scrollbar_id">66</param>
+            <param name="overlay">true</param>
+            <param name="include_reposition">View_MediaList_Reposition</param>
+            <include content="View_MediaList_PosterLandscape">
+                <param name="flipx">true</param>
+            </include>
+        </include> -->
+    </include>
+
+    <include name="View_MediaList_Poster">
+        <control type="group">
+            <bottom>0</bottom>
+            <width>320</width>
+            <height>infodialog_poster_w</height>
+            <right>0</right>
+            <include content="Layout_Poster">
+                <param name="indicator">false</param>
+                <param name="item_w">320</param>
+                <param name="item_h">infodialog_poster_w</param>
+                <param name="diffuse">diffuse/poster_w320_h480.png</param>
+            </include>
+        </control>
+    </include>
+
+    <include name="View_MediaListOverview_Artwork">
+        <control type="group">
+            <right>0</right>
+            <width>infodialog_poster_w</width>
+            <height>infodialog_poster_h</height>
+
+            <control type="group">
+                <visible>![String.IsEmpty(ListItem.Art(poster)) + String.IsEmpty(ListItem.Art(tvshow.poster)) + String.IsEmpty(ListItem.Art(season.poster))]</visible>
+                <include content="Object_BigPoster">
+                    <param name="icon">$VAR[Image_Poster]</param>
+                    <param name="diffuse">diffuse/poster_w480_h720.png</param>
+                </include>
+            </control>
+
+            <control type="group">
+                <visible>String.IsEmpty(ListItem.Art(poster)) + String.IsEmpty(ListItem.Art(tvshow.poster)) + String.IsEmpty(ListItem.Art(season.poster))</visible>
+                <control type="image">
+                    <width>infodialog_poster_w</width>
+                    <height>infodialog_poster_w</height>
+                    <centerbottom>infodialog_poster_w</centerbottom>
+                    <texture background="true">$VAR[Image_DiscArt]</texture>
+                    <bordersize>20</bordersize>
+                    <animation effect="rotate" condition="Player.Playing" start="0" end="-360" loop="true" time="30000" center="auto" reversible="false">Conditional</animation>
+                    <visible>![String.IsEmpty(ListItem.Art(discart)) + String.IsEmpty(ListItem.Art(album.discart))]</visible>
+                </control>
+                <include content="Object_BigPoster">
+                    <param name="icon">$VAR[Image_Poster]</param>
+                    <param name="diffuse">diffuse/square_w480_h480.png</param>
+                    <height>infodialog_poster_w</height>
+                    <bottom>0</bottom>
+                </include>
+            </control>
+
+        </control>
+    </include>
+
+    <include name="View_MediaList_Square">
+        <definition>
+            <control type="group">
+                <bottom>0</bottom>
+                <width>infodialog_poster_w</width>
+                <height>infodialog_poster_w</height>
+                <right>0</right>
+                <control type="image">
+                    <width>infodialog_poster_w</width>
+                    <height>infodialog_poster_w</height>
+                    <centerbottom>infodialog_poster_w</centerbottom>
+                    <texture background="true">$VAR[Image_DiscArt]</texture>
+                    <bordersize>20</bordersize>
+                </control>
+                <include content="Layout_Poster">
+                    <param name="indicator">false</param>
+                    <param name="item_w">infodialog_poster_w</param>
+                    <param name="item_h">infodialog_poster_w</param>
+                    <param name="diffuse">diffuse/square_w480_h480.png</param>
+                </include>
+            </control>
+        </definition>
+    </include>
+
+
+    <include name="View_MediaList_PosterLandscape">
+        <param name="visible">!$EXP[Exp_InfoDialogs]</param>
+        <param name="flipx">false</param>
+        <definition>
+            <control type="group">
+                <right>-40</right>
+                <bottom>-40</bottom>
+                <height>view_poster_itemlayout_h</height>
+                <control type="group">
+                    <include content="Object_Left" condition="$PARAM[flipx]">
+                        <param name="left">0</param>
+                    </include>
+                    <include content="Object_Right" condition="![$PARAM[flipx]]">
+                        <param name="right">0</param>
+                    </include>
+                    <height>view_poster_itemlayout_h</height>
+                    <width>view_board_itemlayout_w</width>
+                    <include content="Layout_Poster">
+                        <param name="icon">$VAR[Image_Landscape]</param>
+                        <param name="diffuse">diffuse/landscape_w520_h294.png</param>
+                        <param name="indicator">true</param>
+                        <param name="item_w">view_board_item_w</param>
+                        <param name="item_h">view_poster_item_h</param>
+                    </include>
+                </control>
+
+                <control type="group">
+                    <include content="Object_Left" condition="$PARAM[flipx]">
+                        <param name="left">view_board_itemlayout_w</param>
+                    </include>
+                    <include content="Object_Right" condition="![$PARAM[flipx]]">
+                        <param name="right">view_board_itemlayout_w</param>
+                    </include>
+                    <height>view_poster_itemlayout_h</height>
+                    <width>view_poster_itemlayout_w</width>
+                    <include content="Layout_Poster">
+                        <param name="indicator">false</param>
+                        <param name="item_w">view_poster_item_w</param>
+                        <param name="item_h">view_poster_item_h</param>
+                    </include>
+                </control>
+            </control>
+        </definition>
+    </include>
+
+    <include name="View_MediaList_Reposition">
+        <include content="Animation_Reposition">
+            <param name="slide_x">0</param>
+            <param name="slide_y">80</param>
+            <param name="numitems">8</param>
+        </include>
+        <include content="Animation_Reposition">
+            <param name="slide_x">0</param>
+            <param name="slide_y">80</param>
+            <param name="numitems">6</param>
+        </include>
+        <include content="Animation_Reposition">
+            <param name="slide_x">0</param>
+            <param name="slide_y">80</param>
+            <param name="numitems">4</param>
+        </include>
+        <include content="Animation_Reposition">
+            <param name="slide_x">0</param>
+            <param name="slide_y">80</param>
+            <param name="numitems">2</param>
+        </include>
+    </include>
+
+    <include name="View_MediaList_Include">
+        <param name="include_reposition">Items_Null</param>
+        <param name="scrollbar_id">64</param>
+        <param name="overlay">false</param>
+        <definition>
+
+            <control type="group">
+                <visible>Control.IsVisible($PARAM[id])</visible>
+                <include>Dimension_Info</include>
+
+                <nested />
+
+                <control type="group">
+                    <left>$PARAM[left]</left>
+                    <right>$PARAM[right]</right>
+                    <top>$PARAM[top]</top>
+
+                    <include content="List_DialogSelect">
+                        <param name="id">$PARAM[id]</param>
+                        <param name="textcolor">main_fg</param>
+                        <param name="control">fixedlist</param>
+                        <param name="itemlayout_include">Layout_MediaList</param>
+
+                        <include>$PARAM[include_reposition]</include>
+
+                        <left>-20</left>
+                        <right>-60</right>
+
+                        <onleft>600</onleft>
+
+                        <onright>$PARAM[scrollbar_id]</onright>
+
+                        <include content="Action_View_Movement_OnBack">
+                            <param name="id">$PARAM[id]</param>
+                            <param name="onback">True</param>
+                        </include>
+
+                        <focusposition>$PARAM[focusposition]</focusposition>
+                        <movement>$PARAM[movement]</movement>
+                        <pagecontrol>$PARAM[scrollbar_id]</pagecontrol>
+                        <visible>$PARAM[visible]</visible>
+                        <viewtype label="$PARAM[viewtype_label]">list</viewtype>
+                        <onfocus>ClearProperty(TMDbHelper.WidgetContainer)</onfocus>
+                        <onfocus condition="![$PARAM[overlay]]">ClearProperty(Background.ShowOverlay,Home)</onfocus>
+                        <onfocus condition="$PARAM[overlay]">SetProperty(Background.ShowOverlay,True,Home)</onfocus>
+                    </include>
+                </control>
+            </control>
+        </definition>
+    </include>
+
+
+    <include name="View_MediaListOverview_Include">
+        <param name="include_reposition">Items_Null</param>
+        <param name="scrollbar_id">64</param>
+        <param name="overlay">false</param>
+        <definition>
+
+            <control type="group">
+                <visible>Control.IsVisible($PARAM[id])</visible>
+                <include>Dimension_Info</include>
+
+                <nested />
+
+                <control type="group">
+                    <left>$PARAM[left]</left>
+                    <right>$PARAM[right]</right>
+                    <top>$PARAM[top]</top>
+
+                    <include content="List_MediaListOverview">
+                        <param name="id">$PARAM[id]</param>
+                        <param name="textcolor">main_fg</param>
+                        <param name="control">fixedlist</param>
+
+                        <include>$PARAM[include_reposition]</include>
+
+                        <left>-60</left>
+                        <right>-100</right>
+
+                        <onleft>600</onleft>
+
+                        <onright>$PARAM[scrollbar_id]</onright>
+
+                        <include content="Action_View_Movement_OnBack">
+                            <param name="id">$PARAM[id]</param>
+                            <param name="onback">True</param>
+                        </include>
+
+                        <focusposition>$PARAM[focusposition]</focusposition>
+                        <movement>$PARAM[movement]</movement>
+                        <pagecontrol>$PARAM[scrollbar_id]</pagecontrol>
+                        <visible>$PARAM[visible]</visible>
+                        <viewtype label="$PARAM[viewtype_label]">list</viewtype>
+                        <onfocus>ClearProperty(TMDbHelper.WidgetContainer)</onfocus>
+                        <onfocus condition="![$PARAM[overlay]]">ClearProperty(Background.ShowOverlay,Home)</onfocus>
+                        <onfocus condition="$PARAM[overlay]">SetProperty(Background.ShowOverlay,True,Home)</onfocus>
+                    </include>
+                </control>
+            </control>
+        </definition>
+    </include>
+</includes>

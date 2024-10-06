@@ -1,0 +1,41 @@
+<include content="_Widget_Row">
+    <param name="id">{widget_id}</param>
+    <param name="groupid">{widget_group_id}</param>
+    <param name="label">{widget_label}</param>
+    <param name="include">{widget_include}</param>
+    <param name="visible">{widget_visible}</param>
+    <param name="altvisible">{widget_altvisible}</param>
+    <param name="busy_isupdating">{widget_altvisible}</param>
+    <param name="busy_visible">[Integer.IsEqual(Container({widget_id}).NumItems,0) | Container({widget_id}).IsUpdating]</param>
+    <param name="widgetfade_include">true</param>
+
+    <include content="Action_View_Movement_OnLeft">
+        <param name="id">{widget_id}</param>
+        <param name="menuid">9090</param>
+        <param name="onwrap">[False]</param>
+    </include>
+    <include content="Action_View_Movement_OnRight">
+        <param name="id">{widget_id}</param>
+        <param name="menuid">9090</param>
+        <param name="onwrap">[False]</param>
+        <param name="onbump">[True]</param>
+    </include>
+    <include content="Action_View_Movement_OnBack">
+        <param name="id">{widget_id}</param>
+        <param name="onleft">9090</param>
+        <param name="backid">5000</param>
+        <param name="menuid">9090</param>
+        <param name="onback">[Integer.IsEqual(Container({widget_id}).CurrentItem,1)]</param>
+    </include>
+
+    <onfocus>SetProperty(TMDbHelper.WidgetContainer,{widget_id})</onfocus>
+
+    <include content="Object_ContentDynamic">
+        <param name="sortby">{widget_sortby}</param>
+        <param name="sortorder">{widget_sortorder}</param>
+        <param name="target">{widget_target}</param>
+        <param name="limit">{widget_limit}</param>
+        <param name="browse">$VAR[Defs_BrowseLimitedLists]</param>
+        <param name="content">$VAR[Path_SearchTerm,{widget_path},{widget_path_end}]</param>
+    </include>
+</include>

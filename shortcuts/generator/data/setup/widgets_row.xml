@@ -1,0 +1,282 @@
+<contents>
+    <rules name="widget_prev_id">
+        <rule>
+            <condition>{item_widget_parent}!=</condition>
+            <value>$MATH[{grouplist_item_x} * 1000 + 600 + {enum_x} - 1 - {item_widget_parent}]</value>
+        </rule>
+        <rule>
+            <condition>True</condition>
+            <value>$MATH[{grouplist_item_x} * 1000 + 600 + {enum_x} - 1]</value>
+        </rule>
+    </rules>
+    <value name="widget_busy_isupdating">True</value>
+    <value name="widget_id">$MATH[{grouplist_item_x} * 1000 + 600 + {enum_x}]</value>
+    <value name="widget_group_id">$MATH[{grouplist_item_x} * 1000 + 700 + {enum_x}]</value>
+    <value name="widget_next_id">$MATH[{grouplist_item_x} * 1000 + 600 + {enum_x} + 1]</value>
+    <value name="widget_nextnext_id">$MATH[{grouplist_item_x} * 1000 + 600 + {enum_x} + 2]</value>
+    <value name="widget_nextnextnext_id">$MATH[{grouplist_item_x} * 1000 + 600 + {enum_x} + 3]</value>
+    <value name="widget_widgetfade_include">true</value>
+    <rules name="widget_label">
+        <rule>
+            <condition>{item_path}==Stacked_Folder</condition>
+            <value>$INFO[Window.Property(WidgetMeta.{widget_prev_id}.Label)]</value>
+        </rule>
+        <rule>
+            <condition>{item_path}==Stacked_Movie_Recommendations</condition>
+            <value>$LOCALIZE[31018]$INFO[Window.Property(WidgetMeta.{widget_prev_id}.Title), (,)]</value>
+        </rule>
+        <rule>
+            <condition>{item_path}==Stacked_TVShows_Recommendations</condition>
+            <value>$LOCALIZE[31018]$INFO[Window.Property(WidgetMeta.{widget_prev_id}.TVShowTitle), (,)]</value>
+        </rule>
+        <rule>
+            <condition>{item_path}==Stacked_Movie_Year</condition>
+            <value>$LOCALIZE[345]$INFO[Window.Property(WidgetMeta.{widget_prev_id}.Year), (,)]</value>
+        </rule>
+        <rule>
+            <condition>{item_path}==Stacked_TVShows_Year</condition>
+            <value>$LOCALIZE[345]$INFO[Window.Property(WidgetMeta.{widget_prev_id}.Year), (,)]</value>
+        </rule>
+        <rule>
+            <condition>{item_path}==Stacked_Movie_Genre</condition>
+            <value>$LOCALIZE[515]$INFO[Window.Property(WidgetMeta.{widget_prev_id}.Genre), (,)]</value>
+        </rule>
+        <rule>
+            <condition>{item_path}==Stacked_TVShows_Genre</condition>
+            <value>$LOCALIZE[515]$INFO[Window.Property(WidgetMeta.{widget_prev_id}.Genre), (,)]</value>
+        </rule>
+        <rule>
+            <condition>True</condition>
+            <value>{item_label}</value>
+        </rule>
+    </rules>
+    <rules name="widget_path">
+        <rule>
+            <condition>{item_path}==Custom_Submenu</condition>
+            <value>plugin://script.skinvariables/?info=get_shortcuts_node&amp;amp;guid={item_guid}&amp;amp;menu={item_menu}&amp;amp;mode=submenu&amp;amp;skin=$VAR[Path_SkinVariables_SkinFolder]$INFO[Window(Home).Property(SkinVariables.ShortcutsNode.Reload),&amp;amp;reload=,]</value>
+        </rule>
+        <rule>
+            <condition>{item_path}==Stacked_Folder</condition>
+            <value>$INFO[Window.Property(WidgetMeta.{widget_prev_id}.FolderPath)]</value>
+        </rule>
+        <rule>
+            <condition>{item_path}==Stacked_Movie_Recommendations</condition>
+            <value>plugin://plugin.video.themoviedb.helper/?info=recommendations&amp;amp;tmdb_type=movie&amp;amp;query=$INFO[Window.Property(WidgetMeta.{widget_prev_id}.Title)]$VAR[Path_Param_Widget]</value>
+        </rule>
+        <rule>
+            <condition>{item_path}==Stacked_TVShows_Recommendations</condition>
+            <value>plugin://plugin.video.themoviedb.helper/?info=recommendations&amp;amp;tmdb_type=tv&amp;amp;query=$INFO[Window.Property(WidgetMeta.{widget_prev_id}.TvShowTitle)]$VAR[Path_Param_Widget]</value>
+        </rule>
+        <rule>
+            <condition>{item_path}==Stacked_Movie_Year</condition>
+            <value>plugin://plugin.video.themoviedb.helper/?info=discover&amp;amp;tmdb_type=movie&amp;amp;sort_by=vote_count.desc&amp;amp;primary_release_year=$INFO[Window.Property(WidgetMeta.{widget_prev_id}.Year)]$VAR[Path_Param_Widget]</value>
+        </rule>
+        <rule>
+            <condition>{item_path}==Stacked_TVShows_Year</condition>
+            <value>plugin://plugin.video.themoviedb.helper/?info=discover&amp;amp;tmdb_type=tv&amp;amp;sort_by=vote_count.desc&amp;amp;first_air_date_year=$INFO[Window.Property(WidgetMeta.{widget_prev_id}.Year)]$VAR[Path_Param_Widget]</value>
+        </rule>
+        <rule>
+            <condition>{item_path}==Stacked_Movie_Genre</condition>
+            <value>plugin://plugin.video.themoviedb.helper/?info=discover&amp;amp;tmdb_type=movie&amp;amp;sort_by=vote_count.desc&amp;amp;with_genres=$INFO[Window.Property(WidgetMeta.{widget_prev_id}.Genre)]$VAR[Path_Param_Widget]</value>
+        </rule>
+        <rule>
+            <condition>{item_path}==Stacked_TVShows_Genre</condition>
+            <value>plugin://plugin.video.themoviedb.helper/?info=discover&amp;amp;tmdb_type=tv&amp;amp;sort_by=vote_count.desc&amp;amp;with_genres=$INFO[Window.Property(WidgetMeta.{widget_prev_id}.Genre)]$VAR[Path_Param_Widget]</value>
+        </rule>
+        <rule>
+            <condition>True</condition>
+            <value>{item_path}</value>
+        </rule>
+    </rules>
+    <rules name="widget_target">
+        <rule>
+            <condition>{item_target}!=</condition>
+            <value>{item_target}</value>
+        </rule>
+        <rule>
+            <condition>{item_path}&lt;&lt;pvr://</condition>
+            <value>tvguide</value>
+        </rule>
+        <rule>
+            <condition>True</condition>
+            <value>videos</value>
+        </rule>
+    </rules>
+    <value name="widget_sortby">{item_widget_sortby}</value>
+    <value name="widget_limit">{item_widget_limit}</value>
+    <rules name="widget_sortorder">
+        <rule>
+            <condition>{item_widget_sortorder}==True</condition>
+            <value>descending</value>
+        </rule>
+        <rule>
+            <condition>True</condition>
+            <value>ascending</value>
+        </rule>
+    </rules>
+    <rules name="widget_visible">
+        <rule>
+            <condition>{item_path}&lt;&lt;Stacked_</condition>
+            <value>Control.IsVisible({widget_prev_id})</value>
+        </rule>
+        <rule>
+            <condition>True</condition>
+            <value>True</value>
+        </rule>
+    </rules>
+    <rules name="widget_altvisible">
+        <rule>
+            <condition>{item_path}&lt;&lt;Stacked_</condition>
+            <value>Control.HasFocus({widget_prev_id})</value>
+        </rule>
+        <rule>
+            <condition>True</condition>
+            <value>False</value>
+        </rule>
+    </rules>
+    <rules name="widget_isautoscroll">
+        <rule>
+            <condition>{item_widget_autoscroll}==True</condition>
+            <value>True</value>
+        </rule>
+        <rule>
+            <condition>True</condition>
+            <value>False</value>
+        </rule>
+    </rules>
+    <rules name="widget_include">
+        <rule>
+            <condition>{item_widget_style}==Landscape</condition>
+            <value>List_Landscape_Row</value>
+        </rule>
+        <rule>
+            <condition>{item_widget_style}==Poster</condition>
+            <value>List_Poster_Row</value>
+        </rule>
+        <rule>
+            <condition>{item_widget_style}==Square</condition>
+            <value>List_Square_Row</value>
+        </rule>
+        <rule>
+            <condition>{item_widget_style}==Circle</condition>
+            <value>List_Circle_Row</value>
+        </rule>
+        <rule>
+            <condition>{item_widget_style}==Card</condition>
+            <value>List_Card_Row</value>
+        </rule>
+        <rule>
+            <condition>{item_widget_style}==Board</condition>
+            <value>List_Board_Row</value>
+        </rule>
+        <rule>
+            <condition>{item_widget_style}==Placard</condition>
+            <value>List_Placard_Row</value>
+        </rule>
+        <rule>
+            <condition>{item_widget_style}==Overview</condition>
+            <value>List_Overview_Row</value>
+        </rule>
+        <rule>
+            <condition>{item_widget_style}==Signpost</condition>
+            <value>List_Signpost_Row</value>
+        </rule>
+        <rule>
+            <condition>{item_widget_style}==Banner</condition>
+            <value>List_Banner_Row</value>
+        </rule>
+        <rule>
+            <condition>{parent_item_widget_style}==Landscape</condition>
+            <value>List_Landscape_Row</value>
+        </rule>
+        <rule>
+            <condition>{parent_item_widget_style}==Poster</condition>
+            <value>List_Poster_Row</value>
+        </rule>
+        <rule>
+            <condition>{parent_item_widget_style}==Square</condition>
+            <value>List_Square_Row</value>
+        </rule>
+        <rule>
+            <condition>{parent_item_widget_style}==Circle</condition>
+            <value>List_Circle_Row</value>
+        </rule>
+        <rule>
+            <condition>{parent_item_widget_style}==Card</condition>
+            <value>List_Card_Row</value>
+        </rule>
+        <rule>
+            <condition>{parent_item_widget_style}==Board</condition>
+            <value>List_Board_Row</value>
+        </rule>
+        <rule>
+            <condition>{parent_item_widget_style}==Placard</condition>
+            <value>List_Placard_Row</value>
+        </rule>
+        <rule>
+            <condition>{parent_item_widget_style}==Overview</condition>
+            <value>List_Overview_Row</value>
+        </rule>
+        <rule>
+            <condition>{parent_item_widget_style}==Signpost</condition>
+            <value>List_Signpost_Row</value>
+        </rule>
+        <rule>
+            <condition>{parent_item_widget_style}==Banner</condition>
+            <value>List_Banner_Row</value>
+        </rule>
+        <rule>
+            <condition>True</condition>
+            <value>List_Landscape_Row</value>
+        </rule>
+    </rules>
+    <value name="widget_detailed">False</value>
+    <rules name="widget_custom_onclick">
+        <rule>
+            <condition>{item_path}==Custom_Submenu</condition>
+            <value>&lt;onclick condition="String.IsEmpty(ListItem.Property(target))"&gt;$INFO[ListItem.FolderPath]&lt;/onclick&gt;&lt;onclick condition="!String.IsEmpty(ListItem.Property(target))"&gt;ActivateWindow($INFO[ListItem.Property(target)],$INFO[ListItem.FolderPath],return)&lt;/onclick&gt;</value>
+        </rule>
+    </rules>
+    <rules name="widget_usewidgetlabel">
+        <rule>
+            <condition>{item_path}&lt;&lt;plugin://plugin.video.themoviedb.helper/?info=random_genres</condition>
+            <value>True</value>
+        </rule>
+        <rule>
+            <condition>{item_path}&lt;&lt;plugin://plugin.video.themoviedb.helper/?info=random_keyword</condition>
+            <value>True</value>
+        </rule>
+        <rule>
+            <condition>{item_path}&lt;&lt;plugin://plugin.video.themoviedb.helper/?info=random_trendinglists</condition>
+            <value>True</value>
+        </rule>
+        <rule>
+            <condition>{item_path}&lt;&lt;plugin://plugin.video.themoviedb.helper/?info=random_popularlists</condition>
+            <value>True</value>
+        </rule>
+        <rule>
+            <condition>{item_path}&lt;&lt;plugin://plugin.video.themoviedb.helper/?info=random_likedlists</condition>
+            <value>True</value>
+        </rule>
+        <rule>
+            <condition>{item_path}&lt;&lt;plugin://plugin.video.themoviedb.helper/?info=random_mylists</condition>
+            <value>True</value>
+        </rule>
+        <rule>
+            <condition>{item_path}&lt;&lt;plugin://plugin.video.themoviedb.helper/?info=trakt_becauseyouwatched</condition>
+            <value>True</value>
+        </rule>
+        <rule>
+            <condition>{item_path}&lt;&lt;plugin://plugin.video.themoviedb.helper/?info=trakt_becausemostwatched</condition>
+            <value>True</value>
+        </rule>
+        <rule>
+            <condition>{item_path}&lt;&lt;plugin://script.skinvariables/?info=get_params_file</condition>
+            <value>True</value>
+        </rule>
+        <rule>
+            <condition>True</condition>
+            <value>False</value>
+        </rule>
+    </rules>
+</contents>

@@ -1,0 +1,31 @@
+{
+    "infolabels": {
+        "position": "Window(Home).Property(Shortcuts.Position)"
+    },
+    "sums": {
+        "position": ["{position}", "-1"],
+        "attempts": ["{attempts}", "-1"]
+    },
+    "actions": [
+        {
+            "rules": [
+                "Container(22001).IsUpdating",
+                "{position}!="
+            ],
+            "value": [
+                "sleep=0.1",
+                "route=run_executebuiltin=special://skin/shortcuts/builtins/skinvariables-refocuscustomwidgets.json&use_rules=True&attempts={attempts}"
+            ]
+        },
+        {
+            "rules": [
+                "!Container(22001).IsUpdating",
+                "{position}!="
+            ],
+            "value": [
+                "SetFocus(22001,{position},absolute)",
+                "ClearProperty(Shortcuts.Position,Home)"
+            ]
+        }
+    ]
+}

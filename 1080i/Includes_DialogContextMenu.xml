@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<includes>
+
+    <include name="Dialog_ContextMenu_SideButtons">
+        <include content="Dialog_Background_Side">
+            <param name="slide_condition">!Integer.IsEqual(Container(9000).NumItems,0)</param>
+            <param name="dialog_size">$PARAM[dialog_size]</param>
+
+            <!-- Side Buttons -->
+            <control type="group">
+                <include>Dimension_Dialog_Body</include>
+                <control type="grouplist" id="9000">
+                    <include>Dialog_Side_Grouplist_Def</include>
+                    <onleft>Close</onleft>
+                    <onright>996</onright>
+                    <include content="Dialog_Side_Button" condition="!$EXP[Exp_InfoDialogs]">
+                        <param name="id">02</param>
+                        <param name="label">$LOCALIZE[207]</param>
+                        <param name="icon">special://skin/extras/icons/quote.png</param>
+                        <param name="visible">[!String.IsEmpty(Container(99950).ListItem.Property(base_plot))]</param>
+                        <onclick>ActivateWindow(1113)</onclick>
+                    </include>
+                    <include content="Dialog_Side_Button" condition="!$EXP[Exp_InfoDialogs]">
+                        <param name="id">03</param>
+                        <param name="label">$LOCALIZE[31066]</param>
+                        <param name="icon">special://skin/extras/icons/binoculars.png</param>
+                        <param name="visible">[!String.IsEmpty(Container(99950).ListItem.Property(base_title))]</param>
+                        <onclick>Dialog.Close(contextmenu,true)</onclick>
+                        <onclick>SetProperty(CustomSearchTerm,$ESCINFO[Container(99950).ListItem.Property(base_title)],Home)</onclick>
+                        <onclick>SetProperty(ReplaceWindow,1105,Home)</onclick>
+                        <onclick condition="!Window.IsActive(1105)">ActivateWindow(1105)</onclick>
+                        <onclick condition="Window.IsActive(1105)">ReplaceWindow(1197)</onclick>
+                    </include>
+                    <include content="Dialog_Side_Button" condition="!$EXP[Exp_InfoDialogs]">
+                        <param name="id">04</param>
+                        <param name="label">Wiki</param>
+                        <param name="icon">special://skin/extras/icons/globe.png</param>
+                        <param name="visible">[!String.IsEmpty(Container(99950).ListItem.Property(base_title))]</param>
+                        <onclick>Dialog.Close(contextmenu,true)</onclick>
+                        <onclick>runscript(script.wikipedia,wikipedia=$INFO[Container(99950).ListItem.Property(base_title)])</onclick>
+                    </include>
+                    <include content="Dialog_Side_Button" condition="!$EXP[Exp_InfoDialogs]">
+                        <param name="id">05</param>
+                        <param name="label">$LOCALIZE[31041]</param>
+                        <param name="icon">special://skin/extras/icons/fire2.png</param>
+                        <param name="visible">[String.IsEqual(Container(99950).ListItem.Property(base_dbtype),tvshow) | String.IsEqual(Container(99950).ListItem.Property(base_dbtype),season) | String.IsEqual(Container(99950).ListItem.Property(base_dbtype),episode) | String.IsEqual(Container(99950).ListItem.Property(base_dbtype),movie)]</param>
+                        <onclick>Dialog.Close(contextmenu,true)</onclick>
+                        <onclick>RunScript(plugin.video.themoviedb.helper,related_lists,query=$VAR[Path_ContextParams_Query],tmdb_type=$VAR[Path_ContextParams_TMDbType])</onclick>
+                    </include>
+                    <include content="Dialog_Side_Button" condition="!$EXP[Exp_InfoDialogs]">
+                        <param name="id">06</param>
+                        <param name="label">$LOCALIZE[20410]</param>
+                        <param name="icon">special://skin/extras/icons/video.png</param>
+                        <param name="visible">[!String.IsEmpty(Container(99950).ListItem.Trailer)]</param>
+                        <onclick>Dialog.Close(contextmenu,true)</onclick>
+                        <onclick>RunScript(script.skinvariables,run_executebuiltin=special://skin/shortcuts/builtins/skinvariables-playtrailer.json,use_rules)</onclick>
+                    </include>
+                    <include content="Dialog_Side_Button" condition="!$EXP[Exp_InfoDialogs] + Window.IsMedia">
+                        <param name="id">07</param>
+                        <param name="label">$LOCALIZE[33061]</param>
+                        <param name="icon">special://skin/extras/icons/circle-plus.png</param>
+                        <param name="visible">ListItem.IsFolder</param>
+                        <onclick>Dialog.Close(contextmenu,true)</onclick>
+                        <onclick>RunScript(script.skinvariables,set_listitem_to_menunode=sidemenu||homemenu||1101menu||1102menu||1103menu||1104menu,skin=$VAR[Path_SkinVariables_SkinFolder])</onclick>
+                    </include>
+                    <include content="Dialog_Side_Button" condition="!$EXP[Exp_InfoDialogs] + Window.IsMedia">
+                        <param name="id">08</param>
+                        <param name="label">$LOCALIZE[5]</param>
+                        <param name="icon">special://skin/extras/icons/settings.png</param>
+                        <param name="visible">!String.IsEmpty(Container.PluginName)</param>
+                        <onclick>Dialog.Close(contextmenu,true)</onclick>
+                        <onclick>Addon.OpenSettings($INFO[Container.PluginName])</onclick>
+                    </include>
+                </control>
+            </control>
+        </include>
+    </include>
+
+    <include name="Dialog_ContextMenu_BodyContent_Artwork">
+        <control type="group">
+            <include>Dimension_Dialog_Body_Group</include>
+            <include content="DialogInfo_PlotBox_Artwork">
+                <param name="poster_visible">[!String.IsEmpty(ListItem.Art(poster)) | !String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.base_poster))]</param>
+                <param name="poster_icon">$VAR[Image_ContextPoster]</param>
+                <param name="landscape_icon">$VAR[Image_ContextFanart]</param>
+                <param name="square_icon">$VAR[Image_ContextIcon]</param>
+                <param name="clearlogo_icon">$VAR[Image_ContextClearLogo]</param>
+                <param name="landscape_visible">[!String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.base_fanart)) | !String.IsEmpty(ListItem.Art(fanart))]</param>
+            </include>
+        </control>
+    </include>
+
+    <include name="Dialog_ContextMenu_BodyContent">
+        <param name="include_artwork">true</param>
+        <definition>
+            <control type="group">
+                <include>Dimension_Dialog_Body</include>
+
+                <include condition="$PARAM[include_artwork]">Dialog_ContextMenu_BodyContent_Artwork</include>
+
+                <control type="grouplist" id="996">
+                    <include>Dimension_Dialog_Body_Group</include>
+                    <onleft condition="!Integer.IsEqual(Container(9000).NumItems,0)">9000</onleft>
+                    <onleft condition="Integer.IsEqual(Container(9000).NumItems,0)">Close</onleft>
+                    <right>$PARAM[lines_right]</right>
+                    <onright>61</onright>
+                    <pagecontrol>61</pagecontrol>
+                </control>
+
+                <include content="Dialog_Scrollbar">
+                    <param name="id">61</param>
+                    <onleft>996</onleft>
+                </include>
+            </control>
+        </definition>
+    </include>
+
+    <include name="Dialog_ContextMenu">
+        <param name="include_fullmenu">true</param>
+        <param name="dialog_size">Dimension_DialogHugeMenu</param>
+        <param name="button_width">764</param>
+        <param name="lines_right">476</param>
+        <definition>
+            <include>Defs_TMDbHelper_Loader</include>
+
+            <control type="group">
+                <include>$PARAM[dialog_size]</include>
+                <include>Animation_Right_Delay</include>
+
+                <include content="Dialog_Dim_Side">
+                    <param name="slide_condition">!Integer.IsEqual(Container(9000).NumItems,0)</param>
+                    <param name="slide_animation">$PARAM[include_fullmenu]</param>
+                </include>
+
+                <!-- Background Layer -->
+                <include condition="$PARAM[include_fullmenu]" content="Dialog_ContextMenu_SideButtons">
+                    <param name="dialog_size">$PARAM[dialog_size]</param>
+                </include>
+
+                <!-- Foreground Layer -->
+                <include content="Dialog_Foreground_Side">
+                    <param name="dialog_size">$PARAM[dialog_size]</param>
+                    <param name="topline">true</param>
+                    <param name="subline">true</param>
+                    <param name="lines_right">$PARAM[lines_right]</param>
+
+                    <!-- Header -->
+                    <include content="Dialog_Head">
+                        <param name="label">$VAR[Label_ContextMenu_Title]</param>
+                    </include>
+
+                    <include>Dialog_Head_CloseButton</include>
+
+                    <!-- Content -->
+                    <include content="Dialog_ContextMenu_BodyContent">
+                        <param name="include_artwork">$PARAM[include_fullmenu]</param>
+                        <param name="lines_right">$PARAM[lines_right]</param>
+                    </include>
+
+                </include>
+            </control>
+
+            <include content="Settings_Button">
+                <param name="id">1000</param>
+                <param name="control">button</param>
+                <param name="dialog">true</param>
+                <width>$PARAM[button_width]</width>
+            </include>
+
+        </definition>
+    </include>
+
+</includes>

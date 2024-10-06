@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<window type="dialog">
+    <controls>
+
+        <include content="Furniture_Busy">
+            <param name="hasprogress">true</param>
+            <param name="spinnervisible">[[!Window.IsActive(DialogVolumeBar.xml) | Player.Muted] + !Window.IsActive(DialogBusy.xml)]</param>
+            <param name="icon">special://skin/extras/icons/kodi.png</param>
+            <param name="progress">Control.GetLabel(32)</param>
+            <param name="progress_id">32</param>
+            <param name="minilabel">$INFO[Control.GetLabel(31)]$INFO[Control.GetLabel(32), - ,%]</param>
+            <param name="mainlabel_id">30</param>
+            <param name="visible">!Window.IsActive(DialogNotification.xml) + !Window.IsActive(fullscreenvideo) + !Window.IsActive(visualisation)</param>
+            <param name="visible_condition">!$EXP[Exp_Notification_IsActive]</param>
+            <param name="windowopen_condition">!$EXP[Exp_Notification_IsActive]</param>
+        </include>
+
+        <control type="label" id="31">
+            <left>-2000</left>
+            <width>100</width>
+            <visible>False</visible>
+        </control>
+
+        <control type="progress" id="32">
+            <left>-2000</left>
+            <width>100</width>
+            <height>1</height>
+            <info>Player.Progress</info>
+        </control>
+    </controls>
+</window>

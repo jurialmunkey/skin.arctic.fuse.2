@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<window type="dialog" id="1123">
+    <defaultcontrol always="true">9000</defaultcontrol>
+    <onload condition="String.IsEmpty(Window(Home).Property(PlayTrailer))">Close</onload>
+    <onload condition="!String.IsEmpty(Window(Home).Property(PlayTrailer)) + Player.HasVideo + !String.IsEqual(Window(Home).Property(PlayTrailer),Player.FileNameAndPath)">Action(Stop)</onload>
+    <onload condition="!String.IsEmpty(Window(Home).Property(PlayTrailer)) + [!Player.HasVideo | !String.IsEqual(Window(Home).Property(PlayTrailer),Player.FileNameAndPath)]">PlayMedia($ESCINFO[Window(Home).Property(PlayTrailer)],False,1)</onload>
+    <onunload>ClearProperty(TrailerFullscreen,1123)</onunload>
+    <onunload condition="Player.HasVideo + [Skin.HasSetting(Background.DisableVideo) | !Skin.HasSetting(Trailers.EnableAutoPlayback.Info) | !Window.IsVisible(DialogVideoInfo.xml)]">Action(Stop)</onunload>
+    <controls>
+
+        <control type="group">
+            <include>Dimension_DialogFullMenu</include>
+            <include>Animation_Right_Delay</include>
+            <include content="Dialog_Dim_Side">
+                <param name="slide_condition">True</param>
+            </include>
+
+            <!-- Bottom Layer -->
+            <include content="Dialog_Background_Side">
+                <param name="slide_condition">True</param>
+                <param name="dialog_size">Dimension_DialogFullMenu</param>
+                <!-- Side Buttons -->
+                <control type="group">
+                    <include>Dimension_Dialog_Body</include>
+                    <control type="grouplist" id="9000">
+                        <include>Dialog_Side_Grouplist_Def</include>
+                        <onleft condition="!Player.HasVideo">Close</onleft>
+                        <onleft condition="Player.HasVideo">Seek(-10)</onleft>
+                        <onright condition="Player.HasVideo">Seek(10)</onright>
+                        <include content="Dialog_Side_Button">
+                            <param name="id">02</param>
+                            <param name="label">$LOCALIZE[31485]</param>
+                            <param name="icon">special://skin/extras/icons/stop.png</param>
+                            <param name="visible">Player.HasVideo</param>
+                            <onclick>Action(Stop)</onclick>
+                            <onclick>Close</onclick>
+                        </include>
+                        <include content="Dialog_Side_Button">
+                            <param name="id">03</param>
+                            <param name="label">$VAR[Label_Trailer_PlayPause]</param>
+                            <param name="icon">$VAR[Image_Trailer_PlayPause]</param>
+                            <param name="visible">Player.HasVideo</param>
+                            <onclick>PlayerControl(Play)</onclick>
+                        </include>
+                        <include content="Dialog_Side_Button">
+                            <param name="id">04</param>
+                            <param name="label">$LOCALIZE[31483]</param>
+                            <param name="icon">special://skin/extras/icons/repeat2.png</param>
+                            <param name="visible">!String.IsEmpty(Window(Home).Property(PlayTrailer))</param>
+                            <onclick>PlayMedia($ESCINFO[Window(Home).Property(PlayTrailer)],False,1)</onclick>
+                        </include>
+                        <include content="Dialog_Side_Button">
+                            <param name="id">05</param>
+                            <param name="label">Fullscreen</param>
+                            <param name="icon">special://skin/extras/icons/fullscreen.png</param>
+                            <param name="visible">Player.HasVideo</param>
+                            <onback condition="!String.IsEmpty(Window.Property(TrailerFullscreen)) + Player.HasVideo">ClearProperty(TrailerFullscreen,1123)</onback>
+                            <onback condition="!String.IsEmpty(Window.Property(TrailerFullscreen)) + Player.HasVideo">9000</onback>
+                            <onclick condition="String.IsEmpty(Window.Property(TrailerFullscreen))">SetProperty(TrailerFullscreen,True,1123)</onclick>
+                            <onclick condition="!String.IsEmpty(Window.Property(TrailerFullscreen))">ClearProperty(TrailerFullscreen,1123)</onclick>
+                            <onunfocus>ClearProperty(TrailerFullscreen,1123)</onunfocus>
+                        </include>
+                    </control>
+                </control>
+            </include>
+
+            <include content="Dialog_Foreground_Side">
+                <param name="dialog_size">Dimension_DialogFullMenu</param>
+                <param name="slide_condition">True</param>
+                <param name="lines_right">0</param>
+                <param name="topline">true</param>
+                <param name="subline">true</param>
+
+                <!-- Header -->
+                <include content="Dialog_Head">
+                    <param name="label">$LOCALIZE[20410]</param>
+                </include>
+                <include>Dialog_Head_CloseButton</include>
+
+                <!-- Content -->
+                <control type="group">
+                    <include>Dimension_Dialog_Body</include>
+                    <control type="group">
+                        <include>Dimension_Dialog_Body_Group</include>
+                        <control type="group">
+                            <include content="Dimension_Padding">
+                                <param name="pad">20</param>
+                            </include>
+                            <include content="Dialog_Outline_InnerBox">
+                                <control type="image">
+                                    <texture border="20" colordiffuse="black">common/dialog.png</texture>
+                                </control>
+                                <control type="videowindow" />
+                            </include>
+                            <control type="group">
+                                <height>12</height>
+                                <centerbottom>-40</centerbottom>
+                                <control type="progress" id="499">
+                                    <width>100%</width>
+                                    <height>12</height>
+                                    <info>Player.Progress</info>
+                                    <visible>Player.HasVideo</visible>
+                                    <texturebg colordiffuse="00ffffff" border="4">progress/progress-bg.png</texturebg>
+                                </control>
+                                <control type="progress">
+                                    <description>Progressbar</description>
+                                    <width>100%</width>
+                                    <height>12</height>
+                                    <info>Player.Progress</info>
+                                    <texturebg colordiffuse="00ffffff">progress/progress-bg.png</texturebg>
+                                    <lefttexture colordiffuse="00ffffff">progress/progress-left.png</lefttexture>
+                                    <midtexture colordiffuse="$VAR[ColorGradient]" diffuse="progress/diffuse.png">progress/progress-end.png</midtexture>
+                                    <righttexture colordiffuse="$VAR[ColorGradient]" diffuse="progress/diffuse-end.png">progress/progress-right.png</righttexture>
+                                    <include content="Defs_Progress_Colorfade">
+                                        <param name="id">499</param>
+                                    </include>
+                                    <visible>Player.HasVideo</visible>
+                                </control>
+                            </control>
+                        </control>
+                    </control>
+                </control>
+            </include>
+
+        </control>
+
+        <control type="group">
+            <visible>Player.HasVideo</visible>
+            <visible>!String.IsEmpty(Window.Property(TrailerFullscreen))</visible>
+            <control type="image">
+                <texture colordiffuse="black">common/white.png</texture>
+            </control>
+            <control type="videowindow" />
+        </control>
+    </controls>
+</window>

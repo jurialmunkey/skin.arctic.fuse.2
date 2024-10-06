@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<includes>
+    <include name="Shortcuts_Options">
+        <!-- FROM: Options Menu -->
+        <include content="Object_Hidden_Button">
+            <param name="id">23999</param>
+            <onfocus>ClearProperty(Options.Mode)</onfocus>
+            <onfocus>SetFocus(300)</onfocus>
+        </include>
+
+        <!-- TO: Options Menu -->
+        <include content="Object_Hidden_Button">
+            <param name="id">33999</param>
+            <animation effect="fade" start="0" end="0" time="400" reversible="false">Focus</animation>
+            <onfocus>SetFocus(33000)</onfocus>
+        </include>
+
+        <control type="group">
+            <include>Dimension_DialogSideMenu</include>
+            <visible>!String.IsEmpty(Window.Property(Options.Mode))</visible>
+            <include>Animation_Right_Delay</include>
+            <include content="Dialog_Dim_Side">
+                <param name="slide_condition">ControlGroup(9000).HasFocus()</param>
+            </include>
+
+            <!-- Bottom Layer -->
+            <include content="Dialog_Background_Side">
+                <param name="slide_condition">ControlGroup(9000).HasFocus()</param>
+                <param name="dialog_size">Dimension_DialogSideMenu</param>
+            </include>
+
+            <include content="Dialog_Foreground_Side">
+                <param name="dialog_size">Dimension_DialogSideMenu</param>
+                <param name="slide_condition">ControlGroup(9000).HasFocus()</param>
+                <param name="lines_right">0</param>
+                <param name="topline">true</param>
+                <param name="subline">true</param>
+
+                <!-- Header -->
+                <control type="group">
+                    <right>view_pad</right>
+                    <height>view_bar</height>
+                    <top>view_pad</top>
+                    <left>view_pad</left>
+                    <control type="group">
+                        <include>Dimension_Furniture_Gutters</include>
+                        <control type="label">
+                            <font>font_midi_black</font>
+                            <textcolor>dialog_fg_100</textcolor>
+                            <label>$INFO[Window.Property(Options.Mode.Heading)]</label>
+                            <bottom>30</bottom>
+                        </control>
+                        <control type="label">
+                            <font>font_tiny</font>
+                            <textcolor>dialog_fg_70</textcolor>
+                            <label>$INFO[Window.Property(Options.Mode.Heading.Sublabel)]</label>
+                            <top>40</top>
+                        </control>
+                    </control>
+                </control>
+
+                <!-- Content -->
+                <control type="group">
+                    <include>Dimension_Dialog_Body</include>
+                    <control type="group">
+                        <include>Dimension_Dialog_Body_Group</include>
+                        <control type="grouplist" id="33000">
+                            <onleft>23999</onleft>
+                            <onright>39000</onright>
+                            <orientation>vertical</orientation>
+                            <!-- Spotlight: Hubs: Choose -->
+                            <include content="Settings_Stacked_Button">
+                                <param name="dialog">true</param>
+                                <param name="id">33001</param>
+                                <param name="groupid">33101</param>
+                                <param name="control">button</param>
+                                <param name="toplabel">$LOCALIZE[31005]</param>
+                                <param name="sublabel">$VAR[Label_Shortcut_HubSpotlight_Path]</param>
+                                <param name="sublabel_visible">!String.IsEmpty(Control.GetLabel(33001))</param>
+                                <onclick>ClearProperty(Shortcuts.Groupings.Links,Home)</onclick>
+                                <onclick>RunScript(script.skinvariables,set_shortcut=Hub.$INFO[Window.Property(hub_prefix)].Spotlight,use_rawpath=True)</onclick>
+                                <visible>String.IsEqual(Window.Property(Options.Mode),Categories.Spotlight)</visible>
+                                <onback>23999</onback>
+                            </include>
+                            <!-- Spotlight: Hubs: Label -->
+                            <include content="Settings_Button">
+                                <param name="dialog">true</param>
+                                <param name="id">33002</param>
+                                <param name="control">button</param>
+                                <label> -- $LOCALIZE[21899]</label>
+                                <label2>[CAPITALIZE]$VAR[Label_Shortcut_HubSpotlight_Label][/CAPITALIZE]</label2>
+                                <onclick>Skin.SetString(Hub.$INFO[Window.Property(hub_prefix)].Spotlight.Label)</onclick>
+                                <visible>!String.IsEmpty(Control.GetLabel(33001))</visible>
+                                <visible>String.IsEqual(Window.Property(Options.Mode),Categories.Spotlight)</visible>
+                                <onback>23999</onback>
+                            </include>
+                            <!-- Spotlight: Hubs: Sort By -->
+                            <include content="Settings_Button">
+                                <param name="dialog">true</param>
+                                <param name="id">33003</param>
+                                <param name="control">button</param>
+                                <label> -- $LOCALIZE[31016]</label>
+                                <label2>[CAPITALIZE]$VAR[Label_Shortcut_HubSpotlight_SortBy][/CAPITALIZE]</label2>
+                                <onclick>RunScript(script.skinvariables,run_dialog=select,heading=Sort method,separator=||,list=default||label||random||dateadded||lastplayed||playcount||year||rating||userrating||votes||genre||country||studio||playlist||episodenumber||season||totalepisodes||watchedepisodes||tvshowstatus||tvshowtitle||file||title||track||time||artist||album||lastupdated||lastused||date,"executebuiltin=Skin.SetString(Hub.$INFO[Window.Property(hub_prefix)].Spotlight.SortBy,{v})")</onclick>
+                                <visible>!String.IsEmpty(Control.GetLabel(33001))</visible>
+                                <visible>String.IsEqual(Window.Property(Options.Mode),Categories.Spotlight)</visible>
+                                <onback>23999</onback>
+                            </include>
+
+                            <!-- Spotlight: Categories: Choose -->
+                            <include content="Settings_Stacked_Button">
+                                <param name="dialog">true</param>
+                                <param name="id">33011</param>
+                                <param name="groupid">33111</param>
+                                <param name="control">button</param>
+                                <param name="toplabel">$LOCALIZE[31327]</param>
+                                <param name="sublabel">$INFO[Container(300).ListItem.Property(spotlight_path)]</param>
+                                <param name="sublabel_visible">!String.ISEmpty(Container(300).ListItem.Property(spotlight_path))</param>
+                                <onclick>ClearProperty(Shortcuts.Groupings.Links,Home)</onclick>
+                                <onclick condition="!String.IsEmpty(Container(300).ListItem.Property(spotlight_path))">RunPlugin($INFO[Container(300).ListItem.Property(url),,&amp;func=do_toggle&amp;&amp;spotlight_path])</onclick>
+                                <onclick condition="String.IsEmpty(Container(300).ListItem.Property(spotlight_path))">RunPlugin($INFO[Container(300).ListItem.Property(url),,&amp;func=do_choose&amp;&amp;prefix::spotlight&amp;&amp;use_rawpath::True])</onclick>
+                                <visible>String.IsEqual(Window.Property(Options.Mode),Categories.Spotlight)</visible>
+                                <onback>23999</onback>
+                            </include>
+                            <!-- Spotlight: Categories: Label -->
+                            <include content="Settings_Button">
+                                <param name="dialog">true</param>
+                                <param name="id">33012</param>
+                                <param name="control">button</param>
+                                <label> -- $LOCALIZE[21899]</label>
+                                <label2>$INFO[Container(300).ListItem.Property(spotlight_label)]</label2>
+                                <onclick>RunPlugin($INFO[Container(300).ListItem.Property(url),,&amp;func=do_edit&amp;&amp;spotlight_label])</onclick>
+                                <visible>!String.IsEmpty(Container(300).ListItem.Property(spotlight_path))</visible>
+                                <visible>String.IsEqual(Window.Property(Options.Mode),Categories.Spotlight)</visible>
+                                <onback>23999</onback>
+                            </include>
+                            <!-- Spotlight: Categories: Sort by -->
+                            <include content="Settings_Button">
+                                <param name="dialog">true</param>
+                                <param name="id">33013</param>
+                                <param name="control">button</param>
+                                <label> -- $LOCALIZE[31016]</label>
+                                <label2>[CAPITALIZE]$INFO[Container(300).ListItem.Property(spotlight_sortby)][/CAPITALIZE]</label2>
+                                <onclick>RunPlugin($INFO[Container(300).ListItem.Property(url),,&amp;func=do_edit&amp;&amp;spotlight_sortby&amp;&amp;default&amp;label&amp;random&amp;dateadded&amp;lastplayed&amp;playcount&amp;year&amp;rating&amp;userrating&amp;votes&amp;genre&amp;country&amp;studio&amp;playlist&amp;episodenumber&amp;season&amp;totalepisodes&amp;watchedepisodes&amp;tvshowstatus&amp;tvshowtitle&amp;file&amp;title&amp;track&amp;time&amp;artist&amp;album&amp;lastupdated&amp;lastused&amp;date&amp;&amp;Sort by&amp;&amp;True])</onclick>
+                                <visible>!String.IsEmpty(Container(300).ListItem.Property(spotlight_path))</visible>
+                                <visible>String.IsEqual(Window.Property(Options.Mode),Categories.Spotlight)</visible>
+                                <onback>23999</onback>
+                            </include>
+                            <!-- Spotlight: Categories: Sort order -->
+                            <include content="Settings_Button">
+                                <param name="dialog">true</param>
+                                <param name="id">33014</param>
+                                <param name="control">radiobutton</param>
+                                <label> -- $LOCALIZE[31517]</label>
+                                <selected>!String.IsEmpty(Container(300).ListItem.Property(spotlight_sortorder))</selected>
+                                <onclick>RunPlugin($INFO[Container(300).ListItem.Property(url),,&amp;func=do_toggle&amp;&amp;spotlight_sortorder])</onclick>
+                                <onback>13999</onback>
+                                <visible>!String.IsEmpty(Container(300).ListItem.Property(spotlight_sortby))</visible>
+                                <visible>!String.IsEqual(Container(300).ListItem.Property(spotlight_sortby),random)</visible>
+                                <visible>!String.IsEmpty(Container(300).ListItem.Property(spotlight_path))</visible>
+                                <visible>String.IsEqual(Window.Property(Options.Mode),Categories.Spotlight)</visible>
+                                <onback>23999</onback>
+                            </include>
+                            <!-- Spotlight: Categories: Sort order -->
+                            <include content="Settings_Button">
+                                <param name="dialog">true</param>
+                                <param name="id">33015</param>
+                                <param name="control">button</param>
+                                <label> -- $LOCALIZE[31188]</label>
+                                <label2>$INFO[Container(300).ListItem.Property(spotlight_limit)]</label2>
+                                <onclick>RunPlugin($INFO[Container(300).ListItem.Property(url),,&amp;func=do_numeric&amp;&amp;spotlight_limit&amp;&amp;heading::Limit])</onclick>
+                                <visible>!String.IsEmpty(Container(300).ListItem.Property(spotlight_path))</visible>
+                                <visible>String.IsEqual(Window.Property(Options.Mode),Categories.Spotlight)</visible>
+                                <onback>23999</onback>
+                            </include>
+
+
+                            <!-- Spotlight: Hubs: Fallback Image -->
+                            <include content="Settings_Stacked_Button">
+                                <param name="dialog">true</param>
+                                <param name="id">33041</param>
+                                <param name="groupid">33141</param>
+                                <param name="control">button</param>
+                                <param name="toplabel">$LOCALIZE[31536]</param>
+                                <param name="sublabel">$VAR[Label_Shortcut_HubSpotlight_Fallback]</param>
+                                <param name="sublabel_visible">!String.IsEmpty(Control.GetLabel(33041))</param>
+                                <onclick>Skin.Reset(Hub.$INFO[Window.Property(hub_prefix)].Spotlight.Fallback)</onclick>
+                                <onclick>Skin.SetPath(Hub.$INFO[Window.Property(hub_prefix)].Spotlight.Fallback)</onclick>
+                                <visible>String.IsEqual(Window.Property(Options.Mode),Categories.Spotlight)</visible>
+                                <onback>23999</onback>
+                            </include>
+                        </control>
+                    </control>
+                </control>
+            </include>
+
+        </control>
+
+
+    </include>
+</includes>

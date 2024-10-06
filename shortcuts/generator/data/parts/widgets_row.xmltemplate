@@ -1,0 +1,34 @@
+<include content="Widget_Row" condition="{widget_include_condition}">
+    <param name="id">{widget_id}</param>
+    <param name="groupid">{widget_group_id}</param>
+    <param name="label">{widget_label}</param>
+    <param name="usewidgetlabel">{widget_usewidgetlabel}</param>
+    <param name="include">{widget_include}</param>
+    <param name="grouplistid">{grouplist_id}</param>
+    <param name="refocus">{grouplist_refocus}</param>
+    <param name="detailed">{widget_detailed}</param>
+    <param name="visible">[{widget_category_visible}] + [{widget_visible}] + String.IsEmpty(Window.Property(Widgets.ResetPosition))</param>
+    <param name="altvisible">{widget_altvisible}</param>
+    <param name="busy_isupdating">{widget_busy_isupdating}</param>
+    <param name="widgetfade_include">{widget_widgetfade_include}</param>
+    <param name="widget_hideartwork">{grouplist_widgets_only}</param>
+
+    <description>{description}</description>
+
+    <content sortby="{widget_sortby}" sortorder="{widget_sortorder}" target="{widget_target}" limit="{widget_limit}" browse="$VAR[Defs_BrowseLimitedLists]">{widget_path}</content>
+
+    <include content="Defs_AutoScroll" condition="{widget_isautoscroll}">
+        <param name="condition">[!Control.HasFocus({widget_id}) | System.IdleTime(3)]</param>
+    </include>
+
+    <include content="Action_View_Movement_OnLeft">
+        <param name="id">{widget_id}</param>
+    </include>
+    <include content="Action_View_Movement_OnRight">
+        <param name="id">{widget_id}</param>
+    </include>
+
+    {widget_custom_onclick}
+    {widget_custom_onfocus}
+
+</include>

@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<window type="dialog" id="1117">
+
+    <defaultcontrol always="true">8100</defaultcontrol>
+    <onload>SetFocus(8100,1,absolute)</onload>
+    <onload>ClearProperty(SelectionList)</onload>
+    <controls>
+
+        <include content="Object_Hidden_List">
+            <param name="id">451</param>
+            <content>special://skin/extras/icons/</content>
+        </include>
+
+        <control type="group">
+            <include>Dimension_DialogHugeMenu</include>
+            <include>Animation_Right_Delay</include>
+            <include content="Dialog_Dim_Side">
+                <param name="slide_condition">True</param>
+            </include>
+
+            <!-- Bottom Layer -->
+            <include content="Dialog_Background_Side">
+                <param name="slide_condition">True</param>
+                <param name="dialog_size">Dimension_DialogHugeMenu</param>
+
+                <!-- Side Buttons -->
+                <control type="group">
+                    <include>Dimension_Dialog_Body</include>
+                    <control type="grouplist" id="9000">
+                        <include>Dialog_Side_Grouplist_Def</include>
+                        <onleft>Close</onleft>
+                        <onright>8000</onright>
+                        <include content="Dialog_Side_Button">
+                            <param name="id">01</param>
+                            <param name="label">$LOCALIZE[222]</param>
+                            <param name="icon">special://skin/extras/icons/circle-xmark.png</param>
+                            <onclick>Close</onclick>
+                        </include>
+                        <include content="Dialog_Side_Button">
+                            <param name="id">02</param>
+                            <param name="label">Browse</param>
+                            <param name="icon">special://skin/extras/icons/folder.png</param>
+                            <onclick>Close</onclick>
+                            <onclick>RunPlugin($INFO[Window.Property(url),,&amp;func=do_icon&amp;&amp;icon_dir::])</onclick>
+                        </include>
+                    </control>
+                </control>
+            </include>
+
+            <include content="Dialog_Foreground_Side">
+                <param name="dialog_size">Dimension_DialogHugeMenu</param>
+                <param name="slide_condition">True</param>
+                <param name="lines_right">840</param>
+                <param name="topline">true</param>
+                <param name="subline">true</param>
+
+                <!-- Header -->
+                <include content="Dialog_Head">
+                    <param name="id">9901</param>
+                    <param name="label">$LOCALIZE[19284]</param>
+                </include>
+                <include>Dialog_Head_CloseButton</include>
+
+                <!-- Content -->
+                <control type="group">
+                    <include>Dimension_Dialog_Body</include>
+                    <control type="group">
+                        <include>Dimension_Dialog_Body_Group</include>
+                        <control type="group" id="8000">
+                            <control type="grouplist" id="8200">
+                                <width>400</width>
+                                <onright>450</onright>
+                                <onleft>9000</onleft>
+                                <onup>SetFocus(8100,9999,absolute)</onup>
+                                <ondown>SetFocus(8100,0,absolute)</ondown>
+                                <top>-20</top>
+                                <include content="Settings_Label">
+                                    <param name="dialog">true</param>
+                                    <param name="id">8091</param>
+                                    <label>$LOCALIZE[587]</label>
+                                    <top>0</top>
+                                    <height>40</height>
+                                    <!-- <align>center</align> -->
+                                </include>
+                                <include content="Settings_Button">
+                                    <param name="dialog">true</param>
+                                    <param name="id">8001</param>
+                                    <param name="control">edit</param>
+                                    <texturenofocus colordiffuse="dialog_fg_12" border="40">common/menu.png</texturenofocus>
+                                    <!-- <align>center</align> -->
+                                </include>
+                                <control type="group" id="8092">
+                                    <top>0</top>
+                                    <height>40</height>
+                                    <control type="image">
+                                        <height>1</height>
+                                        <left>20</left>
+                                        <right>20</right>
+                                        <centertop>50%</centertop>
+                                        <texture colordiffuse="dialog_fg_12">common/white.png</texture>
+                                    </control>
+                                </control>
+                                <include content="Settings_Label">
+                                    <param name="dialog">true</param>
+                                    <param name="id">8093</param>
+                                    <label>$LOCALIZE[19146]</label>
+                                    <top>-20</top>
+                                    <height>40</height>
+                                    <!-- <align>center</align> -->
+                                </include>
+                            </control>
+                            <include content="List_DialogSelect">
+                                <param name="id">8100</param>
+                                <param name="textcolor">dialog_fg</param>
+                                <param name="misc">[!String.IsEmpty(Window.Property(SelectionList)) + Integer.IsEqual(ListItem.CurrentItem,Container(8100).CurrentItem)]</param>
+                                <top>160</top>
+                                <width>400</width>
+                                <onright>450</onright>
+                                <onleft>9000</onleft>
+                                <height>640</height>
+                                <ondown>ClearProperty(SelectionList)</ondown>
+                                <ondown>8001</ondown>
+                                <onup>ClearProperty(SelectionList)</onup>
+                                <onup>8001</onup>
+                                <onfocus>SetProperty(SelectionList,1)</onfocus>
+                                <content>
+                                    <item>
+                                        <label>$LOCALIZE[31382]</label>
+                                    </item>
+                                    <item>
+                                        <label>Standard</label>
+                                        <property name="filter">&amp;filter_key=label&amp;filter_value=film / tv / music / song / image.png / images.png / heart.png / youtube / netflix / disney / compass / cricket / ball / gem / rocket / diamond / director / dove / dragon / drum / umbrella / dungeon / fire / fish / octopus / flask / frog / mask / game / ghost / genre / groove / guitar / gun / hammer / hippo / horse / house.png / hotel.png / hotdog / hot-tub / igloo / icons.png / instagram / jedi / kiwi / key / leaf / meteor / microphone / radio / mosquito / motorcycle / otter / paint / paw.png / pepper / pizza / reddit / robot / santa / sailboat / soccer / spotify / splotch / steam / supernes / tennis / worm / beer / binoculars / bicycle / biohazard / bolt / bone / brain / brush / bucket / burger / burst / cake / candy / cat.png / champagne / chair / clapperboard / construction / controlpanel / couch / cow.png / crow.png / crown / crunchyroll / cube.png / dog.png / favourites.png / fingerprint / gift.png / golf.png / grooveshark / kodi / lightbulb / podcast / power.png / scrissors / screwdriver / seedling / setting / shrimp / shuttle / skull / sink.png / sleigh / spider / spaghetti / sun2 / tape.png / target.png / vials / volcano / world.png / search.png</property>
+                                    </item>
+                                    <item>
+                                        <label>Arrow</label>
+                                        <property name="filter">&amp;filter_key=label&amp;filter_value=arrow</property>
+                                    </item>
+                                    <item>
+                                        <label>Shapes</label>
+                                        <property name="filter">&amp;filter_key=label&amp;filter_value=circle / square / rectangle / shape / box</property>
+                                    </item>
+                                    <item>
+                                        <label>File</label>
+                                        <property name="filter">&amp;filter_key=label&amp;filter_value=file / folder</property>
+                                    </item>
+                                    <item>
+                                        <label>Faces</label>
+                                        <property name="filter">&amp;filter_key=label&amp;filter_value=face</property>
+                                    </item>
+                                    <item>
+                                        <label>Gestures</label>
+                                        <property name="filter">&amp;filter_key=label&amp;filter_value=hand</property>
+                                    </item>
+                                    <item>
+                                        <label>User</label>
+                                        <property name="filter">&amp;filter_key=label&amp;filter_value=person / user</property>
+                                    </item>
+                                </content>
+                            </include>
+                        </control>
+                        <include content="Dialog_Outline_InnerBox">
+                            <top>-20</top>
+                            <bottom>-20</bottom>
+                            <left>420</left>
+                            <right>20</right>
+                            <include content="List_IconBrowser">
+                                <param name="id">450</param>
+                                <param name="item_h">160</param>
+                                <param name="itemlayout_h">200</param>
+                                <param name="item_w">150</param>
+                                <param name="itemlayout_w">190</param>
+                                <param name="detailed">true</param>
+                                <param name="textcolor">dialog_fg</param>
+                                <onleft>8000</onleft>
+                                <onright>61</onright>
+                                <pagecontrol>61</pagecontrol>
+                                <content>plugin://script.skinvariables/?info=get_container_labels&amp;containers=451&amp;infolabel=Label&amp;thumb=PicturePath&amp;reload=$INFO[Container(451).NumItems]$VAR[Path_IconSelector_Filter]</content>
+                                <onclick>RunPlugin($INFO[Window.Property(url),,&amp;func=do_icon]$INFO[Container(450).ListItem.Icon,&amp;&amp;value::,])</onclick>
+                                <onclick>Close</onclick>
+                            </include>
+                        </include>
+                    </control>
+
+                    <include content="Dialog_Scrollbar">
+                        <param name="id">61</param>
+                        <onleft>450</onleft>
+                    </include>
+                </control>
+            </include>
+
+        </control>
+
+        <include content="Furniture_Busy">
+            <param name="hasspinner">true</param>
+            <param name="spinspinner">true</param>
+            <param name="icon">special://skin/extras/icons/kodi.png</param>
+            <param name="haslabel">false</param>
+            <param name="spinnervisible">[!Window.IsActive(DialogVolumeBar.xml) | Player.Muted]</param>
+            <param name="visible_delay">400</param>
+            <param name="windowopen_condition">False</param>
+            <param name="visible">[Container(450).IsUpdating]</param>
+        </include>
+
+    </controls>
+</window>

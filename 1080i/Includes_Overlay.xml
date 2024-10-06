@@ -1,0 +1,464 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<includes>
+    <include name="Vert_Red_Line">
+        <control type="image">
+            <top>-1</top>
+            <height>1</height>
+            <texture colordiffuse="44ff0000">common/white.png</texture>
+        </control>
+    </include>
+
+    <include name="Vert_Red_Line_5">
+        <include>Vert_Red_Line</include>
+        <include>Vert_Red_Line</include>
+        <include>Vert_Red_Line</include>
+        <include>Vert_Red_Line</include>
+        <include>Vert_Red_Line</include>
+    </include>
+
+    <include name="Horz_Red_Line">
+        <control type="image">
+            <left>-1</left>
+            <width>1</width>
+            <texture colordiffuse="44ff0000">common/white.png</texture>
+        </control>
+    </include>
+
+    <include name="Horz_Red_Line_5">
+        <include>Horz_Red_Line</include>
+        <include>Horz_Red_Line</include>
+        <include>Horz_Red_Line</include>
+        <include>Horz_Red_Line</include>
+        <include>Horz_Red_Line</include>
+    </include>
+
+    <variable name="Overlay_InfoLabel_WidgetContainer">
+        <value condition="Window.IsVisible(musicinformation)"> -musicinformation- $INFO[Window(musicinformation).Property(Widgets.ResetPosition), -reset: ,] $INFO[Window(musicinformation).Property(TMDBHelper.WidgetContainer), -tmdb: ]$INFO[Window(musicinformation).Property(Slide.WidgetContainer), -slide: ,]$INFO[Window(musicinformation).Property(List.ViewContainer), -list: ,]</value>
+        <value condition="Window.IsVisible(movieinformation)"> -movieinformation- $INFO[Window(movieinformation).Property(Widgets.ResetPosition), -reset: ,] $INFO[Window(movieinformation).Property(TMDBHelper.WidgetContainer), -tmdb: ]$INFO[Window(movieinformation).Property(Slide.WidgetContainer), -slide: ,]$INFO[Window(movieinformation).Property(List.ViewContainer), -list: ,]</value>
+        <value condition="Window.IsVisible(Home)"> -Home- $INFO[Window(Home).Property(Widgets.ResetPosition), -reset: ,] $INFO[Window(Home).Property(TMDBHelper.WidgetContainer), -tmdb: ]$INFO[Window(Home).Property(Slide.WidgetContainer), -slide: ,]$INFO[Window(Home).Property(List.ViewContainer), -list: ,]</value>
+        <value condition="Window.IsVisible(1101)"> -1101- $INFO[Window(1101).Property(Widgets.ResetPosition), -reset: ,] $INFO[Window(1101).Property(TMDBHelper.WidgetContainer), -tmdb: ]$INFO[Window(1101).Property(Slide.WidgetContainer), -slide: ,]$INFO[Window(1101).Property(List.ViewContainer), -list: ,]</value>
+        <value condition="Window.IsVisible(1102)"> -1102- $INFO[Window(1102).Property(Widgets.ResetPosition), -reset: ,] $INFO[Window(1102).Property(TMDBHelper.WidgetContainer), -tmdb: ]$INFO[Window(1102).Property(Slide.WidgetContainer), -slide: ,]$INFO[Window(1102).Property(List.ViewContainer), -list: ,]</value>
+        <value condition="Window.IsVisible(1103)"> -1103- $INFO[Window(1103).Property(Widgets.ResetPosition), -reset: ,] $INFO[Window(1103).Property(TMDBHelper.WidgetContainer), -tmdb: ]$INFO[Window(1103).Property(Slide.WidgetContainer), -slide: ,]$INFO[Window(1103).Property(List.ViewContainer), -list: ,]</value>
+        <value condition="Window.IsVisible(1104)"> -1104- $INFO[Window(1104).Property(Widgets.ResetPosition), -reset: ,] $INFO[Window(1104).Property(TMDBHelper.WidgetContainer), -tmdb: ]$INFO[Window(1104).Property(Slide.WidgetContainer), -slide: ,]$INFO[Window(1104).Property(List.ViewContainer), -list: ,]</value>
+        <value condition="Window.IsVisible(1105)"> -1105- $INFO[Window(1105).Property(Widgets.ResetPosition), -reset: ,] $INFO[Window(1105).Property(TMDBHelper.WidgetContainer), -tmdb: ]$INFO[Window(1105).Property(Slide.WidgetContainer), -slide: ,]$INFO[Window(1105).Property(List.ViewContainer), -list: ,]</value>
+        <value condition="Window.IsVisible(videos)"> -videos- $INFO[Window(videos).Property(Widgets.ResetPosition), -reset: ,] $INFO[Window(videos).Property(TMDBHelper.WidgetContainer), -tmdb: ]$INFO[Window(videos).Property(Slide.WidgetContainer), -slide: ,]$INFO[Window(videos).Property(List.ViewContainer), -list: ,]</value>
+        <value condition="Window.IsVisible(music)"> -music- $INFO[Window(music).Property(Widgets.ResetPosition), -reset: ,] $INFO[Window(music).Property(TMDBHelper.WidgetContainer), -tmdb: ]$INFO[Window(music).Property(Slide.WidgetContainer), -slide: ,]$INFO[Window(music).Property(List.ViewContainer), -list: ,]</value>
+    </variable>
+
+
+    <include name="Overlay_InfoLabel">
+        <definition>
+            <control type="button" id="$PARAM[id]">
+                <nested />
+                <texturenofocus colordiffuse="panel_bg_70">common/white.png</texturenofocus>
+                <textoffsetx>0</textoffsetx>
+                <aligny>center</aligny>
+                <height>40</height>
+                <font>font_debug</font>
+                <align>left</align>
+                <textcolor>magenta</textcolor>
+                <width>auto</width>
+            </control>
+        </definition>
+    </include>
+
+    <include name="Overlay_DebugGrid">
+        <control type="group">
+
+            <!-- Vertical 40 px lines -->
+            <control type="grouplist">
+                <itemgap>40</itemgap>
+                <orientation>vertical</orientation>
+                <include>Vert_Red_Line_5</include>
+                <include>Vert_Red_Line_5</include>
+                <include>Vert_Red_Line_5</include>
+                <include>Vert_Red_Line_5</include>
+                <include>Vert_Red_Line_5</include>
+                <include>Vert_Red_Line</include>
+                <include>Vert_Red_Line</include>
+            </control>
+
+            <!-- Horizontal 40 px lines -->
+            <control type="grouplist">
+                <itemgap>40</itemgap>
+                <orientation>horizontal</orientation>
+                <include>Horz_Red_Line_5</include>
+                <include>Horz_Red_Line_5</include>
+                <include>Horz_Red_Line_5</include>
+                <include>Horz_Red_Line_5</include>
+                <include>Horz_Red_Line_5</include>
+                <include>Horz_Red_Line_5</include>
+                <include>Horz_Red_Line_5</include>
+                <include>Horz_Red_Line_5</include>
+                <include>Horz_Red_Line_5</include>
+                <include>Horz_Red_Line</include>
+                <include>Horz_Red_Line</include>
+                <include>Horz_Red_Line</include>
+            </control>
+
+            <!-- Screen Padding Lines -->
+            <control type="image">
+                <top>80</top>
+                <height>1</height>
+                <texture colordiffuse="red">common/white.png</texture>
+            </control>
+            <control type="image">
+                <bottom>80</bottom>
+                <height>1</height>
+                <texture colordiffuse="red">common/white.png</texture>
+            </control>
+            <control type="image">
+                <left>80</left>
+                <width>1</width>
+                <texture colordiffuse="red">common/white.png</texture>
+            </control>
+            <control type="image">
+                <right>80</right>
+                <width>1</width>
+                <texture colordiffuse="red">common/white.png</texture>
+            </control>
+
+            <!-- Outer Border Lines -->
+            <control type="image">
+                <top>120</top>
+                <height>1</height>
+                <texture colordiffuse="red">common/white.png</texture>
+            </control>
+            <control type="image">
+                <bottom>120</bottom>
+                <height>1</height>
+                <texture colordiffuse="red">common/white.png</texture>
+            </control>
+            <control type="image">
+                <left>120</left>
+                <width>1</width>
+                <texture colordiffuse="red">common/white.png</texture>
+            </control>
+
+            <!-- Inner Border Lines -->
+            <control type="image">
+                <top>view_top</top>
+                <height>1</height>
+                <texture colordiffuse="red">common/white.png</texture>
+            </control>
+            <control type="image">
+                <bottom>view_top</bottom>
+                <height>1</height>
+                <texture colordiffuse="red">common/white.png</texture>
+            </control>
+            <control type="image">
+                <left>view_pad</left>
+                <width>1</width>
+                <texture colordiffuse="red">common/white.png</texture>
+            </control>
+
+            <control type="group">
+                <top>240</top>
+                <height>view_poster_item_h</height>
+                <control type="image">
+                    <top>-40</top>
+                    <height>1</height>
+                    <texture colordiffuse="cyan">common/white.png</texture>
+                </control>
+                <control type="image">
+                    <top>0</top>
+                    <height>1</height>
+                    <texture colordiffuse="cyan">common/white.png</texture>
+                </control>
+                <control type="image">
+                    <bottom>0</bottom>
+                    <height>1</height>
+                    <texture colordiffuse="cyan">common/white.png</texture>
+                </control>
+            </control>
+
+            <control type="group">
+                <bottom>180</bottom>
+                <height>view_poster_item_h</height>
+                <control type="image">
+                    <top>0</top>
+                    <height>1</height>
+                    <texture colordiffuse="cyan">common/white.png</texture>
+                </control>
+                <control type="image">
+                    <bottom>0</bottom>
+                    <height>1</height>
+                    <texture colordiffuse="cyan">common/white.png</texture>
+                </control>
+            </control>
+
+            <control type="image">
+                <bottom>90</bottom>
+                <height>1</height>
+                <texture colordiffuse="cyan">common/white.png</texture>
+            </control>
+            <control type="image">
+                <bottom>50</bottom>
+                <height>1</height>
+                <texture colordiffuse="cyan">common/white.png</texture>
+            </control>
+
+            <!-- Center Lines -->
+            <control type="image">
+                <centertop>50%</centertop>
+                <height>1</height>
+                <texture colordiffuse="blue">common/white.png</texture>
+            </control>
+            <control type="image">
+                <centerleft>50%</centerleft>
+                <width>1</width>
+                <texture colordiffuse="blue">common/white.png</texture>
+            </control>
+            <control type="image">
+                <centerleft>25%</centerleft>
+                <width>1</width>
+                <texture colordiffuse="550000ff">common/white.png</texture>
+            </control>
+            <control type="image">
+                <centerleft>75%</centerleft>
+                <width>1</width>
+                <texture colordiffuse="550000ff">common/white.png</texture>
+            </control>
+
+        </control>
+    </include>
+
+    <include name="Overlay_InfoLabel_Status">
+        <param name="label_t">True</param>
+        <param name="label_f">False</param>
+        <definition>
+            <control type="grouplist">
+                <orientation>horizontal</orientation>
+                <height>40</height>
+                <include content="Overlay_InfoLabel">
+                    <label> -$PARAM[exp]:</label>
+                    <textcolor>yellowgreen</textcolor>
+                </include>
+                <include content="Overlay_InfoLabel">
+                    <label> $PARAM[label_t]</label>
+                    <textcolor>cyan</textcolor>
+                    <visible>$EXP[$PARAM[exp]]</visible>
+                </include>
+                <include content="Overlay_InfoLabel">
+                    <label> $PARAM[label_f]</label>
+                    <textcolor>magenta</textcolor>
+                    <visible>!$EXP[$PARAM[exp]]</visible>
+                </include>
+            </control>
+        </definition>
+    </include>
+
+    <include name="Overlay_Window_DebugInfo">
+        <control type="grouplist">
+            <align>top</align>
+            <orientation>vertical</orientation>
+            <include content="Overlay_InfoLabel_Status">
+                <param name="exp">Exp_Hubs_Categories_SlideDown</param>
+            </include>
+        </control>
+    </include>
+
+    <include name="Overlay_DebugInfo">
+        <control type="group">
+            <control type="grouplist">
+                <align>top</align>
+                <orientation>vertical</orientation>
+                <include content="Overlay_InfoLabel">
+                    <label> -system.currentcontrolid: $INFO[System.CurrentControlID,, | ]$INFO[System.CurrentControl,, | ]$INFO[System.CurrentWindow]</label>
+                    <textcolor>yellowgreen</textcolor>
+                </include>
+                <include content="Overlay_InfoLabel">
+                    <label> -tmdbhelper.windowmanager: $INFO[Window(Home).Property(TMDbHelper.Instance),instance: , ]$INFO[Window(Home).Property(TMDBHelper.Position),position: , ]</label>
+                    <textcolor>yellowgreen</textcolor>
+                </include>
+                <include content="Overlay_InfoLabel">
+                    <label> -tmdbhelper.isupdating: $VAR[Overlay_InfoLabel_WidgetContainer,widget: , ]$INFO[Window(Home).Property(TMDBHelper.CurrentWindow),window: , ]$INFO[Window(Home).Property(TMDBHelper.IsUpdating),details: , ]$INFO[Window(Home).Property(TMDBHelper.IsUpdatingRatings),ratings: , ]</label>
+                    <textcolor>yellowgreen</textcolor>
+                </include>
+                <include content="Overlay_InfoLabel" condition="Skin.HasSetting(debuginfo.timers)">
+                    <height>160</height>
+                    <label> -timeridle: $INFO[Skin.TimerElapsedSecs(idle_spotlight_trailer)][CR] -timerplay: $INFO[Skin.TimerElapsedSecs(play_spotlight_trailer)][CR]AT_Title: $INFO[Window(Home).Property(AutoTrailerTitle)][CR]PT_Title: $INFO[Window(Home).Property(PlayTrailerTitle)]</label>
+                    <textcolor>yellowgreen</textcolor>
+                    <visible>!Skin.TimerIsRunning(idle_spotlight_trailer)</visible>
+                    <visible>Skin.HasSetting(Trailers.EnableAutoPlayback)</visible>
+                </include>
+                <include content="Overlay_InfoLabel" condition="Skin.HasSetting(debuginfo.timers)">
+                    <height>160</height>
+                    <label> -timeridle: $INFO[Skin.TimerElapsedSecs(idle_spotlight_trailer)][CR] -timerplay: $INFO[Skin.TimerElapsedSecs(play_spotlight_trailer)][CR]AT_Title: $INFO[Window(Home).Property(AutoTrailerTitle)][CR]PT_Title: $INFO[Window(Home).Property(PlayTrailerTitle)]</label>
+                    <textcolor>magenta</textcolor>
+                    <visible>Skin.TimerIsRunning(idle_spotlight_trailer)</visible>
+                    <visible>Skin.HasSetting(Trailers.EnableAutoPlayback)</visible>
+                </include>
+            </control>
+            <control type="grouplist">
+                <align>bottom</align>
+                <orientation>vertical</orientation>
+                <include content="Overlay_InfoLabel">
+                    <label> -content.dbtype:$INFO[Container.Content, container: , |]$INFO[ListItem.DBType, listitem: ,]$INFO[ListItem.Property(tmdb_type), (,)]$INFO[Container(99950).ListItem.DBType, | TMDbHelper: , ]$INFO[Container(99950).ListItem.Property(TMDB_Type),(,)]$INFO[Container(55).ListItem.Property(param.info)]</label>
+                    <textcolor>cyan</textcolor>
+                </include>
+                <include content="Overlay_InfoLabel">
+                    <label> -container.folderpath: $INFO[Container.FolderPath] </label>
+                    <textcolor>magenta</textcolor>
+                </include>
+                <include content="Overlay_InfoLabel">
+                    <label> -listitem.folderpath: $INFO[ListItem.FolderPath] </label>
+                    <textcolor>blueviolet</textcolor>
+                </include>
+            </control>
+        </control>
+    </include>
+
+    <include name="Overlay_Test_Poster">
+        <control type="image">
+            <texture colordiffuse="main_fg_70" border="20">common/box.png</texture>
+            <width>view_poster_item_w</width>
+            <height>view_poster_item_h</height>
+        </control>
+    </include>
+
+    <include name="Overlay_Test_Landscape">
+        <control type="group">
+            <height>view_poster_item_h</height>
+            <width>view_landscape_item_w</width>
+            <control type="image">
+                <texture colordiffuse="main_fg_70" border="20">common/box.png</texture>
+                <height>view_landscape_item_h</height>
+            </control>
+            <control type="group">
+                <top>view_landscape_item_h</top>
+                <control type="group">
+                    <top>14</top>
+                    <height>80</height>
+                    <control type="label">
+                        <label>Main Title</label>
+                        <font>font_main</font>
+                        <textcolor>main_fg_100</textcolor>
+                        <height>10</height>
+                        <centertop>24</centertop>
+                    </control>
+                    <control type="label">
+                        <label>8.4</label>
+                        <font>font_main</font>
+                        <textcolor>main_fg_100</textcolor>
+                        <height>10</height>
+                        <centertop>24</centertop>
+                        <align>right</align>
+                    </control>
+                    <control type="label">
+                        <aligny>center</aligny>
+                        <width>auto</width>
+                        <font>font_tiny</font>
+                        <label>Subline information</label>
+                        <textcolor>main_fg_70</textcolor>
+                        <bottom>0</bottom>
+                        <height>10</height>
+                        <centerbottom>25</centerbottom>
+                    </control>
+                </control>
+            </control>
+        </control>
+    </include>
+
+    <include name="Overlay_Test_Label">
+        <control type="label">
+            <label>Titles</label>
+            <font>font_main_black</font>
+            <textcolor>main_fg_100</textcolor>
+            <height>25</height>
+            <top>25</top>
+        </control>
+    </include>
+
+    <include name="Overlay_Test_Grouplist_Row_Def">
+        <orientation>horizontal</orientation>
+        <itemgap>40</itemgap>
+        <height>view_poster_item_h</height>
+    </include>
+
+    <include name="Overlay_Test_Grouplist_Col_Def">
+        <orientation>vertical</orientation>
+        <itemgap>40</itemgap>
+        <top>110</top>
+        <control type="group">
+            <height>0</height>
+        </control>
+    </include>
+
+
+    <include name="Overlay_Test_Window">
+        <control type="grouplist">
+            <left>80</left>
+            <include>Overlay_Test_Grouplist_Col_Def</include>
+            <include>Overlay_Test_Label</include>
+            <control type="grouplist">
+                <include>Overlay_Test_Grouplist_Row_Def</include>
+                <include>Overlay_Test_Poster</include>
+                <include>Overlay_Test_Poster</include>
+            </control>
+            <control type="grouplist">
+                <include>Overlay_Test_Grouplist_Row_Def</include>
+                <include>Overlay_Test_Poster</include>
+                <include>Overlay_Test_Poster</include>
+            </control>
+            <include>Overlay_Test_Label</include>
+            <control type="grouplist">
+                <include>Overlay_Test_Grouplist_Row_Def</include>
+                <include>Overlay_Test_Poster</include>
+                <include>Overlay_Test_Poster</include>
+            </control>
+            <control type="grouplist">
+                <include>Overlay_Test_Grouplist_Row_Def</include>
+                <include>Overlay_Test_Poster</include>
+                <include>Overlay_Test_Poster</include>
+            </control>
+        </control>
+
+        <control type="grouplist">
+            <left>720</left>
+            <top>460</top>
+            <include>Overlay_Test_Grouplist_Col_Def</include>
+            <include>Overlay_Test_Label</include>
+            <control type="grouplist">
+                <include>Overlay_Test_Grouplist_Row_Def</include>
+                <include>Overlay_Test_Poster</include>
+                <include>Overlay_Test_Landscape</include>
+            </control>
+            <include>Overlay_Test_Label</include>
+            <control type="grouplist">
+                <include>Overlay_Test_Grouplist_Row_Def</include>
+                <include>Overlay_Test_Poster</include>
+                <include>Overlay_Test_Landscape</include>
+            </control>
+            <include>Overlay_Test_Label</include>
+            <control type="grouplist">
+                <include>Overlay_Test_Grouplist_Row_Def</include>
+                <include>Overlay_Test_Poster</include>
+                <include>Overlay_Test_Landscape</include>
+            </control>
+        </control>
+
+        <control type="group">
+            <left>80</left>
+            <right>80</right>
+            <control type="group">
+                <centertop>100</centertop>
+                <height>40</height>
+                <control type="label">
+                    <label>Information</label>
+                    <font>font_midi_black</font>
+                    <textcolor>main_fg_100</textcolor>
+                </control>
+                <control type="label">
+                    <align>right</align>
+                    <label>$INFO[System.Time]</label>
+                    <font>font_main</font>
+                    <textcolor>main_fg_100</textcolor>
+                </control>
+            </control>
+
+
+        </control>
+
+    </include>
+</includes>

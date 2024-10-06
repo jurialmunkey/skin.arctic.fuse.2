@@ -1,0 +1,235 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<window>
+    <defaultcontrol always="true">9002</defaultcontrol>
+
+    <controls>
+        <control type="group">
+            <include>Dimension_DialogFullMenu</include>
+            <include>Animation_Right_Delay</include>
+            <include content="Dialog_Dim_Side">
+                <param name="slide_condition">True</param>
+            </include>
+
+            <!-- Bottom Layer -->
+            <include content="Dialog_Background_Side">
+                <param name="slide_condition">True</param>
+                <param name="dialog_size">Dimension_DialogFullMenu</param>
+                <!-- Side Buttons -->
+                <control type="group">
+                    <include>Dimension_Dialog_Body</include>
+                    <control type="grouplist" id="9000">
+                        <include>Dialog_Side_Grouplist_Def</include>
+                        <onright>8000</onright>
+                        <onleft>Close</onleft>
+                        <!-- <include content="Dialog_Side_Button">
+                            <param name="id">01</param>
+                            <param name="label">$LOCALIZE[222]</param>
+                            <param name="icon">special://skin/extras/icons/circle-xmark.png</param>
+                            <onclick>SendClick(25)</onclick>
+                        </include> -->
+                        <include content="Dialog_Side_Button">
+                            <param name="id">02</param>
+                            <param name="label">$LOCALIZE[137]</param>
+                            <param name="icon">special://skin/extras/icons/search.png</param>
+                            <onclick>SendClick(26)</onclick>
+                        </include>
+                        <include content="Dialog_Side_Button">
+                            <param name="id">03</param>
+                            <param name="label">$LOCALIZE[13007]</param>
+                            <param name="icon">special://skin/extras/icons/triangle-exclamation.png</param>
+                            <onclick>SendClick(28)</onclick>
+                        </include>
+
+                    </control>
+                </control>
+            </include>
+
+            <include content="Dialog_Foreground_Side">
+                <param name="dialog_size">Dimension_DialogFullMenu</param>
+                <param name="lines_right">0</param>
+                <param name="topline">true</param>
+                <param name="subline">true</param>
+
+                <!-- Header -->
+                <include content="Dialog_Head">
+                    <param name="id">9901</param>
+                    <param name="label">$LOCALIZE[137]</param>
+                </include>
+                <include>Dialog_Head_CloseButton</include>
+
+                <!-- Content -->
+                <control type="group">
+                    <include>Dimension_Dialog_Body</include>
+                    <control type="group" id="8000">
+                        <include>Dimension_Dialog_Body_Group</include>
+
+                        <include content="Object_Keyboard_Button" description="Text Entry">
+                            <param name="id">9</param>
+                            <param name="control">edit</param>
+                            <width>100%</width>
+                            <height>80</height>
+                            <textoffsetx>40</textoffsetx>
+                            <align>left</align>
+                            <onleft>9000</onleft>
+                            <ondown>8300</ondown>
+                        </include>
+
+                        <control type="textbox" id="8001">
+                            <label>$LOCALIZE[19001] $LOCALIZE[19002]</label>
+                            <top>80</top>
+                            <height>80</height>
+                            <align>center</align>
+                            <aligny>center</aligny>
+                            <font>font_tiny</font>
+                        </control>
+
+                        <include content="Object_Separator">
+                            <centerleft>50%</centerleft>
+                            <top>160</top>
+                        </include>
+
+                       <control type="group" id="8300">
+                            <top>160</top>
+
+                            <control type="group">
+                                <width>50%</width>
+                                <control type="grouplist" id="8100">
+                                    <orientation>vertical</orientation>
+                                    <height>640</height>
+                                    <right>20</right>
+                                    <onup>9</onup>
+                                    <onleft>9000</onleft>
+                                    <ondown>noop</ondown>
+                                    <include content="Settings_Button">
+                                        <param name="control">radiobutton</param>
+                                        <param name="id">10</param>
+                                        <description>Include Description</description>
+                                        <onright>12</onright>
+                                        <label>$LOCALIZE[19134]</label>
+                                    </include>
+                                    <include content="Settings_Button">
+                                        <param name="control">radiobutton</param>
+                                        <param name="id">11</param>
+                                        <description>Case Sensitive</description>
+                                        <onright>13</onright>
+                                        <label>$LOCALIZE[19135]</label>
+                                    </include>
+                                    <include content="Settings_Button">
+                                        <param name="control">edit</param>
+                                        <param name="id">14</param>
+                                        <description>Start Date</description>
+                                        <onright>16</onright>
+                                        <label>$LOCALIZE[19128]</label>
+                                    </include>
+                                    <include content="Settings_Button">
+                                        <param name="control">edit</param>
+                                        <param name="id">15</param>
+                                        <description>Stop Date</description>
+                                        <onright>17</onright>
+                                        <label>$LOCALIZE[19129]</label>
+                                    </include>
+                                    <include content="Settings_Button">
+                                        <param name="control">spincontrolex</param>
+                                        <param name="id">18</param>
+                                        <description>Genre</description>
+                                        <onright>19</onright>
+                                        <label>$LOCALIZE[515]</label>
+                                    </include>
+                                    <include content="Settings_Button">
+                                        <param name="control">radiobutton</param>
+                                        <param name="id">20</param>
+                                        <description>Include unknown Genres</description>
+                                        <onright>21</onright>
+                                        <label>$LOCALIZE[19132]</label>
+                                    </include>
+                                    <include content="Settings_Button">
+                                        <param name="control">radiobutton</param>
+                                        <param name="id">22</param>
+                                        <description>FTA only</description>
+                                        <onright>23</onright>
+                                        <label>$LOCALIZE[19123]</label>
+                                    </include>
+                                    <include content="Settings_Button">
+                                        <param name="control">radiobutton</param>
+                                        <param name="id">24</param>
+                                        <description>Ignore Timers</description>
+                                        <onright>27</onright>
+                                        <label>$LOCALIZE[19124]</label>
+                                    </include>
+                                </control>
+                            </control>
+                            <control type="group">
+                                <right>0</right>
+                                <width>50%</width>
+                                <control type="grouplist" id="8200">
+                                    <orientation>vertical</orientation>
+                                    <height>640</height>
+                                    <left>20</left>
+                                    <onup>9</onup>
+                                    <ondown>noop</ondown>
+                                    <include content="Settings_Button">
+                                        <param name="control">spincontrolex</param>
+                                        <param name="id">12</param>
+                                        <description>Min Duration</description>
+                                        <onleft>10</onleft>
+                                        <label>$LOCALIZE[19130]</label>
+                                    </include>
+                                    <include content="Settings_Button">
+                                        <param name="control">spincontrolex</param>
+                                        <param name="id">13</param>
+                                        <description>Max Duration</description>
+                                        <onleft>11</onleft>
+                                        <label>$LOCALIZE[19131]</label>
+                                    </include>
+                                    <include content="Settings_Button">
+                                        <param name="control">edit</param>
+                                        <param name="id">16</param>
+                                        <description>Start time</description>
+                                        <onleft>14</onleft>
+                                        <label>$LOCALIZE[19126]</label>
+                                    </include>
+                                    <include content="Settings_Button">
+                                        <param name="control">edit</param>
+                                        <param name="id">17</param>
+                                        <description>Stop time</description>
+                                        <onleft>15</onleft>
+                                        <label>$LOCALIZE[19127]</label>
+                                    </include>
+                                    <include content="Settings_Button">
+                                        <param name="control">radiobutton</param>
+                                        <param name="id">19</param>
+                                        <description>avoid repeats</description>
+                                        <onleft>18</onleft>
+                                        <label>$LOCALIZE[19121]</label>
+                                    </include>
+                                    <include content="Settings_Button">
+                                        <param name="control">spincontrolex</param>
+                                        <param name="id">21</param>
+                                        <description>Groups</description>
+                                        <onleft>20</onleft>
+                                        <label>$LOCALIZE[19141]</label>
+                                    </include>
+                                    <include content="Settings_Button">
+                                        <param name="control">spincontrolex</param>
+                                        <param name="id">23</param>
+                                        <description>Channels</description>
+                                        <onleft>22</onleft>
+                                        <label>$LOCALIZE[19148]</label>
+                                    </include>
+                                    <include content="Settings_Button">
+                                        <param name="control">radiobutton</param>
+                                        <param name="id">27</param>
+                                        <description>Ignore Recordings</description>
+                                        <onleft>24</onleft>
+                                        <label>$LOCALIZE[19125]</label>
+                                    </include>
+                                </control>
+                            </control>
+                        </control>
+                    </control>
+                </control>
+            </include>
+
+        </control>
+    </controls>
+</window>

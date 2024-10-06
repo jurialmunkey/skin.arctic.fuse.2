@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<window>
+    <defaultcontrol>11</defaultcontrol>
+    <include content="Object_MenuControl" condition="Window.IsMedia">
+        <param name="menucontrol">303</param>
+    </include>
+    <onload>CancelAlarm(osd_timeout,true)</onload>
+    <onload>SetProperty(TMDbHelper.WidgetContainer,11)</onload>
+    <onload condition="!Window.IsMedia">SetProperty(ChannelIcon,$ESCINFO[Player.Icon])</onload>
+    <onload condition="Window.IsMedia">ClearProperty(ChannelIcon)</onload>
+    <controls>
+
+        <include condition="Window.IsMedia">Defs_TMDbHelper_Loader</include>
+
+        <control type="group">
+            <include content="View_Bumper" condition="Window.IsMedia">
+                <param name="groupid">50</param>
+            </include>
+
+            <control type="group">
+                <include condition="!Window.IsMedia">Animation_OSD_Dialog_WindowChange</include>
+                <control type="group">
+                    <visible>!Window.IsActive(pvrosdchannels)</visible>
+                    <visible>!Window.IsActive(1141)</visible>
+                    <include condition="!Window.IsMedia">Animation_OSD_Dialog_VisibleChange</include>
+                    <include content="OSD_CastInfo_ExpandGroup">
+
+                        <control type="group">
+                            <left>view_pad</left>
+                            <right>view_pad</right>
+                            <width>view_landscape_item_w</width>
+                            <height>view_landscape_item_h</height>
+                            <visible>Integer.IsEqual(Container(11).NumItems,0)</visible>
+                            <include>Object_ItemBack</include>
+                            <control type="image">
+                                <width>128</width>
+                                <height>128</height>
+                                <centerleft>50%</centerleft>
+                                <centertop>50%</centertop>
+                                <texture colordiffuse="panel_fg_70">special://skin/extras/icons/image.png</texture>
+                            </control>
+                        </control>
+
+                        <!-- Episodes List -->
+                        <include content="List_Landscape_Row">
+                            <param name="orientation">horizontal</param>
+                            <param name="control">fixedlist</param>
+                            <param name="id">11</param>
+                            <include>OSD_List_Dimensions</include>
+                            <onup>Close</onup>
+                            <ondown condition="!Window.IsMedia">ActivateWindow($VAR[Action_OSD_PVROSDGuide_OnDown])</ondown>
+                            <ondown condition="Window.IsMedia">Close</ondown>
+                        </include>
+
+                        <!-- Playing Icon and Details -->
+                        <include content="OSD_Info_Tray">
+                            <param name="icon">$INFO[Window.Property(ChannelIcon)]</param>
+                            <param name="role">$INFO[Container(11).ListItem.ChannelName]</param>
+                            <param name="name">$INFO[Container(11).ListItem.ChannelNumberLabel,$LOCALIZE[19029] ,]</param>
+                            <param name="text">$VAR[Label_Plot_C11]</param>
+                            <param name="fallback_icon">-</param>
+                        </include>
+
+                        <include content="OSD_Info_Viewline">
+                            <param name="label">$LOCALIZE[19686]</param>
+                        </include>
+
+                    </include>
+                </control>
+            </control>
+
+            <include content="Info_Viewline" condition="Window.IsMedia">
+                <param name="label">$LOCALIZE[19686]</param>
+
+
+            </include>
+
+            <include content="Info_Panel" condition="Window.IsMedia">
+                <top>view_top</top>
+                <width>info_panel_w</width>
+                <left>view_pad</left>
+            </include>
+
+            <include condition="Window.IsMedia">View_Row_Header</include>
+            <include condition="Window.IsMedia">View_Dialog_Plot</include>
+            <include condition="Window.IsMedia">View_PVR_Menu</include>
+        </control>
+    </controls>
+</window>

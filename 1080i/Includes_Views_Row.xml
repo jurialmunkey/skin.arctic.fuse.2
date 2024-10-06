@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<includes>
+
+    <!-- Square Row -->
+    <include name="View_050_Square_Row">
+        <include content="View_Row_Include">
+            <param name="id">50</param>
+            <param name="include">List_Square_Row</param>
+            <param name="viewtype_label">$LOCALIZE[31113]</param>
+            <param name="visible">$EXP[Exp_View_50]</param>
+        </include>
+    </include>
+
+    <!-- Landscape Row -->
+    <include name="View_051_Landscape_Row">
+        <include content="View_Row_Include">
+            <param name="id">51</param>
+            <param name="include">List_Landscape_Row</param>
+            <param name="viewtype_label">$LOCALIZE[31112]</param>
+            <param name="visible">$EXP[Exp_View_51]</param>
+        </include>
+    </include>
+
+    <!-- Poster Row -->
+    <include name="View_052_Poster_Row">
+        <include content="View_Row_Include">
+            <param name="id">52</param>
+            <param name="include">List_Poster_Row</param>
+            <param name="viewtype_label">$LOCALIZE[31111]</param>
+            <param name="visible">$EXP[Exp_View_52]</param>
+        </include>
+    </include>
+
+    <!-- Circle Row -->
+    <include name="View_053_Circle_Row">
+        <include content="View_Row_Include">
+            <param name="id">53</param>
+            <param name="include">List_Circle_Row</param>
+            <param name="viewtype_label">$LOCALIZE[31418]</param>
+            <param name="visible">$EXP[Exp_View_53]</param>
+        </include>
+    </include>
+
+    <!-- Overview Row -->
+    <include name="View_054_Card_Row">
+        <include content="View_Row_Include">
+            <param name="id">54</param>
+            <param name="include">List_Card_Row</param>
+            <param name="viewtype_label">$LOCALIZE[31563]</param>
+            <param name="visible">$EXP[Exp_View_54]</param>
+        </include>
+    </include>
+
+    <!-- Row Template View -->
+    <include name="View_Row_Include">
+        <definition>
+            <control type="group">
+                <visible>Control.IsVisible($PARAM[id])</visible>
+                <control type="group">
+
+                    <include content="$PARAM[include]">
+                        <param name="id">$PARAM[id]</param>
+                        <top>view_row</top>
+                        <include content="Action_View_Movement_OnUp">
+                            <param name="id">$PARAM[id]</param>
+                        </include>
+                        <include content="Action_View_Movement_OnLeftRight">
+                            <param name="id">$PARAM[id]</param>
+                            <param name="onback">[Integer.IsEqual(Container($PARAM[id]).CurrentItem,1)]</param>
+                        </include>
+                        <include content="Action_View_Movement_OnDown">
+                            <param name="id">$PARAM[id]</param>
+                        </include>
+                        <pagecontrol>60</pagecontrol>
+                        <visible>$PARAM[visible]</visible>
+                        <viewtype label="$PARAM[viewtype_label]">wrap</viewtype>
+                        <onfocus>ClearProperty(TMDbHelper.WidgetContainer)</onfocus>
+                        <onfocus>ClearProperty(Background.ShowOverlay,Home)</onfocus>
+
+                        <include content="Object_HitRect">
+                            <param name="x">view_pad</param>
+                            <param name="y">586</param>
+                            <param name="w">1640</param>
+                            <param name="h">view_poster_item_h</param>
+                        </include>
+                    </include>
+                </control>
+            </control>
+        </definition>
+    </include>
+</includes>

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<window>
+    <include condition="String.IsEmpty(Skin.String(Hub.Home.ReplaceWindow))">Action_Blur_Onload</include>
+    <onload condition="String.IsEmpty(Skin.String(Hub.Home.ReplaceWindow))">Skin.SetString(TMDbHelper.MonitorContainer,99950)</onload>
+    <onload condition="String.IsEmpty(Skin.String(Hub.Home.ReplaceWindow))">AlarmClock(SplashTimeOut,noop,00:59,silent)</onload>
+    <include condition="String.IsEmpty(Skin.String(Hub.Home.ReplaceWindow))">Generator_BuildTextures_Onload</include>
+
+    <include content="Action_Hubs_Onload" condition="String.IsEmpty(Skin.String(Hub.Home.ReplaceWindow))">
+        <param name="window_id">Home</param>
+    </include>
+
+    <onload condition="!String.IsEmpty(Skin.String(Hub.Home.ReplaceWindow))">ReplaceWindow($INFO[Skin.String(Hub.Home.ReplaceWindow)])</onload>
+    <onload condition="!String.IsEmpty(Skin.String(Hub.Home.ReplaceWindow)) + String.IsEmpty(Window(Home).Property(FirstReplaceDone))">SetProperty(FirstReplaceDone,True,Home)</onload>
+    <onload condition="!String.IsEmpty(Skin.String(Hub.Home.ReplaceWindow)) + !String.IsEmpty(Window(Home).Property(FirstReplaceDone))">AlarmClock(openmenu,ActivateWindow(1170),00:00,silent)</onload>
+    <onload condition="!Skin.HasSetting(Wizard.FirstRun)">AlarmClock(openwizard,ActivateWindow(1180),00:01,silent)</onload>
+
+    <controls>
+        <include content="Hub_Controls" condition="String.IsEmpty(Skin.String(Hub.Home.ReplaceWindow))">
+            <param name="window_id">Home</param>
+            <param name="widgets_only">true</param>
+            <param name="widgets_include">skinvariables-homemenu-widgetsonly</param>
+            <param name="categories">homemenu</param>
+        </include>
+    </controls>
+</window>

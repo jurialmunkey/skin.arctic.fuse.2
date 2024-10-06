@@ -1,0 +1,44 @@
+<contents>
+    <value name="comments">Static Mainmenu</value>
+    <template>generator/data/parts/basic_include.xmltemplate</template>
+    <condition>!Skin.HasSetting(Hub.{window_id}.DisableSubmenu)</condition>
+    <value name="includes_name">skinvariables-{item}-staticitems</value>
+    <value name="includes_part">
+        <items menu="{item}">
+            <item>
+                <template>generator/data/parts/menu_item.xmltemplate</template>
+                <datafile>generator/data/setup/onclick_path.xml</datafile>
+                <condition>{item_disabled}!=True</condition>
+                <rules name="parts_visible">
+                    <rule>
+                        <condition>{item_sidemenu_guid}!=</condition>
+                        <condition>{window_id}==Home</condition>
+                        <value>String.IsEqual(Container({sidemenu_id}).ListItem.Property(guid),{item_sidemenu_guid})</value>
+                    </rule>
+                    <rule>
+                        <condition>True</condition>
+                        <value>True</value>
+                    </rule>
+                </rules>
+                <value name="parts_additional">
+                    <template>
+                        <![CDATA[
+                        <property name="widget_style">{item_widget_style}</property>
+                        <property name="widget_sortby">{item_widget_sortby}</property>
+                        <property name="widget_sortorder">{item_widget_sortorder}</property>
+                        <property name="widget_limit">{item_widget_limit}</property>
+                        <property name="widget_path">{item_widget_path}</property>
+                        <property name="spotlight_path">{item_spotlight_path}</property>
+                        <property name="spotlight_target">{item_spotlight_target}</property>
+                        <property name="spotlight_label">{item_spotlight_label}</property>
+                        <property name="use_as_widget">{item_use_as_widget}</property>
+                        <label2>{parts_sublabel}</label2>
+                        <onclick>Dialog.Close(1170,true)</onclick>
+                        ]]>
+                    </template>
+                    <datafile>generator/data/setup/category_sublabel.xml</datafile>
+                </value>
+            </item>
+        </items>
+    </value>
+</contents>

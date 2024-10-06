@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<includes>
+
+    <include name="View_Combined_Info">
+        <include content="Info_Panel">
+            <param name="container">Container($PARAM[id]3).</param>
+            <param name="plotlabel">$VAR[Label_Plot_C$PARAM[id]3]</param>
+            <param name="visible">Integer.IsEqual(Window.Property(TMDBHelper.WidgetContainer),$PARAM[id]3)</param>
+            <top>view_top</top>
+            <width>info_panel_w</width>
+            <left>view_pad</left>
+        </include>
+    </include>
+
+    <variable name="View_Combined_SortBy">
+        <value condition="Container.Content(seasons)">episode</value>
+        <value condition="Container.Content(sets) | Container.Content(artists)">year</value>
+        <value>label</value>
+    </variable>
+
+    <variable name="View_503_Content">
+        <value condition="String.IsEmpty(Window.Property(SpecialFolderPath)) + !String.IsEmpty(Container(502).ListItem.FolderPath) + Container(502).ListItem.IsFolder">$INFO[Container(502).ListItem.FolderPath]</value>
+        <value condition="!String.IsEmpty(Window.Property(SpecialFolderPath))">$INFO[Window.Property(SpecialFolderPath)]</value>
+    </variable>
+    <variable name="View_513_Content">
+        <value condition="String.IsEmpty(Window.Property(SpecialFolderPath)) + !String.IsEmpty(Container(512).ListItem.FolderPath) + Container(512).ListItem.IsFolder">$INFO[Container(512).ListItem.FolderPath]</value>
+        <value condition="!String.IsEmpty(Window.Property(SpecialFolderPath))">$INFO[Window.Property(SpecialFolderPath)]</value>
+    </variable>
+    <variable name="View_523_Content">
+        <value condition="String.IsEmpty(Window.Property(SpecialFolderPath)) + !String.IsEmpty(Container(522).ListItem.FolderPath) + Container(522).ListItem.IsFolder">$INFO[Container(522).ListItem.FolderPath]</value>
+        <value condition="!String.IsEmpty(Window.Property(SpecialFolderPath))">$INFO[Window.Property(SpecialFolderPath)]</value>
+    </variable>
+
+    <!-- Horizontal Layout (Classic) -->
+    <include name="View_Combined_Row_Horz">
+        <definition>
+            <control type="group">
+                <visible>Control.IsVisible($PARAM[id]2)</visible>
+                <control type="group">
+
+                    <include content="$PARAM[include]">
+                        <param name="id">$PARAM[id]3</param>
+                        <top>view_row</top>
+                        <pagecontrol>60</pagecontrol>
+
+                        <include content="Action_View_Movement_OnLeftRight">
+                            <param name="id">$PARAM[id]3</param>
+                            <param name="onback">[Integer.IsEqual(Container($PARAM[id]3).CurrentItem,1)]</param>
+                            <param name="always">True</param>
+                            <param name="backid">63</param>
+                        </include>
+
+                        <include content="Object_HitRect">
+                            <param name="x">view_pad</param>
+                            <param name="y">586</param>
+                            <param name="w">1640</param>
+                            <param name="h">view_poster_item_h</param>
+                        </include>
+
+                        <ondown>SetFocus($PARAM[id]3,0,absolute)</ondown>
+                        <ondown>$PARAM[id]2</ondown>
+
+                        <include content="Action_View_Movement_OnUp">
+                            <param name="id">$PARAM[id]3</param>
+                        </include>
+
+                        <animation type="Conditional" reversible="false" condition="Container($PARAM[id]3).IsUpdating">
+                            <effect type="fade" start="100" end="0" time="200" delay="600" />
+                        </animation>
+
+                        <visible>Container($PARAM[id]2).ListItem.IsFolder</visible>
+                        <onclick condition="Container($PARAM[id]3).ListItem.IsFolder">Container.Update($INFO[Container($PARAM[id]3).ListItem.FolderPath])</onclick>
+                        <onclick condition="Container($PARAM[id]3).ListItem.IsFolder">SetFocus(50)</onclick>
+                        <onclick condition="!Container($PARAM[id]3).ListItem.IsFolder">PlayMedia($ESCINFO[Container($PARAM[id]3).ListItem.FileNameAndPath])</onclick>
+                        <content target="$VAR[Path_CollectionNode_Target]" sortby="$VAR[View_Combined_SortBy]" sortorder="ascending">$VAR[View_$PARAM[id]3_Content]</content>
+                        <onfocus>SetProperty(TMDbHelper.WidgetContainer,$PARAM[id]3)</onfocus>
+                        <onfocus>ClearProperty(Background.ShowOverlay,Home)</onfocus>
+
+                    </include>
+
+                    <include content="Widget_Busy">
+                        <param name="label">$INFO[Container($PARAM[id]2).ListItem.Label]</param>
+                        <param name="visible">Container($PARAM[id]3).IsUpdating</param>
+                        <top>view_row</top>
+                        <left>view_pad</left>
+                    </include>
+                </control>
+            </control>
+        </definition>
+    </include>
+
+    <include name="View_Combined_List_Horz_Selector_Content">
+        <include content="Action_View_Movement_OnBack">
+            <param name="id">$PARAM[id]2</param>
+            <param name="onback">[Integer.IsEqual(Container($PARAM[id]2).CurrentItem,1)]</param>
+            <param name="backid">63</param>
+            <param name="menuid">303</param>
+        </include>
+        <onleft>$PARAM[id]2</onleft>
+        <onright>$PARAM[id]2</onright>
+        <left>40</left>
+        <centerbottom>100</centerbottom>
+        <onup>$PARAM[id]3</onup>
+        <pagecontrol>65</pagecontrol>
+        <include content="Action_View_Movement_OnDown">
+            <param name="to_scrollbar">false</param>
+            <param name="id">$PARAM[id]2</param>
+        </include>
+
+        <onfocus>SetProperty(TMDbHelper.WidgetContainer,$PARAM[id]3)</onfocus>
+        <onfocus>ClearProperty(SpecialFolderPath)</onfocus>
+        <onfocus>ClearProperty(Background.ShowOverlay,Home)</onfocus>
+        <visible>$PARAM[visible]</visible>
+        <viewtype label="$PARAM[viewtype_label]">wrap</viewtype>
+    </include>
+
+    <include name="View_Combined_List_Horz">
+        <control type="group">
+            <visible allowhiddenfocus="true">!$EXP[Exp_View_ScrollFilter_HasFocus]</visible>
+            <control type="group">
+                <visible>$PARAM[visible]</visible>
+                <!-- <left>view_poster_itemlayout_w</left> -->
+                <include content="Categories_Selector">
+                    <param name="id">$PARAM[id]2</param>
+                    <param name="font">font_mini</param>
+                    <param name="hitrect_x">0</param>
+                    <param name="hitrect_y">0</param>
+                    <param name="hitrect_w">1080</param>
+                    <param name="hitrect_h">120</param>
+                    <param name="detailed">true</param>
+                    <include content="View_Combined_List_Horz_Selector_Content">
+                        <param name="id">$PARAM[id]</param>
+                        <param name="visible">$PARAM[visible]</param>
+                        <param name="viewtype_label">$PARAM[viewtype_label]</param>
+                    </include>
+                    <!-- <focusposition>2</focusposition>
+                    <movement>2</movement> -->
+                </include>
+            </control>
+        </control>
+    </include>
+
+    <include name="View_Combined_Row">
+        <definition>
+            <control type="group">
+                <include content="View_Combined_Row_Horz">
+                    <param name="id">$PARAM[id]</param>
+                    <param name="include">$PARAM[include]</param>
+                    <param name="visible">$EXP[Exp_View_$PARAM[id]2]</param>
+                    <param name="icon_base_var">$PARAM[icon_base_var]</param>
+                </include>
+            </control>
+        </definition>
+    </include>
+
+    <!-- Combined Square -->
+    <include name="View_502_Square_Combined_Row">
+        <include content="View_Combined_Row">
+            <param name="id">50</param>
+            <param name="include">List_Square_Row</param>
+            <param name="icon_base_var">Image_Icon</param>
+            <param name="slide_x">480</param>
+            <param name="item_w">480</param>
+            <param name="item_alt_w">460</param>
+        </include>
+    </include>
+
+    <!-- Combined Landscape -->
+    <include name="View_512_Landscape_Combined_Row">
+        <include content="View_Combined_Row">
+            <param name="id">51</param>
+            <param name="include">List_Landscape_Row</param>
+            <param name="icon_base_var">Image_Landscape</param>
+            <param name="slide_x">420</param>
+            <param name="item_w">420</param>
+            <param name="item_alt_w">400</param>
+        </include>
+    </include>
+
+    <!-- Combined Poster -->
+    <include name="View_522_Poster_Combined_Row">
+        <include content="View_Combined_Row">
+            <param name="id">52</param>
+            <param name="include">List_Poster_Row</param>
+            <param name="icon_base_var">Image_Poster</param>
+            <param name="slide_x">480</param>
+            <param name="item_w">480</param>
+            <param name="item_alt_w">460</param>
+        </include>
+    </include>
+
+    <include name="View_Combined_Row_Horz_Selector">
+        <control type="group">
+            <include content="View_Combined_List_Horz" condition="$EXP[Exp_View_502_Include]">
+                <param name="id">50</param>
+                <param name="viewtype_label">$LOCALIZE[31083]</param>
+                <param name="visible">$EXP[Exp_View_502]</param>
+            </include>
+            <include content="View_Combined_List_Horz" condition="$EXP[Exp_View_512_Include]">
+                <param name="id">51</param>
+                <param name="viewtype_label">$LOCALIZE[31083]</param>
+                <param name="visible">$EXP[Exp_View_512]</param>
+            </include>
+            <include content="View_Combined_List_Horz" condition="$EXP[Exp_View_522_Include]">
+                <param name="id">52</param>
+                <param name="viewtype_label">$LOCALIZE[31083]</param>
+                <param name="visible">$EXP[Exp_View_522]</param>
+            </include>
+        </control>
+    </include>
+</includes>

@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<window type="dialog" id="1142">
+    <defaultcontrol always="true">9801</defaultcontrol>
+    <include>Animation_OSD_Dialog_WindowChange</include>
+    <controls>
+
+        <control type="group">
+            <height>720</height>
+            <bottom>200</bottom>
+
+            <include content="Info_Viewline">
+                <param name="label">Albums</param>
+                <top>10</top>
+            </include>
+
+            <include content="List_Square_Row">
+                <param name="id">9801</param>
+                <param name="item_w">185</param>
+                <param name="item_h">185</param>
+                <param name="itemlayout_w">225</param>
+                <param name="itemlayout_h">225</param>
+                <param name="use_movement">false</param>
+                <param name="variation">true</param>
+                <content>
+                    <item>
+                        <label>$LOCALIZE[559]</label>
+                        <icon>osd/musicplaylist.png</icon>
+                        <property name="sublabel">$LOCALIZE[31244]</property>
+                        <property name="folderpath">playlistmusic://</property>
+                        <property name="detailed">True</property>
+                    </item>
+                </content>
+                <content>musicdb://albums/?xsp={"rules":{"and":[{"field":"artist","operator":"is","value":["$INFO[MusicPlayer.Artist]"]}]},"type":"albums"}</content>
+                <onclick condition="String.IsEmpty(Window(Home).Property(OSDRelaunchFullscreen))">SetProperty(OSDRelaunchFullscreen,1,Home)</onclick>
+                <onclick condition="String.IsEmpty(Container(9801).ListItem.Property(folderpath))">PlayMedia($ESCINFO[Container(9801).ListItem.FolderPath],isdir,1,playoffset=$INFO[Window(Home).Property(OSDRelaunchFullscreen)])</onclick>
+                <onclick condition="!String.IsEmpty(Container(9801).ListItem.Property(folderpath))">PlayMedia($ESCINFO[Container(9801).ListItem.Property(folderpath)],isdir,1,playoffset=$INFO[Window(Home).Property(OSDRelaunchFullscreen)])</onclick>
+                <onup>Close</onup>
+                <ondown>SetFocus(9802,0)</ondown>
+                <movement>7</movement>
+                <preloaditems>0</preloaditems>
+                <focusposition>0</focusposition>
+            </include>
+            <control type="group">
+                <left>view_pad</left>
+                <include content="List_Button_Row">
+                    <param name="id">9802</param>
+                    <param name="orientation">horizontal</param>
+                    <param name="offset_x">60</param>
+                    <param name="offset_y">0</param>
+                    <param name="item_h">80</param>
+                    <param name="itemlayout_h">80</param>
+                    <param name="item_w">view_listwall_itemlayout_w</param>
+                    <param name="itemlayout_w">view_listwall_itemlayout_w</param>
+                    <param name="itemlayout_include">Layout_MediaList</param>
+                    <param name="control">panel</param>
+                    <param name="detailed">true</param>
+                    <content>$VAR[Path_MusicOSD_TrackList]</content>
+                    <onclick>SetProperty(OSDRelaunchFullscreen,$INFO[Container(9802).CurrentItem],Home)</onclick>
+                    <onclick>SetFocus(9801)</onclick>
+                    <onclick>Action(Select)</onclick>
+                    <onup>9801</onup>
+                    <ondown>Close</ondown>
+                    <height>400</height>
+                    <left>-80</left>
+                    <bottom>20</bottom>
+                    <preloaditems>0</preloaditems>
+                </include>
+            </control>
+        </control>
+
+        <!-- Playing Icon and Details -->
+        <control type="group">
+            <height>60</height>
+            <centerbottom>110</centerbottom>
+            <!-- Cast Icon -->
+            <include content="OSD_Info_Tray">
+                <param name="icon">$INFO[Container(9801).ListItem.Icon]</param>
+                <param name="role">$INFO[Container(9801).ListItem.Artist]</param>
+                <param name="name">$INFO[Container(9801).ListItem.Label]</param>
+                <param name="text">$INFO[Container(9801).ListItem.Property(Album_Description),,[CR]]$INFO[Container(9801).ListItem.Property(Artist_Description)]</param>
+            </include>
+        </control>
+
+    </controls>
+</window>

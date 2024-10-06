@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<window type="dialog">
+    <defaultcontrol always="true">6</defaultcontrol>
+
+    <controls>
+        <control type="group">
+            <include>Dimension_DialogWideMenu</include>
+            <include>Animation_Right_Delay</include>
+            <include content="Dialog_Dim_Side">
+                <param name="slide_condition">ControlGroup(9000).HasFocus()</param>
+            </include>
+
+            <!-- Bottom Layer -->
+            <include content="Dialog_Background_Side">
+                <param name="slide_condition">ControlGroup(9000).HasFocus()</param>
+                <param name="dialog_size">Dimension_DialogWideMenu</param>
+                <!-- Side Buttons -->
+                <control type="group">
+                    <include>Dimension_Dialog_Body</include>
+                    <control type="grouplist" id="9000">
+                        <include>Dialog_Side_Grouplist_Def</include>
+                        <onright>6</onright>
+                        <include content="Dialog_Side_Button">
+                            <param name="id">99</param>
+                            <param name="label">$LOCALIZE[15067]</param>
+                            <param name="icon">special://skin/extras/icons/circle-xmark.png</param>
+                            <onclick>Close</onclick>
+                        </include>
+                    </control>
+                </control>
+            </include>
+
+            <include content="Dialog_Foreground_Side">
+                <param name="dialog_size">Dimension_DialogWideMenu</param>
+                <param name="slide_condition">ControlGroup(9000).HasFocus()</param>
+                <param name="lines_right">0</param>
+                <param name="topline">false</param>
+                <param name="subline">false</param>
+
+                <!-- Header -->
+                <include>Dialog_Head</include>
+
+                <!-- Content -->
+                <control type="group">
+                    <include>Dimension_Dialog_Body</include>
+                    <control type="group">
+                        <include content="Dialog_Group">
+                            <param name="bottom">0</param>
+                        </include>
+                        <control type="image">
+                            <left>0</left>
+                            <top>-40</top>
+                            <height>1</height>
+                            <texture colordiffuse="main_fg_12">common/white.png</texture>
+                        </control>
+                        <control type="panel" id="6">
+                            <pagecontrol>61</pagecontrol>
+                            <onright>61</onright>
+                            <onleft>9000</onleft>
+                            <itemlayout height="80" width="80">
+                                <include content="Object_Control">
+                                    <param name="control">image</param>
+                                    <include content="Dimension_Padding"><param name="pad">1</param></include>
+                                    <texture colordiffuse="$INFO[ListItem.Label2]">common/white.png</texture>
+                                </include>
+                            </itemlayout>
+                            <focusedlayout height="80" width="80">
+                                <include content="Object_Control">
+                                    <param name="control">image</param>
+                                    <include content="Dimension_Padding"><param name="pad">1</param></include>
+                                    <texture colordiffuse="$INFO[ListItem.Label2]">common/white.png</texture>
+                                </include>
+                            </focusedlayout>
+                        </control>
+                        <!-- Selection Box -->
+                        <control type="group">
+                            <left>-30</left>
+                            <top>-30</top>
+                            <width>140</width>
+                            <height>140</height>
+                            <visible>Control.Hasfocus(6)</visible>
+                            <animation effect="slide" end="0,80" condition="Container(6).Row(1)">Conditional</animation>
+                            <animation effect="slide" end="0,160" condition="Container(6).Row(2)">Conditional</animation>
+                            <animation effect="slide" end="0,240" condition="Container(6).Row(3)">Conditional</animation>
+                            <animation effect="slide" end="0,320" condition="Container(6).Row(4)">Conditional</animation>
+                            <animation effect="slide" end="0,400" condition="Container(6).Row(5)">Conditional</animation>
+                            <animation effect="slide" end="0,480" condition="Container(6).Row(6)">Conditional</animation>
+                            <animation effect="slide" end="0,560" condition="Container(6).Row(7)">Conditional</animation>
+                            <animation effect="slide" end="0,640" condition="Container(6).Row(8)">Conditional</animation>
+                            <animation effect="slide" end="0,720" condition="Container(6).Row(9)">Conditional</animation>
+                            <animation effect="slide" end="80" condition="Container(6).Column(1)">Conditional</animation>
+                            <animation effect="slide" end="160" condition="Container(6).Column(2)">Conditional</animation>
+                            <animation effect="slide" end="240" condition="Container(6).Column(3)">Conditional</animation>
+                            <animation effect="slide" end="320" condition="Container(6).Column(4)">Conditional</animation>
+                            <animation effect="slide" end="400" condition="Container(6).Column(5)">Conditional</animation>
+                            <animation effect="slide" end="480" condition="Container(6).Column(6)">Conditional</animation>
+                            <animation effect="slide" end="560" condition="Container(6).Column(7)">Conditional</animation>
+                            <animation effect="slide" end="640" condition="Container(6).Column(8)">Conditional</animation>
+                            <animation effect="slide" end="720" condition="Container(6).Column(9)">Conditional</animation>
+                            <animation effect="slide" end="800" condition="Container(6).Column(10)">Conditional</animation>
+                            <animation effect="slide" end="880" condition="Container(6).Column(11)">Conditional</animation>
+                            <animation effect="slide" end="960" condition="Container(6).Column(12)">Conditional</animation>
+                            <animation effect="slide" end="1040" condition="Container(6).Column(13)">Conditional</animation>
+                            <include content="Object_Control">
+                                <param name="control">group</param>
+                                <include content="Dimension_Padding"><param name="pad">10</param></include>
+                                <control type="image">
+                                    <include>Texture_Shadow_20</include>
+                                    <texture border="20" colordiffuse="ccffffff">common/box.png</texture>
+                                </control>
+                            </include>
+                            <control type="image">
+                                <bordersize>20</bordersize>
+                                <texture colordiffuse="$INFO[Container(6).ListItem.Label2]" border="12">common/box.png</texture>
+                            </control>
+                        </control>
+                    </control>
+
+                    <include content="Dialog_Scrollbar">
+                        <onleft>6</onleft>
+                    </include>
+
+                </control>
+            </include>
+
+        </control>
+
+
+    </controls>
+</window>

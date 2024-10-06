@@ -1,0 +1,305 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<window>
+    <include>Action_BlurImage_SimpleBackground_Onload</include>
+    <defaultcontrol>5</defaultcontrol>
+    <controls>
+        <include>Background</include>
+
+        <include content="Settings_Dialog">
+            <include content="Settings_Main_Group">
+
+                <include content="Settings_Left_Group">
+                    <include content="Settings_Left_Content">
+                        <control type="list" id="3">
+                            <onright>5</onright>
+                            <right>40</right>
+                            <itemlayout height="80">
+                                <control type="label">
+                                    <textoffsetx>40</textoffsetx>
+                                    <textcolor>main_fg_70</textcolor>
+                                    <label>$INFO[ListItem.Label]</label>
+                                </control>
+                            </itemlayout>
+                            <focusedlayout height="80">
+                                <control type="label">
+                                    <visible>[ControlGroup(30040).HasFocus()]</visible>
+                                    <textoffsetx>40</textoffsetx>
+                                    <textcolor>main_fg_70</textcolor>
+                                    <label>$INFO[ListItem.Label]</label>
+                                </control>
+                                <control type="group">
+                                    <visible>![ControlGroup(30040).HasFocus()]</visible>
+                                    <control type="image">
+                                        <include>Texture_Menu_Highlight_H</include>
+                                    </control>
+                                    <control type="label">
+                                        <include>Color_SelectedText</include>
+                                        <textcolor>main_fg_70</textcolor>
+                                        <textoffsetx>40</textoffsetx>
+                                        <label>$INFO[ListItem.Label]</label>
+                                    </control>
+                                </control>
+                            </focusedlayout>
+                            <content>
+                                <item id="1">
+                                    <label>$LOCALIZE[31150]</label>
+                                    <onclick>ActivateWindow(InterfaceSettings)</onclick>
+                                </item>
+                                <item id="2">
+                                    <label>$LOCALIZE[14116]</label>
+                                    <onclick>ActivateWindow(systeminfo)</onclick>
+                                </item>
+                            </content>
+                        </control>
+                    </include>
+                </include>
+
+                <include content="Settings_Right_Group">
+
+                    <control type="group" id="5">
+                        <control type="group">
+                            <visible>Container(3).HasFocus(1)</visible>
+                            <include content="List_DialogSelect">
+                                <param name="id">8000</param>
+                                <param name="detailed">True</param>
+                                <param name="item_height">120</param>
+                                <param name="control">panel</param>
+                                <param name="item_w">view_addonbrowser_item_w</param>
+                                <param name="itemlayout_w">view_addonbrowser_itemlayout_w</param>
+                                <param name="textcolor">main_fg</param>
+                                <top>20</top>
+                                <left>20</left>
+                                <right>20</right>
+                                <bottom>20</bottom>
+                                <pagecontrol>60</pagecontrol>
+                                <onleft>3</onleft>
+                                <onright>60</onright>
+                                <content>
+                                    <item>
+                                        <label>$LOCALIZE[166]</label>
+                                        <label2>$LOCALIZE[5]</label2>
+                                        <icon>special://skin/extras/icons/paintbrush.png</icon>
+                                        <onclick>ActivateWindow(SkinSettings)</onclick>
+                                    </item>
+                                    <item>
+                                        <label>$LOCALIZE[14206]</label>
+                                        <label2>$LOCALIZE[5]</label2>
+                                        <icon>special://skin/extras/icons/skinsettings.png</icon>
+                                        <onclick>ActivateWindow(InterfaceSettings)</onclick>
+                                    </item>
+                                    <item>
+                                        <label>$LOCALIZE[14211]</label>
+                                        <label2>$LOCALIZE[5]</label2>
+                                        <icon>special://skin/extras/icons/tags.png</icon>
+                                        <onclick>ActivateWindow(MediaSettings)</onclick>
+                                    </item>
+                                    <item>
+                                        <label>$LOCALIZE[14200]</label>
+                                        <label2>$LOCALIZE[5]</label2>
+                                        <icon>special://skin/extras/icons/equalizer.png</icon>
+                                        <onclick>ActivateWindow(PlayerSettings)</onclick>
+                                    </item>
+                                    <item>
+                                        <label>$LOCALIZE[13000]</label>
+                                        <label2>$LOCALIZE[5]</label2>
+                                        <icon>special://skin/extras/icons/configure.png</icon>
+                                        <onclick>ActivateWindow(SystemSettings)</onclick>
+                                    </item>
+                                    <item>
+                                        <label>$LOCALIZE[19099]</label>
+                                        <label2>$LOCALIZE[5]</label2>
+                                        <icon>special://skin/extras/icons/network.png</icon>
+                                        <onclick>ActivateWindow(servicesettings)</onclick>
+                                    </item>
+                                    <item>
+                                        <label>PVR</label>
+                                        <label2>$LOCALIZE[5]</label2>
+                                        <icon>special://skin/extras/icons/livetv.png</icon>
+                                        <onclick>ActivateWindow(pvrsettings)</onclick>
+                                    </item>
+                                    <item>
+                                        <label>$LOCALIZE[13200]</label>
+                                        <label2>$LOCALIZE[5]</label2>
+                                        <icon>special://skin/extras/icons/actor.png</icon>
+                                        <onclick>ActivateWindow(Profiles)</onclick>
+                                    </item>
+                                    <item>
+                                        <label>$LOCALIZE[10003]</label>
+                                        <label2>$LOCALIZE[13000]</label2>
+                                        <icon>special://skin/extras/icons/filebox.png</icon>
+                                        <onclick>ActivateWindow(filemanager)</onclick>
+                                    </item>
+                                    <item>
+                                        <label>$LOCALIZE[24001]</label>
+                                        <label2>$LOCALIZE[13000]</label2>
+                                        <icon>special://skin/extras/icons/addon.png</icon>
+                                        <onclick>ActivateWindow(addonbrowser)</onclick>
+                                    </item>
+                                    <item>
+                                        <label>$LOCALIZE[19033]</label>
+                                        <label2>$LOCALIZE[13000]</label2>
+                                        <icon>special://skin/extras/icons/sysinfo.png</icon>
+                                        <onclick>ActivateWindow(systeminfo)</onclick>
+                                    </item>
+                                    <item>
+                                        <label>$LOCALIZE[10050]</label>
+                                        <label2>$LOCALIZE[13000]</label2>
+                                        <icon>special://skin/extras/icons/list-check.png</icon>
+                                        <onclick>ActivateWindow(eventlog)</onclick>
+                                    </item>
+                                </content>
+                            </include>
+
+                        </control>
+
+                        <control type="group">
+                            <top>20</top>
+                            <bottom>20</bottom>
+                            <left>20</left>
+                            <right>20</right>
+                            <visible>Container(3).HasFocus(2)</visible>
+                            <include content="Settings_Label">
+                                <param name="dialog">false</param>
+                                <param name="control">label</param>
+                                <label>$LOCALIZE[13000]</label>
+                            </include>
+                            <control type="grouplist">
+                                <top>80</top>
+                                <control type="group">
+                                    <top>20</top>
+                                    <height>105</height>
+                                    <orientation>horizontal</orientation>
+                                    <left>40</left>
+                                    <right>40</right>
+                                    <control type="group">
+                                        <left>0</left>
+                                        <width>33%</width>
+                                        <control type="group">
+                                            <right>20</right>
+                                            <control type="label">
+                                                <height>40</height>
+                                                <textcolor>main_fg_70</textcolor>
+                                                <label fallback="19055">$INFO[system.memory(used.percent),Used memory: ,]</label>
+                                            </control>
+                                            <control type="group">
+                                                <height>12</height>
+                                                <top>60</top>
+                                                <control type="progress" id="9201">
+                                                    <info>system.memory(used)</info>
+                                                    <texturebg colordiffuse="dialog_bg_12" border="6">progress/progress-bg.png</texturebg>
+                                                    <lefttexture colordiffuse="$VAR[ColorHighlight]" border="6">progress/progress-left.png</lefttexture>
+                                                    <midtexture colordiffuse="$VAR[ColorHighlight]" border="6">progress/progress-end.png</midtexture>
+                                                    <righttexture colordiffuse="$VAR[ColorHighlight]" border="6">progress/progress-right.png</righttexture>
+                                                </control>
+                                                <control type="progress">
+                                                    <info>system.memory(used)</info>
+                                                    <texturebg colordiffuse="00ffffff" border="6">progress/progress-bg.png</texturebg>
+                                                    <lefttexture colordiffuse="00ffffff" border="6">progress/progress-left.png</lefttexture>
+                                                    <midtexture colordiffuse="$VAR[ColorGradient]" border="6" diffuse="progress/diffuse.png">progress/progress-end.png</midtexture>
+                                                    <righttexture colordiffuse="$VAR[ColorGradient]" border="6" diffuse="progress/diffuse-end.png">progress/progress-right.png</righttexture>
+                                                    <include content="Defs_Progress_Colorfade">
+                                                        <param name="id">9201</param>
+                                                    </include>
+                                                </control>
+                                            </control>
+                                        </control>
+                                    </control>
+                                    <control type="group">
+                                        <right>0</right>
+                                        <width>67%</width>
+                                        <control type="group">
+                                            <left>20</left>
+                                            <control type="label">
+                                                <height>40</height>
+                                                <textcolor>main_fg_70</textcolor>
+                                                <label fallback="19055">$INFO[System.CPUUsage,$LOCALIZE[13271] ,]</label>
+                                            </control>
+                                            <control type="group">
+                                                <height>12</height>
+                                                <top>60</top>
+                                                <control type="progress" id="9202">
+                                                    <info>System.CPUUsage</info>
+                                                    <texturebg colordiffuse="dialog_bg_12" border="6">progress/progress-bg.png</texturebg>
+                                                    <lefttexture colordiffuse="$VAR[ColorHighlight]" border="6">progress/progress-left.png</lefttexture>
+                                                    <midtexture colordiffuse="$VAR[ColorHighlight]" border="6">progress/progress-end.png</midtexture>
+                                                    <righttexture colordiffuse="$VAR[ColorHighlight]" border="6">progress/progress-right.png</righttexture>
+                                                </control>
+                                                <control type="progress">
+                                                    <info>System.CPUUsage</info>
+                                                    <texturebg colordiffuse="00ffffff" border="6">progress/progress-bg.png</texturebg>
+                                                    <lefttexture colordiffuse="00ffffff" border="6">progress/progress-left.png</lefttexture>
+                                                    <midtexture colordiffuse="$VAR[ColorGradient]" border="6" diffuse="progress/diffuse.png">progress/progress-end.png</midtexture>
+                                                    <righttexture colordiffuse="$VAR[ColorGradient]" border="6" diffuse="progress/diffuse-end.png">progress/progress-right.png</righttexture>
+                                                    <include content="Defs_Progress_Colorfade">
+                                                        <param name="id">9202</param>
+                                                    </include>
+                                                </control>
+                                            </control>
+                                        </control>
+                                    </control>
+                                </control>
+
+                                <control type="group">
+                                    <top>-10</top>
+                                    <height>0</height>
+                                </control>
+
+                                <include content="Settings_Landing_Label">
+                                    <param name="label">$LOCALIZE[154]</param>
+                                    <param name="label2">$INFO[System.FreeSpace]$INFO[System.UsedSpace, • ,]$INFO[System.TotalSpace, • ,]</param>
+                                    <param name="visible">!String.IsEmpty(System.FreeSpace)</param>
+                                </include>
+
+                                <include content="Settings_Landing_Label">
+                                    <param name="label">$LOCALIZE[131]</param>
+                                    <param name="label2">$INFO[System.ScreenResolution]</param>
+                                    <param name="visible">!String.IsEmpty(System.ScreenResolution)</param>
+                                </include>
+
+                                <include content="Settings_Landing_Label">
+                                    <param name="label">$LOCALIZE[621]</param>
+                                    <param name="label2">$INFO[System.VideoEncoderInfo]</param>
+                                    <param name="visible">!String.IsEmpty(System.VideoEncoderInfo)</param>
+                                </include>
+
+                                <include content="Settings_Landing_Label">
+                                    <param name="label">$LOCALIZE[705]</param>
+                                    <param name="label2">$INFO[Network.IPAddress]$INFO[Network.MacAddress, • $LOCALIZE[149]: ,]$INFO[Network.SubnetMask, • $LOCALIZE[13159]: ,]</param>
+                                    <param name="visible">!String.IsEmpty(Network.IPAddress)</param>
+                                </include>
+
+                                <include content="Settings_Landing_Label">
+                                    <param name="label">$LOCALIZE[248]</param>
+                                    <param name="label2">$INFO[System.Language]</param>
+                                    <param name="visible">!String.IsEmpty(System.Language)</param>
+                                </include>
+
+                            </control>
+                        </control>
+                        <control type="group">
+                            <height>40</height>
+                            <centerbottom>-60</centerbottom>
+                            <left>40</left>
+                            <right>20</right>
+
+                            <control type="label">
+                                <font>font_hint_black</font>
+                                <height>10</height>
+                                <textcolor>main_fg_30</textcolor>
+                                <label>$LOCALIZE[19033]</label>
+                            </control>
+
+                            <control type="label">
+                                <include>Defs_Label_FooterItem</include>
+                                <wrapmultiline>false</wrapmultiline>
+                                <label>Kodi$INFO[System.BuildVersion, ,]</label>
+                            </control>
+
+                        </control>
+                    </control>
+                </include>
+            </include>
+        </include>
+
+    </controls>
+</window>

@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<window>
+    <include content="Action_SettingsCategories_Onload">
+        <param name="defaultcontrol">3</param>
+    </include>
+    <controls>
+
+        <include>Background</include>
+
+        <include content="Settings_Dialog">
+            <include content="Settings_Main_Group">
+                <include content="Settings_Left_Group">
+                    <include content="Settings_Left_Grouplist">
+                        <param name="id">3</param>
+                        <onright>2</onright>
+                        <onleft>SetFocus($VAR[Action_SettingsSwitcher_FocusID])</onleft>
+                        <include content="Settings_Button">
+                            <param name="id">4</param>
+                            <param name="control">radiobutton</param>
+                            <param name="dialog">false</param>
+                            <include>Texture_Highlight_ToggleButton_Settings</include>
+                            <radiowidth>104</radiowidth>
+                            <focusedcolor>$VAR[ColorSettingsToggleButtonText]</focusedcolor>
+                            <width>settings_category_w</width>
+                            <description>Default Category Button</description>
+                            <label>$LOCALIZE[10029]</label>
+                        </include>
+                        <include content="Settings_Label">
+                            <param name="control">label</param>
+                            <param name="id">9003</param>
+                            <param name="dialog">false</param>
+                            <label>$LOCALIZE[33084]</label>
+                            <enable>!System.HasLoginScreen</enable>
+                            <disabledcolor>main_fg_12</disabledcolor>
+                        </include>
+                        <include content="Settings_Button">
+                            <param name="id">5</param>
+                            <param name="control">button</param>
+                            <param name="dialog">false</param>
+                            <include>Texture_Highlight_ToggleButton_Settings</include>
+                            <focusedcolor>$VAR[ColorSettingsToggleButtonText]</focusedcolor>
+                            <description>Default Category Button</description>
+                            <label>$INFO[System.ProfileAutoLogin]</label>
+                            <enable>!System.HasLoginScreen</enable>
+                            <disabledcolor>main_fg_12</disabledcolor>
+                            <right>40</right>
+                        </include>
+                    </include>
+                </include>
+
+                <include content="Settings_Right_Group">
+                    <include content="Settings_Right_Grouplist">
+                        <param name="id">8000</param>
+                        <onleft>3</onleft>
+                        <control type="panel" id="2">
+                            <height>720</height>
+                            <onleft>3</onleft>
+                            <onup>2</onup>
+                            <ondown>2</ondown>
+                            
+                            <itemlayout height="120">
+                                <control type="group">
+                                    <left>40</left>
+                                    <right>40</right>
+                                    <include content="Object_ListItem_Iconic">
+                                        <param name="icon">$VAR[Image_ProfileIcon]</param>
+                                        <param name="color">main_fg_70</param>
+                                        <param name="icon_check">[[!String.IsEqual(ListItem.Icon,DefaultUser.png) + !String.IsEmpty(ListItem.Icon)] + [String.StartsWith(ListItem.Icon,Default) | String.StartsWith(ListItem.Icon,special://skin/extras/icons/)]]</param>
+                                    </include>
+                                    <include content="Object_IsSelected_Checkmark">
+                                        <param name="color_off">main_fg_30</param>
+                                        <param name="color_on">main_fg_70</param>
+                                        <param name="selected">String.IsEqual(ListItem.Label,System.ProfileName)</param>
+                                    </include>
+                                </control>
+                            </itemlayout>
+                            <focusedlayout height="120">
+                                <control type="image">
+                                    <include>Texture_Menu_Highlight_H</include>
+                                </control>
+                                <control type="group">
+                                    <left>40</left>
+                                    <right>40</right>
+                                    <include content="Object_ListItem_Iconic">
+                                        <param name="color">$VAR[ColorSelected]</param>
+                                        <param name="icon">$VAR[Image_ProfileIcon]</param>
+                                        <param name="icon_check">[[!String.IsEqual(ListItem.Icon,DefaultUser.png) + !String.IsEmpty(ListItem.Icon)] + [String.StartsWith(ListItem.Icon,Default) | String.StartsWith(ListItem.Icon,special://skin/extras/icons/)]]</param>
+                                    </include>
+                                    <include content="Object_IsSelected_Checkmark_Focus">
+                                        <param name="selected">String.IsEqual(ListItem.Label,System.ProfileName)</param>
+                                    </include>
+                                </control>
+                            </focusedlayout>
+                        </control>
+                    </include>
+                </include>
+                <include content="Settings_InfoText">
+                    <param name="id">6</param>
+                    <param name="dialog">false</param>
+                    <param name="left">500</param>
+                    <param name="bottom">80</param>
+                </include>
+            </include>
+        </include>
+
+
+    </controls>
+
+</window>

@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<includes>
+
+    <include name="NextAired_GroupList">
+        <control type="grouplist" id="5000">
+            <top>hub_recommendations_widgets_grouplist_t</top>
+            <bottom>hub_recommendations_widgets_grouplist_b</bottom>
+            <orientation>vertical</orientation>
+            <onup>SetFocus(333)</onup>
+            <ondown>SetFocus(330)</ondown>
+            <control type="group" id="5999">
+                <height>widget_tbump_h</height>
+            </control>
+            <nested />
+            <include>DialogInfo_Widget_EndLine</include>
+        </control>
+    </include>
+
+    <include name="NextAired_Content">
+        <!-- <include content="Hub_Widgets_Infopanel">
+            <param name="visible">true</param>
+            <include>Info_Panel</include>
+        </include> -->
+
+        <include content="NextAired_GroupList">
+            <include content="NextAired_Widgets">
+                <param name="info">$PARAM[info]</param>
+            </include>
+        </include>
+    </include>
+
+    <!-- TODO: Switch to new mode -->
+    <include name="NextAired_Window">
+        <include>Defs_TMDbHelper_Loader</include>
+        <include>Background</include>
+
+        <control type="group" id="320">
+            <include>Animation_View_WindowChange</include>
+            <include>Animation_Group_Bumper</include>
+            <nested />
+        </control>
+        <include>View_Bumper</include>
+
+        <!-- <include>Home_Menu</include>
+
+        <control type="group">
+            <include>Furniture_Top</include>
+            <include>Animation_View_WindowChange</include>
+        </control> -->
+
+
+        <include>View_Dialog_Plot</include>
+    </include>
+
+    <include name="NextAired_Widget">
+        <param name="include">List_Landscape_Row</param>
+        <definition>
+            <include content="Widget_Info_Row">
+                <param name="id">$PARAM[id]</param>
+                <param name="label">$PARAM[label]</param>
+                <param name="include">$PARAM[include]</param>
+                <param name="altvisible">$PARAM[altvisible]</param>
+                <param name="widgetfade_include">true</param>
+                <param name="widget_hideartwork">true</param>
+                <nested />
+            </include>
+        </definition>
+    </include>
+
+    <include name="NextAired_Widgets">
+        <include content="NextAired_Widget">
+            <param name="id">01</param>
+            <param name="label">$INFO[Container(5001).ListItem.Property(widget)]$INFO[Container(5001).ListItem.Property(air_date_short),$COMMA ,]</param>
+            <param name="visible">true</param>
+            <content target="videos">plugin://plugin.video.themoviedb.helper/?info=$PARAM[info]&amp;reload=$INFO[System.Time(hh)]&amp;startdate=-1&amp;days=1&amp;widget=True&amp;type=episode</content>
+        </include>
+        <include content="NextAired_Widget">
+            <param name="id">02</param>
+            <param name="label">$INFO[Container(5002).ListItem.Property(widget)]$INFO[Container(5002).ListItem.Property(air_date_short),$COMMA ,]</param>
+            <param name="visible">true</param>
+            <content target="videos">plugin://plugin.video.themoviedb.helper/?info=$PARAM[info]&amp;reload=$INFO[System.Time(hh)]&amp;startdate=0&amp;days=1&amp;widget=True&amp;type=episode</content>
+        </include>
+        <include content="NextAired_Widget">
+            <param name="id">03</param>
+            <param name="label">$INFO[Container(5003).ListItem.Property(widget)]$INFO[Container(5003).ListItem.Property(air_date_short),$COMMA ,]</param>
+            <param name="visible">true</param>
+            <content target="videos">plugin://plugin.video.themoviedb.helper/?info=$PARAM[info]&amp;reload=$INFO[System.Time(hh)]&amp;startdate=1&amp;days=1&amp;widget=True&amp;type=episode</content>
+        </include>
+        <include content="NextAired_Widget">
+            <param name="id">04</param>
+            <param name="label">$INFO[Container(5004).ListItem.Property(widget)]$INFO[Container(5004).ListItem.Property(air_date_short),$COMMA ,]</param>
+            <param name="visible">true</param>
+            <content target="videos">plugin://plugin.video.themoviedb.helper/?info=$PARAM[info]&amp;reload=$INFO[System.Time(hh)]&amp;startdate=2&amp;days=1&amp;widget=True&amp;type=episode</content>
+        </include>
+        <include content="NextAired_Widget">
+            <param name="id">05</param>
+            <param name="label">$INFO[Container(5005).ListItem.Property(widget)]$INFO[Container(5005).ListItem.Property(air_date_short),$COMMA ,]</param>
+            <param name="visible">true</param>
+            <content target="videos">plugin://plugin.video.themoviedb.helper/?info=$PARAM[info]&amp;reload=$INFO[System.Time(hh)]&amp;startdate=3&amp;days=1&amp;widget=True&amp;type=episode</content>
+        </include>
+        <include content="NextAired_Widget">
+            <param name="id">06</param>
+            <param name="label">$INFO[Container(5006).ListItem.Property(widget)]$INFO[Container(5006).ListItem.Property(air_date_short),$COMMA ,]</param>
+            <param name="visible">true</param>
+            <content target="videos">plugin://plugin.video.themoviedb.helper/?info=$PARAM[info]&amp;reload=$INFO[System.Time(hh)]&amp;startdate=4&amp;days=1&amp;widget=True&amp;type=episode</content>
+        </include>
+        <include content="NextAired_Widget">
+            <param name="id">07</param>
+            <param name="label">$INFO[Container(5007).ListItem.Property(widget)]$INFO[Container(5007).ListItem.Property(air_date_short),$COMMA ,]</param>
+            <param name="visible">true</param>
+            <content target="videos">plugin://plugin.video.themoviedb.helper/?info=$PARAM[info]&amp;reload=$INFO[System.Time(hh)]&amp;startdate=5&amp;days=1&amp;widget=True&amp;type=episode</content>
+        </include>
+        <include content="NextAired_Widget">
+            <param name="id">08</param>
+            <param name="label">$INFO[Container(5008).ListItem.Property(widget)]$INFO[Container(5008).ListItem.Property(air_date_short),$COMMA ,]</param>
+            <param name="visible">true</param>
+            <content target="videos">plugin://plugin.video.themoviedb.helper/?info=$PARAM[info]&amp;reload=$INFO[System.Time(hh)]&amp;startdate=6&amp;days=1&amp;widget=True&amp;type=episode</content>
+        </include>
+    </include>
+</includes>

@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<window type="dialog">
+    <defaultcontrol always="true">9000</defaultcontrol>
+    <menucontrol>9000</menucontrol>
+    <include>DialogInfo_Onload</include>
+
+    <controls>
+
+        <include>Defs_TMDbHelper_Loader</include>
+
+        <control type="group">
+            <include>Dimension_DialogHugeMenu</include>
+            <include>Animation_Right_Delay</include>
+            <include content="Dialog_Dim_Side">
+                <param name="slide_condition">True</param>
+            </include>
+
+            <!-- Bottom Layer -->
+            <include content="Dialog_Background_Side">
+                <param name="slide_condition">True</param>
+                <param name="dialog_size">Dimension_DialogHugeMenu</param>
+
+                <!-- Side Buttons -->
+                <control type="group">
+                    <include>Dimension_Dialog_Body</include>
+                    <control type="grouplist" id="9000">
+                        <include>Dialog_Side_Grouplist_Def</include>
+                        <onleft>Close</onleft>
+                        <onright>61</onright>
+                        <include>Items_DialogPVRInfo_MenuBar</include>
+                    </control>
+                </control>
+            </include>
+
+            <include content="Dialog_Foreground_Side">
+                <param name="dialog_size">Dimension_DialogHugeMenu</param>
+                <param name="lines_right">476</param>
+                <param name="topline">true</param>
+                <param name="subline">true</param>
+
+                <!-- Header -->
+                <include content="Dialog_Head">
+                    <param name="label">$VAR[Label_Title]</param>
+                </include>
+                <include>Dialog_Head_CloseButton</include>
+
+                <!-- Content -->
+                <control type="group">
+                    <include>Dimension_Dialog_Body</include>
+                    <control type="group">
+                        <include>Dimension_Dialog_Body_Group</include>
+                        <include content="DialogInfo_PlotBox_Artwork">
+                            <param name="square_icon">$INFO[ListItem.Icon]</param>
+                            <param name="landscape_icon">$VAR[Image_PVREpgLandscapeArt]</param>
+                        </include>
+                        <control type="group">
+                            <right>476</right>
+                            <control type="textbox">
+                                <font>font_midi_plot</font>
+                                <textcolor>main_fg_70</textcolor>
+                                <label>[B][COLOR=main_fg_90]$LOCALIZE[31181][/COLOR][/B][CR]$INFO[ListItem.StartDate,,[CR]]$INFO[ListItem.StartTime]$INFO[ListItem.EndTime, - ,]$INFO[ListItem.Genre,[CR][CR][B][COLOR=main_fg_90]$LOCALIZE[515][/COLOR][/B][CR],][CR][CR]$INFO[ListItem.Plot,[B][COLOR=main_fg_90]$LOCALIZE[31028][/COLOR][/B][CR],]</label>
+                                <include content="Dimension_Padding">
+                                    <param name="pad">20</param>
+                                </include>
+                                <pagecontrol>61</pagecontrol>
+                            </control>
+                        </control>
+                    </control>
+                    <include content="Dialog_Scrollbar">
+                        <param name="id">61</param>
+                        <onleft>9000</onleft>
+                    </include>
+                </control>
+            </include>
+
+        </control>
+    </controls>
+</window>

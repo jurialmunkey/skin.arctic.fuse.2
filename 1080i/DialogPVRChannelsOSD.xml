@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<window>
+    <defaultcontrol always="true">11</defaultcontrol>
+    <onload>CancelAlarm(osd_timeout,true)</onload>
+    <include>Animation_OSD_Dialog_WindowChange</include>
+    <onload>SetProperty(TMDbHelper.WidgetContainer,11)</onload>
+    <controls>
+        <include content="OSD_CastInfo_ExpandGroup">
+
+            <control type="group">
+                <left>view_pad</left>
+                <right>view_pad</right>
+                <width>view_landscape_item_w</width>
+                <height>view_landscape_item_h</height>
+                <visible>Integer.IsEqual(Container(11).NumItems,0)</visible>
+                <include>Object_ItemBack</include>
+                <control type="image">
+                    <width>128</width>
+                    <height>128</height>
+                    <centerleft>50%</centerleft>
+                    <centertop>50%</centertop>
+                    <texture colordiffuse="panel_fg_70">special://skin/extras/icons/image.png</texture>
+                </control>
+            </control>
+
+            <!-- Episodes List -->
+            <include content="List_Landscape_Row">
+                <param name="orientation">horizontal</param>
+                <param name="control">fixedlist</param>
+                <param name="id">11</param>
+                <include>OSD_List_Dimensions</include>
+                <onup>PreviousMenu</onup>
+                <ondown>4000</ondown>
+            </include>
+
+            <!-- Playing Icon and Details -->
+            <include content="OSD_Info_Tray">
+                <param name="icon">$INFO[Container(11).ListItem.Icon]</param>
+                <param name="role">$INFO[Container(11).ListItem.ChannelName]</param>
+                <param name="name">$INFO[VideoPlayer.ChannelGroup,$LOCALIZE[19141]: ,]</param>
+                <param name="text">$VAR[Label_Plot_C11]</param>
+                <param name="fallback_icon">-</param>
+            </include>
+
+            <include content="OSD_Info_Viewline">
+                <param name="label">$LOCALIZE[31244]</param>
+            </include>
+
+            <control type="grouplist" id="4000">
+                <top>300</top>
+                <itemgap>0</itemgap>
+                <orientation>horizontal</orientation>
+                <left>10</left>
+                <bottom>-100</bottom>
+                <visible allowhiddenfocus="true">ControlGroup(4000).HasFocus()</visible>
+
+                <onup>11</onup>
+
+                <include content="Dialog_Side_Button_BuiltIn">
+                    <param name="vertical">false</param>
+                    <param name="icon">special://skin/extras/icons/arrow-right-arrow-left.png</param>
+                    <param name="visible">true</param>
+                    <param name="id">9001</param>
+                    <param name="groupid">9001</param>
+                    <param name="label">$LOCALIZE[19141]</param>
+                    <onclick>NextChannelGroup</onclick>
+                    <onclick>SetFocus(4000)</onclick>
+                </include>
+            </control>
+
+        </include>
+    </controls>
+</window>

@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<window>
+    <include content="Action_SettingsCategories_Onload">
+        <param name="defaultcontrol">3</param>
+    </include>
+
+    <controls>
+
+        <include>Background</include>
+
+        <include content="Settings_Dialog">
+            <include content="Settings_Main_Group">
+                <include content="Settings_Left_Group">
+                    <include content="Settings_Left_Content">
+                        <control type="grouplist" id="3">
+                            <onright>5</onright>
+                            <onleft>SetFocus($VAR[Action_SettingsSwitcher_FocusID])</onleft>
+                            <onup>20</onup>
+                            <ondown>20</ondown>
+                            <bottom>160</bottom>
+                        </control>
+                        <include content="Settings_Button">
+                            <param name="id">20</param>
+                            <param name="control">button</param>
+                            <param name="dialog">false</param>
+                            <description>Default Setting Button</description>
+                            <width>settings_category_w</width>
+                            <bottom>80</bottom>
+                            <left>0</left>
+                            <onup>3</onup>
+                            <onup>SetFocus(-100)</onup>
+                            <onup>SetFocus(-99)</onup>
+                            <onup>SetFocus(-98)</onup>
+                            <onup>SetFocus(-97)</onup>
+                            <onup>SetFocus(-96)</onup>
+                            <onup>SetFocus(-95)</onup>
+                            <onup>SetFocus(-94)</onup>
+                            <onup>SetFocus(-93)</onup>
+                            <onup>SetFocus(-92)</onup>
+                            <onup>SetFocus(-91)</onup>
+                            <onright>5</onright>
+                            <ondown>3</ondown>
+                            <ondown>SetFocus(-100)</ondown>
+                            <onleft>SetFocus($VAR[Action_SettingsSwitcher_FocusID])</onleft>
+                            <onclick>settingslevelchange</onclick>
+                        </include>
+
+                        <control type="group">
+                            <height>80</height>
+                            <width>80</width>
+                            <right>50</right>
+                            <bottom>80</bottom>
+                            <control type="image">
+                                <texture colordiffuse="main_fg_70">$VAR[Image_Settings_Level]</texture>
+                                <bordersize>10</bordersize>
+                                <visible>!Control.HasFocus(20)</visible>
+                            </control>
+                            <control type="image">
+                                <texture colordiffuse="$VAR[ColorSelected]">$VAR[Image_Settings_Level]</texture>
+                                <bordersize>10</bordersize>
+                                <visible>Control.HasFocus(20)</visible>
+                            </control>
+                        </control>
+                    </include>
+
+                </include>
+                <include content="Settings_Right_Group">
+                    <param name="arrow_prev_visible">Container(5).HasPrevious</param>
+                    <param name="arrow_next_visible">Container(5).HasNext</param>
+
+                    <control type="scrollbar" id="60">
+                        <centerright>-20</centerright>
+                        <bottom>20</bottom>
+                        <top>20</top>
+                        <width>scrollbar_w</width>
+                        <orientation>vertical</orientation>
+                        <texturesliderbackground colordiffuse="main_fg_12" border="4">scrollbar/scrollv_line.png</texturesliderbackground>
+                        <texturesliderbar colordiffuse="main_logo" border="4">scrollbar/scrollv.png</texturesliderbar>
+                        <showonepage>false</showonepage>
+                        <include>Texture_Scrollbar_V</include>
+                        <onleft>5</onleft>
+                    </control>
+
+                    <include content="Settings_Right_Grouplist">
+                        <param name="id">5</param>
+                        <onleft>3</onleft>
+                    </include>
+
+                </include>
+                <include content="Settings_InfoText">
+                    <param name="id">6</param>
+                    <param name="dialog">false</param>
+                    <param name="left">500</param>
+                    <param name="right">120</param>
+                    <param name="bottom">80</param>
+                </include>
+            </include>
+        </include>
+
+        <include content="Settings_Button">
+            <param name="id">10</param>
+            <param name="control">togglebutton</param>
+            <param name="dialog">false</param>
+            <include>Texture_Highlight_ToggleButton_Settings</include>
+            <focusedcolor>$VAR[ColorSettingsToggleButtonText]</focusedcolor>
+            <altfocusedcolor>$VAR[ColorSettingsToggleButtonText]</altfocusedcolor>
+            <width>settings_category_w</width>
+            <description>Default Category Button</description>
+        </include>
+
+        <include content="Settings_Button">
+            <param name="id">7</param>
+            <param name="control">button</param>
+            <param name="dialog">false</param>
+            <description>Default Setting Button</description>
+        </include>
+
+        <include content="Settings_Button">
+            <param name="id">8</param>
+            <param name="control">radiobutton</param>
+            <param name="dialog">false</param>
+            <description>Default Setting Button</description>
+            <textwidth>settings_radiobutton_text_w</textwidth>
+        </include>
+
+        <include content="Settings_Button">
+            <param name="id">9</param>
+            <param name="control">spincontrolex</param>
+            <param name="dialog">false</param>
+            <description>Default Setting Button</description>
+            <textwidth>settings_radiobutton_text_w</textwidth>
+        </include>
+
+        <include content="Settings_Button">
+            <param name="id">12</param>
+            <param name="control">edit</param>
+            <param name="dialog">false</param>
+            <description>Default Setting Button</description>
+        </include>
+
+        <include content="Settings_Button">
+            <param name="id">13</param>
+            <param name="control">sliderex</param>
+            <param name="dialog">false</param>
+            <description>Default Setting Button</description>
+            <textwidth>settings_slider_text_w</textwidth>
+        </include>
+
+        <include content="Settings_Label">
+            <param name="id">14</param>
+            <param name="control">label</param>
+            <param name="dialog">false</param>
+            <description>Default Setting Label</description>
+        </include>
+
+        <include content="Settings_Button">
+            <param name="id">15</param>
+            <param name="control">colorbutton</param>
+            <param name="dialog">false</param>
+            <description>Default Setting Button</description>
+        </include>
+
+        <!-- <include content="Object_Hidden_Button">
+            <param name="id">20</param>
+            <param name="control">button</param>
+        </include> -->
+    </controls>
+
+</window>

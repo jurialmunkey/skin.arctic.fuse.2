@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<window type="dialog">
+    <zorder>999</zorder>
+    <controls>
+
+        <include content="Furniture_Busy">
+            <param name="hasprogress">true</param>
+            <param name="icon">special://skin/extras/icons/volume-low.png</param>
+            <param name="progress">Control.GetLabel(933)</param>
+            <param name="progress_id">933</param>
+            <param name="mainlabel">$LOCALIZE[13376]$INFO[Control.GetLabel(933), ,%]</param>
+            <param name="minilabel">$INFO[Player.Volume]</param>
+            <param name="haslabel">false</param>
+            <param name="visible">!Player.Muted</param>
+        </include>
+
+
+        <!-- Muted -->
+        <include content="Furniture_Busy">
+            <param name="icon">special://skin/extras/icons/volume-xmark.png</param>
+            <param name="haslabel">false</param>
+            <param name="hasbackground">false</param>
+            <param name="visible">Player.Muted + !Window.IsActive(DialogBusy.xml) + !Window.IsActive(DialogNotification.xml) + !Window.IsActive(DialogExtendedProgressBar.xml)</param>
+        </include>
+
+        <control type="label" id="31">
+            <left>-2000</left>
+            <width>100</width>
+            <visible>False</visible>
+        </control>
+
+        <control type="progress" id="933">
+            <left>-2000</left>
+            <width>100</width>
+            <height>1</height>
+            <info>Player.Volume</info>
+        </control>
+    </controls>
+</window>

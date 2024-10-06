@@ -1,0 +1,125 @@
+{
+    "operations": [
+        {
+            "infolabels": {
+                "p_basedir": "Window.Property(MediaFilter.BaseDir)",
+                "p_genre": "Window.Property(MediaFilter.Genre)",
+                "p_studio": "Window.Property(MediaFilter.Studio)",
+                "p_country": "Window.Property(MediaFilter.Country)",
+                "p_mpaa": "Window.Property(MediaFilter.MPAA)",
+                "p_director": "Window.Property(MediaFilter.Director)",
+                "p_writer": "Window.Property(MediaFilter.Writer)",
+                "p_sortby": "Window.Property(MediaFilter.SortBy)",
+                "p_sorthow": "Window.Property(MediaFilter.SortHow)",
+                "p_yearlow": "Window(1105).Property(SearchDiscover.YearLow)",
+                "p_yearhigh": "Window(1105).Property(SearchDiscover.YearHigh)"
+            }
+        },
+        {
+            "encode": {
+                "p_basedir": "{p_basedir}",
+                "p_genre": "{p_genre}",
+                "p_studio": "{p_studio}",
+                "p_country": "{p_country}",
+                "p_mpaa": "{p_mpaa}",
+                "p_director": "{p_director}",
+                "p_writer": "{p_writer}",
+                "p_sortby": "{p_sortby}",
+                "p_sorthow": "{p_sorthow}"
+            }
+        },
+        {
+            "values": {
+                "f_genre": [
+                    {
+                        "rules": ["!String.IsEmpty(Window.Property(MediaFilter.Genre))"],
+                        "value": "&filter_key__genre=genre&filter_value__genre={p_genre}"
+                    },
+                    ""
+                ],
+                "f_studio": [
+                    {
+                        "rules": ["!String.IsEmpty(Window.Property(MediaFilter.Studio))"],
+                        "value": "&filter_key__studio=studio&filter_value__studio={p_studio}"
+                    },
+                    ""
+                ],
+                "f_country": [
+                    {
+                        "rules": ["!String.IsEmpty(Window.Property(MediaFilter.Country))"],
+                        "value": "&filter_key__country=country&filter_value__country={p_country}"
+                    },
+                    ""
+                ],
+                "f_mpaa": [
+                    {
+                        "rules": ["!String.IsEmpty(Window.Property(MediaFilter.MPAA))"],
+                        "value": "&filter_key__mpaa=mpaa&filter_value__mpaa={p_mpaa}"
+                    },
+                    ""
+                ],
+                "f_director": [
+                    {
+                        "rules": ["!String.IsEmpty(Window.Property(MediaFilter.Director))"],
+                        "value": "&filter_key__director=director&filter_value__director={p_director}"
+                    },
+                    ""
+                ],
+                "f_writer": [
+                    {
+                        "rules": ["!String.IsEmpty(Window.Property(MediaFilter.Writer))"],
+                        "value": "&filter_key__writer=writer&filter_value__writer={p_writer}"
+                    },
+                    ""
+                ],
+                "f_yearlow": [
+                    {
+                        "rules": ["!String.IsEmpty(Window(1105).Property(SearchDiscover.YearLow))"],
+                        "value": "&filter_key__yearlow=year&filter_value__yearlow={p_yearlow}&amp;filter_operator__yearlow=ge"
+                    },
+                    ""
+                ],
+                "f_yearhigh": [
+                    {
+                        "rules": ["!String.IsEmpty(Window(1105).Property(SearchDiscover.YearHigh))"],
+                        "value": "&filter_key__yearhigh=year&filter_value__yearhigh={p_yearhigh}&amp;filter_operator__yearhigh=le"
+                    },
+                    ""
+                ],
+                "f_sortby": [
+                    {
+                        "rules": ["!String.IsEmpty(Window.Property(MediaFilter.SortBy)) + !String.IsEqual(Window.Property(MediaFilter.SortBy),none)"],
+                        "value": "&sort_by={p_sortby}"
+                    },
+                    ""
+                ],
+                "f_sorthow": [
+                    {
+                        "rules": ["String.IsEqual(Window.Property(MediaFilter.SortHow),desc)"],
+                        "value": "&sort_how={p_sorthow}"
+                    },
+                    ""
+                ],
+                "f_library": [
+                    {
+                        "rules": ["Window.IsVisible(MyMusicNav.xml)"],
+                        "value": "&library=music"
+                    },
+                    {
+                        "rules": ["Window.IsVisible(MyVideoNav.xml)"],
+                        "value": "&library=video"
+                    },
+                    ""
+                ]
+            }
+        },
+        {
+            "values": {
+                "c_update": "plugin://script.skinvariables/?info=get_filter_dir{f_library}{f_genre}{f_studio}{f_country}{f_mpaa}{f_director}{f_writer}{f_yearlow}{f_yearhigh}{f_sortby}{f_sorthow}&&{p_basedir}"
+            }
+        }
+    ],
+    "actions": [
+        "Container.Update({c_update},replace)"
+    ]
+}

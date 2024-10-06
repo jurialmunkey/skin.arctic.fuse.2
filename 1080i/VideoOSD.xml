@@ -1,0 +1,411 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<window>
+    <defaultcontrol always="true">6001</defaultcontrol>
+    <animation effect="fade" start="0" end="100" time="300" delay="200" condition="Window.IsVisible(DialogSeekBar.xml)">WindowOpen</animation>
+    <animation effect="fade" start="0" end="100" time="300" delay="0" condition="!Window.IsVisible(DialogSeekBar.xml)">WindowOpen</animation>
+    <animation effect="fade" end="0" start="100" time="300" condition="Window.IsVisible(DialogSeekBar.xml) + ![$EXP[Exp_OSD_PVRChannelSwitch] | Window.IsVisible(fullscreeninfo) | $EXP[Exp_OSD_DelayInfo]]">WindowClose</animation>
+    <onload>SetProperty(UID,$ESCINFO[Player.Title]$INFO[Player.Time(ss)])</onload>
+    <onunload>CancelAlarm(osd_timeout,true)</onunload>
+    <onunload>ClearProperty(OSD_Focus,Home)</onunload>
+    <controls>
+
+        <control type="group">
+            <include>OSD_HideControls</include>
+
+            <control type="group">
+                <visible>!Window.IsActive(DialogPlayerProcessInfo.xml)</visible>
+                <visible>!Window.IsVisible(DialogSlider.xml)</visible>
+
+                <control type="group">
+                    <!-- Left Side Buttons -->
+                    <left>view_pad</left>
+                    <right>view_pad</right>
+                    <control type="grouplist" id="6091">
+                        <centerbottom>80</centerbottom>
+                        <height>120</height>
+                        <left>-20</left>
+                        <orientation>horizontal</orientation>
+                        <itemgap>osd_itemgap</itemgap>
+                        <onleft>6008</onleft>
+                        <onright>6005</onright>
+                        <ondown>ActivateWindow($VAR[Action_OSD_Main_OnDown])</ondown>
+
+                        <!-- Button 1 -->
+                        <control type="button" id="6001">
+                            <include>Defs_OSD_Button</include>
+                            <onclick>PlayerControl(Play)</onclick>
+                            <onfocus condition="Player.Forwarding | Player.Rewinding">PlayerControl(Play)</onfocus>
+                            <onunfocus condition="Player.Forwarding | Player.Rewinding">PlayerControl(Play)</onunfocus>
+                            <onup>8200</onup>
+                        </control>
+                        <include content="OSD_Button_Icon_Overlay">
+                            <param name="icon">$VAR[Image_OSD_PlayPause]</param>
+                            <param name="id">6001</param>
+                            <param name="groupid">6101</param>
+                            <param name="itemgap">osd_itemgap</param>
+                        </include>
+                        <!-- <control type="button" id="6001">
+                            <include>Defs_OSD_Button</include>
+                            <onclick condition="VideoPlayer.Content(livetv)">CancelAlarm(osd_timeout,true)</onclick>
+                            <onclick condition="VideoPlayer.Content(livetv)">Close</onclick>
+                            <onclick condition="VideoPlayer.Content(livetv)">ActivateWindow(TVChannels)</onclick>
+                            <onclick condition="!VideoPlayer.Content(livetv)">Seek(-10)</onclick>
+                            <onup>8200</onup>
+                        </control>
+                        <include content="OSD_Button_Icon_Overlay" condition="!VideoPlayer.Content(livetv)">
+                            <param name="icon">osd/jump-back.png</param>
+                            <param name="id">6001</param>
+                            <param name="groupid">6101</param>
+                            <param name="itemgap">osd_itemgap</param>
+                        </include>
+                        <include content="OSD_Button_Icon_Overlay" condition="VideoPlayer.Content(livetv)">
+                            <param name="icon">special://skin/extras/icons/list-ol.png</param>
+                            <param name="id">6001</param>
+                            <param name="groupid">6101</param>
+                            <param name="itemgap">osd_itemgap</param>
+                        </include> -->
+
+                        <!-- Button 2 -->
+                        <control type="button" id="6002">
+                            <include>Defs_OSD_Button</include>
+                            <onclick condition="VideoPlayer.Content(livetv)">CancelAlarm(osd_timeout,true)</onclick>
+                            <onclick condition="VideoPlayer.Content(livetv)">Close</onclick>
+                            <onclick condition="VideoPlayer.Content(livetv)">ActivateWindow(TVGuide)</onclick>
+                            <onclick condition="!VideoPlayer.Content(livetv)">Seek(10)</onclick>
+                            <onup>8200</onup>
+                        </control>
+                        <include content="OSD_Button_Icon_Overlay" condition="!VideoPlayer.Content(livetv)">
+                            <param name="icon">osd/jump-forward.png</param>
+                            <param name="id">6002</param>
+                            <param name="groupid">6102</param>
+                            <param name="itemgap">osd_itemgap</param>
+                        </include>
+                        <include content="OSD_Button_Icon_Overlay" condition="VideoPlayer.Content(livetv)">
+                            <param name="icon">special://skin/extras/icons/list.png</param>
+                            <param name="id">6002</param>
+                            <param name="groupid">6102</param>
+                            <param name="itemgap">osd_itemgap</param>
+                        </include>
+
+                        <!-- Button 3 -->
+                        <control type="button" id="6003">
+                            <include>Defs_OSD_Button</include>
+                            <onclick condition="VideoPlayer.Content(livetv)">PVR.ToggleRecordPlayingChannel</onclick>
+                            <onclick condition="!VideoPlayer.Content(livetv)">CancelAlarm(osd_timeout,true)</onclick>
+                            <onclick condition="!VideoPlayer.Content(livetv) + Integer.IsLess(VideoPlayer.PlaylistPosition,VideoPlayer.PlaylistLength)">PlayerControl(Next)</onclick>
+                            <onclick condition="!VideoPlayer.Content(livetv) + !Integer.IsLess(VideoPlayer.PlaylistPosition,VideoPlayer.PlaylistLength)">SetFocus(513)</onclick>
+                            <onclick condition="!VideoPlayer.Content(livetv) + !Integer.IsLess(VideoPlayer.PlaylistPosition,VideoPlayer.PlaylistLength)">Action(Select)</onclick>
+                            <onclick condition="!VideoPlayer.Content(livetv) + !Integer.IsLess(VideoPlayer.PlaylistPosition,VideoPlayer.PlaylistLength)">SetFocus(6003)</onclick>
+                            <onup>8200</onup>
+
+                            <onfocus>SetProperty(OSD_Focus,6003,Home)</onfocus>
+                            <onunfocus>ClearProperty(OSD_Focus,Home)</onunfocus>
+
+                            <enable>PVR.CanRecordPlayingChannel | !VideoPlayer.Content(livetv)</enable>
+                            <label>$VAR[Label_OSD_PVR_Recording]</label>
+                        </control>
+                        <include content="OSD_Button_Icon_Overlay" condition="!VideoPlayer.Content(livetv)">
+                            <param name="icon">special://skin/extras/icons/forward-step.png</param>
+                            <param name="id">6003</param>
+                            <param name="groupid">6103</param>
+                            <param name="itemgap">osd_itemgap</param>
+                        </include>
+                        <include content="OSD_Button_Icon_Overlay" condition="VideoPlayer.Content(livetv)">
+                            <param name="icon">special://skin/extras/icons/record-vinyl.png</param>
+                            <param name="id">6003</param>
+                            <param name="groupid">6103</param>
+                            <param name="itemgap">osd_itemgap</param>
+                            <param name="iconoffset_condition">[PVR.IsRecordingPlayingChannel + PVR.CanRecordPlayingChannel]</param>
+                        </include>
+
+                        <!-- Button 4 -->
+                        <control type="button" id="6004">
+                            <include>Defs_OSD_Button</include>
+                            <onclick>CancelAlarm(osd_timeout,true)</onclick>
+                            <onclick>PlayerControl(Stop)</onclick>
+                            <onup>8200</onup>
+                        </control>
+                        <include content="OSD_Button_Icon_Overlay">
+                            <param name="icon">special://skin/extras/icons/stop.png</param>
+                            <param name="id">6004</param>
+                            <param name="groupid">6104</param>
+                            <param name="itemgap">osd_itemgap</param>
+                        </include>
+                    </control>
+
+                    <!-- Right Side Buttons -->
+                    <control type="grouplist" id="6092">
+                        <centerbottom>80</centerbottom>
+                        <height>120</height>
+                        <right>-20</right>
+                        <orientation>horizontal</orientation>
+                        <itemgap>osd_itemgap</itemgap>
+                        <align>right</align>
+                        <onleft>6004</onleft>
+                        <onright>6001</onright>
+                        <ondown>ActivateWindow($VAR[Action_OSD_Main_OnDown])</ondown>
+
+                        <!-- Button 5 -->
+                        <control type="button" id="6005">
+                            <include>Defs_OSD_Button</include>
+                            <onclick>CancelAlarm(osd_timeout,true)</onclick>
+                            <onclick>Close</onclick>
+                            <onclick condition="!VideoPlayer.Content(livetv)">ActivateWindow(1193)</onclick>
+                            <onclick condition="VideoPlayer.Content(livetv)">runscript(script.wikipedia,wikipedia=$INFO[VideoPlayer.Title])</onclick>
+                        </control>
+                        <include content="OSD_Button_Icon_Overlay">
+                            <param name="icon">special://skin/extras/icons/info2.png</param>
+                            <param name="id">6005</param>
+                            <param name="groupid">6105</param>
+                            <param name="itemgap">osd_itemgap</param>
+                        </include>
+
+                        <!-- Button 6 -->
+                        <control type="button" id="6006">
+                            <include>Defs_OSD_Button</include>
+                            <label>$INFO[VideoPlayer.AudioLanguage,[UPPERCASE],[/UPPERCASE]]</label>
+                            <onclick>CancelAlarm(osd_timeout,true)</onclick>
+                            <onclick>ActivateWindow(osdaudiosettings)</onclick>
+                            <onup>SetFocus(6206)</onup>
+                        </control>
+                        <include content="OSD_Button_Icon_Overlay">
+                            <param name="icon">special://skin/extras/icons/volume.png</param>
+                            <param name="id">6006</param>
+                            <param name="groupid">6106</param>
+                            <param name="itemgap">osd_itemgap</param>
+                            <param name="iconoffset_condition">!String.IsEmpty(VideoPlayer.AudioLanguage)</param>
+                        </include>
+
+                        <!-- Button 7 -->
+                        <control type="button" id="6007">
+                            <include>Defs_OSD_Button</include>
+                            <label>$VAR[Label_OSD_SubtitlesLanguage]</label>
+                            <onclick>CancelAlarm(osd_timeout,true)</onclick>
+                            <onclick>ActivateWindow(osdsubtitlesettings)</onclick>
+                            <onup>SetFocus(6207)</onup>
+                        </control>
+                        <include content="OSD_Button_Icon_Overlay">
+                            <param name="icon">special://skin/extras/icons/quote.png</param>
+                            <param name="id">6007</param>
+                            <param name="groupid">6107</param>
+                            <param name="itemgap">osd_itemgap</param>
+                            <param name="iconoffset_condition">[VideoPlayer.SubtitlesEnabled + !String.IsEmpty(VideoPlayer.SubtitlesLanguage)]</param>
+                        </include>
+
+                        <!-- Button 8 -->
+                        <control type="button" id="6008">
+                            <include>Defs_OSD_Button</include>
+                            <onclick>CancelAlarm(osd_timeout,true)</onclick>
+                            <onclick>ActivateWindow(osdvideosettings)</onclick>
+                            <onup>SetFocus(7800)</onup>
+                        </control>
+                        <include content="OSD_Button_Icon_Overlay">
+                            <param name="icon">special://skin/extras/icons/video.png</param>
+                            <param name="id">6008</param>
+                            <param name="groupid">6108</param>
+                            <param name="itemgap">osd_itemgap</param>
+                        </include>
+                    </control>
+
+                    <!-- Audio Tracks -->
+                    <include content="OSD_Stream_Selector">
+                        <param name="id">6206</param>
+                        <param name="buttonid">6006</param>
+                        <param name="stream_type">audio</param>
+                        <param name="header">$LOCALIZE[292]</param>
+                        <param name="nibpos">300</param>
+                        <param name="method">set_player_audiostream</param>
+                    </include>
+
+                    <!-- Subtitles -->
+                    <include content="OSD_Stream_Selector">
+                        <param name="id">6207</param>
+                        <param name="buttonid">6007</param>
+                        <param name="stream_type">subtitle</param>
+                        <param name="header">$LOCALIZE[287]</param>
+                        <param name="nibpos">180</param>
+                        <param name="width">640</param>
+                        <param name="method">set_player_subtitle</param>
+                        <param name="enabled">VideoPlayer.SubtitlesEnabled</param>
+                        <param name="toggle">true</param>
+                    </include>
+
+                    <!-- Settings -->
+                    <control type="group">
+                        <include content="Dialog_Background_Blur">
+                        </include>
+                        <visible>!Window.IsVisible(DialogSlider.xml)</visible>
+                        <visible>!Window.IsVisible(videobookmarks)</visible>
+                        <visible>!Window.IsVisible(pvrchannelguide)</visible>
+                        <visible>!Window.IsVisible(DialogSettings.xml)</visible>
+                        <visible>Control.HasFocus(6008) | ControlGroup(6208).HasFocus() | Control.HasFocus(7800)</visible>
+                        <include>Animation_SlideIn_Dialog</include>
+                        <include>OSD_Stream_Selector_Divider</include>
+                        <right>-40</right>
+                        <bottom>220</bottom>
+                        <width>520</width>
+                        <height>480</height>
+                        <include content="Object_MenuHeader">
+                            <param name="label">$LOCALIZE[157]</param>
+                        </include>
+                        <control type="group">
+                            <top>120</top>
+                            <bottom>40</bottom>
+                            <control type="grouplist" id="6208">
+                                <top>20</top>
+                                <bottom>20</bottom>
+                                <left>20</left>
+                                <right>20</right>
+                                <ondown>7800</ondown>
+                                <onleft>6008</onleft>
+                                <onright>6008</onright>
+                                <onup>noop</onup>
+                                <orientation>vertical</orientation>
+                                <include content="Settings_Button">
+                                    <param name="id">6805</param>
+                                    <param name="control">button</param>
+                                    <label />
+                                    <font />
+                                    <onclick>Action(PlayerProcessInfo)</onclick>
+                                </include>
+                                <control type="group" id="6895">
+                                    <height>80</height>
+                                    <top>-80</top>
+                                    <left>-20</left>
+                                    <visible>Control.IsEnabled(6805) + Control.IsVisible(6805)</visible>
+                                    <control type="group">
+                                        <visible>!Control.HasFocus(6805)</visible>
+                                        <include content="OSD_Codecs">
+                                            <param name="textcolor_top">dialog_fg_90</param>
+                                            <param name="textcolor_sub">dialog_fg_70</param>
+                                        </include>
+                                    </control>
+                                    <control type="group">
+                                        <visible>Control.HasFocus(6805)</visible>
+                                        <include content="OSD_Codecs">
+                                            <param name="textcolor_top">$VAR[ColorSelected]</param>
+                                            <param name="textcolor_sub">$VAR[ColorSelected]</param>
+                                        </include>
+                                    </control>
+                                </control>
+                            </control>
+                            <control type="group">
+                                <bottom>20</bottom>
+                                <height>160</height>
+                                <left>60</left>
+                                <right>60</right>
+                                <control type="image">
+                                    <left>-20</left>
+                                    <right>-20</right>
+                                    <centertop>-20</centertop>
+                                    <height>1</height>
+                                    <texture colordiffuse="main_fg_12">common/white.png</texture>
+                                </control>
+                                <include content="Dialog_Menu_Button">
+                                    <left>-40</left>
+                                    <right>-40</right>
+                                    <param name="id">7800</param>
+                                    <param name="groupid">7890</param>
+                                    <param name="control">button</param>
+                                    <param name="icon" />
+                                    <onup>6805</onup>
+                                    <ondown>6008</ondown>
+                                    <height>160</height>
+                                    <onleft condition="Player.Paused">PlayerControl(Play)</onleft>
+                                    <onright condition="Player.Paused">PlayerControl(Play)</onright>
+                                    <onleft condition="Player.TempoEnabled">PlayerControl(TempoDown)</onleft>
+                                    <onright condition="Player.TempoEnabled">PlayerControl(TempoUp)</onright>
+                                    <onright condition="!Player.TempoEnabled + !Player.Forwarding32x">PlayerControl(Forward)</onright>
+                                    <onleft condition="!Player.TempoEnabled + !Player.Rewinding32x">PlayerControl(Rewind)</onleft>
+                                </include>
+                                <control type="group">
+                                    <visible>!Control.HasFocus(7800)</visible>
+                                    <include content="OSD_TempoControl">
+                                        <param name="istempo">Player.TempoEnabled</param>
+                                    </include>
+                                </control>
+                                <control type="group">
+                                    <visible>Control.HasFocus(7800)</visible>
+                                    <include content="OSD_TempoControl">
+                                        <param name="istempo">Player.TempoEnabled</param>
+                                        <param name="selected">true</param>
+                                    </include>
+                                </control>
+                            </control>
+                        </control>
+                    </control>
+                </control>
+
+            </control>
+
+            <include content="OSD_CastInfo_HintText">
+                <param name="label">$VAR[Label_OSD_HintText]</param>
+                <param name="visible">!Window.IsActive(DialogSlider.xml) + !Window.IsActive(pvrosdchannels) + ![Window.IsActive(1141) + !VideoPlayer.Content(livetv) + Integer.IsEqual(Window(1141).Property(TMDbHelper.WidgetContainer),6539)]</param>
+            </include>
+
+            <control type="group">
+                <left>view_osd_l</left>
+                <right>view_osd_r</right>
+                <height>112</height>
+                <centerbottom>180</centerbottom>
+                <control type="group">
+                    <left>-56</left>
+                    <right>-56</right>
+                    <control type="progress">
+                        <texturebg colordiffuse="00ffffff">progress/slider_bg.png</texturebg>
+                        <righttexture colordiffuse="panel_fg_100">progress/slider_nib.png</righttexture>
+                        <lefttexture />
+                        <midtexture />
+                        <info>Player.Progress</info>
+                        <visible>Control.HasFocus(8200)</visible>
+                        <visible>!Pvr.IsPlayingTv</visible>
+                    </control>
+                    <control type="progress">
+                        <texturebg colordiffuse="00ffffff">progress/slider_bg.png</texturebg>
+                        <righttexture colordiffuse="panel_fg_100">progress/slider_nib.png</righttexture>
+                        <lefttexture />
+                        <midtexture />
+                        <info>PVR.EpgEventProgress</info>
+                        <visible>Control.HasFocus(8200)</visible>
+                        <visible>Pvr.IsPlayingTv</visible>
+                    </control>
+                    <control type="slider" id="8200">
+                        <info>Player.Progress</info>
+                        <action>seek</action>
+                        <texturesliderbar />
+                        <textureslidernib />
+                        <textureslidernibfocus />
+                        <ondown>6091</ondown>
+                    </control>
+                </control>
+            </control>
+
+            <control type="list" id="513">
+                <left>-1920</left>
+                <width>1</width>
+                <height>1</height>
+                <itemlayout width="1" height="1" />
+                <focusedlayout width="1" height="1" />
+                <content target="videos">$VAR[Path_OSD_NextRecommendation]</content>
+            </control>
+
+            <control type="group">
+                <visible>Integer.IsEqual(Window(Home).Property(OSD_Focus),6003) + !Window.IsVisible(pvrchannelguide) + !Window.IsVisible(pvrosdchannels) + !Window.IsVisible(videobookmarks) + !Window.IsVisible(1141) + !Window.IsVisible(1140)</visible>
+
+                <include>Animation_OSD_Dialog_VisibleChange</include>
+
+                <include content="OSD_UpNext">
+                    <param name="is_addon">false</param>
+                    <param name="icon">$VAR[Image_Landscape_C513]</param>
+                    <param name="label">$LOCALIZE[31196]</param>
+                    <param name="secondary_label"> </param>
+                    <param name="tvshowtitle">Container(513).ListItem.TVShowTitle</param>
+                    <param name="title">Container(513).ListItem.Title</param>
+                    <param name="seasonepisode_label">$VAR[Label_Plot_Episode_Number_C513]</param>
+                    <param name="year">Container(513).ListItem.Year</param>
+                    <param name="rating">Container(513).ListItem.Rating</param>
+                </include>
+            </control>
+        </control>
+    </controls>
+</window>

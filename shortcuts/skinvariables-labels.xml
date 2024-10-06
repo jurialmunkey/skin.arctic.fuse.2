@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<includes>
+    <!-- Labels -->
+    <variable name="Label_Title" containers="301,503,513,523,553,7000,11,99950" null_id="True">
+        <value condition="!String.IsEmpty({listitem}.TvShowTitle)">$INFO[{listitem}.TvShowTitle]</value>
+        <value condition="!String.IsEmpty({listitem}.AlbumArtist) + [String.IsEqual({listitem}.DBType,song) | String.IsEqual({listitem}.DBType,album) | String.IsEqual({listitem}.DBType,musicvideo)]">$INFO[{listitem}.AlbumArtist]</value>
+        <value condition="!String.IsEmpty({listitem}.Artist) + [String.IsEqual({listitem}.DBType,song) | String.IsEqual({listitem}.DBType,album) | String.IsEqual({listitem}.DBType,artist) | String.IsEqual({listitem}.DBType,musicvideo)]">$INFO[{listitem}.Artist]</value>
+        <value condition="!String.IsEmpty({listitem}.Title)">$INFO[{listitem}.Title]</value>
+        <value condition="!String.IsEmpty({listitem}.ChannelName)">$INFO[{listitem}.ChannelName]</value>
+        <value condition="!String.IsEmpty({listitem}.ChannelNumberLabel)">$INFO[{listitem}.ChannelNumberLabel]</value>
+        <value condition="!String.IsEmpty(Window.Property(TMDbHelper.WidgetContainer))">$VAR[Label_WidgetTitle]</value>
+        <value condition="!String.IsEmpty({listitem}.Label)">$INFO[{listitem}.Label]</value>
+    </variable>
+
+    <variable name="Label_Plot_Episode_Type" containers="301,503,513,523,553,7000,11" null_id="True">
+        <value condition="String.IsEqual({listitem}.Property(episode_type),series_premiere)">$LOCALIZE[31210]</value>
+        <value condition="String.IsEqual({listitem}.Property(episode_type),season_premiere)">$LOCALIZE[31211]</value>
+        <value condition="String.IsEqual({listitem}.Property(episode_type),mid_season_premiere)">$LOCALIZE[31212]</value>
+        <value condition="String.IsEqual({listitem}.Property(episode_type),series_finale)">$LOCALIZE[31214]</value>
+        <value condition="String.IsEqual({listitem}.Property(episode_type),season_finale)">$LOCALIZE[31215]</value>
+        <value condition="String.IsEqual({listitem}.Property(episode_type),mid_season_finale)">$LOCALIZE[31218]</value>
+        <value>$VAR[Label_Plot_Episode_Type_TMDBHelper]</value>
+    </variable>
+
+    <variable name="Label_Plot_Episode_Number" containers="301,503,513,523,553,7000,11,99950" null_id="True">
+        <value condition="!String.IsEqual({listitem}.DBType,episode) | String.IsEmpty({listitem}.Season) | String.IsEmpty({listitem}.Episode)" />
+        <value condition="Skin.HasSetting(Info.UseS1E1StyleNumbers)">$INFO[{listitem}.Season,S,]$INFO[{listitem}.Episode,E,]</value>
+        <value condition="!Integer.IsLess({listitem}.Episode,10)">$INFO[{listitem}.Season]$INFO[{listitem}.Episode,x,]</value>
+        <value>$INFO[{listitem}.Season]$INFO[{listitem}.Episode,x0,]</value>
+    </variable>
+
+    <variable name="Label_Plot" containers="301,503,513,523,553,7000,11,99950" null_id="True">
+        <value condition="String.IsEqual({listitem}.DBType,episode) + !String.IsEmpty({listitem}.Property(base_plot))">$VAR[Label_Plot_Episode_Type{cid}{lid},,: ]$VAR[Label_Plot_Episode_Number{cid}{lid},,. ]$INFO[{listitem}.Title]$INFO[{listitem}.Property(base_plot), ~ ,]</value>
+        <value condition="String.IsEqual({listitem}.DBType,episode) + !String.IsEmpty({listitem}.Plot)">$VAR[Label_Plot_Episode_Type{cid}{lid},,: ]$VAR[Label_Plot_Episode_Number{cid}{lid},,. ]$INFO[{listitem}.Title]$INFO[{listitem}.Plot, ~ ,]</value>
+        <value condition="!String.IsEmpty({listitem}.Property(base_plot))">$INFO[{listitem}.Property(base_plot)]</value>
+        <value condition="!String.IsEmpty({listitem}.Plot)">$INFO[{listitem}.Plot]</value>
+        <value condition="!String.IsEmpty({listitem}.Property(Album_Description))">$INFO[{listitem}.Property(Album_Description)]</value>
+        <value condition="!String.IsEmpty({listitem}.Property(Artist_Description))">$INFO[{listitem}.Property(Artist_Description)]</value>
+        <value condition="!String.IsEmpty({listitem}.AddonDescription)">$INFO[{listitem}.AddonDescription]</value>
+        <value condition="!String.IsEmpty({listitem}.Property(biography))">$INFO[{listitem}.Property(biography)]</value>
+    </variable>
+
+    <variable name="Label_Landscape_Plot" containers="51,513">
+        <value condition="!String.IsEmpty({listitem}.Property(Album_Description))">$INFO[{listitem}.Property(Album_Description)]</value>
+        <value condition="!String.IsEmpty({listitem}.Property(Artist_Description))">$INFO[{listitem}.Property(Artist_Description)]</value>
+        <value condition="!String.IsEmpty({listitem}.AddonDescription)">$INFO[{listitem}.AddonDescription]</value>
+        <value condition="!String.IsEmpty({listitem}.Plot)">$INFO[{listitem}.Plot]</value>
+        <value condition="!String.IsEmpty({listitem}.Property(biography))">$INFO[{listitem}.Property(biography)]</value>
+    </variable>
+
+    <variable name="Label_Landscape_Lower" containers="50,503,51,513">
+        <value condition="!String.IsEmpty({listitem}.Property(job))">$INFO[{listitem}.Property(job)]$INFO[{listitem}.Property(episodes), (,)]</value>
+        <value condition="!String.IsEmpty({listitem}.Property(role))">$INFO[{listitem}.Property(role)]$INFO[{listitem}.Property(episodes), (,)]</value>
+        <value condition="!String.IsEmpty({listitem}.Property(character))">$INFO[{listitem}.Property(character)]$INFO[{listitem}.Property(episodes), (,)]</value>
+        <value condition="!String.IsEmpty({listitem}.Property(department))">$INFO[{listitem}.Property(department)]$INFO[{listitem}.Property(episodes), (,)]</value>
+        <value condition="!String.IsEmpty({listitem}.ChannelNumberLabel) + !String.IsEmpty({listitem}.Title)">$INFO[{listitem}.ChannelName]</value>
+        <value condition="!String.IsEmpty({listitem}.TvShowTitle) + !String.IsEqual({listitem}.Title,{listitem}.TVShowTitle) + !String.IsEqual({listitem}.DBType,tvshow)">$INFO[{listitem}.TvShowTitle]$VAR[Label_Plot_Episode_Number{cid}{lid}, • ,]</value>
+        <value condition="!String.IsEmpty({listitem}.AlbumArtist) + !String.IsEqual({listitem}.Title,{listitem}.AlbumArtist) + !String.IsEqual({listitem}.DBType,artist)">$INFO[{listitem}.AlbumArtist]</value>
+        <value condition="!String.IsEmpty({listitem}.Artist) + !String.IsEqual({listitem}.Title,{listitem}.Artist) + !String.IsEqual({listitem}.DBType,artist)">$INFO[{listitem}.Artist]</value>
+        <value condition="String.StartsWith({listitem}.FolderPath,videodb://movies/videoversions/)">$INFO[{listitem}.VideoVersionName]</value>
+        <value condition="!String.IsEmpty({listitem}.Genre)">$INFO[{listitem}.Genre]</value>
+        <value condition="!String.IsEmpty({listitem}.Premiered)">$INFO[{listitem}.Premiered]</value>
+        <value condition="!String.IsEmpty({listitem}.PictureResolution)">$INFO[{listitem}.PictureResolution]</value>
+        <value condition="!String.IsEmpty({listitem}.Label2)">$INFO[{listitem}.Label2]</value>
+        <value condition="!String.IsEmpty({listitem}.Date)">$INFO[{listitem}.Date]</value>
+        <value condition="!String.IsEmpty({listitem}.AddonType)">$INFO[{listitem}.AddonType]</value>
+        <value condition="!String.IsEmpty({listitem}.AddonVersion)">$INFO[{listitem}.AddonVersion]</value>
+        <value condition="!String.IsEmpty({listitem}.DBType)">$INFO[{listitem}.DBType,[CAPITALIZE],[/CAPITALIZE]]</value>
+        <value condition="!String.IsEmpty({listitem}.Property(widget))">$INFO[{listitem}.Property(widget)]</value>
+        <value condition="{listitem}.IsFolder">$LOCALIZE[19076]</value>
+        <value>$LOCALIZE[31025]</value>
+    </variable>
+
+</includes>

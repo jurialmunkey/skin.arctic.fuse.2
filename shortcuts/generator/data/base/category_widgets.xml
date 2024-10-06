@@ -1,0 +1,106 @@
+<contents>
+    <template>generator/data/parts/basic_include.xmltemplate</template>
+    <value name="comments">Standard Widgets</value>
+    <value name="includes_name">skinvariables-{item}-widgets</value>
+    <value name="includes_part">
+        <template>generator/data/parts/basic_content.xmltemplate</template>
+        <value name="comments">Widget Group</value>
+        <value name="includes_name">Hub_Menu_Group</value>
+        <value name="includes_part">
+            <template>generator/data/parts/widgets_grouplist.xmltemplate</template>
+            <rules name="grouplist_refocus">
+                <rule>
+                    <condition>!Skin.HasSetting(Hub.{window_id}.DisableSubmenu)</condition>
+                    <value>$VAR[Action_Hubs_Complex_SetFocus]</value>
+                </rule>
+                <rule>
+                    <condition>true</condition>
+                    <value>$VAR[Action_Hubs_Classic_SetFocus]</value>
+                </rule>
+            </rules>
+            <value name="grouplist_widgets_only">Skin.HasSetting(Hub.{window_id}.DisableSubmenu)</value>
+            <value name="grouplist_visible">True</value>
+            <value name="grouplist_furniture_widget_id">499</value>
+            <value name="grouplist_id">400</value>
+            <value name="grouplist_widgets_bump_id">401</value>
+            <value name="all_standard_widgets">
+                <condition>!Skin.HasSetting(Hub.{window_id}.DisableSubmenu)</condition>
+                <items menu="{item}">
+                    <item>
+                        <template>generator/data/parts/basic_template.xmltemplate</template>
+                        <value name="comments">Adaptive Widgets for Category {item_menu} {item_x} {item_label}</value>
+                        <value name="grouplist_item_x">{item_x}</value>
+                        <value name="widget_category_visible">String.IsEqual(Container(300).ListItem.Property(guid),{item_guid})</value>
+                        <value name="includes_part">
+                            <template>generator/data/parts/widgets_row.xmltemplate</template>
+                            <datafile>generator/data/setup/widgets_row.xml</datafile>
+                            <datafile>generator/data/setup/widgets_adaptive.xml</datafile>
+                            <condition>{item_use_as_widget}==True</condition>
+                            <enumitem name="enum_x">widget_{item_menu}_{item_x}</enumitem>
+                        </value>
+                        <condition>{item_disabled}!=True</condition>
+                    </item>
+                    <item>
+                        <condition>{item_disabled}!=True</condition>
+                        <template>generator/data/parts/basic_template.xmltemplate</template>
+                        <value name="comments">Standard Widgets for Category {item_menu} {item_x} {item_label}</value>
+                        <value name="grouplist_item_x">{item_x}</value>
+                        <value name="widget_category_visible">String.IsEqual(Container(300).ListItem.Property(guid),{item_guid})</value>
+                        <value name="includes_part">
+                            <condition>{item_use_as_widget}!=True</condition>
+                            <items menu="{item_menu}" item="{item_x}" mode="widgets">
+                                <item>
+                                    <template>generator/data/parts/widgets_row.xmltemplate</template>
+                                    <datafile>generator/data/setup/widgets_row.xml</datafile>
+                                    <condition>{item_path}!=</condition>
+                                    <condition>{item_disabled}!=True</condition>
+                                    <enumitem name="enum_x">widget_{parent_item_menu}_{parent_item_x}</enumitem>
+                                </item>
+                            </items>
+                        </value>
+                    </item>
+                </items>
+            </value>
+
+            <value name="all_constant_widgets">
+                <condition>!Skin.HasSetting(Hub.{window_id}.DisableSubmenu)</condition>
+                <value name="comments">Global Widgets for {item}</value>
+                <template>generator/data/parts/basic_template.xmltemplate</template>
+                <value name="widget_category_visible">String.IsEmpty(Container(300).ListItem.Property(use_as_widget))</value>
+                <value name="grouplist_item_x">200</value>
+                <value name="includes_part">
+                    <items menu="{item}-globalwidgets">
+                        <item>
+                            <template>generator/data/parts/widgets_row.xmltemplate</template>
+                            <datafile>generator/data/setup/widgets_row.xml</datafile>
+                            <condition>{item_path}!=</condition>
+                            <condition>{item_disabled}!=True</condition>
+                            <enumitem name="enum_x">widget_{parent_item}_globalwidgets</enumitem>
+                        </item>
+                    </items>
+                </value>
+            </value>
+
+            <value name="all_hubsmenu_widgets">
+                <condition>Skin.HasSetting(Hub.{window_id}.DisableSubmenu)</condition>
+                <value name="comments">Classic Widgets for {item}</value>
+                <template>generator/data/parts/basic_template.xmltemplate</template>
+                <value name="widget_category_visible">True</value>
+                <value name="grouplist_item_x">100</value>
+                <value name="includes_part">
+                    <items menu="{item}-widgetsonly">
+                        <item>
+                            <template>generator/data/parts/widgets_row.xmltemplate</template>
+                            <datafile>generator/data/setup/widgets_row.xml</datafile>
+                            <condition>{item_path}!=</condition>
+                            <condition>{item_disabled}!=True</condition>
+                            <enumitem name="enum_x">widget_{parent_item}_widgetsonly</enumitem>
+                        </item>
+                    </items>
+                </value>
+            </value>
+
+        </value>
+    </value>
+
+</contents>

@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<window>
+    <defaultcontrol always="true">6000</defaultcontrol>
+    <views>50</views>
+    <menucontrol>30000</menucontrol>
+    <include>Action_Blur_Onload</include>
+    <onload condition="String.IsEmpty(Window(Home).Property(SettingsChanger.Switch))">SetFocus(6000,0,absolute)</onload>
+    <onload condition="String.IsEmpty(Window(Home).Property(SettingsChanger.Switch)) + String.IsEqual(Container.FolderPath,addons://recently_updated/)">SetFocus(6000,1,absolute)</onload>
+    <onload condition="String.IsEmpty(Window(Home).Property(SettingsChanger.Switch)) + String.IsEqual(Container.FolderPath,addons://dependencies/) + Integer.IsEqual(Container(6301).NumItems,0)">SetFocus(6000,2,absolute)</onload>
+    <onload condition="String.IsEmpty(Window(Home).Property(SettingsChanger.Switch)) + String.IsEqual(Container.FolderPath,addons://dependencies/) + !Integer.IsEqual(Container(6301).NumItems,0)">SetFocus(6000,3,absolute)</onload>
+    <onload condition="String.IsEmpty(Window(Home).Property(SettingsChanger.Switch)) + String.IsEqual(Container.FolderPath,addons://running/) + Integer.IsEqual(Container(6301).NumItems,0)">SetFocus(6000,3,absolute)</onload>
+    <onload condition="String.IsEmpty(Window(Home).Property(SettingsChanger.Switch)) + String.IsEqual(Container.FolderPath,addons://running/) + !Integer.IsEqual(Container(6301).NumItems,0)">SetFocus(6000,4,absolute)</onload>
+    <onload condition="String.IsEmpty(Window(Home).Property(SettingsChanger.Switch)) + [String.IsEqual(Container.FolderPath,addons://recently_updated/) | String.IsEqual(Container.FolderPath,addons://dependencies/) | String.IsEqual(Container.FolderPath,addons://running/)]">SetFocus(50,0,absolute)</onload>
+    <onload condition="Integer.IsEqual(Window(Home).Property(SettingsChanger.Switch),50)">SetFocus(6000,0,absolute)</onload>
+    <onload condition="!String.IsEmpty(Window(Home).Property(SettingsChanger.Switch))">SetFocus($INFO[Window(Home).Property(SettingsChanger.Switch)])</onload>
+    <onload>ClearProperty(SettingsChanger.Switch,Home)</onload>
+    <include>Action_BlurImage_SimpleBackground_Onload</include>
+
+    <controls>
+        <include>Background</include>
+
+        <include content="Settings_Dialog">
+
+            <include content="Settings_Main_Group">
+                <include content="Settings_Left_Group">
+
+                    <include content="List_AddonCategories">
+                        <param name="id">6000</param>
+                        <param name="altfocus">Control.HasFocus(50)</param>
+                        <param name="width">settings_category_w</param>
+                        <param name="control">fixedlist</param>
+                        <param name="textcolor">main_fg</param>
+                        <focusposition>4</focusposition>
+                        <movement>4</movement>
+                        <onback>Action(PreviousMenu)</onback>
+                        <onleft>SetFocus($VAR[Action_SettingsSwitcher_FocusID])</onleft>
+                        <onright condition="String.IsEmpty(Container(6000).ListItem.Property(folderpath))">Container.Update($INFO[Container(6000).ListItem.FolderPath],replace)</onright>
+                        <onright condition="!String.IsEmpty(Container(6000).ListItem.Property(folderpath))">Container.Update($INFO[Container(6000).ListItem.Property(folderpath)],replace)</onright>
+                        <onright>50</onright>
+                        <left>40</left>
+                        <right>-100</right>
+                        <top>180</top>
+                        <bottom>180</bottom>
+                        <content>
+                            <item>
+                                <label>$LOCALIZE[24998]</label>
+                                <property name="folderpath">addons://user/</property>
+                                <icon>DefaultAddonsInstalled.png</icon>
+                            </item>
+                            <item>
+                                <label>$LOCALIZE[24004]</label>
+                                <property name="folderpath">addons://recently_updated/</property>
+                                <icon>DefaultAddonsRecentlyUpdated.png</icon>
+                            </item>
+                            <item>
+                                <label>$LOCALIZE[24043]$INFO[System.AddonUpdateCount, (,)]</label>
+                                <property name="folderpath">addons://outdated/</property>
+                                <icon>DefaultAddonsUpdates.png</icon>
+                                <visible>!Integer.IsEqual(Container(6301).NumItems,0)</visible>
+                            </item>
+                            <item>
+                                <label>$LOCALIZE[24996]</label>
+                                <property name="folderpath">addons://dependencies/</property>
+                                <icon>DefaultAddonService.png</icon>
+                            </item>
+                            <item>
+                                <label>$LOCALIZE[23054] [LOWERCASE]$LOCALIZE[24001][/LOWERCASE]</label>
+                                <property name="folderpath">addons://running/</property>
+                                <icon>DefaultScript.png</icon>
+                            </item>
+                            <item>
+                                <label>$LOCALIZE[31375]</label>
+                                <property name="folderpath">addons://user/</property>
+                                <icon>DefaultAddonsZip.png</icon>
+                                <onclick>InstallFromZip</onclick>
+                            </item>
+                            <item>
+                                <label>$LOCALIZE[137]</label>
+                                <property name="folderpath">addons://user/</property>
+                                <icon>DefaultAddonsSearch.png</icon>
+                                <onclick>SetFocus(50)</onclick>
+                                <onclick>Container.Update(addons://search/,replace)</onclick>
+                            </item>
+                        </content>
+                        <content sortby="label">addons://repos/</content>
+                    </include>
+                </include>
+                <include content="Settings_Right_Group">
+
+                    <include content="List_DialogSelect">
+                        <param name="detailed">True</param>
+                        <param name="item_height">120</param>
+                        <param name="control">panel</param>
+                        <param name="id">50</param>
+                        <param name="item_w">view_addonbrowser_item_w</param>
+                        <param name="itemlayout_w">view_addonbrowser_itemlayout_w</param>
+                        <param name="variation">true</param>
+                        <param name="icon">$VAR[Image_AddonStatus]</param>
+                        <param name="textcolor">main_fg</param>
+                        <onback condition="String.IsEqual(Container.FolderPath,Container(6000).ListItem.FolderPath) | String.IsEqual(Container.FolderPath,addons://user/) | String.IsEqual(Container.FolderPath,addons://)">6000</onback>
+                        <onleft>6000</onleft>
+                        <onright>60</onright>
+                        
+                        <pagecontrol>60</pagecontrol>
+                        <top>20</top>
+                        <left>20</left>
+                        <right>0</right>
+                        <bottom>20</bottom>
+                    </include>
+
+
+
+                    <control type="scrollbar" id="60">
+                        <centerright>-20</centerright>
+                        <bottom>20</bottom>
+                        <top>20</top>
+                        <width>scrollbar_w</width>
+                        <orientation>vertical</orientation>
+                        <texturesliderbackground colordiffuse="main_fg_12" border="4">scrollbar/scrollv_line.png</texturesliderbackground>
+                        <texturesliderbar colordiffuse="main_logo" border="4">scrollbar/scrollv.png</texturesliderbar>
+                        <include>Texture_Scrollbar_V</include>
+                        <onleft>50</onleft>
+                    </control>
+                </include>
+                <include content="Settings_InfoText">
+                    <param name="id">9091</param>
+                    <param name="dialog">false</param>
+                    <param name="left">500</param>
+                    <param name="bottom">80</param>
+                </include>
+            </include>
+
+        </include>
+
+        <control type="list" id="6301">
+            <width>1</width>
+            <height>1</height>
+            <left>-1000</left>
+            <itemlayout width="1" height="1" />
+            <focusedlayout width="1" height="1" />
+            <content>addons://outdated/</content>
+        </control>
+
+    </controls>
+
+</window>

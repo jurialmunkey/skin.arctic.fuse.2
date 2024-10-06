@@ -1,0 +1,218 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<window type="dialog">
+    <menucontrol>9000</menucontrol>
+    <defaultcontrol>9000</defaultcontrol>
+
+    <controls>
+        <include content="Object_Hidden_List">
+            <param name="id">50</param>
+            <orientation>vertical</orientation>
+            <onleft>9000</onleft>
+            <onback>9000</onback>
+            <onright>61</onright>
+        </include>
+
+        <control type="group">
+            <include>Dimension_DialogFullMenu</include>
+            <include>Animation_Right_Delay</include>
+            <include content="Dialog_Dim_Side">
+                <param name="slide_condition">True</param>
+            </include>
+
+            <!-- Bottom Layer -->
+            <include content="Dialog_Background_Side">
+                <param name="slide_condition">True</param>
+                <param name="dialog_size">Dimension_DialogFullMenu</param>
+                <!-- Side Buttons -->
+                <control type="group">
+                    <include>Dimension_Dialog_Body</include>
+                    <control type="grouplist" id="9000">
+                        <include>Dialog_Side_Grouplist_Def</include>
+                        <onleft>Close</onleft>
+                        <onright>50</onright>
+                        <include>Items_DialogAddonInfo_MenuBar</include>
+                    </control>
+                </control>
+            </include>
+
+            <include content="Dialog_Foreground_Side">
+                <param name="dialog_size">Dimension_DialogFullMenu</param>
+                <param name="topline">true</param>
+                <param name="subline">true</param>
+                <param name="lines_right">440</param>
+
+                <!-- Header -->
+                <include content="Dialog_Head">
+                    <param name="label">$INFO[ListItem.Label]</param>
+                </include>
+                <include>Dialog_Head_CloseButton</include>
+
+                <!-- Content -->
+                <control type="group">
+                    <include>Dimension_Dialog_Body</include>
+                    <control type="group">
+                        <include>Dimension_Dialog_Body_Group</include>
+                        <include content="Dialog_Outline_InnerBox">
+                            <width>400</width>
+                            <right>20</right>
+                            <top>-20</top>
+                            <bottom>-20</bottom>
+                            <control type="grouplist">
+                                <orientation>vertical</orientation>
+                                <itemgap>40</itemgap>
+                                <control type="group">
+                                    <height>0</height>
+                                </control>
+                                <include content="Dialog_Outline_Box">
+                                    <width>320</width>
+                                    <height>320</height>
+                                    <centerleft>50%</centerleft>
+                                    <control type="image">
+                                        <texture background="true" diffuse="diffuse/square_w320_h320.png">$INFO[ListItem.Icon]</texture>
+                                    </control>
+                                </include>
+                                <include content="Dialog_Outline_Box">
+                                    <height>180</height>
+                                    <width>320</width>
+                                    <centerleft>50%</centerleft>
+                                    <control type="image">
+                                        <width>128</width>
+                                        <height>128</height>
+                                        <centertop>50%</centertop>
+                                        <centerleft>50%</centerleft>
+                                        <texture colordiffuse="main_fg_90">special://skin/extras/icons/image.png</texture>
+                                    </control>
+                                    <control type="image">
+                                        <aspectratio scalediffuse="false">scale</aspectratio>
+                                        <texture background="true" diffuse="diffuse/landscape_w320_h180.png">$INFO[ListItem.Art(fanart)]</texture>
+                                    </control>
+                                </include>
+                                <include content="Dialog_Outline_Box">
+                                    <height>180</height>
+                                    <width>320</width>
+                                    <centerleft>50%</centerleft>
+                                    <control type="image">
+                                        <width>128</width>
+                                        <height>128</height>
+                                        <centertop>50%</centertop>
+                                        <centerleft>50%</centerleft>
+                                        <texture colordiffuse="main_fg_90">special://skin/extras/icons/image.png</texture>
+                                        <visible>String.IsEmpty(Container(50).ListItem.Icon)</visible>
+                                    </control>
+                                    <control type="image">
+                                        <aspectratio scalediffuse="false">scale</aspectratio>
+                                        <texture background="true" diffuse="diffuse/landscape_w320_h180.png">$INFO[Container(50).ListItem.Icon]</texture>
+                                    </control>
+                                    <include content="Object_SelectBox">
+                                        <param name="indicator">false</param>
+                                        <param name="focusbounce">true</param>
+                                        <visible>Control.HasFocus(50)</visible>
+                                    </include>
+                                </include>
+                            </control>
+                        </include>
+
+                        <control type="grouplist">
+                            <top>15</top>
+                            <bottom>20</bottom>
+                            <right>460</right>
+                            <left>20</left>
+                            <orientation>vertical</orientation>
+                            <!-- <pagecontrol>61</pagecontrol> -->
+                            <control type="label">
+                                <font>font_midi_bold</font>
+                                <height>60</height>
+                                <textcolor>main_fg_90</textcolor>
+                                <label>$LOCALIZE[20037]</label>
+                            </control>
+                            <control type="label">
+                                <font>font_midi_plot</font>
+                                <height>60</height>
+                                <label fallback="19055">$INFO[ListItem.AddonSummary]</label>
+                            </control>
+
+                            <control type="group">
+                                <height>60</height>
+                                <control type="image">
+                                    <left>8</left>
+                                    <height>48</height>
+                                    <width>48</width>
+                                    <texture colordiffuse="dialog_fg_90">special://skin/extras/icons/id-card.png</texture>
+                                    <centertop>50%</centertop>
+                                </control>
+                                <control type="label">
+                                    <left>60</left>
+                                    <font>font_midi</font>
+                                    <label>$INFO[ListItem.AddonCreator]</label>
+                                </control>
+                            </control>
+
+                            <control type="group">
+                                <height>60</height>
+                                <control type="image">
+                                    <left>8</left>
+                                    <height>48</height>
+                                    <width>48</width>
+                                    <texture colordiffuse="dialog_fg_90">special://skin/extras/icons/tag.png</texture>
+                                    <centertop>50%</centertop>
+                                </control>
+                                <control type="label">
+                                    <left>60</left>
+                                    <font>font_midi</font>
+                                    <label>$INFO[ListItem.AddonType]</label>
+                                </control>
+                            </control>
+
+                            <control type="group">
+                                <height>60</height>
+                                <control type="image">
+                                    <left>8</left>
+                                    <height>48</height>
+                                    <width>48</width>
+                                    <texture colordiffuse="dialog_fg_90">special://skin/extras/icons/code-branch.png</texture>
+                                    <centertop>50%</centertop>
+                                </control>
+                                <control type="label">
+                                    <left>60</left>
+                                    <font>font_midi</font>
+                                    <label>$INFO[ListItem.AddonVersion,v,]</label>
+                                </control>
+                            </control>
+
+                            <control type="group">
+                                <height>60</height>
+                                <control type="image">
+                                    <left>8</left>
+                                    <height>48</height>
+                                    <width>48</width>
+                                    <texture colordiffuse="dialog_fg_90">special://skin/extras/icons/clock-rotate-left.png</texture>
+                                    <centertop>50%</centertop>
+                                </control>
+                                <control type="label">
+                                    <left>60</left>
+                                    <font>font_midi</font>
+                                    <label>$VAR[Label_AddonInfo_LastUpdated]</label>
+                                </control>
+                            </control>
+
+                            <control type="textbox">
+                                <top>60</top>
+                                <font>font_midi_plot</font>
+                                <height>360</height>
+                                <autoscroll>false</autoscroll>
+                                <pagecontrol>61</pagecontrol>
+                                <label fallback="19055">$INFO[ListItem.AddonDescription,[B][COLOR=dialog_fg_90]$LOCALIZE[21821][/B][/COLOR][CR],[CR][CR]]$INFO[ListItem.AddonDisclaimer,[B][COLOR=dialog_fg_90]$LOCALIZE[24052][/B][/COLOR][CR],[CR][CR]]$INFO[ListItem.AddonNews,[B][COLOR=dialog_fg_90]$LOCALIZE[29916][/B][/COLOR][CR],]</label>
+                            </control>
+
+                        </control>
+                    </control>
+                    <include content="Dialog_Scrollbar">
+                        <param name="id">61</param>
+                        <onleft>50</onleft>
+                    </include>
+                </control>
+            </include>
+
+        </control>
+    </controls>
+</window>

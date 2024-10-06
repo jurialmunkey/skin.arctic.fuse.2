@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<window>
+    <defaultcontrol always="true">4</defaultcontrol>
+
+    <controls>
+        <control type="group">
+            <include>Dimension_DialogFullMenu</include>
+            <include>Animation_Right_Delay</include>
+            <include content="Dialog_Dim_Side">
+                <param name="slide_condition">True</param>
+            </include>
+
+            <!-- Bottom Layer -->
+            <include content="Dialog_Background_Side">
+                <param name="slide_condition">True</param>
+                <param name="dialog_size">Dimension_DialogFullMenu</param>
+                <!-- Side Buttons -->
+                <control type="group">
+                    <include>Dimension_Dialog_Body</include>
+                    <control type="grouplist" id="9000">
+                        <include>Dialog_Side_Grouplist_Def</include>
+                        <onright>20</onright>
+                        <onleft>Close</onleft>
+                        <include content="DialogInfo_Button">
+                            <param name="vertical">true</param>
+                            <param name="id">4</param>
+                            <param name="groupid">9101</param>
+                            <param name="sliceid">9201</param>
+                            <param name="label">$LOCALIZE[186]</param>
+                            <param name="icon">special://skin/extras/icons/circle-check.png</param>
+                            <include content="DialogInfo_Button_HintLabel">
+                                <param name="label">$LOCALIZE[186]</param>
+                            </include>
+                        </include>
+                        <include content="DialogInfo_Button">
+                            <param name="vertical">true</param>
+                            <param name="id">6</param>
+                            <param name="groupid">9103</param>
+                            <param name="sliceid">9203</param>
+                            <param name="label">$LOCALIZE[222]</param>
+                            <param name="icon">special://skin/extras/icons/circle-xmark.png</param>
+                            <include content="DialogInfo_Button_HintLabel">
+                                <param name="label">$LOCALIZE[222]</param>
+                            </include>
+                        </include>
+                        <include content="DialogInfo_Button">
+                            <param name="vertical">true</param>
+                            <param name="id">5</param>
+                            <param name="groupid">9102</param>
+                            <param name="sliceid">9202</param>
+                            <param name="visible">Control.IsEnabled(5)</param>
+                            <param name="label">$LOCALIZE[31032]</param>
+                            <param name="icon">special://skin/extras/icons/circle-plus.png</param>
+                            <include content="DialogInfo_Button_HintLabel">
+                                <param name="label">$LOCALIZE[31032]</param>
+                            </include>
+                        </include>
+                    </control>
+                </control>
+            </include>
+
+            <include content="Dialog_Foreground_Side">
+                <param name="dialog_size">Dimension_DialogFullMenu</param>
+                <param name="lines_right">0</param>
+                <param name="topline">false</param>
+                <param name="subline">false</param>
+
+                <!-- Header -->
+                <include content="Dialog_Head">
+                    <param name="id">2</param>
+                    <param name="label">$LOCALIZE[19199] - $VAR[Label_PVRChannelMgrHeader]$INFO[Container(20).NumItems, (,)]</param>
+                </include>
+                <include>Dialog_Head_CloseButton</include>
+
+                <!-- Content -->
+                <control type="group">
+                    <include>Dimension_Dialog_Body</include>
+                    <control type="group">
+                        <include>Dimension_Dialog_Body_Group</include>
+                        <control type="group">
+                            <!-- Left Group -->
+                            <control type="group">
+                                <width>50%</width>
+
+                                <control type="image">
+                                    <texture colordiffuse="main_fg_12">common/white.png</texture>
+                                    <height>1</height>
+                                    <top>-20</top>
+                                    <left>20</left>
+                                    <right>60</right>
+                                </control>
+
+                                <control type="image">
+                                    <texture colordiffuse="main_fg_12">common/white.png</texture>
+                                    <height>1</height>
+                                    <bottom>-20</bottom>
+                                    <left>20</left>
+                                    <right>60</right>
+                                </control>
+
+                                <include content="List_DialogSelect">
+                                    <param name="id">20</param>
+                                    <param name="itemlayout_include">Layout_ChannelManager</param>
+                                    <param name="item_height">100</param>
+                                    <param name="detailed">true</param>
+                                    <param name="misc">String.IsEqual(Container(20).CurrentItem,ListItem.CurrentItem)</param>
+                                    <pagecontrol>61</pagecontrol>
+                                    <onleft>9000</onleft>
+                                    <onback>9000</onback>
+                                    <onright>8000</onright>
+                                    <right>60</right>
+                                </include>
+                            </control>
+                            <control type="group">
+                                <left>50%</left>
+                                <right>20</right>
+                                <include content="Dialog_Outline_InnerBox">
+                                    <left>-40</left>
+                                    <top>-20</top>
+                                    <bottom>-20</bottom>
+                                </include>
+                                <control type="grouplist" id="8000">
+                                    <orientation>vertical</orientation>
+                                    <left>-20</left>
+                                    <right>20</right>
+                                    <onleft>20</onleft>
+                                    <onright>61</onright>
+                                    <onback>9000</onback>
+                                    <include content="Settings_Button">
+                                        <param name="id">7</param>
+                                        <param name="control">radiobutton</param>
+                                        <label>$LOCALIZE[19074]</label>
+                                        <description>Channel Active</description>
+                                    </include>
+                                    <include content="Settings_Button">
+                                        <param name="id">8</param>
+                                        <param name="control">edit</param>
+                                        <label>$LOCALIZE[19201]</label>
+                                        <description>Channel Name</description>
+                                    </include>
+                                    <include content="Settings_Button">
+                                        <param name="id">9</param>
+                                        <param name="control">button</param>
+                                        <label>$LOCALIZE[19202]</label>
+                                        <description>Channel logo</description>
+                                    </include>
+                                    <include content="Settings_Button">
+                                        <param name="id">12</param>
+                                        <param name="control">radiobutton</param>
+                                        <label>$LOCALIZE[19206]</label>
+                                        <description>EPG Active</description>
+                                    </include>
+                                    <include content="Settings_Button">
+                                        <param name="id">13</param>
+                                        <param name="control">spincontrolex</param>
+                                        <label>$LOCALIZE[19200]</label>
+                                        <description>EPG Source</description>
+                                    </include>
+                                    <include content="Settings_Button">
+                                        <param name="id">14</param>
+                                        <param name="control">radiobutton</param>
+                                        <label>$LOCALIZE[19267]</label>
+                                        <description>Parental Lock</description>
+                                    </include>
+
+
+                                    <include content="Settings_Label">
+                                        <param name="id">8002</param>
+                                        <param name="control">label</param>
+                                        <label>$LOCALIZE[31154]</label>
+                                        <description>channel options Header</description>
+                                    </include>
+                                    <include content="Settings_Button">
+                                        <param name="id">31</param>
+                                        <param name="control">button</param>
+                                        <label>$LOCALIZE[19204]</label>
+                                        <description>New Channel</description>
+                                    </include>
+                                    <include content="Settings_Button">
+                                        <param name="id">30</param>
+                                        <param name="control">button</param>
+                                        <label>$LOCALIZE[19205]</label>
+                                        <description>Group Manager</description>
+                                    </include>
+                                    <include content="Settings_Button">
+                                        <param name="id">34</param>
+                                        <param name="control">togglebutton</param>
+                                        <label>$LOCALIZE[19024]</label>
+                                        <altlabel>$LOCALIZE[19023]</altlabel>
+                                        <usealttexture>!String.IsEmpty(Window.Property(IsRadio))</usealttexture>
+                                        <description>Radio / TV Toggle</description>
+                                    </include>
+                                </control>
+                            </control>
+                        </control>
+                    </control>
+                    <include content="Dialog_Scrollbar">
+                        <onleft>8000</onleft>
+                        <onback>9000</onback>
+                    </include>
+                </control>
+            </include>
+
+        </control>
+
+    </controls>
+</window>

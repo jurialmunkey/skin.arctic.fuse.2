@@ -1,0 +1,219 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<window type="window" id="1195">
+    <defaultcontrol always="true">52</defaultcontrol>
+    <onload>SetFocus(52,0,absolute)</onload>
+    <onload>ClearProperty(SkinVariables.SkinUserLogin,Home)</onload>
+    <onload>ClearProperty(SkinVariables.SkinUser.LoggingIn,Home)</onload>
+    <onload>Skin.SetString(SkinVariables.SkinUser.ExecuteBuiltIn,"RunScript($VAR[Action_Var_BuildTextures],get_values=true,reload=Home)")</onload>
+    <onload condition="!String.IsEmpty(Window(Home).Property(SkinVariables.SkinUserLogin))">ReplaceWindow(home)</onload>
+    <controls>
+
+        <control type="button" id="9001">
+            <texturefocus />
+            <texturenofocus />
+            <width>1</width>
+            <height>1</height>
+            <left>-1000</left>
+            <onfocus>SetFocus(52)</onfocus>
+            <onleft>52</onleft>
+            <onright>52</onright>
+            <onback>52</onback>
+            <onup>52</onup>
+            <ondown>52</ondown>
+            <onclick>SetFocus(52)</onclick>
+        </control>
+
+        <control type="group">
+            <include>Background_StartUp</include>
+            <include>Object_StartUp_Logo</include>
+
+            <control type="group">
+                <top>570</top>
+                <height>360</height>
+                <control type="group">
+                    <top>0</top>
+                    <control type="label">
+                        <top>20</top>
+                        <align>center</align>
+                        <height>40</height>
+                        <font>font_main_bold</font>
+                        <textcolor>main_fg_100</textcolor>
+                        <label>$INFO[Container(52).ListItem.Label]</label>
+                    </control>
+                    <control type="label">
+                        <top>50</top>
+                        <align>center</align>
+                        <height>40</height>
+                        <textcolor>main_fg_70</textcolor>
+                        <label>$INFO[Container(52).ListItem.Label2]</label>
+                        <animation effect="fade" reversible="false" start="0" end="100" time="300" delay="200">Visible</animation>
+                        <visible>!Container(52).OnNext + !Container(52).OnPrevious</visible>
+                        <visible>!Container(52).IsUpdating</visible>
+                    </control>
+                    <control type="label">
+                        <top>50</top>
+                        <align>center</align>
+                        <height>40</height>
+                        <textcolor>main_fg_70</textcolor>
+                        <label>$LOCALIZE[31508]...</label>
+                        <animation effect="fade" reversible="false" start="0" end="100" time="300" delay="200">Visible</animation>
+                        <visible>Container(52).IsUpdating</visible>
+                    </control>
+                </control>
+
+                <control type="group">
+                    <visible>String.IsEmpty(Window(Home).Property(SkinVariables.SkinUser.LoggingIn))</visible>
+                    <control type="image">
+                        <left>240</left>
+                        <top>40</top>
+                        <width>80</width>
+                        <aspectratio>keep</aspectratio>
+                        <height>120</height>
+                        <texture colordiffuse="panel_fg_70" flipx="true">arrows/arrow-240.png</texture>
+                        <visible>Container(52).HasPrevious</visible>
+                    </control>
+                    <control type="image">
+                        <right>240</right>
+                        <top>40</top>
+                        <width>80</width>
+                        <aspectratio>keep</aspectratio>
+                        <height>120</height>
+                        <texture colordiffuse="panel_fg_70" flipx="false">arrows/arrow-240.png</texture>
+                        <visible>Container(52).HasNext</visible>
+                    </control>
+                    <control type="fixedlist" id="52">
+                        <centerleft>50%</centerleft>
+                        <width>1440</width>
+                        <height>360</height>
+                        <orientation>horizontal</orientation>
+                        <focusposition>1</focusposition>
+                        <preloaditems>0</preloaditems>
+                        <onback>9001</onback>
+                        <scrolltime tween="cubic" easing="out">500</scrolltime>
+                        <itemlayout width="480">
+                            <control type="group">
+                                <top>40</top>
+                                <centerleft>50%</centerleft>
+                                <height>120</height>
+                                <width>120</width>
+                                <control type="image">
+                                    <texture colordiffuse="shadow_hard">shadows/circle_120-shadow-40.png</texture>
+                                    <include content="Dimension_Padding">
+                                        <param name="pad">-40</param>
+                                    </include>
+                                </control>
+                                <control type="image">
+                                    <texture colordiffuse="main_fg_100">diffuse/circle_120.png</texture>
+                                </control>
+                                <control type="image">
+                                    <include content="Dimension_Padding">
+                                        <param name="pad">4</param>
+                                    </include>
+                                    <aspectratio scalediffuse="false">scale</aspectratio>
+                                    <texture diffuse="diffuse/circle_120.png">$VAR[Image_ProfileIcon]</texture>
+                                    <animation effect="fadediffuse" start="ffffffff" end="ff999999" condition="String.Contains(ListItem.FolderPath,info=add_skin_user)">Conditional</animation>
+                                </control>
+                                <control type="image">
+                                    <include content="Dimension_Padding">
+                                        <param name="pad">12</param>
+                                    </include>
+                                    <aspectratio scalediffuse="false">keep</aspectratio>
+                                    <texture diffuse="diffuse/circle_120.png" colordiffuse="panel_fg_90">special://skin/extras/icons/circle-plus.png</texture>
+                                    <visible>String.Contains(ListItem.FolderPath,info=add_skin_user)</visible>
+                                </control>
+                            </control>
+                        </itemlayout>
+                        <focusedlayout width="480">
+                            <control type="button">
+                                <visible allowhiddenfocus="true">false</visible>
+                                <onfocus>SetProperty(System.ProfileNumber,$INFO[ListItem.CurrentItem],Home)</onfocus>
+                            </control>
+                            <control type="group">
+                                <animation condition="Container(52).OnNext" effect="slide" start="0,-80" end="0" delay="0" time="500" tween="sine" easing="out" reversible="false">Focus</animation>
+
+                                <animation condition="Container(52).OnNext" effect="slide" start="0" end="0,-80" delay="0" time="500" tween="sine" easing="out" reversible="false">UnFocus</animation>
+
+                                <animation condition="Container(52).OnPrevious" effect="slide" start="0,-80" end="0" delay="0" time="500" tween="sine" easing="out" reversible="false">Focus</animation>
+
+                                <animation condition="Container(52).OnPrevious" effect="slide" start="0" end="0,-80" delay="0" time="500" tween="sine" easing="out" reversible="false">UnFocus</animation>
+
+                                <top>120</top>
+                                <centerleft>50%</centerleft>
+                                <height>120</height>
+                                <width>120</width>
+                                <control type="image">
+                                    <texture colordiffuse="shadow_hard">shadows/circle_120-shadow-40.png</texture>
+                                    <include content="Dimension_Padding">
+                                        <param name="pad">-40</param>
+                                    </include>
+                                </control>
+                                <control type="image">
+                                    <texture colordiffuse="main_fg_100">diffuse/circle_120.png</texture>
+                                </control>
+                                <control type="image">
+                                    <include content="Dimension_Padding">
+                                        <param name="pad">-2</param>
+                                    </include>
+                                    <animation effect="fade" start="100" end="0" delay="0" time="300" reversible="false">UnFocus</animation>
+                                    <animation effect="fade" start="0" end="100" delay="200" time="300" reversible="false">Focus</animation>
+                                    <include>Texture_Circle_Highlight_V</include>
+                                </control>
+                                <control type="image">
+                                    <include content="Dimension_Padding">
+                                        <param name="pad">4</param>
+                                    </include>
+                                    <aspectratio scalediffuse="false">scale</aspectratio>
+                                    <texture diffuse="diffuse/circle_120.png">$VAR[Image_ProfileIcon]</texture>
+                                    <animation effect="fadediffuse" start="ffffffff" end="ff999999" condition="String.Contains(ListItem.FolderPath,info=add_skin_user)">Conditional</animation>
+                                </control>
+                                <control type="image">
+                                    <include content="Dimension_Padding">
+                                        <param name="pad">12</param>
+                                    </include>
+                                    <aspectratio scalediffuse="false">keep</aspectratio>
+                                    <texture diffuse="diffuse/circle_120.png" colordiffuse="panel_fg_90">special://skin/extras/icons/circle-plus.png</texture>
+                                    <visible>String.Contains(ListItem.FolderPath,info=add_skin_user)</visible>
+                                    <animation effect="fade" start="0" end="100" delay="0" time="300" reversible="false">UnFocus</animation>
+                                    <animation effect="fade" start="100" end="0" delay="300" time="300" reversible="false">Focus</animation>
+                                </control>
+                                <control type="image">
+                                    <include content="Dimension_Padding">
+                                        <param name="pad">12</param>
+                                    </include>
+                                    <animation effect="fade" start="100" end="0" delay="0" time="300" reversible="false">UnFocus</animation>
+                                    <animation effect="fade" start="0" end="100" delay="200" time="300" reversible="false">Focus</animation>
+                                    <include content="Texture_Highlight">
+                                        <param name="diffuse">special://skin/extras/icons/circle-plus.png</param>
+                                    </include>
+                                    <visible>String.Contains(ListItem.FolderPath,info=add_skin_user)</visible>
+                                </control>
+                            </control>
+                        </focusedlayout>
+                        <content>plugin://script.skinvariables/?info=get_skin_user&amp;skinid=skin.arctic.fuse&amp;folder=1080i&amp;allow_new=true&amp;reload=$INFO[Window(Home).Property(SkinVariables.ShortcutsNode.Reload)]</content>
+                    </control>
+                </control>
+
+                <control type="group">
+                    <visible>Container(52).IsUpdating | !String.IsEmpty(Window(Home).Property(SkinVariables.SkinUser.LoggingIn))</visible>
+                    <centerleft>50%</centerleft>
+                    <centertop>180</centertop>
+                    <height>100</height>
+                    <width>100</width>
+                    <control type="image" description="Back">
+                        <aspectratio align="center" aligny="center">keep</aspectratio>
+                        <texture>dialog/loading-back.png</texture>
+                        <colordiffuse>main_fg_90</colordiffuse>
+                    </control>
+                    <include>Object_BusySpinner_Image</include>
+                    <control type="image">
+                        <texture colordiffuse="main_fg_70">special://skin/extras/icons/kodi.png</texture>
+                        <aspectratio>keep</aspectratio>
+                        <bordersize>30</bordersize>
+                    </control>
+                </control>
+            </control>
+
+
+        </control>
+    </controls>
+</window>

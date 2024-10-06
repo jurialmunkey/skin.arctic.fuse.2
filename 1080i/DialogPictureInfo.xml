@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<window type="dialog">
+    <defaultcontrol always="true">61</defaultcontrol>
+
+    <controls>
+        <control type="group">
+            <include>Dimension_DialogFullMenu</include>
+            <include>Animation_Right_Delay</include>
+            <include content="Dialog_Dim_Side">
+                <param name="slide_animation">false</param>
+            </include>
+
+            <include content="Dialog_Foreground_Side">
+                <param name="dialog_size">Dimension_DialogFullMenu</param>
+                <param name="lines_right">840</param>
+                <param name="topline">true</param>
+                <param name="subline">true</param>
+
+                <!-- Header -->
+                <include content="Dialog_Head">
+                    <param name="label">$INFO[ListItem.Label]</param>
+                </include>
+                <include>Dialog_Head_CloseButton</include>
+
+                <!-- Content -->
+                <control type="group">
+                    <include>Dimension_Dialog_Body</include>
+                    <control type="group">
+                        <width>800</width>
+                        <right>40</right>
+                        <include content="Dialog_Outline_InnerBox">
+                            <control type="image">
+                                <aspectratio scalediffuse="false">keep</aspectratio>
+                                <texture background="true" diffuse="diffuse/square_w600_h600.png">$INFO[ListItem.Icon]</texture>
+                            </control>
+                        </include>
+                    </control>
+                    <control type="group">
+                        <right>800</right>
+                        <control type="panel" id="5">
+                            <right>80</right>
+                            <left>40</left>
+                            <top>30</top>
+                            <pagecontrol>61</pagecontrol>
+                            <onright>61</onright>
+                            <onleft>Close</onleft>
+                            <orientation>vertical</orientation>
+                            <itemlayout height="100">
+                                <include>Layout_BasicMeta</include>
+                            </itemlayout>
+                            <focusedlayout height="100">
+                                <include>Layout_BasicMeta</include>
+                            </focusedlayout>
+                        </control>
+                    </control>
+                    <include content="Dialog_Scrollbar">
+                        <onleft>Close</onleft>
+                    </include>
+                </control>
+            </include>
+
+        </control>
+    </controls>
+</window>
