@@ -40,36 +40,24 @@
                     <ondown>ActivateWindow($VAR[Action_OSD_1140_OnDown])</ondown>
                     <onfocus>SetProperty(TMDbHelper.WidgetContainer,7000,1140)</onfocus>
                     <onunfocus>ClearProperty(TMDbHelper.WidgetContainer,1140)</onunfocus>
+                    <include content="Animation_ConditionalFade">
+                        <param name="condition">Container(7000).IsUpdating</param>
+                    </include>
                 </include>
 
                 <!-- Playing Icon and Details -->
-                <control type="group">
-                    <height>60</height>
-                    <centerbottom>20</centerbottom>
-                    <left>view_pad</left>
-                    <right>view_pad</right>
-                    <include content="Object_InfoCircle_Horizontal">
-                        <param name="icon">$VAR[Image_OSD_7000_Poster]</param>
-                        <param name="role">$VAR[Label_OSD_7000_Title]</param>
-                        <param name="name">$VAR[Label_OSD_7000_SubLabel]</param>
-                        <param name="max">360</param>
-                        <param name="top_label_left">80</param>
-                        <param name="bottom_label_left">80</param>
-                    </include>
-                    <!-- Info Box -->
-                    <control type="textbox">
-                        <top>-2</top>
-                        <left>480</left>
-                        <right>0</right>
-                        <label>$INFO[Container(7000).ListItem.Plot]</label>
-                        <font>font_mini_cond</font>
-                        <textcolor>panel_fg_70</textcolor>
-                    </control>
-                </control>
+                <include content="OSD_Info_Tray">
+                    <param name="icon">$VAR[Image_OSD_7000_Poster]</param>
+                    <param name="role">$VAR[Label_OSD_7000_Title]</param>
+                    <param name="name">$VAR[Label_OSD_7000_SubLabel]</param>
+                    <param name="text">$INFO[Container(7000).ListItem..Plot]</param>
+                </include>
 
-                <include content="Object_BusySpinner">
-                    <param name="colordiffuse">panel_fg</param>
-                    <visible>Container(7000).IsUpdating + Integer.IsEqual(Container(7000).NumItems,0)</visible>
+                <include content="Widget_Busy">
+                    <param name="label">$PARAM[label]</param>
+                    <param name="visible">Container(7000).IsUpdating</param>
+                    <left>view_pad</left>
+                    <top>-150</top>
                 </include>
 
             </include>

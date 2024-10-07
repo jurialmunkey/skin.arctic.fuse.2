@@ -33,6 +33,21 @@
                 <ondown>4000</ondown>
             </include>
 
+            <control type="button" id="4000">
+                <top>340</top>
+                <left>60</left>
+                <height>80</height>
+                <width>440</width>
+                <onup>11</onup>
+                <texturenofocus />
+                <onclick>NextChannelGroup</onclick>
+                <onclick>SetFocus(4000)</onclick>
+                <onright>NextChannelGroup</onright>
+                <onright>SetFocus(4000)</onright>
+                <onleft>PreviousChannelGroup</onleft>
+                <onleft>SetFocus(4000)</onleft>
+            </control>
+
             <!-- Playing Icon and Details -->
             <include content="OSD_Info_Tray">
                 <param name="icon">$INFO[Container(11).ListItem.Icon]</param>
@@ -40,17 +55,30 @@
                 <param name="name">$INFO[VideoPlayer.ChannelGroup,$LOCALIZE[19141]: ,]</param>
                 <param name="text">$VAR[Label_Plot_C11]</param>
                 <param name="fallback_icon">-</param>
+                <param name="textcolor_top">panel_fg_90</param>
+                <param name="textcolor_sub">panel_fg_70</param>
+                <param name="visible">!Control.HasFocus(4000)</param>
+            </include>
+            <include content="OSD_Info_Tray">
+                <param name="icon">$INFO[Container(11).ListItem.Icon]</param>
+                <param name="role">$INFO[Container(11).ListItem.ChannelName]</param>
+                <param name="name">$INFO[VideoPlayer.ChannelGroup,$LOCALIZE[19141]: ,]</param>
+                <param name="text">$VAR[Label_Plot_C11]</param>
+                <param name="fallback_icon">-</param>
+                <param name="textcolor_top">$VAR[ColorSelected]</param>
+                <param name="textcolor_sub">$VAR[ColorSelected]</param>
+                <param name="visible">Control.HasFocus(4000)</param>
             </include>
 
             <include content="OSD_Info_Viewline">
                 <param name="label">$LOCALIZE[31244]</param>
             </include>
 
-            <control type="grouplist" id="4000">
+            <!-- <control type="grouplist" id="4000">
                 <top>300</top>
                 <itemgap>0</itemgap>
                 <orientation>horizontal</orientation>
-                <left>10</left>
+                <left>20</left>
                 <bottom>-100</bottom>
                 <visible allowhiddenfocus="true">ControlGroup(4000).HasFocus()</visible>
 
@@ -66,7 +94,7 @@
                     <onclick>NextChannelGroup</onclick>
                     <onclick>SetFocus(4000)</onclick>
                 </include>
-            </control>
+            </control> -->
 
         </include>
     </controls>
