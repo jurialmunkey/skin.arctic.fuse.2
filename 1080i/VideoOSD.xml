@@ -71,11 +71,11 @@
                             <onclick condition="VideoPlayer.Content(livetv)">CancelAlarm(osd_timeout,true)</onclick>
                             <onclick condition="VideoPlayer.Content(livetv)">Close</onclick>
                             <onclick condition="VideoPlayer.Content(livetv)">ActivateWindow(TVGuide)</onclick>
-                            <onclick condition="!VideoPlayer.Content(livetv)">Seek(10)</onclick>
+                            <onclick condition="!VideoPlayer.Content(livetv)">Seek(-10)</onclick>
                             <onup>8200</onup>
                         </control>
                         <include content="OSD_Button_Icon_Overlay" condition="!VideoPlayer.Content(livetv)">
-                            <param name="icon">osd/jump-forward.png</param>
+                            <param name="icon">osd/jump-back.png</param>
                             <param name="id">6002</param>
                             <param name="groupid">6102</param>
                             <param name="itemgap">osd_itemgap</param>
@@ -93,9 +93,7 @@
                             <onclick condition="VideoPlayer.Content(livetv)">PVR.ToggleRecordPlayingChannel</onclick>
                             <onclick condition="!VideoPlayer.Content(livetv)">CancelAlarm(osd_timeout,true)</onclick>
                             <onclick condition="!VideoPlayer.Content(livetv) + Integer.IsLess(VideoPlayer.PlaylistPosition,VideoPlayer.PlaylistLength)">PlayerControl(Next)</onclick>
-                            <onclick condition="!VideoPlayer.Content(livetv) + !Integer.IsLess(VideoPlayer.PlaylistPosition,VideoPlayer.PlaylistLength)">SetFocus(513)</onclick>
-                            <onclick condition="!VideoPlayer.Content(livetv) + !Integer.IsLess(VideoPlayer.PlaylistPosition,VideoPlayer.PlaylistLength)">Action(Select)</onclick>
-                            <onclick condition="!VideoPlayer.Content(livetv) + !Integer.IsLess(VideoPlayer.PlaylistPosition,VideoPlayer.PlaylistLength)">SetFocus(6003)</onclick>
+                            <onclick condition="!VideoPlayer.Content(livetv) + !Integer.IsLess(VideoPlayer.PlaylistPosition,VideoPlayer.PlaylistLength)">PlayMedia($ESCINFO[Container(513).ListItem.FileNameAndPath])</onclick>
                             <onup>8200</onup>
 
                             <onfocus>SetProperty(OSD_Focus,6003,Home)</onfocus>
