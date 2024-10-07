@@ -283,6 +283,7 @@
                             <param name="widgets_only">false</param>
                         </include>
                         <include content="Hub_Widgets_Only" condition="$PARAM[widgets_only]">
+                            <param name="window_id">$PARAM[window_id]</param>
                             <param name="widgets_include">skinvariables-$PARAM[categories]-widgets</param>
                         </include>
                         <include condition="![$PARAM[widgets_only]]">Spotlight_Info</include>
@@ -349,8 +350,25 @@
     <include name="Hub_Widgets_Only">
         <include>Background_Transition</include>
         <control type="group" id="340">
+            <include content="Object_Top" condition="Skin.HasSetting(Hub.$PARAM[window_id].EnableDetailedInformation)">
+                <param name="top">440</param>
+            </include>
+            <include content="Object_Bottom" condition="Skin.HasSetting(Hub.$PARAM[window_id].EnableDetailedInformation)">
+                <param name="bottom">-440</param>
+            </include>
             <include>$PARAM[widgets_include]</include>
         </control>
+
+        <include content="Hub_Widgets_Infopanel" condition="Skin.HasSetting(Hub.$PARAM[window_id].EnableDetailedInformation)">
+            <include content="Info_Panel">
+                <param name="container">Container.</param>
+                <param name="visible">!Integer.IsEqual(Window.Property(TMDBHelper.WidgetContainer),301)</param>
+            </include>
+        </include>
+
+        <include content="Furniture_Top_Left" condition="Skin.HasSetting(Hub.$PARAM[window_id].EnableDetailedInformation)">
+            <param name="label">[CAPITALIZE]$VAR[Label_Header_Main][/CAPITALIZE]</param>
+        </include>
     </include>
 
     <variable name="Hub_Submenu_Content">
@@ -535,10 +553,11 @@
         <definition>
             <control type="grouplist" id="$PARAM[id]">
                 <top>hub_widgets_grouplist_t</top>
-                <include content="Object_Bottom" condition="![$PARAM[widgets_only]]">
+
+                <include content="Object_Bottom" condition="![$PARAM[widgets_only] + !Skin.HasSetting(Hub.$PARAM[window_id].EnableDetailedInformation)]">
                     <param name="bottom">hub_infowidgets_grouplist_b</param>
                 </include>
-                <include content="Object_Bottom" condition="$PARAM[widgets_only]">
+                <include content="Object_Bottom" condition="$PARAM[widgets_only] + !Skin.HasSetting(Hub.$PARAM[window_id].EnableDetailedInformation)">
                     <param name="bottom">hub_widgets_grouplist_b</param>
                 </include>
 
@@ -564,7 +583,7 @@
 
                 <include content="DialogInfo_Widget_EndLine">
                     <param name="id">$PARAM[furnitureid]</param>
-                    <param name="widgets_only">$PARAM[widgets_only]</param>
+                    <param name="widgets_only">[$PARAM[widgets_only] + !Skin.HasSetting(Hub.$PARAM[window_id].EnableDetailedInformation)]</param>
                     <param name="visible">String.IsEmpty(Container(300).ListItem.Property(use_as_widget))</param>
                 </include>
 

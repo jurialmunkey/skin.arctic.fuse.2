@@ -7,6 +7,8 @@
 
     <expression name="Shortcuts_Window_Exp_WidgetsOnly">[[String.IsEqual(Window.Property(categories_menu),menu=homemenu)] | [Skin.HasSetting(Hub.1101.DisableSubmenu) + String.IsEqual(Window.Property(categories_menu),menu=1101menu)] | [Skin.HasSetting(Hub.1102.DisableSubmenu) + String.IsEqual(Window.Property(categories_menu),menu=1102menu)] | [Skin.HasSetting(Hub.1103.DisableSubmenu) + String.IsEqual(Window.Property(categories_menu),menu=1103menu)] | [Skin.HasSetting(Hub.1104.DisableSubmenu) + String.IsEqual(Window.Property(categories_menu),menu=1104menu)] | [Skin.HasSetting(Hub.1105.DisableSubmenu) + String.IsEqual(Window.Property(categories_menu),menu=1105menu)] | [Skin.HasSetting(Hub.1106.DisableSubmenu) + String.IsEqual(Window.Property(categories_menu),menu=1106menu)] | [Skin.HasSetting(Hub.1107.DisableSubmenu) + String.IsEqual(Window.Property(categories_menu),menu=1107menu)] | [Skin.HasSetting(Hub.1108.DisableSubmenu) + String.IsEqual(Window.Property(categories_menu),menu=1108menu)] | [Skin.HasSetting(Hub.1109.DisableSubmenu) + String.IsEqual(Window.Property(categories_menu),menu=1109menu)]]</expression>
 
+    <expression name="Shortcuts_Window_Exp_ExpandedInformation">[[Skin.HasSetting(Hub.Home.EnableDetailedInformation) + String.IsEqual(Window.Property(categories_menu),menu=homemenu)] | [Skin.HasSetting(Hub.1101.EnableDetailedInformation) + String.IsEqual(Window.Property(categories_menu),menu=1101menu)] | [Skin.HasSetting(Hub.1102.EnableDetailedInformation) + String.IsEqual(Window.Property(categories_menu),menu=1102menu)] | [Skin.HasSetting(Hub.1103.EnableDetailedInformation) + String.IsEqual(Window.Property(categories_menu),menu=1103menu)] | [Skin.HasSetting(Hub.1104.EnableDetailedInformation) + String.IsEqual(Window.Property(categories_menu),menu=1104menu)] | [Skin.HasSetting(Hub.1105.EnableDetailedInformation) + String.IsEqual(Window.Property(categories_menu),menu=1105menu)] | [Skin.HasSetting(Hub.1106.EnableDetailedInformation) + String.IsEqual(Window.Property(categories_menu),menu=1106menu)] | [Skin.HasSetting(Hub.1107.EnableDetailedInformation) + String.IsEqual(Window.Property(categories_menu),menu=1107menu)] | [Skin.HasSetting(Hub.1108.EnableDetailedInformation) + String.IsEqual(Window.Property(categories_menu),menu=1108menu)] | [Skin.HasSetting(Hub.1109.EnableDetailedInformation) + String.IsEqual(Window.Property(categories_menu),menu=1109menu)]]</expression>
+
     <variable name="Shortcuts_Window_Var_Label_HubName">
         <value condition="String.IsEqual(Window.Property(hub_prefix),1101)">$VAR[Label_Header_Main_1101]</value>
         <value condition="String.IsEqual(Window.Property(hub_prefix),1102)">$VAR[Label_Header_Main_1102]</value>
@@ -24,7 +26,7 @@
             <top>0</top>
             <orientation>vertical</orientation>
             <onleft>30000</onleft>
-            <ondown>304</ondown>
+            <ondown>394</ondown>
             <include content="Settings_Label">
                 <param name="id">3390</param>
                 <param name="control">label</param>
@@ -215,9 +217,40 @@
                 <visible>$EXP[Shortcuts_Window_Exp_WidgetsOnly]</visible>
             </include>
 
+            <include content="Settings_Button">
+                <param name="id">394</param>
+                <param name="control">radiobutton</param>
+                <label>$LOCALIZE[31092]</label>
+
+                <onup>3000</onup>
+                <onleft>30000</onleft>
+                <ondown>304</ondown>
+
+                <selected>$EXP[Shortcuts_Window_Exp_ExpandedInformation]</selected>
+
+                <onclick condition="String.IsEqual(Window.Property(categories_menu),menu=homemenu)">Skin.ToggleSetting(Hub.Home.EnableDetailedInformation)</onclick>
+                <onclick condition="String.IsEqual(Window.Property(categories_menu),menu=1101menu)">Skin.ToggleSetting(Hub.1101.EnableDetailedInformation)</onclick>
+                <onclick condition="String.IsEqual(Window.Property(categories_menu),menu=1102menu)">Skin.ToggleSetting(Hub.1102.EnableDetailedInformation)</onclick>
+                <onclick condition="String.IsEqual(Window.Property(categories_menu),menu=1103menu)">Skin.ToggleSetting(Hub.1103.EnableDetailedInformation)</onclick>
+                <onclick condition="String.IsEqual(Window.Property(categories_menu),menu=1104menu)">Skin.ToggleSetting(Hub.1104.EnableDetailedInformation)</onclick>
+                <onclick condition="String.IsEqual(Window.Property(categories_menu),menu=1105menu)">Skin.ToggleSetting(Hub.1105.EnableDetailedInformation)</onclick>
+                <onclick condition="String.IsEqual(Window.Property(categories_menu),menu=1106menu)">Skin.ToggleSetting(Hub.1106.EnableDetailedInformation)</onclick>
+                <onclick condition="String.IsEqual(Window.Property(categories_menu),menu=1107menu)">Skin.ToggleSetting(Hub.1107.EnableDetailedInformation)</onclick>
+                <onclick condition="String.IsEqual(Window.Property(categories_menu),menu=1108menu)">Skin.ToggleSetting(Hub.1108.EnableDetailedInformation)</onclick>
+                <onclick condition="String.IsEqual(Window.Property(categories_menu),menu=1109menu)">Skin.ToggleSetting(Hub.1109.EnableDetailedInformation)</onclick>
+
+                <!-- <onfocus>SetProperty(HelpHead,$LOCALIZE[456],1115)</onfocus>
+                <onfocus>SetProperty(HelpText,$LOCALIZE[31008],1115)</onfocus>
+                <onunfocus>ClearProperty(HelpText,1115)</onunfocus>
+                <onunfocus>ClearProperty(HelpHead,1115)</onunfocus> -->
+
+                <top>80</top>
+                <visible>$EXP[Shortcuts_Window_Exp_WidgetsOnly]</visible>
+            </include>
+
             <include content="List_DialogSelect">
                 <param name="id">304</param>
-                <param name="item_height">96</param>
+                <param name="item_height">100</param>
                 <param name="textcolor">main_fg_70</param>
                 <param name="itemlayout_include">Layout_Shortcuts</param>
                 <param name="altfocus">[Integer.IsEqual(Window.Property(list_id),304) + [ControlGroup(3000).HasFocus() | ControlGroup(39000).HasFocus()]]</param>
@@ -226,8 +259,8 @@
                 <param name="detailed">True</param>
                 <content>$VAR[Shortcuts_Window_OnlyWidgets_Path]</content>
                 <left>0</left>
-                <top>80</top>
-                <onup>3000</onup>
+                <top>160</top>
+                <onup>394</onup>
                 <ondown>305</ondown>
                 <onleft>30000</onleft>
                 <onclick>SetFocus(1304)</onclick>
