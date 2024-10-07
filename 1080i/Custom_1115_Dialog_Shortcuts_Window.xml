@@ -90,6 +90,7 @@
                                 <right>40</right>
                                 <onup condition="Control.IsVisible(300)">SetFocus(300,9999,absolute)</onup>
                                 <onup condition="Control.IsVisible(303)">SetFocus(303,9999,absolute)</onup>
+                                <onup condition="!Control.IsVisible(303) + !Control.IsVisible(300)">2800</onup>
                                 <ondown>2800</ondown>
                                 <label>$LOCALIZE[31551]</label>
                                 <selected>[String.IsEqual(Window.Property(categories_menu),menu=homemenu) + String.IsEmpty(Skin.String(Hub.Home.ReplaceWindow))] | [String.IsEqual(Window.Property(categories_menu),menu=1101menu) + Skin.String(Hub.Home.ReplaceWindow,$NUMBER[1101])] | [String.IsEqual(Window.Property(categories_menu),menu=1102menu) + Skin.String(Hub.Home.ReplaceWindow,$NUMBER[1102])] | [String.IsEqual(Window.Property(categories_menu),menu=1103menu) + Skin.String(Hub.Home.ReplaceWindow,$NUMBER[1103])] | [String.IsEqual(Window.Property(categories_menu),menu=1104menu) + Skin.String(Hub.Home.ReplaceWindow,$NUMBER[1104])] | [String.IsEqual(Window.Property(categories_menu),menu=1105menu) + Skin.String(Hub.Home.ReplaceWindow,$NUMBER[1105])] | [String.IsEqual(Window.Property(categories_menu),menu=1106menu) + Skin.String(Hub.Home.ReplaceWindow,$NUMBER[1106])] | [String.IsEqual(Window.Property(categories_menu),menu=1107menu) + Skin.String(Hub.Home.ReplaceWindow,$NUMBER[1107])] | [String.IsEqual(Window.Property(categories_menu),menu=1108menu) + Skin.String(Hub.Home.ReplaceWindow,$NUMBER[1108])] | [String.IsEqual(Window.Property(categories_menu),menu=1109menu) + Skin.String(Hub.Home.ReplaceWindow,$NUMBER[1109])]</selected>
@@ -176,7 +177,7 @@
             <param name="visible_delay">1200</param>
             <param name="windowopen_condition">False</param>
             <param name="haslabel">false</param>
-            <param name="visible">[[!Window.IsActive(DialogVolumeBar.xml) | Player.Muted]] + [[[Container(300).IsUpdating | [Container(302).IsUpdating + Control.IsVisible(302)]] + !$EXP[Shortcuts_Window_Exp_WidgetsOnly]] | Container(303).IsUpdating | Container(304).IsUpdating]</param>
+            <param name="visible">[[!Window.IsActive(DialogVolumeBar.xml) | Player.Muted] + [[Container(300).IsUpdating + Control.IsVisible(300)] | [Container(303).IsUpdating + Control.IsVisible(303)] | [Container(304).IsUpdating + Control.IsVisible(304)]]]</param>
         </include>
 
     </controls>
