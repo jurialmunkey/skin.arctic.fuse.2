@@ -137,6 +137,58 @@
                 <onunfocus>ClearProperty(HelpText,1115)</onunfocus>
                 <onunfocus>ClearProperty(HelpHead,1115)</onunfocus>
             </include>
+
+            <include content="Settings_Label">
+                <param name="id">3311</param>
+                <param name="control">label</param>
+                <param name="dialog">false</param>
+                <description>Default Setting Label</description>
+                <label>$LOCALIZE[31103]</label>
+
+                <visible>!Integer.IsEqual(Container(300).NumItems,0)</visible>
+                <visible>!String.IsEqual(Container(300).ListItem.Property(use_as_widget),True)</visible>
+                <visible>!String.IsEqual(Window.Property(categories_menu),menu=homemenu)</visible>
+                <visible>!$EXP[Shortcuts_Window_Exp_WidgetsOnly]</visible>
+            </include>
+            <!-- <include content="Settings_Button">
+                <param name="id">311</param>
+                <param name="control">button</param>
+                <label>$LOCALIZE[31328]</label>
+
+                <onclick>ClearProperty(Shortcuts.Category,Home)</onclick>
+                <onclick>ClearProperty(Shortcuts.Position,Home)</onclick>
+                <onclick>SetProperty(Shortcuts.EditMode,mode=widgets,Home)</onclick>
+                <onclick>SetProperty(Shortcuts.EditGUID,$INFO[Container(300).ListItem.Property(guid),guid=,],Home)</onclick>
+                <onclick>SetProperty(Shortcuts.EditMenu,$INFO[Container(300).ListItem.Property(menu),menu=,],Home)</onclick>
+                <onclick>AlarmClock(openwindow,ActivateWindow(1116),00:00,silent)</onclick>
+
+                <visible>!Integer.IsEqual(Container(300).NumItems,0)</visible>
+                <visible>!String.IsEqual(Container(300).ListItem.Property(use_as_widget),True)</visible>
+                <visible>!String.IsEqual(Window.Property(categories_menu),menu=homemenu)</visible>
+                <visible>!$EXP[Shortcuts_Window_Exp_WidgetsOnly]</visible>
+            </include> -->
+            <include content="Settings_Button">
+                <param name="id">312</param>
+                <param name="control">button</param>
+                <label>$LOCALIZE[31521]</label>
+
+                <onclick>ClearProperty(Shortcuts.Category,Home)</onclick>
+                <onclick>ClearProperty(Shortcuts.Position,Home)</onclick>
+                <onclick>ClearProperty(Shortcuts.EditMode,Home)</onclick>
+                <onclick>ClearProperty(Shortcuts.EditGUID,Home)</onclick>
+                <onclick>SetProperty(Shortcuts.EditMenu,$INFO[Window.Property(categories_menu),,-globalwidgets],Home)</onclick>
+                <onclick>AlarmClock(openwindow,ActivateWindow(1116),00:00,silent)</onclick>
+
+                <visible>!Integer.IsEqual(Container(300).NumItems,0)</visible>
+                <visible>!String.IsEqual(Container(300).ListItem.Property(use_as_widget),True)</visible>
+                <visible>!String.IsEqual(Window.Property(categories_menu),menu=homemenu)</visible>
+                <visible>!$EXP[Shortcuts_Window_Exp_WidgetsOnly]</visible>
+
+                <onfocus>SetProperty(HelpHead,$LOCALIZE[31514],1115)</onfocus>
+                <onfocus>SetProperty(HelpText,$LOCALIZE[31087][CR][CR]$LOCALIZE[31084],1115)</onfocus>
+                <onunfocus>ClearProperty(HelpText,1115)</onunfocus>
+                <onunfocus>ClearProperty(HelpHead,1115)</onunfocus>
+            </include>
         </control>
     </include>
 
