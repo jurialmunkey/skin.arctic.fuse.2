@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<includes>
+    <include name="Recommendations_Group">
+        <control type="group">
+
+            <include>Animation_View_WindowChange</include>
+            <include>Animation_Group_Bumper</include>
+            <nested />
+        </control>
+    </include>
+
+    <include name="Recommendations_InfoPanel">
+        <param name="container">Container.</param>
+        <definition>
+            <control type="group">
+                <nested />
+                <include>Dimension_Info</include>
+                <include content="Info_Panel">
+                    <param name="titlelabel">$PARAM[titlelabel]</param>
+                    <param name="container">$PARAM[container]</param>
+                    <param name="plotlabel">$PARAM[plotlabel]</param>
+                    <width>info_panel_w</width>
+                </include>
+            </control>
+        </definition>
+    </include>
+
+    <include name="Recommendations_Widgets_Grouplist">
+        <param name="onup">PreviousMenu</param>
+        <param name="ondown">330</param>
+        <param name="widget_windowchange_animation">true</param>
+        <definition>
+            <control type="grouplist" id="5000">
+                <onup>$PARAM[onup]</onup>
+                <ondown>$PARAM[ondown]</ondown>
+                <orientation>vertical</orientation>
+                <control type="group" id="5999">
+                    <height>widget_tbump_h</height>
+                </control>
+                <top>hub_recommendations_widgets_grouplist_t</top>
+                <bottom>hub_recommendations_widgets_grouplist_b</bottom>
+                <nested />
+            </control>
+        </definition>
+    </include>
+
+    <include name="Recommendations_BackgroundLoader">
+        <include content="View_Bumper">
+            <param name="groupid">5000</param>
+        </include>
+
+        <include content="Object_Hidden_Button">
+            <param name="id">7000</param>
+            <onfocus>SetFocus(4000)</onfocus>
+        </include>
+
+        <include>Defs_TMDbHelper_Loader</include>
+    </include>
+
+</includes>
