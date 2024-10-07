@@ -94,6 +94,9 @@
             <include content="Background_Fanart" condition="Skin.String(Background.ArtworkStyle,Fanart)">
                 <param name="fadetime">$PARAM[fadetime]</param>
             </include>
+            <!-- PVR006: No artwork on EPG -->
+            <!-- MISC037: Extend PVR006 to Home Page without Detailed Information -->
+            <visible>!Window.IsVisible(10702) + ![Window.IsVisible(10000) + !Skin.HasSetting(hub.home.enabledetailedinformation)]</visible>
         </definition>
     </include>
 
@@ -172,9 +175,6 @@
                 <include content="Background_Image" condition="Skin.String(Background.ArtworkStyle,Fanart)">
                     <param name="fadetime">$PARAM[fadetime]</param>
                 </include>
-                <!-- PVR006: No Blur for EPG -->
-                <!-- MISC037: Extend PVR006 to Home Page -->
-                <visible>!Window.IsVisible(10702) + !Window.IsVisible(10000)</visible>
             </control>
         </definition>
     </include>
