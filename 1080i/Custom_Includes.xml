@@ -1,0 +1,326 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<includes>
+	<!-- PVR001: Expressions and variable for Channel Resolution Icon variable (ImageChannelResolutionIcon) -->
+	<expression name="FHD_Channel">String.Contains(ListItem.ChannelName," FHD")</expression>
+	<expression name="HD_Channel">String.Contains(ListItem.ChannelName," HD")</expression>
+	<expression name="SD_Channel">String.Contains(ListItem.ChannelName," SD")</expression>
+	<expression name="UHD_Channel">String.Contains(ListItem.ChannelName," UHD")</expression>
+	
+	<variable name="ImagePVRChannelResolutionIcon">
+		<value condition="$EXP[FHD_Channel]">special://userdata/customisations\PVR\resolution flags\fhd.png</value>
+		<value condition="$EXP[HD_Channel]">special://userdata/customisations\PVR\resolution flags\hd.png</value>
+		<value condition="$EXP[SD_Channel]">special://userdata/customisations\PVR\resolution flags\sd.png</value>
+		<value condition="$EXP[UHD_Channel]">special://userdata/customisations\PVR\resolution flags\uhd.png</value>
+		<value></value>
+	</variable>
+	
+	<!-- PVR001: Expressions and variable for Channel Provider Icon (ImagePVRProviderIcon) -->
+	<expression name="Anova_Channel">Integer.IsLess(ListItem.ChannelNumberLabel,200) | [Integer.IsGreaterOrEqual(ListItem.ChannelNumberLabel,501) + Integer.IsLessOrEqual(ListItem.ChannelNumberLabel,700)] | Integer.IsGreaterOrEqual(ListItem.ChannelNumberLabel,801) </expression>
+	<expression name="FHNatho_Channel">[Integer.IsGreaterOrEqual(ListItem.ChannelNumberLabel,201) + Integer.IsLessOrEqual(ListItem.ChannelNumberLabel,400)] | [Integer.IsGreaterOrEqual(ListItem.ChannelNumberLabel,701) + Integer.IsLessOrEqual(ListItem.ChannelNumberLabel,800)] </expression>
+	<expression name="BBC_Channel">Integer.IsGreaterOrEqual(ListItem.ChannelNumberLabel,401) + Integer.IsLessOrEqual(ListItem.ChannelNumberLabel,410) </expression>
+	<expression name="ITV_Channel">[Integer.IsGreaterOrEqual(ListItem.ChannelNumberLabel,411) + Integer.IsLessOrEqual(ListItem.ChannelNumberLabel,420)]</expression>
+	<expression name="STV_Channel">Integer.IsGreaterOrEqual(ListItem.ChannelNumberLabel,421) + Integer.IsLessOrEqual(ListItem.ChannelNumberLabel,430) </expression>
+	<expression name="All4_Channel">Integer.IsGreaterOrEqual(ListItem.ChannelNumberLabel,431) + Integer.IsLessOrEqual(ListItem.ChannelNumberLabel,440) </expression>
+	<expression name="My5_Channel">Integer.IsGreaterOrEqual(ListItem.ChannelNumberLabel,441) + Integer.IsLessOrEqual(ListItem.ChannelNumberLabel,450) </expression>
+	<expression name="UKTVPlay_Channel">Integer.IsGreaterOrEqual(ListItem.ChannelNumberLabel,451) + Integer.IsLessOrEqual(ListItem.ChannelNumberLabel,460) </expression>
+	<expression name="Discovery_Channel">Integer.IsGreaterOrEqual(ListItem.ChannelNumberLabel,461) + Integer.IsLessOrEqual(ListItem.ChannelNumberLabel,470) </expression>
+	<expression name="CUTV_Channel">Integer.IsGreaterOrEqual(ListItem.ChannelNumberLabel,471) + Integer.IsLessOrEqual(ListItem.ChannelNumberLabel,490) </expression>
+	<expression name="PlutoTV_Channel">Integer.IsGreaterOrEqual(ListItem.ChannelNumberLabel,491) + Integer.IsLessOrEqual(ListItem.ChannelNumberLabel,499) </expression>
+	
+    <!-- New Expressions for Kodi 22 -->
+    <!-- expression name="Anova_Channel">String.IsEqual(ListItem.MediaProviders,Anova)</expression>
+	<expression name="FHNatho_Channel">String.Contains(ListItem.MediaProviders,FH Natho)</expression>
+	<expression name="BBC_Channel">String.IsEqual(ListItem.MediaProviders,BBC iPlayer)</expression>
+	<expression name="ITV_Channel">String.IsEqual(ListItem.MediaProviders,ITVX)</expression>
+	<expression name="STV_Channel">String.IsEqual(ListItem.MediaProviders,STV Player)</expression>
+	<expression name="All4_Channel">String.IsEqual(ListItem.MediaProviders,Channel4)</expression>
+	<expression name="My5_Channel">String.IsEqual(ListItem.MediaProviders,My5)</expression>
+	<expression name="UKTVPlay_Channel">String.IsEqual(ListItem.MediaProviders,UKTV Play)</expression>
+	<expression name="Discovery_Channel">String.Contains(ListItem.MediaProviders,Discovery)</expression>
+	<expression name="CUTV_Channel">String.IsEqual(ListItem.MediaProviders,CUTV)</expression>
+	<expression name="PlutoTV_Channel">String.IsEqual(ListItem.MediaProviders,PlutoTV)</expression -->
+    
+    <variable name="ImagePVRProviderIcon">
+		<value condition="$EXP[FHNatho_Channel]">special://userdata/customisations\PVR\provider icons\FHNatho.png</value>
+		<value condition="$EXP[BBC_Channel]">special://userdata/customisations\PVR\provider icons\BBC.png</value>
+		<value condition="$EXP[ITV_Channel]">special://userdata/customisations\PVR\provider icons\ITV.png</value>
+		<value condition="$EXP[STV_Channel]">special://userdata/customisations\PVR\provider icons\STV.png</value>
+		<value condition="$EXP[All4_Channel]">special://userdata/customisations\PVR\provider icons\Channel4.png</value>
+		<value condition="$EXP[My5_Channel]">special://userdata/customisations\PVR\provider icons\My5.png</value>
+		<value condition="$EXP[UKTVPlay_Channel]">special://userdata/customisations\PVR\provider icons\UKTVPlay.png</value>
+		<value condition="$EXP[Discovery_Channel]">special://userdata/customisations\PVR\provider icons\Discovery v3.png</value>
+		<value condition="$EXP[CUTV_Channel]">special://userdata/customisations\PVR\provider icons\CUTV.png</value>
+		<value condition="$EXP[PlutoTV_Channel]">special://userdata/customisations\PVR\provider icons\PlutoTV.png</value>
+		<value condition="$EXP[Anova_Channel]">special://userdata/customisations\PVR\provider icons\Anova.png</value>
+		<value>special://userdata/customisations\PVR\provider icons\NoProvider.png</value>
+	</variable>
+	
+	<!-- PVR001 and PVR002: Expressions for Custom Icon and Custom Program Information -->
+	<expression name="Standard_Channel">Integer.IsLessOrEqual(ListItem.ChannelNumberLabel,499)</expression>
+	<expression name="247_Channel">Integer.IsGreater(ListItem.ChannelNumberLabel,900)</expression>
+    
+    <!-- Anova Live Football Channel Groups -->
+    <expression name="Live_Football_Anova_EPL_Club">[Integer.IsGreaterOrEqual(ListItem.ChannelNumberLabel,501) + Integer.IsLessOrEqual(ListItem.ChannelNumberLabel,520)]</expression>
+    <expression name="Live_Football_Anova_EFLC_Club">[Integer.IsGreaterOrEqual(ListItem.ChannelNumberLabel,521) + Integer.IsLessOrEqual(ListItem.ChannelNumberLabel,544)]</expression>
+    <expression name="Live_Football_Anova_EFL1_Club">[Integer.IsGreaterOrEqual(ListItem.ChannelNumberLabel,545) + Integer.IsLessOrEqual(ListItem.ChannelNumberLabel,568)]</expression>
+    <expression name="Live_Football_Anova_EFL2_Club">[Integer.IsGreaterOrEqual(ListItem.ChannelNumberLabel,569) + Integer.IsLessOrEqual(ListItem.ChannelNumberLabel,592)]</expression>
+    <expression name="Live_Football_Anova_EPL_Fixture">[Integer.IsGreaterOrEqual(ListItem.ChannelNumberLabel,593) + Integer.IsLessOrEqual(ListItem.ChannelNumberLabel,602)]</expression>
+    <expression name="Live_Football_Anova_EFL_Fixture">[Integer.IsGreaterOrEqual(ListItem.ChannelNumberLabel,603) + Integer.IsLessOrEqual(ListItem.ChannelNumberLabel,638)]</expression>    
+    <expression name="Live_Football_Anova_EFLC_Fixture">$EXP[Live_Football_Anova_EFL_Fixture] + String.Contains(ListItem.ChannelName,"(CH)")</expression>
+    <expression name="Live_Football_Anova_EFL1_Fixture">$EXP[Live_Football_Anova_EFL_Fixture] + String.Contains(ListItem.ChannelName,"(L1)")</expression>
+    <expression name="Live_Football_Anova_EFL2_Fixture">$EXP[Live_Football_Anova_EFL_Fixture] + String.Contains(ListItem.ChannelName,"(L2)")</expression>
+    <expression name="Live_Football_Anova_SPL_Club">[Integer.IsGreaterOrEqual(ListItem.ChannelNumberLabel,639) + Integer.IsLessOrEqual(ListItem.ChannelNumberLabel,650)]</expression>
+    <expression name="Live_Football_Anova_SPL_Fixture">[Integer.IsGreaterOrEqual(ListItem.ChannelNumberLabel,651) + Integer.IsLessOrEqual(ListItem.ChannelNumberLabel,656)]</expression>
+    <expression name="Live_Football_Anova_SPFLC_Fixture">[Integer.IsGreaterOrEqual(ListItem.ChannelNumberLabel,657) + Integer.IsLessOrEqual(ListItem.ChannelNumberLabel,661)]</expression>
+    <expression name="Live_Football_Anova_ScottishCup_Fixture">[Integer.IsGreaterOrEqual(ListItem.ChannelNumberLabel,662) + Integer.IsLessOrEqual(ListItem.ChannelNumberLabel,669)]</expression>
+
+    <expression name="Live_Football_Anova_UEFA_Fixture">[Integer.IsGreaterOrEqual(ListItem.ChannelNumberLabel,670) + Integer.IsLessOrEqual(ListItem.ChannelNumberLabel,699)]</expression>
+
+    <expression name="Live_Football_Anova">[Integer.IsGreaterOrEqual(ListItem.ChannelNumberLabel,501) + Integer.IsLessOrEqual(ListItem.ChannelNumberLabel,699)] | [Integer.IsGreaterOrEqual(ListItem.ChannelNumberLabel,861) + Integer.IsLessOrEqual(ListItem.ChannelNumberLabel,870)]</expression>
+    
+    <expression name="Live_Football_Anova_SkySportsPlus">[Integer.IsGreaterOrEqual(ListItem.ChannelNumberLabel,801) + Integer.IsLessOrEqual(ListItem.ChannelNumberLabel,860)]</expression>
+    <expression name="Live_Football_Anova_MLS">[Integer.IsGreaterOrEqual(ListItem.ChannelNumberLabel,861) + Integer.IsLessOrEqual(ListItem.ChannelNumberLabel,870)]</expression>
+    
+    <!--  Anova Live Football League / Cup Expressions -->
+	<expression name="Live_EPL_Anova">$EXP[Live_Football_Anova_EPL_Club] | $EXP[Live_Football_Anova_EPL_Fixture]</expression>
+	<expression name="Live_EFLC_Anova">$EXP[Live_Football_Anova_EFLC_Club] | $EXP[Live_Football_Anova_EFLC_Fixture]</expression>
+	<expression name="Live_EFL1_Anova">$EXP[Live_Football_Anova_EFL1_Club] | $EXP[Live_Football_Anova_EFL1_Fixture]</expression>
+	<expression name="Live_EFL2_Anova">$EXP[Live_Football_Anova_EFL2_Club] | $EXP[Live_Football_Anova_EFL2_Fixture]</expression>
+    <expression name="Live_EFL_Anova">$EXP[Live_EFLC_Anova] | $EXP[Live_EFL1_Anova] | $EXP[Live_EFL2_Anova]</expression>
+    <!--expression name="Live_FAC_Anova">$EXP[Live_Football_Anova] + String.StartsWith(ListItem.ChannelName,"EFL") + String.Contains(ListItem.ChannelName,"(FA)")</expression -->
+	<expression name="Live_UEFA_Anova">$EXP[Live_Football_Anova_UEFA_Fixture]</expression>
+    <expression name="Live_SPL_Anova">$EXP[Live_Football_Anova_SPL_Club] | $EXP[Live_Football_Anova_SPL_Fixture]</expression>
+	<expression name="Live_SPFLC_Anova">$EXP[Live_Football_Anova_SPFLC_Fixture]</expression>
+    <expression name="Live_ScottishCup_Anova">$EXP[Live_Football_Anova_ScottishCup_Fixture]</expression>
+    <!-- expression name="Live_NL_Anova">$EXP[Live_Football_Anova] + String.StartsWith(ListItem.ChannelName,"NATIONAL LEAGUE")</expression -->
+
+    <expression name="Live_Football_FHNatho">Integer.IsGreaterOrEqual(ListItem.ChannelNumberLabel,701) + Integer.IsLessOrEqual(ListItem.ChannelNumberLabel,799)</expression>
+	<expression name="Live_EPL_FHNatho">$EXP[Live_Football_FHNatho] + String.Contains(ListItem.ChannelName,"LIVE EPL ")</expression>
+    <expression name="Live_EFL_FHNatho">$EXP[Live_Football_FHNatho] + String.Contains(ListItem.ChannelName,"LIVE EFL ")</expression>
+	<expression name="Live_EFLC_FHNatho">$EXP[Live_Football_FHNatho] + String.Contains(ListItem.ChannelName,"LIVE EFL ") + String.Contains(ListItem.ChannelName,"(CH)")</expression>
+	<expression name="Live_EFL1_FHNatho">$EXP[Live_Football_FHNatho] + String.Contains(ListItem.ChannelName,"LIVE EFL ") + String.Contains(ListItem.ChannelName,"(L1)")</expression>
+	<expression name="Live_EFL2_FHNatho">$EXP[Live_Football_FHNatho] + String.Contains(ListItem.ChannelName,"LIVE EFL ") + String.Contains(ListItem.ChannelName,"(L2)")</expression>
+	<expression name="Live_FAC_FHNatho">$EXP[Live_Football_FHNatho] + String.Contains(ListItem.ChannelName,"LIVE EFL ") + String.Contains(ListItem.ChannelName,"(FA)")</expression>
+	<expression name="Live_EFLPJT_FHNatho">$EXP[Live_Football_FHNatho] + String.Contains(ListItem.ChannelName,"LIVE EFL ") + String.Contains(ListItem.ChannelName,"(ELT)")</expression>	
+	<expression name="Live_SPL_FHNatho">$EXP[Live_Football_FHNatho] + String.Contains(ListItem.ChannelName,"LIVE: SPFL ")</expression>
+  
+    <expression name="Live_Football_Club_Channel">[$EXP[Live_Football_Anova_EPL_Club] | $EXP[Live_Football_Anova_EFLC_Club] | $EXP[Live_Football_Anova_EFL1_Club] | $EXP[Live_Football_Anova_EFL2_Club] | $EXP[Live_Football_Anova_SPL_Club]]</expression>
+
+	<!-- PVR001: Variable for Channel Icon -->
+	<variable name="ImagePVREPGIcon">
+		<value condition="$EXP[Standard_Channel]">$INFO[ListItem.Icon]</value>
+		<value condition="$EXP[247_Channel]">$INFO[ListItem.Icon]</value>
+		<value condition="$EXP[Live_EPL_Anova] | $EXP[Live_EPL_FHNatho]">special://userdata/customisations\PVR\PVR Logo Pack\LIVE EPL.png</value>
+		<value condition="$EXP[Live_EFLC_Anova] | $EXP[Live_EFLC_FHNatho]">special://userdata/customisations\PVR\PVR Logo Pack\LIVE EFL C.png</value>
+		<value condition="$EXP[Live_EFL1_Anova] | $EXP[Live_EFL1_FHNatho]">special://userdata/customisations\PVR\PVR Logo Pack\LIVE EFL L1.png</value>
+		<value condition="$EXP[Live_EFL2_Anova] | $EXP[Live_EFL2_FHNatho]">special://userdata/customisations\PVR\PVR Logo Pack\LIVE EFL L2.png</value>
+		<value condition="$EXP[Live_FAC_Anova] | $EXP[Live_FAC_FHNatho]">special://userdata/customisations\PVR\PVR Logo Pack\LIVE FAC.png</value>
+        <value condition="$EXP[Live_EFLPJT_FHNatho]">special://userdata/customisations\PVR\PVR Logo Pack\LIVE EFL.png</value>
+        <value condition="$EXP[Live_EFL_Anova] | $EXP[Live_EFL_FHNatho]">special://userdata/customisations\PVR\PVR Logo Pack\LIVE EFL.png</value>
+        <!-- value condition="$EXP[Live_NL_Anova]">special://userdata/customisations\PVR\PVR Logo Pack\LIVE NATIONAL LEAGUE.png</value -->
+		<value condition="$EXP[Live_UEFA_Anova]">special://userdata/customisations\PVR\PVR Logo Pack\LIVE UEFA.png</value>
+        <value condition="$EXP[Live_SPL_Anova] | $EXP[Live_SPL_FHNatho]">special://userdata/customisations\PVR\PVR Logo Pack\LIVE SPFL PREMIERSHIP.png</value>
+		<value condition="$EXP[Live_SPFLC_Anova]">special://userdata/customisations\PVR\PVR Logo Pack\LIVE SPFL CHAMPIONSHIP.png</value>
+        <value condition="$EXP[Live_ScottishCup_Anova]">special://userdata/customisations\PVR\PVR Logo Pack\LIVE SCOTTISH LEAGUE CUP.png</value>
+        
+        <value condition="$EXP[Live_Football_Anova_SkySportsPlus]">special://userdata/customisations\PVR\PVR Logo Pack\SKY SPORTS+ EVENTS.png</value>
+        <value condition="$EXP[Live_Football_Anova_MLS]">special://userdata/customisations\PVR\PVR Logo Pack\LIVE MLS.png</value>
+        
+        <value>$INFO[ListItem.Icon]</value>
+	</variable>
+
+	<!-- PVR006: Customised Variable Definition for EPG-->
+	<variable name="Custom_Image_Foreground_FlixArt">
+		<!-- 1. Special Artwork for Standard Channels -->
+		<value condition="System.Platform.Android + $EXP[Standard_Channel]" >$INFO[ListItem.Icon]</value>
+		<value condition="$EXP[Standard_Channel] + String.IsEqual(ListItem.Label,Stay tuned for next broadcast)">$INFO[ListItem.Icon]</value>
+		<value condition="$EXP[Standard_Channel] + String.IsEqual(ListItem.Label,Channel Off Air)">$INFO[ListItem.Icon]</value>
+		<value condition="$EXP[Standard_Channel] + String.IsEqual(ListItem.Label,No information available)">$INFO[ListItem.Icon]</value>
+		<value condition="$EXP[Standard_Channel] + String.Contains(ListItem.Label,Indian Premier League)">special://userdata/customisations\PVR\EPG Artwork\IPL2.jpg</value>
+		<value condition="$EXP[Standard_Channel] + String.Contains(ListItem.Label,IPL )">special://userdata/customisations\PVR\EPG Artwork\IPL2.jpg</value>
+		<value condition="$EXP[Standard_Channel] + String.Contains(ListItem.Label,EPL)">special://userdata/customisations\PVR\EPG Artwork\EPL.jpg</value>
+		<value condition="$EXP[Standard_Channel] + String.Contains(ListItem.Label,Premier League) + !String.Contains(ListItem.Label,Darts)">special://userdata/customisations\PVR\EPG Artwork\EPL.jpg</value>
+		<value condition="$EXP[Standard_Channel] + String.StartsWith(ListItem.Label,PL )">special://userdata/customisations\PVR\EPG Artwork\EPL.jpg</value>
+		<value condition="$EXP[Standard_Channel] + String.Contains(ListItem.Label,EFL)">special://userdata/customisations\PVR\EPG Artwork\EFL.jpg</value>
+		<value condition="$EXP[Standard_Channel] + String.Contains(ListItem.Label,National League)">special://userdata/customisations\PVR\EPG Artwork\NATIONAL LEAGUE.jpg</value>
+		<value condition="$EXP[Standard_Channel] + String.Contains(ListItem.Label,Scottish Premiership)">special://userdata/customisations\PVR\EPG Artwork\SPFL.png</value>
+		<value condition="$EXP[Standard_Channel] + String.Contains(ListItem.Label,SPFL )">special://userdata/customisations\PVR\EPG Artwork\SPFL.png</value>
+		<value condition="$EXP[Standard_Channel] + String.Contains(ListItem.Label,LaLiga)">special://userdata/customisations\PVR\EPG Artwork\LaLiga.jpg</value>
+		<value condition="$EXP[Standard_Channel] + String.Contains(ListItem.Label,La Liga)">special://userdata/customisations\PVR\EPG Artwork\LaLiga.jpg</value>
+		<value condition="$EXP[Standard_Channel] + String.Contains(ListItem.Label,Serie A)">special://userdata/customisations\PVR\EPG Artwork\Serie A.jpg</value>
+        <value condition="$EXP[Standard_Channel] + String.Contains(ListItem.Label,A-League)">special://userdata/customisations\PVR\EPG Artwork\A-League.png</value>
+		<value condition="$EXP[Standard_Channel] + String.Contains(ListItem.Label,Ligue 1)">special://userdata/customisations\PVR\EPG Artwork\Ligue1.jpg</value>
+		<value condition="$EXP[Standard_Channel] + String.Contains(ListItem.Label,Bundesliga)">special://userdata/customisations\PVR\EPG Artwork\Bundesliga.jpg</value>
+		<value condition="$EXP[Standard_Channel] + String.Contains(ListItem.Label, NRL)">special://userdata/customisations\PVR\EPG Artwork\NRL.jpg</value>
+		<value condition="$EXP[Standard_Channel] + String.Contains(ListItem.Label, Baseball)">special://userdata/customisations\PVR\EPG Artwork\MLB.jpg</value>
+		<value condition="$EXP[247_Channel]">$INFO[ListItem.Icon]</value>
+		<!-- 2. Special Artwork for Live Football -->			
+		<value condition="[$EXP[Live_EPL_Anova] | $EXP[Live_EPL_FHNatho]]">special://userdata/customisations\PVR\EPG Artwork\EPL.jpg</value>
+		<value condition="[$EXP[Live_EFL_Anova] | $EXP[Live_EFL_FHNatho]]">special://userdata/customisations\PVR\EPG Artwork\EFL.jpg</value>
+		<value condition="[$EXP[Live_FAC_Anova] | $EXP[Live_FAC_FHNatho]]">special://userdata/customisations\PVR\EPG Artwork\FAC.jpg</value>			
+		<!-- value condition="$EXP[Live_NL_Anova]">special://userdata/customisations\PVR\EPG Artwork\NATIONAL LEAGUE.jpg</value -->
+		<value condition="$EXP[Live_EFLPJT_FHNatho]">special://userdata/customisations\PVR\EPG Artwork\EFL.jpg</value>
+		<value condition="[$EXP[Live_SPL_Anova] | $EXP[Live_SPL_FHNatho]]">special://userdata/customisations\PVR\EPG Artwork\SPFL.png</value>	
+		<!--value condition="$EXP[Live_SPFLC_Anova]">special://userdata/customisations\PVR\EPG Artwork\SPFL.png</value -->
+		<!-- 3. ClearArt -->
+	    <value condition="!String.IsEmpty(Container(99950).ListItem.Property(base_clearart))">$INFO[Container(99950).ListItem.Property(base_clearart)]</value>
+        <value condition="!String.IsEmpty(Container(99950).ListItem.Art(clearart))">$INFO[Container(99950).ListItem.Art(clearart)]</value>
+		<value condition="!String.IsEmpty(Window(Home).Property(SkinHelper.ListItem.Art.ClearArt))">$INFO[Window(Home).Property(SkinHelper.ListItem.Art.ClearArt)]</value>
+		<!-- 4. Landscape -->
+		<value condition="!String.IsEmpty(Container(99950).ListItem.Property(base_landscape))">$INFO[Container(99950).ListItem.Property(base_landscape)]</value>
+        <value condition="!String.IsEmpty(Container(99950).ListItem.Art(landscape))">$INFO[Container(99950).ListItem.Art(landscape)]</value>
+		<value condition="!String.IsEmpty(Window(Home).Property(SkinHelper.ListItem.Art.Landscape))">$INFO[Window(Home).Property(SkinHelper.ListItem.Art.Landscape)]</value>
+		<!-- 5. Fanart -->
+		<value condition="!String.IsEmpty(Container(99950).ListItem.Property(base_fanart))">$INFO[Container(99950).ListItem.Property(base_fanart)]</value>
+        <value condition="!String.IsEmpty(Container(99950).ListItem.Art(fanart))">$INFO[Container(99950).ListItem.Art(fanart)]</value>
+		<value condition="!String.IsEmpty(Window(Home).Property(SkinHelper.ListItem.Art.Fanart))">$INFO[Window(Home).Property(SkinHelper.ListItem.Art.Fanart)]</value>	
+		<!-- 6. ClearLogo -->
+        <value condition="!String.IsEmpty(Container(99950).ListItem.Property(base_clearlogo))">$INFO[Container(99950).ListItem.Property(base_clearlogo)]</value>
+        <value condition="!String.IsEmpty(Container(99950).ListItem.Art(clearlogo))">$INFO[Container(99950).ListItem.Art(clearlogo)]</value>		
+		<value condition="!String.IsEmpty(Window(Home).Property(SkinHelper.ListItem.Art.ClearLogo))">$INFO[Window(Home).Property(SkinHelper.ListItem.Art.ClearLogo)]</value>		
+		<!-- 7. Thumb -->
+		<value condition="!String.IsEmpty(Window(Home).Property(SkinHelper.ListItem.Art.Thumb))">$INFO[Window(Home).Property(SkinHelper.ListItem.Art.Thumb)]</value>
+		<value condition="!String.IsEmpty(Container(99950).ListItem.Thumb)">$INFO[Container(99950).ListItem.Thumb]</value>
+		<!-- 8. Fallback -->
+		<value condition="String.IsEqual(System.CurrentControlID,1604)">$INFO[ListItem.Icon]</value>
+		<!-- value>special://xbmc\media\splash.jpg</value -->			
+	</variable>
+	
+	<!-- PVR008:  variable for program start date (ImagePVRProviderIcon) -->
+	<variable name="LabelProgramStartDate">
+	    <value condition="$EXP[Live_Football_Anova]">$INFO[System.Date]</value>
+		<value condition="$EXP[Live_Football_FHNatho]">$INFO[System.Date]</value>
+		<value>$INFO[ListItem.StartDate]</value>
+	</variable>
+	
+	<!-- PVR010: Expressions and variable for PVR Program Title and Plot -->
+	<variable name="TextPVREPGProgramPlot">
+		<value condition="$EXP[Standard_Channel]">$VAR[Label_Plot]</value>
+		<value condition="$EXP[247_Channel]">All Day, Every Day</value>
+        <value condition="$EXP[Live_Football_Anova] | $EXP[Live_Football_FHNatho]">[CR]Live Football (Match Time Only).</value>
+        <value condition="$EXP[Live_Football_Anova_SkySportsPlus]">[CR]Live Football and other Sports Events (Event Time Only).</value>
+		<value>$INFO[ListItem.Label]</value>
+	</variable>
+    
+    <variable name="TextPVREPGSkySportsPlusEventNo">
+        <value condition="Integer.IsEqual(ListItem.ChannelNumberLabel,801)">01</value>
+        <value condition="Integer.IsEqual(ListItem.ChannelNumberLabel,802)">02</value>
+        <value condition="Integer.IsEqual(ListItem.ChannelNumberLabel,803)">03</value>
+        <value condition="Integer.IsEqual(ListItem.ChannelNumberLabel,804)">04</value>
+        <value condition="Integer.IsEqual(ListItem.ChannelNumberLabel,805)">05</value>
+        <value condition="Integer.IsEqual(ListItem.ChannelNumberLabel,806)">06</value>
+        <value condition="Integer.IsEqual(ListItem.ChannelNumberLabel,807)">07</value>
+        <value condition="Integer.IsEqual(ListItem.ChannelNumberLabel,808)">08</value>
+        <value condition="Integer.IsEqual(ListItem.ChannelNumberLabel,809)">09</value>
+        <value condition="Integer.IsEqual(ListItem.ChannelNumberLabel,810)">10</value>
+        <value condition="Integer.IsEqual(ListItem.ChannelNumberLabel,811)">11</value>
+        <value condition="Integer.IsEqual(ListItem.ChannelNumberLabel,812)">12</value>
+        <value condition="Integer.IsEqual(ListItem.ChannelNumberLabel,813)">13</value>
+        <value condition="Integer.IsEqual(ListItem.ChannelNumberLabel,814)">14</value>
+        <value condition="Integer.IsEqual(ListItem.ChannelNumberLabel,815)">15</value>
+        <value condition="Integer.IsEqual(ListItem.ChannelNumberLabel,816)">16</value>
+        <value condition="Integer.IsEqual(ListItem.ChannelNumberLabel,817)">17</value>
+        <value condition="Integer.IsEqual(ListItem.ChannelNumberLabel,818)">18</value>
+        <value condition="Integer.IsEqual(ListItem.ChannelNumberLabel,819)">19</value>
+        <value condition="Integer.IsEqual(ListItem.ChannelNumberLabel,820)">20</value>
+        <value condition="Integer.IsEqual(ListItem.ChannelNumberLabel,821)">21</value>
+        <value condition="Integer.IsEqual(ListItem.ChannelNumberLabel,822)">22</value>
+        <value condition="Integer.IsEqual(ListItem.ChannelNumberLabel,823)">23</value>
+        <value condition="Integer.IsEqual(ListItem.ChannelNumberLabel,824)">24</value>
+        <value condition="Integer.IsEqual(ListItem.ChannelNumberLabel,825)">25</value>
+        <value condition="Integer.IsEqual(ListItem.ChannelNumberLabel,826)">26</value>
+        <value condition="Integer.IsEqual(ListItem.ChannelNumberLabel,827)">27</value>
+        <value condition="Integer.IsEqual(ListItem.ChannelNumberLabel,828)">28</value>
+        <value condition="Integer.IsEqual(ListItem.ChannelNumberLabel,829)">29</value>
+        <value condition="Integer.IsEqual(ListItem.ChannelNumberLabel,830)">30</value>
+        <value condition="Integer.IsEqual(ListItem.ChannelNumberLabel,831)">31</value>
+        <value condition="Integer.IsEqual(ListItem.ChannelNumberLabel,832)">32</value>
+        <value condition="Integer.IsEqual(ListItem.ChannelNumberLabel,833)">33</value>
+        <value condition="Integer.IsEqual(ListItem.ChannelNumberLabel,834)">34</value>
+        <value condition="Integer.IsEqual(ListItem.ChannelNumberLabel,835)">35</value>
+        <value condition="Integer.IsEqual(ListItem.ChannelNumberLabel,836)">36</value>
+        <value condition="Integer.IsEqual(ListItem.ChannelNumberLabel,837)">37</value>
+        <value condition="Integer.IsEqual(ListItem.ChannelNumberLabel,838)">38</value>
+        <value condition="Integer.IsEqual(ListItem.ChannelNumberLabel,839)">39</value>
+        <value condition="Integer.IsEqual(ListItem.ChannelNumberLabel,840)">40</value>
+        <value condition="Integer.IsEqual(ListItem.ChannelNumberLabel,841)">41</value>
+        <value condition="Integer.IsEqual(ListItem.ChannelNumberLabel,842)">42</value>
+        <value condition="Integer.IsEqual(ListItem.ChannelNumberLabel,843)">43</value>
+        <value condition="Integer.IsEqual(ListItem.ChannelNumberLabel,844)">44</value>
+        <value condition="Integer.IsEqual(ListItem.ChannelNumberLabel,845)">45</value>
+        <value condition="Integer.IsEqual(ListItem.ChannelNumberLabel,846)">46</value>
+        <value condition="Integer.IsEqual(ListItem.ChannelNumberLabel,847)">47</value>
+        <value condition="Integer.IsEqual(ListItem.ChannelNumberLabel,848)">48</value>
+        <value condition="Integer.IsEqual(ListItem.ChannelNumberLabel,849)">49</value>
+        <value condition="Integer.IsEqual(ListItem.ChannelNumberLabel,850)">50</value>
+        <value condition="Integer.IsEqual(ListItem.ChannelNumberLabel,851)">51</value>
+        <value condition="Integer.IsEqual(ListItem.ChannelNumberLabel,852)">52</value>
+        <value condition="Integer.IsEqual(ListItem.ChannelNumberLabel,853)">53</value>
+        <value condition="Integer.IsEqual(ListItem.ChannelNumberLabel,854)">54</value>
+        <value condition="Integer.IsEqual(ListItem.ChannelNumberLabel,855)">55</value>
+        <value condition="Integer.IsEqual(ListItem.ChannelNumberLabel,856)">56</value>
+        <value condition="Integer.IsEqual(ListItem.ChannelNumberLabel,857)">57</value>
+        <value condition="Integer.IsEqual(ListItem.ChannelNumberLabel,858)">58</value>
+        <value condition="Integer.IsEqual(ListItem.ChannelNumberLabel,859)">59</value>
+        <value condition="Integer.IsEqual(ListItem.ChannelNumberLabel,860)">60</value>
+        <value>$INFO[ListItem.Label]</value>
+    </variable>
+    
+    <variable name="TextPVREPGProgramInfo">
+        <value condition="$EXP[Standard_Channel]">$INFO[ListItem.Label]</value>
+        <value condition="$EXP[247_Channel]">$INFO[ListItem.ChannelName] ... All Day, Every Day</value>
+        <value condition="$EXP[Live_Football_Anova]">$INFO[ListItem.ChannelName]</value>
+        <value condition="$EXP[Live_Football_FHNatho]">$INFO[ListItem.ChannelName]</value>
+        <value condition="$EXP[Live_Football_Anova_SkySportsPlus]">EVENT $VAR[TextPVREPGSkySportsPlusEventNo]: $INFO[ListItem.Label]</value>
+        <value>$INFO[ListItem.Label]</value>
+    </variable>
+    
+    <variable name="TextPVRPlotboxHeader">
+        <value condition="!$EXP[Live_Football_Anova] + !$EXP[Live_Football_FHNatho] + !$EXP[Live_Football_Anova_SkySportsPlus]">$VAR[TextPVREPGProgramInfo] : $INFO[ListItem.StartTime,,]$INFO[ListItem.EndTime, - ,]</value>
+        <value>$VAR[TextPVREPGProgramInfo]</value>
+    </variable>
+    
+	<!--MISC019: Expressions and Variables for Custom Episode Type Banner-->
+	<expression name="Info_Line_Episode_Banner_Exists">String.IsEqual(Container(99950).ListItem.Property(episode_type),series_premiere) | String.IsEqual(Container(99950).ListItem.Property(episode_type),season_premiere) | String.IsEqual(Container(99950).ListItem.Property(episode_type),mid_season_premiere) | String.IsEqual(Container(99950).ListItem.Property(episode_type),series_finale) | String.IsEqual(Container(99950).ListItem.Property(episode_type),season_finale) | String.IsEqual(Container(99950).ListItem.Property(episode_type),mid_season_finale)</expression>
+	
+	<variable name="Info_Line_Episode_Banner_Color">
+		<value condition="String.IsEqual(Container(99950).ListItem.Property(episode_type),series_premiere)">$VAR[ColorBanner_series_premiere]</value>
+		<value condition="String.IsEqual(Container(99950).ListItem.Property(episode_type),season_premiere)">$VAR[ColorBanner_season_premiere]</value>
+		<value condition="String.IsEqual(Container(99950).ListItem.Property(episode_type),mid_season_premiere)">$VAR[ColorBanner_mid_season_premiere]</value>
+		<value condition="String.IsEqual(Container(99950).ListItem.Property(episode_type),series_finale)">$VAR[ColorBanner_series_finale]</value>
+		<value condition="String.IsEqual(Container(99950).ListItem.Property(episode_type),season_finale)">$VAR[ColorBanner_season_finale]</value>
+		<value condition="String.IsEqual(Container(99950).ListItem.Property(episode_type),mid_season_finale)">$VAR[ColorBanner_mid_season_finale]</value>
+	</variable>
+	
+	<variable name="Info_Line_Episode_Banner_Text">
+		<value condition="String.IsEqual(Container(99950).ListItem.Property(episode_type),series_premiere)">$LOCALIZE[31210]</value>
+		<value condition="String.IsEqual(Container(99950).ListItem.Property(episode_type),season_premiere)">$LOCALIZE[31211]</value>
+		<value condition="String.IsEqual(Container(99950).ListItem.Property(episode_type),mid_season_premiere)">$LOCALIZE[31212]</value>
+		<value condition="String.IsEqual(Container(99950).ListItem.Property(episode_type),series_finale)">$LOCALIZE[31214]</value>
+		<value condition="String.IsEqual(Container(99950).ListItem.Property(episode_type),season_finale)">$LOCALIZE[31215]</value>
+		<value condition="String.IsEqual(Container(99950).ListItem.Property(episode_type),mid_season_finale)">$LOCALIZE[31218]</value>
+	</variable>
+    
+    <!-- MISC036: include TV Show status in Info_Line -->
+    <variable name="Image_ListItem_Status_Text">
+        <value condition="String.IsEqual(Container(99950).ListItem.Property(Status),Returning Series">CONTINUING TV SHOW</value>
+        <value condition="String.IsEqualContainer(99950).ListItem.Property(Status),Post Production)">TV SHOW IN POST PRODUCTION</value>
+        <!-- value condition="String.IsEqual(Container(99950).ListItem.Property(Status),Canceled)">TV SHOW ENDED</value -->
+        <!-- value condition="String.IsEqual(Container(99950).ListItem.Property(Status),Ended)">TV SHOW ENDED</value -->
+        <value condition="String.IsEqual(Container(99950).ListItem.Property(Status),Released)">TV SHOW RELEASED</value>
+        <value condition="String.IsEqual(Container(99950).ListItem.Property(Status),In Production)">TV SHOW IN PRODUCTION</value>
+        <value condition="String.IsEqual(Container(99950).ListItem.Property(Status),Planned)">TV SHOW PLANNED</value>
+        <value></value>
+    </variable>
+    
+    <variable name="Image_ListItem_Status_Color">
+        <value condition="String.IsEqual(Container(99950).ListItem.Property(Status),Returning Series">$VAR[ColorBanner_season_premiere]</value>
+        <value condition="String.IsEqual(Container(99950).ListItem.Property(Status),Post Production)">$VAR[ColorBanner_series_premiere]</value>
+        <value condition="String.IsEqual(Container(99950).ListItem.Property(Status),Canceled)">$VAR[ColorBanner_season_finale]</value>
+        <value condition="String.IsEqual(Container(99950).ListItem.Property(Status),Ended)">$VAR[ColorBanner_season_finale]</value>
+        <value condition="String.IsEqual(Container(99950).ListItem.Property(Status),Released)">$VAR[ColorBanner_season_premiere]</value>
+        <value condition="String.IsEqual(Container(99950).ListItem.Property(Status),In Production)">$VAR[ColorBanner_series_premiere]</value>
+        <value condition="String.IsEqual(Container(99950).ListItem.Property(Status),Planned)">$VAR[ColorBanner_series_premiere]</value>
+        <value></value>
+	</variable>
+</includes>
