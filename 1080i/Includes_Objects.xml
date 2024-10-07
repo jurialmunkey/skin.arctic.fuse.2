@@ -1065,9 +1065,10 @@
     <include name="Object_Indicator_Visible_Percentage">
         <visible>[$PARAM[episodes]] | [$PARAM[progress]]</visible>
     </include>
-
-    <include name="Object_Indicator_Visible_All">
-        <visible>[$PARAM[playing]] | [$PARAM[episodes]] | [$PARAM[timers]] | [$PARAM[progress]] | [$PARAM[watched]] | [$PARAM[library]] | [$PARAM[collection]]</visible>
+	
+	<include name="Object_Indicator_Visible_All">
+        <!-- MISC004: add [$PARAM[onlinevideo]] -->
+        <visible>[$PARAM[onlinevideo]] | [$PARAM[playing]] | [$PARAM[episodes]] | [$PARAM[timers]] | [$PARAM[progress]] | [$PARAM[watched]] | [$PARAM[library]] | [$PARAM[collection]]</visible>
     </include>
 
     <include name="Object_Indicator_Visible">
@@ -1081,6 +1082,8 @@
                 <param name="watched">!Skin.HasSetting(Indicator.DisableWatched) + [String.IsEqual($PARAM[listitem].Overlay,OverlayWatched.png) | [!Integer.IsEqual($PARAM[listitem].PlayCount,0) + [String.IsEqual($PARAM[listitem].DBType,movie) | String.IsEqual($PARAM[listitem].DBType,tvshow) | String.IsEqual($PARAM[listitem].DBType,season) | String.IsEqual($PARAM[listitem].DBType,set) | String.IsEqual($PARAM[listitem].DBType,video) | String.IsEqual($PARAM[listitem].DBType,episode)]]]</param>
                 <param name="library">!Skin.HasSetting(Indicator.DisableLibrary) + !String.IsEmpty($PARAM[listitem].DBID) + !String.IsEmpty($PARAM[listitem].Property(Item.Info))</param>
                 <param name="collection">!Skin.HasSetting(Indicator.DisableCollection) + [$PARAM[listitem].IsCollection | $PARAM[listitem].HasVideoVersions]</param>
+				<!-- MISC004: add "online video" option -->
+                <param name="onlinevideo">[String.IsEqual($PARAM[listitem].DBType,tvshow) | String.IsEqual($PARAM[listitem].DBType,season) | String.IsEqual($PARAM[listitem].DBType,movie)] + [String.Contains($PARAM[listitem].Path,Video Library VOD Streams) | String.Contains($PARAM[listitem].Path,context.addtolib)]</param>
             </include>
         </definition>
     </include>
@@ -1190,6 +1193,23 @@
                         <param name="listitem">$PARAM[listitem]</param>
                     </include>
                 </include>
+				
+				<!-- MISC004: START indicator for an online video library item -->
+                <include content="Object_Control">
+                    <param name="control">image</param>
+                    <include content="Dimension_Padding">
+                        <param name="pad">20</param>
+                    </include>
+                    <texture colordiffuse="$VAR[ColorGradient]">indicator/onlinevideo-v2.png</texture>
+                    
+                    <include content="Object_Indicator_Visible">
+                        <param name="include_type">All</param>
+                        <param name="listitem">$PARAM[listitem]</param>
+                    </include>	
+ 
+                    <visible>[String.IsEqual($PARAM[listitem].DBType,tvshow) | String.IsEqual($PARAM[listitem].DBType,season) | String.IsEqual($PARAM[listitem].DBType,movie)] + [String.Contains($PARAM[listitem].Path,Video Library VOD Streams) | String.Contains($PARAM[listitem].Path,context.addtolib)]</visible>
+                </include>
+                <!-- MISC004: END indicator for an online video library item -->
 
                 <!-- Watched -->
                 <include content="Object_Control" condition="!Skin.HasSetting(Indicator.DisableWatched)">
@@ -1200,7 +1220,8 @@
                     </control>
                     <control type="image">
                         <bordersize>20</bordersize>
-                        <texture colordiffuse="$VAR[ColorWatchedProgress]">indicator/checkmark.png</texture>
+                        <!-- MISC004: Fix checkmark as "yellow" to differentiate from Online Video indicator -->
+                        <texture colordiffuse="yellow">indicator/checkmark.png</texture>  
                     </control>
                     <include content="Object_Indicator_Visible">
                         <param name="include_type">Watched</param>
