@@ -37,6 +37,7 @@
                         <onright condition="String.IsEmpty(Container(6000).ListItem.Property(folderpath))">Container.Update($INFO[Container(6000).ListItem.FolderPath],replace)</onright>
                         <onright condition="!String.IsEmpty(Container(6000).ListItem.Property(folderpath))">Container.Update($INFO[Container(6000).ListItem.Property(folderpath)],replace)</onright>
                         <onright>50</onright>
+                        <onclick condition="String.IsEmpty(Container(6000).ListItem.Property(skipupdate))">SendClick(9)</onclick>
                         <left>40</left>
                         <right>-100</right>
                         <top>180</top>
@@ -71,12 +72,14 @@
                             <item>
                                 <label>$LOCALIZE[31375]</label>
                                 <property name="folderpath">addons://user/</property>
+                                <property name="skipupdate">true</property>
                                 <icon>DefaultAddonsZip.png</icon>
                                 <onclick>InstallFromZip</onclick>
                             </item>
                             <item>
                                 <label>$LOCALIZE[137]</label>
                                 <property name="folderpath">addons://user/</property>
+                                <property name="skipupdate">true</property>
                                 <icon>DefaultAddonsSearch.png</icon>
                                 <onclick>SetFocus(50)</onclick>
                                 <onclick>Container.Update(addons://search/,replace)</onclick>
