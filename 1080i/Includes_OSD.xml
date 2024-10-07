@@ -2,42 +2,50 @@
 <includes>
 
     <include name="OSD_UpNext_Buttons">
-        <control type="button" id="3012">
-            <include>Defs_OSD_Button</include>
+
+        <control type="grouplist" id="4000">
+            <top>-290</top>
+            <itemgap>0</itemgap>
+            <orientation>horizontal</orientation>
+            <left>10</left>
+
+            <onup>Close</onup>
+            <ondown>11</ondown>
+
+            <include content="Dialog_Side_Button_BuiltIn">
+                <param name="vertical">false</param>
+                <param name="icon">special://skin/extras/icons/play2.png</param>
+                <param name="id">3012</param>
+                <param name="groupid">5012</param>
+                <param name="label">$LOCALIZE[208]</param>
+            </include>
+
+            <include content="Dialog_Side_Button_BuiltIn">
+                <param name="vertical">false</param>
+                <param name="icon">special://skin/extras/icons/xmark.png</param>
+                <param name="id">4013</param>
+                <param name="groupid">5013</param>
+                <param name="label">$LOCALIZE[222]</param>
+                <onclick>SetFocus(3013)</onclick>
+                <onclick>Action(Select)</onclick>
+            </include>
         </control>
-        <include content="OSD_Button_Icon_Overlay">
-            <param name="icon">special://skin/extras/icons/play2.png</param>
-            <param name="id">3012</param>
-            <param name="groupid">5012</param>
-            <param name="vertical">true</param>
-            <param name="itemgap">0</param>
-        </include>
-        <control type="button" id="4013">
-            <include>Defs_OSD_Button</include>
-            <onclick>SetFocus(3013)</onclick>
-            <onclick>Action(Select)</onclick>
-        </control>
-        <include content="OSD_Button_Icon_Overlay">
-            <param name="icon">special://skin/extras/icons/xmark.png</param>
-            <param name="id">4013</param>
-            <param name="groupid">5013</param>
-            <param name="vertical">true</param>
-            <param name="itemgap">0</param>
-        </include>
     </include>
 
-    <include name="OSD_UpNext_FakeButtons">
-        <control type="image">
-            <bordersize>12</bordersize>
-            <height>80</height>
-            <width>80</width>
-            <texture colordiffuse="panel_fg_70">special://skin/extras/icons/forward-step.png</texture>
-        </control>
-        <control type="image">
-            <bordersize>12</bordersize>
-            <height>80</height>
-            <width>80</width>
-            <texture colordiffuse="panel_fg_70">special://skin/extras/icons/arrow-right.png</texture>
+    <include name="OSD_UpNext_Progress">
+        <control type="group">
+            <height>view_landscape_item_h</height>
+            <width>view_landscape_item_w</width>
+            <control type="progress" id="3014">
+                <height>4</height>
+                <left>0</left>
+                <right>0</right>
+                <centerbottom>-15</centerbottom>
+                <texturebg colordiffuse="main_fg_12" border="2">progress/progress-bg.png</texturebg>
+                <lefttexture colordiffuse="main_logo" border="2">progress/progress-left.png</lefttexture>
+                <midtexture colordiffuse="main_logo" border="2">progress/progress-end.png</midtexture>
+                <righttexture colordiffuse="main_logo" border="2">progress/progress-right.png</righttexture>
+            </control>
         </control>
     </include>
 
@@ -51,101 +59,106 @@
         <param name="year">Window.Property(year)</param>
         <param name="rating">Window.Property(rating)</param>
         <definition>
-            <control type="group">
-                <include content="OSD_CastInfo_ExpandGroup">
+            <include content="OSD_CastInfo_ExpandGroup">
 
-                    <include content="OSD_Info_Viewline">
-                        <param name="label">$LOCALIZE[31196]</param>
+                <include>Animation_OSD_Seekbar_Slide</include>
+
+                <include content="OSD_Info_Viewline">
+                    <param name="label">$LOCALIZE[31196]</param>
+                </include>
+
+                <control type="group">
+                    <left>view_pad</left>
+                    <top>-70</top>
+                    <height>view_poster_itemlayout_h</height>
+                    <width>view_landscape_itemlayout_w</width>
+                    <include content="Layout_Landscape">
+                        <param name="icon">$PARAM[icon]</param>
+                        <param name="indicator">false</param>
+                        <param name="item_w">view_landscape_item_w</param>
+                        <param name="item_h">view_landscape_item_h</param>
+                        <param name="detailed">true</param>
                     </include>
 
+                    <include condition="$PARAM[is_addon]">OSD_UpNext_Progress</include>
+
                     <control type="group">
-                        <left>view_pad</left>
-                        <top>-70</top>
-                        <height>view_poster_itemlayout_h</height>
-                        <width>view_landscape_itemlayout_w</width>
-                        <include content="Layout_Landscape">
-                            <param name="icon">$PARAM[icon]</param>
-                            <param name="indicator">false</param>
-                            <param name="item_w">view_landscape_item_w</param>
-                            <param name="item_h">view_landscape_item_h</param>
-                            <param name="detailed">true</param>
-                        </include>
+                        <top>view_landscape_item_h</top>
+
                         <control type="group">
-                            <top>view_landscape_item_h</top>
+                            <top>15</top>
+                            <height>80</height>
 
-                            <control type="group">
-                                <top>15</top>
-                                <height>80</height>
+                            <control type="grouplist">
+                                <orientation>horizontal</orientation>
+                                <include content="Object_InfoCircle_Text_Top">
+                                    <textcolor>panel_fg_90</textcolor>
+                                    <selectedcolor>panel_fg_90</selectedcolor>
+                                    <label>$INFO[$PARAM[title]]</label>
+                                    <width>auto</width>
+                                    <visible>!String.ISEmpty($PARAM[title])</visible>
+                                </include>
+                            </control>
 
-                                <control type="grouplist">
-                                    <orientation>horizontal</orientation>
-                                    <include content="Object_InfoCircle_Text_Top">
-                                        <textcolor>panel_fg_90</textcolor>
-                                        <selectedcolor>panel_fg_90</selectedcolor>
-                                        <label>$INFO[$PARAM[title]]</label>
-                                        <width>auto</width>
-                                        <visible>!String.ISEmpty($PARAM[title])</visible>
-                                    </include>
-                                </control>
-
-                                <control type="grouplist">
-                                    <orientation>horizontal</orientation>
-                                    <include content="Object_InfoCircle_Text_Sub">
-                                        <textcolor>panel_fg_70</textcolor>
-                                        <selectedcolor>panel_fg_70</selectedcolor>
-                                        <label>$INFO[$PARAM[tvshowtitle]]</label>
-                                        <visible>!String.ISEmpty($PARAM[tvshowtitle])</visible>
-                                        <width>auto</width>
-                                    </include>
-                                    <include content="Object_InfoCircle_Text_Sub">
-                                        <textcolor>panel_fg_30</textcolor>
-                                        <selectedcolor>panel_fg_30</selectedcolor>
-                                        <label> • </label>
-                                        <width>auto</width>
-                                        <visible>!String.ISEmpty($PARAM[tvshowtitle])</visible>
-                                    </include>
-                                    <include content="Object_InfoCircle_Text_Sub">
-                                        <textcolor>panel_fg_70</textcolor>
-                                        <selectedcolor>panel_fg_70</selectedcolor>
-                                        <label>$PARAM[seasonepisode_label]</label>
-                                        <visible>!String.ISEmpty($PARAM[tvshowtitle])</visible>
-                                        <width>auto</width>
-                                    </include>
-                                    <include content="Object_InfoCircle_Text_Sub">
-                                        <textcolor>panel_fg_30</textcolor>
-                                        <selectedcolor>panel_fg_30</selectedcolor>
-                                        <label> • </label>
-                                        <width>auto</width>
-                                        <visible>!String.ISEmpty($PARAM[tvshowtitle]) + [!String.ISEmpty($PARAM[rating]) | !String.ISEmpty($PARAM[year])]</visible>
-                                    </include>
-                                    <include content="Object_InfoCircle_Text_Sub">
-                                        <textcolor>panel_fg_70</textcolor>
-                                        <selectedcolor>panel_fg_70</selectedcolor>
-                                        <label>$INFO[$PARAM[year]]</label>
-                                        <visible>!String.ISEmpty($PARAM[year])</visible>
-                                        <width>auto</width>
-                                    </include>
-                                    <include content="Object_InfoCircle_Text_Sub">
-                                        <textcolor>panel_fg_30</textcolor>
-                                        <selectedcolor>panel_fg_30</selectedcolor>
-                                        <label> • </label>
-                                        <width>auto</width>
-                                        <visible>!String.ISEmpty($PARAM[year]) + !String.ISEmpty($PARAM[rating])</visible>
-                                    </include>
-                                    <include content="Object_InfoCircle_Text_Sub">
-                                        <textcolor>panel_fg_70</textcolor>
-                                        <selectedcolor>panel_fg_70</selectedcolor>
-                                        <label>$INFO[$PARAM[rating]]</label>
-                                        <visible>!String.ISEmpty($PARAM[rating])</visible>
-                                        <width>auto</width>
-                                    </include>
-                                </control>
+                            <control type="grouplist">
+                                <orientation>horizontal</orientation>
+                                <include content="Object_InfoCircle_Text_Sub">
+                                    <textcolor>panel_fg_70</textcolor>
+                                    <selectedcolor>panel_fg_70</selectedcolor>
+                                    <label>$INFO[$PARAM[tvshowtitle]]</label>
+                                    <visible>!String.ISEmpty($PARAM[tvshowtitle])</visible>
+                                    <width>auto</width>
+                                </include>
+                                <include content="Object_InfoCircle_Text_Sub">
+                                    <textcolor>panel_fg_30</textcolor>
+                                    <selectedcolor>panel_fg_30</selectedcolor>
+                                    <label> • </label>
+                                    <width>auto</width>
+                                    <visible>!String.ISEmpty($PARAM[tvshowtitle])</visible>
+                                </include>
+                                <include content="Object_InfoCircle_Text_Sub">
+                                    <textcolor>panel_fg_70</textcolor>
+                                    <selectedcolor>panel_fg_70</selectedcolor>
+                                    <label>$PARAM[seasonepisode_label]</label>
+                                    <visible>!String.ISEmpty($PARAM[tvshowtitle])</visible>
+                                    <width>auto</width>
+                                </include>
+                                <include content="Object_InfoCircle_Text_Sub">
+                                    <textcolor>panel_fg_30</textcolor>
+                                    <selectedcolor>panel_fg_30</selectedcolor>
+                                    <label> • </label>
+                                    <width>auto</width>
+                                    <visible>!String.ISEmpty($PARAM[tvshowtitle]) + [!String.ISEmpty($PARAM[rating]) | !String.ISEmpty($PARAM[year])]</visible>
+                                </include>
+                                <include content="Object_InfoCircle_Text_Sub">
+                                    <textcolor>panel_fg_70</textcolor>
+                                    <selectedcolor>panel_fg_70</selectedcolor>
+                                    <label>$INFO[$PARAM[year]]</label>
+                                    <visible>!String.ISEmpty($PARAM[year])</visible>
+                                    <width>auto</width>
+                                </include>
+                                <include content="Object_InfoCircle_Text_Sub">
+                                    <textcolor>panel_fg_30</textcolor>
+                                    <selectedcolor>panel_fg_30</selectedcolor>
+                                    <label> • </label>
+                                    <width>auto</width>
+                                    <visible>!String.ISEmpty($PARAM[year]) + !String.ISEmpty($PARAM[rating])</visible>
+                                </include>
+                                <include content="Object_InfoCircle_Text_Sub">
+                                    <textcolor>panel_fg_70</textcolor>
+                                    <selectedcolor>panel_fg_70</selectedcolor>
+                                    <label>$INFO[$PARAM[rating]]</label>
+                                    <visible>!String.ISEmpty($PARAM[rating])</visible>
+                                    <width>auto</width>
+                                </include>
                             </control>
                         </control>
                     </control>
+                </control>
 
-                </include>
-            </control>
+                <include condition="$PARAM[is_addon]">OSD_UpNext_Buttons</include>
+
+            </include>
 
             <include content="Object_Hidden_Button" condition="$PARAM[is_addon]">
                 <param name="id">3013</param>
@@ -523,6 +536,8 @@
             <control type="group">
                 <bottom>240</bottom>
 
+                <visible>!Window.IsVisible(script-upnext-stillwatching.xml)</visible>
+                <visible>!Window.IsVisible(script-upnext-upnext.xml)</visible>
                 <control type="grouplist">
                     <align>bottom</align>
                     <left>view_pad</left>
