@@ -558,27 +558,27 @@
                     </control>
 
                     <control type="group" description="Avoid grouplist chop with spacer">
-                        <height>24</height>
+                        <height>44</height>
                         <visible>$PARAM[extended]</visible>
                     </control>
 
-                    <control type="label">
-                        <label>$VAR[Label_OSD_Title]</label>
-                        <textcolor>panel_fg_100</textcolor>
-                        <font>font_title_main</font>
-                        <height>80</height>
-                        <aligny>top</aligny>
-                    </control>
+                    <include content="Info_Title">
+                        <param name="width">90%</param>
+                        <param name="colordiffuse">panel_fg</param>
+                        <param name="container" />
+                        <param name="label">$VAR[Label_OSD_Title]</param>
+                        <param name="mainlogo_visible">[!String.IsEmpty(Window(Home).Property(TMDbHelper.Player.CropImage))]</param>
+                        <param name="mainlogo_texture">$INFO[Window(Home).Property(TMDbHelper.Player.CropImage)]</param>
+                    </include>
 
                     <control type="group">
-                        <top>-20</top>
                         <height>50</height>
                         <include>OSD_Info_Line</include>
                     </control>
 
                     <include content="Info_Panel_Textbox">
                         <param name="plotlabel">$VAR[Label_Player_Plot]</param>
-                        <param name="plotwidth">info_plot_w</param>
+                        <param name="plotwidth">90%</param>
                         <param name="plotheight">160</param>
                         <param name="check_ratings">false</param>
                         <param name="colordiffuse">panel_fg</param>
