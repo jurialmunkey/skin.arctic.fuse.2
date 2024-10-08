@@ -1171,8 +1171,26 @@
                     <visible>!$PARAM[is_fhd]</visible>
                     <visible>!$PARAM[is_hd]</visible>
                     <visible>!$PARAM[is_sd]</visible>
-                    <visible>$PARAM[is_web]</visible>
+                    <!-- MISC033: replace "WEB" with "INFO" on home page widgets -->
+                    <visible>$PARAM[is_web] + !Window.IsVisible(Home)</visible>
                 </control>
+                <!-- MISC033: START replace "WEB" with "INFO" on home page widgets -->                
+                <control type="label">
+                    <align>center</align>
+                    <top>info_tag_offset_y</top>
+                    <aligny>top</aligny>
+                    <font>font_infotag_bold</font>
+                    <textcolor>ff2a2a2a</textcolor>
+                    <shadowcolor>20ffffff</shadowcolor>
+                    <label>INFO</label>
+                    <visible>!$PARAM[is_set]</visible>
+                    <visible>!$PARAM[is_4k]</visible>
+                    <visible>!$PARAM[is_fhd]</visible>
+                    <visible>!$PARAM[is_hd]</visible>
+                    <visible>!$PARAM[is_sd]</visible>
+                    <visible>$PARAM[is_web] + Window.IsVisible(Home)</visible>
+                </control>
+                <!-- MISC033: END replace "WEB" with "INFO" on home page widgets -->  
                 <control type="label">
                     <align>center</align>
                     <top>info_tag_offset_y</top>
