@@ -30,8 +30,14 @@
     </variable>
 
     <variable name="Label_Plot" containers="301,503,513,523,553,7000,11,99950" null_id="True">
-        <value condition="String.IsEqual({listitem}.DBType,episode) + !String.IsEmpty({listitem}.Property(base_plot))">$VAR[Label_Plot_Episode_Type{cid}{lid},,: ]$VAR[Label_Plot_Episode_Number{cid}{lid},,. ]$INFO[{listitem}.Title]$INFO[{listitem}.Property(base_plot), ~ ,]</value>
-        <value condition="String.IsEqual({listitem}.DBType,episode) + !String.IsEmpty({listitem}.Plot)">$VAR[Label_Plot_Episode_Type{cid}{lid},,: ]$VAR[Label_Plot_Episode_Number{cid}{lid},,. ]$INFO[{listitem}.Title]$INFO[{listitem}.Plot, ~ ,]</value>
+        <!-- MISC019: Episode Title in Bold and Episode Type removed from Plot ($VAR[Label_Plot_Episode_Type{cid}{lid},,: ]) -->   
+        <!-- value condition="String.IsEqual({listitem}.DBType,episode) + !String.IsEmpty({listitem}.Property(base_plot))">$VAR[Label_Plot_Episode_Type{cid}{lid},,: ]$VAR[Label_Plot_Episode_Number{cid}{lid},,. ]$INFO[{listitem}.Title]$INFO[{listitem}.Property(base_plot), ~ ,]</value -->
+        <value condition="String.IsEqual({listitem}.DBType,episode) + !String.IsEmpty({listitem}.Property(base_plot))">[COLOR=main_fg_100][B]$INFO[{listitem}.Title][/B][/COLOR]$INFO[{listitem}.Property(base_plot), ~ ,]</value>
+
+        <!-- MISC019: Episode Title in Bold and Episode Type removed from Plot ($VAR[Label_Plot_Episode_Type{cid}{lid},,: ]) -->   
+        <!-- value condition="String.IsEqual({listitem}.DBType,episode) + !String.IsEmpty({listitem}.Plot)">$VAR[Label_Plot_Episode_Type{cid}{lid},,: ]$VAR[Label_Plot_Episode_Number{cid}{lid},,. ]$INFO[{listitem}.Title]$INFO[{listitem}.Plot, ~ ,]</value -->
+        <value condition="String.IsEqual({listitem}.DBType,episode) + !String.IsEmpty({listitem}.Plot)">[COLOR=main_fg_100][B]$INFO[{listitem}.Title][/B][/COLOR]$INFO[{listitem}.Plot, ~ ,]</value>
+
         <value condition="!String.IsEmpty({listitem}.Property(base_plot))">$INFO[{listitem}.Property(base_plot)]</value>
         <value condition="!String.IsEmpty({listitem}.Plot)">$INFO[{listitem}.Plot]</value>
         <value condition="!String.IsEmpty({listitem}.Property(Album_Description))">$INFO[{listitem}.Property(Album_Description)]</value>

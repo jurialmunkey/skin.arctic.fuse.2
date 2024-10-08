@@ -1246,6 +1246,38 @@
                     <param name="visible">!String.IsEmpty($PARAM[container]ListItem.Album)</param>
                     <param name="textcolor">$PARAM[colordiffuse]_70</param>
                 </include>
+                
+                <!-- MISC035: reinstate infoline episode NxNN -->
+                <!-- Season / Episode -->
+                <include content="Info_Line_Items">
+                    <include content="Info_Line_Visible_01">
+                        <param name="container">$PARAM[container]</param>
+                        <param name="dbtype_01">episode</param>
+                    </include>
+                    <param name="items_04">true</param>
+                    <param name="label_01">$INFO[$PARAM[container]ListItem.Season,,x]$INFO[$PARAM[container]ListItem.Episode,0,]</param>
+                    <param name="label_02">$INFO[$PARAM[container]ListItem.Season,,x]$INFO[$PARAM[container]ListItem.Episode,,]</param>
+                    <param name="label_03">$INFO[Container(99950).ListItem.Season,,x]$INFO[Container(99950).ListItem.Episode,0,]</param>
+                    <param name="label_04">$INFO[Container(99950).ListItem.Season,,x]$INFO[Container(99950).ListItem.Episode,,]</param>
+                    <param name="visible_01">!String.IsEmpty($PARAM[container]ListItem.Episode) + Integer.IsLess($PARAM[container]ListItem.Episode,10)</param>
+                    <param name="visible_02">!String.IsEmpty($PARAM[container]ListItem.Episode)</param>
+                    <param name="visible_03">!String.IsEmpty(Container(99950).ListItem.Episode) + Integer.IsLess(Container(99950).ListItem.Episode,10)</param>
+                    <param name="visible_04">!String.IsEmpty(Container(99950).ListItem.Episode)</param>
+                    <param name="textcolor">$PARAM[colordiffuse]_70</param>
+                </include>
+
+                <!-- MISC019: START Custom Infoline Episode Banners -->
+                <include content="Info_Line_Items">
+                    <include content="Info_Line_Visible_02">
+                        <param name="container">$PARAM[container]</param>
+                        <param name="dbtype_01">episode</param>
+                    </include>
+                    <param name="items_01">true</param>
+                    <param name="label_01">$VAR[Info_Line_Episode_Banner_Text]</param>
+                    <param name="visible_01">$EXP[Info_Line_Episode_Banner_Exists] + ![Window.IsVisible(Home) + System.AddonIsEnabled(script.trakt)]</param>
+                    <param name="textcolor">$VAR[Info_Line_Episode_Banner_Color]</param>
+                </include>
+                <!-- MISC019: END Custom Infoline Episode Banners -->
 
                 <!-- Year / Premiered -->
                 <include content="Info_Line_Items">
