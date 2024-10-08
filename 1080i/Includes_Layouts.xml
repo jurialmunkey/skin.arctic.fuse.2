@@ -2455,14 +2455,16 @@
                     </include>
                 </control>
 
-                <control type="group">
+                <!-- MISC028: No sub-text on Square Labels -->
+                <!-- MISC028: commented out -- >
+                <!-- control type="group">
                     <include content="Object_InfoCircle_Text_Sub">
                         <label>$VAR[Label_Landscape_Lower$PARAM[affix]]</label>
                         <textcolor>main_fg_70</textcolor>
                         <selectedcolor>main_fg_70</selectedcolor>
                         <align>$PARAM[align]</align>
                     </include>
-                </control>
+                </control -->
             </control>
             <!-- <control type="textbox">
                 <top>28</top>
@@ -2534,7 +2536,8 @@
                         <param name="icon_diffuse">$PARAM[diffuse]</param>
                     </include>
 
-                    <include content="Object_ProgressLine">
+                    <!-- MISC028: No progress line on Home Page widgets - "  + condition !Window.IsVisible(Home)" added --> 
+                    <include content="Object_ProgressLine" condition="!Window.IsVisible(Home)">
                         <param name="progress">$PARAM[listitem].$PARAM[progress]</param>
                     </include>
                     <include content="Object_Indicator" condition="!$PARAM[selected] + ![$PARAM[detailed]]">
@@ -2550,7 +2553,8 @@
                 </control>
                 <control type="group">
                     <top>$PARAM[item_w]</top>
-                    <include content="Layout_Square_Labels" condition="![$PARAM[variation]]">
+                    <!-- MISC028: No labels on Icon/Square Home Page widgets - "  + condition !Window.IsVisible(Home)" added --> 
+                    <include content="Layout_Square_Labels" condition="![$PARAM[variation]] + !Window.IsVisible(Home)">
                         <param name="detailed">$PARAM[detailed]</param>
                         <param name="listitem">$PARAM[listitem]</param>
                         <param name="affix">$PARAM[affix]</param>
@@ -3007,6 +3011,9 @@
                             <selectedcolor>$PARAM[textcolor]_70</selectedcolor>
                             <align>$PARAM[align]</align>
                             <visible>String.IsEmpty($PARAM[listitem].ChannelNumberLabel)</visible>
+                            <!-- MISC028: No subtext on Landscape Layout -->
+                            <!-- visible tag added (not video window) -->
+                            <visible>!Window.IsVisible(10025)</visible>
                         </include>
                         <include content="Object_InfoCircle_Text_Sub">
                             <label>$VAR[Label_Landscape_Lower$PARAM[affix]]$INFO[$PARAM[listitem].StartTime, • ,]$INFO[$PARAM[listitem].EndTime, - ,]</label>
@@ -3314,7 +3321,8 @@
                     <param name="fade">true</param>
                 </include>
 
-                <include content="Object_ProgressLine">
+                <!-- MISC028: No progress line on Home Page widgets - "  + condition !Window.IsVisible(Home)" added --> 
+                <include content="Object_ProgressLine" condition="!Window.IsVisible(Home)">
                     <param name="progress">$PARAM[listitem].$PARAM[progress]</param>
                 </include>
 
@@ -3336,7 +3344,9 @@
                     <param name="listitem">$PARAM[listitem]</param>
                 </include>
 
-                <include content="Layout_Landscape_Labels" condition="![$PARAM[detailed]]">
+                <!-- MISC028: No labels on Landscape Home Page widgets -->
+                <!-- MISC028: " + !Window.IsVisible(Home)"  added to condition -->
+                <include content="Layout_Landscape_Labels" condition="![$PARAM[detailed]] + !Window.IsVisible(Home)">
                     <param name="top">15</param>
                     <param name="item_h">$PARAM[item_h]</param>
                     <param name="affix">$PARAM[affix]</param>
