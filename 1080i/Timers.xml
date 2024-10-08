@@ -3,9 +3,9 @@
 
     <timer>
         <name>idle_spotlight_trailer</name>
-        <start reset="true">[[Skin.HasSetting(Trailers.EnableAutoPlayback) + Integer.IsEqual(Window.Property(TMDBHelper.WidgetContainer),301)] | [Skin.HasSetting(Trailers.EnableAutoPlayback.Info) + Window.IsVisible(DialogVideoInfo.xml)]] + !String.IsEmpty(Container(99950).ListItem.Trailer)</start>
-        <reset>![[[Skin.HasSetting(Trailers.EnableAutoPlayback) + Integer.IsEqual(Window.Property(TMDBHelper.WidgetContainer),301)] | [Skin.HasSetting(Trailers.EnableAutoPlayback.Info) + Window.IsVisible(DialogVideoInfo.xml)]] + !String.IsEmpty(Container(99950).ListItem.Trailer)] | !String.IsEqual(Window(Home).Property(AutoTrailer),Container(99950).ListItem.Trailer) | [Player.HasVideo + !String.IsEqual(Window(Home).Property(PlayTrailer),Player.FileNameAndPath)]</reset>
-        <stop>![[[Skin.HasSetting(Trailers.EnableAutoPlayback) + Integer.IsEqual(Window.Property(TMDBHelper.WidgetContainer),301)] | [Skin.HasSetting(Trailers.EnableAutoPlayback.Info) + Window.IsVisible(DialogVideoInfo.xml)]] + !String.IsEmpty(Container(99950).ListItem.Trailer)] | !String.IsEqual(Window(Home).Property(AutoTrailer),Container(99950).ListItem.Trailer) | [Player.HasVideo + !String.IsEqual(Window(Home).Property(PlayTrailer),Player.FileNameAndPath)]</stop>
+        <start reset="true">[[Skin.HasSetting(Trailers.EnableAutoPlayback) + Integer.IsEqual(Window.Property(TMDBHelper.WidgetContainer),301)] | ] + !String.IsEmpty(Container(99950).ListItem.Trailer)</start>
+        <reset>![[[Skin.HasSetting(Trailers.EnableAutoPlayback) + Integer.IsEqual(Window.Property(TMDBHelper.WidgetContainer),301)] | ] + !String.IsEmpty(Container(99950).ListItem.Trailer)] | !String.IsEqual(Window(Home).Property(AutoTrailer),Container(99950).ListItem.Trailer) | [Player.HasVideo + !String.IsEqual(Window(Home).Property(PlayTrailer),Player.FileNameAndPath)]</reset>
+        <stop>![[[Skin.HasSetting(Trailers.EnableAutoPlayback) + Integer.IsEqual(Window.Property(TMDBHelper.WidgetContainer),301)] | ] + !String.IsEmpty(Container(99950).ListItem.Trailer)] | !String.IsEqual(Window(Home).Property(AutoTrailer),Container(99950).ListItem.Trailer) | [Player.HasVideo + !String.IsEqual(Window(Home).Property(PlayTrailer),Player.FileNameAndPath)]</stop>
         <onstart>SetProperty(AutoTrailer,$ESCINFO[Container(99950).ListItem.Trailer],Home)</onstart>
         <onstart>SetProperty(AutoTrailerTitle,$ESCINFO[Container(99950).ListItem.Title],Home)</onstart>
         <onstop condition="Player.HasVideo + String.IsEqual(Window(Home).Property(PlayTrailer),Player.FileNameAndPath) + !Window.IsVisible(1123) + [!Window.IsVisible(DialogVideoInfo.xml) | String.IsEqual(Window(Home).Property(PlayTrailerTrigger),VideoInfo)]">Action(Stop)</onstop>
@@ -15,8 +15,8 @@
 
     <timer>
         <name>play_spotlight_trailer</name>
-        <start reset="true">!Player.HasVideo + [[Integer.IsGreater(Skin.TimerElapsedSecs(idle_spotlight_trailer),3) + System.IdleTime(3)] | [Integer.IsGreater(Skin.TimerElapsedSecs(idle_spotlight_trailer),1) + Skin.HasSetting(Trailers.EnableAutoPlayback.Info) + Window.IsVisible(DialogVideoInfo.xml)]]</start>
-        <stop>![!Player.HasVideo + [[Integer.IsGreater(Skin.TimerElapsedSecs(idle_spotlight_trailer),3) + System.IdleTime(3)] | [Integer.IsGreater(Skin.TimerElapsedSecs(idle_spotlight_trailer),1) + Skin.HasSetting(Trailers.EnableAutoPlayback.Info) + Window.IsVisible(DialogVideoInfo.xml)]]]</stop>
+        <start reset="true">!Player.HasVideo + [[Integer.IsGreater(Skin.TimerElapsedSecs(idle_spotlight_trailer),3) + System.IdleTime(3)]]</start>
+        <stop>![!Player.HasVideo + [[Integer.IsGreater(Skin.TimerElapsedSecs(idle_spotlight_trailer),3) + System.IdleTime(3)]]]</stop>
         <onstart condition="!String.IsEmpty(Container(99950).ListItem.Trailer) + !String.IsEqual(Window(Home).Property(PlayTrailer),Container(99950).ListItem.Trailer)">SetProperty(PlayTrailerTrigger,$VAR[Action_PlayTrailer_Trigger],Home)</onstart>
         <onstart condition="!String.IsEmpty(Container(99950).ListItem.Trailer) + !String.IsEqual(Window(Home).Property(PlayTrailer),Container(99950).ListItem.Trailer)">SetProperty(PlayTrailerTitle,$ESCINFO[Container(99950).ListItem.Title],Home)</onstart>
         <onstart condition="!String.IsEmpty(Container(99950).ListItem.Trailer) + !String.IsEqual(Window(Home).Property(PlayTrailer),Container(99950).ListItem.Trailer)">SetProperty(PlayTrailer,$ESCINFO[Container(99950).ListItem.Trailer],Home)</onstart>
