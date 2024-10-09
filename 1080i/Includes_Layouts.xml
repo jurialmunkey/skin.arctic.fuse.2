@@ -1656,6 +1656,7 @@
     </include>
 
     <include name="Layout_Card">
+        <param name="variation">false</param>
         <param name="selected">false</param>
         <param name="diffuse">diffuse/card_w800_h294.png</param>
         <param name="textcolor">main_fg</param>
@@ -1679,8 +1680,18 @@
                         <param name="selected">$PARAM[selected]</param>
                     </include>
 
+                    <include content="Layout_Landscape_Labels" condition="$PARAM[variation]">
+                        <param name="top">-87</param>
+                        <param name="left">20</param>
+                        <param name="right">20</param>
+                        <param name="item_h">$PARAM[item_h]</param>
+                        <param name="affix">$PARAM[affix]</param>
+                        <param name="listitem">$PARAM[listitem]</param>
+                        <param name="textcolor">panel_fg</param>
+                        <param name="fade">true</param>
+                    </include>
 
-                    <include content="Object_ClearLogo_WithShadow">
+                    <include content="Object_ClearLogo_WithShadow" condition="![$PARAM[variation]]">
                         <param name="diffuse">$PARAM[diffuse]</param>
                     </include>
                 </control>
