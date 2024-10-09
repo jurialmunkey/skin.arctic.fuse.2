@@ -42,6 +42,7 @@
 
     <include name="View_Row_Info">
         <control type="group">
+            <visible>!Integer.IsEqual(Container.NumItems,0)</visible>
             <include content="Info_Viewline">
                 <visible>$EXP[Exp_View_FullSize]</visible>
                 <top>170</top>
@@ -53,11 +54,9 @@
             <include content="Info_Viewline">
                 <visible>!$EXP[Exp_View_FullSize]</visible>
                 <visible>!$EXP[Exp_View_MidiSize]</visible>
-                <!-- <visible>!$EXP[Exp_View_ListSize]</visible> -->
             </include>
             <control type="group">
                 <visible>!$EXP[Exp_View_FullSize]</visible>
-                <!-- <visible>!$EXP[Exp_View_ListSize]</visible> -->
                 <include content="Info_Panel">
                     <param name="visible">String.IsEmpty(Window.Property(TMDBHelper.WidgetContainer))</param>
                     <param name="details">!$EXP[Exp_View_MidiSize]</param>
@@ -115,12 +114,43 @@
                 <include>$PARAM[include_combinedviews]</include>
                 <control type="group">
                     <include>$PARAM[include_standardviews]</include>
-                    <include content="Widget_Busy">
-                        <param name="label">$VAR[Label_Section_Main]</param>
-                        <param name="visible">Container.Content() + Integer.IsEqual(Container.NumItems,0)</param>
-                        <top>view_row</top>
-                        <left>80</left>
-                    </include>
+
+                    <control type="group">
+                        <visible>Window.IsVisible(DialogBusy.xml) + Integer.IsEqual(Container.NumItems,0)</visible>
+                        <animation type="Visible" reversible="false">
+                            <effect type="fade" start="0" end="100" time="200" delay="200" />
+                        </animation>
+                        <include content="Info_Viewline">
+                            <param name="label">$LOCALIZE[31023]...</param>
+                            <top>170</top>
+                        </include>
+                        <control type="group">
+                            <top>view_row</top>
+                            <left>80</left>
+                            <control type="grouplist">
+                                <top>40</top>
+                                <height>400</height>
+                                <left>-40</left>
+                                <right>-40</right>
+                                <orientation>horizontal</orientation>
+                                <include>Widget_Busy_BlankItem_Landscape</include>
+                                <include>Widget_Busy_BlankItem_Landscape</include>
+                                <include>Widget_Busy_BlankItem_Landscape</include>
+                                <include>Widget_Busy_BlankItem_Landscape</include>
+                            </control>
+                            <control type="grouplist">
+                                <top>-view_poster_item_h</top>
+                                <height>400</height>
+                                <left>-40</left>
+                                <right>-40</right>
+                                <orientation>horizontal</orientation>
+                                <include>Widget_Busy_BlankItem_Landscape</include>
+                                <include>Widget_Busy_BlankItem_Landscape</include>
+                                <include>Widget_Busy_BlankItem_Landscape</include>
+                                <include>Widget_Busy_BlankItem_Landscape</include>
+                            </control>
+                        </control>
+                    </control>
                 </control>
             </control>
         </definition>
