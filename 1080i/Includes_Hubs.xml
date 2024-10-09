@@ -105,28 +105,31 @@
     </include>
 
     <include name="Hub_Widget_Splash">
-        <control type="group">
-            <visible>Skin.HasSetting(Startup.WaitForLoad) + Integer.IsEqual(Container(301).NumItems,0) + Container(301).IsUpdating</visible>
-            <visible>System.HasAlarm(SplashTimeOut)</visible>
-            <include>Background_StartUp</include>
-            <include>Object_StartUp_Logo</include>
-            <control type="label">
-                <centertop>610</centertop>
-                <height>40</height>
-                <aligny>center</aligny>
-                <align>center</align>
-                <textcolor>main_logo</textcolor>
-                <label>$LOCALIZE[31427] [LOWERCASE]$LOCALIZE[31103][/LOWERCASE]...</label>
-            </control>
+        <param name="id">301</param>
+        <definition>
             <control type="group">
-                <centertop>750</centertop>
-                <height>80</height>
-                <include content="Object_BusySpinner">
-                    <param name="colordiffuse">main_fg</param>
-                    <param name="haslabel">false</param>
-                </include>
+                <visible>Skin.HasSetting(Startup.WaitForLoad) + Integer.IsEqual(Container($PARAM[id]).NumItems,0) + Container($PARAM[id]).IsUpdating</visible>
+                <visible>System.HasAlarm(SplashTimeOut)</visible>
+                <include>Background_StartUp</include>
+                <include>Object_StartUp_Logo</include>
+                <control type="label">
+                    <centertop>610</centertop>
+                    <height>40</height>
+                    <aligny>center</aligny>
+                    <align>center</align>
+                    <textcolor>main_logo</textcolor>
+                    <label>$LOCALIZE[31427] [LOWERCASE]$LOCALIZE[31103][/LOWERCASE]...</label>
+                </control>
+                <control type="group">
+                    <centertop>750</centertop>
+                    <height>80</height>
+                    <include content="Object_BusySpinner">
+                        <param name="colordiffuse">main_fg</param>
+                        <param name="haslabel">false</param>
+                    </include>
+                </control>
             </control>
-        </control>
+        </definition>
     </include>
 
     <include name="Hub_SpotlightFanart">
@@ -328,7 +331,18 @@
             <!-- Plot Dialog Overlay -->
             <include>View_Dialog_Plot</include>
 
-            <include>Hub_Widget_Splash</include>
+            <include content="Hub_Widget_Splash" condition="Window.IsVisible(Home)">
+                <param name="id">100601</param>
+            </include>
+            <include content="Hub_Widget_Splash" condition="!Window.IsVisible(Home) + ![$PARAM[widgets_only]] + !Skin.HasSetting(Hub.$PARAM[window_id].DisableSpotlight)">
+                <param name="id">301</param>
+            </include>
+            <include content="Hub_Widget_Splash" condition="!Window.IsVisible(Home) + ![$PARAM[widgets_only]] + Skin.HasSetting(Hub.$PARAM[window_id].DisableSpotlight)">
+                <param name="id">300</param>
+            </include>
+            <include content="Hub_Widget_Splash" condition="Window.IsVisible(Home) + $PARAM[widgets_only]">
+                <param name="id">100601</param>
+            </include>
         </definition>
     </include>
 
