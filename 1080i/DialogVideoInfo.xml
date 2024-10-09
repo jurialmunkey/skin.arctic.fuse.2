@@ -9,8 +9,8 @@
 
     <include>DialogInfo_Onload</include>
 
-    <onload condition="Skin.HasSetting(Trailers.EnableAutoPlayback.Info) + !String.IsEmpty(ListItem.Trailer)">SetProperty(PlayTrailer,$ESCINFO[ListItem.Trailer],Home)</onload>
-    <onload condition="Skin.HasSetting(Trailers.EnableAutoPlayback.Info) + !String.IsEmpty(ListItem.Trailer)">ActivateWindow(1123)</onload>
+    <onload condition="Skin.HasSetting(Trailers.EnableAutoPlayback.Info) + !String.IsEmpty(ListItem.Trailer) + !Player.HasMedia">SetProperty(PlayTrailer,$ESCINFO[ListItem.Trailer],Home)</onload>
+    <onload condition="Skin.HasSetting(Trailers.EnableAutoPlayback.Info) + !String.IsEmpty(ListItem.Trailer) + !Player.HasMedia">ActivateWindow(1123)</onload>
 
     <controls>
 
@@ -61,7 +61,7 @@
                 <include condition="!String.IsEqual(ListItem.Property(tmdb_type),person)">DialogInfo_VideoWidgets</include>
                 <include condition="String.IsEqual(ListItem.Property(tmdb_type),person)">DialogInfo_PersonWidgets</include>
 
-                <include content="_Widget_Row">
+                <include content="_Widget_Row" condition="!Skin.HasSetting(VideoInfo.Widgets.DisableGallery)">
                     <param name="id">5020</param>
                     <param name="groupid">5120</param>
                     <param name="label">Gallery</param>

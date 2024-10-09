@@ -1,29 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <includes>
 
-    <!-- SlideUp Categories = Enabled -->
-    <include name="Hub_Slide_Group_OnCategories">
-        <animation effect="slide" time="400" end="0" start="0,$PARAM[posy]" tween="quadratic" easing="out" reversible="false" condition="$EXP[Exp_Hubs_Categories_SlideDown]">Conditional</animation>
-        <animation effect="slide" time="400" end="0,$PARAM[posy]" start="0" tween="quadratic" easing="out" reversible="false" condition="!$EXP[Exp_Hubs_Categories_SlideDown]">Conditional</animation>
-    </include>
-    <include name="Hub_Widgets_Grouplist__Def_Layout_Expanded_OnCategories">
-        <animation effect="slide" time="400" end="0" start="0,-120" tween="quadratic" easing="out" reversible="false" condition="![$EXP[Exp_Hubs_Categories_SlideDown]]">Conditional</animation>
-        <animation effect="slide" time="400" end="0,-120" start="0" tween="quadratic" easing="out" reversible="false" condition="$EXP[Exp_Hubs_Categories_SlideDown]">Conditional</animation>
-        <animation effect="slide" time="400" end="0" start="0,-40" tween="quadratic" easing="out" reversible="false" condition="![$EXP[Exp_Hubs_Categories_SlideDown]]">Conditional</animation>
-        <animation effect="slide" time="400" end="0,-40" start="0" tween="quadratic" easing="out" reversible="false" condition="$EXP[Exp_Hubs_Categories_SlideDown]">Conditional</animation>
-    </include>
-
-    <!-- SlideUp Categories = Disabled -->
     <include name="Hub_Slide_Group_OnWidgets">
-        <animation effect="slide" time="400" end="0" start="0,$PARAM[posy]" tween="quadratic" easing="out" reversible="false" condition="$EXP[Exp_Hubs_Widgets_SlideDown]">Conditional</animation>
-        <animation effect="slide" time="400" end="0,$PARAM[posy]" start="0" tween="quadratic" easing="out" reversible="false" condition="!$EXP[Exp_Hubs_Widgets_SlideDown]">Conditional</animation>
-    </include>
-    <include name="Hub_Widgets_Grouplist__Def_Layout_Expanded_OnWidgets">
-        <animation effect="slide" time="400" end="0" start="0,-hub_group_fanartspotlight_s" tween="quadratic" easing="out" reversible="false" condition="!$EXP[Exp_Hubs_Widgets_SlideDown]">Conditional</animation>
-        <animation effect="slide" time="400" end="0,-hub_group_fanartspotlight_s" start="0" tween="quadratic" easing="out" reversible="false" condition="$EXP[Exp_Hubs_Widgets_SlideDown]">Conditional</animation>
+        <animation effect="slide" time="400" end="0" start="0,$PARAM[posy]" tween="quadratic" easing="out" reversible="false" condition="$PARAM[condition]">Conditional</animation>
+        <animation effect="slide" time="400" end="0,$PARAM[posy]" start="0" tween="quadratic" easing="out" reversible="false" condition="!$PARAM[condition]">Conditional</animation>
     </include>
 
-    <!-- Fanart Spotlight = Enabled -->
+    <include name="Hub_Slide_Spotlight_OnWidgets">
+        <animation effect="slide" time="400" end="0" start="0,-hub_group_fanartspotlight_s" tween="quadratic" easing="out" reversible="false" condition="!$PARAM[condition]">Conditional</animation>
+        <animation effect="slide" time="400" end="0,-hub_group_fanartspotlight_s" start="0" tween="quadratic" easing="out" reversible="false" condition="$PARAM[condition]">Conditional</animation>
+    </include>
+
     <include name="Hub_Slide_Spotlight_OnFanart">
         <animation effect="slide" start="0" end="0,hub_group_fanartspotlight_s" time="400" tween="quadratic" reversible="false" condition="$EXP[Exp_Hubs_Spotlight_SlideDown]">Conditional</animation>
         <animation effect="slide" end="0" start="0,hub_group_fanartspotlight_s" time="400" tween="quadratic" reversible="false" condition="!$EXP[Exp_Hubs_Spotlight_SlideDown]">Conditional</animation>
@@ -92,7 +79,9 @@
             <onback>300</onback>
             <ondown>330</ondown>
             <itemgap>-800</itemgap>
-            <include>Hub_Widgets_Grouplist__Def_Layout_Expanded_OnWidgets</include>
+            <include content="Hub_Slide_Spotlight_OnWidgets">
+                <param name="condition">[[String.IsEmpty(Window.Property(Slide.WidgetContainer)) | [Integer.IsEqual(Window.Property(Slide.WidgetContainer),300) | Control.HasFocus(300)]] + !Skin.HasSetting(Hub.$PARAM[window_id].DisableSpotlight)]</param>
+            </include>
             <nested />
         </control>
     </include>
@@ -103,9 +92,11 @@
             <control type="group">
                 <include content="Hub_Slide_Group_OnWidgets" condition="$PARAM[widgets_only]">
                     <param name="posy">hub_info_group_widgetup_s</param>
+                    <param name="condition">false</param>
                 </include>
                 <include content="Hub_Slide_Group_OnWidgets" condition="![$PARAM[widgets_only]]">
                     <param name="posy">hub_group_widgetup_s</param>
+                    <param name="condition">[[String.IsEmpty(Window.Property(Slide.WidgetContainer)) | [Integer.IsEqual(Window.Property(Slide.WidgetContainer),300) | Control.HasFocus(300)]] + !Skin.HasSetting(Hub.$PARAM[window_id].DisableSpotlight)]</param>
                 </include>
 
                 <nested />
@@ -114,28 +105,31 @@
     </include>
 
     <include name="Hub_Widget_Splash">
-        <control type="group">
-            <visible>Skin.HasSetting(Startup.WaitForLoad) + Integer.IsEqual(Container(301).NumItems,0) + Container(301).IsUpdating</visible>
-            <visible>System.HasAlarm(SplashTimeOut)</visible>
-            <include>Background_StartUp</include>
-            <include>Object_StartUp_Logo</include>
-            <control type="label">
-                <centertop>610</centertop>
-                <height>40</height>
-                <aligny>center</aligny>
-                <align>center</align>
-                <textcolor>main_logo</textcolor>
-                <label>$LOCALIZE[31427] [LOWERCASE]$LOCALIZE[31103][/LOWERCASE]...</label>
-            </control>
+        <param name="id">301</param>
+        <definition>
             <control type="group">
-                <centertop>750</centertop>
-                <height>80</height>
-                <include content="Object_BusySpinner">
-                    <param name="colordiffuse">main_fg</param>
-                    <param name="haslabel">false</param>
-                </include>
+                <visible>Skin.HasSetting(Startup.WaitForLoad) + Integer.IsEqual(Container($PARAM[id]).NumItems,0) + Container($PARAM[id]).IsUpdating</visible>
+                <visible>System.HasAlarm(SplashTimeOut)</visible>
+                <include>Background_StartUp</include>
+                <include>Object_StartUp_Logo</include>
+                <control type="label">
+                    <centertop>610</centertop>
+                    <height>40</height>
+                    <aligny>center</aligny>
+                    <align>center</align>
+                    <textcolor>main_logo</textcolor>
+                    <label>$LOCALIZE[31427] [LOWERCASE]$LOCALIZE[31103][/LOWERCASE]...</label>
+                </control>
+                <control type="group">
+                    <centertop>750</centertop>
+                    <height>80</height>
+                    <include content="Object_BusySpinner">
+                        <param name="colordiffuse">main_fg</param>
+                        <param name="haslabel">false</param>
+                    </include>
+                </control>
             </control>
-        </control>
+        </definition>
     </include>
 
     <include name="Hub_SpotlightFanart">
@@ -154,14 +148,6 @@
             <animation effect="fade" start="100" end="0" time="background_fadetime" delay="background_fadetime">Hidden</animation>
             <visible>$EXP[Exp_Hubs_Spotlight_SlideDown]</visible>
         </control>
-    </include>
-
-    <include name="Hub_Refocus_Buttons">
-        <include content="Object_Hidden_Button">
-            <param name="id">307</param>
-            <onfocus>SetFocus(303)</onfocus>
-            <onfocus>ActivateWindow(1170)</onfocus>
-        </include>
     </include>
 
     <include name="Hub_Menu_Slide">
@@ -223,10 +209,19 @@
     </include>
 
     <include name="Hub_Top_Bezier">
-        <control type="image">
+        <!-- <control type="image">
             <include>Hub_Top_Animation</include>
             <height>400</height>
             <texture colordiffuse="99ffffff">common/dim-top-bezier.png</texture>
+        </control> -->
+        <control type="image">
+            <left>0</left>
+            <top>0</top>
+            <height>50%</height>
+            <width>100%</width>
+            <aspectratio>stretch</aspectratio>
+            <texture colordiffuse="main_bg_70" flipx="true">shadows/cornerspot.png</texture>
+            <include>Hub_Top_Animation</include>
         </control>
     </include>
 
@@ -238,14 +233,20 @@
         <param name="include">Hub_Standard</param>
         <definition>
 
-            <include>Hub_Refocus_Buttons</include>
+            <include content="Object_Hidden_Button">
+                <param name="id">307</param>
+                <onfocus>SetFocus(303)</onfocus>
+                <onfocus>ActivateWindow(1170)</onfocus>
+            </include>
+
             <include>View_Bumper</include>
-            <include condition="![$PARAM[widgets_only]]">Spotlight_Fallback_Slideshow</include>
+            <include condition="![$PARAM[widgets_only]] + !Skin.HasSetting(Hub.$PARAM[window_id].DisableSpotlight)">Spotlight_Fallback_Slideshow</include>
             <include>Defs_TMDbHelper_Loader</include>
 
-            <include content="Background_Main">
+            <include content="Background_Main" condition="![$PARAM[widgets_only]] + !Skin.HasSetting(Hub.$PARAM[window_id].DisableSpotlight)">
                 <param name="include_layer">Hub_SpotlightFanart</param>
             </include>
+            <include condition="![![$PARAM[widgets_only]] + !Skin.HasSetting(Hub.$PARAM[window_id].DisableSpotlight)]">Background_Main</include>
             <include>Background_Transition</include>
             <include condition="![$PARAM[widgets_only]]">Hub_Top_Bezier</include>
 
@@ -262,11 +263,11 @@
                     <!-- Hub Widgets Group -->
                     <control type="group" id="320">
                         <include>Animation_View_WindowChange</include>
-                        <include condition="![$PARAM[widgets_only]]">Hub_Slide_Spotlight_OnFanart</include>
-                        <include content="Hub_Spotlight" condition="![$PARAM[widgets_only]]">
+                        <include condition="![$PARAM[widgets_only]] + !Skin.HasSetting(Hub.$PARAM[window_id].DisableSpotlight)">Hub_Slide_Spotlight_OnFanart</include>
+                        <include content="Hub_Spotlight" condition="![$PARAM[widgets_only]] + !Skin.HasSetting(Hub.$PARAM[window_id].DisableSpotlight)">
                             <param name="window_id">$PARAM[window_id]</param>
                         </include>
-                        <include content="Spotlight_List" condition="![$PARAM[widgets_only]]">
+                        <include content="Spotlight_List" condition="![$PARAM[widgets_only]] + !Skin.HasSetting(Hub.$PARAM[window_id].DisableSpotlight)">
                             <param name="window_id">$PARAM[window_id]</param>
                             <param name="sortby">$PARAM[fullscreen_sortby]</param>
                             <param name="sortorder">$PARAM[fullscreen_sortorder]</param>
@@ -286,7 +287,7 @@
                             <param name="window_id">$PARAM[window_id]</param>
                             <param name="widgets_include">skinvariables-$PARAM[categories]-widgets</param>
                         </include>
-                        <include condition="![$PARAM[widgets_only]]">Spotlight_Info</include>
+                        <include condition="![$PARAM[widgets_only]] + !Skin.HasSetting(Hub.$PARAM[window_id].DisableSpotlight)">Spotlight_Info</include>
 
                     </control>
                     <!-- Furniture -->
@@ -294,10 +295,10 @@
                         <visible>![$PARAM[widgets_only]]</visible>
                         <visible>!$EXP[Exp_InfoDialogs]</visible>
                         <control type="group">
-                            <visible>Integer.IsEqual(Container(300).NumItems,0)</visible>
+                            <!-- <visible>Integer.IsEqual(Container(300).NumItems,0)</visible> -->
                             <include>Furniture_Top_Left</include>
                         </control>
-                        <control type="group">
+                        <!-- <control type="group">
                             <visible>!Integer.IsEqual(Container(300).NumItems,0)</visible>
                             <control type="group">
                                 <include content="Hub_Top_Animation">
@@ -308,7 +309,7 @@
                                 </include>
                             </control>
 
-                        </control>
+                        </control> -->
                     </control>
 
 
@@ -330,12 +331,23 @@
             <!-- Plot Dialog Overlay -->
             <include>View_Dialog_Plot</include>
 
-            <include>Hub_Widget_Splash</include>
+            <include content="Hub_Widget_Splash" condition="Window.IsVisible(Home)">
+                <param name="id">100601</param>
+            </include>
+            <include content="Hub_Widget_Splash" condition="!Window.IsVisible(Home) + ![$PARAM[widgets_only]] + !Skin.HasSetting(Hub.$PARAM[window_id].DisableSpotlight)">
+                <param name="id">301</param>
+            </include>
+            <include content="Hub_Widget_Splash" condition="!Window.IsVisible(Home) + ![$PARAM[widgets_only]] + Skin.HasSetting(Hub.$PARAM[window_id].DisableSpotlight)">
+                <param name="id">300</param>
+            </include>
+            <include content="Hub_Widget_Splash" condition="!Window.IsVisible(Home) + $PARAM[widgets_only]">
+                <param name="id">100601</param>
+            </include>
         </definition>
     </include>
 
     <include name="Hub_Top_Animation">
-        <param name="condition">[Integer.IsEqual(Window.Property(TMDbHelper.WidgetContainer),301) + !Integer.IsEqual(Container(300).NumItems,0)]</param>
+        <param name="condition">[[Integer.IsEqual(Window.Property(TMDbHelper.WidgetContainer),301) + !Integer.IsEqual(Container(300).NumItems,0)] | Control.HasFocus(300)]</param>
         <param name="mod" />
         <definition>
             <include content="Animation_Fade_In">
@@ -378,8 +390,10 @@
 
     <include name="Hub_Standard">
         <include content="Hub_Menu_Group">
+            <param name="window_id">$PARAM[window_id]</param>
             <param name="widgets_only">$PARAM[widgets_only]</param>
             <include content="Hub_Submenu_Group">
+                <param name="window_id">$PARAM[window_id]</param>
                 <include>skinvariables-$PARAM[categories]-submenu</include>
             </include>
         </include>
@@ -400,17 +414,18 @@
     <include name="Hub_Categories_Definition_Content">
 
         <!-- Reset Widget Group Position -->
-        <include content="Action_Widgets_ResetPosition_OnFocus">
+        <!-- <include content="Action_Widgets_ResetPosition_OnFocus">
             <param name="condition">Container(400).HasPrevious | !String.IsEmpty(Window.Property(Widgets.ResetPosition))</param>
-        </include>
+        </include> -->
 
         <include content="Action_Widget_Top">
             <param name="id">300</param>
         </include>
 
-        <ondown>311</ondown>
+        <ondown condition="Control.IsVisible(311)">311</ondown>
+        <ondown condition="!Control.IsVisible(311)">400</ondown>
 
-        <onfocus>SetProperty(TMDbHelper.WidgetContainer,301,$PARAM[window_id])</onfocus>
+        <onfocus condition="!Skin.HasSetting(Hub.$PARAM[window_id].DisableSpotlight)">SetProperty(TMDbHelper.WidgetContainer,301,$PARAM[window_id])</onfocus>
 
         <content>
             <include>skinvariables-$PARAM[categories]-staticitems</include>
@@ -432,10 +447,6 @@
                 <param name="window_id">$PARAM[window_id]</param>
                 <param name="categories">$PARAM[categories]</param>
             </include>
-            <!-- <onleft>SetProperty(List.ViewContainer,$NUMBER[300])</onleft>
-            <onleft>331</onleft>
-            <onright>SetProperty(List.ViewContainer,$NUMBER[300])</onright>
-            <onright>332</onright> -->
             <left>0</left>
             <onfocus>ClearProperty(Background.ShowOverlay,Home)</onfocus>
             <onfocus>ClearProperty(Background.HideArtwork)</onfocus>
@@ -462,17 +473,10 @@
 
     <include name="Hub_Categories">
         <control type="group">
-            <!-- <left>40</left>
-            <height>hub_categorieswidget_h</height>
-            <top>hub_categorieswidget_t</top> -->
-
             <visible>!$EXP[Exp_InfoDialogs]</visible>
 
 
             <include>Hub_Top_Animation</include>
-
-            <!-- <include>Furniture_Top_Left</include> -->
-
             <control type="grouplist">
                 <left>40</left>
                 <orientation>horizontal</orientation>
@@ -483,29 +487,10 @@
                     <left>40</left>
                     <label>[CAPITALIZE]$VAR[Label_Header_Main][/CAPITALIZE]</label>
                     <font>font_midi_black</font>
-                    <textcolor>main_fg_100</textcolor>
+                    <textcolor>00ffffff</textcolor>
                     <width>auto</width>
                     <height>74</height>
                 </control>
-                <!-- <control type="group">
-                    <centertop>50%</centertop>
-                    <height>50</height>
-                    <width>50</width>
-                    <control type="image">
-                        <include content="Dimension_Padding">
-                            <param name="pad">-40</param>
-                        </include>
-                        <bordersize>40</bordersize>
-                        <bordertexture colordiffuse="shadow_soft">shadows/circle_50-shadow-40.png</bordertexture>
-                        <texture colordiffuse="main_fg_100">diffuse/circle_50.png</texture>
-                    </control>
-                    <include content="Object_InfoCircle_Image">
-                        <param name="bordersize">2</param>
-                        <param name="aspectratio">scale</param>
-                        <param name="colordiffuse">white</param>
-                        <param name="icon">$VAR[Image_ProfileThumb]</param>
-                    </include>
-                </control> -->
                 <control type="group">
                     <width>2000</width>
                     <include>Animation_View_WindowChangeAnimation</include>
@@ -521,6 +506,7 @@
 
     <include name="Hub_Spotlight">
         <include content="Hub_Menu_Group">
+            <param name="window_id">$PARAM[window_id]</param>
             <include>Hub_Categories_Spotlight_Viewline</include>
             <include content="Spotlight_Main">
                 <param name="window_id">$PARAM[window_id]</param>
@@ -561,7 +547,9 @@
                     <param name="bottom">hub_widgets_grouplist_b</param>
                 </include>
 
-                <include condition="![$PARAM[widgets_only]]">Hub_Widgets_Grouplist__Def_Layout_Expanded</include>
+                <include condition="![$PARAM[widgets_only]]" content="Hub_Widgets_Grouplist__Def_Layout_Expanded">
+                    <param name="window_id">$PARAM[window_id]</param>
+                </include>
 
                 <include condition="$PARAM[widgets_only]" content="Hub_Widgets_Grouplist__Def_Layout_Basic">
                     <param name="id">$PARAM[id]</param>
@@ -613,8 +601,11 @@
 
 
     <include name="Hub_Widgets_Grouplist__Def_Layout_Expanded">
-        <onup>311</onup>
-        <include>Hub_Widgets_Grouplist__Def_Layout_Expanded_OnWidgets</include>
+        <onup condition="Control.IsVisible(311)">311</onup>
+        <onup condition="!Control.IsVisible(311) + Control.IsVisible(300)">300</onup>
+        <include content="Hub_Slide_Spotlight_OnWidgets">
+            <param name="condition">[[String.IsEmpty(Window.Property(Slide.WidgetContainer)) | [Integer.IsEqual(Window.Property(Slide.WidgetContainer),300) | Control.HasFocus(300)]] + !Skin.HasSetting(Hub.$PARAM[window_id].DisableSpotlight)]</param>
+        </include>
     </include>
 
     <include name="Hub_Widgets_Grouplist__Def_Layout_Basic">

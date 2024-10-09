@@ -308,7 +308,7 @@
             <include>DialogInfo_Widgets_Action</include>
         </include> -->
 
-        <include content="Widget_Info_Row">
+        <include content="Widget_Info_Row" condition="!Skin.HasSetting(VideoInfo.Widgets.DisableDirector)">
             <param name="id">01</param>
             <param name="baseid">50</param>
             <param name="basegroupid">51</param>
@@ -328,7 +328,7 @@
             <include>DialogInfo_Widgets_Action</include>
         </include>
 
-        <include content="Widget_Info_Row">
+        <include content="Widget_Info_Row" condition="!Skin.HasSetting(VideoInfo.Widgets.DisableWriter)">
             <param name="id">02</param>
             <param name="baseid">50</param>
             <param name="basegroupid">51</param>
@@ -348,7 +348,7 @@
             <include>DialogInfo_Widgets_Action</include>
         </include>
 
-        <include content="Widget_Info_Row">
+        <include content="Widget_Info_Row" condition="!Skin.HasSetting(VideoInfo.Widgets.DisableCreator)">
             <param name="id">03</param>
             <param name="baseid">50</param>
             <param name="basegroupid">51</param>
@@ -368,7 +368,25 @@
             <include>DialogInfo_Widgets_Action</include>
         </include>
 
-        <include content="Widget_Info_Row">
+        <include content="Widget_Info_Row" condition="!Skin.HasSetting(VideoInfo.Widgets.DisableCollection)">
+            <param name="id">11</param>
+            <param name="baseid">50</param>
+            <param name="basegroupid">51</param>
+            <param name="label">$INFO[Container(99950).ListItem.Property(Set.Name)]</param>
+            <param name="include">List_Poster_Row</param>
+            <param name="visible">$EXP[Exp_InfoDialogs_WidgetsGroup_HasFocus]</param>
+            <param name="widgetfade_include">true</param>
+            <param name="set_widgetcontainer">false</param>
+            <param name="menuid">8</param>
+            <param name="widget_hideartwork">!Skin.HasSetting(Widgets.DontHideArtworkOnClassic)</param>
+            <param name="widget_showoverlay">true</param>
+            <param name="altvisible">!String.IsEqual(Window.Property(CurrentID),Container(99950).ListItem.Property(base_label))</param>
+            <onfocus>SetProperty(CurrentID,$INFO[Container(99950).ListItem.Property(base_label)])</onfocus>
+            <content>$INFO[Container(99950).ListItem.Property(Set.TMDb_ID),plugin://plugin.video.themoviedb.helper/?info=collection&amp;tmdb_type=collection&amp;tmdb_id=,]$VAR[Path_Param_Widget]</content>
+            <include>DialogInfo_Widgets_Action</include>
+        </include>
+
+        <include content="Widget_Info_Row" condition="!Skin.HasSetting(VideoInfo.Widgets.DisableStudio)">
             <param name="id">06</param>
             <param name="baseid">50</param>
             <param name="basegroupid">51</param>
@@ -386,7 +404,7 @@
             <include>DialogInfo_Widgets_Action</include>
         </include>
 
-        <include content="Widget_Info_Row">
+        <include content="Widget_Info_Row" condition="!Skin.HasSetting(VideoInfo.Widgets.DisableYear)">
             <param name="id">07</param>
             <param name="baseid">50</param>
             <param name="basegroupid">51</param>
@@ -404,8 +422,7 @@
             <include>DialogInfo_Widgets_Action</include>
         </include>
 
-
-        <include content="Widget_Info_Row">
+        <include content="Widget_Info_Row" condition="!Skin.HasSetting(VideoInfo.Widgets.DisableVideos)">
             <param name="id">09</param>
             <param name="baseid">50</param>
             <param name="basegroupid">51</param>
@@ -426,7 +443,7 @@
             </include>
         </include>
 
-        <include content="Widget_Info_Row">
+        <include content="Widget_Info_Row" condition="!Skin.HasSetting(VideoInfo.Widgets.DisableComments)">
             <param name="id">04</param>
             <param name="baseid">50</param>
             <param name="basegroupid">51</param>
@@ -458,7 +475,7 @@
             <onclick>ActivateWindow(1114)</onclick>
         </include>
 
-        <include content="Widget_Info_Row">
+        <include content="Widget_Info_Row" condition="!Skin.HasSetting(VideoInfo.Widgets.DisableRecommendations)">
             <param name="id">10</param>
             <param name="baseid">50</param>
             <param name="basegroupid">51</param>

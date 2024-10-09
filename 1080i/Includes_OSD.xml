@@ -53,11 +53,8 @@
         <param name="is_addon">true</param>
         <param name="icon">$VAR[Image_UpNext]</param>
         <param name="secondary_label">[COLOR=$VAR[ColorHighlight]]$INFO[Window.Property(remaining), ,][/COLOR] [LOWERCASE]$LOCALIZE[31130][/LOWERCASE]...</param>
-        <param name="tvshowtitle">Window.Property(tvshowtitle)</param>
-        <param name="title">Window.Property(title)</param>
-        <param name="seasonepisode_label">$VAR[Label_OSD_UpNext_Plot_Episode_Number]</param>
-        <param name="year">Window.Property(year)</param>
-        <param name="rating">Window.Property(rating)</param>
+        <param name="top_title">$INFO[Window.Property(title)]</param>
+        <param name="sub_title">$VAR[Label_OSD_UpNext_SubTitle]</param>
         <definition>
             <include content="OSD_CastInfo_ExpandGroup">
 
@@ -89,69 +86,17 @@
                             <top>15</top>
                             <height>80</height>
 
-                            <control type="grouplist">
-                                <orientation>horizontal</orientation>
-                                <include content="Object_InfoCircle_Text_Top">
-                                    <textcolor>panel_fg_90</textcolor>
-                                    <selectedcolor>panel_fg_90</selectedcolor>
-                                    <label>$INFO[$PARAM[title]]</label>
-                                    <width>auto</width>
-                                    <visible>!String.ISEmpty($PARAM[title])</visible>
-                                </include>
-                            </control>
+                            <include content="Object_InfoCircle_Text_Top">
+                                <textcolor>panel_fg_90</textcolor>
+                                <selectedcolor>panel_fg_90</selectedcolor>
+                                <label>$PARAM[top_title]</label>
+                            </include>
 
-                            <control type="grouplist">
-                                <orientation>horizontal</orientation>
-                                <include content="Object_InfoCircle_Text_Sub">
-                                    <textcolor>panel_fg_70</textcolor>
-                                    <selectedcolor>panel_fg_70</selectedcolor>
-                                    <label>$INFO[$PARAM[tvshowtitle]]</label>
-                                    <visible>!String.ISEmpty($PARAM[tvshowtitle])</visible>
-                                    <width>auto</width>
-                                </include>
-                                <include content="Object_InfoCircle_Text_Sub">
-                                    <textcolor>panel_fg_30</textcolor>
-                                    <selectedcolor>panel_fg_30</selectedcolor>
-                                    <label> • </label>
-                                    <width>auto</width>
-                                    <visible>!String.ISEmpty($PARAM[tvshowtitle])</visible>
-                                </include>
-                                <include content="Object_InfoCircle_Text_Sub">
-                                    <textcolor>panel_fg_70</textcolor>
-                                    <selectedcolor>panel_fg_70</selectedcolor>
-                                    <label>$PARAM[seasonepisode_label]</label>
-                                    <visible>!String.ISEmpty($PARAM[tvshowtitle])</visible>
-                                    <width>auto</width>
-                                </include>
-                                <include content="Object_InfoCircle_Text_Sub">
-                                    <textcolor>panel_fg_30</textcolor>
-                                    <selectedcolor>panel_fg_30</selectedcolor>
-                                    <label> • </label>
-                                    <width>auto</width>
-                                    <visible>!String.ISEmpty($PARAM[tvshowtitle]) + [!String.ISEmpty($PARAM[rating]) | !String.ISEmpty($PARAM[year])]</visible>
-                                </include>
-                                <include content="Object_InfoCircle_Text_Sub">
-                                    <textcolor>panel_fg_70</textcolor>
-                                    <selectedcolor>panel_fg_70</selectedcolor>
-                                    <label>$INFO[$PARAM[year]]</label>
-                                    <visible>!String.ISEmpty($PARAM[year])</visible>
-                                    <width>auto</width>
-                                </include>
-                                <include content="Object_InfoCircle_Text_Sub">
-                                    <textcolor>panel_fg_30</textcolor>
-                                    <selectedcolor>panel_fg_30</selectedcolor>
-                                    <label> • </label>
-                                    <width>auto</width>
-                                    <visible>!String.ISEmpty($PARAM[year]) + !String.ISEmpty($PARAM[rating])</visible>
-                                </include>
-                                <include content="Object_InfoCircle_Text_Sub">
-                                    <textcolor>panel_fg_70</textcolor>
-                                    <selectedcolor>panel_fg_70</selectedcolor>
-                                    <label>$INFO[$PARAM[rating]]</label>
-                                    <visible>!String.ISEmpty($PARAM[rating])</visible>
-                                    <width>auto</width>
-                                </include>
-                            </control>
+                            <include content="Object_InfoCircle_Text_Sub">
+                                <textcolor>panel_fg_70</textcolor>
+                                <selectedcolor>panel_fg_70</selectedcolor>
+                                <label>$PARAM[sub_title]</label>
+                            </include>
                         </control>
                     </control>
                 </control>
