@@ -61,8 +61,9 @@
             <include>Dimension_Topbar</include>
             <control type="group">
                 <include>Dimension_Furniture_Gutters</include>
-
-                <include content="Furniture_Clock" condition="Skin.HasSetting(Furniture.EnableClock)">
+                <!-- MISC039: use Furniture_Clock_Expanded -->
+                <!-- include content="Furniture_Clock" condition="Skin.HasSetting(Furniture.EnableClock)" -->
+                <include content="Furniture_Clock_Expanded" condition="Skin.HasSetting(Furniture.EnableClock)">
                     <param name="textcolor">$PARAM[textcolor]</param>
                     <param name="textcolor_sublabel">$PARAM[textcolor_sublabel]</param>
                     <param name="shadowcolor">$PARAM[shadowcolor_sublabel]</param>
@@ -534,7 +535,6 @@
         </definition>
     </include>
 
-
     <include name="Furniture_Clock_Expanded">
         <param name="flipx">true</param>
         <param name="toplabel">$INFO[System.Time]</param>
@@ -556,12 +556,15 @@
                 </include>
 
                 <include content="Object_Left" condition="!$PARAM[flipx]">
-                    <param name="left">-20</param>
+                    <!-- MISC039: parameter changed from -20 -->
+                    <param name="left">-100</param>
                 </include>
                 <include content="Object_Right" condition="$PARAM[flipx]">
-                    <param name="right">-20</param>
+                    <!-- MISC039: parameter changed from -20 -->
+                    <param name="right">-100</param>
                 </include>
-                <control type="group">
+                <!-- MISC039: remove analog clock -->
+                <!-- control type="group">
                     <centertop>50%</centertop>
                     <height>50</height>
                     <width>50</width>
@@ -597,7 +600,7 @@
                         </control>
                     </control>
 
-                </control>
+                </control -->
                 <control type="group">
                     <height>80</height>
                     <centertop>50%</centertop>
