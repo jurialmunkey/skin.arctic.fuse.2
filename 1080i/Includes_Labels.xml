@@ -103,6 +103,16 @@
         <value>$LOCALIZE[31060]</value>
     </variable>
 
+    <variable name="Label_Settings_CardViewMode">
+        <value condition="Skin.HasSetting(View.UseTextBasedCard)">$LOCALIZE[31329]</value>
+        <value>$LOCALIZE[31167]</value>
+    </variable>
+
+    <variable name="Label_Settings_BoardViewMode">
+        <value condition="Skin.HasSetting(View.UseTextBasedBoard)">$LOCALIZE[31329]</value>
+        <value>$LOCALIZE[31167]</value>
+    </variable>
+
     <variable name="Label_TraktStats_Recent_0_Type">
         <value condition="String.IsEqual(Window(Home).Property(TMDbHelper.TraktStats.Recent.0.Type),episode)">$LOCALIZE[20359]</value>
         <value condition="String.IsEqual(Window(Home).Property(TMDbHelper.TraktStats.Recent.0.Type),movie)">$LOCALIZE[20338]</value>
@@ -1319,7 +1329,8 @@
         <value condition="[String.IsEqual(Container(99950).ListItem.Property(Status),Returning Series) | String.IsEqual(Container(99950).ListItem.Status,Returning Series)] + Integer.IsEqual(Container(99950).ListItem.Property(Next_Aired.Episode),1) + Integer.IsEqual(Container(99950).ListItem.Property(Next_Aired.Season),1)">$LOCALIZE[31545]</value>
         <value condition="[String.IsEqual(Container(99950).ListItem.Property(Status),Returning Series) | String.IsEqual(Container(99950).ListItem.Status,Returning Series)] + Integer.IsEqual(Container(99950).ListItem.Property(Next_Aired.Episode),1)">$LOCALIZE[31381]</value>
         <value condition="[String.IsEqual(Container(99950).ListItem.Property(Status),Returning Series) | String.IsEqual(Container(99950).ListItem.Status,Returning Series)] + !String.IsEmpty(Container(99950).ListItem.Property(Next_Aired.Days_Until_Aired)) + Integer.IsLess(Container(99950).ListItem.Property(Next_Aired.Days_Until_Aired),7) + Integer.IsLess(Container(99950).ListItem.Property(Last_Aired.Days_From_Aired),8)">$LOCALIZE[31544]</value>
-        <value condition="[String.IsEqual(Container(99950).ListItem.Property(Status),Returning Series) | String.IsEqual(Container(99950).ListItem.Status,Returning Series)]">$LOCALIZE[31381]</value>
+        <value condition="[String.IsEqual(Container(99950).ListItem.Property(Status),Returning Series) | String.IsEqual(Container(99950).ListItem.Status,Returning Series)] + [!String.IsEmpty(Container(99950).ListItem.Property(Next_Aired)) | !Skin.HasSetting(CustomRating.EnablePremiereStatusDates)]">$LOCALIZE[31381]</value>
+        <value condition="[String.IsEqual(Container(99950).ListItem.Property(Status),Returning Series) | String.IsEqual(Container(99950).ListItem.Status,Returning Series)]">$LOCALIZE[31099]</value>
         <value>$LOCALIZE[13205]</value>
     </variable>
 
