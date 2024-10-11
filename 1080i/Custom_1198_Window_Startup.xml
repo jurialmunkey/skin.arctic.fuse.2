@@ -92,27 +92,11 @@
             <onfocus condition="Skin.HasSetting(Startup.WaitForLoad) + String.IsEmpty(Skin.String(Startup.VideoPath)) + String.IsEmpty(Window(Home).Property(StartupReplaceWindow))">AlarmClock(RepWin,ReplaceWindow($INFO[System.StartupWindow]),00:01,silent)</onfocus>
             <onfocus condition="Skin.HasSetting(Startup.WaitForLoad) + String.IsEmpty(Skin.String(Startup.VideoPath)) + !String.IsEmpty(Window(Home).Property(StartupReplaceWindow))">AlarmClock(RepWin,ReplaceWindow($INFO[Window(Home).Property(StartupReplaceWindow)]),00:01,silent)</onfocus>
         </control>
-        <control type="group">
-            <visible>String.IsEmpty(Skin.String(Startup.VideoPath))</visible>
-            <include>Background_StartUp</include>
-            <include>Object_StartUp_Logo</include>
-            <control type="label">
-                <centertop>610</centertop>
-                <height>40</height>
-                <aligny>center</aligny>
-                <align>center</align>
-                <textcolor>main_logo</textcolor>
-                <label>$INFO[Window.Property(InitStatus)]...</label>
-            </control>
-            <control type="group">
-                <centertop>750</centertop>
-                <height>80</height>
-                <include content="Object_BusySpinner">
-                    <param name="colordiffuse">main_fg</param>
-                    <param name="haslabel">false</param>
-                </include>
-            </control>
-        </control>
+
+        <include content="Hub_Widget_Splash">
+            <param name="condition">String.IsEmpty(Skin.String(Startup.VideoPath))</param>
+            <param name="label">$INFO[Window.Property(InitStatus)]</param>
+        </include>
 
 
     </controls>
