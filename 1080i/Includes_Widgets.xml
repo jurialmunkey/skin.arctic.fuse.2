@@ -34,6 +34,7 @@
                 <include content="Widget_Busy">
                     <param name="label">$PARAM[label]</param>
                     <param name="visible">$PARAM[busy_visible]</param>
+                    <param name="include">$PARAM[include]</param>
                     <top>10</top>
                 </include>
 
@@ -65,6 +66,7 @@
                 <param name="labelvisible">$PARAM[labelvisible]</param>
                 <param name="labeltop">$PARAM[labeltop]</param>
                 <param name="labelheight">$PARAM[labelheight]</param>
+                <param name="include">$PARAM[include]</param>
                 <include content="Animation_ConditionalFade">
                     <param name="condition">$PARAM[conditional_fade]</param>
                 </include>
@@ -119,7 +121,7 @@
         <control type="group">
             <nested />
             <top>80</top>
-            <height>view_landscape_item_h</height>
+            <include>Widget_Busy_Spinner_Height__$PARAM[include]</include>
             <control type="group">
                 <left>0</left>
                 <centertop>50%</centertop>
@@ -156,6 +158,16 @@
         </control>
     </include>
 
+    <include name="Widget_Busy_BlankItem_ItemBack_Circle">
+        <control type="image">
+            <include content="Dimension_Padding"><param name="pad">-40</param></include>
+            <bordersize>40</bordersize>
+            <bordertexture colordiffuse="$PARAM[shadow_colordiffuse]">shadows/circle_200-shadow-40.png</bordertexture>
+            <texture colordiffuse="$PARAM[colordiffuse]">diffuse/circle_200.png</texture>
+        </control>
+        <include>Object_Circle_200_Outline</include>
+    </include>
+
     <include name="Widget_Busy_BlankItem">
         <param name="item_w">view_landscape_item_w</param>
         <param name="item_h">view_landscape_item_h</param>
@@ -163,6 +175,8 @@
         <param name="itemlayout_h">view_poster_itemlayout_h</param>
         <param name="second_row">true</param>
         <param name="first_row">true</param>
+        <param name="circle">false</param>
+        <param name="colordiffuse">main_fg_12</param>
         <definition>
             <control type="group">
                 <width>$PARAM[itemlayout_w]</width>
@@ -173,29 +187,32 @@
                     <control type="group">
                         <width>$PARAM[item_w]</width>
                         <height>$PARAM[item_h]</height>
-                        <include content="Object_ItemBack">
+                        <include content="Object_ItemBack" condition="![$PARAM[circle]]">
+                            <param name="shadow_colordiffuse">shadow_soft</param>
+                            <param name="colordiffuse">$PARAM[colordiffuse]</param>
+                        </include>
+                        <include content="Widget_Busy_BlankItem_ItemBack_Circle" condition="$PARAM[circle]">
                             <param name="shadow_colordiffuse">shadow_soft</param>
                             <param name="colordiffuse">$PARAM[colordiffuse]</param>
                         </include>
                     </control>
                     <control type="group">
-                        <top>$PARAM[item_h]</top>
+                        <bottom>0</bottom>
+                        <height>80</height>
                         <control type="group">
-                            <visible>$PARAM[first_row]</visible>
                             <top>15</top>
                             <height>25</height>
                             <width>85%</width>
-                            <include content="Object_ItemBack">
+                            <include content="Object_ItemBack" condition="$PARAM[first_row]">
                                 <param name="shadow_colordiffuse">shadow_soft</param>
                                 <param name="colordiffuse">$PARAM[colordiffuse]</param>
                             </include>
                         </control>
                         <control type="group">
-                            <visible>$PARAM[second_row]</visible>
                             <bottom>0</bottom>
                             <height>25</height>
                             <width>70%</width>
-                            <include content="Object_ItemBack">
+                            <include content="Object_ItemBack" condition="$PARAM[second_row]">
                                 <param name="shadow_colordiffuse">shadow_soft</param>
                                 <param name="colordiffuse">$PARAM[colordiffuse]</param>
                             </include>
@@ -216,16 +233,175 @@
         </include>
     </include>
 
-    <include name="Widget_Busy_BlankItem_Apps">
+    <include name="Widget_Busy_BlankItem_Square">
         <include content="Widget_Busy_BlankItem">
-            <param name="item_w">view_icon_item_w</param>
-            <param name="item_h">view_icon_item_h</param>
-            <param name="itemlayout_w">view_icon_itemlayout_w</param>
-            <param name="itemlayout_h">view_icon_itemlayout_h</param>
+            <param name="item_w">view_poster_item_w</param>
+            <param name="item_h">view_poster_item_w</param>
+            <param name="itemlayout_w">view_poster_itemlayout_w</param>
+            <param name="itemlayout_h">view_poster_itemlayout_h</param>
+            <param name="colordiffuse">$PARAM[colordiffuse]</param>
+        </include>
+    </include>
+
+    <include name="Widget_Busy_BlankItem_Circle">
+        <include content="Widget_Busy_BlankItem">
+            <param name="item_w">view_poster_item_w</param>
+            <param name="item_h">view_poster_item_w</param>
+            <param name="itemlayout_w">view_poster_itemlayout_w</param>
+            <param name="itemlayout_h">view_poster_itemlayout_h</param>
+            <param name="colordiffuse">$PARAM[colordiffuse]</param>
+            <param name="circle">true</param>
+        </include>
+    </include>
+
+    <include name="Widget_Busy_BlankItem_Overview">
+        <include content="Widget_Busy_BlankItem">
+            <param name="item_w">view_poster_item_w</param>
+            <param name="item_h">view_poster_item_w</param>
+            <param name="itemlayout_w">view_board_itemlayout_w</param>
+            <param name="itemlayout_h">view_poster_itemlayout_h</param>
+            <param name="colordiffuse">$PARAM[colordiffuse]</param>
+            <param name="circle">true</param>
+        </include>
+    </include>
+
+    <include name="Widget_Busy_BlankItem_Poster">
+        <include content="Widget_Busy_BlankItem">
+            <param name="item_w">view_poster_item_w</param>
+            <param name="item_h">view_poster_item_h</param>
+            <param name="itemlayout_w">view_poster_itemlayout_w</param>
+            <param name="itemlayout_h">view_poster_itemlayout_h</param>
             <param name="second_row">false</param>
             <param name="first_row">false</param>
             <param name="colordiffuse">$PARAM[colordiffuse]</param>
         </include>
+    </include>
+
+    <include name="Widget_Busy_BlankItem_Banner">
+        <include content="Widget_Busy_BlankItem">
+            <param name="item_w">view_banner_item_w</param>
+            <param name="item_h">view_poster_item_h</param>
+            <param name="itemlayout_w">view_banner_itemlayout_w</param>
+            <param name="itemlayout_h">view_poster_itemlayout_h</param>
+            <param name="second_row">false</param>
+            <param name="first_row">false</param>
+            <param name="colordiffuse">$PARAM[colordiffuse]</param>
+        </include>
+    </include>
+
+    <include name="Widget_Busy_BlankItem_Card">
+        <include content="Widget_Busy_BlankItem">
+            <param name="item_w">view_card_item_w</param>
+            <param name="item_h">view_poster_item_h</param>
+            <param name="itemlayout_w">view_card_itemlayout_w</param>
+            <param name="itemlayout_h">view_poster_itemlayout_h</param>
+            <param name="second_row">false</param>
+            <param name="first_row">false</param>
+            <param name="colordiffuse">$PARAM[colordiffuse]</param>
+        </include>
+    </include>
+
+    <include name="Widget_Busy_BlankItem_Board">
+        <include content="Widget_Busy_BlankItem">
+            <param name="item_w">view_board_item_w</param>
+            <param name="item_h">view_poster_item_h</param>
+            <param name="itemlayout_w">view_board_itemlayout_w</param>
+            <param name="itemlayout_h">view_poster_itemlayout_h</param>
+            <param name="second_row">false</param>
+            <param name="first_row">false</param>
+            <param name="colordiffuse">$PARAM[colordiffuse]</param>
+        </include>
+    </include>
+
+    <include name="Widget_Busy_BlankItems__List_Banner_Row">
+        <include>Widget_Busy_BlankItem_Banner</include>
+    </include>
+    <include name="Widget_Busy_BlankItems__List_Landscape_Row">
+        <include>Widget_Busy_BlankItem_Landscape</include>
+        <include>Widget_Busy_BlankItem_Landscape</include>
+        <include>Widget_Busy_BlankItem_Landscape</include>
+        <include>Widget_Busy_BlankItem_Landscape</include>
+    </include>
+    <include name="Widget_Busy_BlankItems__List_Poster_Row">
+        <include>Widget_Busy_BlankItem_Poster</include>
+        <include>Widget_Busy_BlankItem_Poster</include>
+        <include>Widget_Busy_BlankItem_Poster</include>
+        <include>Widget_Busy_BlankItem_Poster</include>
+        <include>Widget_Busy_BlankItem_Poster</include>
+        <include>Widget_Busy_BlankItem_Poster</include>
+        <include>Widget_Busy_BlankItem_Poster</include>
+    </include>
+    <include name="Widget_Busy_BlankItems__List_Square_Row">
+        <include>Widget_Busy_BlankItem_Square</include>
+        <include>Widget_Busy_BlankItem_Square</include>
+        <include>Widget_Busy_BlankItem_Square</include>
+        <include>Widget_Busy_BlankItem_Square</include>
+        <include>Widget_Busy_BlankItem_Square</include>
+        <include>Widget_Busy_BlankItem_Square</include>
+        <include>Widget_Busy_BlankItem_Square</include>
+    </include>
+    <include name="Widget_Busy_BlankItems__List_Circle_Row">
+        <include>Widget_Busy_BlankItem_Circle</include>
+        <include>Widget_Busy_BlankItem_Circle</include>
+        <include>Widget_Busy_BlankItem_Circle</include>
+        <include>Widget_Busy_BlankItem_Circle</include>
+        <include>Widget_Busy_BlankItem_Circle</include>
+        <include>Widget_Busy_BlankItem_Circle</include>
+        <include>Widget_Busy_BlankItem_Circle</include>
+    </include>
+    <include name="Widget_Busy_BlankItems__List_Overview_Row">
+        <include>Widget_Busy_BlankItem_Overview</include>
+        <include>Widget_Busy_BlankItem_Overview</include>
+        <include>Widget_Busy_BlankItem_Overview</include>
+    </include>
+    <include name="Widget_Busy_BlankItems__List_Card_Row">
+        <include>Widget_Busy_BlankItem_Card</include>
+        <include>Widget_Busy_BlankItem_Poster</include>
+        <include>Widget_Busy_BlankItem_Poster</include>
+        <include>Widget_Busy_BlankItem_Poster</include>
+        <include>Widget_Busy_BlankItem_Poster</include>
+    </include>
+    <include name="Widget_Busy_BlankItems__List_Corflute_Row">
+        <include>Widget_Busy_BlankItems__List_Card_Row</include>
+    </include>
+    <include name="Widget_Busy_BlankItems__List_Board_Row">
+        <include>Widget_Busy_BlankItem_Board</include>
+        <include>Widget_Busy_BlankItem_Board</include>
+        <include>Widget_Busy_BlankItem_Board</include>
+    </include>
+    <include name="Widget_Busy_BlankItems__List_Placard_Row">
+        <include>Widget_Busy_BlankItems__List_Board_Row</include>
+    </include>
+
+    <include name="Widget_Busy_Spinner_Height__List_Banner_Row">
+        <height>view_poster_item_h</height>
+    </include>
+    <include name="Widget_Busy_Spinner_Height__List_Poster_Row">
+        <height>view_poster_item_h</height>
+    </include>
+    <include name="Widget_Busy_Spinner_Height__List_Board_Row">
+        <height>view_poster_item_h</height>
+    </include>
+    <include name="Widget_Busy_Spinner_Height__List_Placard_Row">
+        <height>view_poster_item_h</height>
+    </include>
+    <include name="Widget_Busy_Spinner_Height__List_Card_Row">
+        <height>view_poster_item_h</height>
+    </include>
+    <include name="Widget_Busy_Spinner_Height__List_Corflute_Row">
+        <height>view_poster_item_h</height>
+    </include>
+    <include name="Widget_Busy_Spinner_Height__List_Landscape_Row">
+        <height>view_landscape_item_h</height>
+    </include>
+    <include name="Widget_Busy_Spinner_Height__List_Square_Row">
+        <height>view_poster_item_w</height>
+    </include>
+    <include name="Widget_Busy_Spinner_Height__List_Circle_Row">
+        <height>view_poster_item_w</height>
+    </include>
+    <include name="Widget_Busy_Spinner_Height__List_Overview_Row">
+        <height>view_poster_item_w</height>
     </include>
 
     <include name="Widget_Busy">
@@ -241,51 +417,14 @@
                 <animation type="Visible" reversible="false">
                     <effect type="fade" start="0" end="100" time="200" delay="200" />
                 </animation>
-                <include>Widget_Busy_BlankItem_Landscape</include>
-                <include>Widget_Busy_BlankItem_Landscape</include>
-                <include>Widget_Busy_BlankItem_Landscape</include>
-                <include>Widget_Busy_BlankItem_Landscape</include>
+                <include>Widget_Busy_BlankItems__$PARAM[include]</include>
             </control>
 
             <include content="Widget_Busy_Spinner">
                 <param name="label">$PARAM[label]</param>
                 <param name="busy_visible">$PARAM[visible]</param>
+                <param name="include">$PARAM[include]</param>
                 <visible>$PARAM[visible]</visible>
-                <animation type="Visible" reversible="false">
-                    <effect type="fade" start="0" end="100" time="400" delay="2000" />
-                </animation>
-                <animation type="WindowOpen" reversible="false">
-                    <effect type="fade" start="0" end="100" time="400" delay="2000" />
-                </animation>
-            </include>
-        </control>
-    </include>
-
-    <include name="Widget_Busy_Apps">
-        <control type="group">
-            <nested />
-            <control type="grouplist">
-                <top>40</top>
-                <height>400</height>
-                <left>-40</left>
-                <right>-40</right>
-                <orientation>horizontal</orientation>
-                <visible>$PARAM[visible]</visible>
-                <include>Widget_Busy_BlankItem_Apps</include>
-                <include>Widget_Busy_BlankItem_Apps</include>
-                <include>Widget_Busy_BlankItem_Apps</include>
-                <include>Widget_Busy_BlankItem_Apps</include>
-                <include>Widget_Busy_BlankItem_Apps</include>
-                <include>Widget_Busy_BlankItem_Apps</include>
-                <include>Widget_Busy_BlankItem_Apps</include>
-                <include>Widget_Busy_BlankItem_Apps</include>
-            </control>
-
-            <include content="Widget_Busy_Spinner">
-                <param name="label">$PARAM[label]</param>
-                <param name="busy_visible">$PARAM[visible]</param>
-                <visible>$PARAM[visible]</visible>
-                <height>view_icon_item_h</height>
                 <animation type="Visible" reversible="false">
                     <effect type="fade" start="0" end="100" time="400" delay="2000" />
                 </animation>

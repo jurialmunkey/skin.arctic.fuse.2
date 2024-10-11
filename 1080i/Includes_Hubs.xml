@@ -105,11 +105,12 @@
     </include>
 
     <include name="Hub_Widget_Splash">
-        <param name="id">301</param>
+        <param name="condition">false</param>
+        <param name="label">$LOCALIZE[31427] [LOWERCASE]$LOCALIZE[31103][/LOWERCASE]</param>
+        <param name="busyspinner">true</param>
         <definition>
             <control type="group">
-                <visible>Skin.HasSetting(Startup.WaitForLoad) + Integer.IsEqual(Container($PARAM[id]).NumItems,0) + Container($PARAM[id]).IsUpdating</visible>
-                <visible>System.HasAlarm(SplashTimeOut)</visible>
+                <visible>$PARAM[condition]</visible>
                 <include>Background_StartUp</include>
                 <include>Object_StartUp_Logo</include>
                 <control type="label">
@@ -118,16 +119,42 @@
                     <aligny>center</aligny>
                     <align>center</align>
                     <textcolor>main_logo</textcolor>
-                    <label>$LOCALIZE[31427] [LOWERCASE]$LOCALIZE[31103][/LOWERCASE]...</label>
+                    <label>$PARAM[label]...</label>
                 </control>
                 <control type="group">
+                    <centertop>750</centertop>
+                    <centerleft>50%</centerleft>
+                    <height>120</height>
+                    <width>120</width>
+                    <control type="image">
+                        <include content="Dimension_Padding">
+                            <param name="pad">-40</param>
+                        </include>
+                        <bordersize>40</bordersize>
+                        <bordertexture colordiffuse="shadow_hard">shadows/circle_120-shadow-40.png</bordertexture>
+                        <texture colordiffuse="main_fg_100">diffuse/circle_120.png</texture>
+                    </control>
+                    <control type="image">
+                        <bordersize>4</bordersize>
+                        <aspectratio scalediffuse="false">scale</aspectratio>
+                        <texture diffuse="diffuse/circle_120.png">$VAR[Image_ProfileThumb]</texture>
+                    </control>
+                </control>
+                <include content="Furniture_Busy" condition="$PARAM[busyspinner]">
+                    <param name="hasspinner">true</param>
+                    <param name="spinspinner">true</param>
+                    <param name="spinnervisible">[!Window.IsActive(DialogVolumeBar.xml) | Player.Muted]</param>
+                    <param name="icon">special://skin/extras/icons/kodi.png</param>
+                    <param name="haslabel">false</param>
+                </include>
+                <!-- <control type="group">
                     <centertop>750</centertop>
                     <height>80</height>
                     <include content="Object_BusySpinner">
                         <param name="colordiffuse">main_fg</param>
                         <param name="haslabel">false</param>
                     </include>
-                </control>
+                </control> -->
             </control>
         </definition>
     </include>
@@ -331,17 +358,17 @@
             <!-- Plot Dialog Overlay -->
             <include>View_Dialog_Plot</include>
 
-            <include content="Hub_Widget_Splash" condition="Window.IsVisible(Home)">
-                <param name="id">100601</param>
+            <include content="Hub_Widget_Splash" condition="Skin.HasSetting(Startup.WaitForLoad) + Window.IsVisible(Home)">
+                <param name="condition">System.HasAlarm(SplashTimeOut) + Integer.IsEqual(Container(100601).NumItems,0) + Container(100601).IsUpdating</param>
             </include>
-            <include content="Hub_Widget_Splash" condition="!Window.IsVisible(Home) + ![$PARAM[widgets_only]] + !Skin.HasSetting(Hub.$PARAM[window_id].DisableSpotlight)">
-                <param name="id">301</param>
+            <include content="Hub_Widget_Splash" condition="Skin.HasSetting(Startup.WaitForLoad) + !Window.IsVisible(Home) + ![$PARAM[widgets_only]] + !Skin.HasSetting(Hub.$PARAM[window_id].DisableSpotlight)">
+                <param name="condition">System.HasAlarm(SplashTimeOut) + Integer.IsEqual(Container(301).NumItems,0) + Container(301).IsUpdating</param>
             </include>
-            <include content="Hub_Widget_Splash" condition="!Window.IsVisible(Home) + ![$PARAM[widgets_only]] + Skin.HasSetting(Hub.$PARAM[window_id].DisableSpotlight)">
-                <param name="id">300</param>
+            <include content="Hub_Widget_Splash" condition="Skin.HasSetting(Startup.WaitForLoad) + !Window.IsVisible(Home) + ![$PARAM[widgets_only]] + Skin.HasSetting(Hub.$PARAM[window_id].DisableSpotlight)">
+                <param name="condition">System.HasAlarm(SplashTimeOut) + Integer.IsEqual(Container(300).NumItems,0) + Container(300).IsUpdating</param>
             </include>
-            <include content="Hub_Widget_Splash" condition="!Window.IsVisible(Home) + $PARAM[widgets_only]">
-                <param name="id">100601</param>
+            <include content="Hub_Widget_Splash" condition="Skin.HasSetting(Startup.WaitForLoad) + !Window.IsVisible(Home) + $PARAM[widgets_only]">
+                <param name="condition">System.HasAlarm(SplashTimeOut) + Integer.IsEqual(Container(100601).NumItems,0) + Container(100601).IsUpdating</param>
             </include>
         </definition>
     </include>

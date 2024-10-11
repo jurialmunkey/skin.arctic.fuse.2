@@ -193,7 +193,7 @@
                     </control>
                 </control>
 
-                <control type="group">
+                <!-- <control type="group">
                     <visible>Container(52).IsUpdating | !String.IsEmpty(Window(Home).Property(SkinVariables.SkinUser.LoggingIn))</visible>
                     <centerleft>50%</centerleft>
                     <centertop>180</centertop>
@@ -210,7 +210,37 @@
                         <aspectratio>keep</aspectratio>
                         <bordersize>30</bordersize>
                     </control>
+                </control> -->
+            </control>
+
+            <control type="group">
+                <visible>Container(52).IsUpdating | !String.IsEmpty(Window(Home).Property(SkinVariables.SkinUser.LoggingIn))</visible>
+                <control type="group">
+                    <centertop>750</centertop>
+                    <centerleft>50%</centerleft>
+                    <height>120</height>
+                    <width>120</width>
+                    <control type="image">
+                        <include content="Dimension_Padding">
+                            <param name="pad">-40</param>
+                        </include>
+                        <bordersize>40</bordersize>
+                        <bordertexture colordiffuse="shadow_hard">shadows/circle_120-shadow-40.png</bordertexture>
+                        <texture colordiffuse="main_fg_100">diffuse/circle_120.png</texture>
+                    </control>
+                    <control type="image">
+                        <bordersize>4</bordersize>
+                        <aspectratio scalediffuse="false">scale</aspectratio>
+                        <texture diffuse="diffuse/circle_120.png">$VAR[Image_ProfileThumb]</texture>
+                    </control>
                 </control>
+                <include content="Furniture_Busy">
+                    <param name="hasspinner">true</param>
+                    <param name="spinspinner">true</param>
+                    <param name="spinnervisible">[!Window.IsActive(DialogVolumeBar.xml) | Player.Muted]</param>
+                    <param name="icon">special://skin/extras/icons/kodi.png</param>
+                    <param name="haslabel">false</param>
+                </include>
             </control>
 
 

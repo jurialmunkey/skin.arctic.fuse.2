@@ -26,34 +26,50 @@
     </include>
 
     <variable name="Action_View_ContentID">
-        <value condition="$EXP[Exp_View_51]">51</value>
-        <value condition="$EXP[Exp_View_52]">52</value>
-        <value condition="$EXP[Exp_View_53]">53</value>
-        <value condition="$EXP[Exp_View_500]">500</value>
-        <value condition="$EXP[Exp_View_510]">510</value>
-        <value condition="$EXP[Exp_View_520]">520</value>
-        <value condition="$EXP[Exp_View_530]">530</value>
-        <value condition="$EXP[Exp_View_502]">503</value>  <!-- Goto Widget Combined not Base -->
-        <value condition="$EXP[Exp_View_512]">513</value>  <!-- Goto Widget Combined not Base -->
-        <value condition="$EXP[Exp_View_522]">523</value>  <!-- Goto Widget Combined not Base -->
-        <value condition="$EXP[Exp_View_550]">550</value>
-        <value condition="$EXP[Exp_View_551]">551</value>
+        <value condition="Control.IsVisible(51)">51</value>
+        <value condition="Control.IsVisible(52)">52</value>
+        <value condition="Control.IsVisible(53)">53</value>
+        <value condition="Control.IsVisible(54)">54</value>
+        <value condition="Control.IsVisible(55)">55</value>
+        <value condition="Control.IsVisible(56)">56</value>
+        <value condition="Control.IsVisible(57)">57</value>
+        <value condition="Control.IsVisible(500)">500</value>
+        <value condition="Control.IsVisible(510)">510</value>
+        <value condition="Control.IsVisible(520)">520</value>
+        <value condition="Control.IsVisible(530)">530</value>
+        <value condition="Control.IsVisible(540)">540</value>
+        <value condition="Control.IsVisible(560)">560</value>
+        <value condition="Control.IsVisible(570)">570</value>
+        <value condition="Control.IsVisible(502)">503</value>  <!-- Goto Widget Combined not Base -->
+        <value condition="Control.IsVisible(512)">513</value>  <!-- Goto Widget Combined not Base -->
+        <value condition="Control.IsVisible(522)">523</value>  <!-- Goto Widget Combined not Base -->
+        <value condition="Control.IsVisible(550)">550</value>
+        <value condition="Control.IsVisible(551)">551</value>
+        <value condition="Control.IsVisible(552)">552</value>
         <value>50</value>
     </variable>
 
     <variable name="Action_View_ContainerID">
-        <value condition="$EXP[Exp_View_51]">51</value>
-        <value condition="$EXP[Exp_View_52]">52</value>
-        <value condition="$EXP[Exp_View_53]">53</value>
-        <value condition="$EXP[Exp_View_500]">500</value>
-        <value condition="$EXP[Exp_View_510]">510</value>
-        <value condition="$EXP[Exp_View_520]">520</value>
-        <value condition="$EXP[Exp_View_530]">530</value>
-        <value condition="$EXP[Exp_View_502]">502</value>
-        <value condition="$EXP[Exp_View_512]">512</value>
-        <value condition="$EXP[Exp_View_522]">522</value>
-        <value condition="$EXP[Exp_View_550]">550</value>
-        <value condition="$EXP[Exp_View_551]">551</value>
+        <value condition="Control.IsVisible(51)">51</value>
+        <value condition="Control.IsVisible(52)">52</value>
+        <value condition="Control.IsVisible(53)">53</value>
+        <value condition="Control.IsVisible(54)">54</value>
+        <value condition="Control.IsVisible(55)">55</value>
+        <value condition="Control.IsVisible(56)">56</value>
+        <value condition="Control.IsVisible(57)">57</value>
+        <value condition="Control.IsVisible(500)">500</value>
+        <value condition="Control.IsVisible(510)">510</value>
+        <value condition="Control.IsVisible(520)">520</value>
+        <value condition="Control.IsVisible(530)">530</value>
+        <value condition="Control.IsVisible(540)">540</value>
+        <value condition="Control.IsVisible(560)">560</value>
+        <value condition="Control.IsVisible(570)">570</value>
+        <value condition="Control.IsVisible(502)">502</value>
+        <value condition="Control.IsVisible(512)">512</value>
+        <value condition="Control.IsVisible(522)">522</value>
+        <value condition="Control.IsVisible(550)">550</value>
+        <value condition="Control.IsVisible(551)">551</value>
+        <value condition="Control.IsVisible(552)">552</value>
         <value>50</value>
     </variable>
 
@@ -158,6 +174,12 @@
     <include name="Action_Hubs_Onload">
         <definition>
 
+            <include>Action_Blur_Onload</include>
+
+            <onload>Skin.SetString(TMDbHelper.MonitorContainer,99950)</onload>
+
+            <include>Generator_BuildTextures_Onload</include>
+
             <!-- Menu Controls Home -->
             <include content="Object_MenuControl" condition="Window.IsVisible(Home)">
                 <param name="menucontrol">303</param>
@@ -202,6 +224,9 @@
             <onload condition="Skin.HasSetting(Hub.1107.DisableSubmenu) | Skin.HasSetting(Hub.1107.DisableSpotlight)">SetProperty(Slide.WidgetContainer,True,1107)</onload>
             <onload condition="Skin.HasSetting(Hub.1108.DisableSubmenu) | Skin.HasSetting(Hub.1108.DisableSpotlight)">SetProperty(Slide.WidgetContainer,True,1108)</onload>
             <onload condition="Skin.HasSetting(Hub.1109.DisableSubmenu) | Skin.HasSetting(Hub.1109.DisableSpotlight)">SetProperty(Slide.WidgetContainer,True,1109)</onload>
+
+            <!-- Reset Splash Timeout -->
+            <onload>AlarmClock(SplashTimeOut,noop,00:59,silent)</onload>
 
             <!-- Build Shortcuts -->
             <include>Action_BuildShortcuts_OnLoad</include>
