@@ -6,11 +6,14 @@
     <value name="includes_part">
         <items menu="{item}">
             <item>
+                <datafile>generator/data/setup/submenu_row.xml</datafile>
+                <condition>{item_submenulist_path}==</condition>
+                <condition>{item_disabled}!=True</condition>
                 <template>
                     <![CDATA[
                     <include content="Hub_Submenu_List">
                         <param name="id">{submenu_item_x}302</param>
-                        <param name="hidden_button">List_ButtonMenu_Row_HiddenButton_Home</param>
+                        <param name="hidden_button">List_ButtonMenu_Row_HiddenButton_ERow</param>
                         <param name="hidden_button_prefix">{submenu_item_x}302</param>
                         <param name="window_id">{window_id}</param>
                         <param name="submenu_widget_id">{submenu_widget_id}</param>
@@ -23,11 +26,8 @@
                     </include>
                     ]]>
                 </template>
-                <datafile>generator/data/setup/submenu_row.xml</datafile>
-                <condition>{item_submenulist_path}==</condition>
-                <condition>{item_disabled}!=True</condition>
                 <value name="parts_content">
-                    <items menu="{item_menu}" item="{item_x}" mode="submenu">
+                    <items menu="{item_menu}" item="{item_x}" mode="widgets">
                         <item>
                             <template>generator/data/parts/menu_item.xmltemplate</template>
                             <datafile>generator/data/setup/onclick_path.xml</datafile>
@@ -36,6 +36,7 @@
                             <value name="parts_additional">
                                 <template>
                                     <![CDATA[
+                                    <property name="widget_id">$NUMBER[$MATH[{submenu_item_x} * 1000 + 600 + {enum_x}]]</property>
                                     <property name="widget_style">{item_widget_style}</property>
                                     <property name="widget_sortby">{item_widget_sortby}</property>
                                     <property name="widget_sortorder">{item_widget_sortorder}</property>
@@ -47,6 +48,7 @@
                                 </template>
                                 <datafile>generator/data/setup/category_sublabel.xml</datafile>
                             </value>
+                            <enumitem name="enum_x">submenuitem_{parent_item_menu}_{parent_item_x}</enumitem>
                         </item>
                     </items>
                 </value>
