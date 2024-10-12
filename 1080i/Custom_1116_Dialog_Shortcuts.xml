@@ -434,6 +434,26 @@
                                             <visible>!String.IsEqual(Container(22001).ListItem.Property(blank),True)</visible>
                                         </include>
 
+                                        <!-- Edit menu node items -->
+                                        <include content="Settings_Button">
+                                            <param name="dialog">true</param>
+                                            <param name="id">23081</param>
+                                            <label>$LOCALIZE[31011]</label>
+                                            <visible>String.IsEqual(Container(22001).ListItem.Property(path),Custom_Menu)</visible>
+
+                                            <onclick>SetProperty(Shortcuts.EditMenu.Previous,$INFO[Window(Home).Property(Shortcuts.EditMenu)],Home)</onclick>
+                                            <onclick>SetProperty(Shortcuts.EditMode.Previous,$INFO[Window(Home).Property(Shortcuts.EditMode)],Home)</onclick>
+                                            <onclick>SetProperty(Shortcuts.EditGUID.Previous,$INFO[Window(Home).Property(Shortcuts.EditGUID)],Home)</onclick>
+                                            <onclick>SetProperty(Shortcuts.Category.Previous,$INFO[Window(Home).Property(Shortcuts.Category)],Home)</onclick>
+                                            <onclick>ClearProperty(Shortcuts.EditGUID,Home)</onclick>
+
+                                            <onclick>SetProperty(Shortcuts.EditMenu,menu=$INFO[Container(22001).ListItem.Property(menu)]-customnode-$INFO[Container(22001).ListItem.Property(guid)],Home)</onclick>
+                                            <onclick>ClearProperty(Shortcuts.EditMode,Home)</onclick>
+                                            <onclick>ClearProperty(Shortcuts.Category,Home)</onclick>
+
+                                            <onback>29999</onback>
+                                        </include>
+
                                         <!-- Open In Dialog Item -->
                                         <include content="Settings_Button">
                                             <param name="dialog">true</param>
@@ -449,6 +469,7 @@
                                             <visible>!String.IsEqual(Container(22001).ListItem.Property(blank),True)</visible>
                                             <visible>!String.IsEmpty(Container(22001).ListItem.Property(path))</visible>
                                             <visible>!String.IsEmpty(Container(22001).ListItem.Property(target))</visible>
+                                            <visible>!String.Contains(Window(Home).Property(Shortcuts.EditMenu),-customnode-)</visible>
                                             <visible>!$EXP[Shortcuts_Dialog_Exp_IsWidgetMode]</visible>
                                         </include>
 
@@ -468,6 +489,7 @@
                                             <visible>!String.IsEmpty(Container(22001).ListItem.Property(path))</visible>
                                             <visible>!String.IsEmpty(Container(22001).ListItem.Property(target))</visible>
                                             <visible>!String.IsEmpty(Container(22001).ListItem.Property(path_opendialog))</visible>
+                                            <visible>!String.Contains(Window(Home).Property(Shortcuts.EditMenu),-customnode-)</visible>
                                             <visible>!$EXP[Shortcuts_Dialog_Exp_IsWidgetMode]</visible>
                                         </include>
 
