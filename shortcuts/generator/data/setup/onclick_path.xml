@@ -1,6 +1,18 @@
 <contents>
     <rules name="parts_onclick">
         <rule>
+            <condition>{item_path}==Custom_Menu</condition>
+            <value>
+                <![CDATA[
+                <onclick>ClearProperty(CustomDialog1162.Expanded,Home)</onclick>
+                <onclick>ClearProperty(Target,1162)</onclick>
+                <onclick>SetProperty(Path,plugin://script.skinvariables/?info=get_shortcuts_node&amp;menu={item_menu}-customnode-{item_guid}$VAR[Path_SkinVariables_SkinFolder,&amp;skin=,],1162)</onclick>
+                <onclick>SetProperty(Header,{item_label},1162)</onclick>
+                <onclick>ActivateWindow(1162)</onclick>
+                ]]>
+            </value>
+        </rule>
+        <rule>
             <condition>{item_target}!=</condition>
             <condition>{item_path_opendialog}!=</condition>
             <condition>{item_path_opendialog_expanded}!=</condition>

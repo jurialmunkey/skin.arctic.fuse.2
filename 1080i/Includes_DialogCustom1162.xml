@@ -1,6 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <includes>
 
+    <include name="DialogCustom1162_OnClick">
+        <onclick condition="ListItem.IsFolder + String.IsEmpty(ListItem.Property(target)) + String.IsEmpty(ListItem.Property(path))">ActivateWindow($INFO[Window.Property(Target)],$INFO[ListItem.FolderPath],return)</onclick>
+        <onclick condition="!ListItem.IsFolder + String.IsEmpty(ListItem.Property(target)) + String.IsEmpty(ListItem.Property(path))">PlayMedia($INFO[ListItem.FolderPath])</onclick>
+
+        <onclick condition="!String.IsEmpty(ListItem.Property(target)) + !String.IsEmpty(ListItem.Property(path))">ActivateWindow($INFO[ListItem.Property(target)],$INFO[ListItem.Property(path)],return)</onclick>
+        <onclick condition="String.IsEmpty(ListItem.Property(target)) + !String.IsEmpty(ListItem.Property(path))">$INFO[ListItem.Property(path)]</onclick>
+    </include>
+
     <include name="DialogCustom1162_Main">
         <param name="dialog_size">Dimension_DialogFullMenu</param>
         <param name="lines_right">476</param>
@@ -61,8 +69,10 @@
                                     <onright>61</onright>
                                     <onleft>Close</onleft>
                                     <onclick>Close</onclick>
-                                    <onclick condition="ListItem.IsFolder">ActivateWindow($INFO[Window.Property(Target)],$INFO[ListItem.FolderPath],return)</onclick>
-                                    <onclick condition="!ListItem.IsFolder">PlayMedia($INFO[ListItem.FolderPath])</onclick>
+
+                                    <include>DialogCustom1162_OnClick</include>
+
+
                                     <content>$INFO[Window.Property(Path)]</content>
 
                                 </include>
@@ -85,8 +95,9 @@
                                     <onright>61</onright>
                                     <onleft>Close</onleft>
                                     <onclick>Close</onclick>
-                                    <onclick condition="ListItem.IsFolder">ActivateWindow($INFO[Window.Property(Target)],$INFO[ListItem.FolderPath],return)</onclick>
-                                    <onclick condition="!ListItem.IsFolder">PlayMedia($INFO[ListItem.FolderPath])</onclick>
+
+                                    <include>DialogCustom1162_OnClick</include>
+
                                     <content>$INFO[Window.Property(Path)]</content>
 
                                 </include>
