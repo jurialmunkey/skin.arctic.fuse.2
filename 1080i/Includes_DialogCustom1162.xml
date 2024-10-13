@@ -358,9 +358,42 @@
 
     <include name="DialogCustom1163_Hubs">
         <definition>
+            <control type="image">
+                <texture colordiffuse="main_bg_70">common/white.png</texture>
+                <include content="Animation_Fade_In">
+                    <param name="type">WindowOpen</param>
+                    <param name="delay">0</param>
+                </include>
+                <include content="Animation_Fade_Out">
+                    <param name="type">WindowClose</param>
+                </include>
+                <include content="Animation_Fade_In">
+                    <param name="type">Conditional</param>
+                    <param name="delay">0</param>
+                    <param name="condition">![Container(450).IsUpdating | Integer.IsEqual(Container(450).NumItems,0)]</param>
+                </include>
+                <include content="Animation_Fade_Out">
+                    <param name="type">Conditional</param>
+                    <param name="condition">[Container(450).IsUpdating | Integer.IsEqual(Container(450).NumItems,0)]</param>
+                </include>
+            </control>
             <control type="group">
-                <left>-view_menu_main</left>
+                <!-- <left>-view_menu_main</left> -->
                 <width>view_menu_main</width>
+
+                <include content="Dialog_Dim_Side">
+                    <param name="slide_animation">False</param>
+                    <param name="flipx">false</param>
+                </include>
+
+                <control type="grouplist">
+                    <control type="group">
+                        <width>1920</width>
+                        <include>Background_Main_Standard</include>
+                        <include>Background_Main_Overlay</include>
+                    </control>
+                </control>
+
                 <control type="image">
                     <texture colordiffuse="main_bg_30">common/white.png</texture>
                 </control>
@@ -376,8 +409,20 @@
                     <texture colordiffuse="main_fg_12">common/white.png</texture>
                 </control>
 
-                <animation effect="slide" tween="cubic" easing="out" time="400" start="0" end="view_menu_main" reversible="false">WindowOpen</animation>
-                <animation effect="slide" tween="cubic" easing="out" time="400" start="view_menu_main" end="0" reversible="false">WindowClose</animation>
+                <animation effect="slide" tween="cubic" easing="out" time="400" start="-view_menu_main" end="0" reversible="false">WindowOpen</animation>
+                <animation effect="slide" tween="cubic" easing="out" time="400" start="0" end="-view_menu_main" reversible="false">WindowClose</animation>
+
+                <include content="Animation_Slide_In">
+                    <param name="type">Conditional</param>
+                    <param name="delay">400</param>
+                    <param name="posx">-view_menu_main</param>
+                    <param name="condition">![Container(450).IsUpdating | Integer.IsEqual(Container(450).NumItems,0)]</param>
+                </include>
+                <include content="Animation_Slide_Out">
+                    <param name="type">Conditional</param>
+                    <param name="posx">-view_menu_main</param>
+                    <param name="condition">[Container(450).IsUpdating | Integer.IsEqual(Container(450).NumItems,0)]</param>
+                </include>
 
                 <control type="group">
 
@@ -422,7 +467,7 @@
                         <param name="include_label">true</param>
                     </include> -->
 
-                    <control type="group">
+                    <!-- <control type="group">
                         <right>-5</right>
                         <include content="Furniture_Busy">
                             <param name="hasspinner">true</param>
@@ -434,7 +479,7 @@
                             <param name="windowopen_condition">False</param>
                             <param name="visible">[Container(450).IsUpdating]</param>
                         </include>
-                    </control>
+                    </control> -->
 
 
                     <control type="group">
