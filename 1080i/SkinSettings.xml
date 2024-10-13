@@ -60,9 +60,6 @@
                                 <item id="3">
                                     <label>$LOCALIZE[14206]</label>
                                 </item>
-                                <!-- <item id="4">
-                                    <label>$LOCALIZE[31174]</label>
-                                </item> -->
                                 <item id="5">
                                     <label>$LOCALIZE[31180]</label>
                                 </item>
@@ -71,6 +68,9 @@
                                 </item>
                                 <item id="7">
                                     <label>$LOCALIZE[33029]</label>
+                                </item>
+                                <item id="4">
+                                    <label>$LOCALIZE[29921]</label>
                                 </item>
                                 <item id="8">
                                     <label>$LOCALIZE[10039]</label>
@@ -827,6 +827,94 @@
                         </include>
 
 
+                        <!-- Startup / Other -->
+                        <include content="Settings_Label" description="Mouse and Keyboard">
+                            <param name="id">4098</param>
+                            <label>$LOCALIZE[14125]</label>
+                            <visible>Container(3).HasFocus(4)</visible>
+                        </include>
+                        <include content="Settings_Button" description="">
+                            <param name="dialog">false</param>
+                            <param name="id">4004</param>
+                            <param name="control">button</param>
+                            <label>$LOCALIZE[31171]</label>
+                            <label2>$VAR[Label_Settings_KeyboardSize]</label2>
+                            <visible>Container(3).HasFocus(4)</visible>
+                            <onclick>Skin.ToggleSetting(Keyboard.FullSized)</onclick>
+                        </include>
+                        <include content="Settings_Button" description="">
+                            <param name="dialog">false</param>
+                            <param name="id">4005</param>
+                            <param name="control">button</param>
+                            <label>$LOCALIZE[31094]</label>
+                            <label2>$INFO[Skin.String(Mouse.PointerSize)]</label2>
+                            <visible>Container(3).HasFocus(4)</visible>
+                            <onclick condition="Skin.String(Mouse.PointerSize,32px) | String.IsEmpty(Skin.String(Mouse.PointerSize))">Skin.SetString(Mouse.PointerSize,48px)</onclick>
+                            <onclick condition="Skin.String(Mouse.PointerSize,48px)">Skin.SetString(Mouse.PointerSize,64px)</onclick>
+                            <onclick condition="Skin.String(Mouse.PointerSize,64px)">Skin.SetString(Mouse.PointerSize,32px)</onclick>
+                            <onclick>ReloadSkin()</onclick>
+                            <onclick>AlarmClock(refocus1,SetFocus(3,6),00:00,silent)</onclick>
+                            <onclick>AlarmClock(refocus2,SetFocus(4005),00:00,silent)</onclick>
+                        </include>
+
+                        <include content="Settings_Label" description="Startup">
+                            <param name="id">4099</param>
+                            <label>$LOCALIZE[12999]</label>
+                            <visible>Container(3).HasFocus(4)</visible>
+                        </include>
+                        <include content="Settings_Button" description="Startup Init Screen">
+                            <param name="dialog">false</param>
+                            <param name="id">4001</param>
+                            <param name="control">radiobutton</param>
+                            <label>$LOCALIZE[31428]</label>
+                            <visible>Container(3).HasFocus(4)</visible>
+                            <onclick>Skin.ToggleSetting(Startup.WaitForLoad)</onclick>
+                            <selected>Skin.HasSetting(Startup.WaitForLoad)</selected>
+                        </include>
+                        <include content="Settings_Button" description="Startup Init Screen Hubs">
+                            <param name="dialog">false</param>
+                            <param name="id">4011</param>
+                            <param name="control">radiobutton</param>
+                            <label> - $LOCALIZE[31114]</label>
+                            <visible>Container(3).HasFocus(4)</visible>
+                            <visible>Skin.HasSetting(Startup.WaitForLoad)</visible>
+                            <onclick>Skin.ToggleSetting(Startup.WaitForLoad.DisableForHubs)</onclick>
+                            <selected>!Skin.HasSetting(Startup.WaitForLoad.DisableForHubs)</selected>
+                        </include>
+                        <include content="Settings_Button" description="Startup Init Screen Library">
+                            <param name="dialog">false</param>
+                            <param name="id">4012</param>
+                            <param name="control">radiobutton</param>
+                            <label> - $LOCALIZE[14022]</label>
+                            <visible>Container(3).HasFocus(4)</visible>
+                            <visible>Skin.HasSetting(Startup.WaitForLoad)</visible>
+                            <onclick>Skin.ToggleSetting(Startup.WaitForLoad.EnableForLibrary)</onclick>
+                            <selected>Skin.HasSetting(Startup.WaitForLoad.EnableForLibrary)</selected>
+                        </include>
+                        <include content="Settings_Button" description="Widget profiles">
+                            <param name="dialog">false</param>
+                            <param name="id">4002</param>
+                            <param name="control">radiobutton</param>
+                            <label>$LOCALIZE[31506] ($LOCALIZE[31507])</label>
+                            <visible>Container(3).HasFocus(4)</visible>
+                            <onclick>Skin.Reset(SkinVariables.SkinUser.Name)</onclick>
+                            <onclick>Skin.Reset(SkinVariables.SkinUser.Icon)</onclick>
+                            <onclick>Skin.Reset(SkinVariables.SkinUser)</onclick>
+                            <onclick>Skin.ToggleSetting(SkinUserLogin.Disabled)</onclick>
+                            <selected>!Skin.HasSetting(SkinUserLogin.Disabled)</selected>
+                        </include>
+                        <include content="Settings_Button" description="Widget profiles">
+                            <param name="dialog">false</param>
+                            <param name="id">4003</param>
+                            <param name="control">radiobutton</param>
+                            <label>$LOCALIZE[31505]</label>
+                            <visible>Container(3).HasFocus(4)</visible>
+                            <onclick>Skin.ToggleSetting(SkinUserLogin.StartupLoginScreen)</onclick>
+                            <selected>Skin.HasSetting(SkinUserLogin.StartupLoginScreen)</selected>
+                            <visible>!Skin.HasSetting(SkinUserLogin.Disabled)</visible>
+                        </include>
+
+
 
                         <!-- Dependencies -->
                         <include content="Settings_Label" description="Expert">
@@ -850,29 +938,6 @@
                             <visible>Container(3).HasFocus(8)</visible>
                             <visible>!String.IsEmpty(Skin.String(SearchHistory))</visible>
                             <onclick>Skin.Reset(SearchHistory)</onclick>
-                        </include>
-                        <include content="Settings_Button" description="">
-                            <param name="dialog">false</param>
-                            <param name="id">8084</param>
-                            <param name="control">button</param>
-                            <label>$LOCALIZE[31171]</label>
-                            <label2>$VAR[Label_Settings_KeyboardSize]</label2>
-                            <visible>Container(3).HasFocus(8)</visible>
-                            <onclick>Skin.ToggleSetting(Keyboard.FullSized)</onclick>
-                        </include>
-                        <include content="Settings_Button" description="">
-                            <param name="dialog">false</param>
-                            <param name="id">8087</param>
-                            <param name="control">button</param>
-                            <label>$LOCALIZE[31094]</label>
-                            <label2>$INFO[Skin.String(Mouse.PointerSize)]</label2>
-                            <visible>Container(3).HasFocus(8)</visible>
-                            <onclick condition="Skin.String(Mouse.PointerSize,32px) | String.IsEmpty(Skin.String(Mouse.PointerSize))">Skin.SetString(Mouse.PointerSize,48px)</onclick>
-                            <onclick condition="Skin.String(Mouse.PointerSize,48px)">Skin.SetString(Mouse.PointerSize,64px)</onclick>
-                            <onclick condition="Skin.String(Mouse.PointerSize,64px)">Skin.SetString(Mouse.PointerSize,32px)</onclick>
-                            <onclick>ReloadSkin()</onclick>
-                            <onclick>AlarmClock(refocus1,SetFocus(3,6),00:00,silent)</onclick>
-                            <onclick>AlarmClock(refocus2,SetFocus(8087),00:00,silent)</onclick>
                         </include>
                         <include content="Settings_Button" description="Mouse widget control">
                             <param name="dialog">false</param>
@@ -920,42 +985,7 @@
                             <visible>Skin.HasSetting(EnableHolidayTheme)</visible>
                         </include>
 
-                        <include content="Settings_Label" description="Expert">
-                            <param name="id">8099</param>
-                            <label>$LOCALIZE[12999]</label>
-                            <visible>Container(3).HasFocus(8)</visible>
-                        </include>
-                        <include content="Settings_Button" description="Startup Init Screen">
-                            <param name="dialog">false</param>
-                            <param name="id">8082</param>
-                            <param name="control">radiobutton</param>
-                            <label>$LOCALIZE[31428]</label>
-                            <visible>Container(3).HasFocus(8)</visible>
-                            <onclick>Skin.ToggleSetting(Startup.WaitForLoad)</onclick>
-                            <selected>Skin.HasSetting(Startup.WaitForLoad)</selected>
-                        </include>
-                        <include content="Settings_Button" description="Widget profiles">
-                            <param name="dialog">false</param>
-                            <param name="id">8085</param>
-                            <param name="control">radiobutton</param>
-                            <label>$LOCALIZE[31506] ($LOCALIZE[31507])</label>
-                            <visible>Container(3).HasFocus(8)</visible>
-                            <onclick>Skin.Reset(SkinVariables.SkinUser.Name)</onclick>
-                            <onclick>Skin.Reset(SkinVariables.SkinUser.Icon)</onclick>
-                            <onclick>Skin.Reset(SkinVariables.SkinUser)</onclick>
-                            <onclick>Skin.ToggleSetting(SkinUserLogin.Disabled)</onclick>
-                            <selected>!Skin.HasSetting(SkinUserLogin.Disabled)</selected>
-                        </include>
-                        <include content="Settings_Button" description="Widget profiles">
-                            <param name="dialog">false</param>
-                            <param name="id">8086</param>
-                            <param name="control">radiobutton</param>
-                            <label>$LOCALIZE[31505]</label>
-                            <visible>Container(3).HasFocus(8)</visible>
-                            <onclick>Skin.ToggleSetting(SkinUserLogin.StartupLoginScreen)</onclick>
-                            <selected>Skin.HasSetting(SkinUserLogin.StartupLoginScreen)</selected>
-                            <visible>!Skin.HasSetting(SkinUserLogin.Disabled)</visible>
-                        </include>
+
                         <include content="Settings_Label" description="Dependencies">
                             <param name="id">8000</param>
                             <label>$LOCALIZE[39024]</label>
