@@ -105,9 +105,23 @@
         </control>
     </include>
 
+    <include name="Home_Menu_Label_Dialog_Fade">
+        <visible>!Window.IsActive(1163)</visible>
+        <include content="Animation_Fade_In">
+            <param name="type">visible</param>
+            <param name="delay">200</param>
+        </include>
+        <include content="Animation_Fade_Out">
+            <param name="type">Hidden</param>
+            <param name="time">150</param>
+        </include>
+    </include>
+
     <include name="Home_Menu_List_ItemLayout">
-        <param name="layoutnf">[Window.IsVisible(Home) + String.IsEqual(ListItem.Property(guid),Window.Property(SideMenu.CurrentGUID))]</param>
-        <param name="layoutfo">[Window.IsVisible(Home) + String.IsEqual(ListItem.Property(guid),Window.Property(SideMenu.CurrentGUID))]</param>
+        <param name="layoutnf">[false]</param>
+        <param name="layoutfo">[Window.IsVisible(Home)]</param>
+        <!-- <param name="layoutnf">[Window.IsVisible(Home) + String.IsEqual(ListItem.Property(guid),Window.Property(SideMenu.CurrentGUID))]</param>
+        <param name="layoutfo">[Window.IsVisible(Home) + String.IsEqual(ListItem.Property(guid),Window.Property(SideMenu.CurrentGUID))]</param> -->
         <param name="altfocus">false</param>
         <param name="expanded">true</param>
         <param name="width">view_menu_main</param>
@@ -121,6 +135,7 @@
                     <left>80</left>
                     <right>200</right>
                     <visible>$PARAM[expanded]</visible>
+                    <include>Home_Menu_Label_Dialog_Fade</include>
                     <control type="label">
                         <aligny>center</aligny>
                         <font>font_main</font>
@@ -182,6 +197,7 @@
                     <left>80</left>
                     <right>200</right>
                     <visible>$PARAM[expanded]</visible>
+                    <include>Home_Menu_Label_Dialog_Fade</include>
                     <control type="label">
                         <aligny>center</aligny>
                         <font>font_main</font>
@@ -345,6 +361,7 @@
                 <include>Home_Menu_SearchButton</include>
             </control>
             <control type="group">
+                <include>Home_Menu_Label_Dialog_Fade</include>
                 <include content="Layout_Home_Menu_Label" condition="$EXP[Exp_HomeMenu_IsExpanded]">
                     <param name="detailed">true</param>
                     <param name="selected">[Control.HasFocus(309)]</param>
@@ -382,6 +399,7 @@
                 <include>Home_Menu_OptionButton</include>
             </control>
             <control type="group">
+                <include>Home_Menu_Label_Dialog_Fade</include>
                 <include content="Layout_Home_Menu_Label" condition="$EXP[Exp_HomeMenu_IsExpanded]">
                     <param name="detailed">true</param>
                     <param name="selected">[Control.HasFocus(308)]</param>
@@ -392,104 +410,82 @@
     </include>
 
     <include name="Home_Menu_Vert_Header">
-        <control type="group">
-            <include>Dimension_Topbar</include>
+        <param name="include_label">$EXP[Exp_HomeMenu_IsExpanded]</param>
+        <param name="label">$LOCALIZE[10000]</param>
+        <definition>
             <control type="group">
-                <include>Dimension_Furniture_Gutters</include>
-                <include content="Furniture_MainLabel" condition="$EXP[Exp_HomeMenu_IsExpanded]">
-                    <param name="label">$LOCALIZE[10000]</param>
-                </include>
+                <include>Dimension_Topbar</include>
                 <control type="group">
-                    <centertop>50%</centertop>
-                    <centerright>20</centerright>
-                    <width>40</width>
-                    <height>40</height>
-                    <control type="image">
-                        <texture colordiffuse="$VAR[ColorHighlight]">special://skin/extras/icons/kodi.png</texture>
-                        <aspectratio>keep</aspectratio>
-                        <bordersize>-16</bordersize>
-                    </control>
-                    <control type="image">
-                        <texture colordiffuse="$VAR[ColorGradient]">special://skin/extras/icons/kodi.png</texture>
-                        <aspectratio>keep</aspectratio>
-                        <bordersize>-16</bordersize>
-                        <animation effect="fade" end="33" condition="true">Conditional</animation>
-                    </control>
-                </control>
+                    <include>Dimension_Furniture_Gutters</include>
 
-                <control type="group">
-                    <centerright>20</centerright>
-                    <centertop>50%</centertop>
-                    <height>50</height>
-                    <width>50</width>
-                    <control type="image">
-                        <include content="Dimension_Padding">
-                            <param name="pad">-40</param>
+                    <control type="group">
+                        <include>Home_Menu_Label_Dialog_Fade</include>
+                        <include content="Furniture_MainLabel" condition="$PARAM[include_label]">
+                            <param name="label">$PARAM[label]</param>
                         </include>
-                        <bordersize>40</bordersize>
-                        <bordertexture colordiffuse="shadow_soft">shadows/circle_50-shadow-40.png</bordertexture>
-                        <texture colordiffuse="main_fg_100">diffuse/circle_50.png</texture>
                     </control>
-                    <include content="Object_InfoCircle_Image">
-                        <param name="bordersize">2</param>
-                        <param name="aspectratio">scale</param>
-                        <param name="colordiffuse">white</param>
-                        <param name="icon">$VAR[Image_ProfileThumb]</param>
-                    </include>
-                </control>
 
+                    <control type="group">
+                        <centerright>20</centerright>
+                        <centertop>50%</centertop>
+                        <height>50</height>
+                        <width>50</width>
+                        <control type="image">
+                            <include content="Dimension_Padding">
+                                <param name="pad">-40</param>
+                            </include>
+                            <bordersize>40</bordersize>
+                            <bordertexture colordiffuse="shadow_soft">shadows/circle_50-shadow-40.png</bordertexture>
+                            <texture colordiffuse="main_fg_100">diffuse/circle_50.png</texture>
+                        </control>
+                        <include content="Object_InfoCircle_Image">
+                            <param name="bordersize">2</param>
+                            <param name="aspectratio">scale</param>
+                            <param name="colordiffuse">white</param>
+                            <param name="icon">$VAR[Image_ProfileThumb]</param>
+                        </include>
+                    </control>
+
+                </control>
             </control>
-        </control>
+        </definition>
     </include>
     <include name="Home_Menu_Vert_Bottom">
-        <control type="group">
-            <include>Dimension_Bottombar</include>
+        <param name="include_label">$EXP[Exp_HomeMenu_IsExpanded]</param>
+        <param name="label">$VAR[Label_ProfileName]</param>
+        <definition>
             <control type="group">
-                <animation effect="fade" start="100" end="70" condition="true">Conditional</animation>
-                <include>Dimension_Furniture_Gutters</include>
-                <include content="View_Furniture_Bottom_ViewLine" condition="$EXP[Exp_HomeMenu_IsExpanded]">
-                    <param name="label">$VAR[Label_ProfileName]</param>
-                    <param name="fade_condition">false</param>
-                </include>
+                <include>Dimension_Bottombar</include>
                 <control type="group">
-                    <centertop>50%</centertop>
-                    <centerright>20</centerright>
-                    <width>40</width>
-                    <height>40</height>
-                    <control type="image">
-                        <texture colordiffuse="$VAR[ColorHighlight]">special://skin/extras/icons/kodi.png</texture>
-                        <aspectratio>keep</aspectratio>
-                        <bordersize>-16</bordersize>
+                    <animation effect="fade" start="100" end="70" condition="true">Conditional</animation>
+                    <include>Dimension_Furniture_Gutters</include>
+                    <control type="group">
+                        <include>Home_Menu_Label_Dialog_Fade</include>
+                        <include content="View_Furniture_Bottom_ViewLine" condition="$PARAM[include_label]">
+                            <param name="label">$PARAM[label]</param>
+                            <param name="fade_condition">false</param>
+                        </include>
                     </control>
-                    <control type="image">
-                        <texture colordiffuse="$VAR[ColorGradient]">special://skin/extras/icons/kodi.png</texture>
-                        <aspectratio>keep</aspectratio>
-                        <bordersize>-16</bordersize>
-                        <animation effect="fade" end="33" condition="true">Conditional</animation>
+                    <control type="group">
+                        <centertop>50%</centertop>
+                        <centerright>20</centerright>
+                        <width>40</width>
+                        <height>40</height>
+                        <control type="image">
+                            <texture colordiffuse="$VAR[ColorHighlight]">special://skin/extras/icons/kodi.png</texture>
+                            <aspectratio>keep</aspectratio>
+                            <bordersize>-16</bordersize>
+                        </control>
+                        <control type="image">
+                            <texture colordiffuse="$VAR[ColorGradient]">special://skin/extras/icons/kodi.png</texture>
+                            <aspectratio>keep</aspectratio>
+                            <bordersize>-16</bordersize>
+                            <animation effect="fade" end="33" condition="true">Conditional</animation>
+                        </control>
                     </control>
                 </control>
-                <!-- <control type="group">
-                    <centerright>20</centerright>
-                    <centertop>50%</centertop>
-                    <height>50</height>
-                    <width>50</width>
-                    <control type="image">
-                        <include content="Dimension_Padding">
-                            <param name="pad">-40</param>
-                        </include>
-                        <bordersize>40</bordersize>
-                        <bordertexture colordiffuse="shadow_soft">shadows/circle_50-shadow-40.png</bordertexture>
-                        <texture colordiffuse="main_fg_100">diffuse/circle_50.png</texture>
-                    </control>
-                    <include content="Object_InfoCircle_Image">
-                        <param name="bordersize">2</param>
-                        <param name="aspectratio">scale</param>
-                        <param name="colordiffuse">white</param>
-                        <param name="icon">$VAR[Image_ProfileThumb]</param>
-                    </include>
-                </control> -->
             </control>
-        </control>
+        </definition>
     </include>
 
     <include name="Home_Menu_Vert_SearchAndOptions">
@@ -508,6 +504,7 @@
             <left>-$PARAM[width]</left>
             <width>$PARAM[width]</width>
             <control type="image">
+                <left>-1000</left>
                 <texture colordiffuse="main_bg_30">common/white.png</texture>
             </control>
             <control type="image">

@@ -158,7 +158,7 @@
                 <include>$PARAM[include_combinedviews]</include>
                 <control type="group">
                     <include>$PARAM[include_standardviews]</include>
-                    <!-- <include>View_FirstLoad</include> -->
+                    <include condition="![Skin.HasSetting(Startup.WaitForLoad) + Skin.HasSetting(Startup.WaitForLoad.EnableForLibrary)]">View_FirstLoad</include>
                 </control>
             </control>
         </definition>
@@ -806,7 +806,7 @@
 
             <include>View_Dialog_Plot</include>
 
-            <include content="Hub_Widget_Splash" condition="Skin.HasSetting(Startup.WaitForLoad)">
+            <include content="Hub_Widget_Splash" condition="Skin.HasSetting(Startup.WaitForLoad) + Skin.HasSetting(Startup.WaitForLoad.EnableForLibrary)">
                 <param name="condition">Window.IsVisible(DialogBusy.xml) + Integer.IsEqual(Container.NumItems,0)</param>
                 <param name="label">$LOCALIZE[31023] [LOWERCASE]$LOCALIZE[31324][/LOWERCASE]</param>
                 <param name="busyspinner">false</param>

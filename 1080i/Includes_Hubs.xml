@@ -174,6 +174,7 @@
             <animation effect="fade" start="0" end="100" time="background_fadetime" delay="background_fadetime">Visible</animation>
             <animation effect="fade" start="100" end="0" time="background_fadetime" delay="background_fadetime">Hidden</animation>
             <visible>$EXP[Exp_Hubs_Spotlight_SlideDown]</visible>
+            <visible>!Window.IsActive(1163)</visible>
         </control>
     </include>
 
@@ -202,6 +203,22 @@
             <!-- Open/Close to/from Full Panel Window -->
             <animation effect="slide" tween="cubic" easing="out" time="400" start="view_menu_comp" end="0" reversible="false" condition="[$PARAM[condition]] + $EXP[Exp_FullPanelWindows_Prev] + $EXP[Exp_MiniPanelWindows]">WindowOpen</animation>
             <animation effect="slide" tween="cubic" easing="out" time="400" start="0" end="view_menu_comp" reversible="false" condition="[$PARAM[condition]] + $EXP[Exp_FullPanelWindows_Next] + $EXP[Exp_MiniPanelWindows]">WindowClose</animation>
+
+        </definition>
+    </include>
+
+    <include name="Hub_Menu_Dialog_Slide">
+        <param name="condition">Window.IsActive(1163)</param>
+        <param name="size">view_menu_main</param>
+        <definition>
+
+            <!-- Full Panels -->
+            <!-- In/Out Animation -->
+            <animation effect="slide" tween="cubic" easing="out" time="400" start="0" end="$PARAM[size]" reversible="false" condition="[$PARAM[condition]]">Conditional</animation>
+            <animation effect="slide" tween="cubic" easing="out" time="400" start="$PARAM[size]" end="0" reversible="false" condition="![$PARAM[condition]]">Conditional</animation>
+
+            <animation effect="fade" time="400" start="100" end="100" reversible="false" condition="Window.IsVisible(1163)">WindowClose</animation>
+
 
         </definition>
     </include>
@@ -278,7 +295,13 @@
             <include condition="![$PARAM[widgets_only]]">Hub_Top_Bezier</include>
 
             <control type="group">
-                <include>Hub_Menu_Slide</include>
+                <include condition="Window.IsVisible(Home)">Hub_Menu_Slide</include>
+                <include content="Hub_Menu_Dialog_Slide" condition="![Window.IsVisible(Home) + $EXP[Exp_HomeMenu_IsExpanded]]">
+                    <param name="size">view_menu_main</param>
+                </include>
+                <include content="Hub_Menu_Dialog_Slide" condition="[Window.IsVisible(Home) + $EXP[Exp_HomeMenu_IsExpanded]]">
+                    <param name="size">view_menu_mini</param>
+                </include>
 
                 <control type="group">
                     <include>Animation_Group_Bumper</include>
@@ -361,20 +384,20 @@
             <include content="Hub_Widget_Splash" condition="Skin.HasSetting(Startup.WaitForLoad) + Window.IsVisible(Home)">
                 <param name="condition">System.HasAlarm(SplashTimeOut) + Integer.IsEqual(Container(100601).NumItems,0) + Container(100601).IsUpdating</param>
             </include>
-            <include content="Hub_Widget_Splash" condition="Skin.HasSetting(Startup.WaitForLoad) + !Window.IsVisible(Home) + ![$PARAM[widgets_only]] + !Skin.HasSetting(Hub.$PARAM[window_id].DisableSpotlight)">
+            <include content="Hub_Widget_Splash" condition="Skin.HasSetting(Startup.WaitForLoad) + !Skin.HasSetting(Startup.WaitForLoad.DisableForHubs) + !Window.IsVisible(Home) + ![$PARAM[widgets_only]] + !Skin.HasSetting(Hub.$PARAM[window_id].DisableSpotlight)">
                 <param name="condition">System.HasAlarm(SplashTimeOut) + Integer.IsEqual(Container(301).NumItems,0) + Container(301).IsUpdating</param>
             </include>
-            <include content="Hub_Widget_Splash" condition="Skin.HasSetting(Startup.WaitForLoad) + !Window.IsVisible(Home) + ![$PARAM[widgets_only]] + Skin.HasSetting(Hub.$PARAM[window_id].DisableSpotlight)">
+            <include content="Hub_Widget_Splash" condition="Skin.HasSetting(Startup.WaitForLoad) + !Skin.HasSetting(Startup.WaitForLoad.DisableForHubs) + !Window.IsVisible(Home) + ![$PARAM[widgets_only]] + Skin.HasSetting(Hub.$PARAM[window_id].DisableSpotlight)">
                 <param name="condition">System.HasAlarm(SplashTimeOut) + Integer.IsEqual(Container(300).NumItems,0) + Container(300).IsUpdating</param>
             </include>
-            <include content="Hub_Widget_Splash" condition="Skin.HasSetting(Startup.WaitForLoad) + !Window.IsVisible(Home) + $PARAM[widgets_only]">
+            <include content="Hub_Widget_Splash" condition="Skin.HasSetting(Startup.WaitForLoad) + !Skin.HasSetting(Startup.WaitForLoad.DisableForHubs) + !Window.IsVisible(Home) + $PARAM[widgets_only]">
                 <param name="condition">System.HasAlarm(SplashTimeOut) + Integer.IsEqual(Container(100601).NumItems,0) + Container(100601).IsUpdating</param>
             </include>
         </definition>
     </include>
 
     <include name="Hub_Top_Animation">
-        <param name="condition">[[Integer.IsEqual(Window.Property(TMDbHelper.WidgetContainer),301) + !Integer.IsEqual(Container(300).NumItems,0)] | Control.HasFocus(300)]</param>
+        <param name="condition">[[[Integer.IsEqual(Window.Property(TMDbHelper.WidgetContainer),301) + !Integer.IsEqual(Container(300).NumItems,0)] | Control.HasFocus(300)] + !Window.IsVisible(1163)]</param>
         <param name="mod" />
         <definition>
             <include content="Animation_Fade_In">
