@@ -232,6 +232,58 @@
         </control>
     </include>
 
+    <include name="OSD_Stream_Selector_BackgroundResizer">
+        <control type="group">
+            <include content="Dialog_Background_Blur">
+            </include>
+            <include>OSD_Stream_Selector_Divider</include>
+            <height>760</height>
+            <visible>Integer.IsGreater(Container($PARAM[id]).NumItems,6)</visible>
+        </control>
+        <control type="group">
+            <include content="Dialog_Background_Blur">
+            </include>
+            <include>OSD_Stream_Selector_Divider</include>
+            <height>680</height>
+            <visible>Integer.IsEqual(Container($PARAM[id]).NumItems,6)</visible>
+        </control>
+        <control type="group">
+            <include content="Dialog_Background_Blur">
+            </include>
+            <include>OSD_Stream_Selector_Divider</include>
+            <height>600</height>
+            <visible>Integer.IsEqual(Container($PARAM[id]).NumItems,5)</visible>
+        </control>
+        <control type="group">
+            <include content="Dialog_Background_Blur">
+            </include>
+            <include>OSD_Stream_Selector_Divider</include>
+            <height>520</height>
+            <visible>Integer.IsEqual(Container($PARAM[id]).NumItems,4)</visible>
+        </control>
+        <control type="group">
+            <include content="Dialog_Background_Blur">
+            </include>
+            <include>OSD_Stream_Selector_Divider</include>
+            <height>440</height>
+            <visible>Integer.IsEqual(Container($PARAM[id]).NumItems,3)</visible>
+        </control>
+        <control type="group">
+            <include content="Dialog_Background_Blur">
+            </include>
+            <include>OSD_Stream_Selector_Divider</include>
+            <height>360</height>
+            <visible>Integer.IsEqual(Container($PARAM[id]).NumItems,2)</visible>
+        </control>
+        <control type="group">
+            <include content="Dialog_Background_Blur">
+            </include>
+            <include>OSD_Stream_Selector_Divider</include>
+            <height>280</height>
+            <visible>Integer.IsLess(Container($PARAM[id]).NumItems,2)</visible>
+        </control>
+    </include>
+
     <include name="OSD_Stream_Selector">
         <param name="width">960</param>
         <param name="enabled">true</param>
@@ -254,55 +306,9 @@
                     <animation effect="slide" start="0" end="0,320" condition="Integer.IsEqual(Container($PARAM[id]).NumItems,3)">Conditional</animation>
                     <animation effect="slide" start="0" end="0,400" condition="Integer.IsEqual(Container($PARAM[id]).NumItems,2)">Conditional</animation>
                     <animation effect="slide" start="0" end="0,480" condition="Integer.IsLess(Container($PARAM[id]).NumItems,2)">Conditional</animation>
-                    <control type="group">
-                        <include content="Dialog_Background_Blur">
-                        </include>
-                        <include>OSD_Stream_Selector_Divider</include>
-                        <height>760</height>
-                        <visible>Integer.IsGreater(Container($PARAM[id]).NumItems,6)</visible>
-                    </control>
-                    <control type="group">
-                        <include content="Dialog_Background_Blur">
-                        </include>
-                        <include>OSD_Stream_Selector_Divider</include>
-                        <height>680</height>
-                        <visible>Integer.IsEqual(Container($PARAM[id]).NumItems,6)</visible>
-                    </control>
-                    <control type="group">
-                        <include content="Dialog_Background_Blur">
-                        </include>
-                        <include>OSD_Stream_Selector_Divider</include>
-                        <height>600</height>
-                        <visible>Integer.IsEqual(Container($PARAM[id]).NumItems,5)</visible>
-                    </control>
-                    <control type="group">
-                        <include content="Dialog_Background_Blur">
-                        </include>
-                        <include>OSD_Stream_Selector_Divider</include>
-                        <height>520</height>
-                        <visible>Integer.IsEqual(Container($PARAM[id]).NumItems,4)</visible>
-                    </control>
-                    <control type="group">
-                        <include content="Dialog_Background_Blur">
-                        </include>
-                        <include>OSD_Stream_Selector_Divider</include>
-                        <height>440</height>
-                        <visible>Integer.IsEqual(Container($PARAM[id]).NumItems,3)</visible>
-                    </control>
-                    <control type="group">
-                        <include content="Dialog_Background_Blur">
-                        </include>
-                        <include>OSD_Stream_Selector_Divider</include>
-                        <height>360</height>
-                        <visible>Integer.IsEqual(Container($PARAM[id]).NumItems,2)</visible>
-                    </control>
-                    <control type="group">
-                        <include content="Dialog_Background_Blur">
-                        </include>
-                        <include>OSD_Stream_Selector_Divider</include>
-                        <height>280</height>
-                        <visible>Integer.IsLess(Container($PARAM[id]).NumItems,2)</visible>
-                    </control>
+                    <include content="OSD_Stream_Selector_BackgroundResizer">
+                        <param name="id">$PARAM[id]</param>
+                    </include>
                     <include content="Object_MenuHeader">
                         <param name="label">$PARAM[header]</param>
                     </include>
