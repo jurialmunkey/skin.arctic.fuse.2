@@ -53,6 +53,7 @@
         <param name="widgetheight">widget_items_h</param>
         <param name="conditional_fade">false</param>
         <param name="widgetfade_include">false</param>
+        <param name="widgetfade_disable">false</param>
         <param name="widget_hideartwork">false</param>
         <param name="widget_showoverlay">false</param>
         <definition>
@@ -71,7 +72,7 @@
                     <param name="condition">$PARAM[conditional_fade]</param>
                 </include>
                 <include content="Animation_Widget_FadeOut" condition="$PARAM[widgetfade_include]">
-                    <param name="condition">!Control.HasFocus($PARAM[id]) + !Integer.IsEqual(Window.Property(TMDBHelper.WidgetContainer),$PARAM[id])</param>
+                    <param name="condition">!Control.HasFocus($PARAM[id]) + !Integer.IsEqual(Window.Property(TMDBHelper.WidgetContainer),$PARAM[id]) + ![$PARAM[widgetfade_disable]]</param>
                 </include>
 
             </include>
@@ -107,7 +108,7 @@
                 <onfocus condition="!$EXP[Exp_InfoDialogs] + $PARAM[widget_showoverlay]">SetProperty(Background.ShowOverlay,True,Home)</onfocus>
 
                 <include content="Animation_Widget_FadeOut" condition="$PARAM[widgetfade_include]">
-                    <param name="condition">!Control.HasFocus($PARAM[id]) + !Integer.IsEqual(Window.Property(TMDBHelper.WidgetContainer),$PARAM[id])</param>
+                    <param name="condition">!Control.HasFocus($PARAM[id]) + !Integer.IsEqual(Window.Property(TMDBHelper.WidgetContainer),$PARAM[id]) + ![$PARAM[widgetfade_disable]]</param>
                 </include>
 
                 <include content="Animation_ConditionalFade">
@@ -468,6 +469,7 @@
                 <param name="widgetheight">$PARAM[widgetheight]</param>
                 <param name="conditional_fade">$PARAM[conditional_fade]</param>
                 <param name="widgetfade_include">$PARAM[widgetfade_include]</param>
+                <param name="widgetfade_disable">$PARAM[widgetfade_disable]</param>
                 <param name="widget_hideartwork">$PARAM[widget_hideartwork]</param>
                 <param name="widget_showoverlay">$PARAM[widget_showoverlay]</param>
                 <nested />
@@ -490,6 +492,7 @@
                 <param name="busy_isupdating">$PARAM[busy_isupdating]</param>
                 <param name="busy_visible">[Integer.IsEqual(Container($PARAM[id]).NumItems,0)]</param>
                 <param name="widgetfade_include">$PARAM[widgetfade_include]</param>
+                <param name="widgetfade_disable">$PARAM[widgetfade_disable]</param>
                 <param name="widget_hideartwork">$PARAM[widget_hideartwork]</param>
                 <param name="widget_showoverlay">$PARAM[widget_showoverlay]</param>
 
@@ -525,6 +528,7 @@
                 <param name="widgettop">$PARAM[widgettop]</param>
                 <param name="widgetheight">$PARAM[widgetheight]</param>
                 <param name="widgetfade_include">$PARAM[widgetfade_include]</param>
+                <param name="widgetfade_disable">$PARAM[widgetfade_disable]</param>
                 <param name="widget_hideartwork">$PARAM[widget_hideartwork]</param>
                 <param name="widget_showoverlay">$PARAM[widget_showoverlay]</param>
 
