@@ -136,6 +136,8 @@
 
     <expression name="Exp_BackgroundArtwork_IsOverlay">[$EXP[Exp_BackgroundArtwork_IsHidden] | [!$EXP[Exp_InfoDialogs] + !String.IsEmpty(Window(Home).Property(Background.ShowOverlay))] | $EXP[Exp_InfoDialogs]]</expression>
 
+    <expression name="Exp_BackgroundArtwork_IsSimple">[$EXP[Exp_PlainBackgroundWindows] | [Window.IsMedia + [[Window.IsVisible(DialogBusy.xml) + Integer.IsEqual(Container.NumItems,0)] | Container.Content()]]]</expression>
+
     <expression name="Exp_Notification_IsActive">[Window.IsActive(DialogExtendedProgressBar.xml) | Window.IsActive(DialogNotification.xml) | Skin.HasSetting(Furniture.EnableClock) | [Skin.HasSetting(Furniture.EnableNowPlaying) + Player.HasMedia]]</expression>
 
     <!-- ================= -->
