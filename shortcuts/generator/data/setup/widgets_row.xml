@@ -243,7 +243,23 @@
     <rules name="widget_custom_onclick">
         <rule>
             <condition>{item_path}==Custom_Submenu</condition>
-            <value>&lt;onclick condition="String.IsEmpty(ListItem.Property(target))"&gt;$INFO[ListItem.FolderPath]&lt;/onclick&gt;&lt;onclick condition="!String.IsEmpty(ListItem.Property(target))"&gt;ActivateWindow($INFO[ListItem.Property(target)],$INFO[ListItem.FolderPath],return)&lt;/onclick&gt;</value>
+            <value><![CDATA[
+                <onclick condition="String.IsEmpty(ListItem.Property(target))">$INFO[ListItem.FolderPath]</onclick>
+                <onclick condition="!String.IsEmpty(ListItem.Property(target)) + String.IsEmpty(ListItem.Property(path_opendialog))">ActivateWindow($INFO[ListItem.Property(target)],$INFO[ListItem.FolderPath],return)</onclick>
+
+                <onclick condition="!String.IsEmpty(ListItem.Property(target)) + !String.IsEmpty(ListItem.Property(path_opendialog)) + !String.IsEmpty(ListItem.Property(path_opendialog_expanded))">SetProperty(CustomDialog1162.Expanded,True,Home)</onclick>
+                <onclick condition="!String.IsEmpty(ListItem.Property(target)) + !String.IsEmpty(ListItem.Property(path_opendialog)) + !String.IsEmpty(ListItem.Property(path_opendialog_expanded))">SetProperty(Target,$INFO[ListItem.Property(target)],1162)</onclick>
+                <onclick condition="!String.IsEmpty(ListItem.Property(target)) + !String.IsEmpty(ListItem.Property(path_opendialog)) + !String.IsEmpty(ListItem.Property(path_opendialog_expanded))">SetProperty(Path,$INFO[ListItem.FolderPath],1162)</onclick>
+                <onclick condition="!String.IsEmpty(ListItem.Property(target)) + !String.IsEmpty(ListItem.Property(path_opendialog)) + !String.IsEmpty(ListItem.Property(path_opendialog_expanded))">SetProperty(Header,$INFO[ListItem.Label],1162)</onclick>
+                <onclick condition="!String.IsEmpty(ListItem.Property(target)) + !String.IsEmpty(ListItem.Property(path_opendialog)) + !String.IsEmpty(ListItem.Property(path_opendialog_expanded))">SetProperty(Icon,$INFO[ListItem.Icon],1162)</onclick>
+                <onclick condition="!String.IsEmpty(ListItem.Property(target)) + !String.IsEmpty(ListItem.Property(path_opendialog)) + !String.IsEmpty(ListItem.Property(path_opendialog_expanded))">ActivateWindow(1162)</onclick>
+
+                <onclick condition="!String.IsEmpty(ListItem.Property(target)) + !String.IsEmpty(ListItem.Property(path_opendialog)) + String.IsEmpty(ListItem.Property(path_opendialog_expanded))">SetProperty(Target,$INFO[ListItem.Property(target)],1163)</onclick>
+                <onclick condition="!String.IsEmpty(ListItem.Property(target)) + !String.IsEmpty(ListItem.Property(path_opendialog)) + String.IsEmpty(ListItem.Property(path_opendialog_expanded))">SetProperty(Path,$INFO[ListItem.FolderPath],1163)</onclick>
+                <onclick condition="!String.IsEmpty(ListItem.Property(target)) + !String.IsEmpty(ListItem.Property(path_opendialog)) + String.IsEmpty(ListItem.Property(path_opendialog_expanded))">SetProperty(Header,$INFO[ListItem.Label],1163)</onclick>
+                <onclick condition="!String.IsEmpty(ListItem.Property(target)) + !String.IsEmpty(ListItem.Property(path_opendialog)) + String.IsEmpty(ListItem.Property(path_opendialog_expanded))">SetProperty(Icon,$INFO[ListItem.Icon],1163)</onclick>
+                <onclick condition="!String.IsEmpty(ListItem.Property(target)) + !String.IsEmpty(ListItem.Property(path_opendialog)) + String.IsEmpty(ListItem.Property(path_opendialog_expanded))">ActivateWindow(1163)</onclick>
+            ]]></value>
         </rule>
     </rules>
     <rules name="widget_usewidgetlabel">
