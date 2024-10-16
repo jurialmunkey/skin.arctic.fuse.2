@@ -1,11 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <window type="window" id="1102">
-    <include content="Action_Hubs_Onload">
+    <include content="Action_Hubs_Onload" condition="!Integer.IsEqual(Skin.String(Hub.Home.ReplaceWindow),1102)">
         <param name="window_id">1102</param>
+        <param name="property_window_id">1102</param>
     </include>
+    <onload condition="Integer.IsEqual(Skin.String(Hub.Home.ReplaceWindow),1102)">ReplaceWindow(Home)</onload>
     <controls>
-        <include content="Hub_Controls">
+        <include content="Hub_Controls" condition="!Integer.IsEqual(Skin.String(Hub.Home.ReplaceWindow),1102)">
             <param name="window_id">1102</param>
+            <param name="property_window_id">1102</param>
             <param name="widgets_only">Skin.HasSetting(Hub.1102.DisableSubmenu)</param>
             <param name="widgets_include">skinvariables-1102menu-widgetsonly</param>
             <param name="categories">1102menu</param>

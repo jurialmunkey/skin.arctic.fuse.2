@@ -3,19 +3,114 @@
 
     <include content="Action_Hubs_Onload" condition="String.IsEmpty(Skin.String(Hub.Home.ReplaceWindow))">
         <param name="window_id">Home</param>
+        <param name="property_window_id">Home</param>
+        <param name="is_homemenu">true</param>
     </include>
 
-    <onload condition="!String.IsEmpty(Skin.String(Hub.Home.ReplaceWindow))">ReplaceWindow($INFO[Skin.String(Hub.Home.ReplaceWindow)])</onload>
-    <onload condition="!String.IsEmpty(Skin.String(Hub.Home.ReplaceWindow)) + String.IsEmpty(Window(Home).Property(FirstReplaceDone))">SetProperty(FirstReplaceDone,True,Home)</onload>
-    <onload condition="!String.IsEmpty(Skin.String(Hub.Home.ReplaceWindow)) + !String.IsEmpty(Window(Home).Property(FirstReplaceDone))">AlarmClock(openmenu,ActivateWindow(1170),00:00,silent)</onload>
+    <include content="Action_Hubs_Onload" condition="Integer.IsEqual(Skin.String(Hub.Home.ReplaceWindow),1101)">
+        <param name="window_id">1101</param>
+        <param name="property_window_id">Home</param>
+    </include>
+    <include content="Action_Hubs_Onload" condition="Integer.IsEqual(Skin.String(Hub.Home.ReplaceWindow),1102)">
+        <param name="window_id">1102</param>
+        <param name="property_window_id">Home</param>
+    </include>
+    <include content="Action_Hubs_Onload" condition="Integer.IsEqual(Skin.String(Hub.Home.ReplaceWindow),1103)">
+        <param name="window_id">1103</param>
+        <param name="property_window_id">Home</param>
+    </include>
+    <include content="Action_Hubs_Onload" condition="Integer.IsEqual(Skin.String(Hub.Home.ReplaceWindow),1104)">
+        <param name="window_id">1104</param>
+        <param name="property_window_id">Home</param>
+    </include>
+
+    <include content="Action_Hubs_Onload" condition="Integer.IsEqual(Skin.String(Hub.Home.ReplaceWindow),1106)">
+        <param name="window_id">1106</param>
+        <param name="property_window_id">Home</param>
+    </include>
+    <include content="Action_Hubs_Onload" condition="Integer.IsEqual(Skin.String(Hub.Home.ReplaceWindow),1107)">
+        <param name="window_id">1107</param>
+        <param name="property_window_id">Home</param>
+    </include>
+    <include content="Action_Hubs_Onload" condition="Integer.IsEqual(Skin.String(Hub.Home.ReplaceWindow),1108)">
+        <param name="window_id">1108</param>
+        <param name="property_window_id">Home</param>
+    </include>
+    <include content="Action_Hubs_Onload" condition="Integer.IsEqual(Skin.String(Hub.Home.ReplaceWindow),1109)">
+        <param name="window_id">1109</param>
+        <param name="property_window_id">Home</param>
+    </include>
+
+
     <onload condition="!Skin.HasSetting(Wizard.FirstRun)">AlarmClock(openwizard,ActivateWindow(1180),00:01,silent)</onload>
 
     <controls>
         <include content="Hub_Controls" condition="String.IsEmpty(Skin.String(Hub.Home.ReplaceWindow))">
             <param name="window_id">Home</param>
+            <param name="property_window_id">Home</param>
             <param name="widgets_only">true</param>
             <param name="widgets_include">skinvariables-homemenu-widgetsonly</param>
             <param name="categories">homemenu</param>
+            <param name="is_homemenu">true</param>
+        </include>
+
+
+        <include content="Hub_Controls" condition="Integer.IsEqual(Skin.String(Hub.Home.ReplaceWindow),1101)">
+            <param name="window_id">1101</param>
+            <param name="property_window_id">Home</param>
+            <param name="widgets_only">Skin.HasSetting(Hub.1101.DisableSubmenu)</param>
+            <param name="widgets_include">skinvariables-1101menu-widgetsonly</param>
+            <param name="categories">1101menu</param>
+        </include>
+        <include content="Hub_Controls" condition="Integer.IsEqual(Skin.String(Hub.Home.ReplaceWindow),1102)">
+            <param name="window_id">1102</param>
+            <param name="property_window_id">Home</param>
+            <param name="widgets_only">Skin.HasSetting(Hub.1102.DisableSubmenu)</param>
+            <param name="widgets_include">skinvariables-1102menu-widgetsonly</param>
+            <param name="categories">1102menu</param>
+        </include>
+        <include content="Hub_Controls" condition="Integer.IsEqual(Skin.String(Hub.Home.ReplaceWindow),1103)">
+            <param name="window_id">1103</param>
+            <param name="property_window_id">Home</param>
+            <param name="widgets_only">Skin.HasSetting(Hub.1103.DisableSubmenu)</param>
+            <param name="widgets_include">skinvariables-1103menu-widgetsonly</param>
+            <param name="categories">1103menu</param>
+        </include>
+        <include content="Hub_Controls" condition="Integer.IsEqual(Skin.String(Hub.Home.ReplaceWindow),1104)">
+            <param name="window_id">1104</param>
+            <param name="property_window_id">Home</param>
+            <param name="widgets_only">Skin.HasSetting(Hub.1104.DisableSubmenu)</param>
+            <param name="widgets_include">skinvariables-1104menu-widgetsonly</param>
+            <param name="categories">1104menu</param>
+        </include>
+
+        <include content="Hub_Controls" condition="Integer.IsEqual(Skin.String(Hub.Home.ReplaceWindow),1106)">
+            <param name="window_id">1106</param>
+            <param name="property_window_id">Home</param>
+            <param name="widgets_only">Skin.HasSetting(Hub.1106.DisableSubmenu)</param>
+            <param name="widgets_include">skinvariables-1106menu-widgetsonly</param>
+            <param name="categories">1106menu</param>
+        </include>
+        <include content="Hub_Controls" condition="Integer.IsEqual(Skin.String(Hub.Home.ReplaceWindow),1107)">
+            <param name="window_id">1107</param>
+            <param name="property_window_id">Home</param>
+            <param name="widgets_only">Skin.HasSetting(Hub.1107.DisableSubmenu)</param>
+            <param name="widgets_include">skinvariables-1107menu-widgetsonly</param>
+            <param name="categories">1107menu</param>
+        </include>
+        <include content="Hub_Controls" condition="Integer.IsEqual(Skin.String(Hub.Home.ReplaceWindow),1108)">
+            <param name="window_id">1108</param>
+            <param name="property_window_id">Home</param>
+            <param name="widgets_only">Skin.HasSetting(Hub.1108.DisableSubmenu)</param>
+            <param name="widgets_include">skinvariables-1108menu-widgetsonly</param>
+            <param name="categories">1108menu</param>
+        </include>
+        <include content="Hub_Controls" condition="Integer.IsEqual(Skin.String(Hub.Home.ReplaceWindow),1109)">
+            <param name="window_id">1109</param>
+            <param name="property_window_id">Home</param>
+            <param name="widgets_only">Skin.HasSetting(Hub.1109.DisableSubmenu)</param>
+            <param name="widgets_include">skinvariables-1109menu-widgetsonly</param>
+            <param name="categories">1109menu</param>
         </include>
     </controls>
 </window>

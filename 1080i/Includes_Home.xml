@@ -12,7 +12,7 @@
     <include name="Home_Menu_List_OnBackInfo">
         <oninfo>ActivateWindow(1170)</oninfo>
         <onback>CancelAlarm(SplashTimeOut,silent)</onback>
-        <onback condition="Window.IsVisible(Home)">SetFocus(307)</onback>
+        <onback condition="$EXP[Exp_ClassicHome_IsVisible]">SetFocus(307)</onback>
     </include>
 
     <include name="Home_Menu_List_Vert">
@@ -30,7 +30,7 @@
     <include name="Home_Menu_List">
         <param name="items_include">Home_Menu_Content</param>
         <param name="onlist">320</param>
-        <param name="id">303</param>
+        <param name="id">300</param>
         <definition>
             <control type="group">
 
@@ -56,8 +56,8 @@
                     <onfocus>ClearProperty(WidgetGroup.Movement)</onfocus>
                     <onfocus>ClearProperty(SideMenu.CurrentItem)</onfocus>
 
-                    <onfocus condition="Window.IsVisible(Home) + !String.IsEmpty(Window(1198).Property(TMDbHelper.WidgetContainer.UpdateLock.OnFocus))">SetProperty(TMDbHelper.WidgetContainer.UpdateLock,$INFO[ListItem.CurrentItem],1198)</onfocus>
-                    <onfocus condition="Window.IsVisible(Home) + String.IsEmpty(Window(1198).Property(TMDbHelper.WidgetContainer.UpdateLock.OnFocus))">SetProperty(TMDbHelper.WidgetContainer.UpdateLock.OnFocus,True,1198)</onfocus>
+                    <onfocus condition="$EXP[Exp_ClassicHome_IsVisible] + !String.IsEmpty(Window(1198).Property(TMDbHelper.WidgetContainer.UpdateLock.OnFocus))">SetProperty(TMDbHelper.WidgetContainer.UpdateLock,$INFO[ListItem.CurrentItem],1198)</onfocus>
+                    <onfocus condition="$EXP[Exp_ClassicHome_IsVisible] + String.IsEmpty(Window(1198).Property(TMDbHelper.WidgetContainer.UpdateLock.OnFocus))">SetProperty(TMDbHelper.WidgetContainer.UpdateLock.OnFocus,True,1198)</onfocus>
 
                     <onfocus condition="!String.IsEmpty(Window.Property(List.ViewContainer.Prev))">SetProperty(List.ViewContainer,$INFO[Window.Property(List.ViewContainer.Prev)])</onfocus>
                     <onfocus condition="!String.IsEmpty(Window.Property(List.ViewContainer.Prev))">ClearProperty(List.ViewContainer.Prev)</onfocus>
@@ -75,7 +75,7 @@
                     <include content="Home_Menu_List_ItemLayout">
                         <param name="id">$PARAM[id]</param>
                         <param name="hidden_button">Home_Menu_List_HiddenButton</param>
-                        <param name="hidden_button_enabled">Window.IsVisible(Home)</param>
+                        <param name="hidden_button_enabled">$EXP[Exp_ClassicHome_IsVisible]</param>
                         <param name="vertical">true</param>
                         <param name="expanded">$EXP[Exp_HomeMenu_IsExpanded]</param>
                     </include>
@@ -90,17 +90,17 @@
             <visible allowhiddenfocus="true">false</visible>
             <animation effect="fade" start="0" end="0" time="50" reversible="false">Focus</animation>
 
-            <onfocus condition="Window.IsVisible(Home) + !Integer.IsEqual(Window(1198).Property(TMDbHelper.WidgetContainer.UpdateLock),ListItem.CurrentItem)">SetProperty(TMDbHelper.WidgetContainer.UpdateLock,$INFO[ListItem.CurrentItem],1198)</onfocus>
+            <onfocus condition="$EXP[Exp_ClassicHome_IsVisible] + !Integer.IsEqual(Window(1198).Property(TMDbHelper.WidgetContainer.UpdateLock),ListItem.CurrentItem)">SetProperty(TMDbHelper.WidgetContainer.UpdateLock,$INFO[ListItem.CurrentItem],1198)</onfocus>
 
-            <onfocus condition="Window.IsActive(Home) + !Integer.IsEqual(Window(1198).Property(TMDbHelper.WidgetContainer.UpdateLock),ListItem.CurrentItem)">SetFocus($INFO[ListItem.Property(widgets_first_id)])</onfocus>
-            <onfocus condition="Window.IsActive(Home) + !Integer.IsEqual(Window(1198).Property(TMDbHelper.WidgetContainer.UpdateLock),ListItem.CurrentItem)">SetFocus(303)</onfocus>
+            <onfocus condition="$EXP[Exp_ClassicHome_IsVisible] + !Integer.IsEqual(Window(1198).Property(TMDbHelper.WidgetContainer.UpdateLock),ListItem.CurrentItem)">SetFocus($INFO[ListItem.Property(widgets_first_id)])</onfocus>
+            <onfocus condition="$EXP[Exp_ClassicHome_IsVisible] + !Integer.IsEqual(Window(1198).Property(TMDbHelper.WidgetContainer.UpdateLock),ListItem.CurrentItem)">SetFocus(300)</onfocus>
 
-            <onfocus condition="Window.IsActive(Home) + !Integer.IsEqual(Window(1198).Property(TMDbHelper.WidgetContainer.UpdateLock),ListItem.CurrentItem)">SetProperty(TMDbHelper.WidgetContainer,$INFO[ListItem.Property(widgets_first_id)],Home)</onfocus>
-            <onfocus condition="Window.IsActive(Home) + !Integer.IsEqual(Window(1198).Property(TMDbHelper.WidgetContainer.UpdateLock),ListItem.CurrentItem)">SetProperty(Slide.WidgetContainer,$INFO[ListItem.Property(widgets_first_id)],Home)</onfocus>
-            <onfocus condition="Window.IsActive(Home) + !Integer.IsEqual(Window(1198).Property(TMDbHelper.WidgetContainer.UpdateLock),ListItem.CurrentItem)">ClearProperty(List.ViewContainer,Home)</onfocus>
-            <onfocus condition="Window.IsActive(Home) + !Integer.IsEqual(Window(1198).Property(TMDbHelper.WidgetContainer.UpdateLock),ListItem.CurrentItem)">ClearProperty(List.ViewContainer.Left,Home)</onfocus>
-            <onfocus condition="Window.IsActive(Home) + !Integer.IsEqual(Window(1198).Property(TMDbHelper.WidgetContainer.UpdateLock),ListItem.CurrentItem)">ClearProperty(List.ViewContainer.Prev,Home)</onfocus>
-            <onfocus condition="Window.IsActive(Home) + !Integer.IsEqual(Window(1198).Property(TMDbHelper.WidgetContainer.UpdateLock),ListItem.CurrentItem)">SetProperty(SideMenu.CurrentName,$INFO[ListItem.Label],Home)</onfocus>
+            <onfocus condition="$EXP[Exp_ClassicHome_IsVisible] + !Integer.IsEqual(Window(1198).Property(TMDbHelper.WidgetContainer.UpdateLock),ListItem.CurrentItem)">SetProperty(TMDbHelper.WidgetContainer,$INFO[ListItem.Property(widgets_first_id)],Home)</onfocus>
+            <onfocus condition="$EXP[Exp_ClassicHome_IsVisible] + !Integer.IsEqual(Window(1198).Property(TMDbHelper.WidgetContainer.UpdateLock),ListItem.CurrentItem)">SetProperty(Slide.WidgetContainer,$INFO[ListItem.Property(widgets_first_id)],Home)</onfocus>
+            <onfocus condition="$EXP[Exp_ClassicHome_IsVisible] + !Integer.IsEqual(Window(1198).Property(TMDbHelper.WidgetContainer.UpdateLock),ListItem.CurrentItem)">ClearProperty(List.ViewContainer,Home)</onfocus>
+            <onfocus condition="$EXP[Exp_ClassicHome_IsVisible] + !Integer.IsEqual(Window(1198).Property(TMDbHelper.WidgetContainer.UpdateLock),ListItem.CurrentItem)">ClearProperty(List.ViewContainer.Left,Home)</onfocus>
+            <onfocus condition="$EXP[Exp_ClassicHome_IsVisible] + !Integer.IsEqual(Window(1198).Property(TMDbHelper.WidgetContainer.UpdateLock),ListItem.CurrentItem)">ClearProperty(List.ViewContainer.Prev,Home)</onfocus>
+            <onfocus condition="$EXP[Exp_ClassicHome_IsVisible] + !Integer.IsEqual(Window(1198).Property(TMDbHelper.WidgetContainer.UpdateLock),ListItem.CurrentItem)">SetProperty(SideMenu.CurrentName,$INFO[ListItem.Label],Home)</onfocus>
 
         </control>
     </include>
@@ -119,9 +119,7 @@
 
     <include name="Home_Menu_List_ItemLayout">
         <param name="layoutnf">[false]</param>
-        <param name="layoutfo">[Window.IsVisible(Home)]</param>
-        <!-- <param name="layoutnf">[Window.IsVisible(Home) + String.IsEqual(ListItem.Property(guid),Window.Property(SideMenu.CurrentGUID))]</param>
-        <param name="layoutfo">[Window.IsVisible(Home) + String.IsEqual(ListItem.Property(guid),Window.Property(SideMenu.CurrentGUID))]</param> -->
+        <param name="layoutfo">[$EXP[Exp_ClassicHome_IsVisible]]</param>
         <param name="altfocus">false</param>
         <param name="expanded">true</param>
         <param name="width">view_menu_main</param>
@@ -277,7 +275,7 @@
                     <param name="option">false</param>
                 </include>
                 <onup>308</onup>
-                <ondown>SetFocus(303,0,absolute)</ondown>
+                <ondown>SetFocus(300,0,absolute)</ondown>
             </control>
 
             <control type="image">
@@ -318,7 +316,7 @@
                 </include>
 
                 <ondown>309</ondown>
-                <onup>SetFocus(303,9999,absolute)</onup>
+                <onup>SetFocus(300,9999,absolute)</onup>
             </control>
             <control type="image">
                 <texture colordiffuse="$VAR[Layout_Home_Menu_Color_NF]">special://skin/extras/icons/bars.png</texture>
@@ -542,6 +540,7 @@
                 <include content="Home_Menu_List">
                     <param name="onlist">$PARAM[onlist]</param>
                     <param name="window_id">$PARAM[window_id]</param>
+                    <param name="property_window_id">$PARAM[property_window_id]</param>
                 </include>
             </control>
         </control>
@@ -552,6 +551,7 @@
             <include content="Home_Menu_Vert">
                 <param name="onlist">$PARAM[onlist]</param>
                 <param name="window_id">$PARAM[window_id]</param>
+                <param name="property_window_id">$PARAM[property_window_id]</param>
             </include>
         </control>
     </include>
