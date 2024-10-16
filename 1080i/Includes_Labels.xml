@@ -918,6 +918,13 @@
         <value>$LOCALIZE[31134]</value>
     </variable>
 
+    <variable name="Label_VideoHDRCodec">
+        <value condition="String.IsEqual(VideoPlayer.HdrType,dolbyvision)">Dolby Vision</value>
+        <value condition="String.IsEqual(VideoPlayer.HdrType,hdr10)">HDR</value>
+        <value condition="String.IsEqual(VideoPlayer.HdrType,hlg)">HLG</value>
+        <value>SDR</value>
+    </variable>
+
     <variable name="Label_VideoHWDecoder">
         <value condition="Player.Process(videohwdecoder)">HW</value>
         <value>SW</value>
@@ -989,6 +996,10 @@
         <value condition="!String.IsEmpty(VideoPlayer.TvShowTitle)">$VAR[Label_OSD_Plot_Episode_Number,,. ]$INFO[Player.Title]</value>
         <value condition="!String.IsEmpty(Player.Title)">$INFO[Player.Title]</value>
         <value>$INFO[System.Time]</value>
+    </variable>
+
+    <variable name="Label_System_Temp">
+        <value condition="!String.IsEmpty(System.CPUTemperature) + !String.IsEqual(System.CPUTemperature,$LOCALIZE[10005])">$INFO[System.CPUTemperature]</value>
     </variable>
 
     <variable name="Label_NowPlayingTitle">
