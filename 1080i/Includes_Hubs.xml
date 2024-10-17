@@ -268,6 +268,11 @@
         <param name="is_homemenu">false</param>
         <definition>
 
+            <control type="group">
+                <description>Delay window change if dialog open</description>
+                <animation effect="fade" time="400" start="100" end="0" reversible="false" condition="Window.IsVisible(1163)">WindowClose</animation>
+            </control>
+
             <include content="Object_Hidden_Button">
                 <param name="id">307</param>
                 <onfocus>SetFocus($INFO[Window.Property(307Refocus)])</onfocus>
@@ -498,8 +503,8 @@
                 <param name="window_id">$PARAM[window_id]</param>
                 <param name="property_window_id">$PARAM[property_window_id]</param>
             </include>
-            <onleft condition="!Skin.HasSetting(SideMenu.DisableSearchAndOptions) + Skin.HasSetting(HubsMenu.EnableSearchAndOptions)">309</onleft>
-            <onright condition="!Skin.HasSetting(SideMenu.DisableSearchAndOptions) + Skin.HasSetting(HubsMenu.EnableSearchAndOptions)">308</onright>
+            <onleft condition="!Skin.HasSetting(SideMenu.DisableSearchAndOptions) + [Skin.HasSetting(HubsMenu.EnableSearchAndOptions) | [Window.IsVisible(Home) + Integer.IsEqual(Skin.String(Hub.Home.ReplaceWindow),$PARAM[window_id])]]">309</onleft>
+            <onright condition="!Skin.HasSetting(SideMenu.DisableSearchAndOptions) + [Skin.HasSetting(HubsMenu.EnableSearchAndOptions) | [Window.IsVisible(Home) + Integer.IsEqual(Skin.String(Hub.Home.ReplaceWindow),$PARAM[window_id])]]">308</onright>
             <content>
                 <include>skinvariables-$PARAM[categories]-staticitems</include>
             </content>
@@ -636,8 +641,8 @@
                 </control> -->
 
                 <control type="group">
-                    <width>80</width>
-                    <visible>!Skin.HasSetting(SideMenu.DisableSearchAndOptions) + Skin.HasSetting(HubsMenu.EnableSearchAndOptions)</visible>
+                    <width>75</width>
+                    <visible>!Skin.HasSetting(SideMenu.DisableSearchAndOptions) + [Skin.HasSetting(HubsMenu.EnableSearchAndOptions) | [Window.IsVisible(Home) + Integer.IsEqual(Skin.String(Hub.Home.ReplaceWindow),$PARAM[window_id])]]</visible>
                 </control>
 
                 <control type="group">
@@ -651,11 +656,11 @@
                 </control>
             </control>
 
-            <include content="Hub_Categories_Search" condition="!Skin.HasSetting(SideMenu.DisableSearchAndOptions) + Skin.HasSetting(HubsMenu.EnableSearchAndOptions)">
+            <include content="Hub_Categories_Search" condition="!Skin.HasSetting(SideMenu.DisableSearchAndOptions) + [Skin.HasSetting(HubsMenu.EnableSearchAndOptions) | [Window.IsVisible(Home) + Integer.IsEqual(Skin.String(Hub.Home.ReplaceWindow),$PARAM[window_id])]]">
                 <param name="window_id">$PARAM[window_id]</param>
                 <param name="property_window_id">$PARAM[property_window_id]</param>
             </include>
-            <include content="Hub_Categories_Options" condition="!Skin.HasSetting(SideMenu.DisableSearchAndOptions) + Skin.HasSetting(HubsMenu.EnableSearchAndOptions)">
+            <include content="Hub_Categories_Options" condition="!Skin.HasSetting(SideMenu.DisableSearchAndOptions) + [Skin.HasSetting(HubsMenu.EnableSearchAndOptions) | [Window.IsVisible(Home) + Integer.IsEqual(Skin.String(Hub.Home.ReplaceWindow),$PARAM[window_id])]]">
                 <param name="window_id">$PARAM[window_id]</param>
                 <param name="property_window_id">$PARAM[property_window_id]</param>
             </include>
