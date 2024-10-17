@@ -88,11 +88,11 @@
     <expression name="Exp_ClassicHome_IsPrevious">[Window.Previous(Home) + String.IsEmpty(Skin.String(Hub.Home.ReplaceWindow))]</expression>
     <expression name="Exp_ClassicHome_IsNext">[Window.Next(Home) + String.IsEmpty(Skin.String(Hub.Home.ReplaceWindow))]</expression>
 
-    <expression name="Exp_HubName_IsVisible">[[Integer.IsEqual(Window.Property(TMDbHelper.WidgetContainer),301) + !Integer.IsEqual(Container(300).NumItems,0) + Control.IsVisible(300)] | Control.HasFocus(300)]</expression>
+    <!-- <expression name="Exp_HubName_IsVisible">[[Integer.IsEqual(Window.Property(TMDbHelper.WidgetContainer),301) + !Integer.IsEqual(Container(300).NumItems,0) + Control.IsVisible(300)] | Control.HasFocus(300)]</expression> -->
 
     <!-- <expression name="Exp_HubName_IsVisible">[Control.HasFocus(300)]</expression> -->
 
-    <!-- <expression name="Exp_HubName_IsVisible">[!Integer.IsEqual(Container(300).NumItems,0)]</expression> -->
+    <expression name="Exp_HubName_IsVisible">[!Integer.IsEqual(Container(300).NumItems,0)]</expression>
 
     <expression name="Exp_Navigation_OnWrap">[!$EXP[Exp_ClassicHome_IsVisible]]</expression>
     <expression name="Exp_Navigation_OnBump">[!$EXP[Exp_Navigation_OnWrap]]</expression>
@@ -101,7 +101,9 @@
     <expression name="Exp_Navigation_OnParent">[Skin.String(Navigation.OnBack,Parent)]</expression>
     <expression name="Exp_Navigation_OnPrevious">[Skin.String(Navigation.OnBack,Previous) | String.IsEmpty(Skin.String(Navigation.OnBack))]</expression>
 
-    <expression name="Exp_Window_IsHub">[Window.IsVisible(Home) | Window.IsVisible(1101) | Window.IsVisible(1102) | Window.IsVisible(1103) | Window.IsVisible(1104) | Window.IsVisible(1106) | Window.IsVisible(1107) | Window.IsVisible(1108) | Window.IsVisible(1109)]</expression>
+    <expression name="Exp_Window_IsHub">[Window.IsVisible(Home) | $EXP[Exp_Window_IsHubOnly]]</expression>
+
+    <expression name="Exp_Window_IsHubOnly">[Window.IsVisible(1101) | Window.IsVisible(1102) | Window.IsVisible(1103) | Window.IsVisible(1104) | Window.IsVisible(1106) | Window.IsVisible(1107) | Window.IsVisible(1108) | Window.IsVisible(1109)]</expression>
 
     <expression name="Exp_Window_IsHub_Prev">[Window.Previous(Home) | Window.Previous(1101) | Window.Previous(1102) | Window.Previous(1103) | Window.Previous(1104) | Window.Previous(1106) | Window.Previous(1107) | Window.Previous(1108) | Window.Previous(1109)]</expression>
 

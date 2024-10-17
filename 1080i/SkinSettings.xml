@@ -149,9 +149,22 @@
                             <param name="dialog">false</param>
                             <param name="id">1005</param>
                             <param name="dialog">false</param>
-                            <param name="control">radiobutton</param>
+                            <param name="control">button</param>
                             <label>$LOCALIZE[31416] > $LOCALIZE[31151]</label>
-                            <onclick>Skin.ToggleSetting(SideMenu.DisableSearchAndOptions)</onclick>
+                            <label2>$VAR[Label_Setting_SearchStyle]</label2>
+
+                            <!-- Disabled (switch to Home) -->
+                            <onclick condition="Skin.HasSetting(SideMenu.DisableSearchAndOptions)">Skin.Reset(SideMenu.DisableSearchAndOptions)</onclick>
+                            <onclick condition="Skin.HasSetting(SideMenu.DisableSearchAndOptions)">Skin.Reset(HubsMenu.EnableSearchAndOptions)</onclick>
+
+                            <!-- Home (switch to Hubs+Home) -->
+                            <onclick condition="!Skin.HasSetting(SideMenu.DisableSearchAndOptions) + !Skin.HasSetting(HubsMenu.EnableSearchAndOptions)">Skin.Reset(SideMenu.DisableSearchAndOptions)</onclick>
+                            <onclick condition="!Skin.HasSetting(SideMenu.DisableSearchAndOptions) + !Skin.HasSetting(HubsMenu.EnableSearchAndOptions)">Skin.SetBool(HubsMenu.EnableSearchAndOptions)</onclick>
+
+                            <!-- Hubs+Home (switch to Disabled) -->
+                            <onclick condition="Skin.HasSetting(HubsMenu.EnableSearchAndOptions)">Skin.SetBool(SideMenu.DisableSearchAndOptions)</onclick>
+                            <onclick condition="Skin.HasSetting(HubsMenu.EnableSearchAndOptions)">Skin.Reset(HubsMenu.EnableSearchAndOptions)</onclick>
+
                             <selected>!Skin.HasSetting(SideMenu.DisableSearchAndOptions)</selected>
                             <visible>Container(3).HasFocus(1)</visible>
                         </include>

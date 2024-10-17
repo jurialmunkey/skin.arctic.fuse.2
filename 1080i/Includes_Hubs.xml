@@ -270,7 +270,7 @@
 
             <include content="Object_Hidden_Button">
                 <param name="id">307</param>
-                <onfocus>SetFocus(300)</onfocus>
+                <onfocus>SetFocus($INFO[Window.Property(307Refocus)])</onfocus>
                 <onfocus>ActivateWindow(1170)</onfocus>
             </include>
 
@@ -460,12 +460,6 @@
         </include>
     </include>
     <include name="Hub_Categories_Definition_Content">
-
-        <!-- Reset Widget Group Position -->
-        <!-- <include content="Action_Widgets_ResetPosition_OnFocus">
-            <param name="condition">Container(400).HasPrevious | !String.IsEmpty(Window.Property(Widgets.ResetPosition))</param>
-        </include> -->
-
         <include content="Action_Widget_Top">
             <param name="id">300</param>
         </include>
@@ -477,10 +471,14 @@
 
         <include condition="Window.IsVisible(Home)">Home_Menu_List_OnBackInfo</include>
 
-        <content>
-            <include>skinvariables-$PARAM[categories]-staticitems</include>
-        </content>
+        <onfocus>ClearProperty(Background.ShowOverlay,Home)</onfocus>
+        <onfocus>ClearProperty(Background.HideArtwork)</onfocus>
     </include>
+
+    <variable name="Hub_Categories_Color_FO">
+        <value condition="Control.HasFocus(308) | Control.HasFocus(309) | Control.HasFocus(307)">main_fg_30</value>
+        <value>main_fg_100</value>
+    </variable>
 
     <include name="Hub_Categories_Definition">
         <include content="Categories_Selector">
@@ -494,15 +492,17 @@
             <param name="hidden_button_prefix">$INFO[Container(300).ListItem.Property(item)]302</param>
             <param name="hidden_button">List_ButtonMenu_Row_HiddenButton_Home_Categories</param>
             <param name="slide">True</param>
-            <param name="color_fo">main_fg_90</param>
+            <param name="color_fo">$VAR[Hub_Categories_Color_FO]</param>
             <include content="Hub_Categories_Definition_Content">
                 <param name="window_id">$PARAM[window_id]</param>
                 <param name="property_window_id">$PARAM[property_window_id]</param>
-                <param name="categories">$PARAM[categories]</param>
             </include>
+            <onleft condition="!Skin.HasSetting(SideMenu.DisableSearchAndOptions) + Skin.HasSetting(HubsMenu.EnableSearchAndOptions)">309</onleft>
+            <onright condition="!Skin.HasSetting(SideMenu.DisableSearchAndOptions) + Skin.HasSetting(HubsMenu.EnableSearchAndOptions)">308</onright>
+            <content>
+                <include>skinvariables-$PARAM[categories]-staticitems</include>
+            </content>
             <left>0</left>
-            <onfocus>ClearProperty(Background.ShowOverlay,Home)</onfocus>
-            <onfocus>ClearProperty(Background.HideArtwork)</onfocus>
         </include>
     </include>
 
@@ -524,10 +524,99 @@
         </control>
     </include>
 
+    <include name="Hub_Categories_Search">
+        <control type="group">
+            <left>view_pad</left>
+            <centertop>100</centertop>
+            <height>40</height>
+            <width>40</width>
+            <control type="image">
+                <include>Texture_CircleButtonDialog_Highlight_V</include>
+                <aspectratio>keep</aspectratio>
+                <height>160</height>
+                <width>160</width>
+                <centertop>50%</centertop>
+                <centerleft>50%</centerleft>
+                <visible>Control.HasFocus(309)</visible>
+            </control>
+            <control type="button" id="309">
+                <texturenofocus />
+                <texturefocus />
+                <width>80</width>
+                <height>80</height>
+                <centerleft>50%</centerleft>
+                <centertop>50%</centertop>
+                <include content="Hub_Categories_Definition_Content">
+                    <param name="window_id">$PARAM[window_id]</param>
+                    <param name="property_window_id">$PARAM[property_window_id]</param>
+                </include>
+                <onclick>$VAR[Action_ActivateSearchDiscover]</onclick>
+                <onleft>308</onleft>
+                <onright>SetFocus(300,0,absolute)</onright>
+            </control>
+            <control type="image">
+                <texture colordiffuse="main_fg_30">$VAR[Image_SearchDiscover]</texture>
+                <bordersize>icon_home_bordersize</bordersize>
+                <visible>!Control.HasFocus(309)</visible>
+            </control>
+            <control type="image">
+                <texture colordiffuse="$VAR[ColorSelected]">$VAR[Image_SearchDiscover]</texture>
+                <bordersize>icon_home_bordersize</bordersize>
+                <visible>Control.HasFocus(309)</visible>
+            </control>
+        </control>
+    </include>
+
+    <include name="Hub_Categories_Options">
+        <control type="group">
+            <right>view_pad</right>
+            <centertop>100</centertop>
+            <height>40</height>
+            <width>40</width>
+            <control type="image">
+                <include>Texture_CircleButtonDialog_Highlight_V</include>
+                <aspectratio>keep</aspectratio>
+                <height>160</height>
+                <width>160</width>
+                <centertop>50%</centertop>
+                <centerleft>50%</centerleft>
+                <visible>Control.HasFocus(308)</visible>
+            </control>
+            <control type="button" id="308">
+                <texturenofocus />
+                <texturefocus />
+                <width>80</width>
+                <height>80</height>
+                <centerleft>50%</centerleft>
+                <centertop>50%</centertop>
+                <include content="Hub_Categories_Definition_Content">
+                    <param name="window_id">$PARAM[window_id]</param>
+                    <param name="property_window_id">$PARAM[property_window_id]</param>
+                </include>
+                <onclick>SetProperty(307Refocus,308)</onclick>
+                <onclick>SetFocus(307)</onclick>
+                <onright>309</onright>
+                <onleft>SetFocus(300,9999,absolute)</onleft>
+            </control>
+            <control type="image">
+                <texture colordiffuse="main_fg_30">special://skin/extras/icons/bars.png</texture>
+                <bordersize>icon_home_bordersize</bordersize>
+                <visible>!Control.HasFocus(308)</visible>
+                <visible>!Skin.HasSetting(Furniture.EnableClock)</visible>
+            </control>
+            <control type="image">
+                <texture colordiffuse="$VAR[ColorSelected]">special://skin/extras/icons/bars.png</texture>
+                <bordersize>icon_home_bordersize</bordersize>
+                <visible>Control.HasFocus(308)</visible>
+            </control>
+        </control>
+    </include>
+
     <include name="Hub_Categories">
         <control type="group">
             <visible>!$EXP[Exp_InfoDialogs]</visible>
             <include>Hub_Top_Animation</include>
+
             <control type="grouplist">
                 <left>40</left>
                 <orientation>horizontal</orientation>
@@ -542,6 +631,12 @@
                     <width>auto</width>
                     <height>74</height>
                 </control> -->
+
+                <control type="group">
+                    <width>80</width>
+                    <visible>!Skin.HasSetting(SideMenu.DisableSearchAndOptions) + Skin.HasSetting(HubsMenu.EnableSearchAndOptions)</visible>
+                </control>
+
                 <control type="group">
                     <width>2000</width>
                     <include>Animation_View_WindowChangeAnimation</include>
@@ -552,6 +647,9 @@
                     </include>
                 </control>
             </control>
+
+            <include condition="!Skin.HasSetting(SideMenu.DisableSearchAndOptions) + Skin.HasSetting(HubsMenu.EnableSearchAndOptions)">Hub_Categories_Search</include>
+            <include condition="!Skin.HasSetting(SideMenu.DisableSearchAndOptions) + Skin.HasSetting(HubsMenu.EnableSearchAndOptions)">Hub_Categories_Options</include>
 
         </control>
     </include>
