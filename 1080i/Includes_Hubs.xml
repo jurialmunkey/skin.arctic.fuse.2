@@ -551,6 +551,7 @@
                     <param name="window_id">$PARAM[window_id]</param>
                     <param name="property_window_id">$PARAM[property_window_id]</param>
                 </include>
+                <onfocus>SetProperty(Slide.WidgetContainer,300,$PARAM[property_window_id])</onfocus>
                 <onclick>$VAR[Action_ActivateSearchDiscover]</onclick>
                 <onleft>308</onleft>
                 <onright>SetFocus(300,0,absolute)</onright>
@@ -594,6 +595,7 @@
                     <param name="window_id">$PARAM[window_id]</param>
                     <param name="property_window_id">$PARAM[property_window_id]</param>
                 </include>
+                <onfocus>SetProperty(Slide.WidgetContainer,300,$PARAM[property_window_id])</onfocus>
                 <onclick>SetProperty(307Refocus,308)</onclick>
                 <onclick>SetFocus(307)</onclick>
                 <onright>309</onright>
@@ -649,8 +651,14 @@
                 </control>
             </control>
 
-            <include condition="!Skin.HasSetting(SideMenu.DisableSearchAndOptions) + Skin.HasSetting(HubsMenu.EnableSearchAndOptions)">Hub_Categories_Search</include>
-            <include condition="!Skin.HasSetting(SideMenu.DisableSearchAndOptions) + Skin.HasSetting(HubsMenu.EnableSearchAndOptions)">Hub_Categories_Options</include>
+            <include content="Hub_Categories_Search" condition="!Skin.HasSetting(SideMenu.DisableSearchAndOptions) + Skin.HasSetting(HubsMenu.EnableSearchAndOptions)">
+                <param name="window_id">$PARAM[window_id]</param>
+                <param name="property_window_id">$PARAM[property_window_id]</param>
+            </include>
+            <include content="Hub_Categories_Options" condition="!Skin.HasSetting(SideMenu.DisableSearchAndOptions) + Skin.HasSetting(HubsMenu.EnableSearchAndOptions)">
+                <param name="window_id">$PARAM[window_id]</param>
+                <param name="property_window_id">$PARAM[property_window_id]</param>
+            </include>
 
         </control>
     </include>
