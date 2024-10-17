@@ -248,11 +248,6 @@
     </include>
 
     <include name="Hub_Top_Bezier">
-        <!-- <control type="image">
-            <include>Hub_Top_Animation</include>
-            <height>400</height>
-            <texture colordiffuse="99ffffff">common/dim-top-bezier.png</texture>
-        </control> -->
         <control type="image">
             <left>0</left>
             <top>0</top>
@@ -339,8 +334,23 @@
                         <visible>![$PARAM[widgets_only]]</visible>
                         <visible>!$EXP[Exp_InfoDialogs]</visible>
                         <control type="group">
-                            <include>Furniture_Top_Left</include>
+                            <include content="Hub_Top_Animation">
+                                <param name="mod">!</param>
+                            </include>
+                            <include content="Furniture_Top_Left">
+                                <param name="label">$VAR[Label_Header_Hubs_Categories]</param>
+                            </include>
+                            <!-- <visible>!$EXP[Exp_HubName_IsVisible] + !String.IsEmpty(Container(300).ListItem.Label)</visible> -->
+                            <!-- <include content="Furniture_Top_Left">
+                                <param name="label">$INFO[Container(300).ListItem.Label]</param>
+                            </include> -->
                         </control>
+                        <!-- <control type="group">
+                            <visible>![!$EXP[Exp_HubName_IsVisible] + !String.IsEmpty(Container(300).ListItem.Label)]</visible>
+                            <include content="Furniture_Top_Left">
+                                <param name="label">$VAR[Label_Header_Hubs]</param>
+                            </include>
+                        </control> -->
                     </control>
 
 
@@ -379,7 +389,7 @@
     </include>
 
     <include name="Hub_Top_Animation">
-        <param name="condition">[[[Integer.IsEqual(Window.Property(TMDbHelper.WidgetContainer),301) + !Integer.IsEqual(Container(300).NumItems,0)] | Control.HasFocus(300)] + !Window.IsVisible(1163)]</param>
+        <param name="condition">[$EXP[Exp_HubName_IsVisible] + !Window.IsVisible(1163)]</param>
         <param name="mod" />
         <definition>
             <include content="Animation_Fade_In">
@@ -413,7 +423,7 @@
         </include>
 
         <include content="Furniture_Top_Left" condition="Skin.HasSetting(Hub.$PARAM[window_id].EnableDetailedInformation)">
-            <param name="label">[CAPITALIZE]$VAR[Label_Header_Main][/CAPITALIZE]</param>
+            <param name="label">$VAR[Label_Header_Hubs,[CAPITALIZE],[/CAPITALIZE]]</param>
         </include>
     </include>
 
@@ -516,8 +526,6 @@
     <include name="Hub_Categories">
         <control type="group">
             <visible>!$EXP[Exp_InfoDialogs]</visible>
-
-
             <include>Hub_Top_Animation</include>
             <control type="grouplist">
                 <left>40</left>
@@ -525,14 +533,14 @@
                 <itemgap>20</itemgap>
                 <centertop>100</centertop>
                 <height>80</height>
-                <control type="label">
+                <!-- <control type="label">
                     <left>40</left>
-                    <label>[CAPITALIZE]$VAR[Label_Header_Main][/CAPITALIZE]</label>
+                    <label>$VAR[Label_Header_Hubs,[CAPITALIZE],[/CAPITALIZE]]</label>
                     <font>font_midi_black</font>
                     <textcolor>00ffffff</textcolor>
                     <width>auto</width>
                     <height>74</height>
-                </control>
+                </control> -->
                 <control type="group">
                     <width>2000</width>
                     <include>Animation_View_WindowChangeAnimation</include>
