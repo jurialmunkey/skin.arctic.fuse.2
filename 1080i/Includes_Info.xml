@@ -948,14 +948,18 @@
         <param name="haspath">false</param>
         <param name="use_highlight">Skin.HasSetting(Furniture.ViewLineColour)</param>
         <param name="textcolor">main_fg_90</param>
+        <param name="top">520</param>
+        <param name="visible">true</param>
+        <param name="left">view_pad</param>
+        <param name="right">view_pad</param>
         <definition>
 
             <control type="group">
-                <nested />
-                <top>520</top>
+                <top>$PARAM[top]</top>
                 <height>40</height>
-                <left>view_pad</left>
-                <right>view_pad</right>
+                <left>$PARAM[left]</left>
+                <right>$PARAM[right]</right>
+                <visible>$PARAM[visible]</visible>
 
                 <include content="Info_Viewline_Label" condition="![$PARAM[use_highlight]]">
                     <label fallback="$PARAM[label_fallback]">$PARAM[label]</label>
@@ -1621,13 +1625,21 @@
             <orientation>horizontal</orientation>
             <itemgap>30</itemgap>
             <height>80</height>
-            <nested />
+            <centertop>50%</centertop>
             <control type="image">
                 <width>300</width>
                 <height>80</height>
                 <aspectratio align="right">keep</aspectratio>
                 <texture>$VAR[Image_CombinedStudio]</texture>
                 <centertop>50%</centertop>
+            </control>
+            <control type="image">
+                <width>64</width>
+                <height>64</height>
+                <aspectratio>keep</aspectratio>
+                <texture>$INFO[ListItem.HdrType,flags/color/hdr/,.png]</texture>
+                <centertop>50%</centertop>
+                <visible>!String.IsEmpty(ListItem.HdrType)</visible>
             </control>
         </control>
     </include>

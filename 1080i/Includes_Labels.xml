@@ -245,16 +245,14 @@
 
     <variable name="Label_Spotlight_Name">
         <value condition="!String.IsEmpty(Container(300).ListItem.Property(spotlight_path)) + !String.IsEmpty(Container(300).ListItem.Property(spotlight_label))">$INFO[Container(300).ListItem.Property(spotlight_label)]</value>
-        <value condition="!String.IsEmpty(Container(303).ListItem.Property(spotlight_path)) + !String.IsEmpty(Container(303).ListItem.Property(spotlight_label))">$INFO[Container(303).ListItem.Property(spotlight_label)]</value>
-        <value condition="Window.IsVisible(Home) + !String.IsEmpty(Skin.String(Hub.Home.Spotlight.Label))">$INFO[Skin.String(Hub.Home.Spotlight.Label)]</value>
-        <value condition="Window.IsVisible(1101) + !String.IsEmpty(Skin.String(Hub.1101.Spotlight.Label))">$INFO[Skin.String(Hub.1101.Spotlight.Label)]</value>
-        <value condition="Window.IsVisible(1102) + !String.IsEmpty(Skin.String(Hub.1102.Spotlight.Label))">$INFO[Skin.String(Hub.1102.Spotlight.Label)]</value>
-        <value condition="Window.IsVisible(1103) + !String.IsEmpty(Skin.String(Hub.1103.Spotlight.Label))">$INFO[Skin.String(Hub.1103.Spotlight.Label)]</value>
-        <value condition="Window.IsVisible(1104) + !String.IsEmpty(Skin.String(Hub.1104.Spotlight.Label))">$INFO[Skin.String(Hub.1104.Spotlight.Label)]</value>
-        <value condition="Window.IsVisible(1106) + !String.IsEmpty(Skin.String(Hub.1106.Spotlight.Label))">$INFO[Skin.String(Hub.1106.Spotlight.Label)]</value>
-        <value condition="Window.IsVisible(1107) + !String.IsEmpty(Skin.String(Hub.1107.Spotlight.Label))">$INFO[Skin.String(Hub.1107.Spotlight.Label)]</value>
-        <value condition="Window.IsVisible(1108) + !String.IsEmpty(Skin.String(Hub.1108.Spotlight.Label))">$INFO[Skin.String(Hub.1108.Spotlight.Label)]</value>
-        <value condition="Window.IsVisible(1109) + !String.IsEmpty(Skin.String(Hub.1109.Spotlight.Label))">$INFO[Skin.String(Hub.1109.Spotlight.Label)]</value>
+        <value condition="$EXP[Exp_1101Hub_IsVisible] + !String.IsEmpty(Skin.String(Hub.1101.Spotlight.Label))">$INFO[Skin.String(Hub.1101.Spotlight.Label)]</value>
+        <value condition="$EXP[Exp_1102Hub_IsVisible] + !String.IsEmpty(Skin.String(Hub.1102.Spotlight.Label))">$INFO[Skin.String(Hub.1102.Spotlight.Label)]</value>
+        <value condition="$EXP[Exp_1103Hub_IsVisible] + !String.IsEmpty(Skin.String(Hub.1103.Spotlight.Label))">$INFO[Skin.String(Hub.1103.Spotlight.Label)]</value>
+        <value condition="$EXP[Exp_1104Hub_IsVisible] + !String.IsEmpty(Skin.String(Hub.1104.Spotlight.Label))">$INFO[Skin.String(Hub.1104.Spotlight.Label)]</value>
+        <value condition="$EXP[Exp_1106Hub_IsVisible] + !String.IsEmpty(Skin.String(Hub.1106.Spotlight.Label))">$INFO[Skin.String(Hub.1106.Spotlight.Label)]</value>
+        <value condition="$EXP[Exp_1107Hub_IsVisible] + !String.IsEmpty(Skin.String(Hub.1107.Spotlight.Label))">$INFO[Skin.String(Hub.1107.Spotlight.Label)]</value>
+        <value condition="$EXP[Exp_1108Hub_IsVisible] + !String.IsEmpty(Skin.String(Hub.1108.Spotlight.Label))">$INFO[Skin.String(Hub.1108.Spotlight.Label)]</value>
+        <value condition="$EXP[Exp_1109Hub_IsVisible] + !String.IsEmpty(Skin.String(Hub.1109.Spotlight.Label))">$INFO[Skin.String(Hub.1109.Spotlight.Label)]</value>
         <value>$LOCALIZE[31105]</value>
     </variable>
 
@@ -262,7 +260,6 @@
         <value condition="![[String.IsEqual(Window.Property(categories_menu),menu=1101menu) + !Skin.HasSetting(Hub.1101.DisableSpotlight)] | [String.IsEqual(Window.Property(categories_menu),menu=1102menu) + !Skin.HasSetting(Hub.1102.DisableSpotlight)] | [String.IsEqual(Window.Property(categories_menu),menu=1103menu) + !Skin.HasSetting(Hub.1103.DisableSpotlight)] | [String.IsEqual(Window.Property(categories_menu),menu=1104menu) + !Skin.HasSetting(Hub.1104.DisableSpotlight)] | [String.IsEqual(Window.Property(categories_menu),menu=1105menu) + !Skin.HasSetting(Hub.1105.DisableSpotlight)] | [String.IsEqual(Window.Property(categories_menu),menu=1106menu) + !Skin.HasSetting(Hub.1106.DisableSpotlight)] | [String.IsEqual(Window.Property(categories_menu),menu=1107menu) + !Skin.HasSetting(Hub.1107.DisableSpotlight)] | [String.IsEqual(Window.Property(categories_menu),menu=1108menu) + !Skin.HasSetting(Hub.1108.DisableSpotlight)] | [String.IsEqual(Window.Property(categories_menu),menu=1109menu) + !Skin.HasSetting(Hub.1109.DisableSpotlight)]]">$LOCALIZE[13106]</value>
 
         <value condition="!String.IsEmpty(Container(300).ListItem.Property(spotlight_path))">$INFO[Container(300).ListItem.Property(spotlight_path)]</value>
-        <value condition="!String.IsEmpty(Container(303).ListItem.Property(spotlight_path)) + String.IsEqual(Window.Property(categories_menu),menu=homemenu)">$INFO[Container(303).ListItem.Property(spotlight_path)]</value>
         <value>$VAR[Label_Shortcut_HubSpotlight_Path]</value>
     </variable>
 
@@ -509,9 +506,9 @@
     </variable>
 
     <variable name="Label_Setting_SearchStyle">
-        <value condition="Window.IsVisible(1185)">$LOCALIZE[137]</value>
-        <value condition="Window.IsVisible(1105)">$LOCALIZE[31066]</value>
-        <value>$LOCALIZE[587]</value>
+        <value condition="Skin.HasSetting(SideMenu.DisableSearchAndOptions)">$LOCALIZE[1223]</value>
+        <value condition="Skin.HasSetting(HubsMenu.EnableSearchAndOptions)">$LOCALIZE[10000] + $LOCALIZE[31150]</value>
+        <value>$LOCALIZE[10000]</value>
     </variable>
 
     <variable name="Label_Setting_BackgroundVideo">
@@ -921,6 +918,13 @@
         <value>$LOCALIZE[31134]</value>
     </variable>
 
+    <variable name="Label_VideoHDRCodec">
+        <value condition="String.IsEqual(VideoPlayer.HdrType,dolbyvision)">Dolby Vision</value>
+        <value condition="String.IsEqual(VideoPlayer.HdrType,hdr10)">HDR</value>
+        <value condition="String.IsEqual(VideoPlayer.HdrType,hlg)">HLG</value>
+        <value>SDR</value>
+    </variable>
+
     <variable name="Label_VideoHWDecoder">
         <value condition="Player.Process(videohwdecoder)">HW</value>
         <value>SW</value>
@@ -992,6 +996,10 @@
         <value condition="!String.IsEmpty(VideoPlayer.TvShowTitle)">$VAR[Label_OSD_Plot_Episode_Number,,. ]$INFO[Player.Title]</value>
         <value condition="!String.IsEmpty(Player.Title)">$INFO[Player.Title]</value>
         <value>$INFO[System.Time]</value>
+    </variable>
+
+    <variable name="Label_System_Temp">
+        <value condition="!String.IsEmpty(System.CPUTemperature) + !String.IsEqual(System.CPUTemperature,$LOCALIZE[10005])">$INFO[System.CPUTemperature]</value>
     </variable>
 
     <variable name="Label_NowPlayingTitle">
@@ -1446,15 +1454,31 @@
         <value condition="Window.IsVisible(1105)">$LOCALIZE[31066]</value>
         <value condition="Window.IsVisible(pictures)">$LOCALIZE[10002]</value>
         <value condition="Window.IsVisible(favouritesbrowser)">$LOCALIZE[1036]</value>
-        <value condition="Window.IsVisible(Home)">$VAR[Label_Header_Main_Home]</value>
-        <value condition="Window.IsVisible(1101)">$VAR[Label_Header_Main_1101]</value>
-        <value condition="Window.IsVisible(1102)">$VAR[Label_Header_Main_1102]</value>
-        <value condition="Window.IsVisible(1103)">$VAR[Label_Header_Main_1103]</value>
-        <value condition="Window.IsVisible(1104)">$VAR[Label_Header_Main_1104]</value>
-        <value condition="Window.IsVisible(1106)">$VAR[Label_Header_Main_1106]</value>
-        <value condition="Window.IsVisible(1107)">$VAR[Label_Header_Main_1107]</value>
-        <value condition="Window.IsVisible(1108)">$VAR[Label_Header_Main_1108]</value>
-        <value condition="Window.IsVisible(1109)">$VAR[Label_Header_Main_1109]</value>
+    </variable>
+
+    <variable name="Label_Header_Hubs">
+        <value condition="$EXP[Exp_ClassicHome_IsVisible]">$VAR[Label_Header_Main_Home]</value>
+        <value condition="$EXP[Exp_1101Hub_IsVisible]">$VAR[Label_Header_Main_1101]</value>
+        <value condition="$EXP[Exp_1102Hub_IsVisible]">$VAR[Label_Header_Main_1102]</value>
+        <value condition="$EXP[Exp_1103Hub_IsVisible]">$VAR[Label_Header_Main_1103]</value>
+        <value condition="$EXP[Exp_1104Hub_IsVisible]">$VAR[Label_Header_Main_1104]</value>
+        <value condition="$EXP[Exp_1106Hub_IsVisible]">$VAR[Label_Header_Main_1106]</value>
+        <value condition="$EXP[Exp_1107Hub_IsVisible]">$VAR[Label_Header_Main_1107]</value>
+        <value condition="$EXP[Exp_1108Hub_IsVisible]">$VAR[Label_Header_Main_1108]</value>
+        <value condition="$EXP[Exp_1109Hub_IsVisible]">$VAR[Label_Header_Main_1109]</value>
+    </variable>
+
+    <variable name="Label_Header_Hubs_Categories">
+        <value condition="$EXP[Exp_ClassicHome_IsVisible]">$VAR[Label_Header_Main_Home]</value>
+        <value condition="!String.IsEmpty(Container(300).ListItem.Label)">$INFO[Container(300).ListItem.Label]</value>
+        <value condition="$EXP[Exp_1101Hub_IsVisible]">$VAR[Label_Header_Main_1101]</value>
+        <value condition="$EXP[Exp_1102Hub_IsVisible]">$VAR[Label_Header_Main_1102]</value>
+        <value condition="$EXP[Exp_1103Hub_IsVisible]">$VAR[Label_Header_Main_1103]</value>
+        <value condition="$EXP[Exp_1104Hub_IsVisible]">$VAR[Label_Header_Main_1104]</value>
+        <value condition="$EXP[Exp_1106Hub_IsVisible]">$VAR[Label_Header_Main_1106]</value>
+        <value condition="$EXP[Exp_1107Hub_IsVisible]">$VAR[Label_Header_Main_1107]</value>
+        <value condition="$EXP[Exp_1108Hub_IsVisible]">$VAR[Label_Header_Main_1108]</value>
+        <value condition="$EXP[Exp_1109Hub_IsVisible]">$VAR[Label_Header_Main_1109]</value>
     </variable>
 
     <variable name="Label_Section_SortMethod">
@@ -1491,9 +1515,7 @@
         <value condition="Window.IsVisible(pictures)">$LOCALIZE[10002]</value>
         <value condition="Window.IsVisible(favouritesbrowser)">$LOCALIZE[31382]</value>
 
-
         <value condition="!String.IsEmpty(Skin.String(Home.Label))">$INFO[Skin.String(Home.Label)]</value>
-        <value condition="Window.IsVisible(Home) + !String.IsEmpty(Container(303).ListItem.Label)">$INFO[Container(303).ListItem.Label]</value>
         <value>$LOCALIZE[10000]</value>
     </variable>
 
@@ -1516,6 +1538,11 @@
     <variable name="Label_Critics">
         <value condition="!String.IsEmpty(Container(99950).ListItem.Property(rottentomatoes_consensus)) | !String.IsEmpty(Container(99950).ListItem.Property(Awards))">[B][COLOR=main_fg_90]$LOCALIZE[31024][/COLOR][/B][CR]$INFO[Container(99950).ListItem.Property(rottentomatoes_consensus),, ]$INFO[Container(99950).ListItem.Property(rottentomatoes_reviewsfresh),$LOCALIZE[31054] , ]$INFO[Container(99950).ListItem.Property(rottentomatoes_reviewstotal),$LOCALIZE[31055] , $LOCALIZE[31056] ]$INFO[Container(99950).ListItem.Property(Awards_Won),[CR][CR],]</value>
         <value condition="!String.IsEmpty(ListItem.AddonNews)">[B][COLOR=main_fg_90]$LOCALIZE[24036][/COLOR][/B][CR]$INFO[ListItem.AddonNews]</value>
+    </variable>
+
+    <variable name="Label_Overlay_FileDetails">
+        <value condition="!String.IsEmpty(Container(99950).ListItem.PlayCount)">$INFO[Container(99950).ListItem.PlayCount,[CR]$LOCALIZE[16102] , $LOCALIZE[31183]. ]$INFO[Container(99950).ListItem.LastPlayed,$LOCALIZE[568] ,]$INFO[Container(99950).ListItem.DateAdded,[CR]$LOCALIZE[31200] ,]$INFO[Container(99950).ListItem.Property(filenameandpath),[CR],]</value>
+        <value>$INFO[Container(99950).ListItem.LastPlayed,[CR]$LOCALIZE[568] ,]$INFO[Container(99950).ListItem.DateAdded,[CR]$LOCALIZE[31200] ,]$INFO[Container(99950).ListItem.Property(filenameandpath),[CR],]</value>
     </variable>
 
     <variable name="Label_Overlay_Directing">
@@ -1556,7 +1583,7 @@
     </variable>
 
     <variable name="Label_Overlay_PlotBox">
-        <value>$INFO[Container(99950).ListItem.Tagline,[B][COLOR=dialog_fg_90]$LOCALIZE[202][/COLOR][/B][CR],[CR][CR]]$VAR[Label_Plot_C99950,[B][COLOR=dialog_fg_90]$LOCALIZE[31028][/COLOR][/B][CR],]$VAR[Label_Overlay_Critics,[CR][CR],]$VAR[Label_Overlay_Directing,[CR][CR][B][COLOR=dialog_fg_90]$LOCALIZE[31038][/COLOR][/B][CR],]$VAR[Label_Overlay_Writing,[CR][CR][B][COLOR=dialog_fg_90]$LOCALIZE[31039][/COLOR][/B][CR],]$VAR[Label_Overlay_TopCast,[CR][CR][B][COLOR=dialog_fg_90]$LOCALIZE[31076][/COLOR][/B][CR],]$VAR[Label_Overlay_Production,[CR][CR][B][COLOR=dialog_fg_90]$LOCALIZE[31383][/COLOR][/B][CR],]$VAR[Label_Overlay_Sound,[CR][CR][B][COLOR=dialog_fg_90]$LOCALIZE[31052][/COLOR][/B][CR],]$VAR[Label_Overlay_ArtDepartment,[CR][CR][B][COLOR=dialog_fg_90]$LOCALIZE[31072][/COLOR][/B][CR],]$VAR[Label_Overlay_Cinematography,[CR][CR][B][COLOR=dialog_fg_90]$LOCALIZE[31067][/COLOR][/B][CR],]$VAR[Label_Overlay_Editing,[CR][CR][B][COLOR=dialog_fg_90]$LOCALIZE[31075][/COLOR][/B][CR],]$INFO[Container(99950).ListItem.Property(Awards),[CR][CR][B][COLOR=dialog_fg_90]$LOCALIZE[31064][/COLOR][/B][CR],]$VAR[Label_Overlay_AwardsWon]$VAR[Label_Overlay_AwardsNominated]</value>
+        <value>$INFO[Container(99950).ListItem.Tagline,[B][COLOR=dialog_fg_90]$LOCALIZE[202][/COLOR][/B][CR],[CR][CR]]$VAR[Label_Plot_C99950,[B][COLOR=dialog_fg_90]$LOCALIZE[31028][/COLOR][/B][CR],]$VAR[Label_Overlay_Critics,[CR][CR],]$VAR[Label_Overlay_Directing,[CR][CR][B][COLOR=dialog_fg_90]$LOCALIZE[31038][/COLOR][/B][CR],]$VAR[Label_Overlay_Writing,[CR][CR][B][COLOR=dialog_fg_90]$LOCALIZE[31039][/COLOR][/B][CR],]$VAR[Label_Overlay_TopCast,[CR][CR][B][COLOR=dialog_fg_90]$LOCALIZE[31076][/COLOR][/B][CR],]$VAR[Label_Overlay_Production,[CR][CR][B][COLOR=dialog_fg_90]$LOCALIZE[31383][/COLOR][/B][CR],]$VAR[Label_Overlay_Sound,[CR][CR][B][COLOR=dialog_fg_90]$LOCALIZE[31052][/COLOR][/B][CR],]$VAR[Label_Overlay_ArtDepartment,[CR][CR][B][COLOR=dialog_fg_90]$LOCALIZE[31072][/COLOR][/B][CR],]$VAR[Label_Overlay_Cinematography,[CR][CR][B][COLOR=dialog_fg_90]$LOCALIZE[31067][/COLOR][/B][CR],]$VAR[Label_Overlay_Editing,[CR][CR][B][COLOR=dialog_fg_90]$LOCALIZE[31075][/COLOR][/B][CR],]$INFO[Container(99950).ListItem.Property(Awards),[CR][CR][B][COLOR=dialog_fg_90]$LOCALIZE[31064][/COLOR][/B][CR],]$VAR[Label_Overlay_AwardsWon]$VAR[Label_Overlay_AwardsNominated]$VAR[Label_Overlay_FileDetails,[CR][CR][B][COLOR=dialog_fg_90]$LOCALIZE[561] $LOCALIZE[33029][/COLOR][/B],]</value>
     </variable>
 
     <variable name="Label_Overlay_1114_PlotBox">

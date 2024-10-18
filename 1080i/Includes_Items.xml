@@ -995,6 +995,46 @@
                 </include>
             </include>
 
+            <!-- Versions -->
+            <include content="DialogInfo_Button" condition="String.IsEqual(ListItem.DBType,movie) + ListItem.HasVideoVersions">
+                <param name="vertical">$PARAM[vertical]</param>
+                <param name="id">4021</param>
+                <param name="groupid">4121</param>
+                <param name="sliceid">4221</param>
+                <param name="label">$LOCALIZE[40000]</param>
+                <param name="icon">special://skin/extras/icons/bookmarks.png</param>
+                <param name="zoom_in_delay">240</param>
+                <param name="zoom_in_include">$PARAM[zoom_in_include]</param>
+                <param name="include_slide">true</param>
+                <param name="itemgap">$PARAM[itemgap]</param>
+
+                <onclick condition="Window.IsVisible(DialogVideoInfo.xml) | Window.IsVisible(DialogMusicInfo.xml)">SendClick(14)</onclick>
+
+                <include content="DialogInfo_Button_HintLabel">
+                    <param name="label">$LOCALIZE[40000]</param>
+                </include>
+            </include>
+
+            <!-- Extras -->
+            <include content="DialogInfo_Button" condition="String.IsEqual(ListItem.DBType,movie) + ListItem.HasVideoExtras">
+                <param name="vertical">$PARAM[vertical]</param>
+                <param name="id">4022</param>
+                <param name="groupid">4122</param>
+                <param name="sliceid">4222</param>
+                <param name="label">$LOCALIZE[40211]</param>
+                <param name="icon">special://skin/extras/icons/director.png</param>
+                <param name="zoom_in_delay">240</param>
+                <param name="zoom_in_include">$PARAM[zoom_in_include]</param>
+                <param name="include_slide">true</param>
+                <param name="itemgap">$PARAM[itemgap]</param>
+
+                <onclick condition="Window.IsVisible(DialogVideoInfo.xml) | Window.IsVisible(DialogMusicInfo.xml)">SendClick(15)</onclick>
+
+                <include content="DialogInfo_Button_HintLabel">
+                    <param name="label">$LOCALIZE[40211]</param>
+                </include>
+            </include>
+
             <!-- Trakt -->
             <include content="DialogInfo_Button" condition="!String.IsEqual(ListItem.Property(tmdb_type),person)">
                 <param name="vertical">$PARAM[vertical]</param>

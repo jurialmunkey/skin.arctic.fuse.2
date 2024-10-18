@@ -8,24 +8,25 @@
         <value name="includes_name">Hub_Menu_Group</value>
         <value name="includes_part">
             <template>generator/data/parts/widgets_grouplist.xmltemplate</template>
-            <value name="grouplist_refocus">$VAR[Action_Hubs_Menu_SetFocus]</value>
+            <value name="grouplist_refocus">$VAR[Action_Home_Menu_SetFocus]</value>
             <value name="grouplist_widgets_only">True</value>
             <value name="grouplist_visible">True</value>
             <value name="grouplist_furniture_widget_id">499</value>
             <value name="grouplist_id">400</value>
             <value name="grouplist_widgets_bump_id">401</value>
+            <value name="is_homemenu">true</value>
 
             <value name="all_sidemenu_widgets">
                 <items menu="sidemenu">
                     <item>
                         <value name="comments">Sidemenu Widgets for {item} {item_x} {item_label}</value>
                         <template>generator/data/parts/basic_template.xmltemplate</template>
-                        <value name="widget_category_visible">String.IsEqual(Container({sidemenu_id}).ListItem.Property(guid),{item_guid}) | !Skin.HasSetting(Hub.Home.DisableMoveBetweenGroups)</value>
+                        <value name="widget_category_visible">String.IsEqual(Container(300).ListItem.Property(guid),{item_guid}) | !Skin.HasSetting(Hub.Home.DisableMoveBetweenGroups)</value>
                         <value name="grouplist_item_x">$MATH[{item_x} + 100]</value>
                         <value name="widget_custom_onfocus"><![CDATA[
-                            <onfocus>SetProperty(SideMenu.CurrentGUID,{item_guid},{window_id})</onfocus>
-                            <onfocus>SetProperty(SideMenu.CurrentName,{item_label},{window_id})</onfocus>
-                            <onfocus>SetProperty(SideMenu.CurrentItem,{item_x},{window_id})</onfocus>
+                            <onfocus>SetProperty(SideMenu.CurrentGUID,{item_guid},{property_window_id})</onfocus>
+                            <onfocus>SetProperty(SideMenu.CurrentName,{item_label},{property_window_id})</onfocus>
+                            <onfocus>SetProperty(SideMenu.CurrentItem,{item_x},{property_window_id})</onfocus>
                         ]]></value>
                         <value name="includes_part">
                             <items mode="widgets" item="{item_x}" menu="{item_menu}">

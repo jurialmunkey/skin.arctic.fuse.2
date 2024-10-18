@@ -1,0 +1,23 @@
+<contents>
+    <items menu="sidemenu">
+        <item>
+            <condition>{item_disabled}!=True</condition>
+            <template>generator/data/parts/basic_variable.xmltemplate</template>
+            <value name="comments">Variables for Side Menu {item_label} focus</value>
+            <value name="grouplist_item_x">$MATH[{item_x} + 100]</value>
+            <value name="variables_name">skinvariables-sidemenu-itemfocus-{grouplist_item_x}</value>
+            <value name="variables_part">
+                <items mode="widgets" item="{item_x}" menu="{item_menu}">
+                    <item>
+                        <value name="widget_id">$MATH[{grouplist_item_x} * 1000 + 600 + {enum_x}]</value>
+                        <condition>{item_path}!=</condition>
+                        <condition>{item_disabled}!=True</condition>
+                        <enumitem name="enum_x">widget_{parent_item_menu}_{parent_item_x}</enumitem>
+                        <template><![CDATA[<value condition="Control.IsVisible({widget_id})">{widget_id}</value>]]></template>
+                    </item>
+                </items>
+            </value>
+            <value name="variables_misc"><![CDATA[<value>400</value>]]></value>
+        </item>
+    </items>
+</contents>
