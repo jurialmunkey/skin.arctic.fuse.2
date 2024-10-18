@@ -367,7 +367,8 @@
             <include>DialogInfo_Widgets_Action</include>
         </include>
 
-        <include content="Widget_Info_Row" condition="!Skin.HasSetting(VideoInfo.Widgets.DisableCollection)">
+        <!-- Collection -->
+        <include content="Widget_Info_Row" condition="!Skin.HasSetting(VideoInfo.Widgets.DisableCollection) + !Skin.HasSetting(Info.UseLocalCast)">
             <param name="id">11</param>
             <param name="baseid">50</param>
             <param name="basegroupid">51</param>
@@ -383,6 +384,25 @@
             <onfocus>SetProperty(CurrentID,$INFO[Container(99950).ListItem.Property(base_label)])</onfocus>
             <content>$INFO[Container(99950).ListItem.Property(Set.TMDb_ID),plugin://plugin.video.themoviedb.helper/?info=collection&amp;tmdb_type=collection&amp;tmdb_id=,]$VAR[Path_Param_Widget]</content>
             <include>DialogInfo_Widgets_Action</include>
+        </include>
+        <include content="Widget_Info_Row" condition="!Skin.HasSetting(VideoInfo.Widgets.DisableCollection) + Skin.HasSetting(Info.UseLocalCast)">
+            <param name="id">11</param>
+            <param name="baseid">50</param>
+            <param name="basegroupid">51</param>
+            <param name="label">$INFO[ListItem.Set]</param>
+            <param name="include">List_Poster_Row</param>
+            <param name="visible">$EXP[Exp_InfoDialogs_WidgetsGroup_HasFocus]</param>
+            <param name="widgetfade_include">true</param>
+            <param name="set_widgetcontainer">false</param>
+            <param name="menuid">8</param>
+            <param name="widget_hideartwork">!Skin.HasSetting(Widgets.DontHideArtworkOnClassic)</param>
+            <param name="widget_showoverlay">true</param>
+            <param name="altvisible">!String.IsEqual(Window.Property(CurrentID),Container(99950).ListItem.Property(base_label))</param>
+            <onfocus>SetProperty(CurrentID,$INFO[Container(99950).ListItem.Property(base_label)])</onfocus>
+            <content>$INFO[ListItem.SetID,videodb://movies/sets/,/]</content>
+            <include content="DialogInfo_Widgets_Action">
+                <param name="set_path">false</param>
+            </include>
         </include>
 
         <include content="Widget_Info_Row" condition="!Skin.HasSetting(VideoInfo.Widgets.DisableStudio)">
@@ -497,16 +517,22 @@
     </include>
 
     <include name="DialogInfo_Widgets_Action">
-        <onclick>SetProperty(trailer,$INFO[Container.ListItem.Trailer],1114)</onclick>
-        <onclick>SetProperty(path,$INFO[Container.ListItem.FolderPath],1114)</onclick>
-        <onclick>SetProperty(header,$INFO[Container.ListItem.Label]$INFO[Container.ListItem.Year, (,)],1114)</onclick>
-        <onclick>SetProperty(textbox,$ESCINFO[Container.ListItem.Plot,[B][COLOR=dialog_fg_90]$LOCALIZE[31028][/COLOR][/B][CR],],1114)</onclick>
-        <onclick>SetProperty(poster,$VAR[Image_Poster_Container],1114)</onclick>
-        <onclick>SetProperty(landscape,$VAR[Image_LandscapeOnly_Container],1114)</onclick>
-        <onclick>SetProperty(clearlogo,$VAR[Image_Clearlogo_Container],1114)</onclick>
-        <onclick>SetProperty(tmdb_id,$INFO[Container.ListItem.Property(tmdb_id)],1114)</onclick>
-        <onclick>SetProperty(tmdb_type,$INFO[Container.ListItem.Property(tmdb_type)],1114)</onclick>
-        <onclick>ActivateWindow(1114)</onclick>
+        <param name="set_path">true</param>
+        <definition>
+            <onclick>SetProperty(trailer,$INFO[Container.ListItem.Trailer],1114)</onclick>
+
+            <onclick condition="$PARAM[set_path]">SetProperty(path,$INFO[Container.ListItem.FolderPath],1114)</onclick>
+            <onclick condition="![$PARAM[set_path]]">ClearProperty(path,1114)</onclick>
+
+            <onclick>SetProperty(header,$INFO[Container.ListItem.Label]$INFO[Container.ListItem.Year, (,)],1114)</onclick>
+            <onclick>SetProperty(textbox,$ESCINFO[Container.ListItem.Plot,[B][COLOR=dialog_fg_90]$LOCALIZE[31028][/COLOR][/B][CR],],1114)</onclick>
+            <onclick>SetProperty(poster,$VAR[Image_Poster_Container],1114)</onclick>
+            <onclick>SetProperty(landscape,$VAR[Image_LandscapeOnly_Container],1114)</onclick>
+            <onclick>SetProperty(clearlogo,$VAR[Image_Clearlogo_Container],1114)</onclick>
+            <onclick>SetProperty(tmdb_id,$INFO[Container.ListItem.Property(tmdb_id)],1114)</onclick>
+            <onclick>SetProperty(tmdb_type,$INFO[Container.ListItem.Property(tmdb_type)],1114)</onclick>
+            <onclick>ActivateWindow(1114)</onclick>
+        </definition>
     </include>
 
     <include name="DialogInfo_MusicWidgets">
@@ -1299,6 +1325,7 @@
                                 <param name="sliceid">8201</param>
                                 <param name="label">$LOCALIZE[29915]</param>
                                 <param name="icon">special://skin/extras/icons/info2.png</param>
+                                <param name="visible">!String.IsEmpty(Window.Property(path))</param>
                                 <onclick>Dialog.Close(1114)</onclick>
                                 <onclick>Dialog.Close(movieinformation)</onclick>
                                 <onclick>Dialog.Close(musicinformation)</onclick>
