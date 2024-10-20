@@ -186,8 +186,12 @@
             </include>
 
             <!-- Default Controls Home -->
-            <include content="Object_DefaultControl" condition="[$PARAM[is_homemenu]]">
+            <include content="Object_DefaultControl" condition="[$PARAM[is_homemenu]] + !Skin.HasSetting(SideMenu.FocusWidgetsFirst)">
                 <param name="defaultcontrol">300</param>
+                <param name="always">false</param>
+            </include>
+            <include content="Object_DefaultControl" condition="[$PARAM[is_homemenu]] + Skin.HasSetting(SideMenu.FocusWidgetsFirst)">
+                <param name="defaultcontrol">400</param>
                 <param name="always">false</param>
             </include>
 
@@ -232,8 +236,8 @@
             <onload>ClearProperty(Hub.ResetDefaultControl,$PARAM[property_window_id])</onload>
 
             <!-- Home Refocus -->
-            <onload condition="[$PARAM[is_homemenu]] + String.IsEmpty(Window(1198).Property(TMDbHelper.WidgetContainer.UpdateLock.OnStartUp))">AlarmClock(refocuslaunch,SetFocus(300,0,absolute),00:00,silent)</onload>
-            <onload condition="[$PARAM[is_homemenu]] + String.IsEmpty(Window(1198).Property(TMDbHelper.WidgetContainer.UpdateLock.OnStartUp))">SetProperty(TMDbHelper.WidgetContainer.UpdateLock.OnStartUp,True,1198)</onload>
+            <!-- <onload condition="[$PARAM[is_homemenu]] + String.IsEmpty(Window(1198).Property(TMDbHelper.WidgetContainer.UpdateLock.OnStartUp))">AlarmClock(refocuslaunch,SetFocus(300,0,absolute),00:00,silent)</onload>
+            <onload condition="[$PARAM[is_homemenu]] + String.IsEmpty(Window(1198).Property(TMDbHelper.WidgetContainer.UpdateLock.OnStartUp))">SetProperty(TMDbHelper.WidgetContainer.UpdateLock.OnStartUp,True,1198)</onload> -->
         </definition>
     </include>
 
