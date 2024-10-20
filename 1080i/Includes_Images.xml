@@ -195,27 +195,6 @@
         <value condition="!String.IsEmpty(Container.ListItem.Property(fanart))">$INFO[Container.ListItem.Property(fanart)]</value>
     </variable>
 
-    <variable name="Image_Layout_CombinedThumb">
-        <value condition="!String.IsEmpty(ListItem.Art(poster))">$INFO[ListItem.Art(poster)]</value>
-        <value condition="!String.IsEmpty(ListItem.Art(tvshow.poster))">$INFO[ListItem.Art(tvshow.poster)]</value>
-        <value condition="!String.IsEmpty(ListItem.Art(thumb)) + !String.StartsWith(ListItem.Art(thumb),Default) + !String.StartsWith(ListItem.Art(thumb),special://skin/extras/icons/)">$INFO[ListItem.Art(thumb)]</value>
-        <value condition="!String.IsEmpty(ListItem.Icon) + !String.StartsWith(ListItem.Icon,Default) + !String.StartsWith(ListItem.Icon,special://skin/extras/icons/)">$INFO[ListItem.Icon]</value>
-    </variable>
-
-    <variable name="Image_Layout_CombinedIcon">
-        <value condition="!String.IsEmpty(ListItem.Property(icon))">$INFO[ListItem.Property(icon)]</value>
-        <value condition="String.IsEqual(ListItem.DBType,tag)">special://skin/extras/icons/tag.png</value>
-        <value condition="String.IsEqual(ListItem.DBType,director)">special://skin/extras/icons/clapperboard.png</value>
-        <value condition="String.IsEqual(ListItem.Icon,DefaultFolder.png)">special://skin/extras/icons/folder.png</value>
-        <value condition="String.IsEqual(ListItem.Icon,DefaultPlaylist.png)">special://skin/extras/icons/list-check.png</value>
-        <value condition="String.IsEqual(ListItem.Icon,DefaultPartyMode.png)">special://skin/extras/icons/list-check.png</value>
-        <value condition="String.IsEqual(ListItem.Icon,DefaultAddSource.png)">special://skin/extras/icons/file-circle-plus.png</value>
-        <value condition="String.IsEqual(ListItem.Icon,DefaultFile.png)">special://skin/extras/icons/file-circle-plus.png</value>
-        <value condition="String.StartsWith(ListItem.Icon,Default)">$INFO[ListItem.Icon]</value>
-        <value condition="String.StartsWith(ListItem.Icon,special://skin/extras/icons/)">$INFO[ListItem.Icon]</value>
-        <value condition="String.IsEmpty(ListItem.Art(poster)) + String.IsEmpty(ListItem.Art(tvshow.poster)) + ![!String.IsEmpty(ListItem.Art(thumb)) + !String.StartsWith(ListItem.Art(thumb),Default) + !String.StartsWith(ListItem.Art(thumb),special://skin/extras/icons/)] + ![!String.IsEmpty(ListItem.Icon) + !String.StartsWith(ListItem.Icon,Default) + !String.StartsWith(ListItem.Icon,special://skin/extras/icons/)]">special://skin/extras/icons/folder.png</value>
-    </variable>
-
     <variable name="Image_SettingsWindow">
         <value condition="Window.IsVisible(systeminfo)">special://skin/extras/icons/sysinfo.png</value>
         <value condition="Window.IsVisible(SkinSettings)">special://skin/extras/icons/paintbrush.png</value>
@@ -359,6 +338,20 @@
         <value condition="$EXP[Exp_IsStudio]">$INFO[ListItem.Label,resource://resource.images.studios.white/,.png]</value>
         <value condition="$EXP[Exp_IsCountry]">$INFO[ListItem.Label,resource://resource.images.moviecountryicons.maps/,.png]</value>
     </variable>
+
+    <variable name="Image_FanartFallback">
+        <value condition="[String.IsEqual(ListItem.DBType,episode) | String.IsEqual(ListItem.DBType,video) | String.IsEqual(ListItem.DBType,musicvideo)] + !String.IsEmpty(ListItem.Art(thumb)) + !String.IsEqual(ListItem.Icon,ListItem.Art(fanart)) + !String.IsEqual(ListItem.Icon,OverlaySpoiler.png) + !String.IsEqual(ListItem.Art(thumb),ListItem.Art(poster)) + !String.IsEqual(ListItem.Art(thumb),ListItem.Art(tvshow.poster))">$INFO[ListItem.Art(thumb)]</value>
+
+        <value condition="!String.IsEmpty(Control.GetLabel(99998))">$INFO[Control.GetLabel(99998)]</value>
+
+        <value condition="!String.IsEmpty(ListItem.Art(fanart))">$INFO[ListItem.Art(fanart)]</value>
+        <value condition="!String.IsEmpty(ListItem.Art(tvshow.fanart))">$INFO[ListItem.Art(tvshow.fanart)]</value>
+        <value condition="!String.IsEmpty(ListItem.Art(artist.fanart))">$INFO[ListItem.Art(artist.fanart)]</value>
+
+        <value condition="!String.IsEmpty(Skin.String(Startup.ImageFolder))">$INFO[Skin.String(Startup.ImageFolder)]</value>
+        <value>special://skin/extras/backgrounds/launch/</value>
+    </variable>
+
 
     <variable name="Image_ResourceIcon">
         <value condition="$EXP[Exp_IsGenre]">$VAR[Image_GenreIcon]</value>

@@ -3,42 +3,6 @@
 
     <!-- Media List -->
     <include name="View_550_MediaList">
-        <!-- <include content="View_MediaList_Include" condition="Window.IsVisible(music)">
-            <param name="id">550</param>
-            <param name="viewtype_label">$LOCALIZE[31479]</param>
-            <param name="visible">$EXP[Exp_View_550]</param>
-            <param name="right">560</param>
-            <param name="focusposition">1</param>
-            <param name="movement">4</param>
-            <param name="top">240</param>
-            <param name="scrollbar_id">65</param>
-            <param name="overlay">false</param>
-            <include>View_MediaList_Square</include>
-        </include> -->
-        <!-- <include content="View_MediaList_Include" condition="Window.IsVisible(videos)">
-            <param name="id">550</param>
-            <param name="viewtype_label">$LOCALIZE[31480]</param>
-            <param name="visible">$EXP[Exp_View_550]</param>
-            <param name="right">400</param>
-            <param name="top">240</param>
-            <param name="focusposition">1</param>
-            <param name="movement">4</param>
-            <param name="scrollbar_id">65</param>
-            <param name="overlay">false</param>
-            <include>View_MediaList_Poster</include>
-        </include> -->
-        <!-- <include content="View_MediaListOverview_Include">
-            <param name="id">550</param>
-            <param name="viewtype_label">$LOCALIZE[31480]</param>
-            <param name="visible">$EXP[Exp_View_550]</param>
-            <param name="right">560</param>
-            <param name="top">50</param>
-            <param name="focusposition">1</param>
-            <param name="movement">2</param>
-            <param name="scrollbar_id">66</param>
-            <param name="overlay">true</param>
-            <include>View_MediaListOverview_Artwork</include>
-        </include> -->
         <include content="View_MediaListOverview_Include" condition="!Window.IsVisible(videos)">
             <param name="id">550</param>
             <param name="viewtype_label">$LOCALIZE[31480]</param>
@@ -58,8 +22,8 @@
             <param name="visible">$EXP[Exp_View_550]</param>
             <param name="right">400</param>
             <param name="top">290</param>
-            <param name="focusposition">0</param>
-            <param name="movement">2</param>
+            <param name="focusposition">1</param>
+            <param name="movement">1</param>
             <param name="scrollbar_id">65</param>
             <param name="overlay">false</param>
             <include>View_MediaList_Poster</include>
@@ -89,27 +53,77 @@
             <param name="visible">$EXP[Exp_View_552]</param>
             <param name="right">560</param>
             <param name="top">50</param>
-            <param name="focusposition">0</param>
-            <param name="movement">5</param>
+            <param name="focusposition">2</param>
+            <param name="movement">3</param>
             <param name="scrollbar_id">66</param>
             <param name="overlay">true</param>
             <include>View_MediaListOverview_Artwork</include>
         </include>
-        <!-- <include content="View_MediaList_Include">
-            <param name="id">552</param>
-            <param name="viewtype_label">$LOCALIZE[31559]</param>
-            <param name="visible">$EXP[Exp_View_552]</param>
-            <param name="left">900</param>
-            <param name="top">0</param>
-            <param name="focusposition">4</param>
-            <param name="movement">4</param>
+    </include>
+
+    <include name="View_553_Basic_MediaList">
+        <include content="View_MediaListOverview_Include">
+            <param name="id">553</param>
+            <param name="viewtype_label">$LOCALIZE[31120]</param>
+            <param name="visible">$EXP[Exp_View_553]</param>
+            <param name="right">1200</param>
+            <param name="top">50</param>
+            <param name="focusposition">3</param>
+            <param name="focusedlayout_h">190</param>
+            <param name="movement">3</param>
             <param name="scrollbar_id">66</param>
             <param name="overlay">true</param>
-            <param name="include_reposition">View_MediaList_Reposition</param>
-            <include content="View_MediaList_PosterLandscape">
-                <param name="flipx">true</param>
-            </include>
-        </include> -->
+            <param name="variation">true</param>
+
+            <control type="fadelabel" id="99998">
+                <description>Randomizer for plugin-free multiple fanart</description>
+                <font>font_tiny</font>
+                <height>1</height>
+                <width>1</width>
+                <top>-1000</top>
+                <info>ListItem.Art(fanart1)</info>
+                <info>ListItem.Art(fanart2)</info>
+                <info>ListItem.Art(fanart3)</info>
+                <info>ListItem.Art(fanart4)</info>
+                <info>ListItem.Art(fanart5)</info>
+                <info>ListItem.Art(fanart6)</info>
+                <info>ListItem.Art(fanart7)</info>
+                <info>ListItem.Art(fanart8)</info>
+                <info>ListItem.Art(fanart9)</info>
+                <info>ListItem.Art(tvshow.fanart1)</info>
+                <info>ListItem.Art(tvshow.fanart2)</info>
+                <info>ListItem.Art(tvshow.fanart3)</info>
+                <info>ListItem.Art(tvshow.fanart4)</info>
+                <info>ListItem.Art(tvshow.fanart5)</info>
+                <info>ListItem.Art(tvshow.fanart6)</info>
+                <info>ListItem.Art(tvshow.fanart7)</info>
+                <info>ListItem.Art(tvshow.fanart8)</info>
+                <info>ListItem.Art(tvshow.fanart9)</info>
+                <randomize>true</randomize>
+                <include>Defs_PauseAtEnd</include>
+                <scroll>false</scroll>
+                <scrollout>false</scrollout>
+                <resetonlabelchange>true</resetonlabelchange>
+            </control>
+
+            <control type="group">
+                <height>675</height>
+                <width>1200</width>
+                <bottom>0</bottom>
+                <right>0</right>
+                <control type="image">
+                    <include>Texture_Shadow_40</include>
+                    <texture colordiffuse="main_fg_12" border="12">common/box.png</texture>
+                </control>
+                <control type="multiimage">
+                    <imagepath diffuse="diffuse/landscape_w1140_h680.png">$VAR[Image_FanartFallback]</imagepath>
+                    <randomize>true</randomize>
+                    <timeperimage>5000</timeperimage>
+                    <fadetime>400</fadetime>
+                    <aspectratio scalediffuse="false">scale</aspectratio>
+                </control>
+            </control>
+        </include>
     </include>
 
     <include name="View_MediaList_Poster">
@@ -331,6 +345,7 @@
                         <param name="textcolor">main_fg</param>
                         <param name="control">fixedlist</param>
                         <param name="focusedlayout_h">$PARAM[focusedlayout_h]</param>
+                        <param name="variation">$PARAM[variation]</param>
 
                         <include>$PARAM[include_reposition]</include>
 

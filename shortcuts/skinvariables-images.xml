@@ -25,27 +25,53 @@
     </variable>
 
     <!-- Images -->
-    <variable name="Image_Overview" containers="50">
+    <variable name="Image_MediaList_Thumb" containers="50">
         <value condition="[String.IsEqual({listitem}.DBType,episode) | String.IsEqual({listitem}.DBType,video) | String.IsEqual({listitem}.DBType,musicvideo)] + !String.IsEmpty({listitem}.Art(thumb)) + !String.IsEqual({listitem}.Icon,{listitem}.Art(fanart)) + !String.IsEqual({listitem}.Icon,OverlaySpoiler.png) + !String.IsEqual({listitem}.Art(thumb),{listitem}.Art(poster)) + !String.IsEqual({listitem}.Art(thumb),{listitem}.Art(tvshow.poster))">$INFO[{listitem}.Art(thumb)]</value>
-
         <value condition="!String.IsEmpty({listitem}.EPGEventIcon)">$INFO[{listitem}.EPGEventIcon]</value>
-
-        <value condition="String.IsEqual({listitem}.DBType,studio) | String.IsEqual({listitem}.Property(DBType),studio)">$INFO[{listitem}.Label,resource://resource.images.studios.white/,.png]</value>
-        <value condition="String.IsEqual({listitem}.DBType,country) | String.IsEqual({listitem}.Property(DBType),country)">$INFO[{listitem}.Label,resource://resource.images.moviecountryicons.maps/,.png]</value>
-        <value condition="String.IsEqual({listitem}.DBType,genre) | String.IsEqual({listitem}.Property(DBType),genre)">$INFO[{listitem}.Label,genres/,.png]</value>
-
         <value condition="!String.IsEmpty({listitem}.Art(discart))">$INFO[{listitem}.Art(discart)]</value>
         <value condition="!String.IsEmpty({listitem}.Art(album.discart))">$INFO[{listitem}.Art(album.discart)]</value>
-
-        <value condition="!String.IsEmpty({listitem}.Art(thumb)) + [String.IsEqual({listitem}.DBType,album) | String.IsEqual({listitem}.DBType,song) | String.IsEqual({listitem}.DBType,artist)]">$INFO[{listitem}.Art(thumb)]</value>
-
+        <value condition="!String.IsEmpty({listitem}.Art(thumb)) + !String.IsEqual({listitem}.Art(thumb),{listitem}.Icon) + [String.IsEqual({listitem}.DBType,album) | String.IsEqual({listitem}.DBType,song) | String.IsEqual({listitem}.DBType,artist)]">$INFO[{listitem}.Art(thumb)]</value>
         <value condition="!String.IsEmpty({listitem}.Art(fanart))">$INFO[{listitem}.Art(fanart)]</value>
+        <value condition="!String.IsEmpty({listitem}.Art(season.fanart))">$INFO[{listitem}.Art(season.fanart)]</value>
         <value condition="!String.IsEmpty({listitem}.Art(tvshow.fanart))">$INFO[{listitem}.Art(tvshow.fanart)]</value>
-        <value condition="!String.IsEmpty({listitem}.Property(fanart))">$INFO[{listitem}.Property(fanart)]</value>
+        <value condition="!String.IsEmpty({listitem}.Art(poster))">$INFO[{listitem}.Art(poster)]</value>
+        <value condition="!String.IsEmpty({listitem}.Art(season.poster))">$INFO[{listitem}.Art(season.poster)]</value>
+        <value condition="!String.IsEmpty({listitem}.Art(tvshow.poster))">$INFO[{listitem}.Art(tvshow.poster)]</value>
+        <value condition="!String.IsEmpty({listitem}.Art(thumb)) + !String.IsEqual({listitem}.Art(thumb),{listitem}.Icon)">$INFO[{listitem}.Art(thumb)]</value>
 
-        <value condition="!String.IsEmpty({listitem}.Art(poster)) + [String.IsEqual({listitem}.DBType,movie) | String.IsEqual({listitem}.DBType,tvshow) | String.IsEqual({listitem}.DBType,season) | String.IsEqual({listitem}.DBType,set) | String.IsEqual({listitem}.DBType,episode)]">$INFO[{listitem}.Art(poster)]</value>
-        <value condition="!String.IsEmpty({listitem}.Art(thumb))">$INFO[{listitem}.Art(thumb)]</value>
+        <value condition="!String.IsEmpty({listitem}.Property(icon))" />
+        <value condition="String.IsEqual({listitem}.DBType,tag)" />
+        <value condition="String.IsEqual({listitem}.DBType,director)" />
+        <value condition="String.StartsWith({listitem}.Icon,Default)" />
+        <value condition="String.StartsWith({listitem}.Icon,special://skin/extras/icons/)" />
+
         <value condition="!String.IsEmpty({listitem}.Icon)">$INFO[{listitem}.Icon]</value>
+    </variable>
+
+    <variable name="Image_MediaList_Icon" containers="50">
+        <value condition="[String.IsEqual({listitem}.DBType,episode) | String.IsEqual({listitem}.DBType,video) | String.IsEqual({listitem}.DBType,musicvideo)] + !String.IsEmpty({listitem}.Art(thumb)) + !String.IsEqual({listitem}.Icon,{listitem}.Art(fanart)) + !String.IsEqual({listitem}.Icon,OverlaySpoiler.png) + !String.IsEqual({listitem}.Art(thumb),{listitem}.Art(poster)) + !String.IsEqual({listitem}.Art(thumb),{listitem}.Art(tvshow.poster))" />
+        <value condition="!String.IsEmpty({listitem}.EPGEventIcon)" />
+        <value condition="!String.IsEmpty({listitem}.Art(discart))" />
+        <value condition="!String.IsEmpty({listitem}.Art(album.discart))" />
+        <value condition="!String.IsEmpty({listitem}.Art(thumb)) + !String.IsEqual({listitem}.Art(thumb),{listitem}.Icon) + [String.IsEqual({listitem}.DBType,album) | String.IsEqual({listitem}.DBType,song) | String.IsEqual({listitem}.DBType,artist)]" />
+        <value condition="!String.IsEmpty({listitem}.Art(fanart))" />
+        <value condition="!String.IsEmpty({listitem}.Art(season.fanart))" />
+        <value condition="!String.IsEmpty({listitem}.Art(tvshow.fanart))" />
+        <value condition="!String.IsEmpty({listitem}.Art(poster))" />
+        <value condition="!String.IsEmpty({listitem}.Art(season.poster))" />
+        <value condition="!String.IsEmpty({listitem}.Art(tvshow.poster))" />
+        <value condition="!String.IsEmpty({listitem}.Art(thumb)) + !String.IsEqual({listitem}.Art(thumb),{listitem}.Icon)" />
+
+        <value condition="!String.IsEmpty({listitem}.Property(icon))">$INFO[{listitem}.Property(icon)]</value>
+        <value condition="String.IsEqual({listitem}.DBType,tag)">special://skin/extras/icons/tag.png</value>
+        <value condition="String.IsEqual({listitem}.DBType,director)">special://skin/extras/icons/clapperboard.png</value>
+        <value condition="String.IsEqual({listitem}.Icon,DefaultFolder.png)">special://skin/extras/icons/folder.png</value>
+        <value condition="String.IsEqual({listitem}.Icon,DefaultPlaylist.png)">special://skin/extras/icons/list-check.png</value>
+        <value condition="String.IsEqual({listitem}.Icon,DefaultPartyMode.png)">special://skin/extras/icons/list-check.png</value>
+        <value condition="String.IsEqual({listitem}.Icon,DefaultAddSource.png)">special://skin/extras/icons/file-circle-plus.png</value>
+        <value condition="String.IsEqual({listitem}.Icon,DefaultFile.png)">special://skin/extras/icons/file-circle-plus.png</value>
+        <value condition="String.StartsWith({listitem}.Icon,Default)">$INFO[{listitem}.Icon]</value>
+        <value condition="String.StartsWith({listitem}.Icon,special://skin/extras/icons/)">$INFO[{listitem}.Icon]</value>
     </variable>
 
     <variable name="Image_Icon" containers="50,503">
