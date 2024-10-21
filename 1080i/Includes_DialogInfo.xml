@@ -1298,13 +1298,10 @@
         <param name="size">Dimension_DialogHugeMenu</param>
         <param name="include_artwork">false</param>
         <definition>
+            <include>Dialog_Dim_Overlay</include>
             <control type="group">
                 <include>$PARAM[size]</include>
                 <include>Animation_Right_Delay</include>
-
-                <include content="Dialog_Dim_Side">
-                    <param name="slide_animation">false</param>
-                </include>
 
                 <include content="Dialog_Background_Side" condition="!String.IsEmpty(Window.Property(path))">
                     <param name="slide_condition">!Integer.IsEqual(Container(8000).NumItems,0)</param>
@@ -1453,6 +1450,10 @@
         <param name="textbox">$VAR[Label_Overlay_PlotBox]</param>
         <param name="include_movement">DialogInfo_PlotBox_OnMove</param>
         <definition>
+            <include content="Dialog_Dim_Overlay">
+                <param name="visible">$PARAM[visible]</param>
+            </include>
+
             <control type="group">
                 <include>Dimension_DialogFullMenu</include>
                 <visible allowhiddenfocus="true">$PARAM[visible]</visible>
@@ -1477,9 +1478,6 @@
                     <param name="posx">320</param>
                     <param name="delay">400</param>
                     <param name="reversible">true</param>
-                </include>
-                <include content="Dialog_Dim_Side">
-                    <param name="slide_animation">false</param>
                 </include>
 
                 <include content="Dialog_Background_Side" condition="Window.IsVisible(DialogVideoInfo.xml) | Window.IsVisible(DialogMusicInfo.xml)">

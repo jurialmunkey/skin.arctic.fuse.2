@@ -6,6 +6,7 @@
         <param name="wrapmultiline">false</param>
         <param name="visible">true</param>
         <param name="width">info_plot_w</param>
+        <param name="height">165</param>
         <definition>
             <control type="textbox">
                 <top>-20</top>
@@ -13,7 +14,7 @@
                 <textcolor>$PARAM[colordiffuse]_100</textcolor>
                 <font>font_title_main</font>
                 <aligny>center</aligny>
-                <height max="165">auto</height>
+                <height max="165">$PARAM[height]</height>
                 <visible>$PARAM[visible]</visible>
                 <width>$PARAM[width]</width>
             </control>
@@ -52,8 +53,8 @@
         <param name="colordiffuse">main_fg</param>
         <param name="container" />
         <param name="width">info_plot_w</param>
-        <param name="mainlogo_visible">[!String.IsEmpty(Window(Home).Property(TMDBHelper.ListItem.CropImage)) | [!String.IsEmpty(Window(Home).Property(CropImage)) + !String.IsEmpty(Window(Home).Property(TMDBHelper.Image.Override))]]</param>
-        <!-- <param name="mainlogo_visible">[!String.IsEmpty(Window(Home).Property(TMDBHelper.ListItem.CropImage)) | !String.IsEmpty(ListItem.Art(clearlogo)) | !String.IsEmpty(ListItem.Art(tvshow.clearlogo)) | !String.IsEmpty(ListItem.Art(artist.clearlogo)) | [!String.IsEmpty(Window(Home).Property(CropImage)) + !String.IsEmpty(Window(Home).Property(TMDBHelper.Image.Override))]]</param> -->
+        <!-- <param name="mainlogo_visible">[!String.IsEmpty(Window(Home).Property(TMDBHelper.ListItem.CropImage))]</param> -->
+        <param name="mainlogo_visible">[!String.IsEmpty(Window(Home).Property(TMDBHelper.ListItem.CropImage)) | !String.IsEmpty(ListItem.Art(clearlogo)) | !String.IsEmpty(ListItem.Art(tvshow.clearlogo)) | !String.IsEmpty(ListItem.Art(artist.clearlogo))]</param>
         <param name="mainlogo_texture">$VAR[Image_CropLogo]</param>
         <definition>
             <!-- Title Only -->
@@ -62,6 +63,7 @@
                 <param name="colordiffuse">$PARAM[colordiffuse]</param>
                 <param name="visible">True</param>
                 <param name="width">$PARAM[width]</param>
+                <param name="height">auto</param>
             </include>
             <!-- Other -->
             <include content="Info_Title_Logo" condition="Skin.HasSetting(TMDbHelper.EnableCrop)">
@@ -70,6 +72,7 @@
                 <param name="mainlogo_visible">$PARAM[mainlogo_visible]</param>
                 <param name="mainlogo_texture">$PARAM[mainlogo_texture]</param>
                 <param name="width">$PARAM[width]</param>
+                <param name="height">$PARAM[height]</param>
             </include>
         </definition>
     </include>

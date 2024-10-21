@@ -14,6 +14,9 @@
         <param name="lines_right">476</param>
         <param name="include_artwork">true</param>
         <definition>
+            <include content="Dialog_Dim_Overlay">
+                <param name="visible">![Container(450).IsUpdating | Integer.IsEqual(Container(450).NumItems,0)]</param>
+            </include>
             <control type="group">
                 <include>$PARAM[dialog_size]</include>
                 <include>Animation_Right_Delay</include>
@@ -27,10 +30,6 @@
                     <param name="type">Conditional</param>
                     <param name="posx">320</param>
                     <param name="condition">[Container(450).IsUpdating | Integer.IsEqual(Container(450).NumItems,0)]</param>
-                </include>
-                <!-- <visible allowhiddenfocus="true">!Container(450).IsUpdating + !Integer.IsEqual(Container(450).NumItems,0)</visible> -->
-                <include content="Dialog_Dim_Side">
-                    <param name="slide_animation">False</param>
                 </include>
                 <include content="Dialog_Foreground_Side">
                     <param name="dialog_size">$PARAM[dialog_size]</param>
@@ -116,34 +115,12 @@
 
     <include name="DialogCustom1163_Hubs">
         <definition>
-            <control type="image">
-                <texture colordiffuse="main_bg_70">common/white.png</texture>
-                <include content="Animation_Fade_In">
-                    <param name="type">WindowOpen</param>
-                    <param name="delay">0</param>
-                </include>
-                <include content="Animation_Fade_Out">
-                    <param name="type">WindowClose</param>
-                </include>
-                <include content="Animation_Fade_In">
-                    <param name="type">Conditional</param>
-                    <param name="delay">0</param>
-                    <param name="condition">![Container(450).IsUpdating | Integer.IsEqual(Container(450).NumItems,0)]</param>
-                </include>
-                <include content="Animation_Fade_Out">
-                    <param name="type">Conditional</param>
-                    <param name="condition">[Container(450).IsUpdating | Integer.IsEqual(Container(450).NumItems,0)]</param>
-                </include>
-            </control>
+            <include content="Dialog_Dim_Overlay">
+                <param name="visible">![Container(450).IsUpdating | Integer.IsEqual(Container(450).NumItems,0)]</param>
+            </include>
+
             <control type="group">
-                <!-- <left>-view_menu_main</left> -->
                 <width>view_menu_main</width>
-
-                <include content="Dialog_Dim_Side">
-                    <param name="slide_animation">False</param>
-                    <param name="flipx">false</param>
-                </include>
-
                 <control type="grouplist">
                     <control type="group">
                         <left>0</left>
