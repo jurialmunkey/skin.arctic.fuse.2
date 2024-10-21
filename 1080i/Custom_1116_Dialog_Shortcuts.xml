@@ -54,23 +54,19 @@
         <include>Dialog_Dim_Overlay</include>
 
         <control type="group">
-            <include>Dimension_DialogFullMenu</include>
+            <include>Dimension_DialogMainMenu</include>
             <include>Animation_Right_Delay</include>
 
             <!-- Bottom Layer -->
-            <include content="Dialog_Background_Side">
+            <!-- <include content="Dialog_Background_Side">
                 <param name="slide_condition">True</param>
-                <param name="dialog_size">Dimension_DialogFullMenu</param>
-                <!-- Side Buttons -->
+                <param name="dialog_size">Dimension_DialogMainMenu</param>
                 <control type="group">
                     <include>Dimension_Dialog_Body</include>
                     <control type="grouplist" id="9000">
                         <include>Dialog_Side_Grouplist_Def</include>
                         <onright>22001</onright>
                         <onback>29999</onback>
-                        <!-- <onup>9005</onup>
-                        <ondown>9003</ondown> -->
-
                         <include content="Dialog_Side_Button">
                             <param name="id">01</param>
                             <param name="label">$LOCALIZE[186]</param>
@@ -109,10 +105,10 @@
                         </include>
                     </control>
                 </control>
-            </include>
+            </include> -->
 
             <include content="Dialog_Foreground_Side">
-                <param name="dialog_size">Dimension_DialogFullMenu</param>
+                <param name="dialog_size">Dimension_DialogMainMenu</param>
                 <param name="slide_condition">True</param>
                 <param name="lines_right">640</param>
                 <param name="topline">true</param>
@@ -409,6 +405,27 @@
                                             <onback>29999</onback>
                                             <!-- <onup>23001</onup> -->
                                             <!-- <ondown>23002</ondown> -->
+                                        </include>
+
+                                        <include content="Dialog_Side_Button">
+                                            <param name="id">04</param>
+                                            <param name="label">$LOCALIZE[31533]</param>
+                                            <param name="icon">special://skin/extras/icons/list-ol.png</param>
+                                            <param name="visible">[String.IsEqual(Window(Home).Property(Shortcuts.EditMode),mode=widgets) | String.IsEqual(Window(Home).Property(Shortcuts.EditMode),mode=submenu) | String.EndsWith(Window(Home).Property(Shortcuts.EditMenu),-widgetsonly) | String.EndsWith(Window(Home).Property(Shortcuts.EditMenu),-globalwidgets) | String.IsEmpty(Window(Home).Property(Shortcuts.EditMode))]</param>
+                                            <onclick>ClearProperty(Shortcuts.Groupings.Links,Home)</onclick>
+                                            <onclick>RunPlugin($INFO[Container(22001).ListItem.Property(url),,&amp;func=do_list_add&amp;&amp;item_limit::80]$VAR[Path_Shortcut_UseRawPath]$VAR[Path_Shortcut_UseCategory])</onclick>
+                                            <onback>29999</onback>
+                                        </include>
+
+                                        <include content="Dialog_Side_Button">
+                                            <param name="id">05</param>
+                                            <param name="label">$LOCALIZE[31534]</param>
+                                            <param name="icon">special://skin/extras/icons/trash-can.png</param>
+                                            <param name="visible">[String.IsEqual(Window(Home).Property(Shortcuts.EditMode),mode=widgets) | String.IsEqual(Window(Home).Property(Shortcuts.EditMode),mode=submenu) | String.EndsWith(Window(Home).Property(Shortcuts.EditMenu),-widgetsonly) | String.EndsWith(Window(Home).Property(Shortcuts.EditMenu),-globalwidgets) | String.IsEmpty(Window(Home).Property(Shortcuts.EditMode))]</param>
+                                            <onclick>ClearProperty(Shortcuts.Category,Home)</onclick>
+                                            <onclick>ClearProperty(Shortcuts.Groupings.Links,Home)</onclick>
+                                            <onclick>RunPlugin($INFO[Container(22001).ListItem.Property(url),,&amp;func=do_list_del]$VAR[Path_Shortcut_UseRawPath])</onclick>
+                                            <onback>29999</onback>
                                         </include>
                                     </control>
                                     <control type="grouplist" id="23000">
