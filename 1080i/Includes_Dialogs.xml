@@ -126,28 +126,6 @@
         </definition>
     </include>
 
-    <include name="Dialog_Dim_Side">
-        <param name="flipx">true</param>
-        <param name="dim_top">-480</param>
-        <param name="dim_bottom">-480</param>
-        <param name="dim_visible">true</param>
-        <param name="slide_condition">ControlGroup(9000).HasFocus()</param>
-        <param name="slide_animation">true</param>
-        <definition>
-            <include content="Object_Dim_Side">
-                <param name="flipx">$PARAM[flipx]</param>
-                <top>$PARAM[dim_top]</top>
-                <bottom>$PARAM[dim_bottom]</bottom>
-                <left>-280</left>
-                <right>-280</right>
-                <visible>$PARAM[dim_visible]</visible>
-                <include content="Animation_SlideIn_Dialog_Side" condition="$PARAM[slide_animation]">
-                    <param name="slide_condition">$PARAM[slide_condition]</param>
-                </include>
-            </include>
-        </definition>
-    </include>
-
     <include name="Dialog_Background_Glass">
         <control type="image">
             <texture colordiffuse="dialog_fg_12" border="20">common/dialog.png</texture>
@@ -172,13 +150,15 @@
 
     <include name="Dialog_Background_Side">
         <param name="slide_animation">true</param>
-        <param name="slide_condition">ControlGroup(9000).HasFocus()</param>
+        <param name="slide_condition">true</param>
         <definition>
             <control type="group">
-                <include content="Animation_SlideIn_Dialog_Side" condition="$PARAM[slide_animation]">
-                    <param name="slide_condition">$PARAM[slide_condition]</param>
+                <left>-120</left>
+                <include content="Animation_Slide_In">
+                    <param name="posx">120</param>
+                    <param name="condition">$PARAM[slide_condition]</param>
                 </include>
-                <include content="Dialog_Background_Group">
+                <include content="Dialog_Background_Group" condition="$PARAM[slide_animation]">
                     <param name="include_glass">false</param>
                     <param name="dialog_size">$PARAM[dialog_size]</param>
                 </include>
@@ -188,16 +168,11 @@
     </include>
 
     <include name="Dialog_Foreground_Side">
-        <param name="slide_animation">false</param>
-        <param name="slide_condition">ControlGroup(9000).HasFocus()</param>
         <param name="topline">true</param>
         <param name="subline">true</param>
         <param name="lines_right">0</param>
         <definition>
             <control type="group">
-                <include content="Animation_SlideIn_Dialog_Side" condition="$PARAM[slide_animation]">
-                    <param name="slide_condition">$PARAM[slide_condition]</param>
-                </include>
                 <include content="Dialog_Background_Group">
                     <param name="include_glass">true</param>
                     <param name="dialog_size">$PARAM[dialog_size]</param>
