@@ -73,30 +73,35 @@
 
     <include name="Dialog_Background_BlurDimension_DialogSideMenu">
         <include content="Dialog_Background_Blur">
+            <param name="shadow">$PARAM[shadow]</param>
             <param name="diffuse">diffuse/dialog_w680_h1000.png</param>
         </include>
     </include>
 
     <include name="Dialog_Background_BlurDimension_DialogMainMenu">
         <include content="Dialog_Background_Blur">
+            <param name="shadow">$PARAM[shadow]</param>
             <param name="diffuse">diffuse/dialog_w1480_h1000.png</param>
         </include>
     </include>
 
     <include name="Dialog_Background_BlurDimension_DialogWideMenu">
         <include content="Dialog_Background_Blur">
+            <param name="shadow">$PARAM[shadow]</param>
             <param name="diffuse">diffuse/dialog_w920_h1000.png</param>
         </include>
     </include>
 
     <include name="Dialog_Background_BlurDimension_DialogHugeMenu">
         <include content="Dialog_Background_Blur">
+            <param name="shadow">$PARAM[shadow]</param>
             <param name="diffuse">diffuse/dialog_w1480_h1000.png</param>
         </include>
     </include>
 
     <include name="Dialog_Background_BlurDimension_DialogFullMenu">
         <include content="Dialog_Background_Blur">
+            <param name="shadow">$PARAM[shadow]</param>
             <param name="diffuse">diffuse/dialog_w1480_h1000.png</param>
         </include>
     </include>
@@ -134,14 +139,19 @@
 
     <include name="Dialog_Background_Group">
         <param name="include_glass">false</param>
+        <param name="shadow">true</param>
         <definition>
             <control type="group">
                 <include content="Dimension_Padding">
                     <param name="pad">40</param>
                 </include>
                 <control type="group">
-                    <include condition="$EXP[Exp_DialogTheme_IsAdaptive]">Dialog_Background_Blur$PARAM[dialog_size]</include>
-                    <include condition="!$EXP[Exp_DialogTheme_IsAdaptive]">Dialog_Background_Blur_Standard</include>
+                    <include content="Dialog_Background_Blur$PARAM[dialog_size]" condition="$EXP[Exp_DialogTheme_IsAdaptive]">
+                        <param name="shadow">$PARAM[shadow]</param>
+                    </include>
+                    <include content="Dialog_Background_Blur_Standard" condition="!$EXP[Exp_DialogTheme_IsAdaptive]">
+                        <param name="shadow">$PARAM[shadow]</param>
+                    </include>
                 </control>
                 <include condition="$PARAM[include_glass]">Dialog_Background_Glass</include>
             </control>
