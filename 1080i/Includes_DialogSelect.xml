@@ -1,6 +1,120 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <includes>
 
+    <include name="DialogSelect_Viewtypes">
+        <include>Dialog_Dim_Overlay</include>
+        <control type="group">
+            <include>Dimension_DialogMainMenu</include>
+            <include>Animation_Right_Delay</include>
+
+
+            <include content="Dialog_Foreground_Side">
+                <param name="dialog_size">Dimension_DialogMainMenu</param>
+                <param name="slide_condition">True</param>
+                <param name="lines_right">0</param>
+                <param name="topline">false</param>
+                <param name="subline">false</param>
+
+                <!-- Header -->
+                <include content="Dialog_Head">
+                    <param name="id">1</param>
+                </include>
+                <include>Dialog_Head_CloseButton</include>
+
+                <!-- Content -->
+                <control type="group">
+                    <include>Dimension_Dialog_Body</include>
+                    <control type="group">
+                        <include>Dimension_Dialog_Body_Group</include>
+                        <control type="group">
+                            <width>settings_category_w</width>
+
+                            <control type="image">
+                                <texture colordiffuse="dialog_fg_12">common/white.png</texture>
+                                <height>1</height>
+                                <top>-20</top>
+                                <left>20</left>
+                                <right>20</right>
+                            </control>
+
+                            <control type="image">
+                                <texture colordiffuse="dialog_fg_12">common/white.png</texture>
+                                <height>1</height>
+                                <bottom>-20</bottom>
+                                <left>20</left>
+                                <right>20</right>
+                            </control>
+
+                            <include content="List_DialogSelect">
+                                <param name="id">3</param>
+                                <param name="textcolor">dialog_fg</param>
+                                <pagecontrol>61</pagecontrol>
+                                <onright>61</onright>
+                                <onleft condition="Control.IsVisible(9001)">9001</onleft>
+                                <onleft condition="!Control.IsVisible(9001)">9000</onleft>
+                                <right>20</right>
+                            </include>
+                            <include content="List_DialogSelect">
+                                <param name="id">6</param>
+                                <param name="textcolor">dialog_fg</param>
+                                <pagecontrol>62</pagecontrol>
+                                <onright>62</onright>
+                                <onleft condition="Control.IsVisible(9001)">9001</onleft>
+                                <onleft condition="!Control.IsVisible(9001)">9000</onleft>
+                                <right>20</right>
+                            </include>
+                        </control>
+                        <include content="Dialog_Outline_InnerBox">
+                            <left>settings_category_w</left>
+                            <right>20</right>
+                            <top>-20</top>
+                            <bottom>-20</bottom>
+                            <control type="image">
+                                <aspectratio>keep</aspectratio>
+                                <texture background="true">$INFO[Container(6).ListItem.Icon]</texture>
+                            </control>
+                        </include>
+                        <control type="group">
+                            <height>40</height>
+                            <right>20</right>
+                            <bottom>-60</bottom>
+                            <control type="label">
+                                <aligny>center</aligny>
+                                <align>right</align>
+                                <font>font_hint_black</font>
+                                <textcolor>main_fg_30</textcolor>
+                                <label>$INFO[Container(3).NumItems,, $LOCALIZE[31022]]</label>
+                                <visible>Control.IsVisible(3)</visible>
+                            </control>
+                            <control type="label">
+                                <aligny>center</aligny>
+                                <align>right</align>
+                                <font>font_hint_black</font>
+                                <textcolor>main_fg_30</textcolor>
+                                <label>$INFO[Container(6).NumItems,, $LOCALIZE[31022]]</label>
+                                <visible>Control.IsVisible(6)</visible>
+                            </control>
+                        </control>
+                    </control>
+
+                    <include content="Dialog_Scrollbar">
+                        <param name="id">61</param>
+                        <visible>Control.IsVisible(3)</visible>
+                        <onleft>3</onleft>
+                    </include>
+
+                    <include content="Dialog_Scrollbar">
+                        <param name="id">62</param>
+                        <visible>Control.IsVisible(6)</visible>
+                        <onleft>6</onleft>
+                    </include>
+
+                </control>
+            </include>
+
+        </control>
+    </include>
+
     <include name="DialogSelect_Standard">
         <include>Dialog_Dim_Overlay</include>
         <control type="group">
