@@ -1447,12 +1447,8 @@
         <value condition="Window.IsVisible(videoplaylist)">$LOCALIZE[559]</value>
         <value condition="Window.IsVisible(musicplaylist)">$LOCALIZE[559]</value>
         <value condition="Window.IsVisible(weather)">$LOCALIZE[8]</value>
-        <value condition="Window.IsVisible(1185)">$LOCALIZE[137]</value>
         <value condition="Window.IsVisible(filemanager)">$LOCALIZE[7]</value>
         <value condition="Window.IsVisible(MyMusicPlaylistEditor.xml)">$LOCALIZE[10503]</value>
-        <value condition="[Window.IsVisible(10025) | Window.IsVisible(10502)] + [Container.Content(addons) | !String.IsEmpty(Container.PluginName)]">$INFO[Container.FolderName]</value>
-        <value condition="[Window.IsVisible(10025) | Window.IsVisible(10502)] + Container.Content(files)">$LOCALIZE[744]</value>
-        <value condition="[Window.IsVisible(10025) | Window.IsVisible(10502)]">$LOCALIZE[14022]</value>
         <value condition="Window.IsVisible(tvchannels)">$LOCALIZE[10700]</value>
         <value condition="Window.IsVisible(tvguide)">$LOCALIZE[10702]</value>
         <value condition="Window.IsVisible(tvrecordings)">$LOCALIZE[10701]</value>
@@ -1462,8 +1458,14 @@
         <value condition="Window.IsVisible(1131)">$LOCALIZE[31020]</value>
         <value condition="Window.IsVisible(1132)">$LOCALIZE[24001]</value>
         <value condition="Window.IsVisible(1105)">$LOCALIZE[31066]</value>
-        <value condition="Window.IsVisible(pictures)">$LOCALIZE[10002]</value>
+        <value condition="Window.IsVisible(1185)">$LOCALIZE[137]</value>
         <value condition="Window.IsVisible(favouritesbrowser)">$LOCALIZE[1036]</value>
+        <value condition="Window.IsMedia + !String.IsEmpty(Container.PluginName) + !String.IsEmpty(Container.FolderName)">$INFO[Container.FolderName]</value>
+        <value condition="Window.IsMedia + !String.IsEmpty(Container.PluginName)">$LOCALIZE[24000]</value>
+        <value condition="Window.IsMedia + Container.Content(addons)">$LOCALIZE[24001]</value>
+        <value condition="Window.IsMedia + Container.Content(files)">$LOCALIZE[744]</value>
+        <value condition="Window.IsVisible(pictures)">$LOCALIZE[10002]</value>
+        <value condition="Window.IsMedia">$LOCALIZE[14022]</value>
     </variable>
 
     <variable name="Label_Header_Hubs">
@@ -1517,8 +1519,9 @@
         <value condition="Container.Content(episodes) + !String.IsEmpty(Container.FolderName) + String.IsEqual(Container.FolderName,Container.ShowTitle)">$LOCALIZE[20360]</value>
 
         <!-- Category Labels -->
-        <value condition="!String.IsEmpty(Container.PluginCategory)">$INFO[Container.PluginCategory]</value>
-        <value condition="!String.IsEmpty(Container.FolderName)">$INFO[Container.FolderName]</value>
+        <value condition="Window.IsMedia + !String.IsEmpty(Container.PluginCategory)">$INFO[Container.PluginCategory]</value>
+        <value condition="Window.IsMedia + !String.IsEmpty(Container.FolderName) + String.IsEmpty(Container.PluginName)">$INFO[Container.FolderName]</value>
+        <value condition="Window.IsMedia + !String.IsEmpty(Container.PluginName)">$LOCALIZE[24000]</value>
         <value condition="Window.IsVisible(MyPVRGuide.xml)">$INFO[Container(11).ListItem.Label]</value>
         <value condition="Window.IsVisible(10025)">$LOCALIZE[14236]</value>
         <value condition="Window.IsVisible(10502)">$LOCALIZE[14237]</value>
