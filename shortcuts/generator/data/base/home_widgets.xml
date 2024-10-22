@@ -20,13 +20,15 @@
                 <items menu="sidemenu">
                     <item>
                         <value name="comments">Sidemenu Widgets for {item} {item_x} {item_label}</value>
+                        <condition>{item_disabled}!=True</condition>
                         <template>generator/data/parts/basic_template.xmltemplate</template>
                         <value name="widget_category_visible">String.IsEqual(Container(300).ListItem.Property(guid),{item_guid}) | !Skin.HasSetting(Hub.Home.DisableMoveBetweenGroups)</value>
                         <value name="grouplist_item_x">$MATH[{item_x} + 100]</value>
+                        <enumitem name="position_enum_x">sidemenu_{item_menu}</enumitem>
                         <value name="widget_custom_onfocus"><![CDATA[
                             <onfocus>SetProperty(SideMenu.CurrentGUID,{item_guid},{property_window_id})</onfocus>
                             <onfocus>SetProperty(SideMenu.CurrentName,{item_label},{property_window_id})</onfocus>
-                            <onfocus>SetProperty(SideMenu.CurrentItem,{item_x},{property_window_id})</onfocus>
+                            <onfocus>SetProperty(SideMenu.CurrentItem,$MATH[{position_enum_x} - 1],{property_window_id})</onfocus>
                         ]]></value>
                         <value name="includes_part">
                             <items mode="widgets" item="{item_x}" menu="{item_menu}">

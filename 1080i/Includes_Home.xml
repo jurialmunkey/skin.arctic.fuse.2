@@ -24,8 +24,30 @@
 
     <include name="Home_Menu_List_Vert_Main">
         <width>view_menu_main</width>
+        <include content="Object_Height" condition="[Skin.HasSetting(SideMenu.DisableProfileLogo) | Skin.HasSetting(SideMenu.DisableSearchAndOptions)]">
+            <param name="height">view_menu_extended_height</param>
+        </include>
         <height>view_menu_height</height>
         <centertop>50%</centertop>
+    </include>
+
+    <include name="Home_Menu_List_Reposition">
+        <animation effect="slide" start="0" end="0,40" condition="Integer.IsEqual(Container($PARAM[id]).NumItems,6)">Conditional</animation>
+        <animation effect="slide" start="0" end="0,80" condition="Integer.IsEqual(Container($PARAM[id]).NumItems,5)">Conditional</animation>
+        <animation effect="slide" start="0" end="0,120" condition="Integer.IsEqual(Container($PARAM[id]).NumItems,4)">Conditional</animation>
+        <animation effect="slide" start="0" end="0,160" condition="Integer.IsEqual(Container($PARAM[id]).NumItems,3)">Conditional</animation>
+        <animation effect="slide" start="0" end="0,200" condition="Integer.IsEqual(Container($PARAM[id]).NumItems,2)">Conditional</animation>
+        <animation effect="slide" start="0" end="0,240" condition="Integer.IsEqual(Container($PARAM[id]).NumItems,1)">Conditional</animation>
+    </include>
+    <include name="Home_Menu_List_Extended_Reposition">
+        <animation effect="slide" start="0" end="0,40" condition="Integer.IsEqual(Container($PARAM[id]).NumItems,8)">Conditional</animation>
+        <animation effect="slide" start="0" end="0,80" condition="Integer.IsEqual(Container($PARAM[id]).NumItems,7)">Conditional</animation>
+        <animation effect="slide" start="0" end="0,120" condition="Integer.IsEqual(Container($PARAM[id]).NumItems,6)">Conditional</animation>
+        <animation effect="slide" start="0" end="0,160" condition="Integer.IsEqual(Container($PARAM[id]).NumItems,5)">Conditional</animation>
+        <animation effect="slide" start="0" end="0,200" condition="Integer.IsEqual(Container($PARAM[id]).NumItems,4)">Conditional</animation>
+        <animation effect="slide" start="0" end="0,240" condition="Integer.IsEqual(Container($PARAM[id]).NumItems,3)">Conditional</animation>
+        <animation effect="slide" start="0" end="0,280" condition="Integer.IsEqual(Container($PARAM[id]).NumItems,2)">Conditional</animation>
+        <animation effect="slide" start="0" end="0,320" condition="Integer.IsEqual(Container($PARAM[id]).NumItems,1)">Conditional</animation>
     </include>
 
     <include name="Home_Menu_List">
@@ -43,12 +65,18 @@
                     <param name="colordiffuse">main_fg_30</param>
                 </include>
 
-                <control type="fixedlist" id="$PARAM[id]">
-                    <focusposition>3</focusposition>
-                    <movement>3</movement>
+                <control type="list" id="$PARAM[id]">
+                    <!-- <focusposition>3</focusposition>
+                    <movement>3</movement> -->
+
+                    <include content="Home_Menu_List_Reposition" condition="!$EXP[Exp_HomeMenu_IsExpanded] + ![Skin.HasSetting(SideMenu.DisableProfileLogo) | Skin.HasSetting(SideMenu.DisableSearchAndOptions)]">
+                        <param name="id">$PARAM[id]</param>
+                    </include>
+                    <include content="Home_Menu_List_Extended_Reposition" condition="!$EXP[Exp_HomeMenu_IsExpanded] + [Skin.HasSetting(SideMenu.DisableProfileLogo) | Skin.HasSetting(SideMenu.DisableSearchAndOptions)]">
+                        <param name="id">$PARAM[id]</param>
+                    </include>
 
                     <include>Home_Menu_List_Vert_Main</include>
-
                     <include>Home_Menu_List_OnBackInfo</include>
 
                     <onfocus condition="!Skin.HasSetting(Hub.Home.EnableDetailedInformation) | $EXP[Exp_HomeMenu_IsExpanded]">SetProperty(Background.ShowOverlay,True,Home)</onfocus>

@@ -94,7 +94,7 @@
 
     <!-- <expression name="Exp_HubName_IsVisible">[!Integer.IsEqual(Container(300).NumItems,0)]</expression> -->
 
-    <expression name="Exp_Navigation_OnWrap">[!$EXP[Exp_ClassicHome_IsVisible]]</expression>
+    <expression name="Exp_Navigation_OnWrap">[!$EXP[Exp_ClassicHome_IsVisible] | Skin.HasSetting(SideMenu.FocusWidgetsFirst)]</expression>
     <expression name="Exp_Navigation_OnBump">[!$EXP[Exp_Navigation_OnWrap]]</expression>
 
     <expression name="Exp_Navigation_OnMenu">[Window.IsVisible(1185) | Window.IsVisible(1105) | $EXP[Exp_InfoDialogs]]</expression>
@@ -133,7 +133,7 @@
 
     <expression name="Exp_View_Scrollbar_Midi_V">[Control.IsVisible(550)]</expression>
     <expression name="Exp_View_Scrollbar_Mini_V">[Control.IsVisible(551)]</expression>
-    <expression name="Exp_View_Scrollbar_Maxi_V">[Control.IsVisible(552) | [$EXP[Exp_View_WallMode] + $EXP[Exp_View_WallVert]]]</expression>
+    <expression name="Exp_View_Scrollbar_Maxi_V">[Control.IsVisible(552) | Control.IsVisible(553) | [$EXP[Exp_View_WallMode] + $EXP[Exp_View_WallVert]]]</expression>
     <expression name="Exp_View_ScrollFilter_HasFocus">[Control.HasFocus(60) | Control.HasFocus(64) | Control.HasFocus(65) | Control.HasFocus(66) | Control.HasFocus(19) | Control.HasFocus(600) | Control.HasFocus(601) | $EXP[Exp_View_SortModeButtons_HasFocus]]</expression>
     <expression name="Exp_View_SortModeButtons_HasFocus">[ControlGroup(8000).HasFocus() | [Control.HasFocus(330) + Integer.IsEqual(Window.Property(List.ViewContainer,8000))]]</expression>
 
@@ -145,7 +145,7 @@
     <expression name="Exp_View_513">$EXP[Exp_View_512]</expression>
     <expression name="Exp_View_523">$EXP[Exp_View_522]</expression>
 
-    <expression name="Exp_View_FullSize">[[Window.IsVisible(videos) | Window.IsVisible(music) | Window.IsVisible(programs) | Window.IsVisible(pictures) | Window.IsVisible(games)] + [Control.IsVisible(552) | $EXP[Exp_View_WallMode]]]</expression>
+    <expression name="Exp_View_FullSize">[[Window.IsVisible(videos) | Window.IsVisible(music) | Window.IsVisible(programs) | Window.IsVisible(pictures) | Window.IsVisible(games)] + [Control.IsVisible(552) | Control.IsVisible(553) | $EXP[Exp_View_WallMode]]]</expression>
 
     <expression name="Exp_View_MidiSize">[[Window.IsVisible(videos) | Window.IsVisible(music) | Window.IsVisible(programs) | Window.IsVisible(pictures) | Window.IsVisible(games)] + [Control.IsVisible(550)]]</expression>
 
