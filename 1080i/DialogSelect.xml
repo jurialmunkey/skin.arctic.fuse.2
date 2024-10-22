@@ -5,7 +5,8 @@
 
     <controls>
 
-        <include condition="![Window.IsActive(selectvideoversion)]">DialogSelect_Standard</include>
+        <include condition="!Window.IsActive(selectvideoversion) + !String.IsEmpty(Window(Home).Property(SkinViewtypes.DialogIsActive))">DialogSelect_Viewtypes</include>
+        <include condition="!Window.IsActive(selectvideoversion) + String.IsEmpty(Window(Home).Property(SkinViewtypes.DialogIsActive))">DialogSelect_Standard</include>
         <include condition="Window.IsActive(selectvideoversion)">DialogSelect_VideoVersions</include>
 
         <!-- Hidden Buttons -->
