@@ -20,6 +20,19 @@
         <value condition="String.IsEqual(Window.Property(hub_prefix),1109)">$VAR[Label_Header_Main_1109]</value>
     </variable>
 
+    <include name="Shortcuts_Window_Onload">
+        <onload condition="Skin.String(Hub.Home.ReplaceWindow,$NUMBER[$PARAM[id]])">SetProperty(categories_menu,menu=$PARAM[id]menu)</onload>
+        <onload condition="Skin.String(Hub.Home.ReplaceWindow,$NUMBER[$PARAM[id]])">SetProperty(hub_prefix,$NUMBER[$PARAM[id]])</onload>
+    </include>
+
+    <include name="Shortcuts_Window_UseAsHome_Toggle_OnClick">
+        <onclick condition="String.IsEqual(Window.Property(categories_menu),menu=$PARAM[id]menu) + !Skin.String(Hub.Home.ReplaceWindow,$NUMBER[$PARAM[id]])">Skin.SetString(Hub.Home.ReplaceWindow,$NUMBER[$PARAM[id]])</onclick>
+        <onclick condition="String.IsEqual(Window.Property(categories_menu),menu=$PARAM[id]menu) + Skin.String(Hub.Home.ReplaceWindow,$NUMBER[$PARAM[id]])">Skin.Reset(Hub.Home.ReplaceWindow)</onclick>
+        <!-- <onclick condition="String.IsEqual(Window.Property(categories_menu),menu=$PARAM[id]menu) + Skin.String(Hub.Home.ReplaceWindow,$NUMBER[$PARAM[id]])">SetProperty(categories_menu,menu=homemenu)</onclick>
+        <onclick condition="String.IsEqual(Window.Property(categories_menu),menu=$PARAM[id]menu) + Skin.String(Hub.Home.ReplaceWindow,$NUMBER[$PARAM[id]])">SetProperty(hub_prefix,Home)</onclick>
+        <onclick condition="String.IsEqual(Window.Property(categories_menu),menu=$PARAM[id]menu) + Skin.String(Hub.Home.ReplaceWindow,$NUMBER[$PARAM[id]])">SetFocus(2800)</onclick> -->
+    </include>
+
 
     <include name="Shortcuts_Window_Content_Spotlight">
         <control type="grouplist" id="3000">
@@ -334,41 +347,6 @@
                 <onunfocus>ClearProperty(HelpHead,1115)</onunfocus>
             </include>
 
-            <include content="DialogInfo_Button">
-                <param name="vertical">false</param>
-                <param name="id">9011</param>
-                <param name="groupid">9111</param>
-                <param name="sliceid">9211</param>
-                <param name="itemgap">0</param>
-                <param name="include_hintlabel">true</param>
-                <param name="label">$LOCALIZE[137]</param>
-                <param name="icon">special://skin/extras/icons/search.png</param>
-                <onclick>SetProperty(Shortcuts.EditMenu,menu=searchmenu,Home)</onclick>
-                <onclick>ClearProperty(Shortcuts.EditMode,Home)</onclick>
-                <onclick>ClearProperty(Shortcuts.EditGUID,Home)</onclick>
-                <onclick>ActivateWindow(1116)</onclick>
-                <onfocus>SetProperty(HelpHead,$LOCALIZE[137],1115)</onfocus>
-                <onfocus>SetProperty(HelpText,$LOCALIZE[31027],1115)</onfocus>
-                <onunfocus>ClearProperty(HelpText,1115)</onunfocus>
-                <onunfocus>ClearProperty(HelpHead,1115)</onunfocus>
-            </include>
-
-            <include content="DialogInfo_Button">
-                <param name="vertical">false</param>
-                <param name="id">9012</param>
-                <param name="groupid">9112</param>
-                <param name="sliceid">9212</param>
-                <param name="itemgap">0</param>
-                <param name="include_hintlabel">true</param>
-                <param name="label">$LOCALIZE[33063]</param>
-                <param name="icon">special://skin/extras/icons/bars.png</param>
-                <onclick>SetProperty(CustomDialogSettingsTitle,[CAPITALIZE]$LOCALIZE[31086][/CAPITALIZE],Home)</onclick>
-                <onclick>SetProperty(CustomDialogSettingsItems,Items_Settings_PowerMenuConfigure,Home)</onclick>
-                <onclick>ActivateWindow(1118)</onclick>
-                <onfocus>SetProperty(HelpHead,$LOCALIZE[33063],1115)</onfocus>
-                <onfocus>SetProperty(HelpText,$LOCALIZE[31031],1115)</onfocus>
-            </include>
-
         </control>
     </include>
 
@@ -407,7 +385,7 @@
                 <align>center</align>
                 <onleft>noop</onleft>
                 <onright>340</onright>
-                <ondown>SetFocus(302)</ondown>
+                <ondown>302</ondown>
                 <onup condition="Control.IsVisible(303)">SetFocus(303,9999,absolute)</onup>
                 <onup condition="Control.IsVisible(300)">SetFocus(300,9999,absolute)</onup>
                 <onup condition="!Control.IsVisible(303) + !Control.IsVisible(300)">302</onup>
@@ -479,59 +457,60 @@
         <include content="Object_Hidden_List">
             <param name="id">2804</param>
             <content>
-                <item>
+                <item id="1">
+                    <label>1101</label>
+                    <property name="value">Hub.1101</property>
+                    <onclick>SetProperty(categories_menu,menu=1101menu)</onclick>
+                    <onclick>SetProperty(hub_prefix,$NUMBER[1101])</onclick>
+                </item>
+                <item id="2">
+                    <label>1102</label>
+                    <property name="value">Hub.1102</property>
+                    <onclick>SetProperty(categories_menu,menu=1102menu)</onclick>
+                    <onclick>SetProperty(hub_prefix,$NUMBER[1102])</onclick>
+                </item>
+                <item id="3">
+                    <label>1103</label>
+                    <property name="value">Hub.1103</property>
+                    <onclick>SetProperty(categories_menu,menu=1103menu)</onclick>
+                    <onclick>SetProperty(hub_prefix,$NUMBER[1103])</onclick>
+                </item>
+                <item id="4">
+                    <label>1104</label>
+                    <property name="value">Hub.1104</property>
+                    <onclick>SetProperty(categories_menu,menu=1104menu)</onclick>
+                    <onclick>SetProperty(hub_prefix,$NUMBER[1104])</onclick>
+                </item>
+                <item id="6">
+                    <label>1106</label>
+                    <property name="value">Hub.1106</property>
+                    <onclick>SetProperty(categories_menu,menu=1106menu)</onclick>
+                    <onclick>SetProperty(hub_prefix,$NUMBER[1106])</onclick>
+                </item>
+                <item id="7">
+                    <label>1107</label>
+                    <property name="value">Hub.1107</property>
+                    <onclick>SetProperty(categories_menu,menu=1107menu)</onclick>
+                    <onclick>SetProperty(hub_prefix,$NUMBER[1107])</onclick>
+                </item>
+                <item id="8">
+                    <label>1108</label>
+                    <property name="value">Hub.1108</property>
+                    <onclick>SetProperty(categories_menu,menu=1108menu)</onclick>
+                    <onclick>SetProperty(hub_prefix,$NUMBER[1108])</onclick>
+                </item>
+                <item id="9">
+                    <label>1109</label>
+                    <property name="value">Hub.1109</property>
+                    <onclick>SetProperty(categories_menu,menu=1109menu)</onclick>
+                    <onclick>SetProperty(hub_prefix,$NUMBER[1109])</onclick>
+                </item>
+                <item id="10">
                     <label>Home</label>
                     <property name="value">Hub.Home</property>
                     <onclick>SetProperty(categories_menu,menu=homemenu)</onclick>
                     <onclick>SetProperty(hub_prefix,Home)</onclick>
-                </item>
-                <item>
-                    <label>1101</label>
-                    <property name="value">Hub.1101</property>
-                    <onclick>SetProperty(categories_menu,menu=1101menu)</onclick>
-                    <onclick>SetProperty(hub_prefix,1101)</onclick>
-                </item>
-                <item>
-                    <label>1102</label>
-                    <property name="value">Hub.1102</property>
-                    <onclick>SetProperty(categories_menu,menu=1102menu)</onclick>
-                    <onclick>SetProperty(hub_prefix,1102)</onclick>
-                </item>
-                <item>
-                    <label>1103</label>
-                    <property name="value">Hub.1103</property>
-                    <onclick>SetProperty(categories_menu,menu=1103menu)</onclick>
-                    <onclick>SetProperty(hub_prefix,1103)</onclick>
-                </item>
-                <item>
-                    <label>1104</label>
-                    <property name="value">Hub.1104</property>
-                    <onclick>SetProperty(categories_menu,menu=1104menu)</onclick>
-                    <onclick>SetProperty(hub_prefix,1104)</onclick>
-                </item>
-                <item>
-                    <label>1106</label>
-                    <property name="value">Hub.1106</property>
-                    <onclick>SetProperty(categories_menu,menu=1106menu)</onclick>
-                    <onclick>SetProperty(hub_prefix,1106)</onclick>
-                </item>
-                <item>
-                    <label>1107</label>
-                    <property name="value">Hub.1107</property>
-                    <onclick>SetProperty(categories_menu,menu=1107menu)</onclick>
-                    <onclick>SetProperty(hub_prefix,1107)</onclick>
-                </item>
-                <item>
-                    <label>1108</label>
-                    <property name="value">Hub.1108</property>
-                    <onclick>SetProperty(categories_menu,menu=1108menu)</onclick>
-                    <onclick>SetProperty(hub_prefix,1108)</onclick>
-                </item>
-                <item>
-                    <label>1109</label>
-                    <property name="value">Hub.1109</property>
-                    <onclick>SetProperty(categories_menu,menu=1109menu)</onclick>
-                    <onclick>SetProperty(hub_prefix,1109)</onclick>
+                    <visible>String.IsEmpty(Skin.String(Hub.Home.ReplaceWindow))</visible>
                 </item>
             </content>
         </include>
