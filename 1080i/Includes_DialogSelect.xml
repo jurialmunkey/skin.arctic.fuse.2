@@ -378,13 +378,114 @@
     </include>
 
     <include name="DialogSelect_VideoVersions">
-        <include content="DialogVideoManager_Main">
-            <param name="id">6</param>
-            <param name="include_sidegrouplist_items">Items_DialogSelect_Standard</param>
-            <param name="label_header">$INFO[Control.GetLabel(1)]</param>
-            <param name="poster_icon">$INFO[Container(6).ListItem.Art(poster)]</param>
-            <param name="landscape_icon">$INFO[Container(6).ListItem.Art(landscape)]</param>
-        </include>
+        <include>Dialog_Dim_Overlay</include>
+        <control type="group">
+            <include>Animation_SlideIn_Dialog</include>
+            <control type="group">
+                <include>Dimension_DialogVersionSelect</include>
+                <control type="group">
+                    <include content="Dialog_Background_Blur">
+                        <param name="diffuse">diffuse/dialog_w1120_h400.png</param>
+                    </include>
+                    <include content="Dialog_Head">
+                        <param name="top">40</param>
+                        <param name="left">40</param>
+                    </include>
+                    <control type="group">
+                        <include>Dialog_Background_Glass</include>
+                        <bottom>80</bottom>
+                        <control type="image">
+                            <top>120</top>
+                            <height>1</height>
+                            <texture colordiffuse="dialog_fg_12">common/white.png</texture>
+                            <left>40</left>
+                            <right>40</right>
+                        </control>
+                        <control type="image">
+                            <bottom>40</bottom>
+                            <height>1</height>
+                            <texture colordiffuse="dialog_fg_12">common/white.png</texture>
+                            <left>40</left>
+                            <right>40</right>
+                        </control>
+                        <control type="scrollbar" id="61">
+                            <centerbottom>40</centerbottom>
+                            <height>scrollbar_w</height>
+                            <orientation>horizontal</orientation>
+                            <left>40</left>
+                            <right>40</right>
+                            <texturesliderbackground colordiffuse="main_fg_12" border="4">scrollbar/scrollh_line.png</texturesliderbackground>
+                            <texturesliderbackground />
+                            <texturesliderbar colordiffuse="main_logo" border="4">scrollbar/scrollh.png</texturesliderbar>
+                            <include>Texture_Scrollbar_H</include>
+                            <onup>6</onup>
+                        </control>
+                        <control type="group">
+                            <top>80</top>
+                            <include content="List_Core">
+                                <param name="orientation">horizontal</param>
+                                <param name="control">fixedlist</param>
+                                <param name="id">6</param>
+                                <param name="item_w">295</param>
+                                <param name="item_h">440</param>
+                                <param name="itemlayout_w">335</param>
+                                <param name="itemlayout_h">480</param>
+                                <param name="itemlayout_include">Layout_VersionPoster</param>
+                                <movement>1</movement>
+                                <param name="offset_x">40</param>
+                                <focusposition>1</focusposition>
+                                <pagecontrol>61</pagecontrol>
+                                <ondown>61</ondown>
+                                <animation effect="slide" end="-167.5" condition="Integer.IsEqual(Container(6).NumItems,2)">Conditional</animation>
+                            </include>
+                        </control>
+                        <control type="grouplist">
+                            <height>80</height>
+                            <centerbottom>-40</centerbottom>
+                            <orientation>horizontal</orientation>
+                            <align>center</align>
+                            <itemgap>10</itemgap>
+                            <include content="Info_Line_VideoQuality_Resolution">
+                                <param name="visible">true</param>
+                                <param name="colordiffuse">main_fg_90</param>
+                                <param name="is_4k">[Integer.IsGreater(Container(6).ListItem.VideoResolution,1080) | String.IsEqual(Container(6).ListItem.VideoResolution,4K)]</param>
+                                <param name="is_fhd">[Integer.IsGreater(Container(6).ListItem.VideoResolution,720)]</param>
+                                <param name="is_hd">[Integer.IsEqual(Container(6).ListItem.VideoResolution,720)]</param>
+                                <param name="is_sd">[!String.IsEmpty(Container(6).ListItem.VideoResolution)]</param>
+                            </include>
+                            <include content="Info_Line_VideoQuality_HDRType">
+                                <param name="visible">true</param>
+                                <param name="colordiffuse">main_fg_90</param>
+                                <param name="is_dolbyvision">[String.IsEqual(Container(6).ListItem.HdrType,dolbyvision)]</param>
+                                <param name="is_hdr">[String.IsEqual(Container(6).ListItem.HdrType,hdr)]</param>
+                                <param name="is_hlg">[String.IsEqual(Container(6).ListItem.HdrType,hlg)]</param>
+                            </include>
+                            <include content="Info_Line_VideoQuality_Object">
+                                <param name="colordiffuse">main_fg_90</param>
+                                <param name="label">$INFO[Container(6).ListItem.VideoCodec]</param>
+                                <param name="visible">!String.IsEmpty(Container(6).ListItem.VideoCodec)</param>
+                            </include>
+                            <include content="Info_Line_VideoQuality_Object">
+                                <param name="colordiffuse">main_fg_90</param>
+                                <param name="label">$INFO[Container(6).ListItem.VideoAspect,,:1]</param>
+                                <param name="visible">!String.IsEmpty(Container(6).ListItem.VideoAspect)</param>
+                            </include>
+                            <include content="Info_Line_AudioChannels">
+                                <param name="colordiffuse">main_fg_90</param>
+                                <param name="listitem_audiochannels">Container(6).ListItem.AudioChannels</param>
+                                <param name="visible">!String.IsEmpty(Container(6).ListItem.AudioChannels)</param>
+                            </include>
+                            <include content="Info_Line_VideoQuality_Object">
+                                <param name="colordiffuse">main_fg_90</param>
+                                <param name="label">$INFO[Container(6).ListItem.AudioCodec]</param>
+                                <param name="visible">!String.IsEmpty(Container(6).ListItem.AudioCodec)</param>
+                            </include>
+                        </control>
+                    </control>
+                </control>
+
+            </control>
+        </control>
         <include content="Object_Hidden_List">
             <param name="id">3</param>
         </include>
