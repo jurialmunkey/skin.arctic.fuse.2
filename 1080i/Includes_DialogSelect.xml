@@ -9,7 +9,6 @@
 
             <include content="Dialog_Foreground_Side">
                 <param name="dialog_size">Dimension_DialogSideMenu</param>
-                <param name="slide_condition">True</param>
                 <param name="lines_right">0</param>
                 <param name="topline">true</param>
                 <param name="subline">true</param>
@@ -29,9 +28,9 @@
                             <param name="id">3</param>
                             <param name="textcolor">dialog_fg</param>
                             <pagecontrol>61</pagecontrol>
-                            <onright>61</onright>
-                            <onleft condition="Control.IsVisible(9001)">9001</onleft>
-                            <onleft condition="!Control.IsVisible(9001)">9000</onleft>
+                            <onleft>Close</onleft>
+                            <onright condition="Control.IsVisible(9001)">9001</onright>
+                            <onright condition="!Control.IsVisible(9001)">9000</onright>
                         </include>
                         <control type="group">
                             <height>40</height>
@@ -49,7 +48,8 @@
 
                     <include content="Dialog_Scrollbar">
                         <param name="id">61</param>
-                        <onleft>3</onleft>
+                        <onleft condition="Control.IsVisible(9001)">9001</onleft>
+                        <onleft condition="!Control.IsVisible(9001)">9000</onleft>
                     </include>
 
                 </control>
@@ -75,6 +75,20 @@
 
     <include name="DialogSelect_Standard">
         <include>Dialog_Dim_Overlay</include>
+
+        <control type="group">
+            <visible>!Skin.HasSetting(Dialog.DisableArtworkPreview)</visible>
+            <include>Animation_Right_Delay</include>
+            <control type="group">
+                <include content="Dialog_Preview_Def">
+                    <param name="icon">$INFO[Container(6).ListItem.Icon]</param>
+                </include>
+                <visible>Control.IsVisible(6)</visible>
+                <visible>String.IsEqual(Control.GetLabel(1),$LOCALIZE[13511]) | String.IsEqual(Control.GetLabel(1),$LOCALIZE[20437])</visible>
+                <animation effect="slide" end="0,200" condition="Container(6).Position(4) | Container(6).Position(5) | Container(6).Position(6) | Container(6).Position(7)">Conditional</animation>
+            </control>
+        </control>
+
         <control type="group">
             <include>Dimension_DialogWideMenu</include>
             <include>Animation_Right_Delay</include>
@@ -119,9 +133,9 @@
                             <param name="id">3</param>
                             <param name="textcolor">dialog_fg</param>
                             <pagecontrol>61</pagecontrol>
-                            <onright>61</onright>
-                            <onleft condition="Control.IsVisible(9001)">9001</onleft>
-                            <onleft condition="!Control.IsVisible(9001)">9000</onleft>
+                            <onleft>Close</onleft>
+                            <onright condition="Control.IsVisible(9001)">9001</onright>
+                            <onright condition="!Control.IsVisible(9001)">9000</onright>
                         </include>
                         <include content="List_DialogSelect" condition="![[Window.IsActive(gamevideofilter) | Window.IsActive(gamestretchmode) | Window.IsActive(gamesaves) | Window.IsActive(gamevideorotation) | Window.IsActive(ingamesaves)]]">
                             <param name="id">6</param>
@@ -129,9 +143,9 @@
                             <param name="item_height">100</param>
                             <param name="textcolor">dialog_fg</param>
                             <pagecontrol>62</pagecontrol>
-                            <onright>62</onright>
-                            <onleft condition="Control.IsVisible(9001)">9001</onleft>
-                            <onleft condition="!Control.IsVisible(9001)">9000</onleft>
+                            <onleft>Close</onleft>
+                            <onright condition="Control.IsVisible(9001)">9001</onright>
+                            <onright condition="!Control.IsVisible(9001)">9000</onright>
                         </include>
                         <include content="List_DialogSelect" condition="[Window.IsActive(gamevideofilter) | Window.IsActive(gamestretchmode) | Window.IsActive(gamesaves) | Window.IsActive(gamevideorotation) | Window.IsActive(ingamesaves)]">
                             <param name="id">10811</param>
@@ -139,9 +153,9 @@
                             <param name="item_height">100</param>
                             <param name="textcolor">dialog_fg</param>
                             <pagecontrol>63</pagecontrol>
-                            <onright>63</onright>
-                            <onleft condition="Control.IsVisible(9001)">9001</onleft>
-                            <onleft condition="!Control.IsVisible(9001)">9000</onleft>
+                            <onleft>Close</onleft>
+                            <onright condition="Control.IsVisible(9001)">9001</onright>
+                            <onright condition="!Control.IsVisible(9001)">9000</onright>
                         </include>
                         <control type="group">
                             <height>40</height>
@@ -168,44 +182,37 @@
 
                     <include content="Dialog_Scrollbar">
                         <param name="id">61</param>
+                        <param name="slide_condition">True</param>
                         <visible>Control.IsVisible(3)</visible>
-                        <onleft>3</onleft>
+                        <onleft condition="Control.IsVisible(9001)">9001</onleft>
+                        <onleft condition="!Control.IsVisible(9001)">9000</onleft>
                     </include>
 
                     <include content="Dialog_Scrollbar">
                         <param name="id">62</param>
+                        <param name="slide_condition">True</param>
                         <visible>Control.IsVisible(6)</visible>
-                        <onleft>6</onleft>
+                        <onleft condition="Control.IsVisible(9001)">9001</onleft>
+                        <onleft condition="!Control.IsVisible(9001)">9000</onleft>
                     </include>
 
                     <include content="Dialog_Scrollbar">
                         <param name="id">63</param>
+                        <param name="slide_condition">True</param>
                         <visible>Control.IsVisible(10811)</visible>
-                        <onleft>10811</onleft>
+                        <onleft condition="Control.IsVisible(9001)">9001</onleft>
+                        <onleft condition="!Control.IsVisible(9001)">9000</onleft>
                     </include>
                 </control>
             </include>
 
-        </control>
-
-        <control type="group">
-            <visible>!Skin.HasSetting(Dialog.DisableArtworkPreview)</visible>
-            <include>Animation_Right_Delay</include>
-            <control type="group">
-                <include content="Dialog_Preview_Def">
-                    <param name="icon">$INFO[Container(6).ListItem.Icon]</param>
-                </include>
-                <visible>Control.IsVisible(6)</visible>
-                <visible>String.IsEqual(Control.GetLabel(1),$LOCALIZE[13511]) | String.IsEqual(Control.GetLabel(1),$LOCALIZE[20437])</visible>
-                <animation effect="slide" end="0,200" condition="Container(6).Position(4) | Container(6).Position(5) | Container(6).Position(6) | Container(6).Position(7)">Conditional</animation>
-            </control>
         </control>
     </include>
 
     <include name="DialogSelect_SideButtons_Games">
         <control type="grouplist" id="9000">
             <include>Dialog_Side_Grouplist_Def</include>
-            <onright>10811</onright>
+            <onleft>10811</onleft>
             <include content="Dialog_Side_Button">
                 <param name="id">01</param>
                 <param name="label">$LOCALIZE[15067]</param>
@@ -241,9 +248,11 @@
     <include name="DialogSelect_SideButtons_Standard">
         <control type="grouplist" id="9000">
             <include>Dialog_Side_Grouplist_Def</include>
-            <onleft>Close</onleft>
-            <onright condition="Control.IsVisible(3)">3</onright>
-            <onright condition="Control.IsVisible(6)">6</onright>
+            <onright condition="Control.IsVisible(61)">61</onright>
+            <onright condition="Control.IsVisible(62)">62</onright>
+            <onright condition="Control.IsVisible(63)">63</onright>
+            <onleft condition="Control.IsVisible(3)">3</onleft>
+            <onleft condition="Control.IsVisible(6)">6</onleft>
             <include>Items_DialogSelect_Standard</include>
         </control>
     </include>

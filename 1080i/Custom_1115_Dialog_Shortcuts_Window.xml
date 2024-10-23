@@ -28,6 +28,35 @@
                         <control type="group" id="30000">
                             <include>Shortcuts_Window_Spinner_Button</include>
 
+                            <include content="Settings_Button">
+                                <param name="id">302</param>
+                                <param name="control">radiobutton</param>
+                                <radiowidth>105</radiowidth>
+                                <top>80</top>
+                                <right>40</right>
+                                <ondown condition="Control.IsVisible(300)">SetFocus(300,0,absolute)</ondown>
+                                <ondown condition="Control.IsVisible(303)">SetFocus(303,0,absolute)</ondown>
+                                <ondown condition="!Control.IsVisible(303) + !Control.IsVisible(300)">2800</ondown>
+                                <onup>2800</onup>
+                                <label>$LOCALIZE[31551]</label>
+                                <selected>[String.IsEqual(Window.Property(categories_menu),menu=homemenu) + String.IsEmpty(Skin.String(Hub.Home.ReplaceWindow))] | [String.IsEqual(Window.Property(categories_menu),menu=1101menu) + Skin.String(Hub.Home.ReplaceWindow,$NUMBER[1101])] | [String.IsEqual(Window.Property(categories_menu),menu=1102menu) + Skin.String(Hub.Home.ReplaceWindow,$NUMBER[1102])] | [String.IsEqual(Window.Property(categories_menu),menu=1103menu) + Skin.String(Hub.Home.ReplaceWindow,$NUMBER[1103])] | [String.IsEqual(Window.Property(categories_menu),menu=1104menu) + Skin.String(Hub.Home.ReplaceWindow,$NUMBER[1104])] | [String.IsEqual(Window.Property(categories_menu),menu=1105menu) + Skin.String(Hub.Home.ReplaceWindow,$NUMBER[1105])] | [String.IsEqual(Window.Property(categories_menu),menu=1106menu) + Skin.String(Hub.Home.ReplaceWindow,$NUMBER[1106])] | [String.IsEqual(Window.Property(categories_menu),menu=1107menu) + Skin.String(Hub.Home.ReplaceWindow,$NUMBER[1107])] | [String.IsEqual(Window.Property(categories_menu),menu=1108menu) + Skin.String(Hub.Home.ReplaceWindow,$NUMBER[1108])] | [String.IsEqual(Window.Property(categories_menu),menu=1109menu) + Skin.String(Hub.Home.ReplaceWindow,$NUMBER[1109])]</selected>
+                                <onclick condition="String.IsEqual(Window.Property(categories_menu),menu=homemenu)">Skin.Reset(Hub.Home.ReplaceWindow)</onclick>
+                                <onclick condition="String.IsEqual(Window.Property(categories_menu),menu=1101menu)">Skin.SetString(Hub.Home.ReplaceWindow,$NUMBER[1101])</onclick>
+                                <onclick condition="String.IsEqual(Window.Property(categories_menu),menu=1102menu)">Skin.SetString(Hub.Home.ReplaceWindow,$NUMBER[1102])</onclick>
+                                <onclick condition="String.IsEqual(Window.Property(categories_menu),menu=1103menu)">Skin.SetString(Hub.Home.ReplaceWindow,$NUMBER[1103])</onclick>
+                                <onclick condition="String.IsEqual(Window.Property(categories_menu),menu=1104menu)">Skin.SetString(Hub.Home.ReplaceWindow,$NUMBER[1104])</onclick>
+                                <onclick condition="String.IsEqual(Window.Property(categories_menu),menu=1105menu)">Skin.SetString(Hub.Home.ReplaceWindow,$NUMBER[1105])</onclick>
+                                <onclick condition="String.IsEqual(Window.Property(categories_menu),menu=1106menu)">Skin.SetString(Hub.Home.ReplaceWindow,$NUMBER[1106])</onclick>
+                                <onclick condition="String.IsEqual(Window.Property(categories_menu),menu=1107menu)">Skin.SetString(Hub.Home.ReplaceWindow,$NUMBER[1107])</onclick>
+                                <onclick condition="String.IsEqual(Window.Property(categories_menu),menu=1108menu)">Skin.SetString(Hub.Home.ReplaceWindow,$NUMBER[1108])</onclick>
+                                <onclick condition="String.IsEqual(Window.Property(categories_menu),menu=1109menu)">Skin.SetString(Hub.Home.ReplaceWindow,$NUMBER[1109])</onclick>
+
+                                <onfocus>SetProperty(HelpHead,$LOCALIZE[31551],1115)</onfocus>
+                                <onfocus>SetProperty(HelpText,$LOCALIZE[31004],1115)</onfocus>
+                                <onunfocus>ClearProperty(HelpText,1115)</onunfocus>
+                                <onunfocus>ClearProperty(HelpHead,1115)</onunfocus>
+                            </include>
+
                             <include content="List_DialogSelect">
                                 <param name="id">303</param>
                                 <param name="itemlayout_include">Layout_MenuList</param>
@@ -41,10 +70,10 @@
                                 <content>plugin://script.skinvariables/?info=get_shortcuts_node&amp;edit=True&amp;skin=$VAR[Path_SkinVariables_SkinFolder]$INFO[Window(Home).Property(SkinVariables.ShortcutsNode.Reload),&amp;reload=,]&amp;menu=sidemenu</content>
                                 <right>40</right>
                                 <onright>340</onright>
-                                <top>80</top>
-                                <bottom>160</bottom>
-                                <onup>2800</onup>
-                                <ondown>302</ondown>
+                                <top>160</top>
+                                <bottom>80</bottom>
+                                <onup>302</onup>
+                                <ondown>2800</ondown>
                                 <visible>String.IsEqual(Window.Property(hub_prefix),Home)</visible>
                                 <visible>String.IsEmpty(Skin.String(Hub.Home.ReplaceWindow))</visible>
 
@@ -61,10 +90,10 @@
                                 <param name="altfocus">!ControlGroup(2800).HasFocus() + !Control.HasFocus(302)</param>
                                 <right>40</right>
                                 <onright>340</onright>
-                                <top>80</top>
-                                <bottom>160</bottom>
-                                <onup>2800</onup>
-                                <ondown>302</ondown>
+                                <top>160</top>
+                                <bottom>80</bottom>
+                                <onup>302</onup>
+                                <ondown>2800</ondown>
                                 <visible>!String.IsEqual(Window.Property(hub_prefix),Home)</visible>
 
                                 <onclick>ClearProperty(Shortcuts.Category,Home)</onclick>
@@ -85,33 +114,7 @@
 
                             </include>
 
-                            <include content="Settings_Button">
-                                <param name="id">302</param>
-                                <param name="control">radiobutton</param>
-                                <bottom>80</bottom>
-                                <right>40</right>
-                                <onup condition="Control.IsVisible(300)">SetFocus(300,9999,absolute)</onup>
-                                <onup condition="Control.IsVisible(303)">SetFocus(303,9999,absolute)</onup>
-                                <onup condition="!Control.IsVisible(303) + !Control.IsVisible(300)">2800</onup>
-                                <ondown>2800</ondown>
-                                <label>$LOCALIZE[31551]</label>
-                                <selected>[String.IsEqual(Window.Property(categories_menu),menu=homemenu) + String.IsEmpty(Skin.String(Hub.Home.ReplaceWindow))] | [String.IsEqual(Window.Property(categories_menu),menu=1101menu) + Skin.String(Hub.Home.ReplaceWindow,$NUMBER[1101])] | [String.IsEqual(Window.Property(categories_menu),menu=1102menu) + Skin.String(Hub.Home.ReplaceWindow,$NUMBER[1102])] | [String.IsEqual(Window.Property(categories_menu),menu=1103menu) + Skin.String(Hub.Home.ReplaceWindow,$NUMBER[1103])] | [String.IsEqual(Window.Property(categories_menu),menu=1104menu) + Skin.String(Hub.Home.ReplaceWindow,$NUMBER[1104])] | [String.IsEqual(Window.Property(categories_menu),menu=1105menu) + Skin.String(Hub.Home.ReplaceWindow,$NUMBER[1105])] | [String.IsEqual(Window.Property(categories_menu),menu=1106menu) + Skin.String(Hub.Home.ReplaceWindow,$NUMBER[1106])] | [String.IsEqual(Window.Property(categories_menu),menu=1107menu) + Skin.String(Hub.Home.ReplaceWindow,$NUMBER[1107])] | [String.IsEqual(Window.Property(categories_menu),menu=1108menu) + Skin.String(Hub.Home.ReplaceWindow,$NUMBER[1108])] | [String.IsEqual(Window.Property(categories_menu),menu=1109menu) + Skin.String(Hub.Home.ReplaceWindow,$NUMBER[1109])]</selected>
-                                <onclick condition="String.IsEqual(Window.Property(categories_menu),menu=homemenu)">Skin.Reset(Hub.Home.ReplaceWindow)</onclick>
-                                <onclick condition="String.IsEqual(Window.Property(categories_menu),menu=1101menu)">Skin.SetString(Hub.Home.ReplaceWindow,$NUMBER[1101])</onclick>
-                                <onclick condition="String.IsEqual(Window.Property(categories_menu),menu=1102menu)">Skin.SetString(Hub.Home.ReplaceWindow,$NUMBER[1102])</onclick>
-                                <onclick condition="String.IsEqual(Window.Property(categories_menu),menu=1103menu)">Skin.SetString(Hub.Home.ReplaceWindow,$NUMBER[1103])</onclick>
-                                <onclick condition="String.IsEqual(Window.Property(categories_menu),menu=1104menu)">Skin.SetString(Hub.Home.ReplaceWindow,$NUMBER[1104])</onclick>
-                                <onclick condition="String.IsEqual(Window.Property(categories_menu),menu=1105menu)">Skin.SetString(Hub.Home.ReplaceWindow,$NUMBER[1105])</onclick>
-                                <onclick condition="String.IsEqual(Window.Property(categories_menu),menu=1106menu)">Skin.SetString(Hub.Home.ReplaceWindow,$NUMBER[1106])</onclick>
-                                <onclick condition="String.IsEqual(Window.Property(categories_menu),menu=1107menu)">Skin.SetString(Hub.Home.ReplaceWindow,$NUMBER[1107])</onclick>
-                                <onclick condition="String.IsEqual(Window.Property(categories_menu),menu=1108menu)">Skin.SetString(Hub.Home.ReplaceWindow,$NUMBER[1108])</onclick>
-                                <onclick condition="String.IsEqual(Window.Property(categories_menu),menu=1109menu)">Skin.SetString(Hub.Home.ReplaceWindow,$NUMBER[1109])</onclick>
 
-                                <onfocus>SetProperty(HelpHead,$LOCALIZE[31551],1115)</onfocus>
-                                <onfocus>SetProperty(HelpText,$LOCALIZE[31004],1115)</onfocus>
-                                <onunfocus>ClearProperty(HelpText,1115)</onunfocus>
-                                <onunfocus>ClearProperty(HelpHead,1115)</onunfocus>
-                            </include>
 
                         </control>
                     </include>

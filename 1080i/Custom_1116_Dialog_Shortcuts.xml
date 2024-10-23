@@ -57,59 +57,9 @@
             <include>Dimension_DialogMainMenu</include>
             <include>Animation_Right_Delay</include>
 
-            <!-- Bottom Layer -->
-            <!-- <include content="Dialog_Background_Side">
-                <param name="slide_condition">True</param>
-                <param name="dialog_size">Dimension_DialogMainMenu</param>
-                <control type="group">
-                    <include>Dimension_Dialog_Body</include>
-                    <control type="grouplist" id="9000">
-                        <include>Dialog_Side_Grouplist_Def</include>
-                        <onright>22001</onright>
-                        <onback>29999</onback>
-                        <include content="Dialog_Side_Button">
-                            <param name="id">01</param>
-                            <param name="label">$LOCALIZE[186]</param>
-                            <param name="icon">special://skin/extras/icons/circle-check.png</param>
-                            <onclick>SetFocus(29999)</onclick>
-                            <onback>29999</onback>
-                        </include>
-
-                        <include content="Dialog_Side_Button">
-                            <param name="id">03</param>
-                            <param name="label">$LOCALIZE[409]</param>
-                            <param name="icon">special://skin/extras/icons/triangle-exclamation.png</param>
-                            <onclick>RunPlugin(plugin://script.skinvariables/?info=get_shortcuts_node&amp;edit=True&amp;skin=$VAR[Path_SkinVariables_SkinFolder]$INFO[Window(Home).Property(Shortcuts.EditMenu),&amp;,]$INFO[Window(Home).Property(Shortcuts.EditMode),&amp;,]$INFO[Window(Home).Property(Shortcuts.EditGUID),&amp;,]&amp;func=do_refresh&amp;&amp;restore::True&amp;&amp;executebuiltin::ActivateWindow(1116))</onclick>
-                            <onback>29999</onback>
-                        </include>
-
-                        <include content="Dialog_Side_Button">
-                            <param name="id">04</param>
-                            <param name="label">$LOCALIZE[31533]</param>
-                            <param name="icon">special://skin/extras/icons/list-ol.png</param>
-                            <param name="visible">[String.IsEqual(Window(Home).Property(Shortcuts.EditMode),mode=widgets) | String.IsEqual(Window(Home).Property(Shortcuts.EditMode),mode=submenu) | String.EndsWith(Window(Home).Property(Shortcuts.EditMenu),-widgetsonly) | String.EndsWith(Window(Home).Property(Shortcuts.EditMenu),-globalwidgets) | String.IsEmpty(Window(Home).Property(Shortcuts.EditMode))]</param>
-                            <onclick>ClearProperty(Shortcuts.Groupings.Links,Home)</onclick>
-                            <onclick>RunPlugin($INFO[Container(22001).ListItem.Property(url),,&amp;func=do_list_add&amp;&amp;item_limit::80]$VAR[Path_Shortcut_UseRawPath]$VAR[Path_Shortcut_UseCategory])</onclick>
-                            <onback>29999</onback>
-                        </include>
-
-                        <include content="Dialog_Side_Button">
-                            <param name="id">05</param>
-                            <param name="label">$LOCALIZE[31534]</param>
-                            <param name="icon">special://skin/extras/icons/trash-can.png</param>
-                            <param name="visible">[String.IsEqual(Window(Home).Property(Shortcuts.EditMode),mode=widgets) | String.IsEqual(Window(Home).Property(Shortcuts.EditMode),mode=submenu) | String.EndsWith(Window(Home).Property(Shortcuts.EditMenu),-widgetsonly) | String.EndsWith(Window(Home).Property(Shortcuts.EditMenu),-globalwidgets) | String.IsEmpty(Window(Home).Property(Shortcuts.EditMode))]</param>
-                            <onclick>ClearProperty(Shortcuts.Category,Home)</onclick>
-                            <onclick>ClearProperty(Shortcuts.Groupings.Links,Home)</onclick>
-                            <onclick>RunPlugin($INFO[Container(22001).ListItem.Property(url),,&amp;func=do_list_del]$VAR[Path_Shortcut_UseRawPath])</onclick>
-                            <onback>29999</onback>
-                        </include>
-                    </control>
-                </control>
-            </include> -->
-
             <include content="Dialog_Foreground_Side">
                 <param name="dialog_size">Dimension_DialogMainMenu</param>
-                <param name="slide_condition">True</param>
+                <param name="slide_condition">false</param>
                 <param name="lines_right">640</param>
                 <param name="topline">true</param>
                 <param name="subline">true</param>
@@ -121,11 +71,8 @@
                     <height>80</height>
                     <centertop>100</centertop>
                     <control type="grouplist" id="26062">
-                        <!-- <left>20</left>
-                        <right>-20</right> -->
                         <right>60</right>
                         <left>60</left>
-                        <!-- <left>40</left> -->
                         <onup>SetFocus(22001,9999,absolute)</onup>
                         <ondown>SetFocus(22001,0,absolute)</ondown>
                         <orientation>vertical</orientation>
@@ -137,10 +84,6 @@
                             <include content="Settings_Button">
                                 <param name="dialog">true</param>
                                 <param name="id">23062</param>
-                                <!-- <param name="groupid">24062</param>
-                                <param name="toplabel">$LOCALIZE[587] [LOWERCASE]$LOCALIZE[31150][/LOWERCASE]</param>
-                                <param name="sublabel">$VAR[Label_SkinVariables_FilterPath]</param>
-                                <param name="sublabel_visible">True</param> -->
                                 <label>$LOCALIZE[587]: $VAR[Label_SkinVariables_FilterPath]      </label>
                                 <visible>[String.IsEqual(Window(Home).Property(Shortcuts.EditMenu),menu=homemenu) + String.IsEmpty(Window(Home).Property(Shortcuts.EditMode)) + String.IsEmpty(Window(Home).Property(Shortcuts.EditGUID))]</visible>
                                 <onclick>SetProperty(SideOptions.List,Filter)</onclick>
@@ -160,7 +103,6 @@
                 </control>
 
                 <!-- Header -->
-                <!-- $VAR[Label_Shortcut_SubHeader_CategoryFilterName, > ,] -->
                 <include content="Dialog_Head">
                     <param name="label">$VAR[Label_Shortcut_TopHeader]</param>
                     <param name="sublabel">$VAR[Label_Shortcut_SubHeader_GroupName]$INFO[Container(22001).ListItem.Property(name), > ,]$VAR[Label_Shortcut_SubHeader_EditMode, > ,]</param>

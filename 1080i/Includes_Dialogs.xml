@@ -164,13 +164,13 @@
         <definition>
             <control type="group">
                 <left>-120</left>
-                <include content="Animation_Slide_In">
-                    <param name="posx">120</param>
-                    <param name="condition">$PARAM[slide_condition]</param>
+                <include content="Animation_ConditionalFade">
+                    <param name="condition">![$PARAM[slide_condition]]</param>
                 </include>
                 <include content="Dialog_Background_Group" condition="$PARAM[slide_animation]">
                     <param name="include_glass">false</param>
                     <param name="dialog_size">$PARAM[dialog_size]</param>
+                    <param name="shadow">false</param>
                 </include>
                 <nested />
             </control>
@@ -181,12 +181,14 @@
         <param name="topline">true</param>
         <param name="subline">true</param>
         <param name="lines_right">0</param>
+        <param name="slide_condition">false</param>
         <definition>
             <control type="group">
                 <include content="Dialog_Background_Group">
                     <param name="include_glass">true</param>
                     <param name="dialog_size">$PARAM[dialog_size]</param>
                 </include>
+                <animation effect="slide" start="0" end="-120" time="400" tween="cubic" easing="out" condition="$PARAM[slide_condition]">Conditional</animation>
                 <nested />
                 <control type="group">
                     <right>80</right>
@@ -282,7 +284,7 @@
         <itemgap>0</itemgap>
         <orientation>vertical</orientation>
         <width>160</width>
-        <left>-20</left>
+        <right>-20</right>
     </include>
 
     <include name="Dialog_Side_Button">
@@ -627,16 +629,28 @@
 
     <include name="Dialog_Scrollbar">
         <param name="id">61</param>
+        <param name="slide_condition">false</param>
         <definition>
+            <!-- <control type="image">
+                <nested />
+                <top>0</top>
+                <bottom>0</bottom>
+                <centerright>-20</centerright>
+                <width>scrollbar_w</width>
+                <texture colordiffuse="main_fg_12" border="4">scrollbar/scrollv_line.png</texture>
+            </control> -->
             <control type="scrollbar" id="$PARAM[id]">
                 <nested />
                 <top>0</top>
                 <bottom>0</bottom>
                 <centerright>-20</centerright>
                 <width>scrollbar_w</width>
+                <!-- <showonepage>true</showonepage> -->
                 <texturesliderbackground colordiffuse="main_fg_12" border="4">scrollbar/scrollv_line.png</texturesliderbackground>
+                <texturesliderbackground />
                 <texturesliderbar colordiffuse="main_logo" border="4">scrollbar/scrollv.png</texturesliderbar>
                 <include>Texture_Scrollbar_V</include>
+                <animation effect="slide" start="0" end="120" time="400" tween="cubic" easing="out" condition="$PARAM[slide_condition]">Conditional</animation>
             </control>
         </definition>
     </include>

@@ -1234,7 +1234,6 @@
     </include>
 
     <include name="DialogInfo_PlotBox_OnMove">
-        <onright>8</onright>
         <onleft>9000</onleft>
         <onback>8</onback>
     </include>
@@ -1246,6 +1245,7 @@
         <param name="scrollbar_fakefocus">false</param>
         <definition>
             <include content="Dialog_Foreground_Side">
+                <param name="slide_condition">$PARAM[slide_condition]</param>
                 <param name="dialog_size">Dimension_DialogFullMenu</param>
                 <param name="lines_right">476</param>
                 <param name="topline">true</param>
@@ -1281,14 +1281,12 @@
                             </include>
                         </control>
                     </control>
-                    <control type="scrollbar" id="61">
-                        <centerright>-20</centerright>
-                        <width>scrollbar_w</width>
-                        <showonepage>true</showonepage>
-                        <texturesliderbackground colordiffuse="main_fg_12" border="4">scrollbar/scrollv_line.png</texturesliderbackground>
+                    <include content="Dialog_Scrollbar">
+                        <param name="id">61</param>
+                        <param name="slide_condition">$PARAM[slide_condition]</param>
                         <include>$PARAM[include_movement]</include>
                         <include condition="$PARAM[scrollbar_fakefocus]">Texture_Scrollbar_SliderBar_V</include>
-                    </control>
+                    </include>
                 </control>
             </include>
         </definition>
@@ -1509,6 +1507,7 @@
                     <param name="landscape_icon">$PARAM[landscape_icon]</param>
                     <param name="clearlogo_icon">$PARAM[clearlogo_icon]</param>
                     <param name="scrollbar_fakefocus">$PARAM[scrollbar_fakefocus]</param>
+                    <param name="slide_condition">!Integer.IsEqual(Container(9000).NumItems,0)</param>
                 </include>
             </control>
         </definition>

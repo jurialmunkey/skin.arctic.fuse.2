@@ -20,6 +20,19 @@
         <include>Dialog_Dim_Overlay</include>
 
         <control type="group">
+            <visible>!Skin.HasSetting(Dialog.DisableArtworkPreview)</visible>
+            <include>Animation_Right_Delay</include>
+            <control type="group">
+                <include content="Dialog_Preview_Def">
+                    <param name="icon">$INFO[Container(451).ListItem.Icon]</param>
+                </include>
+                <visible>Control.IsVisible(451)</visible>
+                <visible>String.IsEqual(Control.GetLabel(411),$LOCALIZE[13511]) | String.IsEqual(Control.GetLabel(411),$LOCALIZE[20437])</visible>
+                <animation effect="slide" end="0,200" condition="Container(451).Row(2) | Container(451).Row(3)">Conditional</animation>
+            </control>
+        </control>
+
+        <control type="group">
             <include>Dimension_DialogWideMenu</include>
             <include>Animation_Right_Delay</include>
             <!-- Bottom Layer -->
@@ -30,9 +43,10 @@
                     <include>Dimension_Dialog_Body</include>
                     <control type="grouplist" id="9000">
                         <include>Dialog_Side_Grouplist_Def</include>
-                        <onleft>Close</onleft>
-                        <onright condition="Control.IsVisible(450)">450</onright>
-                        <onright condition="Control.IsVisible(451)">451</onright>
+                        <onleft condition="Control.IsVisible(450)">450</onleft>
+                        <onleft condition="Control.IsVisible(451)">451</onleft>
+                        <onright condition="Control.IsVisible(61)">61</onright>
+                        <onright condition="Control.IsVisible(62)">62</onright>
                         <include content="Dialog_Side_Button">
                             <param name="id">01</param>
                             <param name="label">$LOCALIZE[186]</param>
@@ -97,8 +111,8 @@
                             <param name="item_height">100</param>
                             <param name="textcolor">dialog_fg</param>
                             <pagecontrol>61</pagecontrol>
-                            <onleft>9000</onleft>
-                            <onright>61</onright>
+                            <onleft>Close</onleft>
+                            <onright>9000</onright>
                         </include>
 
                         <include content="List_IconBrowser">
@@ -113,8 +127,8 @@
                             <bottom>-20</bottom>
                             <left>-20</left>
                             <right>-20</right>
-                            <onleft>9000</onleft>
-                            <onright>62</onright>
+                            <onleft>Close</onleft>
+                            <onright>9000</onright>
                             <pagecontrol>62</pagecontrol>
                         </include>
                     </control>
@@ -122,29 +136,16 @@
                     <include content="Dialog_Scrollbar">
                         <param name="id">61</param>
                         <visible>Control.IsVisible(450)</visible>
-                        <onleft>450</onleft>
+                        <onleft>9000</onleft>
                     </include>
                     <include content="Dialog_Scrollbar">
                         <param name="id">62</param>
                         <visible>Control.IsVisible(451)</visible>
-                        <onleft>451</onleft>
+                        <onleft>9000</onleft>
                     </include>
                 </control>
             </include>
 
-        </control>
-
-        <control type="group">
-            <visible>!Skin.HasSetting(Dialog.DisableArtworkPreview)</visible>
-            <include>Animation_Right_Delay</include>
-            <control type="group">
-                <include content="Dialog_Preview_Def">
-                    <param name="icon">$INFO[Container(451).ListItem.Icon]</param>
-                </include>
-                <visible>Control.IsVisible(451)</visible>
-                <visible>String.IsEqual(Control.GetLabel(411),$LOCALIZE[13511]) | String.IsEqual(Control.GetLabel(411),$LOCALIZE[20437])</visible>
-                <animation effect="slide" end="0,200" condition="Container(451).Row(2) | Container(451).Row(3)">Conditional</animation>
-            </control>
         </control>
     </controls>
 </window>

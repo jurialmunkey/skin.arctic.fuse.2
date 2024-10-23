@@ -11,8 +11,8 @@
                 <include>Dimension_Dialog_Body</include>
                 <control type="grouplist" id="9000">
                     <include>Dialog_Side_Grouplist_Def</include>
-                    <onleft>Close</onleft>
-                    <onright>996</onright>
+                    <onleft>996</onleft>
+                    <onright>61</onright>
                     <include content="Dialog_Side_Button" condition="!$EXP[Exp_InfoDialogs]">
                         <param name="id">02</param>
                         <param name="label">$LOCALIZE[207]</param>
@@ -100,16 +100,18 @@
 
                 <control type="grouplist" id="996">
                     <include>Dimension_Dialog_Body_Group</include>
-                    <onleft condition="!Integer.IsEqual(Container(9000).NumItems,0)">9000</onleft>
-                    <onleft condition="Integer.IsEqual(Container(9000).NumItems,0)">Close</onleft>
                     <right>$PARAM[lines_right]</right>
-                    <onright>61</onright>
+                    <onleft>Close</onleft>
+                    <onright condition="!Integer.IsEqual(Container(9000).NumItems,0)">9000</onright>
+                    <onright condition="Integer.IsEqual(Container(9000).NumItems,0)">61</onright>
                     <pagecontrol>61</pagecontrol>
                 </control>
 
                 <include content="Dialog_Scrollbar">
                     <param name="id">61</param>
-                    <onleft>996</onleft>
+                    <param name="slide_condition">$PARAM[slide_condition]</param>
+                    <onleft condition="!Integer.IsEqual(Container(9000).NumItems,0)">9000</onleft>
+                    <onleft condition="Integer.IsEqual(Container(9000).NumItems,0)">996</onleft>
                 </include>
             </control>
         </definition>
@@ -149,6 +151,7 @@
 
                 <!-- Foreground Layer -->
                 <include content="Dialog_Foreground_Side">
+                    <param name="slide_condition">!Integer.IsEqual(Container(9000).NumItems,0)</param>
                     <param name="dialog_size">$PARAM[dialog_size]</param>
                     <param name="topline">true</param>
                     <param name="subline">true</param>
@@ -165,6 +168,7 @@
                     <include content="Dialog_ContextMenu_BodyContent">
                         <param name="include_artwork">$PARAM[include_fullmenu]</param>
                         <param name="lines_right">$PARAM[lines_right]</param>
+                        <param name="slide_condition">!Integer.IsEqual(Container(9000).NumItems,0)</param>
                     </include>
 
                 </include>
