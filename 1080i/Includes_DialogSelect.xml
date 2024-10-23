@@ -60,13 +60,20 @@
         <control type="group">
             <include>Animation_Right_Delay</include>
             <control type="group">
-                <!-- <animation effect="slide" end="0,200" condition="Container(3).Position(5) | Container(3).Position(6) | Container(3).Position(7) | Container(3).Position(8) | Container(3).Position(9)">Conditional</animation> -->
-                <include content="Dialog_Preview_Def">
+                <include content="Dialog_Preview_Def" condition="![String.IsEqual(Skin.AspectRatio,4:3) | String.IsEqual(Skin.AspectRatio,3:2) | String.IsEqual(Skin.AspectRatio,16:10)]">
                     <param name="icon">$INFO[Container(3).ListItem.Icon]</param>
                     <param name="height">680</param>
                     <param name="width">1147</param>
                     <param name="right">640</param>
                     <param name="diffuse">diffuse/landscape_w1140_h680.png</param>
+                </include>
+
+                <include content="Dialog_Preview_Def" condition="[String.IsEqual(Skin.AspectRatio,4:3) | String.IsEqual(Skin.AspectRatio,3:2) | String.IsEqual(Skin.AspectRatio,16:10)]">
+                    <param name="icon">$INFO[Container(3).ListItem.Icon]</param>
+                    <param name="height">560</param>
+                    <param name="width">933</param>
+                    <param name="right">640</param>
+                    <param name="diffuse">diffuse/landscape_w720_h405.png</param>
                 </include>
 
             </control>
