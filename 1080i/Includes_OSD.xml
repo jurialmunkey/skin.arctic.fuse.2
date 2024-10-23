@@ -422,14 +422,15 @@
             <height>80</height>
             <orientation>horizontal</orientation>
             <itemgap>10</itemgap>
-            <include content="Info_Line_VideoQuality_Items">
+
+            <include content="Info_Line_VideoQuality">
                 <param name="textcolor">panel_fg_90</param>
-                <param name="is_4k">[Integer.IsGreater(VideoPlayer.VideoResolution,1080) | String.IsEqual(VideoPlayer.VideoResolution,4K)]</param>
-                <param name="is_fhd">[Integer.IsGreater(VideoPlayer.VideoResolution,720)]</param>
-                <param name="is_hd">[Integer.IsEqual(VideoPlayer.VideoResolution,720)]</param>
-                <param name="is_sd">[!String.IsEmpty(VideoPlayer.VideoResolution)]</param>
-                <param name="is_web">[False]</param>
+                <param name="listitem_videoresolution">VideoPlayer.VideoResolution</param>
+                <param name="listitem_audiochannels">VideoPlayer.AudioChannels</param>
+                <param name="listitem_hdrtype">VideoPlayer.HdrType</param>
+                <param name="visible">$PARAM[visible]</param>
             </include>
+
             <control type="grouplist">
                 <hitrect x="0" y="0" w="0" h="0" />
                 <orientation>horizontal</orientation>
