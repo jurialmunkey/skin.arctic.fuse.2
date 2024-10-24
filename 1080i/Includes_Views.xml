@@ -40,6 +40,12 @@
         </include>
     </include>
 
+    <include name="View_Row_Info_Panel_Group">
+        <top>view_top</top>
+        <width>info_panel_w</width>
+        <left>view_pad</left>
+    </include>
+
     <include name="View_Row_Info">
         <control type="group">
             <visible>!Integer.IsEqual(Container.NumItems,0)</visible>
@@ -56,13 +62,14 @@
             </include>
             <control type="group">
                 <visible>!$EXP[Exp_View_FullSize]</visible>
+
+                <include>View_Row_Info_Panel_Group</include>
+
                 <include content="Info_Panel">
                     <param name="visible">String.IsEmpty(Window.Property(TMDBHelper.WidgetContainer))</param>
                     <param name="details">!$EXP[Exp_View_MidiSize]</param>
-                    <top>view_top</top>
-                    <width>info_panel_w</width>
-                    <left>view_pad</left>
                 </include>
+
                 <include content="View_Combined_Info" condition="$EXP[Exp_View_502_Include]">
                     <param name="id">50</param>
                 </include>
