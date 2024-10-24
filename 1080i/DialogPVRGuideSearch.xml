@@ -3,12 +3,11 @@
     <defaultcontrol always="true">9002</defaultcontrol>
 
     <controls>
+        <include>Dialog_Dim_Overlay</include>
+
         <control type="group">
             <include>Dimension_DialogFullMenu</include>
             <include>Animation_Right_Delay</include>
-            <include content="Dialog_Dim_Side">
-                <param name="slide_condition">True</param>
-            </include>
 
             <!-- Bottom Layer -->
             <include content="Dialog_Background_Side">
@@ -19,14 +18,7 @@
                     <include>Dimension_Dialog_Body</include>
                     <control type="grouplist" id="9000">
                         <include>Dialog_Side_Grouplist_Def</include>
-                        <onright>8000</onright>
-                        <onleft>Close</onleft>
-                        <!-- <include content="Dialog_Side_Button">
-                            <param name="id">01</param>
-                            <param name="label">$LOCALIZE[222]</param>
-                            <param name="icon">special://skin/extras/icons/circle-xmark.png</param>
-                            <onclick>SendClick(25)</onclick>
-                        </include> -->
+                        <onleft>8000</onleft>
                         <include content="Dialog_Side_Button">
                             <param name="id">02</param>
                             <param name="label">$LOCALIZE[137]</param>
@@ -45,6 +37,7 @@
             </include>
 
             <include content="Dialog_Foreground_Side">
+                <param name="slide_condition">True</param>
                 <param name="dialog_size">Dimension_DialogFullMenu</param>
                 <param name="lines_right">0</param>
                 <param name="topline">true</param>
@@ -70,7 +63,8 @@
                             <height>80</height>
                             <textoffsetx>40</textoffsetx>
                             <align>left</align>
-                            <onleft>9000</onleft>
+                            <onright>9000</onright>
+                            <!-- <onleft>Close</onleft> -->
                             <ondown>8300</ondown>
                         </include>
 
@@ -97,8 +91,8 @@
                                     <orientation>vertical</orientation>
                                     <height>640</height>
                                     <right>20</right>
+                                    <!-- <onleft>Close</onleft> -->
                                     <onup>9</onup>
-                                    <onleft>9000</onleft>
                                     <ondown>noop</ondown>
                                     <include content="Settings_Button">
                                         <param name="control">radiobutton</param>
@@ -167,6 +161,7 @@
                                     <left>20</left>
                                     <onup>9</onup>
                                     <ondown>noop</ondown>
+                                    <onright>9000</onright>
                                     <include content="Settings_Button">
                                         <param name="control">spincontrolex</param>
                                         <param name="id">12</param>

@@ -1827,6 +1827,77 @@
         </definition>
     </include>
 
+    <include name="Layout_VersionPoster">
+        <param name="detailed">false</param>
+        <param name="selected">false</param>
+        <param name="indicator">true</param>
+        <param name="diffuse">diffuse/poster_w320_h480.png</param>
+        <param name="icon">$VAR[Image_Poster]</param>
+        <param name="listitem">ListItem</param>
+        <definition>
+            <control type="group">
+                <width>$PARAM[item_w]</width>
+                <height>$PARAM[item_h]</height>
+
+                <control type="group">
+                    <include content="Object_ItemBack">
+                        <param name="selected">$PARAM[selected]</param>
+                        <param name="shadow_colordiffuse">$PARAM[shadow_colordiffuse]</param>
+                    </include>
+                    <control type="textbox">
+                        <textcolor>main_fg_70</textcolor>
+                        <label>$INFO[$PARAM[listitem].$PARAM[listitem_label]]</label>
+                        <include content="Dimension_Padding">
+                            <param name="pad">20</param>
+                        </include>
+                        <align>center</align>
+                        <aligny>center</aligny>
+                        <font>font_mini_black</font>
+                        <visible>String.IsEmpty(ListItem.Icon)</visible>
+                        <visible>String.IsEmpty(ListItem.Art(poster))</visible>
+                        <visible>String.IsEmpty(ListItem.Art(tvshow.poster))</visible>
+                    </control>
+                    <include content="Object_Layout_Image">
+                        <param name="diffuse">$PARAM[diffuse]</param>
+                        <param name="icon">$PARAM[icon]</param>
+                        <param name="listitem">$PARAM[listitem]</param>
+                        <param name="aspectratio">scale</param>
+                        <param name="selected">$PARAM[selected]</param>
+                    </include>
+                </control>
+                <control type="group">
+                    <include content="Object_SelectBox" condition="$PARAM[selected]">
+                        <param name="affix">$PARAM[affix]</param>
+                        <param name="listitem">$PARAM[listitem]</param>
+                        <param name="focusbounce">true</param>
+                    </include>
+                </control>
+
+                <control type="group">
+                    <top>$PARAM[item_h]</top>
+                    <control type="label">
+                        <textcolor>dialog_fg_90</textcolor>
+                        <font>font_mini_bold</font>
+                        <label>$INFO[ListItem.VideoVersionName]</label>
+                        <align>center</align>
+                        <height>35</height>
+                        <top>20</top>
+                    </control>
+                    <control type="label">
+                        <textcolor>dialog_fg_70</textcolor>
+                        <font>font_tiny</font>
+                        <label>$INFO[ListItem.Duration]</label>
+                        <align>center</align>
+                        <height>20</height>
+                        <top>60</top>
+                    </control>
+                </control>
+
+            </control>
+
+        </definition>
+    </include>
+
     <include name="Layout_Poster">
         <param name="detailed">false</param>
         <param name="selected">false</param>

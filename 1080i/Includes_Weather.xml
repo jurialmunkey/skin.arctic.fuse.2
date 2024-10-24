@@ -4,13 +4,11 @@
     <include name="Weather_Dialog">
         <definition>
 
+            <include>Dialog_Dim_Overlay</include>
+
             <control type="group">
                 <include>Dimension_DialogHugeMenu</include>
                 <include>Animation_Right_Delay</include>
-                <include content="Dialog_Dim_Side">
-                    <param name="slide_condition">true</param>
-                </include>
-
                 <!-- Bottom Layer -->
                 <include content="Dialog_Background_Side">
                     <param name="slide_condition">true</param>
@@ -199,71 +197,6 @@
                     </control>
                 </include>
 
-            </control>
-        </definition>
-    </include>
-
-    <include name="Weather_InfoPanel">
-        <param name="toplabel">$INFO[Weather.Conditions]</param>
-        <param name="sublabel">$INFO[Weather.Location]</param>
-        <definition>
-            <!-- Info -->
-            <control type="group">
-                <nested />
-                <width>480</width>
-                <include content="Info_Title_Text">
-                    <param name="colordiffuse">dialog_fg</param>
-                    <param name="label">$PARAM[toplabel]</param>
-                    <param name="height">132</param>
-                    <param name="width">480</param>
-                </include>
-
-                <control type="group">
-                    <top>120</top>
-                    <height>40</height>
-                    <control type="grouplist">
-                        <centertop>37.5</centertop>
-                        <height>80</height>
-                        <orientation>horizontal</orientation>
-                        <itemgap>10</itemgap>
-                        <include content="Info_Line_VideoQuality">
-                            <param name="textcolor">dialog_fg_90</param>
-                        </include>
-                        <include content="Info_Line_Item">
-                            <param name="label">$PARAM[sublabel]</param>
-                            <param name="textcolor">dialog_fg_70</param>
-                            <visible>Weather.IsFetched</visible>
-                        </include>
-                        <include content="Info_Line_Item">
-                            <param name="label">$LOCALIZE[19055]</param>
-                            <param name="textcolor">dialog_fg_70</param>
-                            <visible>!Weather.IsFetched</visible>
-                        </include>
-                    </control>
-                </control>
-
-                <control type="grouplist">
-                    <top>187</top>
-                    <height>120</height>
-                    <orientation>horizontal</orientation>
-                    <control type="label">
-                        <top>-2</top>
-                        <label>$INFO[Window(Weather).Property(Current.Temperature),[B],[/B]°]</label>
-                        <align>left</align>
-                        <aligny>center</aligny>
-                        <font>font_title_huge</font>
-                        <textcolor>dialog_fg_90</textcolor>
-                        <width>auto</width>
-                    </control>
-                    <control type="image">
-                        <left>20</left>
-                        <centertop>52%</centertop>
-                        <width>164</width>
-                        <height>164</height>
-                        <aspectratio>keep</aspectratio>
-                        <texture colordiffuse="dialog_fg_90">resource://resource.images.weathericons.white/$INFO[Weather.FanartCode].png</texture>
-                    </control>
-                </control>
             </control>
         </definition>
     </include>

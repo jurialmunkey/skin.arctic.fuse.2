@@ -1234,7 +1234,6 @@
     </include>
 
     <include name="DialogInfo_PlotBox_OnMove">
-        <onright>8</onright>
         <onleft>9000</onleft>
         <onback>8</onback>
     </include>
@@ -1246,6 +1245,7 @@
         <param name="scrollbar_fakefocus">false</param>
         <definition>
             <include content="Dialog_Foreground_Side">
+                <param name="slide_condition">$PARAM[slide_condition]</param>
                 <param name="dialog_size">Dimension_DialogFullMenu</param>
                 <param name="lines_right">476</param>
                 <param name="topline">true</param>
@@ -1281,14 +1281,12 @@
                             </include>
                         </control>
                     </control>
-                    <control type="scrollbar" id="61">
-                        <centerright>-20</centerright>
-                        <width>scrollbar_w</width>
-                        <showonepage>true</showonepage>
-                        <texturesliderbackground colordiffuse="main_fg_12" border="4">scrollbar/scrollv_line.png</texturesliderbackground>
+                    <include content="Dialog_Scrollbar">
+                        <param name="id">61</param>
+                        <param name="slide_condition">$PARAM[slide_condition]</param>
                         <include>$PARAM[include_movement]</include>
                         <include condition="$PARAM[scrollbar_fakefocus]">Texture_Scrollbar_SliderBar_V</include>
-                    </control>
+                    </include>
                 </control>
             </include>
         </definition>
@@ -1298,13 +1296,10 @@
         <param name="size">Dimension_DialogHugeMenu</param>
         <param name="include_artwork">false</param>
         <definition>
+            <include>Dialog_Dim_Overlay</include>
             <control type="group">
                 <include>$PARAM[size]</include>
                 <include>Animation_Right_Delay</include>
-
-                <include content="Dialog_Dim_Side">
-                    <param name="slide_animation">false</param>
-                </include>
 
                 <include content="Dialog_Background_Side" condition="!String.IsEmpty(Window.Property(path))">
                     <param name="slide_condition">!Integer.IsEqual(Container(8000).NumItems,0)</param>
@@ -1375,6 +1370,7 @@
                 </include>
 
                 <include content="Dialog_Foreground_Side">
+                    <param name="slide_condition">!Integer.IsEqual(Container(8000).NumItems,0)</param>
                     <param name="dialog_size">$PARAM[size]</param>
                     <param name="topline">false</param>
                     <param name="subline">false</param>
@@ -1433,14 +1429,12 @@
                                 </include>
                             </control>
                         </control>
-                        <control type="scrollbar" id="61">
-                            <centerright>-20</centerright>
-                            <width>scrollbar_w</width>
-                            <showonepage>false</showonepage>
+                        <include content="Dialog_Scrollbar">
+                            <param name="id">61</param>
+                            <param name="slide_condition">!Integer.IsEqual(Container(8000).NumItems,0)</param>
                             <onleft>8000</onleft>
-                            <texturesliderbackground colordiffuse="main_fg_12" border="4">scrollbar/scrollv_line.png</texturesliderbackground>
                             <include condition="String.IsEmpty(Window.Property(path))">Texture_Scrollbar_SliderBar_V</include>
-                        </control>
+                        </include>
                     </control>
                 </include>
             </control>
@@ -1453,6 +1447,10 @@
         <param name="textbox">$VAR[Label_Overlay_PlotBox]</param>
         <param name="include_movement">DialogInfo_PlotBox_OnMove</param>
         <definition>
+            <include content="Dialog_Dim_Overlay">
+                <param name="visible">$PARAM[visible]</param>
+            </include>
+
             <control type="group">
                 <include>Dimension_DialogFullMenu</include>
                 <visible allowhiddenfocus="true">$PARAM[visible]</visible>
@@ -1477,9 +1475,6 @@
                     <param name="posx">320</param>
                     <param name="delay">400</param>
                     <param name="reversible">true</param>
-                </include>
-                <include content="Dialog_Dim_Side">
-                    <param name="slide_animation">false</param>
                 </include>
 
                 <include content="Dialog_Background_Side" condition="Window.IsVisible(DialogVideoInfo.xml) | Window.IsVisible(DialogMusicInfo.xml)">
@@ -1511,6 +1506,7 @@
                     <param name="landscape_icon">$PARAM[landscape_icon]</param>
                     <param name="clearlogo_icon">$PARAM[clearlogo_icon]</param>
                     <param name="scrollbar_fakefocus">$PARAM[scrollbar_fakefocus]</param>
+                    <param name="slide_condition">!Integer.IsEqual(Container(9000).NumItems,0)</param>
                 </include>
             </control>
         </definition>

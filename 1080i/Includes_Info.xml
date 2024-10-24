@@ -6,6 +6,7 @@
         <param name="wrapmultiline">false</param>
         <param name="visible">true</param>
         <param name="width">info_plot_w</param>
+        <param name="height">165</param>
         <definition>
             <control type="textbox">
                 <top>-20</top>
@@ -13,7 +14,7 @@
                 <textcolor>$PARAM[colordiffuse]_100</textcolor>
                 <font>font_title_main</font>
                 <aligny>center</aligny>
-                <height max="165">auto</height>
+                <height max="165">$PARAM[height]</height>
                 <visible>$PARAM[visible]</visible>
                 <width>$PARAM[width]</width>
             </control>
@@ -52,8 +53,8 @@
         <param name="colordiffuse">main_fg</param>
         <param name="container" />
         <param name="width">info_plot_w</param>
-        <param name="mainlogo_visible">[!String.IsEmpty(Window(Home).Property(TMDBHelper.ListItem.CropImage)) | [!String.IsEmpty(Window(Home).Property(CropImage)) + !String.IsEmpty(Window(Home).Property(TMDBHelper.Image.Override))]]</param>
-        <!-- <param name="mainlogo_visible">[!String.IsEmpty(Window(Home).Property(TMDBHelper.ListItem.CropImage)) | !String.IsEmpty(ListItem.Art(clearlogo)) | !String.IsEmpty(ListItem.Art(tvshow.clearlogo)) | !String.IsEmpty(ListItem.Art(artist.clearlogo)) | [!String.IsEmpty(Window(Home).Property(CropImage)) + !String.IsEmpty(Window(Home).Property(TMDBHelper.Image.Override))]]</param> -->
+        <!-- <param name="mainlogo_visible">[!String.IsEmpty(Window(Home).Property(TMDBHelper.ListItem.CropImage))]</param> -->
+        <param name="mainlogo_visible">[!String.IsEmpty(Window(Home).Property(TMDBHelper.ListItem.CropImage)) | !String.IsEmpty(ListItem.Art(clearlogo)) | !String.IsEmpty(ListItem.Art(tvshow.clearlogo)) | !String.IsEmpty(ListItem.Art(artist.clearlogo))]</param>
         <param name="mainlogo_texture">$VAR[Image_CropLogo]</param>
         <definition>
             <!-- Title Only -->
@@ -62,6 +63,7 @@
                 <param name="colordiffuse">$PARAM[colordiffuse]</param>
                 <param name="visible">True</param>
                 <param name="width">$PARAM[width]</param>
+                <param name="height">auto</param>
             </include>
             <!-- Other -->
             <include content="Info_Title_Logo" condition="Skin.HasSetting(TMDbHelper.EnableCrop)">
@@ -70,6 +72,7 @@
                 <param name="mainlogo_visible">$PARAM[mainlogo_visible]</param>
                 <param name="mainlogo_texture">$PARAM[mainlogo_texture]</param>
                 <param name="width">$PARAM[width]</param>
+                <param name="height">$PARAM[height]</param>
             </include>
         </definition>
     </include>
@@ -90,16 +93,27 @@
         </include>
     </include>
 
-    <include name="Info_Line_Pillbox">
+    <include name="Info_Line_Pillbox_Object_Bordered">
+        <texturefocus colordiffuse="$PARAM[colordiffuse]" border="8">flags/blank-bordered.png</texturefocus>
+        <texturenofocus colordiffuse="$PARAM[colordiffuse]" border="8">flags/blank-bordered.png</texturenofocus>
+    </include>
+
+    <include name="Info_Line_Pillbox_Object_Plain">
+        <texturefocus colordiffuse="$PARAM[colordiffuse]" border="8">flags/blank-plain.png</texturefocus>
+        <texturenofocus colordiffuse="$PARAM[colordiffuse]" border="8">flags/blank-plain.png</texturenofocus>
+    </include>
+
+    <include name="Info_Line_Pillbox_Object">
         <control type="button">
-            <texturefocus colordiffuse="$PARAM[textcolor]" border="4">flags/blank-panel.png</texturefocus>
-            <texturenofocus colordiffuse="$PARAM[textcolor]" border="4">flags/blank-panel.png</texturenofocus>
+            <include content="Info_Line_Pillbox_Object_Bordered" condition="Skin.HasSetting(Glass.EnableBorders)">
+                <param name="colordiffuse">$PARAM[colordiffuse]</param>
+            </include>
+            <include content="Info_Line_Pillbox_Object_Plain" condition="!Skin.HasSetting(Glass.EnableBorders)">
+                <param name="colordiffuse">$PARAM[colordiffuse]</param>
+            </include>
             <font>font_infotag</font>
             <textcolor>$PARAM[textcolor]</textcolor>
             <focusedcolor>$PARAM[textcolor]</focusedcolor>
-            <!-- <textcolor>ff2a2a2a</textcolor>
-            <focusedcolor>ff2a2a2a</focusedcolor>
-            <shadowcolor>20ffffff</shadowcolor> -->
             <include>Dimension_Info_Line_Pillbox</include>
             <textoffsety>info_tag_light_offset_y</textoffsety>
             <aligny>top</aligny>
@@ -107,6 +121,19 @@
             <width>auto</width>
             <textoffsetx>12</textoffsetx>
         </control>
+    </include>
+
+    <include name="Info_Line_Pillbox">
+        <include content="Info_Line_Pillbox_Object" condition="![Window.IsActive(VideoFullScreen.xml) | Window.IsActive(MusicVisualisation.xml)]">
+            <param name="colordiffuse">main_fg_30</param>
+            <param name="textcolor">main_fg_90</param>
+            <nested />
+        </include>
+        <include content="Info_Line_Pillbox_Object" condition="Window.IsActive(VideoFullScreen.xml) | Window.IsActive(MusicVisualisation.xml)">
+            <param name="colordiffuse">panel_fg_30</param>
+            <param name="textcolor">panel_fg_90</param>
+            <nested />
+        </include>
     </include>
 
     <include name="Info_Line_Label">
@@ -1081,134 +1108,195 @@
         </definition>
     </include>
 
-    <include name="Info_Line_VideoQuality_Items">
-        <param name="is_set">false</param>
-        <param name="is_4k">false</param>
-        <param name="is_fhd">false</param>
-        <param name="is_hd">false</param>
-        <param name="is_sd">false</param>
-        <param name="visible">true</param>
+    <include name="Info_Line_VideoQuality_Object">
+        <param name="width">auto</param>
+        <definition>
+            <control type="button">
+                <visible>$PARAM[visible]</visible>
+                <include>Dimension_Info_Line_Pillbox</include>
+                <width>$PARAM[width]</width>
+                <texturefocus colordiffuse="$PARAM[colordiffuse]" border="4">flags/blank.png</texturefocus>
+                <texturenofocus colordiffuse="$PARAM[colordiffuse]" border="4">flags/blank.png</texturenofocus>
+                <align>center</align>
+                <textoffsety>info_tag_offset_y</textoffsety>
+                <textoffsetx>10</textoffsetx>
+                <aligny>top</aligny>
+                <font>font_infotag_bold</font>
+                <textcolor>ff2a2a2a</textcolor>
+                <shadowcolor>20ffffff</shadowcolor>
+                <label>$PARAM[label]</label>
+            </control>
+        </definition>
+    </include>
+
+    <include name="Info_Line_VideoQuality_Icon">
+        <param name="width">48</param>
+        <param name="icon">flags/sets-inverted.png</param>
         <definition>
             <control type="group">
                 <visible>$PARAM[visible]</visible>
                 <include>Dimension_Info_Line_Pillbox</include>
-                <width>64</width>
+                <width>$PARAM[width]</width>
                 <control type="image">
-                    <texture colordiffuse="$PARAM[textcolor]" border="4">flags/blank.png</texture>
+                    <texture colordiffuse="$PARAM[colordiffuse]" border="4">flags/blank.png</texture>
                 </control>
                 <control type="group">
                     <width>37</width>
                     <height>24</height>
+                    <centertop>51%</centertop>
                     <centerleft>50%</centerleft>
-                    <visible>$PARAM[is_set]</visible>
                     <control type="image">
                         <top>1</top>
                         <bottom>-1</bottom>
                         <left>1</left>
                         <right>-1</right>
-                        <texture colordiffuse="20ffffff">flags/sets-inverted.png</texture>
+                        <texture colordiffuse="20ffffff">$PARAM[icon]</texture>
                     </control>
                     <control type="image">
-                        <texture colordiffuse="ff2a2a2a">flags/sets-inverted.png</texture>
+                        <texture colordiffuse="ff1a1a1a">$PARAM[icon]</texture>
                     </control>
                 </control>
-                <control type="label">
-                    <align>center</align>
-                    <top>info_tag_offset_y</top>
-                    <aligny>top</aligny>
-                    <font>font_infotag_bold</font>
-                    <textcolor>ff2a2a2a</textcolor>
-                    <shadowcolor>20ffffff</shadowcolor>
-                    <label>4K</label>
-                    <visible>!$PARAM[is_set]</visible>
-                    <visible>$PARAM[is_4k]</visible>
-                </control>
-                <control type="label">
-                    <align>center</align>
-                    <top>info_tag_offset_y</top>
-                    <aligny>top</aligny>
-                    <font>font_infotag_bold</font>
-                    <textcolor>ff2a2a2a</textcolor>
-                    <shadowcolor>20ffffff</shadowcolor>
-                    <label>FHD</label>
-                    <visible>!$PARAM[is_set]</visible>
-                    <visible>!$PARAM[is_4k]</visible>
-                    <visible>$PARAM[is_fhd]</visible>
-                </control>
-                <control type="label">
-                    <align>center</align>
-                    <top>info_tag_offset_y</top>
-                    <aligny>top</aligny>
-                    <font>font_infotag_bold</font>
-                    <textcolor>ff2a2a2a</textcolor>
-                    <shadowcolor>20ffffff</shadowcolor>
-                    <label>HD</label>
-                    <visible>!$PARAM[is_set]</visible>
-                    <visible>!$PARAM[is_4k]</visible>
-                    <visible>!$PARAM[is_fhd]</visible>
-                    <visible>$PARAM[is_hd]</visible>
-                </control>
-                <control type="label">
-                    <align>center</align>
-                    <top>info_tag_offset_y</top>
-                    <aligny>top</aligny>
-                    <font>font_infotag_bold</font>
-                    <textcolor>ff2a2a2a</textcolor>
-                    <shadowcolor>20ffffff</shadowcolor>
-                    <label>SD</label>
-                    <visible>!$PARAM[is_set]</visible>
-                    <visible>!$PARAM[is_4k]</visible>
-                    <visible>!$PARAM[is_fhd]</visible>
-                    <visible>!$PARAM[is_hd]</visible>
-                    <visible>$PARAM[is_sd]</visible>
-                </control>
-                <control type="label">
-                    <align>center</align>
-                    <top>info_tag_offset_y</top>
-                    <aligny>top</aligny>
-                    <font>font_infotag_bold</font>
-                    <textcolor>ff2a2a2a</textcolor>
-                    <shadowcolor>20ffffff</shadowcolor>
-                    <label>WEB</label>
-                    <visible>!$PARAM[is_set]</visible>
-                    <visible>!$PARAM[is_4k]</visible>
-                    <visible>!$PARAM[is_fhd]</visible>
-                    <visible>!$PARAM[is_hd]</visible>
-                    <visible>!$PARAM[is_sd]</visible>
-                    <visible>$PARAM[is_web]</visible>
-                </control>
-                <control type="label">
-                    <align>center</align>
-                    <top>info_tag_offset_y</top>
-                    <aligny>top</aligny>
-                    <font>font_infotag_bold</font>
-                    <textcolor>ff2a2a2a</textcolor>
-                    <shadowcolor>20ffffff</shadowcolor>
-                    <label>INFO</label>
-                    <visible>!$PARAM[is_set]</visible>
-                    <visible>!$PARAM[is_4k]</visible>
-                    <visible>!$PARAM[is_fhd]</visible>
-                    <visible>!$PARAM[is_hd]</visible>
-                    <visible>!$PARAM[is_sd]</visible>
-                    <visible>!$PARAM[is_web]</visible>
-                </control>
             </control>
+        </definition>
+    </include>
 
+    <include name="Info_Line_VideoQuality_Resolution">
+        <definition>
+            <include content="Info_Line_VideoQuality_Icon">
+                <param name="colordiffuse">$PARAM[colordiffuse]</param>
+                <param name="icon">flags/sets-inverted.png</param>
+                <param name="visible">$PARAM[visible] + $PARAM[is_collection]</param>
+            </include>
+            <include content="Info_Line_VideoQuality_Object">
+                <param name="colordiffuse">$PARAM[colordiffuse]</param>
+                <param name="label">4K</param>
+                <param name="visible">$PARAM[visible] + $PARAM[is_4k]</param>
+            </include>
+            <include content="Info_Line_VideoQuality_Object">
+                <param name="colordiffuse">$PARAM[colordiffuse]</param>
+                <param name="label">HD</param>
+                <param name="visible">$PARAM[visible] + !$PARAM[is_4k] + [$PARAM[is_fhd] | $PARAM[is_hd]]</param>
+            </include>
+            <include content="Info_Line_VideoQuality_Object">
+                <param name="colordiffuse">$PARAM[colordiffuse]</param>
+                <param name="label">SD</param>
+                <param name="visible">$PARAM[visible] + !$PARAM[is_4k] + !$PARAM[is_fhd] + !$PARAM[is_hd] + $PARAM[is_sd]</param>
+            </include>
+            <include content="Info_Line_VideoQuality_Object">
+                <param name="colordiffuse">$PARAM[colordiffuse]</param>
+                <param name="label">WEB</param>
+                <param name="visible">$PARAM[visible] + !$PARAM[is_4k] + !$PARAM[is_fhd] + !$PARAM[is_hd] + !$PARAM[is_sd] + $PARAM[is_web]</param>
+            </include>
+            <include content="Info_Line_VideoQuality_Icon">
+                <param name="colordiffuse">$PARAM[colordiffuse]</param>
+                <param name="icon">flags/info-inverted.png</param>
+                <param name="width">40</param>
+                <param name="visible">$PARAM[visible] + !$PARAM[is_collection] + !$PARAM[is_4k] + !$PARAM[is_fhd] + !$PARAM[is_hd] + !$PARAM[is_sd] + !$PARAM[is_web]</param>
+            </include>
+        </definition>
+    </include>
+
+    <include name="Info_Line_VideoQuality_HDRType">
+        <definition>
+            <include content="Info_Line_VideoQuality_Object">
+                <param name="colordiffuse">$PARAM[colordiffuse]</param>
+                <param name="label">DV</param>
+                <param name="visible">$PARAM[visible] + $PARAM[is_dolbyvision]</param>
+            </include>
+            <include content="Info_Line_VideoQuality_Object">
+                <param name="colordiffuse">$PARAM[colordiffuse]</param>
+                <param name="label">HDR10</param>
+                <param name="visible">$PARAM[visible] + $PARAM[is_hdr]</param>
+            </include>
+            <include content="Info_Line_VideoQuality_Object">
+                <param name="colordiffuse">$PARAM[colordiffuse]</param>
+                <param name="label">HLG</param>
+                <param name="visible">$PARAM[visible] + $PARAM[is_hlg]</param>
+            </include>
+        </definition>
+    </include>
+
+    <include name="Info_Line_AudioChannels">
+        <definition>
+            <include content="Info_Line_VideoQuality_Object">
+                <param name="colordiffuse">$PARAM[colordiffuse]</param>
+                <param name="label">9.1</param>
+                <param name="visible">$PARAM[visible] + Integer.IsEqual($PARAM[listitem_audiochannels],10)</param>
+            </include>
+            <include content="Info_Line_VideoQuality_Object">
+                <param name="colordiffuse">$PARAM[colordiffuse]</param>
+                <param name="label">8.1</param>
+                <param name="visible">$PARAM[visible] + Integer.IsEqual($PARAM[listitem_audiochannels],9)</param>
+            </include>
+            <include content="Info_Line_VideoQuality_Object">
+                <param name="colordiffuse">$PARAM[colordiffuse]</param>
+                <param name="label">7.1</param>
+                <param name="visible">$PARAM[visible] + Integer.IsEqual($PARAM[listitem_audiochannels],8)</param>
+            </include>
+            <include content="Info_Line_VideoQuality_Object">
+                <param name="colordiffuse">$PARAM[colordiffuse]</param>
+                <param name="label">6.1</param>
+                <param name="visible">$PARAM[visible] + Integer.IsEqual($PARAM[listitem_audiochannels],7)</param>
+            </include>
+            <include content="Info_Line_VideoQuality_Object">
+                <param name="colordiffuse">$PARAM[colordiffuse]</param>
+                <param name="label">5.1</param>
+                <param name="visible">$PARAM[visible] + Integer.IsEqual($PARAM[listitem_audiochannels],6)</param>
+            </include>
+            <include content="Info_Line_VideoQuality_Object">
+                <param name="colordiffuse">$PARAM[colordiffuse]</param>
+                <param name="label">4.1</param>
+                <param name="visible">$PARAM[visible] + Integer.IsEqual($PARAM[listitem_audiochannels],5)</param>
+            </include>
+            <include content="Info_Line_VideoQuality_Object">
+                <param name="colordiffuse">$PARAM[colordiffuse]</param>
+                <param name="label">4.0</param>
+                <param name="visible">$PARAM[visible] + Integer.IsEqual($PARAM[listitem_audiochannels],4)</param>
+            </include>
+            <include content="Info_Line_VideoQuality_Object">
+                <param name="colordiffuse">$PARAM[colordiffuse]</param>
+                <param name="label">2.1</param>
+                <param name="visible">$PARAM[visible] + Integer.IsEqual($PARAM[listitem_audiochannels],3)</param>
+            </include>
+            <include content="Info_Line_VideoQuality_Object">
+                <param name="colordiffuse">$PARAM[colordiffuse]</param>
+                <param name="label">2.0</param>
+                <param name="visible">$PARAM[visible] + Integer.IsEqual($PARAM[listitem_audiochannels],2)</param>
+            </include>
+            <include content="Info_Line_VideoQuality_Object">
+                <param name="colordiffuse">$PARAM[colordiffuse]</param>
+                <param name="label">1.0</param>
+                <param name="visible">$PARAM[visible] + Integer.IsEqual($PARAM[listitem_audiochannels],1)</param>
+            </include>
         </definition>
     </include>
 
     <include name="Info_Line_VideoQuality">
-        <param name="item_hd">false</param>
+        <param name="is_collection">false</param>
+        <param name="is_web">false</param>
+        <param name="visible">true</param>
         <definition>
-            <include content="Info_Line_VideoQuality_Items">
-                <param name="textcolor">$PARAM[textcolor]</param>
-                <param name="is_set">[$PARAM[container]ListItem.IsCollection | $PARAM[container]ListItem.HasVideoVersions]</param>
-                <param name="is_4k">[Integer.IsGreater($PARAM[container]ListItem.VideoResolution,1080) | String.IsEqual($PARAM[container]ListItem.VideoResolution,4K)]</param>
-                <param name="is_fhd">[Integer.IsGreater($PARAM[container]ListItem.VideoResolution,720)]</param>
-                <param name="is_hd">[Integer.IsEqual($PARAM[container]ListItem.VideoResolution,720)]</param>
-                <param name="is_sd">[!String.IsEmpty($PARAM[container]ListItem.VideoResolution)]</param>
-                <param name="is_web">[[String.IsEqual($PARAM[container]ListItem.DBType,movie) | String.IsEqual($PARAM[container]ListItem.DBType,episode) | String.IsEqual($PARAM[container]ListItem.DBType,video)] + !String.IsEqual($PARAM[container]ListItem.Property(item.type),person)]</param>
+            <include content="Info_Line_VideoQuality_Resolution">
                 <param name="visible">$PARAM[visible]</param>
+                <param name="colordiffuse">$PARAM[colordiffuse]</param>
+                <param name="is_collection">[$PARAM[is_collection]]</param>
+                <param name="is_web">[$PARAM[is_web]]</param>
+                <param name="is_4k">[Integer.IsGreater($PARAM[listitem_videoresolution],1080) | String.IsEqual($PARAM[listitem_videoresolution],4K)]</param>
+                <param name="is_fhd">[Integer.IsGreater($PARAM[listitem_videoresolution],720)]</param>
+                <param name="is_hd">[Integer.IsEqual($PARAM[listitem_videoresolution],720)]</param>
+                <param name="is_sd">[!String.IsEmpty($PARAM[listitem_videoresolution])]</param>
+            </include>
+            <include content="Info_Line_VideoQuality_HDRType">
+                <param name="visible">$PARAM[visible]</param>
+                <param name="colordiffuse">$PARAM[colordiffuse]</param>
+                <param name="is_dolbyvision">[String.IsEqual($PARAM[listitem_hdrtype],dolbyvision)]</param>
+                <param name="is_hdr">[String.IsEqual($PARAM[listitem_hdrtype],hdr10)]</param>
+                <param name="is_hlg">[String.IsEqual($PARAM[listitem_hdrtype],hlg)]</param>
+            </include>
+            <include content="Info_Line_AudioChannels">
+                <param name="colordiffuse">$PARAM[colordiffuse]</param>
+                <param name="listitem_audiochannels">$PARAM[listitem_audiochannels]</param>
+                <param name="visible">$PARAM[visible] + !String.IsEmpty($PARAM[listitem_audiochannels])</param>
             </include>
         </definition>
     </include>
@@ -1227,8 +1315,13 @@
                 <itemgap>10</itemgap>
 
                 <include content="Info_Line_VideoQuality">
-                    <param name="textcolor">$PARAM[colordiffuse]_90</param>
-                    <param name="container">$PARAM[container]</param>
+                    <param name="colordiffuse">$PARAM[colordiffuse]_90</param>
+                    <param name="is_collection">[$PARAM[container]ListItem.IsCollection | $PARAM[container]ListItem.HasVideoVersions]</param>
+                    <param name="is_web">[[String.IsEqual($PARAM[container]ListItem.DBType,movie) | String.IsEqual($PARAM[container]ListItem.DBType,episode) | String.IsEqual($PARAM[container]ListItem.DBType,video)] + !String.IsEqual($PARAM[container]ListItem.Property(item.type),person)]</param>
+                    <param name="listitem_videoresolution">$PARAM[container]ListItem.VideoResolution</param>
+                    <param name="listitem_dbtype">$PARAM[container]ListItem.DBType</param>
+                    <param name="listitem_hdrtype">$PARAM[container]ListItem.HdrType</param>
+                    <param name="listitem_audiochannels">$PARAM[container]ListItem.AudioChannels</param>
                     <param name="visible">!Integer.IsEqual(Container($PARAM[grouplistid]).NumItems,0)</param>
                 </include>
 
@@ -1494,131 +1587,6 @@
         </definition>
     </include>
 
-    <include name="Info_Codec_AudioChannels_Labels">
-        <param name="info">AudioChannels</param>
-        <param name="include">Defs_Label_AudioChannels</param>
-        <param name="visible">true</param>
-        <param name="prefix" />
-        <param name="itemgap">0</param>
-        <definition>
-            <control type="label">
-                <shadowcolor>$PARAM[shadowcolor]</shadowcolor>
-                <textcolor>$PARAM[channelscolor]</textcolor>
-                <label>$PARAM[prefix]9.1</label>
-                <visible>Integer.IsEqual($PARAM[type].$PARAM[info],10)</visible>
-                <include>$PARAM[include]</include>
-                <visible>$PARAM[visible]</visible>
-                <left>$PARAM[itemgap]</left>
-            </control>
-            <control type="label">
-                <shadowcolor>$PARAM[shadowcolor]</shadowcolor>
-                <textcolor>$PARAM[channelscolor]</textcolor>
-                <label>$PARAM[prefix]8.1</label>
-                <visible>Integer.IsEqual($PARAM[type].$PARAM[info],9)</visible>
-                <include>$PARAM[include]</include>
-                <visible>$PARAM[visible]</visible>
-                <left>$PARAM[itemgap]</left>
-            </control>
-            <control type="label">
-                <shadowcolor>$PARAM[shadowcolor]</shadowcolor>
-                <textcolor>$PARAM[channelscolor]</textcolor>
-                <label>$PARAM[prefix]7.1</label>
-                <visible>Integer.IsEqual($PARAM[type].$PARAM[info],8)</visible>
-                <include>$PARAM[include]</include>
-                <visible>$PARAM[visible]</visible>
-                <left>$PARAM[itemgap]</left>
-            </control>
-            <control type="label">
-                <shadowcolor>$PARAM[shadowcolor]</shadowcolor>
-                <textcolor>$PARAM[channelscolor]</textcolor>
-                <label>$PARAM[prefix]6.1</label>
-                <visible>Integer.IsEqual($PARAM[type].$PARAM[info],7)</visible>
-                <include>$PARAM[include]</include>
-                <visible>$PARAM[visible]</visible>
-                <left>$PARAM[itemgap]</left>
-            </control>
-            <control type="label">
-                <shadowcolor>$PARAM[shadowcolor]</shadowcolor>
-                <textcolor>$PARAM[channelscolor]</textcolor>
-                <label>$PARAM[prefix]5.1</label>
-                <visible>Integer.IsEqual($PARAM[type].$PARAM[info],6)</visible>
-                <include>$PARAM[include]</include>
-                <visible>$PARAM[visible]</visible>
-                <left>$PARAM[itemgap]</left>
-            </control>
-            <control type="label">
-                <shadowcolor>$PARAM[shadowcolor]</shadowcolor>
-                <textcolor>$PARAM[channelscolor]</textcolor>
-                <label>$PARAM[prefix]4.1</label>
-                <visible>Integer.IsEqual($PARAM[type].$PARAM[info],5)</visible>
-                <include>$PARAM[include]</include>
-                <visible>$PARAM[visible]</visible>
-                <left>$PARAM[itemgap]</left>
-            </control>
-            <control type="label">
-                <shadowcolor>$PARAM[shadowcolor]</shadowcolor>
-                <textcolor>$PARAM[channelscolor]</textcolor>
-                <label>$PARAM[prefix]2.1</label>
-                <visible>Integer.IsEqual($PARAM[type].$PARAM[info],3)</visible>
-                <include>$PARAM[include]</include>
-                <visible>$PARAM[visible]</visible>
-                <left>$PARAM[itemgap]</left>
-            </control>
-            <control type="label">
-                <shadowcolor>$PARAM[shadowcolor]</shadowcolor>
-                <textcolor>$PARAM[channelscolor]</textcolor>
-                <label>$PARAM[prefix]$INFO[$PARAM[type].$PARAM[info],,.0]</label>
-                <visible>![Integer.IsEqual($PARAM[type].$PARAM[info],10) | Integer.IsEqual($PARAM[type].$PARAM[info],9) | Integer.IsEqual($PARAM[type].$PARAM[info],8) | Integer.IsEqual($PARAM[type].$PARAM[info],7) | Integer.IsEqual($PARAM[type].$PARAM[info],6) | Integer.IsEqual($PARAM[type].$PARAM[info],5) | Integer.IsEqual($PARAM[type].$PARAM[info],3)]</visible>
-                <include>$PARAM[include]</include>
-                <visible>$PARAM[visible]</visible>
-                <left>$PARAM[itemgap]</left>
-            </control>
-        </definition>
-    </include>
-
-    <include name="Info_Codec_AudioChannels">
-        <param name="type">ListItem</param>
-        <param name="shadowcolor">00ffffff</param>
-        <param name="info">AudioChannels</param>
-        <param name="left">0</param>
-        <param name="visible">true</param>
-        <definition>
-            <control type="group">
-                <left>$PARAM[left]</left>
-                <centertop>50%</centertop>
-                <width>80</width>
-                <height>32</height>
-                <visible>!String.IsEmpty($PARAM[type].$PARAM[info])</visible>
-                <visible>$PARAM[visible]</visible>
-                <control type="group">
-                    <width>68</width>
-                    <centerleft>50%</centerleft>
-                    <control type="image">
-                        <centertop>50%</centertop>
-                        <width>32</width>
-                        <height>32</height>
-                        <aspectratio align="left">keep</aspectratio>
-                        <texture colordiffuse="$PARAM[iconcolor]">flags/monochrome/channels/$INFO[$PARAM[type].$PARAM[info]].png</texture>
-                    </control>
-                    <include content="Info_Codec_AudioChannels_Labels">
-                        <param name="shadowcolor">$PARAM[shadowcolor]</param>
-                        <param name="channelscolor">$PARAM[channelscolor]</param>
-                        <param name="info">$PARAM[info]</param>
-                        <param name="type">$PARAM[type]</param>
-                    </include>
-                    <control type="image">
-                        <left>20</left>
-                        <bottom>-24</bottom>
-                        <width>64</width>
-                        <height>64</height>
-                        <aspectratio align="right">keep</aspectratio>
-                        <texture colordiffuse="$PARAM[imagecolor]">special://skin/extras/icons/soundwave.png</texture>
-                    </control>
-                </control>
-            </control>
-        </definition>
-    </include>
-
     <include name="Info_Bottom_Right">
         <control type="grouplist">
             <align>right</align>
@@ -1632,14 +1600,6 @@
                 <aspectratio align="right">keep</aspectratio>
                 <texture>$VAR[Image_CombinedStudio]</texture>
                 <centertop>50%</centertop>
-            </control>
-            <control type="image">
-                <width>64</width>
-                <height>64</height>
-                <aspectratio>keep</aspectratio>
-                <texture>$INFO[ListItem.HdrType,flags/color/hdr/,.png]</texture>
-                <centertop>50%</centertop>
-                <visible>!String.IsEmpty(ListItem.HdrType)</visible>
             </control>
         </control>
     </include>
@@ -1662,20 +1622,6 @@
                 <visible>$PARAM[details]</visible>
                 <include>$PARAM[details_include]</include>
             </control>
-            <!-- <control type="group">
-                <top>17</top>
-                <height>$PARAM[plotheight]</height>
-                <visible>$PARAM[details]</visible>
-                <include>$PARAM[details_include]</include>
-                <control type="textbox">
-                    <width>$PARAM[plotwidth]</width>
-                    <label>$PARAM[plotlabel]</label>
-                    <aligny>top</aligny>
-                    <textcolor>$PARAM[colordiffuse]_70</textcolor>
-                    <font>font_main_plot</font>
-                </control>
-                <nested />
-            </control> -->
         </definition>
     </include>
 
@@ -1697,7 +1643,6 @@
         <param name="align">top</param>
         <definition>
             <control type="group">
-                <nested />
                 <include content="Animation_ConditionalFade">
                     <param name="condition">![$PARAM[visible]]</param>
                 </include>
@@ -1730,7 +1675,7 @@
                             <param name="container">$PARAM[container]</param>
                             <param name="starrating">$PARAM[starrating]</param>
                             <param name="grouplistid">$PARAM[grouplistid]</param>
-                            <centertop>37.5</centertop>
+                            <centertop>38</centertop>
                             <visible>$PARAM[visible]</visible>
                             <!-- <visible>$PARAM[details]</visible> -->
                         </include>
