@@ -1370,6 +1370,7 @@
                 </include>
 
                 <include content="Dialog_Foreground_Side">
+                    <param name="slide_condition">!Integer.IsEqual(Container(8000).NumItems,0)</param>
                     <param name="dialog_size">$PARAM[size]</param>
                     <param name="topline">false</param>
                     <param name="subline">false</param>
@@ -1428,14 +1429,12 @@
                                 </include>
                             </control>
                         </control>
-                        <control type="scrollbar" id="61">
-                            <centerright>-20</centerright>
-                            <width>scrollbar_w</width>
-                            <showonepage>false</showonepage>
+                        <include content="Dialog_Scrollbar">
+                            <param name="id">61</param>
+                            <param name="slide_condition">!Integer.IsEqual(Container(8000).NumItems,0)</param>
                             <onleft>8000</onleft>
-                            <texturesliderbackground colordiffuse="main_fg_12" border="4">scrollbar/scrollv_line.png</texturesliderbackground>
                             <include condition="String.IsEmpty(Window.Property(path))">Texture_Scrollbar_SliderBar_V</include>
-                        </control>
+                        </include>
                     </control>
                 </include>
             </control>
