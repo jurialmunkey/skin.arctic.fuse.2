@@ -93,10 +93,24 @@
         </include>
     </include>
 
+    <include name="Info_Line_Pillbox_Object_Bordered">
+        <texturefocus colordiffuse="$PARAM[colordiffuse]" border="8">flags/blank-bordered.png</texturefocus>
+        <texturenofocus colordiffuse="$PARAM[colordiffuse]" border="8">flags/blank-bordered.png</texturenofocus>
+    </include>
+
+    <include name="Info_Line_Pillbox_Object_Plain">
+        <texturefocus colordiffuse="$PARAM[colordiffuse]" border="8">flags/blank-plain.png</texturefocus>
+        <texturenofocus colordiffuse="$PARAM[colordiffuse]" border="8">flags/blank-plain.png</texturenofocus>
+    </include>
+
     <include name="Info_Line_Pillbox_Object">
         <control type="button">
-            <texturefocus colordiffuse="$PARAM[colordiffuse]" border="4">flags/blank.png</texturefocus>
-            <texturenofocus colordiffuse="$PARAM[colordiffuse]" border="4">flags/blank.png</texturenofocus>
+            <include content="Info_Line_Pillbox_Object_Bordered" condition="Skin.HasSetting(Glass.EnableBorders)">
+                <param name="colordiffuse">$PARAM[colordiffuse]</param>
+            </include>
+            <include content="Info_Line_Pillbox_Object_Plain" condition="!Skin.HasSetting(Glass.EnableBorders)">
+                <param name="colordiffuse">$PARAM[colordiffuse]</param>
+            </include>
             <font>font_infotag</font>
             <textcolor>$PARAM[textcolor]</textcolor>
             <focusedcolor>$PARAM[textcolor]</focusedcolor>
@@ -111,12 +125,12 @@
 
     <include name="Info_Line_Pillbox">
         <include content="Info_Line_Pillbox_Object" condition="![Window.IsActive(VideoFullScreen.xml) | Window.IsActive(MusicVisualisation.xml)]">
-            <param name="colordiffuse">main_fg_12</param>
+            <param name="colordiffuse">main_fg_30</param>
             <param name="textcolor">main_fg_90</param>
             <nested />
         </include>
         <include content="Info_Line_Pillbox_Object" condition="Window.IsActive(VideoFullScreen.xml) | Window.IsActive(MusicVisualisation.xml)">
-            <param name="colordiffuse">panel_fg_12</param>
+            <param name="colordiffuse">panel_fg_30</param>
             <param name="textcolor">panel_fg_90</param>
             <nested />
         </include>
