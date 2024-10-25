@@ -596,7 +596,9 @@
 
                 <right>$PARAM[misc]</right>
 
-                <animation effect="fadediffuse" start="FFFFFFFF" end="FFFF0000" condition="String.IsEqual(ListItem.Property(disabled),True)">Conditional</animation>
+                <animation effect="fadediffuse" start="ffffffff" end="FFBF0000" condition="String.IsEqual(ListItem.Property(disabled),True)">Conditional</animation>
+                <animation effect="fadediffuse" start="ffffffff" end="ff333333" condition="!String.IsEqual(ListItem.Property(disabled),True) + $PARAM[selected] + !Skin.HasSetting(RevertSelectedText)">Conditional</animation>
+                <animation effect="fadediffuse" start="ffffffff" end="$PARAM[textcolor]" condition="!String.IsEqual(ListItem.Property(disabled),True) + ![$PARAM[selected]]">Conditional</animation>
 
                 <control type="group">
                     <centerleft>50</centerleft>
@@ -607,20 +609,12 @@
                         <bordersize>icon_home_bordersize</bordersize>
                         <aspectratio scalediffuse="false">scale</aspectratio>
                         <visible>String.IsEmpty(ListItem.Icon) | String.StartsWith(ListItem.Icon,special://skin/extras/icons)</visible>
-                        <include content="Object_ColorDiffuse" condition="$PARAM[selected]">
-                            <param name="colordiffuse">$VAR[ColorSelected]</param>
-                        </include>
-                        <colordiffuse>$PARAM[textcolor]</colordiffuse>
                         <texture background="true" diffuse="diffuse/circle_120.png" fallback="special://skin/extras/icons/shapes.png">$INFO[ListItem.Icon]</texture>
                     </control>
                     <control type="image">
                         <bordersize>icon_main_bordersize</bordersize>
                         <aspectratio scalediffuse="false">scale</aspectratio>
                         <visible>String.StartsWith(ListItem.Icon,Default)</visible>
-                        <include content="Object_ColorDiffuse" condition="$PARAM[selected]">
-                            <param name="colordiffuse">$VAR[ColorSelected]</param>
-                        </include>
-                        <colordiffuse>$PARAM[textcolor]</colordiffuse>
                         <texture background="true" diffuse="diffuse/circle_120.png" fallback="special://skin/extras/icons/shapes.png">$INFO[ListItem.Icon]</texture>
                     </control>
                     <control type="image">
@@ -635,9 +629,8 @@
                     <right>0</right>
                     <visible>![$PARAM[detailed]]</visible>
                     <control type="textbox">
-                        <include condition="$PARAM[selected]">Color_SelectedText</include>
-                        <textcolor>$PARAM[textcolor]</textcolor>
-                        <selectedcolor>$PARAM[textcolor]</selectedcolor>
+                        <textcolor>white</textcolor>
+                        <selectedcolor>white</selectedcolor>
                         <right>80</right>
                         <font>font_main</font>
                         <aligny>center</aligny>
@@ -654,9 +647,8 @@
                         <visible>![String.IsEmpty(ListItem.Property(path))]</visible>
                         <control type="label">
                             <height>30</height>
-                            <include condition="$PARAM[selected]">Color_SelectedText</include>
-                            <textcolor>$PARAM[textcolor]</textcolor>
-                            <selectedcolor>$PARAM[textcolor]</selectedcolor>
+                            <textcolor>white</textcolor>
+                            <selectedcolor>white</selectedcolor>
                             <font>font_main_bold</font>
                             <label>$INFO[ListItem.Label]</label>
                         </control>
@@ -664,9 +656,8 @@
                             <height>30</height>
                             <font>font_tiny</font>
                             <bottom>0</bottom>
-                            <include condition="$PARAM[selected]">Color_SelectedText</include>
-                            <textcolor>$PARAM[textcolor]</textcolor>
-                            <selectedcolor>$PARAM[textcolor]</selectedcolor>
+                            <textcolor>white</textcolor>
+                            <selectedcolor>white</selectedcolor>
                             <label>$VAR[Label_Shortcut_LabelTwo]</label>
                         </control>
                     </control>
@@ -676,9 +667,8 @@
                     <right>200</right>
                     <visible>$PARAM[detailed]</visible>
                     <control type="textbox">
-                        <include condition="$PARAM[selected]">Color_SelectedText</include>
-                        <textcolor>$PARAM[textcolor]</textcolor>
-                        <selectedcolor>$PARAM[textcolor]</selectedcolor>
+                        <textcolor>white</textcolor>
+                        <selectedcolor>white</selectedcolor>
                         <right>80</right>
                         <font>font_main</font>
                         <aligny>center</aligny>
@@ -695,9 +685,8 @@
                         <visible>![String.IsEmpty(ListItem.Property(path))]</visible>
                         <control type="label">
                             <height>30</height>
-                            <include condition="$PARAM[selected]">Color_SelectedText</include>
-                            <textcolor>$PARAM[textcolor]</textcolor>
-                            <selectedcolor>$PARAM[textcolor]</selectedcolor>
+                            <textcolor>white</textcolor>
+                            <selectedcolor>white</selectedcolor>
                             <font>font_main_bold</font>
                             <label>$INFO[ListItem.Label]</label>
                         </control>
@@ -705,9 +694,8 @@
                             <height>30</height>
                             <font>font_tiny</font>
                             <bottom>0</bottom>
-                            <include condition="$PARAM[selected]">Color_SelectedText</include>
-                            <textcolor>$PARAM[textcolor]</textcolor>
-                            <selectedcolor>$PARAM[textcolor]</selectedcolor>
+                            <textcolor>white</textcolor>
+                            <selectedcolor>white</selectedcolor>
                             <label>$VAR[Label_Shortcut_LabelTwo]</label>
                         </control>
                     </control>
@@ -728,10 +716,6 @@
                             <top>4</top>
                             <bordersize>-8</bordersize>
                             <aspectratio scalediffuse="false">keep</aspectratio>
-                            <include content="Object_ColorDiffuse" condition="$PARAM[selected]">
-                                <param name="colordiffuse">$VAR[ColorSelected]</param>
-                            </include>
-                            <colordiffuse>$PARAM[textcolor]</colordiffuse>
                             <texture background="true">special://skin/extras/icons/arrow-down-wide-short.png</texture>
                             <visible>String.IsEmpty(ListItem.Property(widget_sortorder))</visible>
                         </control>
@@ -740,10 +724,6 @@
                             <top>4</top>
                             <bordersize>-8</bordersize>
                             <aspectratio scalediffuse="false">keep</aspectratio>
-                            <include content="Object_ColorDiffuse" condition="$PARAM[selected]">
-                                <param name="colordiffuse">$VAR[ColorSelected]</param>
-                            </include>
-                            <colordiffuse>$PARAM[textcolor]</colordiffuse>
                             <texture background="true">special://skin/extras/icons/arrow-up-wide-short.png</texture>
                             <visible>!String.IsEmpty(ListItem.Property(widget_sortorder))</visible>
                         </control>
@@ -751,9 +731,8 @@
                             <height>40</height>
                             <font>font_tiny</font>
                             <bottom>4</bottom>
-                            <include condition="$PARAM[selected]">Color_SelectedText</include>
-                            <textcolor>$PARAM[textcolor]</textcolor>
-                            <selectedcolor>$PARAM[textcolor]</selectedcolor>
+                            <textcolor>white</textcolor>
+                            <selectedcolor>white</selectedcolor>
                             <label fallback="Default">$INFO[ListItem.Property(widget_sortby),[CAPITALIZE],[/CAPITALIZE]]</label>
                             <align>center</align>
                         </control>
@@ -770,10 +749,6 @@
                             <top>4</top>
                             <bordersize>-8</bordersize>
                             <aspectratio scalediffuse="false">keep</aspectratio>
-                            <include content="Object_ColorDiffuse" condition="$PARAM[selected]">
-                                <param name="colordiffuse">$VAR[ColorSelected]</param>
-                            </include>
-                            <colordiffuse>$PARAM[textcolor]</colordiffuse>
                             <texture background="true" fallback="special://skin/extras/icons/shapes.png">$VAR[Image_Widget_Style]</texture>
                         </control>
                         <control type="label">
@@ -782,9 +757,8 @@
                             <height>40</height>
                             <font>font_tiny</font>
                             <bottom>4</bottom>
-                            <include condition="$PARAM[selected]">Color_SelectedText</include>
-                            <textcolor>$PARAM[textcolor]</textcolor>
-                            <selectedcolor>$PARAM[textcolor]</selectedcolor>
+                            <textcolor>white</textcolor>
+                            <selectedcolor>white</selectedcolor>
                             <label>$VAR[Label_Widget_Style]</label>
                             <align>center</align>
                         </control>
