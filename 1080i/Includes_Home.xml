@@ -59,12 +59,6 @@
 
                 <include>Home_Menu_List_Vert</include>
 
-                <include content="Settings_Arrows">
-                    <param name="arrow_prev_visible">Container($PARAM[id]).HasPrevious</param>
-                    <param name="arrow_next_visible">Container($PARAM[id]).HasNext</param>
-                    <param name="colordiffuse">main_fg_30</param>
-                </include>
-
                 <control type="list" id="$PARAM[id]">
                     <!-- <focusposition>3</focusposition>
                     <movement>3</movement> -->
@@ -134,18 +128,6 @@
         </control>
     </include>
 
-    <include name="Home_Menu_Label_Dialog_Fade">
-        <!-- <visible>!Window.IsActive(1163)</visible>
-        <include content="Animation_Fade_In">
-            <param name="type">visible</param>
-            <param name="delay">200</param>
-        </include>
-        <include content="Animation_Fade_Out">
-            <param name="type">Hidden</param>
-            <param name="time">150</param>
-        </include> -->
-    </include>
-
     <include name="Home_Menu_List_ItemLayout">
         <param name="layoutnf">[false]</param>
         <param name="layoutfo">[$EXP[Exp_ClassicHome_IsVisible]]</param>
@@ -162,7 +144,6 @@
                     <left>80</left>
                     <right>200</right>
                     <visible>$PARAM[expanded]</visible>
-                    <include>Home_Menu_Label_Dialog_Fade</include>
                     <control type="label">
                         <aligny>center</aligny>
                         <font>font_main</font>
@@ -188,8 +169,12 @@
                 <control type="group">
                     <control type="image">
                         <visible>Control.HasFocus($PARAM[id]) | $PARAM[altfocus]</visible>
-                        <include>Texture_MainMenu_Highlight_V</include>
-                        <height>256</height>
+                        <!-- <include>Texture_MainMenu_Highlight_V</include>
+                        <height>256</height> -->
+                        <include>Texture_Menu_Highlight_H</include>
+                        <height>80</height>
+                        <left>40</left>
+                        <right>40</right>
                         <centertop>50%</centertop>
                         <visible>$PARAM[expanded]</visible>
                     </control>
@@ -224,7 +209,6 @@
                     <left>80</left>
                     <right>200</right>
                     <visible>$PARAM[expanded]</visible>
-                    <include>Home_Menu_Label_Dialog_Fade</include>
                     <control type="label">
                         <aligny>center</aligny>
                         <font>font_main</font>
@@ -370,8 +354,12 @@
             <control type="group">
                 <visible>Control.HasFocus(309)</visible>
                 <control type="image">
-                    <include>Texture_MainMenu_Highlight_V</include>
-                    <height>256</height>
+                    <!-- <include>Texture_MainMenu_Highlight_V</include>
+                    <height>256</height> -->
+                    <include>Texture_Menu_Highlight_H</include>
+                    <height>80</height>
+                    <left>40</left>
+                    <right>40</right>
                     <centertop>50%</centertop>
                     <visible>$EXP[Exp_HomeMenu_IsExpanded]</visible>
                 </control>
@@ -391,7 +379,6 @@
                 <include>Home_Menu_SearchButton</include>
             </control>
             <control type="group">
-                <include>Home_Menu_Label_Dialog_Fade</include>
                 <include content="Layout_Home_Menu_Label" condition="$EXP[Exp_HomeMenu_IsExpanded]">
                     <param name="detailed">true</param>
                     <param name="selected">[Control.HasFocus(309)]</param>
@@ -411,8 +398,10 @@
             <control type="group">
                 <visible>Control.HasFocus(308)</visible>
                 <control type="image">
-                    <include>Texture_MainMenu_Highlight_V</include>
-                    <height>256</height>
+                    <include>Texture_Menu_Highlight_H</include>
+                    <height>80</height>
+                    <left>40</left>
+                    <right>40</right>
                     <centertop>50%</centertop>
                     <visible>$EXP[Exp_HomeMenu_IsExpanded]</visible>
                 </control>
@@ -432,7 +421,6 @@
                 <include>Home_Menu_OptionButton</include>
             </control>
             <control type="group">
-                <include>Home_Menu_Label_Dialog_Fade</include>
                 <include content="Layout_Home_Menu_Label" condition="$EXP[Exp_HomeMenu_IsExpanded]">
                     <param name="detailed">true</param>
                     <param name="selected">[Control.HasFocus(308)]</param>
@@ -449,12 +437,13 @@
             <control type="group">
                 <include>Dimension_Topbar</include>
                 <control type="group">
+                    <left>-20</left>
                     <include>Dimension_Furniture_Gutters</include>
 
                     <control type="group">
-                        <include>Home_Menu_Label_Dialog_Fade</include>
                         <include content="Furniture_MainLabel" condition="$PARAM[include_label]">
                             <param name="label">$PARAM[label]</param>
+                            <param name="textcolor">main_fg_100</param>
                         </include>
                     </control>
 
@@ -490,13 +479,14 @@
             <control type="group">
                 <include>Dimension_Bottombar</include>
                 <control type="group">
+                    <left>-20</left>
                     <animation effect="fade" start="100" end="70" condition="true">Conditional</animation>
                     <include>Dimension_Furniture_Gutters</include>
                     <control type="group">
-                        <include>Home_Menu_Label_Dialog_Fade</include>
                         <include content="View_Furniture_Bottom_ViewLine" condition="$PARAM[include_label]">
                             <param name="label">$PARAM[label]</param>
                             <param name="fade_condition">false</param>
+                            <param name="textcolor">main_fg_90</param>
                         </include>
                     </control>
                     <control type="group">
@@ -533,45 +523,86 @@
     </include>
 
     <include name="Home_Menu_Vert_Background">
+        <param name="subline_visible">true</param>
+        <param name="include_glass">true</param>
+        <param name="diffuse">diffuse/dialog_w440_h1000.png</param>
+        <definition>
+            <control type="group">
+                <left>$PARAM[left]</left>
+                <width>$PARAM[width]</width>
+                <control type="group">
+                    <top>40</top>
+                    <bottom>40</bottom>
+                    <right>20</right>
+                    <left>20</left>
+
+                    <control type="image">
+                        <texture border="20" colordiffuse="main_bg_30">common/dialog.png</texture>
+                    </control>
+                    <control type="image">
+                        <texture colordiffuse="main_fg_12" border="12">common/box-outline.png</texture>
+                    </control>
+
+                    <control type="image">
+                        <top>120</top>
+                        <left>40</left>
+                        <right>40</right>
+                        <height>1</height>
+                        <texture colordiffuse="main_fg_12">common/white.png</texture>
+                    </control>
+
+                    <control type="image">
+                        <bottom>120</bottom>
+                        <left>40</left>
+                        <right>40</right>
+                        <height>1</height>
+                        <texture colordiffuse="main_fg_12">common/white.png</texture>
+                        <visible>$PARAM[subline_visible]</visible>
+                    </control>
+                </control>
+            </control>
+        </definition>
+    </include>
+
+    <include name="Home_Menu_Vert_Large">
+        <left>20</left>
+        <include content="Home_Menu_Vert_Background">
+            <param name="left">-view_menu_main</param>
+            <param name="width">view_menu_main</param>
+        </include>
+    </include>
+
+    <include name="Home_Menu_Vert_Small">
+        <left>40</left>
         <control type="group">
-            <left>-$PARAM[width]</left>
-            <width>$PARAM[width]</width>
-            <control type="image">
-                <left>-1000</left>
-                <texture colordiffuse="main_bg_30">common/white.png</texture>
-            </control>
-            <control type="image">
-                <right>0</right>
-                <width>24</width>
-                <texture colordiffuse="shadow_hard" flipx="true">shadows/shadow-line-24-v.png</texture>
-                <visible>Skin.HasSetting(Glass.EnableBorders)</visible>
-            </control>
-            <control type="image">
-                <right>0</right>
-                <width>1</width>
-                <texture colordiffuse="main_fg_12">common/white.png</texture>
-            </control>
+            <left>-20</left>
+            <include content="Home_Menu_Vert_Background">
+                <param name="left">-view_menu_mini</param>
+                <param name="width">view_menu_mini</param>
+                <param name="diffuse">diffuse/dialog_w120_h1000.png</param>
+            </include>
         </control>
     </include>
 
     <include name="Home_Menu_Vert">
         <control type="group">
-            <include content="Home_Menu_Vert_Background">
-                <param name="width">view_menu_main</param>
+
+
+            <include condition="Window.IsVisible(Home) + !$EXP[Exp_HomeMenu_IsExpanded]">Home_Menu_Vert_Small</include>
+            <include condition="![Window.IsVisible(Home) + !$EXP[Exp_HomeMenu_IsExpanded]]">Home_Menu_Vert_Large</include>
+
+            <visible allowhiddenfocus="true">$EXP[Exp_HomeMenu_HasFocus]</visible>
+            <include content="Animation_Fade_In">
+                <param name="type">Visible</param>
+            </include>
+            <include content="Animation_Fade_Out">
+                <param name="type">Hidden</param>
             </include>
 
+
             <control type="group">
-                <visible allowhiddenfocus="true">$EXP[Exp_HomeMenu_HasFocus]</visible>
                 <include>Hub_Menu_Fade</include>
-                <include content="Animation_Fade_In">
-                    <param name="type">Visible</param>
-                </include>
-                <include content="Animation_Fade_Out">
-                    <param name="type">Hidden</param>
-                </include>
-
                 <include>Home_Menu_Vert_SearchAndOptions</include>
-
                 <include content="Home_Menu_List">
                     <param name="onlist">$PARAM[onlist]</param>
                     <param name="window_id">$PARAM[window_id]</param>
