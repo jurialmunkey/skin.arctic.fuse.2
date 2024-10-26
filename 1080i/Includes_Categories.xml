@@ -253,4 +253,31 @@
 
         </definition>
     </include>
+
+
+    <include name="Categories_Selector_Icons">
+        <param name="id">300</param>
+        <param name="slide_id">300</param>
+        <param name="property_window_id" />
+        <param name="slide">False</param>
+        <param name="color_nf">main_fg_30</param>
+        <param name="hidden_button">List_ButtonMenu_Row_HiddenButton_Home</param>
+        <definition>
+            <include content="List_IconMenu_Row">
+                <param name="id">$PARAM[id]</param>
+                <param name="color_fo">$PARAM[color_fo]</param>
+                <param name="color_nf">$PARAM[color_nf]</param>
+                <param name="hidden_button">$PARAM[hidden_button]</param>
+                <param name="hidden_button_prefix">$PARAM[hidden_button_prefix]</param>
+                <height>120</height>
+
+                <nested />
+
+                <width>500</width>
+                <onfocus condition="$PARAM[slide]">SetProperty(Slide.WidgetContainer,$PARAM[slide_id],$PARAM[property_window_id])</onfocus>
+                <onfocus condition="![$PARAM[slide]]">ClearProperty(Slide.WidgetContainer,$PARAM[property_window_id])</onfocus>
+            </include>
+
+        </definition>
+    </include>
 </includes>

@@ -12,28 +12,8 @@
         <value>plugin://script.skinvariables/?info=get_split_string&amp;infolabel=Skin.String(SearchHistory)&amp;reload=$INFO[Skin.String(SearchHistory)]</value>
     </variable>
 
-    <variable name="Path_SkinVariables_FilterPath">
-        <value condition="String.IsEqual(Window(Home).Property(Shortcuts.Category),Global)">&amp;exclude_key=sidemenu_guid&amp;exclude_value=guid</value>
-        <value condition="String.StartsWith(Window(Home).Property(Shortcuts.Category),guid-)">&amp;filter_key=sidemenu_guid&amp;filter_value=$INFO[Window(Home).Property(Shortcuts.Category)]&amp;filter_empty=true</value>
-    </variable>
-
-    <variable name="Path_SkinVariables_Home29303FilterPath">
-        <value condition="String.StartsWith(Window(Home).Property(Shortcuts.Category),guid-)">plugin://script.skinvariables/?info=get_shortcuts_node&amp;edit=False&amp;skin=$VAR[Path_SkinVariables_SkinFolder]$INFO[Window(Home).Property(SkinVariables.ShortcutsNode.Reload),&amp;reload=,]&amp;menu=sidemenu&amp;filter_key=guid&amp;filter_value=$INFO[Window(Home).Property(Shortcuts.Category)]</value>
-        <value>noop</value>
-    </variable>
-
-    <variable name="Path_SkinVariables_Home29313FilterPath">
-        <value condition="String.StartsWith(Container(22001).ListItem.Property(sidemenu_guid),guid-)">plugin://script.skinvariables/?info=get_shortcuts_node&amp;edit=False&amp;skin=$VAR[Path_SkinVariables_SkinFolder]$INFO[Window(Home).Property(SkinVariables.ShortcutsNode.Reload),&amp;reload=,]&amp;menu=sidemenu&amp;filter_key=guid&amp;filter_value=$INFO[Container(22001).ListItem.Property(sidemenu_guid)]</value>
-        <value>noop</value>
-    </variable>
-
     <variable name="Path_SkinVariables_1304_EditMode">
         <value condition="!String.EndsWith(Container(304).ListItem.Property(menu),-widgetsonly) + !String.EndsWith(Container(304).ListItem.Property(menu),-globalwidgets)">$INFO[Container(304).ListItem.Property(mode),mode=,]</value>
-    </variable>
-
-    <variable name="Path_SkinVariables_1304_EditGUID">
-        <value condition="String.IsEqual(Container(304).ListItem.Property(menu),sidemenu) + !String.EndsWith(Container(304).ListItem.Property(menu),-widgetsonly) + !String.EndsWith(Container(304).ListItem.Property(menu),-globalwidgets)">$INFO[Container(303).ListItem.Property(guid),guid=,]</value>
-        <value condition="!String.IsEqual(Container(304).ListItem.Property(menu),sidemenu) + !String.EndsWith(Container(304).ListItem.Property(menu),-widgetsonly) + !String.EndsWith(Container(304).ListItem.Property(menu),-globalwidgets)">$INFO[Container(300).ListItem.Property(guid),guid=,]</value>
     </variable>
 
     <variable name="Path_SkinVariables_SkinFolder">
@@ -44,10 +24,6 @@
     <variable name="Path_SkinVariables_SkinUserSlug">
         <value condition="!String.IsEmpty(Skin.String(SkinVariables.SkinUser))">$INFO[Skin.String(SkinVariables.SkinUser)]</value>
         <value>defaultuser</value>
-    </variable>
-
-    <variable name="Path_Shortcut_UseCategory">
-        <value condition="String.StartsWith(Window(Home).Property(Shortcuts.Category),guid-)">&amp;&amp;sidemenu_guid::$INFO[Window(Home).Property(Shortcuts.Category)]</value>
     </variable>
 
     <variable name="Path_Shortcut_UseRawPath">

@@ -383,28 +383,27 @@
 
     <include name="Action_HomeMenu_OnRightLeft">
         <param name="onlist">320</param>
-        <param name="c_bump">[!String.IsEmpty(Window.Property(List.ViewContainer.Bump))]</param>
-        <param name="c_left">[!String.IsEmpty(Window.Property(List.ViewContainer.Left))]</param>
-        <param name="i_left">$INFO[Window.Property(List.ViewContainer.Left)]</param>
         <param name="c_view">[!String.IsEmpty(Window.Property(List.ViewContainer))]</param>
         <param name="i_view">$INFO[Window.Property(List.ViewContainer)]</param>
         <param name="c_tmdb">[!String.IsEmpty(Window.Property(TMDbHelper.WidgetContainer)) + !Integer.IsEqual(Window.Property(TMDbHelper.WidgetContainer),301)]</param>
         <param name="i_tmdb">$INFO[Window.Property(TMDbHelper.WidgetContainer)]</param>
-        <param name="c_menu">[true]</param>
         <param name="search">!Skin.HasSetting(SideMenu.DisableSearchAndOptions)</param>
         <param name="option">!Skin.HasSetting(SideMenu.DisableSearchAndOptions)</param>
         <definition>
 
-            <onleft condition="$PARAM[c_menu]">Action(Info)</onleft>
+            <onleft condition="!Control.HasFocus(309) + !Control.HasFocus(308)">SetProperty(Target,$INFO[Container(300).ListItem.Property(sidemenu_target)],1163)</onleft>
+            <onleft condition="!Control.HasFocus(309) + !Control.HasFocus(308)">SetProperty(Path,$INFO[Container(300).ListItem.Property(sidemenu_path)],1163)</onleft>
+            <onleft condition="!Control.HasFocus(309) + !Control.HasFocus(308)">SetProperty(Header,$INFO[Container(300).ListItem.Label],1163)</onleft>
+            <onleft condition="!Control.HasFocus(309) + !Control.HasFocus(308)">SetProperty(Icon,$INFO[Container(300).ListItem.Icon],1163)</onleft>
+            <onleft condition="!Control.HasFocus(309) + !Control.HasFocus(308)">ActivateWindow(1163)</onleft>
 
-            <onleft condition="![$PARAM[c_menu]] + $PARAM[c_bump]">331</onleft>
-            <onleft condition="![$PARAM[c_menu]] + !$PARAM[c_bump] + $PARAM[c_left]">SetFocus($PARAM[i_left],99999,absolute)</onleft>
-            <onleft condition="![$PARAM[c_menu]] + !$PARAM[c_bump] + !$PARAM[c_left] + $PARAM[c_view]">SetFocus($PARAM[i_view],99999,absolute)</onleft>
-            <onleft condition="![$PARAM[c_menu]] + !$PARAM[c_bump] + !$PARAM[c_left] + !$PARAM[c_view] + $PARAM[c_tmdb]">SetFocus($PARAM[i_tmdb])</onleft>
-            <onleft condition="![$PARAM[c_menu]] + !$PARAM[c_bump] + !$PARAM[c_left] + !$PARAM[c_view] + !$PARAM[c_tmdb]">$PARAM[onlist]</onleft>
-            <onleft condition="![$PARAM[c_menu]]">ClearProperty(List.ViewContainer)</onleft>
-            <onleft condition="![$PARAM[c_menu]]">ClearProperty(List.ViewContainer.Left)</onleft>
-            <onleft condition="![$PARAM[c_menu]]">ClearProperty(List.ViewContainer.Bump)</onleft>
+            <onleft condition="Control.HasFocus(308)">ClearProperty(Target,1163)</onleft>
+            <onleft condition="Control.HasFocus(308)">SetProperty(Path,plugin://script.skinvariables/?info=get_shortcuts_node&amp;menu=powermainmenu$VAR[Path_SkinVariables_SkinFolder,&amp;skin=,],1163)</onleft>
+            <onleft condition="Control.HasFocus(308)">SetProperty(Header,$LOCALIZE[33063],1163)</onleft>
+            <onleft condition="Control.HasFocus(308)">SetProperty(Icon,special://skin/extras/icons/bars.png,1163)</onleft>
+            <onleft condition="Control.HasFocus(308)">ActivateWindow(1163)</onleft>
+
+            <onleft condition="Control.HasFocus(309)">$VAR[Action_ActivateSearchDiscover]</onleft>
 
             <onright condition="$PARAM[c_view] + !$EXP[Exp_Navigation_OnMenu]">SetFocus($PARAM[i_view],0,absolute)</onright>
             <onright condition="$PARAM[c_view] + $EXP[Exp_Navigation_OnMenu]">SetFocus($PARAM[i_view])</onright>

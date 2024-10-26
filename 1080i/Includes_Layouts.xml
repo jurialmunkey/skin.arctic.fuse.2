@@ -222,7 +222,7 @@
                         <include content="Object_ColorDiffuse" condition="$PARAM[selected]">
                             <param name="colordiffuse">$VAR[ColorSelected]</param>
                         </include>
-                        <colordiffuse>$PARAM[color]_70</colordiffuse>
+                        <colordiffuse>$PARAM[color_nf]</colordiffuse>
                         <texture diffuse="diffuse/circle_120.png">$INFO[ListItem.Icon]</texture>
                     </control>
                 </control>
@@ -522,7 +522,9 @@
 
                 <right>$PARAM[misc]</right>
 
-                <animation effect="fadediffuse" start="FFFFFFFF" end="FFFF0000" condition="String.IsEqual(ListItem.Property(disabled),True)">Conditional</animation>
+                <animation effect="fadediffuse" start="ffffffff" end="FFBF0000" condition="String.IsEqual(ListItem.Property(disabled),True)">Conditional</animation>
+                <animation effect="fadediffuse" start="ffffffff" end="ff333333" condition="!String.IsEqual(ListItem.Property(disabled),True) + $PARAM[selected] + !Skin.HasSetting(RevertSelectedText)">Conditional</animation>
+                <animation effect="fadediffuse" start="ffffffff" end="$PARAM[textcolor]" condition="!String.IsEqual(ListItem.Property(disabled),True) + ![$PARAM[selected]]">Conditional</animation>
 
                 <control type="group">
                     <centerleft>50</centerleft>
@@ -533,20 +535,12 @@
                         <bordersize>icon_home_bordersize</bordersize>
                         <aspectratio scalediffuse="false">scale</aspectratio>
                         <visible>String.IsEmpty(ListItem.Icon) | String.StartsWith(ListItem.Icon,special://skin/extras/icons)</visible>
-                        <include content="Object_ColorDiffuse" condition="$PARAM[selected]">
-                            <param name="colordiffuse">$VAR[ColorSelected]</param>
-                        </include>
-                        <colordiffuse>$PARAM[textcolor]</colordiffuse>
                         <texture background="true" diffuse="diffuse/circle_120.png" fallback="special://skin/extras/icons/shapes.png">$INFO[ListItem.Icon]</texture>
                     </control>
                     <control type="image">
                         <bordersize>icon_main_bordersize</bordersize>
                         <aspectratio scalediffuse="false">scale</aspectratio>
                         <visible>String.StartsWith(ListItem.Icon,Default)</visible>
-                        <include content="Object_ColorDiffuse" condition="$PARAM[selected]">
-                            <param name="colordiffuse">$VAR[ColorSelected]</param>
-                        </include>
-                        <colordiffuse>$PARAM[textcolor]</colordiffuse>
                         <texture background="true" diffuse="diffuse/circle_120.png" fallback="special://skin/extras/icons/shapes.png">$INFO[ListItem.Icon]</texture>
                     </control>
                     <control type="image">
@@ -561,10 +555,9 @@
                     <right>0</right>
                     <visible>![$PARAM[detailed]]</visible>
                     <control type="textbox">
-                        <include condition="$PARAM[selected]">Color_SelectedText</include>
-                        <textcolor>$PARAM[textcolor]</textcolor>
-                        <selectedcolor>$PARAM[textcolor]</selectedcolor>
-                        <right>80</right>
+                        <textcolor>white</textcolor>
+                        <selectedcolor>white</selectedcolor>
+                        <right>120</right>
                         <font>font_main</font>
                         <aligny>center</aligny>
                         <top>8</top>
@@ -576,13 +569,12 @@
                     <control type="group">
                         <height>60</height>
                         <centertop>50%</centertop>
-                        <right>80</right>
+                        <right>120</right>
                         <visible>![String.IsEmpty(ListItem.Property(path))]</visible>
                         <control type="label">
                             <height>30</height>
-                            <include condition="$PARAM[selected]">Color_SelectedText</include>
-                            <textcolor>$PARAM[textcolor]</textcolor>
-                            <selectedcolor>$PARAM[textcolor]</selectedcolor>
+                            <textcolor>white</textcolor>
+                            <selectedcolor>white</selectedcolor>
                             <font>font_main_bold</font>
                             <label>$INFO[ListItem.Label]</label>
                         </control>
@@ -590,9 +582,8 @@
                             <height>30</height>
                             <font>font_tiny</font>
                             <bottom>0</bottom>
-                            <include condition="$PARAM[selected]">Color_SelectedText</include>
-                            <textcolor>$PARAM[textcolor]</textcolor>
-                            <selectedcolor>$PARAM[textcolor]</selectedcolor>
+                            <textcolor>white</textcolor>
+                            <selectedcolor>white</selectedcolor>
                             <label>$VAR[Label_Shortcut_LabelTwo]</label>
                         </control>
                     </control>
@@ -602,9 +593,8 @@
                     <right>200</right>
                     <visible>$PARAM[detailed]</visible>
                     <control type="textbox">
-                        <include condition="$PARAM[selected]">Color_SelectedText</include>
-                        <textcolor>$PARAM[textcolor]</textcolor>
-                        <selectedcolor>$PARAM[textcolor]</selectedcolor>
+                        <textcolor>white</textcolor>
+                        <selectedcolor>white</selectedcolor>
                         <right>80</right>
                         <font>font_main</font>
                         <aligny>center</aligny>
@@ -621,9 +611,8 @@
                         <visible>![String.IsEmpty(ListItem.Property(path))]</visible>
                         <control type="label">
                             <height>30</height>
-                            <include condition="$PARAM[selected]">Color_SelectedText</include>
-                            <textcolor>$PARAM[textcolor]</textcolor>
-                            <selectedcolor>$PARAM[textcolor]</selectedcolor>
+                            <textcolor>white</textcolor>
+                            <selectedcolor>white</selectedcolor>
                             <font>font_main_bold</font>
                             <label>$INFO[ListItem.Label]</label>
                         </control>
@@ -631,9 +620,8 @@
                             <height>30</height>
                             <font>font_tiny</font>
                             <bottom>0</bottom>
-                            <include condition="$PARAM[selected]">Color_SelectedText</include>
-                            <textcolor>$PARAM[textcolor]</textcolor>
-                            <selectedcolor>$PARAM[textcolor]</selectedcolor>
+                            <textcolor>white</textcolor>
+                            <selectedcolor>white</selectedcolor>
                             <label>$VAR[Label_Shortcut_LabelTwo]</label>
                         </control>
                     </control>
@@ -654,10 +642,6 @@
                             <top>4</top>
                             <bordersize>-8</bordersize>
                             <aspectratio scalediffuse="false">keep</aspectratio>
-                            <include content="Object_ColorDiffuse" condition="$PARAM[selected]">
-                                <param name="colordiffuse">$VAR[ColorSelected]</param>
-                            </include>
-                            <colordiffuse>$PARAM[textcolor]</colordiffuse>
                             <texture background="true">special://skin/extras/icons/arrow-down-wide-short.png</texture>
                             <visible>String.IsEmpty(ListItem.Property(widget_sortorder))</visible>
                         </control>
@@ -666,10 +650,6 @@
                             <top>4</top>
                             <bordersize>-8</bordersize>
                             <aspectratio scalediffuse="false">keep</aspectratio>
-                            <include content="Object_ColorDiffuse" condition="$PARAM[selected]">
-                                <param name="colordiffuse">$VAR[ColorSelected]</param>
-                            </include>
-                            <colordiffuse>$PARAM[textcolor]</colordiffuse>
                             <texture background="true">special://skin/extras/icons/arrow-up-wide-short.png</texture>
                             <visible>!String.IsEmpty(ListItem.Property(widget_sortorder))</visible>
                         </control>
@@ -677,9 +657,8 @@
                             <height>40</height>
                             <font>font_tiny</font>
                             <bottom>4</bottom>
-                            <include condition="$PARAM[selected]">Color_SelectedText</include>
-                            <textcolor>$PARAM[textcolor]</textcolor>
-                            <selectedcolor>$PARAM[textcolor]</selectedcolor>
+                            <textcolor>white</textcolor>
+                            <selectedcolor>white</selectedcolor>
                             <label fallback="Default">$INFO[ListItem.Property(widget_sortby),[CAPITALIZE],[/CAPITALIZE]]</label>
                             <align>center</align>
                         </control>
@@ -696,10 +675,6 @@
                             <top>4</top>
                             <bordersize>-8</bordersize>
                             <aspectratio scalediffuse="false">keep</aspectratio>
-                            <include content="Object_ColorDiffuse" condition="$PARAM[selected]">
-                                <param name="colordiffuse">$VAR[ColorSelected]</param>
-                            </include>
-                            <colordiffuse>$PARAM[textcolor]</colordiffuse>
                             <texture background="true" fallback="special://skin/extras/icons/shapes.png">$VAR[Image_Widget_Style]</texture>
                         </control>
                         <control type="label">
@@ -708,9 +683,8 @@
                             <height>40</height>
                             <font>font_tiny</font>
                             <bottom>4</bottom>
-                            <include condition="$PARAM[selected]">Color_SelectedText</include>
-                            <textcolor>$PARAM[textcolor]</textcolor>
-                            <selectedcolor>$PARAM[textcolor]</selectedcolor>
+                            <textcolor>white</textcolor>
+                            <selectedcolor>white</selectedcolor>
                             <label>$VAR[Label_Widget_Style]</label>
                             <align>center</align>
                         </control>
@@ -860,8 +834,7 @@
                             <param name="selected">$PARAM[selected]</param>
                             <centertop>50%</centertop>
                             <centerright>15</centerright>
-                            <visible>![String.IsEqual(ListItem.DBType,movie) | String.IsEqual(ListItem.DBType,set) | String.IsEqual(ListItem.DBType,season) | String.IsEqual(ListItem.DBType,artist) | String.IsEqual(ListItem.DBType,album) | String.IsEqual(ListItem.DBType,video) | String.IsEqual(ListItem.DBType,episode) | String.IsEqual(ListItem.DBType,tvshow) | String.IsEqual(ListItem.DBType,song) | String.IsEqual(ListItem.DBType,musicvideo)]</visible>
-                            <visible>![$PARAM[variation]]</visible>
+                            <visible>![String.IsEqual(ListItem.DBType,movie) | String.IsEqual(ListItem.DBType,set) | String.IsEqual(ListItem.DBType,season) | String.IsEqual(ListItem.DBType,artist) | String.IsEqual(ListItem.DBType,album) | String.IsEqual(ListItem.DBType,video) | String.IsEqual(ListItem.DBType,episode) | String.IsEqual(ListItem.DBType,tvshow) | String.IsEqual(ListItem.DBType,song) | String.IsEqual(ListItem.DBType,musicvideo)] | $PARAM[variation]</visible>
                         </include>
                     </control>
 
@@ -895,7 +868,7 @@
                             <param name="selected">$PARAM[selected]</param>
                             <centertop>50%</centertop>
                             <centerright>15</centerright>
-                            <visible>![$PARAM[variation]]</visible>
+                            <!-- <visible>![$PARAM[variation]]</visible> -->
                         </include>
                     </control>
                 </control>
@@ -928,11 +901,34 @@
                             <top>15</top>
                             <right>10</right>
                             <bottom>15</bottom>
+
                             <control type="image">
                                 <bordersize>-6</bordersize>
                                 <include>Texture_Circle_Highlight_V</include>
                                 <visible>$PARAM[selected]</visible>
                             </control>
+                        </control>
+                    </control>
+                    <control type="image">
+                        <include>Texture_Menu_Highlight_H</include>
+                        <visible>$PARAM[selected]</visible>
+                        <top>40</top>
+                        <bottom>40</bottom>
+                    </control>
+                    <control type="group">
+                        <width>$PARAM[item_h]</width>
+                        <height>$PARAM[item_h]</height>
+                        <control type="group">
+                            <left>20</left>
+                            <top>15</top>
+                            <right>10</right>
+                            <bottom>15</bottom>
+
+                            <!-- <control type="image">
+                                <bordersize>-6</bordersize>
+                                <include>Texture_Circle_Highlight_V</include>
+                                <visible>$PARAM[selected]</visible>
+                            </control> -->
                             <control type="group">
                                 <visible>![$EXP[Exp_IsGenre] | $EXP[Exp_IsStudio] | $EXP[Exp_IsCountry]]</visible>
                                 <control type="image">
@@ -972,8 +968,8 @@
                                 </control>
                             </control>
                             <control type="group">
-                                <centerbottom>15%</centerbottom>
-                                <centerright>15%</centerright>
+                                <centerbottom>12.5%</centerbottom>
+                                <centerright>18%</centerright>
                                 <height>64</height>
                                 <width>64</width>
                                 <include content="Object_Indicator">
@@ -994,13 +990,14 @@
                         <left>$PARAM[item_h]</left>
 
                         <control type="group">
-                            <left>30</left>
+                            <left>20</left>
                             <right>40</right>
                             <height>82</height>
 
                             <control type="label">
                                 <label>$VAR[Label_MediaList_Title]</label>
-                                <font>font_midi_bold</font>
+                                <font>font_main_bold</font>
+                                <include condition="$PARAM[selected]">Color_SelectedText</include>
                                 <textcolor>main_fg_90</textcolor>
                                 <include>Dimension_Object_InfoCircle_Text_Top</include>
                                 <include content="Object_Right" condition="$PARAM[variation]">
@@ -1011,6 +1008,7 @@
                             <control type="label">
                                 <label>$VAR[Label_VideoInfo_DetailsItem]</label>
                                 <font>font_tiny</font>
+                                <include condition="$PARAM[selected]">Color_SelectedText</include>
                                 <textcolor>main_fg_70</textcolor>
                                 <include>Dimension_Object_InfoCircle_Text_Sub</include>
                                 <include content="Object_Right" condition="$PARAM[variation]">
@@ -1024,6 +1022,7 @@
                                 <control type="label">
                                     <right>120</right>
                                     <font>font_mini</font>
+                                    <include condition="$PARAM[selected]">Color_SelectedText</include>
                                     <textcolor>main_fg_70</textcolor>
                                     <label>$VAR[Label_MediaList_Year]</label>
                                     <align>right</align>
@@ -1035,6 +1034,7 @@
                                     <left>80</left>
                                     <right>0</right>
                                     <font>font_mini</font>
+                                    <include condition="$PARAM[selected]">Color_SelectedText</include>
                                     <textcolor>main_fg_70</textcolor>
                                     <visible>![$PARAM[variation]]</visible>
                                     <label>$VAR[Label_MediaList_Rating,            ,]</label>
@@ -1044,6 +1044,7 @@
                                 <include content="Object_Indicator_List">
                                     <param name="affix">$PARAM[affix]</param>
                                     <param name="listitem">$PARAM[listitem]</param>
+                                    <param name="selected">$PARAM[selected]</param>
                                     <centertop>50%</centertop>
                                     <centerright>80</centerright>
                                     <visible>![$PARAM[variation]]</visible>
@@ -1052,6 +1053,7 @@
                                 <include content="Object_Indicator_List">
                                     <param name="affix">$PARAM[affix]</param>
                                     <param name="listitem">$PARAM[listitem]</param>
+                                    <param name="selected">$PARAM[selected]</param>
                                     <centertop>50%</centertop>
                                     <centerright>15</centerright>
                                     <visible>![String.IsEqual(ListItem.DBType,movie) | String.IsEqual(ListItem.DBType,set) | String.IsEqual(ListItem.DBType,season) | String.IsEqual(ListItem.DBType,artist) | String.IsEqual(ListItem.DBType,album) | String.IsEqual(ListItem.DBType,video) | String.IsEqual(ListItem.DBType,episode) | String.IsEqual(ListItem.DBType,tvshow) | String.IsEqual(ListItem.DBType,song) | String.IsEqual(ListItem.DBType,musicvideo)]</visible>
@@ -1061,11 +1063,13 @@
                         </control>
 
                         <control type="textbox">
+                            <include condition="$PARAM[selected]">Color_SelectedText</include>
                             <label fallback="19055">$VAR[Label_Landscape_Plot]</label>
-                            <font>font_mini_plot</font>
+                            <font>font_tiny_plot</font>
                             <textcolor>main_fg_70</textcolor>
-                            <top>90</top>
-                            <left>30</left>
+                            <top>80</top>
+                            <bottom>10</bottom>
+                            <left>20</left>
                             <right>40</right>
                             <visible>![$PARAM[variation]]</visible>
                         </control>

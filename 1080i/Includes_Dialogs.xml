@@ -6,7 +6,7 @@
         <param name="shadow">true</param>
         <param name="border">20</param>
         <definition>
-            <control type="image">
+            <!-- <control type="image">
                 <aspectratio scalediffuse="false">$PARAM[aspectratio]</aspectratio>
                 <include condition="$PARAM[shadow]">Texture_Shadow_80</include>
                 <texture border="$PARAM[border]" flipy="$PARAM[flipy]" diffuse="$PARAM[diffuse]">$VAR[Image_SimpleDialogBackground]</texture>
@@ -18,19 +18,21 @@
                 <param name="control">image</param>
                 <bordersize>0</bordersize>
                 <texture colordiffuse="dialog_fg_12" border="20">common/box-outline.png</texture>
+            </include> -->
+            <control type="image">
+                <texture flipy="$PARAM[flipy]" border="20">$VAR[Image_SimpleDialogBackground]</texture>
+                <include condition="$PARAM[shadow]">Texture_Shadow_80</include>
+            </control>
+            <control type="image">
+                <texture colordiffuse="dialog_overlay" border="20">common/dialog.png</texture>
+            </control>
+            <include content="Object_Control" condition="Skin.HasSetting(Glass.EnableBorders)">
+                <param name="control">image</param>
+                <bordersize>0</bordersize>
+                <texture colordiffuse="dialog_fg_12" border="20">common/box-outline.png</texture>
             </include>
         </definition>
     </include>
-
-    <variable name="Dialog_Background_Blur_Adaptive_ColorDiffuse">
-        <value condition="!Skin.HasSetting(TMDbHelper.EnableBlur)">12ededed</value>
-        <value>dialog_fg_30</value>
-    </variable>
-
-    <variable name="Dialog_Background_Blur_Adaptive_Texture">
-        <value condition="!Skin.HasSetting(TMDbHelper.EnableBlur)">special://skin/extras/icons/_none.png</value>
-        <value>$VAR[Image_Background]</value>
-    </variable>
 
     <include name="Dialog_Background_Blur_Adaptive">
         <param name="flipy">false</param>
@@ -44,7 +46,7 @@
             <control type="image">
                 <fadetime>background_fadetime</fadetime>
                 <aspectratio scalediffuse="false" align="left">scale</aspectratio>
-                <texture flipy="$PARAM[flipy]" diffuse="$PARAM[diffuse]" colordiffuse="$VAR[Dialog_Background_Blur_Adaptive_ColorDiffuse]">$VAR[Dialog_Background_Blur_Adaptive_Texture]</texture>
+                <texture flipy="$PARAM[flipy]" diffuse="$PARAM[diffuse]" colordiffuse="dialog_fg_30">$VAR[Image_Background]</texture>
             </control>
             <include content="Object_Control" condition="Skin.HasSetting(Glass.EnableBorders)">
                 <param name="control">image</param>
@@ -133,7 +135,8 @@
 
     <include name="Dialog_Background_Glass">
         <control type="image">
-            <texture colordiffuse="dialog_fg_12" border="20">common/dialog.png</texture>
+            <animation effect="fade" start="100" end="50" condition="true">Conditional</animation>
+            <texture colordiffuse="main_fg_12" border="20">common/dialog.png</texture>
         </control>
     </include>
 

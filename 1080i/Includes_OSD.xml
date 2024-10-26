@@ -1068,17 +1068,36 @@
         <control type="grouplist">
             <orientation>vertical</orientation>
             <align>bottom</align>
+            <control type="group">
+                <height>120</height>
+                <visible>!String.IsEmpty($PARAM[top_logo])</visible>
+                <control type="image">
+                    <height>132</height>
+                    <aspectratio align="left" aligny="center">keep</aspectratio>
+                    <fadetime>200</fadetime>
+                    <texture background="true">$INFO[$PARAM[top_logo]]</texture>
+                </control>
+            </control>
             <control type="label">
                 <height>80</height>
                 <label>$PARAM[top_label]</label>
                 <textcolor>panel_fg_100</textcolor>
                 <font>font_title_midi</font>
+                <visible>String.IsEmpty($PARAM[top_logo])</visible>
             </control>
-            <control type="label">
-                <label>$PARAM[sub_label]</label>
-                <textcolor>panel_fg_70</textcolor>
-                <font>font_main</font>
-                <height>40</height>
+            <control type="group">
+                <top>-10</top>
+                <height>50</height>
+                <control type="label">
+                    <label>$PARAM[sub_label]</label>
+                    <textcolor>panel_fg_70</textcolor>
+                    <font>font_main</font>
+                    <height>40</height>
+                    <centertop>38</centertop>
+                </control>
+            </control>
+            <control type="group">
+                <height>20</height>
             </control>
         </control>
     </include>
@@ -1108,8 +1127,8 @@
 
                     <control type="group">
                         <left>340</left>
-                        <height>137</height>
-                        <bottom>0</bottom>
+                        <height>240</height>
+                        <bottom>-20</bottom>
                         <control type="group">
                             <width>460</width>
                             <visible>[Window.IsVisible(script-cu-lrclyrics-main.xml) | [!String.IsEmpty(Window(Home).Property(OSDArtistDetails)) + !Window.IsVisible(1142)]]</visible>
@@ -1118,6 +1137,7 @@
                                 <effect type="slide" end="0" start="-340" time="400" tween="cubic" easing="out" reversible="false" />
                             </animation>
                             <include content="OSD_TitleDetails">
+                                <param name="top_logo">Player.Art(artist.clearlogo)</param>
                                 <param name="top_label">$INFO[MusicPlayer.Artist]</param>
                                 <param name="sub_label">$INFO[MusicPlayer.TrackNumber,,. ]$INFO[MusicPlayer.Title]</param>
                             </include>
@@ -1130,6 +1150,7 @@
                                 <effect type="fade" start="0" end="100" delay="400" time="0" reversible="false" />
                             </animation>
                             <include content="OSD_TitleDetails">
+                                <param name="top_logo">Player.Art(artist.clearlogo)</param>
                                 <param name="top_label">$INFO[MusicPlayer.Artist]</param>
                                 <param name="sub_label">$INFO[MusicPlayer.TrackNumber,,. ]$INFO[MusicPlayer.Title]</param>
                             </include>

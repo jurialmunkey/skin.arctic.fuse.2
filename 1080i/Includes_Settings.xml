@@ -277,10 +277,18 @@
                 <include content="Hub_Menu_Slide" condition="Window.IsVisible(SkinSettings.xml) | Window.IsVisible(SettingsProfile.xml) | Window.IsVisible(SettingsSystemInfo.xml) | Window.IsVisible(SettingsCategory.xml)">
                     <param name="condition">[ControlGroup(30040).HasFocus() | !String.IsEmpty(Window(Home).Property(SettingsChanger.Switch))]</param>
                 </include>
-                <include content="Home_Menu_Vert_Background" condition="Window.IsVisible(SkinSettings.xml) | Window.IsVisible(SettingsProfile.xml) | Window.IsVisible(SettingsSystemInfo.xml) | Window.IsVisible(SettingsCategory.xml)">
-                    <param name="width">view_menu_main</param>
-                </include>
-                <include condition="Window.IsVisible(SkinSettings.xml) | Window.IsVisible(SettingsProfile.xml) | Window.IsVisible(SettingsSystemInfo.xml) | Window.IsVisible(SettingsCategory.xml)">Settings_Side_Switcher</include>
+                <control type="group">
+                    <left>40</left>
+                    <control type="group">
+                        <left>-20</left>
+                        <include content="Home_Menu_Vert_Background" condition="Window.IsVisible(SkinSettings.xml) | Window.IsVisible(SettingsProfile.xml) | Window.IsVisible(SettingsSystemInfo.xml) | Window.IsVisible(SettingsCategory.xml)">
+                            <param name="width">view_menu_mini</param>
+                            <param name="left">-view_menu_mini</param>
+                        </include>
+                    </control>
+
+                    <include condition="Window.IsVisible(SkinSettings.xml) | Window.IsVisible(SettingsProfile.xml) | Window.IsVisible(SettingsSystemInfo.xml) | Window.IsVisible(SettingsCategory.xml)">Settings_Side_Switcher</include>
+                </control>
                 <nested />
                 <include>Furniture_Bottom_Left</include>
             </control>
@@ -301,25 +309,14 @@
         <control type="group">
             <left>-view_menu_main</left>
             <width>view_menu_main</width>
-            <!-- <control type="group">
-                <include>Dimension_Topbar</include>
-                <control type="group">
-                    <include>Dimension_Furniture_Gutters</include>
-                    <include content="Furniture_MainLabel">
-                        <param name="label">$LOCALIZE[5]</param>
-                    </include>
-                </control>
-            </control>
 
-            <control type="group">
-                <include>Dimension_Bottombar</include>
-                <control type="group">
-                    <include>Dimension_Furniture_Gutters</include>
-                    <include content="View_Furniture_Bottom_ViewLine">
-                        <param name="label">$VAR[Label_ProfileName]</param>
-                    </include>
-                </control>
-            </control> -->
+            <include content="Home_Menu_Vert_Header">
+                <param name="include_label">false</param>
+            </include>
+
+            <include content="Home_Menu_Vert_Bottom">
+                <param name="include_label">false</param>
+            </include>
 
 
             <control type="grouplist" id="30040">

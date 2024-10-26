@@ -7,6 +7,7 @@
         <include>Background</include>
 
         <control type="group">
+
             <include>Search_Group</include>
             <include>Search_Panel</include>
 
@@ -630,32 +631,37 @@
         <include content="Hub_Menu_Slide">
             <param name="condition">!ControlGroup(5000).HasFocus() + !Control.HasFocus(330) + !Control.HasFocus(332) + !Control.HasFocus(333)</param>
         </include>
-        <include content="Home_Menu_Vert_Background">
-            <param name="width">view_menu_main</param>
-        </include>
     </include>
 
 
     <include name="Search_Panel">
         <control type="group">
-            <left>-view_menu_main</left>
-            <width>view_menu_main</width>
-
-            <include content="Hub_Menu_Fade">
-                <param name="condition">[!ControlGroup(5000).HasFocus() + !Control.HasFocus(330) + !Control.HasFocus(332) + !Control.HasFocus(333)]</param>
+            <left>20</left>
+            <include content="Home_Menu_Vert_Background">
+                <param name="left">-view_menu_main</param>
+                <param name="width">view_menu_main</param>
+                <param name="subline_visible">false</param>
             </include>
+            <control type="group">
+                <left>-view_menu_main</left>
+                <width>view_menu_main</width>
 
-            <include>Search_Panel_Edit</include>
+                <include content="Hub_Menu_Fade">
+                    <param name="condition">[!ControlGroup(5000).HasFocus() + !Control.HasFocus(330) + !Control.HasFocus(332) + !Control.HasFocus(333)]</param>
+                </include>
 
-            <control type="grouplist" id="9090">
-                <top>200</top>
-                <onup>9099</onup>
-                <ondown>noop</ondown>
-                <include>Search_Panel_Keyboard</include>
-                <include condition="Window.IsVisible(1185)">Search_Panel_Autocomplete</include>
-                <include condition="Window.IsVisible(1105)">Search_Panel_DiscoverFilter</include>
+                <include>Search_Panel_Edit</include>
+
+                <control type="grouplist" id="9090">
+                    <top>200</top>
+                    <onup>9099</onup>
+                    <ondown>noop</ondown>
+                    <include>Search_Panel_Keyboard</include>
+                    <include condition="Window.IsVisible(1185)">Search_Panel_Autocomplete</include>
+                    <include condition="Window.IsVisible(1105)">Search_Panel_DiscoverFilter</include>
+                </control>
+
             </control>
-
         </control>
     </include>
 
