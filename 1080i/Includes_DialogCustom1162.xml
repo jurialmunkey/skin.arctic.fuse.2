@@ -115,16 +115,12 @@
 
     <include name="DialogCustom1163_Hubs">
         <definition>
-            <!-- <include content="Dialog_Dim_Overlay">
-                <param name="visible">![Container(450).IsUpdating | Integer.IsEqual(Container(450).NumItems,0)]</param>
-            </include> -->
             <include>Dialog_Dim_Overlay</include>
 
             <control type="group">
                 <width>view_menu_main</width>
                 <control type="group">
                     <left>20</left>
-
 
                     <include content="Home_Menu_Vert_Background">
                         <param name="left">0</param>
@@ -134,18 +130,6 @@
                     <animation effect="slide" tween="cubic" easing="out" time="400" start="-view_menu_main" end="0" reversible="false">WindowOpen</animation>
                     <animation effect="slide" tween="cubic" easing="out" time="400" start="0" end="-view_menu_main" reversible="false">WindowClose</animation>
 
-                    <!-- <include content="Animation_Slide_In">
-                        <param name="type">Conditional</param>
-                        <param name="delay">400</param>
-                        <param name="posx">-view_menu_main</param>
-                        <param name="condition">![Container(450).IsUpdating | Integer.IsEqual(Container(450).NumItems,0)]</param>
-                    </include>
-                    <include content="Animation_Slide_Out">
-                        <param name="type">Conditional</param>
-                        <param name="posx">-view_menu_main</param>
-                        <param name="condition">[Container(450).IsUpdating | Integer.IsEqual(Container(450).NumItems,0)]</param>
-                    </include> -->
-
                     <control type="group">
                         <left>-20</left>
                         <control type="group">
@@ -154,9 +138,23 @@
                                 <include>Dimension_Furniture_Gutters</include>
                                 <include content="Furniture_MainLabel">
                                     <param name="label">$INFO[Window.Property(Header)]</param>
-                                    <!-- <param name="textcolor">dialog_fg_100</param> -->
                                 </include>
                             </control>
+                        </control>
+
+                        <control type="group">
+                            <right>-30</right>
+                            <include content="Furniture_Busy">
+                                <param name="hasspinner">true</param>
+                                <param name="spinspinner">true</param>
+                                <param name="icon">special://skin/extras/icons/kodi.png</param>
+                                <param name="haslabel">false</param>
+                                <param name="spinnervisible">[!Window.IsActive(DialogVolumeBar.xml) | Player.Muted]</param>
+                                <param name="visible_delay">400</param>
+                                <param name="windowopen_condition">True</param>
+                                <param name="windowopen_delay">800</param>
+                                <param name="visible">[Container(450).IsUpdating]</param>
+                            </include>
                         </control>
 
                         <control type="group">
@@ -167,7 +165,6 @@
                                 <include content="View_Furniture_Bottom_ViewLine">
                                     <param name="label">$INFO[Container(450).NumItems,, items]</param>
                                     <param name="fade_condition">false</param>
-                                    <!-- <param name="textcolor">dialog_fg_90</param> -->
                                 </include>
                             </control>
                         </control>
@@ -177,9 +174,11 @@
                     <control type="group">
                         <include>Dimension_Dialog_Body_Group</include>
                         <control type="group">
+                            <include content="Animation_ConditionalFade">
+                                <param name="condition">[Container(450).IsUpdating | Integer.IsEqual(Container(450).NumItems,0)]</param>
+                            </include>
                             <include content="List_DialogSelect">
                                 <param name="id">450</param>
-                                <!-- <param name="textcolor">dialog_fg</param> -->
                                 <param name="textcolor">main_fg</param>
                                 <param name="itemlayout_include">Layout_MenuList</param>
                                 <param name="orientation">vertical</param>

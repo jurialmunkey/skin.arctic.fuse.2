@@ -197,7 +197,7 @@
         <param name="orientation">vertical</param>
         <param name="altfocus">false</param>
         <param name="misc">0</param>
-        <param name="focusedlayout_h">270</param>
+        <param name="focusedlayout_h">251.5</param>
         <definition>
             <include content="List_Core">
                 <param name="orientation">$PARAM[orientation]</param>
@@ -876,6 +876,58 @@
             <!-- <animation effect="fade" start="0" end="0" time="200" reversible="false">Focus</animation> -->
             <include>List_ButtonMenu_Row_HiddenButton_ERow_OnFocus</include>
         </control>
+    </include>
+
+    <include name="List_IconMenu_Row">
+        <param name="color_nf">main_fg_30</param>
+        <param name="hidden_button">List_ButtonMenu_Row_HiddenButton_View</param>
+        <definition>
+            <control type="list" id="$PARAM[id]">
+                <nested />
+                <include content="$PARAM[hidden_button]_OnFocus">
+                    <param name="id">$PARAM[id]</param>
+                    <param name="container">Container($PARAM[id]).</param>
+                    <param name="prefix">$PARAM[hidden_button_prefix]</param>
+                </include>
+
+                <orientation>horizontal</orientation>
+                <scrolltime tween="quadratic">400</scrolltime>
+
+                <itemlayout width="100" height="80">
+                    <include content="Layout_OptionTray">
+                        <param name="selected">false</param>
+                        <param name="color_nf">$PARAM[color_nf]</param>
+                        <param name="variation">true</param>
+                    </include>
+                </itemlayout>
+
+                <focusedlayout width="100" height="80">
+
+                    <include content="$PARAM[hidden_button]">
+                        <param name="id">$PARAM[id]</param>
+                        <param name="prefix">$PARAM[hidden_button_prefix]</param>
+                    </include>
+
+                    <control type="group">
+                        <visible>Control.HasFocus($PARAM[id])</visible>
+                        <include content="Layout_OptionTray">
+                            <param name="selected">true</param>
+                            <param name="color_nf">$PARAM[color_nf]</param>
+                            <param name="variation">true</param>
+                        </include>
+                    </control>
+                    <control type="group">
+                        <visible>!Control.HasFocus($PARAM[id])</visible>
+                        <include content="Layout_OptionTray">
+                            <param name="selected">false</param>
+                            <param name="color_nf">$PARAM[color_nf]</param>
+                            <param name="variation">true</param>
+                        </include>
+                    </control>
+                </focusedlayout>
+
+            </control>
+        </definition>
     </include>
 
     <include name="List_ButtonMenu_Row">

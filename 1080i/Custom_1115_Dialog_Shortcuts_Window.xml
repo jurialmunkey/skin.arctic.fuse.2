@@ -37,7 +37,8 @@
                             <onright>340</onright>
 
                             <onclick>ClearProperty(Shortcuts.Position,Home)</onclick>
-                            <onclick>SetProperty(Shortcuts.EditMenu,$INFO[Container(30000).ListItem.Property(categories_menu)],Home)</onclick>
+                            <onclick condition="!$EXP[Shortcuts_Window_Exp_WidgetsOnly] | String.IsEqual(Container(30000).ListItem.Property(categories_menu),menu=sidemenu)">SetProperty(Shortcuts.EditMenu,$INFO[Container(30000).ListItem.Property(categories_menu)],Home)</onclick>
+                            <onclick condition="![!$EXP[Shortcuts_Window_Exp_WidgetsOnly] | String.IsEqual(Container(30000).ListItem.Property(categories_menu),menu=sidemenu)]">SetProperty(Shortcuts.EditMenu,$INFO[Container(30000).ListItem.Property(categories_menu),,-widgetsonly],Home)</onclick>
                             <onclick>ClearProperty(Shortcuts.EditMode,Home)</onclick>
                             <onclick>ClearProperty(Shortcuts.EditGUID,Home)</onclick>
                             <onclick>AlarmClock(openwindow,ActivateWindow(1116),00:00,silent)</onclick>
@@ -225,13 +226,38 @@
                                     <onclick>AlarmClock(openwindow,ActivateWindow(1116),00:00,silent)</onclick>
 
                                     <onfocus>SetProperty(HelpHead,$LOCALIZE[31156],1115)</onfocus>
-                                    <onfocus condition="String.IsEqual(Container(30000).ListItem.Property(categories_menu),menu=sidemenu)">SetProperty(HelpText,$LOCALIZE[31157][CR][CR]$LOCALIZE[31474],1115)</onfocus>
-                                    <onfocus condition="!String.IsEqual(Container(30000).ListItem.Property(categories_menu),menu=sidemenu)">SetProperty(HelpText,$LOCALIZE[31488][CR][CR]$LOCALIZE[31489],1115)</onfocus>
+                                    <onfocus condition="String.IsEqual(Container(30000).ListItem.Property(categories_menu),menu=sidemenu)">SetProperty(HelpText,$LOCALIZE[31157][CR][CR][COLOR=main_fg_90][B]$LOCALIZE[31170][/B][/COLOR] — $LOCALIZE[31474],1115)</onfocus>
+                                    <onfocus condition="!String.IsEqual(Container(30000).ListItem.Property(categories_menu),menu=sidemenu)">SetProperty(HelpText,$LOCALIZE[31488][CR][CR][COLOR=main_fg_90][B]$LOCALIZE[31170][/B][/COLOR] — $LOCALIZE[31489],1115)</onfocus>
 
                                     <onunfocus>ClearProperty(HelpText,1115)</onunfocus>
                                     <onunfocus>ClearProperty(HelpHead,1115)</onunfocus>
 
                                     <visible>!$EXP[Shortcuts_Window_Exp_WidgetsOnly] | String.IsEqual(Container(30000).ListItem.Property(categories_menu),menu=sidemenu)</visible>
+                                </include>
+
+                                <!-- Edit Global Widgets (in advanced mode) -->
+                                <include content="Settings_Button">
+                                    <param name="id">398</param>
+                                    <param name="control">button</param>
+                                    <label>$LOCALIZE[31521]</label>
+
+                                    <onup>394</onup>
+                                    <ondown>305</ondown>
+                                    <onleft>30000</onleft>
+
+                                    <onfocus>SetProperty(HelpHead,$LOCALIZE[31521],1115)</onfocus>
+                                    <onfocus>SetProperty(HelpText,$LOCALIZE[31164][CR][CR]$LOCALIZE[31175][CR][CR][COLOR=main_fg_90][B]$LOCALIZE[31170][/B][/COLOR] — $LOCALIZE[31172],1115)</onfocus>
+
+                                    <onunfocus>ClearProperty(HelpText,1115)</onunfocus>
+                                    <onunfocus>ClearProperty(HelpHead,1115)</onunfocus>
+
+                                    <onclick>ClearProperty(Shortcuts.Position,Home)</onclick>
+                                    <onclick>SetProperty(Shortcuts.EditMenu,$INFO[Container(30000).ListItem.Property(categories_menu),,-widgetsonly],Home)</onclick>
+                                    <onclick>ClearProperty(Shortcuts.EditMode,Home)</onclick>
+                                    <onclick>ClearProperty(Shortcuts.EditGUID,Home)</onclick>
+                                    <onclick>AlarmClock(openwindow,ActivateWindow(1116),00:00,silent)</onclick>
+
+                                    <visible>!$EXP[Shortcuts_Window_Exp_WidgetsOnly] + !String.IsEqual(Container(30000).ListItem.Property(categories_menu),menu=sidemenu)</visible>
                                 </include>
 
                                 <!-- Edit Widgets (in basic mode) -->
@@ -251,7 +277,7 @@
                                     <onunfocus>ClearProperty(HelpHead,1115)</onunfocus>
 
                                     <onclick>ClearProperty(Shortcuts.Position,Home)</onclick>
-                                    <onclick>SetProperty(Shortcuts.EditMenu,$INFO[Container(30000).ListItem.Property(categories_menu),&amp;,-widgetsonly],Home)</onclick>
+                                    <onclick>SetProperty(Shortcuts.EditMenu,$INFO[Container(30000).ListItem.Property(categories_menu),,-widgetsonly],Home)</onclick>
                                     <onclick>ClearProperty(Shortcuts.EditMode,Home)</onclick>
                                     <onclick>ClearProperty(Shortcuts.EditGUID,Home)</onclick>
                                     <onclick>AlarmClock(openwindow,ActivateWindow(1116),00:00,silent)</onclick>

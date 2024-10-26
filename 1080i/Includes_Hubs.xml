@@ -486,13 +486,9 @@
     </variable>
 
     <include name="Hub_Categories_Definition">
-        <include content="Categories_Selector">
+        <include content="Categories_Selector" condition="!Skin.HasSetting(Hubs.DisableTextCategories)">
             <param name="window_id">$PARAM[window_id]</param>
             <param name="property_window_id">$PARAM[property_window_id]</param>
-            <param name="hitrect_x">20</param>
-            <param name="hitrect_y">50</param>
-            <param name="hitrect_w">1080</param>
-            <param name="hitrect_h">100</param>
             <param name="hidden_button_prefix">$INFO[Container(300).ListItem.Property(item)]302</param>
             <param name="hidden_button">List_ButtonMenu_Row_HiddenButton_Home_Categories</param>
             <param name="slide">True</param>
@@ -507,6 +503,24 @@
                 <include>skinvariables-$PARAM[categories]-staticitems</include>
             </content>
             <left>0</left>
+        </include>
+        <include content="Categories_Selector_Icons" condition="Skin.HasSetting(Hubs.DisableTextCategories)">
+            <param name="window_id">$PARAM[window_id]</param>
+            <param name="property_window_id">$PARAM[property_window_id]</param>
+            <param name="hidden_button_prefix">$INFO[Container(300).ListItem.Property(item)]302</param>
+            <param name="hidden_button">List_ButtonMenu_Row_HiddenButton_Home_Categories</param>
+            <param name="slide">True</param>
+            <param name="color_fo">$VAR[Hub_Categories_Color_FO]</param>
+            <include content="Hub_Categories_Definition_Content">
+                <param name="window_id">$PARAM[window_id]</param>
+                <param name="property_window_id">$PARAM[property_window_id]</param>
+            </include>
+            <onleft condition="!Skin.HasSetting(SideMenu.DisableSearchAndOptions) + [Skin.HasSetting(HubsMenu.EnableSearchAndOptions) | [Window.IsVisible(Home) + Integer.IsEqual(Skin.String(Hub.Home.ReplaceWindow),$PARAM[window_id])]]">309</onleft>
+            <onright condition="!Skin.HasSetting(SideMenu.DisableSearchAndOptions) + [Skin.HasSetting(HubsMenu.EnableSearchAndOptions) | [Window.IsVisible(Home) + Integer.IsEqual(Skin.String(Hub.Home.ReplaceWindow),$PARAM[window_id])]]">308</onright>
+            <content>
+                <include>skinvariables-$PARAM[categories]-staticitems</include>
+            </content>
+            <left>20</left>
         </include>
     </include>
 

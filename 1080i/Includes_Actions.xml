@@ -391,15 +391,19 @@
         <param name="option">!Skin.HasSetting(SideMenu.DisableSearchAndOptions)</param>
         <definition>
 
-            <onleft condition="![String.IsEqual(ListItem.Property(path),Custom_Menu) | [!String.IsEmpty(ListItem.Property(path_opendialog)) + String.IsEmpty(ListItem.Property(path_opendialog_expanded))]]">ClearProperty(Target,1163)</onleft>
-            <onleft condition="![String.IsEqual(ListItem.Property(path),Custom_Menu) | [!String.IsEmpty(ListItem.Property(path_opendialog)) + String.IsEmpty(ListItem.Property(path_opendialog_expanded))]]">SetProperty(Path,plugin://script.skinvariables/?info=get_shortcuts_node&amp;menu=powermainmenu$VAR[Path_SkinVariables_SkinFolder,&amp;skin=,],1163)</onleft>
-            <onleft condition="![String.IsEqual(ListItem.Property(path),Custom_Menu) | [!String.IsEmpty(ListItem.Property(path_opendialog)) + String.IsEmpty(ListItem.Property(path_opendialog_expanded))]]">SetProperty(Header,Options,1163)</onleft>
-            <onleft condition="![String.IsEqual(ListItem.Property(path),Custom_Menu) | [!String.IsEmpty(ListItem.Property(path_opendialog)) + String.IsEmpty(ListItem.Property(path_opendialog_expanded))]]">ClearProperty(Icon,1163)</onleft>
-            <onleft condition="![String.IsEqual(ListItem.Property(path),Custom_Menu) | [!String.IsEmpty(ListItem.Property(path_opendialog)) + String.IsEmpty(ListItem.Property(path_opendialog_expanded))]]">ActivateWindow(1163)</onleft>
+            <onleft condition="!Control.HasFocus(309) + !Control.HasFocus(308)">SetProperty(Target,$INFO[Container(300).ListItem.Property(sidemenu_target)],1163)</onleft>
+            <onleft condition="!Control.HasFocus(309) + !Control.HasFocus(308)">SetProperty(Path,$INFO[Container(300).ListItem.Property(sidemenu_path)],1163)</onleft>
+            <onleft condition="!Control.HasFocus(309) + !Control.HasFocus(308)">SetProperty(Header,$INFO[Container(300).ListItem.Label],1163)</onleft>
+            <onleft condition="!Control.HasFocus(309) + !Control.HasFocus(308)">SetProperty(Icon,$INFO[Container(300).ListItem.Icon],1163)</onleft>
+            <onleft condition="!Control.HasFocus(309) + !Control.HasFocus(308)">ActivateWindow(1163)</onleft>
 
-            <!-- <onleft>Action(Info)</onleft> -->
+            <onleft condition="Control.HasFocus(308)">ClearProperty(Target,1163)</onleft>
+            <onleft condition="Control.HasFocus(308)">SetProperty(Path,plugin://script.skinvariables/?info=get_shortcuts_node&amp;menu=powermainmenu$VAR[Path_SkinVariables_SkinFolder,&amp;skin=,],1163)</onleft>
+            <onleft condition="Control.HasFocus(308)">SetProperty(Header,$LOCALIZE[33063],1163)</onleft>
+            <onleft condition="Control.HasFocus(308)">SetProperty(Icon,special://skin/extras/icons/bars.png,1163)</onleft>
+            <onleft condition="Control.HasFocus(308)">ActivateWindow(1163)</onleft>
 
-            <onleft condition="String.IsEqual(ListItem.Property(path),Custom_Menu) | [!String.IsEmpty(ListItem.Property(path_opendialog)) + String.IsEmpty(ListItem.Property(path_opendialog_expanded))]">Action(Select)</onleft>
+            <onleft condition="Control.HasFocus(309)">$VAR[Action_ActivateSearchDiscover]</onleft>
 
             <onright condition="$PARAM[c_view] + !$EXP[Exp_Navigation_OnMenu]">SetFocus($PARAM[i_view],0,absolute)</onright>
             <onright condition="$PARAM[c_view] + $EXP[Exp_Navigation_OnMenu]">SetFocus($PARAM[i_view])</onright>
