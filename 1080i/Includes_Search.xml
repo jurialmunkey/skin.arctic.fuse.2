@@ -658,15 +658,18 @@
     </include>
 
     <include name="Search_Widgets_NoResults">
+	<visible>[Window.IsVisible(1105) | Window.IsVisible(1185)]</visible>
         <control type="group">
-            <visible>[String.IsEmpty(Control.GetLabel(9099).index(1)) + Window.IsVisible(1185)] | Integer.IsEqual(Container(5000).NumItems,0)</visible>
             <control type="grouplist">
                 <left>view_pad</left>
                 <right>view_pad</right>
                 <top>view_top</top>
                 <bottom>view_pad</bottom>
                 <orientation>vertical</orientation>
+				
+				<!-- No Results --> 				
                 <control type="group">
+				<visible>[!String.IsEmpty(Control.GetLabel(9099).index(1)) + Integer.IsEqual(Container(5000).NumItems,0)]</visible>
                     <height>120</height>
                     <include content="Info_Title_Text">
                         <param name="label">$LOCALIZE[31046]</param>
@@ -677,7 +680,24 @@
                         <param name="colordiffuse">main_fg</param>
                     </include>
                 </control>
+				
+				<!-- Search -->
+				<control type="group">
+				<visible>[String.IsEmpty(Control.GetLabel(9099).index(1)) + Integer.IsEqual(Container(5000).NumItems,0)]</visible>
+                    <height>120</height>
+                    <include content="Info_Title_Text">
+                        <param name="label">$LOCALIZE[137]</param>
+                        <param name="wrapmultiline">false</param>
+                        <param name="visible">true</param>
+                        <param name="width">info_plot_w</param>
+                        <param name="height">132</param>
+                        <param name="colordiffuse">main_fg</param>
+                    </include>
+                </control> 
+				
+				<!-- No Results subtext-->
                 <control type="textbox">
+				<visible>[!String.IsEmpty(Control.GetLabel(9099).index(1)) + Integer.IsEqual(Container(5000).NumItems,0)]</visible>
                     <top>17</top>
                     <font>font_main_plot</font>
                     <label>$LOCALIZE[31500] "[CAPITALIZE]$VAR[Path_SearchTerm, , ][/CAPITALIZE]".[CR]$LOCALIZE[31501].</label>
@@ -685,6 +705,17 @@
                     <height>90</height>
                     <textcolor>main_fg_30</textcolor>
                 </control>
+				
+				<!-- Search subtext -->
+				<control type="textbox">
+				<visible>[String.IsEmpty(Control.GetLabel(9099).index(1)) + Integer.IsEqual(Container(5000).NumItems,0)]</visible>
+                    <top>17</top>
+                    <font>font_main_plot</font>
+                    <label>Search for movies, TV shows and more...</label>
+                    <align>left</align>
+                    <height>90</height>
+                    <textcolor>main_fg_30</textcolor>
+                </control> 
             </control>
         </control>
     </include>
