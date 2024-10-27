@@ -294,6 +294,7 @@
 
                 <control type="group">
                     <include>Animation_Group_Bumper</include>
+                    <include>Animation_View_WindowChange</include>
                     <include content="Hub_Categories" condition="![$PARAM[is_homemenu]]">
                         <param name="categories">$PARAM[categories]</param>
                         <param name="window_id">$PARAM[window_id]</param>
@@ -302,7 +303,7 @@
                     </include>
                     <!-- Hub Widgets Group -->
                     <control type="group" id="320">
-                        <include>Animation_View_WindowChange</include>
+                        <!-- <include>Animation_View_WindowChange</include> -->
                         <include condition="![$PARAM[widgets_only]] + !Skin.HasSetting(Hub.$PARAM[window_id].DisableSpotlight)">Hub_Slide_Spotlight_OnFanart</include>
                         <include content="Hub_Spotlight" condition="![$PARAM[widgets_only]] + !Skin.HasSetting(Hub.$PARAM[window_id].DisableSpotlight)">
                             <param name="window_id">$PARAM[window_id]</param>
@@ -336,28 +337,16 @@
                     <!-- Furniture -->
                     <control type="group">
                         <visible>![$PARAM[widgets_only]]</visible>
-                        <visible>!$EXP[Exp_InfoDialogs]</visible>
+                        <visible>!Skin.HasSetting(View.EnableFullSizeInfo)</visible>
+                        <!-- <visible>!$EXP[Exp_InfoDialogs]</visible> -->
                         <control type="group">
-                            <include content="Hub_Top_Animation">
-                                <param name="mod">!</param>
-                            </include>
+                            <include>Hub_Top_Animation_Invert</include>
+
                             <include content="Furniture_Top_Left">
                                 <param name="label">$VAR[Label_Header_Hubs_Categories]</param>
                             </include>
-                            <!-- <visible>!$EXP[Exp_HubName_IsVisible] + !String.IsEmpty(Container(300).ListItem.Label)</visible> -->
-                            <!-- <include content="Furniture_Top_Left">
-                                <param name="label">$INFO[Container(300).ListItem.Label]</param>
-                            </include> -->
                         </control>
-                        <!-- <control type="group">
-                            <visible>![!$EXP[Exp_HubName_IsVisible] + !String.IsEmpty(Container(300).ListItem.Label)]</visible>
-                            <include content="Furniture_Top_Left">
-                                <param name="label">$VAR[Label_Header_Hubs]</param>
-                            </include>
-                        </control> -->
                     </control>
-
-
                 </control>
 
                 <!-- SideMenu -->
@@ -400,10 +389,19 @@
             <include content="Animation_Fade_In">
                 <param name="condition">$PARAM[mod][$PARAM[condition]]</param>
             </include>
-            <include content="Animation_Fade_Out">
+            <include content="Animation_Fade_Out" condition="!Skin.HasSetting(View.EnableFullSizeInfo)">
+                <param name="condition">![$PARAM[mod][$PARAM[condition]]]</param>
+            </include>
+            <include content="Animation_ConditionalFade" condition="Skin.HasSetting(View.EnableFullSizeInfo)">
                 <param name="condition">![$PARAM[mod][$PARAM[condition]]]</param>
             </include>
         </definition>
+    </include>
+
+    <include name="Hub_Top_Animation_Invert">
+        <include content="Hub_Top_Animation">
+            <param name="mod">!</param>
+        </include>
     </include>
 
     <include name="Hub_Widgets_Only">
@@ -427,7 +425,7 @@
             </include>
         </include>
 
-        <include content="Furniture_Top_Left" condition="Skin.HasSetting(Hub.$PARAM[window_id].EnableDetailedInformation)">
+        <include content="Furniture_Top_Left" condition="Skin.HasSetting(Hub.$PARAM[window_id].EnableDetailedInformation) + !Skin.HasSetting(View.EnableFullSizeInfo)">
             <param name="label">$VAR[Label_Header_Hubs,[CAPITALIZE],[/CAPITALIZE]]</param>
         </include>
     </include>
@@ -455,7 +453,18 @@
             <include>skinvariables-$PARAM[categories]-widgets</include>
         </control>
 
-        <include content="Hub_Widgets_Infopanel">
+        <include content="Hub_Widgets_Infopanel" condition="Skin.HasSetting(View.EnableFullSizeInfo) + Skin.HasSetting(Hub.$PARAM[window_id].DisableSpotlight)">
+            <animation effect="slide" start="0" end="0,160" time="400" tween="back" easing="out" reversible="false" condition="$EXP[Exp_HubName_IsVisible]">Conditional</animation>
+            <animation effect="slide" start="0,160" end="0" time="400" tween="back" easing="out" reversible="false" condition="!$EXP[Exp_HubName_IsVisible]">Conditional</animation>
+            <include content="Info_Panel">
+                <param name="container">Container.</param>
+                <param name="visible">!Integer.IsEqual(Window.Property(TMDBHelper.WidgetContainer),301)</param>
+                <param name="titlelabel">$VAR[Label_WidgetContainer_400_Title]</param>
+                <param name="plotlabel">$VAR[Label_WidgetContainer_400_Plot]</param>
+                <param name="details_include">Hub_Top_Animation_Invert</param>
+            </include>
+        </include>
+        <include content="Hub_Widgets_Infopanel" condition="![Skin.HasSetting(View.EnableFullSizeInfo) + Skin.HasSetting(Hub.$PARAM[window_id].DisableSpotlight)]">
             <include content="Info_Panel">
                 <param name="container">Container.</param>
                 <param name="visible">!Integer.IsEqual(Window.Property(TMDBHelper.WidgetContainer),301)</param>
@@ -464,6 +473,7 @@
             </include>
         </include>
     </include>
+
     <include name="Hub_Categories_Definition_Content">
         <include content="Action_Widget_Top">
             <param name="id">300</param>
@@ -766,10 +776,7 @@
         <param name="conditional_fade">Window.IsActive(1105)</param>
         <definition>
             <control type="group">
-                <width>info_panel_w</width>
-                <height>320</height>
-                <left>view_pad</left>
-                <top>view_top</top>
+                <include>Info_Panel_Dimensions</include>
                 <visible>$PARAM[visible]</visible>
                 <animation effect="fade" start="100" end="0" condition="$PARAM[conditional_fade]" reversible="false">Conditional</animation>
                 <animation effect="fade" start="0" end="100" delay="200" time="200" tween="sine" easing="in" condition="![$PARAM[conditional_fade]]" reversible="false">Conditional</animation>

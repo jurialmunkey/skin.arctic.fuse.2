@@ -115,7 +115,7 @@
     </include>
 
     <variable name="Action_OSD_Main_OnDown">
-        <value condition="VideoPlayer.Content(livetv) + !Skin.HasSetting(OSD.OnDown.DisablePVROSDGuide)">pvrosdguide</value>
+        <value condition="VideoPlayer.Content(livetv) + !Skin.HasSetting(OSD.OnDown.DisablePVROSDGuide) + VideoPlayer.HasEpg">pvrosdguide</value>
         <value condition="VideoPlayer.Content(livetv)">$VAR[Action_OSD_PVROSDGuide_OnDown]</value>
         <value condition="$EXP[Exp_OSD_HasPlaylist] + !Skin.HasSetting(OSD.OnDown.Disable1140)">1140</value>
         <value condition="$EXP[Exp_OSD_HasPlaylist]">$VAR[Action_OSD_1140_OnDown]</value>
@@ -391,19 +391,19 @@
         <param name="option">!Skin.HasSetting(SideMenu.DisableSearchAndOptions)</param>
         <definition>
 
-            <onleft condition="!Control.HasFocus(309) + !Control.HasFocus(308)">SetProperty(Target,$INFO[Container(300).ListItem.Property(sidemenu_target)],1163)</onleft>
-            <onleft condition="!Control.HasFocus(309) + !Control.HasFocus(308)">SetProperty(Path,$INFO[Container(300).ListItem.Property(sidemenu_path)],1163)</onleft>
-            <onleft condition="!Control.HasFocus(309) + !Control.HasFocus(308)">SetProperty(Header,$INFO[Container(300).ListItem.Label],1163)</onleft>
-            <onleft condition="!Control.HasFocus(309) + !Control.HasFocus(308)">SetProperty(Icon,$INFO[Container(300).ListItem.Icon],1163)</onleft>
-            <onleft condition="!Control.HasFocus(309) + !Control.HasFocus(308)">ActivateWindow(1163)</onleft>
+            <onleft condition="![Control.HasFocus(308) | Control.HasFocus(309)]">SetProperty(Target,$INFO[Container(300).ListItem.Property(sidemenu_target)],1163)</onleft>
+            <onleft condition="![Control.HasFocus(308) | Control.HasFocus(309)]">SetProperty(Path,$INFO[Container(300).ListItem.Property(sidemenu_path)],1163)</onleft>
+            <onleft condition="![Control.HasFocus(308) | Control.HasFocus(309)]">SetProperty(Header,$INFO[Container(300).ListItem.Label],1163)</onleft>
+            <onleft condition="![Control.HasFocus(308) | Control.HasFocus(309)]">SetProperty(Icon,$INFO[Container(300).ListItem.Icon],1163)</onleft>
+            <onleft condition="![Control.HasFocus(308) | Control.HasFocus(309)]">ActivateWindow(1163)</onleft>
 
-            <onleft condition="Control.HasFocus(308)">ClearProperty(Target,1163)</onleft>
-            <onleft condition="Control.HasFocus(308)">SetProperty(Path,plugin://script.skinvariables/?info=get_shortcuts_node&amp;menu=powermainmenu$VAR[Path_SkinVariables_SkinFolder,&amp;skin=,],1163)</onleft>
-            <onleft condition="Control.HasFocus(308)">SetProperty(Header,$LOCALIZE[33063],1163)</onleft>
-            <onleft condition="Control.HasFocus(308)">SetProperty(Icon,special://skin/extras/icons/bars.png,1163)</onleft>
-            <onleft condition="Control.HasFocus(308)">ActivateWindow(1163)</onleft>
+            <onleft condition="Control.HasFocus(308) | Control.HasFocus(309)">ClearProperty(Target,1163)</onleft>
+            <onleft condition="Control.HasFocus(308) | Control.HasFocus(309)">SetProperty(Path,plugin://script.skinvariables/?info=get_shortcuts_node&amp;menu=powermainmenu$VAR[Path_SkinVariables_SkinFolder,&amp;skin=,],1163)</onleft>
+            <onleft condition="Control.HasFocus(308) | Control.HasFocus(309)">SetProperty(Header,$LOCALIZE[33063],1163)</onleft>
+            <onleft condition="Control.HasFocus(308) | Control.HasFocus(309)">SetProperty(Icon,special://skin/extras/icons/bars.png,1163)</onleft>
+            <onleft condition="Control.HasFocus(308) | Control.HasFocus(309)">ActivateWindow(1163)</onleft>
 
-            <onleft condition="Control.HasFocus(309)">$VAR[Action_ActivateSearchDiscover]</onleft>
+            <!-- <onleft condition="Control.HasFocus(309)">$VAR[Action_ActivateSearchDiscover]</onleft> -->
 
             <onright condition="$PARAM[c_view] + !$EXP[Exp_Navigation_OnMenu]">SetFocus($PARAM[i_view],0,absolute)</onright>
             <onright condition="$PARAM[c_view] + $EXP[Exp_Navigation_OnMenu]">SetFocus($PARAM[i_view])</onright>

@@ -145,9 +145,11 @@
     <expression name="Exp_View_513">$EXP[Exp_View_512]</expression>
     <expression name="Exp_View_523">$EXP[Exp_View_522]</expression>
 
-    <expression name="Exp_View_FullSize">[[Window.IsVisible(videos) | Window.IsVisible(music) | Window.IsVisible(programs) | Window.IsVisible(pictures) | Window.IsVisible(games)] + [Control.IsVisible(552) | Control.IsVisible(553) | $EXP[Exp_View_WallMode]]]</expression>
+    <expression name="Exp_View_IsMedia">[Window.IsVisible(videos) | Window.IsVisible(music) | Window.IsVisible(programs) | Window.IsVisible(pictures) | Window.IsVisible(games) | Window.IsVisible(MyPVRRecordings.xml) | Window.IsVisible(MyPVRTimers.xml) | Window.IsVisible(MyPVRSearch.xml)]</expression>
 
-    <expression name="Exp_View_MidiSize">[[Window.IsVisible(videos) | Window.IsVisible(music) | Window.IsVisible(programs) | Window.IsVisible(pictures) | Window.IsVisible(games)] + [Control.IsVisible(550)]]</expression>
+    <expression name="Exp_View_FullSize">[$EXP[Exp_View_IsMedia] + [Control.IsVisible(552) | Control.IsVisible(553) | $EXP[Exp_View_WallMode]]]</expression>
+
+    <expression name="Exp_View_MidiSize">[$EXP[Exp_View_IsMedia] + [Control.IsVisible(550)]]</expression>
 
     <!-- Scrollbar -->
     <expression name="Exp_FurnitureFooter_Left_IsVisible">[![Control.IsVisible(502) | Control.IsVisible(512) | Control.IsVisible(522)] | $EXP[Exp_View_ScrollFilter_HasFocus]]</expression>

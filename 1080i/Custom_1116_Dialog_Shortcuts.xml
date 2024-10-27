@@ -70,17 +70,13 @@
                                 <param name="item_height">100</param>
                                 <param name="textcolor">dialog_fg_70</param>
                                 <param name="itemlayout_include">Layout_Shortcuts</param>
-                                <param name="altfocus">[!Control.HasFocus(23062) + !ControlGroup(9000).HasFocus()]</param>
+                                <param name="altfocus">[!ControlGroup(9000).HasFocus()]</param>
                                 <param name="misc">120</param>
                                 <param name="detailed">false</param>
-                                <!-- <param name="detailed">$EXP[Shortcuts_Dialog_Exp_IsWidgetMode]</param> -->
-
                                 <content>plugin://script.skinvariables/?info=get_shortcuts_node&amp;edit=true&amp;skin=$VAR[Path_SkinVariables_SkinFolder]$INFO[Window(Home).Property(SkinVariables.ShortcutsNode.Reload),&amp;reload=,]$INFO[Window(Home).Property(Shortcuts.EditMenu),&amp;,]$INFO[Window(Home).Property(Shortcuts.EditMode),&amp;,]$INFO[Window(Home).Property(Shortcuts.EditGUID),&amp;,]</content>
 
                                 <onfocus>SetFocus(22900)</onfocus>
 
-                                <onup>23062</onup>
-                                <ondown>23062</ondown>
                                 <onleft>9000</onleft>
                                 <onright>29002</onright>
                                 <onback>29999</onback>
@@ -91,12 +87,10 @@
                                 <orientation>horizontal</orientation>
                                 <itemgap>-16</itemgap>
 
-                                <visible>!Control.HasFocus(23062) + !ControlGroup(9000).HasFocus()</visible>
+                                <visible>!ControlGroup(9000).HasFocus()</visible>
 
-                                <onup condition="!String.IsEmpty(Container(22001).ListItemNoWrap(-1).Label)">Control.Move(22001,-1)</onup>
-                                <ondown condition="!String.IsEmpty(Container(22001).ListItemNoWrap(1).Label)">Control.Move(22001,1)</ondown>
-                                <onup condition="String.IsEmpty(Container(22001).ListItemNoWrap(-1).Label)">23062</onup>
-                                <ondown condition="String.IsEmpty(Container(22001).ListItemNoWrap(1).Label)">23062</ondown>
+                                <onup>Control.Move(22001,-1)</onup>
+                                <ondown>Control.Move(22001,1)</ondown>
 
                                 <onleft>9000</onleft>
                                 <onright>29002</onright>
