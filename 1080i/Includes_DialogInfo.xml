@@ -1462,11 +1462,31 @@
         </definition>
     </include>
 
+    <include name="DialogInfo_PlotBox_Buttons">
+        <include content="Dialog_Background_Side">
+            <param name="slide_condition">!Integer.IsEqual(Container(9000).NumItems,0)</param>
+            <param name="dialog_size">Dimension_DialogFullMenu</param>
+
+            <!-- Side Buttons -->
+            <control type="group">
+                <include>Dimension_Dialog_Body</include>
+                <control type="grouplist" id="9000">
+                    <include>Dialog_Side_Grouplist_Def</include>
+                    <onback>8000</onback>
+                    <onleft>8000</onleft>
+                    <onright>61</onright>
+                    <include>Items_DialogVideoInfo_MenuBar</include>
+                </control>
+            </control>
+        </include>
+    </include>
+
     <include name="DialogInfo_PlotBox">
         <param name="visible">[Control.HasFocus(61) | ControlGroup(9000).HasFocus()]</param>
         <param name="header">$VAR[Label_Title]</param>
         <param name="textbox">$VAR[Label_Overlay_PlotBox]</param>
         <param name="include_movement">DialogInfo_PlotBox_OnMove</param>
+        <param name="include_buttons">DialogInfo_PlotBox_Buttons</param>
         <definition>
             <include content="Dialog_Dim_Overlay">
                 <param name="visible">$PARAM[visible]</param>
@@ -1498,23 +1518,7 @@
                     <param name="reversible">true</param>
                 </include>
 
-                <include content="Dialog_Background_Side" condition="Window.IsVisible(DialogVideoInfo.xml) | Window.IsVisible(DialogMusicInfo.xml)">
-                    <param name="slide_condition">!Integer.IsEqual(Container(9000).NumItems,0)</param>
-                    <param name="dialog_size">Dimension_DialogFullMenu</param>
-
-                    <!-- Side Buttons -->
-                    <control type="group">
-                        <include>Dimension_Dialog_Body</include>
-                        <control type="grouplist" id="9000">
-                            <include>Dialog_Side_Grouplist_Def</include>
-                            <onback>8000</onback>
-                            <onleft>8000</onleft>
-                            <onright>61</onright>
-                            <include>Items_DialogVideoInfo_MenuBar</include>
-                        </control>
-                    </control>
-                </include>
-
+                <include>$PARAM[include_buttons]</include>
 
                 <include content="DialogInfo_PlotBox_Foreground">
                     <param name="header">$PARAM[header]</param>
