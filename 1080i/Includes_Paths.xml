@@ -193,10 +193,21 @@
         <value>plugin://plugin.video.themoviedb.helper/?info=all_items&amp;tmdb_type=keyword$VAR[Path_Param_Widget]&amp;sort_by=random</value>
     </variable>
 
-    <variable name="Path_SearchTerm">
-        <value condition="Window.IsVisible(1105) | Window.IsVisible(1185)">$INFO[Control.GetLabel(9099).index(1)]</value>
-        <value>$INFO[Control.GetLabel(19).index(1)]</value>
+    <variable name="Path_SearchTerm_DoubleEncoded">
+        <value condition="[Window.IsVisible(1105) | Window.IsVisible(1185)] + !String.IsEmpty(Container(99098).ListItem.Label) + !String.IsEmpty(Container(99099).ListItem.Label) + !Container(99098).IsUpdating + !Container(99099).IsUpdating">$INFO[Container(99098).ListItem.Label]</value>
+        <value condition="![Window.IsVisible(1105) | Window.IsVisible(1185)]">$INFO[Control.GetLabel(19).index(1)]</value>
     </variable>
+
+    <variable name="Path_SearchTerm_SingleEncoded">
+        <value condition="[Window.IsVisible(1105) | Window.IsVisible(1185)] + !String.IsEmpty(Container(99099).ListItem.Label) + !Container(99099).IsUpdating">$INFO[Container(99099).ListItem.Label]</value>
+        <value condition="![Window.IsVisible(1105) | Window.IsVisible(1185)]">$INFO[Control.GetLabel(19).index(1)]</value>
+    </variable>
+
+    <variable name="Path_SearchTerm">
+        <value condition="[Window.IsVisible(1105) | Window.IsVisible(1185)] + !String.IsEmpty(Control.GetLabel(9099).index(1))">$INFO[Control.GetLabel(9099).index(1)]</value>
+        <value condition="![Window.IsVisible(1105) | Window.IsVisible(1185)]">$INFO[Control.GetLabel(19).index(1)]</value>
+    </variable>
+
     <expression name="Path_SearchTerm_Exp">[[[Window.IsVisible(1105) | Window.IsVisible(1185)] + !String.IsEmpty(Control.GetLabel(9099).index(1))] | [Window.IsMedia + !String.IsEmpty(Control.GetLabel(19).index(1))]]</expression>
 
     <variable name="Path_Search_Filter">

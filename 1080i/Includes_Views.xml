@@ -7,7 +7,7 @@
     <include name="View_Row_Header">
         <definition>
             <control type="group">
-                <visible>!Skin.HasSetting(View.EnableFullSizeInfo) | $EXP[Exp_View_FullSize] | !$EXP[Exp_View_IsMedia]</visible>
+                <visible>!Skin.HasSetting(View.EnableFullSizeInfo) | !$EXP[Exp_View_IsMedia] | [$EXP[Exp_View_FullSize] + ![Window.IsVisible(DialogBusy.xml) + Integer.IsEqual(Container.NumItems,0)]]</visible>
                 <include content="Furniture_Top_Left">
                     <param name="label">$PARAM[label]</param>
                 </include>
@@ -111,45 +111,6 @@
         </include>
     </include>
 
-    <include name="View_FirstLoad">
-        <control type="group">
-            <visible>Window.IsVisible(DialogBusy.xml) + Integer.IsEqual(Container.NumItems,0)</visible>
-            <animation type="Visible" reversible="false">
-                <effect type="fade" start="0" end="100" time="200" delay="200" />
-            </animation>
-            <include content="Info_Viewline">
-                <param name="label">$LOCALIZE[31023]...</param>
-                <param name="top">170</param>
-            </include>
-            <control type="group">
-                <top>view_row</top>
-                <left>80</left>
-                <control type="grouplist">
-                    <top>40</top>
-                    <height>400</height>
-                    <left>-40</left>
-                    <right>-40</right>
-                    <orientation>horizontal</orientation>
-                    <include>Widget_Busy_BlankItem_Landscape</include>
-                    <include>Widget_Busy_BlankItem_Landscape</include>
-                    <include>Widget_Busy_BlankItem_Landscape</include>
-                    <include>Widget_Busy_BlankItem_Landscape</include>
-                </control>
-                <control type="grouplist">
-                    <top>-view_poster_item_h</top>
-                    <height>400</height>
-                    <left>-40</left>
-                    <right>-40</right>
-                    <orientation>horizontal</orientation>
-                    <include>Widget_Busy_BlankItem_Landscape</include>
-                    <include>Widget_Busy_BlankItem_Landscape</include>
-                    <include>Widget_Busy_BlankItem_Landscape</include>
-                    <include>Widget_Busy_BlankItem_Landscape</include>
-                </control>
-            </control>
-        </control>
-    </include>
-
     <include name="View_Row_Items">
         <param name="include_combinedviews">View_Row_Items_CombinedViews</param>
         <param name="include_standardviews">View_Row_Items_StandardViews</param>
@@ -158,7 +119,6 @@
                 <include>$PARAM[include_combinedviews]</include>
                 <control type="group">
                     <include>$PARAM[include_standardviews]</include>
-                    <include condition="![Skin.HasSetting(Startup.WaitForLoad) + Skin.HasSetting(Startup.WaitForLoad.EnableForLibrary)]">View_FirstLoad</include>
                 </control>
             </control>
         </definition>
@@ -738,7 +698,7 @@
                 <include>Texture_Scrollbar_V</include>
                 <texturesliderbackground colordiffuse="main_fg_12" border="4">scrollbar/scrollv_line.png</texturesliderbackground>
                 <onleft>50</onleft>
-                <onright>SetFocus(8000)</onright>
+                <onright condition="!Window.IsVisible(MyPlaylist.xml)">SetFocus(8000)</onright>
                 <onback>50</onback>
             </control>
         </control>

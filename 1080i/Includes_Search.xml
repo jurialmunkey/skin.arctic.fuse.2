@@ -1,7 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <includes>
 
+    <include name="Search_Term_DoubleEncoder">
+        <include content="Object_Hidden_List">
+            <param name="id">99099</param>
+            <content>$INFO[Control.GetLabel(9099).index(1),plugin://script.skinvariables/?info=get_encoded_string&amp;unencoded_paths=true&amp;&amp;,]</content>
+        </include>
+        <include content="Object_Hidden_List">
+            <param name="id">99098</param>
+            <content>$INFO[Container(99099).ListItem.Label,plugin://script.skinvariables/?info=get_encoded_string&amp;unencoded_paths=true&amp;&amp;,]</content>
+        </include>
+    </include>
+
     <include name="Search_View_User">
+        <include>Search_Term_DoubleEncoder</include>
         <include>Recommendations_BackgroundLoader</include>
 
         <include>Background</include>
@@ -47,6 +59,7 @@
     </include>
 
     <include name="Search_View_Discover">
+        <include>Search_Term_DoubleEncoder</include>
 
         <include content="Object_Hidden_Button">
             <param name="id">64</param>
@@ -98,7 +111,6 @@
                             </include>
                             <include content="Action_View_Movement_OnBack">
                                 <param name="id">5001</param>
-                                <param name="onleft">9090</param>
                                 <param name="backid">5000</param>
                                 <param name="menuid">9090</param>
                                 <param name="onback">[Integer.IsEqual(Container(5001).CurrentItem,1)]</param>
@@ -115,7 +127,7 @@
                                 </item>
                             </content> -->
 
-                            <content browse="$VAR[Defs_BrowseLimitedLists]" target="videos">$INFO[window(home).property(tmdbhelper.userdiscover.folderpath)]$INFO[Control.GetLabel(9099).index(1),&amp;with_text_query=,]</content>
+                            <content browse="$VAR[Defs_BrowseLimitedLists]" target="videos">$INFO[window(home).property(tmdbhelper.userdiscover.folderpath)]$INFO[Container(99098).ListItem.Label,&amp;with_text_query=,]</content>
 
                         </include>
 

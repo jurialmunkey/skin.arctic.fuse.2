@@ -2,7 +2,7 @@
 <includes>
 
     <variable name="Label_Search_NoResults">
-        <value condition="!String.IsEmpty(Control.GetLabel(9099).index(1))">$LOCALIZE[31500] "[CAPITALIZE]$VAR[Path_SearchTerm, , ][/CAPITALIZE]".[CR]$LOCALIZE[31501].</value>
+        <value condition="!String.IsEmpty(Control.GetLabel(9099).index(1))">$LOCALIZE[31500] "[CAPITALIZE]$INFO[Control.GetLabel(9099).index(1), , ][/CAPITALIZE]".[CR]$LOCALIZE[31501].</value>
         <value condition="Window.IsVisible(1105)">$LOCALIZE[31284] $LOCALIZE[31288]</value>
         <value condition="Window.IsVisible(1185)">$LOCALIZE[31291] $LOCALIZE[31288]</value>
     </variable>
@@ -45,16 +45,6 @@
         <value condition="Skin.HasSetting(CustomRating.TVShows.DisablePremiereStatus) + Skin.HasSetting(CustomRating.Movies.EnablePremiereStatus) + Skin.HasSetting(CustomRating.EnablePremiereStatusDates)">$LOCALIZE[342]: $LOCALIZE[31137]</value>
         <value condition="!Skin.HasSetting(CustomRating.EnablePremiereStatusDates)">$LOCALIZE[21475]: $LOCALIZE[10036]</value>
         <value>$LOCALIZE[21475]: $LOCALIZE[31137]</value>
-    </variable>
-
-    <variable name="Label_Setting_PremiereStatus_Preselect">
-        <value condition="Skin.HasSetting(CustomRating.TVShows.DisablePremiereStatus) + !Skin.HasSetting(CustomRating.Movies.EnablePremiereStatus)">0</value>
-        <value condition="!Skin.HasSetting(CustomRating.TVShows.DisablePremiereStatus) + !Skin.HasSetting(CustomRating.Movies.EnablePremiereStatus) + !Skin.HasSetting(CustomRating.EnablePremiereStatusDates)">1</value>
-        <value condition="!Skin.HasSetting(CustomRating.TVShows.DisablePremiereStatus) + !Skin.HasSetting(CustomRating.Movies.EnablePremiereStatus) + Skin.HasSetting(CustomRating.EnablePremiereStatusDates)">2</value>
-        <value condition="Skin.HasSetting(CustomRating.TVShows.DisablePremiereStatus) + Skin.HasSetting(CustomRating.Movies.EnablePremiereStatus) + !Skin.HasSetting(CustomRating.EnablePremiereStatusDates)">3</value>
-        <value condition="Skin.HasSetting(CustomRating.TVShows.DisablePremiereStatus) + Skin.HasSetting(CustomRating.Movies.EnablePremiereStatus) + Skin.HasSetting(CustomRating.EnablePremiereStatusDates)">4</value>
-        <value condition="!Skin.HasSetting(CustomRating.EnablePremiereStatusDates)">5</value>
-        <value>6</value>
     </variable>
 
     <variable name="Label_ColorPicker_Type">
@@ -446,6 +436,13 @@
     <variable name="Label_Setting_SideMenuStyle">
         <value condition="$EXP[Exp_HomeMenu_IsExpanded]">$LOCALIZE[31118]</value>
         <value>$LOCALIZE[31274]</value>
+    </variable>
+
+    <variable name="Label_Setting_LeftMenuStyle">
+        <value condition="Skin.String(Home.LeftMenu.Action,Favourites)">$LOCALIZE[1036]</value>
+        <value condition="Skin.String(Home.LeftMenu.Action,Options)">$LOCALIZE[33063]</value>
+        <value condition="Skin.String(Home.LeftMenu.Action,Bump)">$LOCALIZE[31446]</value>
+        <value>$LOCALIZE[33061]</value>
     </variable>
 
     <variable name="Label_Setting_HubsMenuStyle">

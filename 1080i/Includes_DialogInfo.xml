@@ -13,7 +13,7 @@
     </include>
 
     <include name="DialogInfo_Body_Group">
-        <param name="icon">$VAR[Image_DialogInfo_Poster]</param>
+        <param name="icon">$VAR[Image_Poster]</param>
         <definition>
             <include content="Object_Top" condition="Skin.HasSetting(View.EnableFullSizeInfo)">
                 <param name="top">view_pad</param>
@@ -1184,10 +1184,8 @@
     </include>
 
     <include name="DialogInfo_PlotBox_Artwork">
-        <param name="poster_icon">$VAR[Image_DialogInfo_Poster]</param>
-        <param name="poster_visible">[!String.IsEmpty(ListItem.Art(poster)) | !String.IsEmpty(ListItem.Art(season.poster)) | !String.IsEmpty(ListItem.Art(tvshow.poster)) | !String.IsEmpty(Container(99950).ListItem.Art(poster)) | !String.IsEmpty(Container(99950).ListItem.Art(season.poster)) | !String.IsEmpty(Container(99950).ListItem.Art(tvshow.poster))]</param>
-        <param name="square_icon">$INFO[Container(99950).ListItem.Property(base_icon)]</param>
-        <param name="landscape_visible">true</param>
+        <param name="poster_icon">$VAR[Image_Poster]</param>
+        <param name="square_icon">$INFO[ListItem.Icon]</param>
         <param name="landscape_icon">$VAR[Image_Landscape]</param>
         <param name="clearlogo_icon">$VAR[Image_Clearlogo]</param>
         <definition>
@@ -1196,6 +1194,19 @@
                 <right>20</right>
                 <top>-20</top>
                 <bottom>-20</bottom>
+
+                <!-- Hidden Images to Test Availability -->
+                <control type="image" id="99981">
+                    <texture background="true" colordiffuse="00ffffff">$PARAM[poster_icon]</texture>
+                </control>
+                <control type="image" id="99982">
+                    <texture background="true" colordiffuse="00ffffff">$PARAM[square_icon]</texture>
+                </control>
+                <control type="image" id="99983">
+                    <texture background="true" colordiffuse="00ffffff">$PARAM[landscape_icon]</texture>
+                </control>
+
+                <!-- Visible Images Based On Availability -->
                 <control type="grouplist">
                     <orientation>vertical</orientation>
                     <itemgap>40</itemgap>
@@ -1206,7 +1217,7 @@
                         <left>40</left>
                         <right>40</right>
                         <height>520</height>
-                        <visible>$PARAM[poster_visible]</visible>
+                        <visible>!String.IsEmpty(Control.GetLabel(99981))</visible>
                         <include content="Dialog_Outline_InnerBox">
                             <control type="image">
                                 <aspectratio scalediffuse="false">scale</aspectratio>
@@ -1214,11 +1225,13 @@
                             </control>
                         </include>
                     </control>
+
                     <control type="group">
                         <height>356</height>
                         <left>40</left>
                         <right>40</right>
-                        <visible>![$PARAM[poster_visible]]</visible>
+                        <visible>String.IsEmpty(Control.GetLabel(99981))</visible>
+                        <visible>!String.IsEmpty(Control.GetLabel(99982))</visible>
                         <include content="Dialog_Outline_InnerBox">
                             <control type="image">
                                 <aspectratio scalediffuse="false">keep</aspectratio>
@@ -1226,11 +1239,12 @@
                             </control>
                         </include>
                     </control>
+
                     <control type="group">
                         <left>40</left>
                         <right>40</right>
                         <height>200</height>
-                        <visible>$PARAM[landscape_visible]</visible>
+                        <visible>!String.IsEmpty(Control.GetLabel(99983))</visible>
                         <include content="Dialog_Outline_InnerBox">
                             <control type="image">
                                 <aspectratio scalediffuse="false">scale</aspectratio>
@@ -1243,7 +1257,7 @@
                         <left>40</left>
                         <right>40</right>
                         <height>124</height>
-                        <visible>![$PARAM[poster_visible]]</visible>
+                        <visible>String.IsEmpty(Control.GetLabel(99981))</visible>
                         <control type="image">
                             <aspectratio scalediffuse="false" aligny="center">keep</aspectratio>
                             <texture background="true">$PARAM[clearlogo_icon]</texture>
@@ -1283,10 +1297,8 @@
                     <control type="group">
                         <include>Dimension_Dialog_Body_Group</include>
                         <include content="DialogInfo_PlotBox_Artwork">
-                            <param name="poster_visible">$PARAM[poster_visible]</param>
                             <param name="poster_icon">$PARAM[poster_icon]</param>
                             <param name="square_icon">$PARAM[square_icon]</param>
-                            <param name="landscape_visible">$PARAM[landscape_visible]</param>
                             <param name="landscape_icon">$PARAM[landscape_icon]</param>
                             <param name="clearlogo_icon">$PARAM[clearlogo_icon]</param>
                         </include>
@@ -1429,10 +1441,8 @@
                         <control type="group">
                             <include>Dimension_Dialog_Body_Group</include>
                             <include content="DialogInfo_PlotBox_Artwork" condition="$PARAM[include_artwork]">
-                                <param name="poster_visible">!String.IsEmpty(Window.Property(poster))</param>
                                 <param name="poster_icon">$INFO[Window.Property(poster)]</param>
                                 <param name="square_icon">$INFO[Window.Property(icon)]</param>
-                                <param name="landscape_visible">!String.IsEmpty(Window.Property(landscape))</param>
                                 <param name="landscape_icon">$INFO[Window.Property(landscape)]</param>
                                 <param name="clearlogo_icon">$INFO[Window.Property(clearlogo)]</param>
                             </include>
@@ -1524,10 +1534,8 @@
                     <param name="header">$PARAM[header]</param>
                     <param name="textbox">$PARAM[textbox]</param>
                     <param name="include_movement">$PARAM[include_movement]</param>
-                    <param name="poster_visible">$PARAM[poster_visible]</param>
                     <param name="poster_icon">$PARAM[poster_icon]</param>
                     <param name="square_icon">$PARAM[square_icon]</param>
-                    <param name="landscape_visible">$PARAM[landscape_visible]</param>
                     <param name="landscape_icon">$PARAM[landscape_icon]</param>
                     <param name="clearlogo_icon">$PARAM[clearlogo_icon]</param>
                     <param name="scrollbar_fakefocus">$PARAM[scrollbar_fakefocus]</param>
