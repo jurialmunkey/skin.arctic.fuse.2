@@ -1,6 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <includes>
 
+    <variable name="Dialog_ContextMenu_SideButtons_WikiTitle">
+        <value condition="!String.IsEmpty(Container(99950).ListItem.Property(base_tvshowtitle))">$ESCINFO[Container(99950).ListItem.Property(base_tvshowtitle)]</value>
+        <value condition="!String.IsEmpty(Container(99950).ListItem.Property(base_title))">$ESCINFO[Container(99950).ListItem.Property(base_title)]</value>
+        <value condition="!String.IsEmpty(Container(99950).ListItem.Property(base_label))">$ESCINFO[Container(99950).ListItem.Property(base_label)]</value>
+    </variable>
+
+    <variable name="Dialog_ContextMenu_SideButtons_WikiType">
+        <value condition="String.IsEqual(Container(99950).ListItem.Property(base_dbtype),tvshow) | String.IsEqual(Container(99950).ListItem.Property(base_dbtype),season) | String.IsEqual(Container(99950).ListItem.Property(base_dbtype),episode)"> tv series</value>
+        <value condition="String.IsEqual(Container(99950).ListItem.Property(base_dbtype),movie)"> film</value>
+    </variable>
+
     <include name="Dialog_ContextMenu_SideButtons">
         <include content="Dialog_Background_Side">
             <param name="slide_condition">!Integer.IsEqual(Container(9000).NumItems,0)</param>
@@ -26,7 +37,7 @@
                         <param name="icon">special://skin/extras/icons/binoculars.png</param>
                         <param name="visible">[!String.IsEmpty(Container(99950).ListItem.Property(base_title))]</param>
                         <onclick>Dialog.Close(contextmenu,true)</onclick>
-                        <onclick>SetProperty(CustomSearchTerm,$ESCINFO[Container(99950).ListItem.Property(base_title)],Home)</onclick>
+                        <onclick>SetProperty(CustomSearchTerm,$VAR[Dialog_ContextMenu_SideButtons_WikiTitle],Home)</onclick>
                         <onclick>SetProperty(ReplaceWindow,1105,Home)</onclick>
                         <onclick condition="!Window.IsActive(1105)">ActivateWindow(1105)</onclick>
                         <onclick condition="Window.IsActive(1105)">ReplaceWindow(1197)</onclick>
@@ -37,7 +48,7 @@
                         <param name="icon">special://skin/extras/icons/globe.png</param>
                         <param name="visible">[!String.IsEmpty(Container(99950).ListItem.Property(base_title))]</param>
                         <onclick>Dialog.Close(contextmenu,true)</onclick>
-                        <onclick>runscript(script.wikipedia,wikipedia=$INFO[Container(99950).ListItem.Property(base_title)])</onclick>
+                        <onclick>runscript(script.wikipedia,wikipedia=$VAR[Dialog_ContextMenu_SideButtons_WikiTitle]$VAR[Dialog_ContextMenu_SideButtons_WikiType])</onclick>
                     </include>
                     <include content="Dialog_Side_Button" condition="!$EXP[Exp_InfoDialogs]">
                         <param name="id">05</param>
@@ -61,7 +72,7 @@
                         <param name="icon">special://skin/extras/icons/circle-plus.png</param>
                         <param name="visible">ListItem.IsFolder</param>
                         <onclick>Dialog.Close(contextmenu,true)</onclick>
-                        <onclick>RunScript(script.skinvariables,set_listitem_to_menunode=sidemenu||1101menu||1102menu||1103menu||1104menu,skin=$VAR[Path_SkinVariables_SkinFolder])</onclick>
+                        <onclick>RunScript(script.skinvariables,set_listitem_to_menunode=sidemenu||1101menu||1102menu||1103menu||1104menu||1106menu||1107menu||1108menu||1109menu||powermainmenu,skin=$VAR[Path_SkinVariables_SkinFolder])</onclick>
                     </include>
                     <include content="Dialog_Side_Button" condition="!$EXP[Exp_InfoDialogs] + Window.IsMedia">
                         <param name="id">08</param>
@@ -80,12 +91,10 @@
         <control type="group">
             <include>Dimension_Dialog_Body_Group</include>
             <include content="DialogInfo_PlotBox_Artwork">
-                <param name="poster_visible">[!String.IsEmpty(ListItem.Art(poster)) | !String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.base_poster))]</param>
                 <param name="poster_icon">$VAR[Image_ContextPoster]</param>
                 <param name="landscape_icon">$VAR[Image_ContextFanart]</param>
                 <param name="square_icon">$VAR[Image_ContextIcon]</param>
                 <param name="clearlogo_icon">$VAR[Image_ContextClearLogo]</param>
-                <param name="landscape_visible">[!String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.base_fanart)) | !String.IsEmpty(ListItem.Art(fanart))]</param>
             </include>
         </control>
     </include>
@@ -101,7 +110,6 @@
                 <control type="grouplist" id="996">
                     <include>Dimension_Dialog_Body_Group</include>
                     <right>$PARAM[lines_right]</right>
-                    <onleft>Close</onleft>
                     <onright condition="!Integer.IsEqual(Container(9000).NumItems,0)">9000</onright>
                     <onright condition="Integer.IsEqual(Container(9000).NumItems,0)">61</onright>
                     <pagecontrol>61</pagecontrol>
@@ -145,7 +153,7 @@
                 <include>Animation_Right_Delay</include>
 
                 <!-- Background Layer -->
-                <include condition="$PARAM[include_fullmenu]" content="Dialog_ContextMenu_SideButtons">
+                <include content="Dialog_ContextMenu_SideButtons">
                     <param name="dialog_size">$PARAM[dialog_size]</param>
                 </include>
 

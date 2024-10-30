@@ -1,7 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <includes>
 
+    <include name="Search_Term_DoubleEncoder">
+        <include content="Object_Hidden_List">
+            <param name="id">99099</param>
+            <content>$INFO[Control.GetLabel(9099).index(1),plugin://script.skinvariables/?info=get_encoded_string&amp;unencoded_paths=true&amp;&amp;,]</content>
+        </include>
+        <include content="Object_Hidden_List">
+            <param name="id">99098</param>
+            <content>$INFO[Container(99099).ListItem.Label,plugin://script.skinvariables/?info=get_encoded_string&amp;unencoded_paths=true&amp;&amp;,]</content>
+        </include>
+    </include>
+
     <include name="Search_View_User">
+        <include>Search_Term_DoubleEncoder</include>
         <include>Recommendations_BackgroundLoader</include>
 
         <include>Background</include>
@@ -26,18 +38,13 @@
                 </control>
 
                 <include>Search_Widgets_NoResults</include>
+                <control type="group">
+                    <visible>String.IsEmpty(Control.GetLabel(9099).index(1)) | Integer.IsEqual(Container(5000).NumItems,0)</visible>
+                    <include>Furniture_Top_Left</include>
+                </control>
             </include>
 
-            <control type="group">
-                <include>Animation_Group_Bumper</include>
-                <visible>!$EXP[Exp_InfoDialogs]</visible>
-                <visible>String.IsEmpty(Control.GetLabel(9099).index(1)) | Integer.IsEqual(Container(5000).NumItems,0)</visible>
-                <include>Furniture_Top_Left</include>
-            </control>
         </control>
-
-
-
         <control type="group">
             <visible>!$EXP[Exp_InfoDialogs]</visible>
             <include>Furniture_Top_Right</include>
@@ -52,12 +59,12 @@
     </include>
 
     <include name="Search_View_Discover">
+        <include>Search_Term_DoubleEncoder</include>
 
         <include content="Object_Hidden_Button">
             <param name="id">64</param>
             <onfocus>$VAR[Action_Var_Search_ToMediaFilter]</onfocus>
         </include>
-
 
         <include>Recommendations_BackgroundLoader</include>
 
@@ -104,7 +111,6 @@
                             </include>
                             <include content="Action_View_Movement_OnBack">
                                 <param name="id">5001</param>
-                                <param name="onleft">9090</param>
                                 <param name="backid">5000</param>
                                 <param name="menuid">9090</param>
                                 <param name="onback">[Integer.IsEqual(Container(5001).CurrentItem,1)]</param>
@@ -121,7 +127,7 @@
                                 </item>
                             </content> -->
 
-                            <content browse="$VAR[Defs_BrowseLimitedLists]" target="videos">$INFO[window(home).property(tmdbhelper.userdiscover.folderpath)]$INFO[Control.GetLabel(9099).index(1),&amp;with_text_query=,]</content>
+                            <content browse="$VAR[Defs_BrowseLimitedLists]" target="videos">$INFO[window(home).property(tmdbhelper.userdiscover.folderpath)]$INFO[Container(99098).ListItem.Label,&amp;with_text_query=,]</content>
 
                         </include>
 
@@ -135,13 +141,11 @@
                 </control>
 
                 <include>Search_Widgets_NoResults</include>
+                <control type="group">
+                    <visible>!Skin.HasSetting(View.EnableFullSizeInfo) | String.IsEmpty(Control.GetLabel(9099).index(1)) | Integer.IsEqual(Container(5000).NumItems,0)</visible>
+                    <include>Furniture_Top_Left</include>
+                </control>
             </include>
-
-            <control type="group">
-                <include>Animation_Group_Bumper</include>
-                <visible>!$EXP[Exp_InfoDialogs]</visible>
-                <include>Furniture_Top_Left</include>
-            </control>
 
         </control>
 
@@ -677,7 +681,7 @@
                 <control type="group">
                     <height>120</height>
                     <include content="Info_Title_Text">
-                        <param name="label">$LOCALIZE[31046]</param>
+                        <param name="label">$VAR[Label_Search_Title_NoResults]</param>
                         <param name="wrapmultiline">false</param>
                         <param name="visible">true</param>
                         <param name="width">info_plot_w</param>
@@ -688,7 +692,7 @@
                 <control type="textbox">
                     <top>17</top>
                     <font>font_main_plot</font>
-                    <label>$LOCALIZE[31500] "[CAPITALIZE]$VAR[Path_SearchTerm, , ][/CAPITALIZE]".[CR]$LOCALIZE[31501].</label>
+                    <label>$VAR[Label_Search_NoResults]</label>
                     <align>left</align>
                     <height>90</height>
                     <textcolor>main_fg_30</textcolor>

@@ -2,7 +2,7 @@
 <window type="dialog">
     <include content="Object_DefaultControl">
         <param name="always">true</param>
-        <param name="defaultcontrol">8</param>
+        <param name="defaultcontrol">8000</param>
     </include>
 
     <menucontrol>9000</menucontrol>
@@ -12,9 +12,11 @@
     <onload condition="Skin.HasSetting(Trailers.EnableAutoPlayback.Info) + !String.IsEmpty(ListItem.Trailer) + !Player.HasMedia">SetProperty(PlayTrailer,$ESCINFO[ListItem.Trailer],Home)</onload>
     <onload condition="Skin.HasSetting(Trailers.EnableAutoPlayback.Info) + !String.IsEmpty(ListItem.Trailer) + !Player.HasMedia">ActivateWindow(1123)</onload>
 
+    <onload>SetProperty(BaseID,$INFO[ListItem.Label]$INFO[ListItem.FolderPath])</onload>
+
     <controls>
 
-        <control type="button" id="8">
+        <!-- <control type="button" id="8">
             <texturenofocus />
             <texturefocus />
             <font />
@@ -22,6 +24,18 @@
             <onright>9000</onright>
             <onleft>9000</onleft>
             <onfocus>ClearProperty(Background.DialogInfo.HideArtwork,Home)</onfocus>
+        </control> -->
+
+        <control type="button" id="8000">
+            <texturenofocus />
+            <texturefocus />
+            <font />
+            <ondown>5000</ondown>
+            <onright>9000</onright>
+            <onleft>9000</onleft>
+            <onfocus>ClearProperty(Background.DialogInfo.HideArtwork,Home)</onfocus>
+            <onclick condition="ListItem.HasVideoVersions">SetFocus(8908)</onclick>
+            <onclick condition="!ListItem.HasVideoVersions">SendClick(8)</onclick>
         </control>
 
         <include>Defs_TMDbHelper_Loader</include>
@@ -54,8 +68,8 @@
             <control type="grouplist" id="5000">
                 <include>DialogInfo_Widget_Grouplist</include>
 
-                <onup>8</onup>
-                <onback>8</onback>
+                <onup>8000</onup>
+                <onback>8000</onback>
                 <ondown>330</ondown>
 
                 <include condition="!String.IsEqual(ListItem.Property(tmdb_type),person)">DialogInfo_VideoWidgets</include>
@@ -64,7 +78,7 @@
                 <include content="_Widget_Row" condition="!Skin.HasSetting(VideoInfo.Widgets.DisableGallery)">
                     <param name="id">5020</param>
                     <param name="groupid">5120</param>
-                    <param name="label">Gallery</param>
+                    <param name="label">$LOCALIZE[31098]</param>
                     <param name="include">List_Gallery_Row</param>
                     <param name="visible">$EXP[Exp_InfoDialogs_WidgetsGroup_HasFocus]</param>
                     <param name="widgetfade_include">true</param>
@@ -72,8 +86,8 @@
                     <param name="set_widgetcontainer">false</param>
                     <param name="widget_hideartwork">true</param>
                     <param name="widgetheight">widget_gallery_items_h</param>
-                    <param name="altvisible">!String.IsEqual(Window.Property(CurrentID),Container(99950).ListItem.Property(base_label))</param>
-                    <onfocus>SetProperty(CurrentID,$INFO[Container(99950).ListItem.Property(base_label)])</onfocus>
+                    <param name="altvisible">!String.IsEqual(Window.Property(CurrentID),Window.Property(BaseID))</param>
+                    <onfocus>SetProperty(CurrentID,$INFO[Window.Property(BaseID)])</onfocus>
 
                     <content>
                         <item>
@@ -162,7 +176,13 @@
         <include>DialogInfo_Furniture</include>
         <include>DialogInfo_PlotBox</include>
 
-
+        <include content="DialogSelect_VideoVersions_Main" condition="ListItem.HasVideoVersions">
+            <param name="id">8908</param>
+            <param name="scrollbar_id">8961</param>
+            <param name="include_content">DialogInfo_VideoVersions_Content</param>
+            <param name="visible">[Control.HasFocus(8908) | Control.HasFocus(8961)]</param>
+            <param name="label">$LOCALIZE[40000]</param>
+        </include>
 
 
     </controls>

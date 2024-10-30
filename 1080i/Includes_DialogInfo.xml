@@ -13,8 +13,11 @@
     </include>
 
     <include name="DialogInfo_Body_Group">
-        <param name="icon">$VAR[Image_DialogInfo_Poster]</param>
+        <param name="icon">$VAR[Image_Poster]</param>
         <definition>
+            <include content="Object_Top" condition="Skin.HasSetting(View.EnableFullSizeInfo)">
+                <param name="top">view_pad</param>
+            </include>
             <include>Dimension_Info</include>
             <control type="group">
                 <width>infodialog_poster_w</width>
@@ -58,7 +61,7 @@
         <param name="titlelabel">$VAR[Label_Title]</param>
         <param name="plotlabel">$VAR[Label_Plot]</param>
         <definition>
-            <left>560</left>
+            <left>infodialog_left_w</left>
             <include content="Animation_Slide_In">
                 <param name="type">WindowOpen</param>
                 <param name="posx">320</param>
@@ -72,6 +75,7 @@
                 <param name="titlelabel">$PARAM[titlelabel]</param>
                 <param name="plotlabel">$PARAM[plotlabel]</param>
                 <param name="plotheight">160</param>
+                <param name="plotheight_full">240</param>
                 <param name="plotwidth">90%</param>
                 <param name="mainlogo_visible">$PARAM[mainlogo_visible]</param>
                 <param name="mainlogo_texture">$PARAM[mainlogo_texture]</param>
@@ -83,6 +87,7 @@
                 <param name="titlelabel">$PARAM[titlelabel]</param>
                 <param name="plotlabel">$PARAM[plotlabel]</param>
                 <param name="plotheight">480</param>
+                <param name="plotheight_full">560</param>
                 <param name="plotwidth">90%</param>
                 <param name="mainlogo_visible">$PARAM[mainlogo_visible]</param>
                 <param name="mainlogo_texture">$PARAM[mainlogo_texture]</param>
@@ -125,7 +130,7 @@
             </include>
 
             <control type="group">
-                <include content="Animation_Slide_In" condition="$EXP[Exp_ClassicHome_IsVisible] | Window.IsVisible(1185)">
+                <!-- <include content="Animation_Slide_In" condition="$EXP[Exp_ClassicHome_IsVisible] | Window.IsVisible(1185)">
                     <param name="type">WindowOpen</param>
                     <param name="posx">-320</param>
                     <param name="delay">400</param>
@@ -133,8 +138,17 @@
                 <include content="Animation_Slide_Out" condition="$EXP[Exp_ClassicHome_IsVisible] | Window.IsVisible(1185)">
                     <param name="type">WindowClose</param>
                     <param name="posx">-320</param>
+                </include> -->
+                <include content="Animation_Slide_In">
+                    <param name="type">WindowOpen</param>
+                    <param name="posx">-320</param>
+                    <param name="delay">400</param>
                 </include>
-                <include content="Furniture_Top_Left">
+                <include content="Animation_Slide_Out">
+                    <param name="type">WindowClose</param>
+                    <param name="posx">-320</param>
+                </include>
+                <include content="Furniture_Top_Left" condition="!Skin.HasSetting(View.EnableFullSizeInfo)">
                     <param name="label">$LOCALIZE[19033]</param>
                 </include>
             </control>
@@ -204,12 +218,12 @@
             <param name="include">List_Poster_Row</param>
             <param name="widgetfade_include">true</param>
             <param name="set_widgetcontainer">false</param>
-            <param name="menuid">8</param>
+            <param name="menuid">8000</param>
             <param name="detailed">true</param>
             <param name="widget_hideartwork">!Skin.HasSetting(Widgets.DontHideArtworkOnClassic)</param>
             <param name="widget_showoverlay">true</param>
             <param name="altvisible">true</param>
-            <onfocus>SetProperty(CurrentID,$INFO[Container(99950).ListItem.Property(base_label)])</onfocus>
+            <onfocus>SetProperty(CurrentID,$INFO[Window.Property(BaseID)])</onfocus>
             <content>$INFO[Container(99950).ListItem.Property(TMDB_ID),plugin://plugin.video.themoviedb.helper/?info=stars_in_movies&amp;tmdb_type=person&amp;tmdb_id=,&amp;limit=100&amp;sort_key=year]$VAR[Path_Param_Widget]</content>
             <include>DialogInfo_Widgets_Action</include>
         </include>
@@ -221,12 +235,12 @@
             <param name="include">List_Poster_Row</param>
             <param name="widgetfade_include">true</param>
             <param name="set_widgetcontainer">false</param>
-            <param name="menuid">8</param>
+            <param name="menuid">8000</param>
             <param name="detailed">true</param>
             <param name="widget_hideartwork">!Skin.HasSetting(Widgets.DontHideArtworkOnClassic)</param>
             <param name="widget_showoverlay">true</param>
-            <param name="altvisible">!String.IsEqual(Window.Property(CurrentID),Container(99950).ListItem.Property(base_label))</param>
-            <onfocus>SetProperty(CurrentID,$INFO[Container(99950).ListItem.Property(base_label)])</onfocus>
+            <param name="altvisible">!String.IsEqual(Window.Property(CurrentID),Window.Property(BaseID))</param>
+            <onfocus>SetProperty(CurrentID,$INFO[Window.Property(BaseID)])</onfocus>
             <content>$INFO[Container(99950).ListItem.Property(TMDB_ID),plugin://plugin.video.themoviedb.helper/?info=stars_in_tvshows&amp;tmdb_type=person&amp;tmdb_id=,&amp;limit=100&amp;sort_key=year]$VAR[Path_Param_Widget]</content>
             <include>DialogInfo_Widgets_Action</include>
         </include>
@@ -238,12 +252,12 @@
             <param name="include">List_Poster_Row</param>
             <param name="widgetfade_include">true</param>
             <param name="set_widgetcontainer">false</param>
-            <param name="menuid">8</param>
+            <param name="menuid">8000</param>
             <param name="detailed">true</param>
             <param name="widget_hideartwork">!Skin.HasSetting(Widgets.DontHideArtworkOnClassic)</param>
             <param name="widget_showoverlay">true</param>
-            <param name="altvisible">!String.IsEqual(Window.Property(CurrentID),Container(99950).ListItem.Property(base_label))</param>
-            <onfocus>SetProperty(CurrentID,$INFO[Container(99950).ListItem.Property(base_label)])</onfocus>
+            <param name="altvisible">!String.IsEqual(Window.Property(CurrentID),Window.Property(BaseID))</param>
+            <onfocus>SetProperty(CurrentID,$INFO[Window.Property(BaseID)])</onfocus>
             <content>$INFO[Container(99950).ListItem.Property(TMDB_ID),plugin://plugin.video.themoviedb.helper/?info=crew_in_both&amp;tmdb_type=person&amp;tmdb_id=,&amp;limit=100&amp;sort_key=year]$VAR[Path_Param_Widget]</content>
             <include>DialogInfo_Widgets_Action</include>
         </include>
@@ -260,13 +274,13 @@
             <param name="include">List_Poster_Row</param>
             <param name="widgetfade_include">true</param>
             <param name="set_widgetcontainer">false</param>
-            <param name="menuid">8</param>
+            <param name="menuid">8000</param>
             <param name="detailed">true</param>
             <param name="widget_hideartwork">!Skin.HasSetting(Widgets.DontHideArtworkOnClassic)</param>
             <param name="widget_showoverlay">true</param>
             <param name="altvisible">true</param>
 
-            <onfocus>SetProperty(CurrentID,$INFO[Container(99950).ListItem.Property(base_label)])</onfocus>
+            <onfocus>SetProperty(CurrentID,$INFO[Window.Property(BaseID)])</onfocus>
         </include>
 
 
@@ -278,12 +292,12 @@
             <param name="include">List_Poster_Row</param>
             <param name="widgetfade_include">true</param>
             <param name="set_widgetcontainer">false</param>
-            <param name="menuid">8</param>
+            <param name="menuid">8000</param>
             <param name="detailed">true</param>
             <param name="widget_hideartwork">!Skin.HasSetting(Widgets.DontHideArtworkOnClassic)</param>
             <param name="widget_showoverlay">true</param>
             <param name="altvisible">true</param>
-            <onfocus>SetProperty(CurrentID,$INFO[Container(99950).ListItem.Property(base_label)])</onfocus>
+            <onfocus>SetProperty(CurrentID,$INFO[Window.Property(BaseID)])</onfocus>
             <content target="videos">$VAR[Path_VideoInfo_Generic,,&amp;info=cast&amp;aggregate=true]</content>
             <include>DialogInfo_Widgets_Action</include>
         </include>
@@ -297,11 +311,11 @@
             <param name="visible">$EXP[Exp_InfoDialogs_WidgetsGroup_HasFocus] + !String.IsEmpty(Container(5050).ListItem.Property(TMDB_ID))</param>
             <param name="widgetfade_include">true</param>
             <param name="set_widgetcontainer">false</param>
-            <param name="menuid">8</param>
+            <param name="menuid">8000</param>
             <param name="widget_hideartwork">!Skin.HasSetting(Widgets.DontHideArtworkOnClassic)</param>
             <param name="widget_showoverlay">true</param>
-            <param name="altvisible">!String.IsEqual(Window.Property(CurrentID),Container(99950).ListItem.Property(base_label))</param>
-            <onfocus>SetProperty(CurrentID,$INFO[Container(99950).ListItem.Property(base_label)])</onfocus>
+            <param name="altvisible">!String.IsEqual(Window.Property(CurrentID),Window.Property(BaseID))</param>
+            <onfocus>SetProperty(CurrentID,$INFO[Window.Property(BaseID)])</onfocus>
             <param name="detailed">true</param>
             <content>$INFO[Container(5050).ListItem.Property(TMDB_ID),plugin://plugin.video.themoviedb.helper/?info=stars_in_both&amp;type=person&amp;tmdb_id=,]$VAR[Path_Param_Widget]</content>
             <include>DialogInfo_Widgets_Action</include>
@@ -316,12 +330,12 @@
             <param name="visible">$EXP[Exp_InfoDialogs_WidgetsGroup_HasFocus]</param>
             <param name="widgetfade_include">true</param>
             <param name="set_widgetcontainer">false</param>
-            <param name="menuid">8</param>
+            <param name="menuid">8000</param>
             <param name="widget_hideartwork">!Skin.HasSetting(Widgets.DontHideArtworkOnClassic)</param>
             <param name="widget_showoverlay">true</param>
             <param name="detailed">true</param>
-            <param name="altvisible">!String.IsEqual(Window.Property(CurrentID),Container(99950).ListItem.Property(base_label))</param>
-            <onfocus>SetProperty(CurrentID,$INFO[Container(99950).ListItem.Property(base_label)])</onfocus>
+            <param name="altvisible">!String.IsEqual(Window.Property(CurrentID),Window.Property(BaseID))</param>
+            <onfocus>SetProperty(CurrentID,$INFO[Window.Property(BaseID)])</onfocus>
             <content limit="1">$VAR[Path_FromDirector,plugin://plugin.video.themoviedb.helper/?info=details&amp;type=person]$VAR[Path_Param_Widget]</content>
             <content>$VAR[Path_FromDirector,plugin://plugin.video.themoviedb.helper/?info=crew_in_both&amp;type=person&amp;filter_key=job&amp;filter_value=Director&amp;sort_key=year]$VAR[Path_Param_Widget]</content>
             <include>DialogInfo_Widgets_Action</include>
@@ -336,12 +350,12 @@
             <param name="visible">$EXP[Exp_InfoDialogs_WidgetsGroup_HasFocus]</param>
             <param name="widgetfade_include">true</param>
             <param name="set_widgetcontainer">false</param>
-            <param name="menuid">8</param>
+            <param name="menuid">8000</param>
             <param name="widget_hideartwork">!Skin.HasSetting(Widgets.DontHideArtworkOnClassic)</param>
             <param name="widget_showoverlay">true</param>
             <param name="detailed">true</param>
-            <param name="altvisible">!String.IsEqual(Window.Property(CurrentID),Container(99950).ListItem.Property(base_label))</param>
-            <onfocus>SetProperty(CurrentID,$INFO[Container(99950).ListItem.Property(base_label)])</onfocus>
+            <param name="altvisible">!String.IsEqual(Window.Property(CurrentID),Window.Property(BaseID))</param>
+            <onfocus>SetProperty(CurrentID,$INFO[Window.Property(BaseID)])</onfocus>
             <content limit="1">$VAR[Path_FromWriter,plugin://plugin.video.themoviedb.helper/?info=details&amp;type=person,]$VAR[Path_Param_Widget]</content>
             <content>$VAR[Path_FromWriter,plugin://plugin.video.themoviedb.helper/?info=crew_in_both&amp;type=person&amp;filter_key=department&amp;filter_value=Writing&amp;sort_key=year]$VAR[Path_Param_Widget]</content>
             <include>DialogInfo_Widgets_Action</include>
@@ -356,12 +370,12 @@
             <param name="visible">$EXP[Exp_InfoDialogs_WidgetsGroup_HasFocus]</param>
             <param name="widgetfade_include">true</param>
             <param name="set_widgetcontainer">false</param>
-            <param name="menuid">8</param>
+            <param name="menuid">8000</param>
             <param name="widget_hideartwork">!Skin.HasSetting(Widgets.DontHideArtworkOnClassic)</param>
             <param name="widget_showoverlay">true</param>
             <param name="detailed">true</param>
-            <param name="altvisible">!String.IsEqual(Window.Property(CurrentID),Container(99950).ListItem.Property(base_label))</param>
-            <onfocus>SetProperty(CurrentID,$INFO[Container(99950).ListItem.Property(base_label)])</onfocus>
+            <param name="altvisible">!String.IsEqual(Window.Property(CurrentID),Window.Property(BaseID))</param>
+            <onfocus>SetProperty(CurrentID,$INFO[Window.Property(BaseID)])</onfocus>
             <content limit="1">$INFO[Container(99950).ListItem.Property(Creator.1.TMDb_ID),plugin://plugin.video.themoviedb.helper/?info=details&amp;type=person&amp;tmdb_id=,]$VAR[Path_Param_Widget]</content>
             <content>$INFO[Container(99950).ListItem.Property(Creator.1.TMDb_ID),plugin://plugin.video.themoviedb.helper/?info=crew_in_both&amp;type=person&amp;filter_key=department&amp;filter_value=Creator&amp;sort_key=year&amp;tmdb_id=]$VAR[Path_Param_Widget]</content>
             <include>DialogInfo_Widgets_Action</include>
@@ -377,11 +391,11 @@
             <param name="visible">$EXP[Exp_InfoDialogs_WidgetsGroup_HasFocus]</param>
             <param name="widgetfade_include">true</param>
             <param name="set_widgetcontainer">false</param>
-            <param name="menuid">8</param>
+            <param name="menuid">8000</param>
             <param name="widget_hideartwork">!Skin.HasSetting(Widgets.DontHideArtworkOnClassic)</param>
             <param name="widget_showoverlay">true</param>
-            <param name="altvisible">!String.IsEqual(Window.Property(CurrentID),Container(99950).ListItem.Property(base_label))</param>
-            <onfocus>SetProperty(CurrentID,$INFO[Container(99950).ListItem.Property(base_label)])</onfocus>
+            <param name="altvisible">!String.IsEqual(Window.Property(CurrentID),Window.Property(BaseID))</param>
+            <onfocus>SetProperty(CurrentID,$INFO[Window.Property(BaseID)])</onfocus>
             <content>$INFO[Container(99950).ListItem.Property(Set.TMDb_ID),plugin://plugin.video.themoviedb.helper/?info=collection&amp;tmdb_type=collection&amp;tmdb_id=,]$VAR[Path_Param_Widget]</content>
             <include>DialogInfo_Widgets_Action</include>
         </include>
@@ -394,12 +408,12 @@
             <param name="visible">$EXP[Exp_InfoDialogs_WidgetsGroup_HasFocus]</param>
             <param name="widgetfade_include">true</param>
             <param name="set_widgetcontainer">false</param>
-            <param name="menuid">8</param>
+            <param name="menuid">8000</param>
             <param name="widget_hideartwork">!Skin.HasSetting(Widgets.DontHideArtworkOnClassic)</param>
             <param name="widget_showoverlay">true</param>
-            <param name="altvisible">!String.IsEqual(Window.Property(CurrentID),Container(99950).ListItem.Property(base_label))</param>
-            <onfocus>SetProperty(CurrentID,$INFO[Container(99950).ListItem.Property(base_label)])</onfocus>
-            <content>$INFO[ListItem.SetID,videodb://movies/sets/,/]</content>
+            <param name="altvisible">!String.IsEqual(Window.Property(CurrentID),Window.Property(BaseID))</param>
+            <onfocus>SetProperty(CurrentID,$INFO[Window.Property(BaseID)])</onfocus>
+            <content>$VAR[Path_VideoInfo_LocalSets]</content>
             <include content="DialogInfo_Widgets_Action">
                 <param name="set_path">false</param>
             </include>
@@ -414,11 +428,11 @@
             <param name="visible">$EXP[Exp_InfoDialogs_WidgetsGroup_HasFocus]</param>
             <param name="widgetfade_include">true</param>
             <param name="set_widgetcontainer">false</param>
-            <param name="menuid">8</param>
+            <param name="menuid">8000</param>
             <param name="widget_hideartwork">!Skin.HasSetting(Widgets.DontHideArtworkOnClassic)</param>
             <param name="widget_showoverlay">true</param>
-            <param name="altvisible">!String.IsEqual(Window.Property(CurrentID),Container(99950).ListItem.Property(base_label))</param>
-            <onfocus>SetProperty(CurrentID,$INFO[Container(99950).ListItem.Property(base_label)])</onfocus>
+            <param name="altvisible">!String.IsEqual(Window.Property(CurrentID),Window.Property(BaseID))</param>
+            <onfocus>SetProperty(CurrentID,$INFO[Window.Property(BaseID)])</onfocus>
             <content>$VAR[Path_FromStudio,plugin://plugin.video.themoviedb.helper/?info=discover]$VAR[Path_Param_Widget]</content>
             <include>DialogInfo_Widgets_Action</include>
         </include>
@@ -432,11 +446,11 @@
             <param name="visible">$EXP[Exp_InfoDialogs_WidgetsGroup_HasFocus]</param>
             <param name="widgetfade_include">true</param>
             <param name="set_widgetcontainer">false</param>
-            <param name="menuid">8</param>
+            <param name="menuid">8000</param>
             <param name="widget_hideartwork">!Skin.HasSetting(Widgets.DontHideArtworkOnClassic)</param>
             <param name="widget_showoverlay">true</param>
-            <param name="altvisible">!String.IsEqual(Window.Property(CurrentID),Container(99950).ListItem.Property(base_label))</param>
-            <onfocus>SetProperty(CurrentID,$INFO[Container(99950).ListItem.Property(base_label)])</onfocus>
+            <param name="altvisible">!String.IsEqual(Window.Property(CurrentID),Window.Property(BaseID))</param>
+            <onfocus>SetProperty(CurrentID,$INFO[Window.Property(BaseID)])</onfocus>
             <content>$INFO[Container(99950).ListItem.Year,plugin://plugin.video.themoviedb.helper/?info=discover&amp;first_air_date_year=,&amp;vote_count.gte=10]$INFO[Container(99950).ListItem.Year,&amp;primary_release_year=,]$VAR[Path_Param_Type,&amp;,]$VAR[Path_Param_Widget]</content>
             <include>DialogInfo_Widgets_Action</include>
         </include>
@@ -450,11 +464,11 @@
             <param name="visible">$EXP[Exp_InfoDialogs_WidgetsGroup_HasFocus]</param>
             <param name="widgetfade_include">true</param>
             <param name="set_widgetcontainer">false</param>
-            <param name="menuid">8</param>
+            <param name="menuid">8000</param>
             <param name="widget_hideartwork">!Skin.HasSetting(Widgets.DontHideArtworkOnClassic)</param>
             <param name="widget_showoverlay">true</param>
-            <param name="altvisible">!String.IsEqual(Window.Property(CurrentID),Container(99950).ListItem.Property(base_label))</param>
-            <onfocus>SetProperty(CurrentID,$INFO[Container(99950).ListItem.Property(base_label)])</onfocus>
+            <param name="altvisible">!String.IsEqual(Window.Property(CurrentID),Window.Property(BaseID))</param>
+            <onfocus>SetProperty(CurrentID,$INFO[Window.Property(BaseID)])</onfocus>
             <content>$VAR[Path_VideoInfo_Trailers]</content>
             <include content="Action_PlayTrailer_OnClick">
                 <param name="trailer">Container(5009).ListItem.FileNameAndPath</param>
@@ -471,11 +485,11 @@
             <param name="visible">$EXP[Exp_InfoDialogs_WidgetsGroup_HasFocus]</param>
             <param name="widgetfade_include">true</param>
             <param name="set_widgetcontainer">false</param>
-            <param name="menuid">8</param>
+            <param name="menuid">8000</param>
             <param name="widget_hideartwork">!Skin.HasSetting(Widgets.DontHideArtworkOnClassic)</param>
             <param name="widget_showoverlay">true</param>
-            <param name="altvisible">!String.IsEqual(Window.Property(CurrentID),Container(99950).ListItem.Property(base_label))</param>
-            <onfocus>SetProperty(CurrentID,$INFO[Container(99950).ListItem.Property(base_label)])</onfocus>
+            <param name="altvisible">!String.IsEqual(Window.Property(CurrentID),Window.Property(BaseID))</param>
+            <onfocus>SetProperty(CurrentID,$INFO[Window.Property(BaseID)])</onfocus>
             <content>
                 <item>
                     <label>$LOCALIZE[31024]</label>
@@ -503,11 +517,11 @@
             <param name="visible">$EXP[Exp_InfoDialogs_WidgetsGroup_HasFocus]</param>
             <param name="widgetfade_include">true</param>
             <param name="set_widgetcontainer">false</param>
-            <param name="menuid">8</param>
+            <param name="menuid">8000</param>
             <param name="widget_hideartwork">!Skin.HasSetting(Widgets.DontHideArtworkOnClassic)</param>
             <param name="widget_showoverlay">true</param>
-            <param name="altvisible">!String.IsEqual(Window.Property(CurrentID),Container(99950).ListItem.Property(base_label))</param>
-            <onfocus>SetProperty(CurrentID,$INFO[Container(99950).ListItem.Property(base_label)])</onfocus>
+            <param name="altvisible">!String.IsEqual(Window.Property(CurrentID),Window.Property(BaseID))</param>
+            <onfocus>SetProperty(CurrentID,$INFO[Window.Property(BaseID)])</onfocus>
             <content>$VAR[Path_VideoInfo_Generic,,&amp;info=recommendations]</content>
 
             <include>DialogInfo_Widgets_Action</include>
@@ -544,12 +558,12 @@
             <param name="include">List_Square_Row</param>
             <param name="widgetfade_include">true</param>
             <param name="set_widgetcontainer">false</param>
-            <param name="menuid">8</param>
+            <param name="menuid">8000</param>
             <param name="detailed">true</param>
             <param name="widget_hideartwork">!Skin.HasSetting(Widgets.DontHideArtworkOnClassic)</param>
             <param name="widget_showoverlay">true</param>
             <param name="altvisible">true</param>
-            <onfocus>SetProperty(CurrentID,$INFO[Container(99950).ListItem.Property(base_label)])</onfocus>
+            <onfocus>SetProperty(CurrentID,$INFO[Window.Property(BaseID)])</onfocus>
             <onclick condition="!System.AddonIsEnabled(script.playalbum) + System.HasAddon(script.playalbum)">EnableAddon(script.playalbum)</onclick>
             <onclick condition="!System.HasAddon(script.playalbum)">InstallAddon(script.playalbum)</onclick>
 
@@ -569,12 +583,12 @@
             <param name="include">List_Square_Row</param>
             <param name="widgetfade_include">true</param>
             <param name="set_widgetcontainer">false</param>
-            <param name="menuid">8</param>
+            <param name="menuid">8000</param>
             <param name="detailed">true</param>
             <param name="widget_hideartwork">!Skin.HasSetting(Widgets.DontHideArtworkOnClassic)</param>
             <param name="widget_showoverlay">true</param>
-            <param name="altvisible">!String.IsEqual(Window.Property(CurrentID),Container(99950).ListItem.Property(base_label))</param>
-            <onfocus>SetProperty(CurrentID,$INFO[Container(99950).ListItem.Property(base_label)])</onfocus>
+            <param name="altvisible">!String.IsEqual(Window.Property(CurrentID),Window.Property(BaseID))</param>
+            <onfocus>SetProperty(CurrentID,$INFO[Window.Property(BaseID)])</onfocus>
             <include content="Object_ContentDynamic" condition="String.IsEqual(ListItem.DBType,artist)">
                 <param name="target">music</param>
                 <param name="sortby">playcount</param>
@@ -596,12 +610,12 @@
             <param name="include">List_Square_Row</param>
             <param name="widgetfade_include">true</param>
             <param name="set_widgetcontainer">false</param>
-            <param name="menuid">8</param>
+            <param name="menuid">8000</param>
             <param name="detailed">true</param>
             <param name="widget_hideartwork">!Skin.HasSetting(Widgets.DontHideArtworkOnClassic)</param>
             <param name="widget_showoverlay">true</param>
-            <param name="altvisible">!String.IsEqual(Window.Property(CurrentID),Container(99950).ListItem.Property(base_label))</param>
-            <onfocus>SetProperty(CurrentID,$INFO[Container(99950).ListItem.Property(base_label)])</onfocus>
+            <param name="altvisible">!String.IsEqual(Window.Property(CurrentID),Window.Property(BaseID))</param>
+            <onfocus>SetProperty(CurrentID,$INFO[Window.Property(BaseID)])</onfocus>
         </include>
 
 
@@ -613,12 +627,12 @@
             <param name="include">List_Landscape_Row</param>
             <param name="widgetfade_include">true</param>
             <param name="set_widgetcontainer">false</param>
-            <param name="menuid">8</param>
+            <param name="menuid">8000</param>
             <param name="detailed">true</param>
             <param name="widget_hideartwork">!Skin.HasSetting(Widgets.DontHideArtworkOnClassic)</param>
             <param name="widget_showoverlay">true</param>
-            <param name="altvisible">!String.IsEqual(Window.Property(CurrentID),Container(99950).ListItem.Property(base_label))</param>
-            <onfocus>SetProperty(CurrentID,$INFO[Container(99950).ListItem.Property(base_label)])</onfocus>
+            <param name="altvisible">!String.IsEqual(Window.Property(CurrentID),Window.Property(BaseID))</param>
+            <onfocus>SetProperty(CurrentID,$INFO[Window.Property(BaseID)])</onfocus>
             <include content="Action_PlayTrailer_OnClick">
                 <param name="trailer">Container(5002).ListItem.FileNameAndPath</param>
                 <param name="trailer_fallback" />
@@ -698,6 +712,13 @@
                 <nested />
             </control>
         </definition>
+    </include>
+
+    <include name="DialogInfo_VideoVersions_Content">
+        <onback>8000</onback>
+        <onclick>Dialog.Close(movieinformation,true)</onclick>
+        <onclick>PlayMedia($ESCINFO[Container(8908).ListItem.FileNameAndPath])</onclick>
+        <content>$INFO[ListItem.DBID,videodb://movies/videoversions/0?mediaid=,]</content>
     </include>
 
     <include name="DialogInfo_Button_GroupBuiltin">
@@ -1163,10 +1184,8 @@
     </include>
 
     <include name="DialogInfo_PlotBox_Artwork">
-        <param name="poster_icon">$VAR[Image_DialogInfo_Poster]</param>
-        <param name="poster_visible">[!String.IsEmpty(ListItem.Art(poster)) | !String.IsEmpty(ListItem.Art(season.poster)) | !String.IsEmpty(ListItem.Art(tvshow.poster)) | !String.IsEmpty(Container(99950).ListItem.Art(poster)) | !String.IsEmpty(Container(99950).ListItem.Art(season.poster)) | !String.IsEmpty(Container(99950).ListItem.Art(tvshow.poster))]</param>
-        <param name="square_icon">$INFO[Container(99950).ListItem.Property(base_icon)]</param>
-        <param name="landscape_visible">true</param>
+        <param name="poster_icon">$VAR[Image_Poster]</param>
+        <param name="square_icon">$INFO[ListItem.Icon]</param>
         <param name="landscape_icon">$VAR[Image_Landscape]</param>
         <param name="clearlogo_icon">$VAR[Image_Clearlogo]</param>
         <definition>
@@ -1175,6 +1194,19 @@
                 <right>20</right>
                 <top>-20</top>
                 <bottom>-20</bottom>
+
+                <!-- Hidden Images to Test Availability -->
+                <control type="image" id="99981">
+                    <texture background="true" colordiffuse="00ffffff">$PARAM[poster_icon]</texture>
+                </control>
+                <control type="image" id="99982">
+                    <texture background="true" colordiffuse="00ffffff">$PARAM[square_icon]</texture>
+                </control>
+                <control type="image" id="99983">
+                    <texture background="true" colordiffuse="00ffffff">$PARAM[landscape_icon]</texture>
+                </control>
+
+                <!-- Visible Images Based On Availability -->
                 <control type="grouplist">
                     <orientation>vertical</orientation>
                     <itemgap>40</itemgap>
@@ -1185,7 +1217,7 @@
                         <left>40</left>
                         <right>40</right>
                         <height>520</height>
-                        <visible>$PARAM[poster_visible]</visible>
+                        <visible>!String.IsEmpty(Control.GetLabel(99981))</visible>
                         <include content="Dialog_Outline_InnerBox">
                             <control type="image">
                                 <aspectratio scalediffuse="false">scale</aspectratio>
@@ -1193,11 +1225,13 @@
                             </control>
                         </include>
                     </control>
+
                     <control type="group">
                         <height>356</height>
                         <left>40</left>
                         <right>40</right>
-                        <visible>![$PARAM[poster_visible]]</visible>
+                        <visible>String.IsEmpty(Control.GetLabel(99981))</visible>
+                        <visible>!String.IsEmpty(Control.GetLabel(99982))</visible>
                         <include content="Dialog_Outline_InnerBox">
                             <control type="image">
                                 <aspectratio scalediffuse="false">keep</aspectratio>
@@ -1205,11 +1239,12 @@
                             </control>
                         </include>
                     </control>
+
                     <control type="group">
                         <left>40</left>
                         <right>40</right>
                         <height>200</height>
-                        <visible>$PARAM[landscape_visible]</visible>
+                        <visible>!String.IsEmpty(Control.GetLabel(99983))</visible>
                         <include content="Dialog_Outline_InnerBox">
                             <control type="image">
                                 <aspectratio scalediffuse="false">scale</aspectratio>
@@ -1222,7 +1257,7 @@
                         <left>40</left>
                         <right>40</right>
                         <height>124</height>
-                        <visible>![$PARAM[poster_visible]]</visible>
+                        <visible>String.IsEmpty(Control.GetLabel(99981))</visible>
                         <control type="image">
                             <aspectratio scalediffuse="false" aligny="center">keep</aspectratio>
                             <texture background="true">$PARAM[clearlogo_icon]</texture>
@@ -1235,7 +1270,7 @@
 
     <include name="DialogInfo_PlotBox_OnMove">
         <onleft>9000</onleft>
-        <onback>8</onback>
+        <onback>8000</onback>
     </include>
 
     <include name="DialogInfo_PlotBox_Foreground">
@@ -1262,10 +1297,8 @@
                     <control type="group">
                         <include>Dimension_Dialog_Body_Group</include>
                         <include content="DialogInfo_PlotBox_Artwork">
-                            <param name="poster_visible">$PARAM[poster_visible]</param>
                             <param name="poster_icon">$PARAM[poster_icon]</param>
                             <param name="square_icon">$PARAM[square_icon]</param>
-                            <param name="landscape_visible">$PARAM[landscape_visible]</param>
                             <param name="landscape_icon">$PARAM[landscape_icon]</param>
                             <param name="clearlogo_icon">$PARAM[clearlogo_icon]</param>
                         </include>
@@ -1408,10 +1441,8 @@
                         <control type="group">
                             <include>Dimension_Dialog_Body_Group</include>
                             <include content="DialogInfo_PlotBox_Artwork" condition="$PARAM[include_artwork]">
-                                <param name="poster_visible">!String.IsEmpty(Window.Property(poster))</param>
                                 <param name="poster_icon">$INFO[Window.Property(poster)]</param>
                                 <param name="square_icon">$INFO[Window.Property(icon)]</param>
-                                <param name="landscape_visible">!String.IsEmpty(Window.Property(landscape))</param>
                                 <param name="landscape_icon">$INFO[Window.Property(landscape)]</param>
                                 <param name="clearlogo_icon">$INFO[Window.Property(clearlogo)]</param>
                             </include>
@@ -1441,11 +1472,31 @@
         </definition>
     </include>
 
+    <include name="DialogInfo_PlotBox_Buttons">
+        <include content="Dialog_Background_Side">
+            <param name="slide_condition">!Integer.IsEqual(Container(9000).NumItems,0)</param>
+            <param name="dialog_size">Dimension_DialogFullMenu</param>
+
+            <!-- Side Buttons -->
+            <control type="group">
+                <include>Dimension_Dialog_Body</include>
+                <control type="grouplist" id="9000">
+                    <include>Dialog_Side_Grouplist_Def</include>
+                    <onback>8000</onback>
+                    <onleft>8000</onleft>
+                    <onright>61</onright>
+                    <include>Items_DialogVideoInfo_MenuBar</include>
+                </control>
+            </control>
+        </include>
+    </include>
+
     <include name="DialogInfo_PlotBox">
         <param name="visible">[Control.HasFocus(61) | ControlGroup(9000).HasFocus()]</param>
         <param name="header">$VAR[Label_Title]</param>
         <param name="textbox">$VAR[Label_Overlay_PlotBox]</param>
         <param name="include_movement">DialogInfo_PlotBox_OnMove</param>
+        <param name="include_buttons">DialogInfo_PlotBox_Buttons</param>
         <definition>
             <include content="Dialog_Dim_Overlay">
                 <param name="visible">$PARAM[visible]</param>
@@ -1477,32 +1528,14 @@
                     <param name="reversible">true</param>
                 </include>
 
-                <include content="Dialog_Background_Side" condition="Window.IsVisible(DialogVideoInfo.xml) | Window.IsVisible(DialogMusicInfo.xml)">
-                    <param name="slide_condition">!Integer.IsEqual(Container(9000).NumItems,0)</param>
-                    <param name="dialog_size">Dimension_DialogFullMenu</param>
-
-                    <!-- Side Buttons -->
-                    <control type="group">
-                        <include>Dimension_Dialog_Body</include>
-                        <control type="grouplist" id="9000">
-                            <include>Dialog_Side_Grouplist_Def</include>
-                            <onback>8</onback>
-                            <onleft>8</onleft>
-                            <onright>61</onright>
-                            <include>Items_DialogVideoInfo_MenuBar</include>
-                        </control>
-                    </control>
-                </include>
-
+                <include>$PARAM[include_buttons]</include>
 
                 <include content="DialogInfo_PlotBox_Foreground">
                     <param name="header">$PARAM[header]</param>
                     <param name="textbox">$PARAM[textbox]</param>
                     <param name="include_movement">$PARAM[include_movement]</param>
-                    <param name="poster_visible">$PARAM[poster_visible]</param>
                     <param name="poster_icon">$PARAM[poster_icon]</param>
                     <param name="square_icon">$PARAM[square_icon]</param>
-                    <param name="landscape_visible">$PARAM[landscape_visible]</param>
                     <param name="landscape_icon">$PARAM[landscape_icon]</param>
                     <param name="clearlogo_icon">$PARAM[clearlogo_icon]</param>
                     <param name="scrollbar_fakefocus">$PARAM[scrollbar_fakefocus]</param>

@@ -967,9 +967,8 @@
                 <param name="zoom_in_include">$PARAM[zoom_in_include]</param>
                 <param name="include_slide">true</param>
                 <param name="itemgap">$PARAM[itemgap]</param>
-                <onclick condition="!Window.ISVisible(1190)">SendClick(8)</onclick>
-                <onclick condition="Window.ISVisible(1190) + !$EXP[Exp_IsFolder]">RunScript(plugin.video.themoviedb.helper,close_dialog=1190,"playmedia=$INFO[ListItem.FilenameAndPath]")</onclick>
-                <onclick condition="Window.ISVisible(1190) + $EXP[Exp_IsFolder]">RunScript(plugin.video.themoviedb.helper,close_dialog=1190,"call_path=$INFO[ListItem.FilenameAndPath]")</onclick>
+                <onclick condition="ListItem.HasVideoVersions">SetFocus(8908)</onclick>
+                <onclick condition="!ListItem.HasVideoVersions">SendClick(8)</onclick>
                 <onfocus>ClearProperty(DetailsView)</onfocus>
                 <include content="DialogInfo_Button_HintLabel">
                     <param name="label">$VAR[Label_DialogInfo_PlayButton]</param>
@@ -1000,7 +999,7 @@
             </include>
 
             <!-- Versions -->
-            <include content="DialogInfo_Button" condition="String.IsEqual(ListItem.DBType,movie)">
+            <include content="DialogInfo_Button" condition="String.IsEqual(ListItem.DBType,movie) + ListItem.HasVideoVersions">
                 <param name="vertical">$PARAM[vertical]</param>
                 <param name="id">4021</param>
                 <param name="groupid">4121</param>
@@ -1011,7 +1010,6 @@
                 <param name="zoom_in_include">$PARAM[zoom_in_include]</param>
                 <param name="include_slide">true</param>
                 <param name="itemgap">$PARAM[itemgap]</param>
-                <param name="visible">ListItem.HasVideoVersions</param>
 
                 <onclick condition="Window.IsVisible(DialogVideoInfo.xml) | Window.IsVisible(DialogMusicInfo.xml)">SendClick(14)</onclick>
 
@@ -1021,7 +1019,7 @@
             </include>
 
             <!-- Extras -->
-            <include content="DialogInfo_Button" condition="String.IsEqual(ListItem.DBType,movie)">
+            <include content="DialogInfo_Button" condition="String.IsEqual(ListItem.DBType,movie) + ListItem.HasVideoExtras">
                 <param name="vertical">$PARAM[vertical]</param>
                 <param name="id">4022</param>
                 <param name="groupid">4122</param>
@@ -1032,7 +1030,6 @@
                 <param name="zoom_in_include">$PARAM[zoom_in_include]</param>
                 <param name="include_slide">true</param>
                 <param name="itemgap">$PARAM[itemgap]</param>
-                <param name="visible">ListItem.HasVideoExtras</param>
 
                 <onclick condition="Window.IsVisible(DialogVideoInfo.xml) | Window.IsVisible(DialogMusicInfo.xml)">SendClick(15)</onclick>
 

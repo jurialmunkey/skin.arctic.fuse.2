@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <includes>
 
-    <include name="DialogCustom1162_OnClick">
-        <onclick condition="ListItem.IsFolder + String.IsEmpty(ListItem.Property(target)) + String.IsEmpty(ListItem.Property(path))">ActivateWindow($INFO[Window.Property(Target)],$INFO[ListItem.FolderPath],return)</onclick>
-        <onclick condition="!ListItem.IsFolder + String.IsEmpty(ListItem.Property(target)) + String.IsEmpty(ListItem.Property(path))">PlayMedia($INFO[ListItem.FolderPath])</onclick>
-
-        <onclick condition="!String.IsEmpty(ListItem.Property(target)) + !String.IsEmpty(ListItem.Property(path))">ActivateWindow($INFO[ListItem.Property(target)],$INFO[ListItem.Property(path)],return)</onclick>
-        <onclick condition="String.IsEmpty(ListItem.Property(target)) + !String.IsEmpty(ListItem.Property(path))">$INFO[ListItem.Property(path)]</onclick>
-    </include>
+    <variable name="DialogCustom1162_OnClick">
+        <value condition="!String.IsEmpty(ListItem.Property(target)) + !String.IsEmpty(ListItem.Property(path))">ActivateWindow($INFO[ListItem.Property(target)],$INFO[ListItem.Property(path)],return)</value>
+        <value condition="!String.IsEmpty(ListItem.Property(path))">$INFO[ListItem.Property(path)]</value>
+        <value condition="String.StartsWith(ListItem.FolderPath,favourites://)">RunScript(script.skinvariables,run_executebuiltin=special://skin/shortcuts/builtins/skinvariables-openfavourite.json,use_rules,folderpath=$INFO[ListItem.FolderPath])</value>
+        <value condition="ListItem.IsFolder">ActivateWindow($INFO[Window.Property(Target)],$INFO[ListItem.FolderPath],return)</value>
+        <value>PlayMedia($INFO[ListItem.FolderPath])</value>
+    </variable>
 
     <include name="DialogCustom1162_Main">
         <param name="dialog_size">Dimension_DialogFullMenu</param>
@@ -50,10 +50,8 @@
                         <control type="group">
                             <include>Dimension_Dialog_Body_Group</include>
                             <include content="DialogInfo_PlotBox_Artwork" condition="$PARAM[include_artwork]">
-                                <param name="poster_visible">!String.IsEmpty(Container(450).ListItem.Art(poster))</param>
                                 <param name="poster_icon">$INFO[Container(450).ListItem.Art(poster)]</param>
                                 <param name="square_icon">$INFO[Container(450).ListItem.Art(icon)]</param>
-                                <param name="landscape_visible">!String.IsEmpty(Container(450).ListItem.Art(fanart))</param>
                                 <param name="landscape_icon">$INFO[Container(450).ListItem.Art(fanart)]</param>
                                 <param name="clearlogo_icon">$INFO[Container(450).ListItem.Art(clearlogo)]</param>
                             </include>
@@ -69,7 +67,7 @@
                                     <onleft>Close</onleft>
                                     <onclick>Close</onclick>
 
-                                    <include>DialogCustom1162_OnClick</include>
+                                    <onclick>$VAR[DialogCustom1162_OnClick]</onclick>
 
 
                                     <content>$INFO[Window.Property(Path)]</content>
@@ -95,7 +93,7 @@
                                     <onleft>Close</onleft>
                                     <onclick>Close</onclick>
 
-                                    <include>DialogCustom1162_OnClick</include>
+                                    <onclick>$VAR[DialogCustom1162_OnClick]</onclick>
 
                                     <content>$INFO[Window.Property(Path)]</content>
 
@@ -109,92 +107,6 @@
                         </include>
                     </control>
                 </include>
-            </control>
-        </definition>
-    </include>
-
-    <include name="DialogCustom1163_Hubs">
-        <definition>
-            <include>Dialog_Dim_Overlay</include>
-
-            <control type="group">
-                <width>view_menu_main</width>
-                <control type="group">
-                    <left>20</left>
-
-                    <include content="Home_Menu_Vert_Background">
-                        <param name="left">0</param>
-                        <param name="width">view_menu_main</param>
-                    </include>
-
-                    <animation effect="slide" tween="cubic" easing="out" time="400" start="-view_menu_main" end="0" reversible="false">WindowOpen</animation>
-                    <animation effect="slide" tween="cubic" easing="out" time="400" start="0" end="-view_menu_main" reversible="false">WindowClose</animation>
-
-                    <control type="group">
-                        <left>-20</left>
-                        <control type="group">
-                            <include>Dimension_Topbar</include>
-                            <control type="group">
-                                <include>Dimension_Furniture_Gutters</include>
-                                <include content="Furniture_MainLabel">
-                                    <param name="label">$INFO[Window.Property(Header)]</param>
-                                </include>
-                            </control>
-                        </control>
-
-                        <control type="group">
-                            <right>-30</right>
-                            <include content="Furniture_Busy">
-                                <param name="hasspinner">true</param>
-                                <param name="spinspinner">true</param>
-                                <param name="icon">special://skin/extras/icons/kodi.png</param>
-                                <param name="haslabel">false</param>
-                                <param name="spinnervisible">[!Window.IsActive(DialogVolumeBar.xml) | Player.Muted]</param>
-                                <param name="visible_delay">400</param>
-                                <param name="windowopen_condition">True</param>
-                                <param name="windowopen_delay">800</param>
-                                <param name="visible">[Container(450).IsUpdating]</param>
-                            </include>
-                        </control>
-
-                        <control type="group">
-                            <include>Dimension_Bottombar</include>
-                            <control type="group">
-                                <animation effect="fade" start="100" end="70" condition="true">Conditional</animation>
-                                <include>Dimension_Furniture_Gutters</include>
-                                <include content="View_Furniture_Bottom_ViewLine">
-                                    <param name="label">$INFO[Container(450).NumItems,, items]</param>
-                                    <param name="fade_condition">false</param>
-                                </include>
-                            </control>
-                        </control>
-                    </control>
-
-
-                    <control type="group">
-                        <include>Dimension_Dialog_Body_Group</include>
-                        <control type="group">
-                            <include content="Animation_ConditionalFade">
-                                <param name="condition">[Container(450).IsUpdating | Integer.IsEqual(Container(450).NumItems,0)]</param>
-                            </include>
-                            <include content="List_DialogSelect">
-                                <param name="id">450</param>
-                                <param name="textcolor">main_fg</param>
-                                <param name="itemlayout_include">Layout_MenuList</param>
-                                <param name="orientation">vertical</param>
-                                <onleft>Close</onleft>
-                                <onright>Close</onright>
-                                <onclick>Close</onclick>
-                                <top>160</top>
-                                <bottom>160</bottom>
-                                <left>20</left>
-                                <right>0</right>
-                                <include>DialogCustom1162_OnClick</include>
-                                <content>$INFO[Window.Property(Path)]</content>
-                            </include>
-                        </control>
-                    </control>
-                </control>
             </control>
         </definition>
     </include>

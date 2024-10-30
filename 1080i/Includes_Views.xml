@@ -7,10 +7,7 @@
     <include name="View_Row_Header">
         <definition>
             <control type="group">
-                <visible>!Window.IsVisible(DialogAddonSettings.xml)</visible>
-                <visible>!Window.IsVisible(DialogGameControllers.xml)</visible>
-                <visible>!Window.IsVisible(DialogPVRChannelManager.xml)</visible>
-                <visible>!Window.IsVisible(DialogPVRGroupManager.xml)</visible>
+                <visible>!Skin.HasSetting(View.EnableFullSizeInfo) | !$EXP[Exp_View_IsMedia] | [$EXP[Exp_View_FullSize] + ![Window.IsVisible(DialogBusy.xml) + Integer.IsEqual(Container.NumItems,0)]]</visible>
                 <include content="Furniture_Top_Left">
                     <param name="label">$PARAM[label]</param>
                 </include>
@@ -24,6 +21,8 @@
             <include content="DialogInfo_PlotBox">
                 <param name="visible">$PARAM[visible]</param>
                 <param name="scrollbar_fakefocus">true</param>
+                <param name="include_movement">Items_Null</param>
+                <param name="include_buttons">Items_Null</param>
             </include>
         </definition>
     </include>
@@ -38,12 +37,6 @@
             <param name="id">63</param>
             <onfocus>SetFocus(50)</onfocus>
         </include>
-    </include>
-
-    <include name="View_Row_Info_Panel_Group">
-        <top>view_top</top>
-        <width>info_panel_w</width>
-        <left>view_pad</left>
     </include>
 
     <include name="View_Row_Info">
@@ -63,7 +56,7 @@
             <control type="group">
                 <visible>!$EXP[Exp_View_FullSize]</visible>
 
-                <include>View_Row_Info_Panel_Group</include>
+                <include>Info_Panel_Dimensions</include>
 
                 <include content="Info_Panel">
                     <param name="visible">String.IsEmpty(Window.Property(TMDBHelper.WidgetContainer))</param>
@@ -118,45 +111,6 @@
         </include>
     </include>
 
-    <include name="View_FirstLoad">
-        <control type="group">
-            <visible>Window.IsVisible(DialogBusy.xml) + Integer.IsEqual(Container.NumItems,0)</visible>
-            <animation type="Visible" reversible="false">
-                <effect type="fade" start="0" end="100" time="200" delay="200" />
-            </animation>
-            <include content="Info_Viewline">
-                <param name="label">$LOCALIZE[31023]...</param>
-                <param name="top">170</param>
-            </include>
-            <control type="group">
-                <top>view_row</top>
-                <left>80</left>
-                <control type="grouplist">
-                    <top>40</top>
-                    <height>400</height>
-                    <left>-40</left>
-                    <right>-40</right>
-                    <orientation>horizontal</orientation>
-                    <include>Widget_Busy_BlankItem_Landscape</include>
-                    <include>Widget_Busy_BlankItem_Landscape</include>
-                    <include>Widget_Busy_BlankItem_Landscape</include>
-                    <include>Widget_Busy_BlankItem_Landscape</include>
-                </control>
-                <control type="grouplist">
-                    <top>-view_poster_item_h</top>
-                    <height>400</height>
-                    <left>-40</left>
-                    <right>-40</right>
-                    <orientation>horizontal</orientation>
-                    <include>Widget_Busy_BlankItem_Landscape</include>
-                    <include>Widget_Busy_BlankItem_Landscape</include>
-                    <include>Widget_Busy_BlankItem_Landscape</include>
-                    <include>Widget_Busy_BlankItem_Landscape</include>
-                </control>
-            </control>
-        </control>
-    </include>
-
     <include name="View_Row_Items">
         <param name="include_combinedviews">View_Row_Items_CombinedViews</param>
         <param name="include_standardviews">View_Row_Items_StandardViews</param>
@@ -165,7 +119,6 @@
                 <include>$PARAM[include_combinedviews]</include>
                 <control type="group">
                     <include>$PARAM[include_standardviews]</include>
-                    <include condition="![Skin.HasSetting(Startup.WaitForLoad) + Skin.HasSetting(Startup.WaitForLoad.EnableForLibrary)]">View_FirstLoad</include>
                 </control>
             </control>
         </definition>
@@ -382,26 +335,26 @@
                     </control>
 
                     <control type="label">
-                        <height>80</height>
-                        <top>-45</top>
+                        <height>40</height>
+                        <top>-40</top>
                         <font>font_main</font>
                         <textcolor>main_fg_30</textcolor>
                         <align>center</align>
                         <label>[CAPITALIZE]$INFO[Control.GetLabel($PARAM[editid]).index(1)][/CAPITALIZE]</label>
                     </control>
 
-                    <control type="list" id="$PARAM[id]">
-                        <orientation>horizontal</orientation>
+                    <control type="panel" id="$PARAM[id]">
+                        <orientation>panel</orientation>
 
-                        <width>1120</width>
+                        <width>560</width>
                         <centerleft>50%</centerleft>
                         <onup>50</onup>
                         <ondown>$PARAM[autocompleteid]</ondown>
                         <onback>50</onback>
 
-                        <height>80</height>
+                        <height>85</height>
 
-                        <itemlayout width="40">
+                        <itemlayout width="40" height="40">
                             <control type="label">
                                 <font>font_main</font>
                                 <label>$INFO[ListItem.Label]</label>
@@ -410,7 +363,7 @@
                             </control>
                         </itemlayout>
 
-                        <focusedlayout width="40">
+                        <focusedlayout width="40" height="40">
                             <control type="label">
                                 <font>font_main</font>
                                 <label>$INFO[ListItem.Label]</label>
@@ -429,7 +382,7 @@
                                 </control>
                                 <control type="image">
                                     <height>scrollbar_w</height>
-                                    <bottom>12</bottom>
+                                    <top>35</top>
                                     <include>Texture_Highlight_Scrollbar_H</include>
                                     <width>30</width>
                                     <centerleft>50%</centerleft>
@@ -612,7 +565,7 @@
 
                     <control type="fixedlist" id="$PARAM[autocompleteid]">
                         <orientation>horizontal</orientation>
-                        <top>45</top>
+                        <top>60</top>
                         <height>80</height>
                         <focusposition>1</focusposition>
                         <movement>1</movement>
@@ -745,7 +698,7 @@
                 <include>Texture_Scrollbar_V</include>
                 <texturesliderbackground colordiffuse="main_fg_12" border="4">scrollbar/scrollv_line.png</texturesliderbackground>
                 <onleft>50</onleft>
-                <onright>SetFocus(8000)</onright>
+                <onright condition="!Window.IsVisible(MyPlaylist.xml)">SetFocus(8000)</onright>
                 <onback>50</onback>
             </control>
         </control>
@@ -757,8 +710,9 @@
         <control type="group">
             <control type="group">
                 <include>Animation_Group_Bumper</include>
+                <include>Animation_View_WindowChange</include>
                 <control type="group">
-                    <include>Animation_View_WindowChange</include>
+                    <!-- <include>Animation_View_WindowChange</include> -->
                     <include>View_Furniture_Bottom</include>
                     <include content="View_Furniture_Scrollbar_V">
                         <param name="id">64</param>
@@ -767,7 +721,7 @@
                     </include>
                     <include content="View_Furniture_Scrollbar_V">
                         <param name="id">65</param>
-                        <param name="height">infodialog_poster_w</param>
+                        <param name="height">viewlist_poster_w</param>
                         <param name="visible">$EXP[Exp_View_Scrollbar_Midi_V]</param>
                     </include>
                     <include content="View_Furniture_Scrollbar_V">
@@ -776,10 +730,7 @@
                         <param name="visible">$EXP[Exp_View_Scrollbar_Maxi_V]</param>
                     </include>
                 </control>
-                <control type="group">
-                    <visible>!$EXP[Exp_InfoDialogs]</visible>
-                    <include>View_Row_Header</include>
-                </control>
+                <include>View_Row_Header</include>
             </control>
 
             <control type="group">

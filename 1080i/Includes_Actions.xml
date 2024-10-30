@@ -115,7 +115,7 @@
     </include>
 
     <variable name="Action_OSD_Main_OnDown">
-        <value condition="VideoPlayer.Content(livetv) + !Skin.HasSetting(OSD.OnDown.DisablePVROSDGuide)">pvrosdguide</value>
+        <value condition="VideoPlayer.Content(livetv) + !Skin.HasSetting(OSD.OnDown.DisablePVROSDGuide) + VideoPlayer.HasEpg">pvrosdguide</value>
         <value condition="VideoPlayer.Content(livetv)">$VAR[Action_OSD_PVROSDGuide_OnDown]</value>
         <value condition="$EXP[Exp_OSD_HasPlaylist] + !Skin.HasSetting(OSD.OnDown.Disable1140)">1140</value>
         <value condition="$EXP[Exp_OSD_HasPlaylist]">$VAR[Action_OSD_1140_OnDown]</value>
@@ -350,36 +350,23 @@
         <value>5000</value>
     </variable>
 
-    <include name="Action_HomeMenu_OnDownUp">
-        <param name="onlist">320</param>
-        <param name="c_bump">[!String.IsEmpty(Window.Property(List.ViewContainer.Bump))]</param>
-        <param name="c_left">[!String.IsEmpty(Window.Property(List.ViewContainer.Left))]</param>
-        <param name="i_left">$INFO[Window.Property(List.ViewContainer.Left)]</param>
-        <param name="c_view">[!String.IsEmpty(Window.Property(List.ViewContainer))]</param>
-        <param name="i_view">$INFO[Window.Property(List.ViewContainer)]</param>
-        <param name="c_tmdb">[!String.IsEmpty(Window.Property(TMDbHelper.WidgetContainer)) + !Integer.IsEqual(Window.Property(TMDbHelper.WidgetContainer),301)]</param>
-        <param name="i_tmdb">$INFO[Window.Property(TMDbHelper.WidgetContainer)]</param>
-        <param name="c_menu">[true]</param>
-        <param name="search">!Skin.HasSetting(SideMenu.DisableSearchAndOptions)</param>
-        <param name="option">!Skin.HasSetting(SideMenu.DisableSearchAndOptions)</param>
-        <definition>
+    <variable name="Action_HomeMenu_OnLeft_Path">
+        <value condition="[Control.HasFocus(308) + String.IsEmpty(Skin.String(Home.LeftMenu.Action))] | Skin.String(Home.LeftMenu.Action,Options)">plugin://script.skinvariables/?info=get_shortcuts_node&amp;menu=powermainmenu$VAR[Path_SkinVariables_SkinFolder,&amp;skin=,]</value>
+        <value condition="[Control.HasFocus(309) + String.IsEmpty(Skin.String(Home.LeftMenu.Action))] | Skin.String(Home.LeftMenu.Action,Favourites)">favourites://</value>
+        <value>$INFO[Container(300).ListItem.Property(sidemenu_path)]</value>
+    </variable>
 
-            <onup>SetProperty(List.ViewContainer.Prev,$INFO[Window.Property(List.ViewContainer)])</onup>
-            <onup>SetProperty(List.ViewContainer,$PARAM[id])</onup>
-            <onup>SetFocus(333)</onup>
+    <variable name="Action_HomeMenu_OnLeft_Target">
+        <value condition="[Control.HasFocus(308) + String.IsEmpty(Skin.String(Home.LeftMenu.Action))] | Skin.String(Home.LeftMenu.Action,Options)" />
+        <value condition="[Control.HasFocus(309) + String.IsEmpty(Skin.String(Home.LeftMenu.Action))] | Skin.String(Home.LeftMenu.Action,Favourites)" />
+        <value>$INFO[Container(300).ListItem.Property(sidemenu_target)]</value>
+    </variable>
 
-            <ondown condition="$PARAM[c_view]">SetFocus($PARAM[i_view])</ondown>
-            <ondown condition="!$PARAM[c_view] + $PARAM[c_tmdb]">SetFocus($PARAM[i_tmdb])</ondown>
-            <ondown condition="!$PARAM[c_view] + !$PARAM[c_tmdb]">$PARAM[onlist]</ondown>
-            <ondown>ClearProperty(List.ViewContainer)</ondown>
-            <ondown>ClearProperty(List.ViewContainer.Left)</ondown>
-            <ondown>ClearProperty(List.ViewContainer.Bump)</ondown>
-
-            <!-- <onleft condition="$PARAM[search]">309</onleft>
-            <onright condition="$PARAM[option]">ActivateWindow(1170)</onright> -->
-
-        </definition>
-    </include>
+    <variable name="Action_HomeMenu_OnLeft_Header">
+        <value condition="[Control.HasFocus(308) + String.IsEmpty(Skin.String(Home.LeftMenu.Action))] | Skin.String(Home.LeftMenu.Action,Options)">$LOCALIZE[33063]</value>
+        <value condition="[Control.HasFocus(309) + String.IsEmpty(Skin.String(Home.LeftMenu.Action))] | Skin.String(Home.LeftMenu.Action,Favourites)">$LOCALIZE[1036]</value>
+        <value>$INFO[Container(300).ListItem.Label]</value>
+    </variable>
 
     <include name="Action_HomeMenu_OnRightLeft">
         <param name="onlist">320</param>
@@ -391,35 +378,21 @@
         <param name="option">!Skin.HasSetting(SideMenu.DisableSearchAndOptions)</param>
         <definition>
 
-            <onleft condition="!Control.HasFocus(309) + !Control.HasFocus(308)">SetProperty(Target,$INFO[Container(300).ListItem.Property(sidemenu_target)],1163)</onleft>
-            <onleft condition="!Control.HasFocus(309) + !Control.HasFocus(308)">SetProperty(Path,$INFO[Container(300).ListItem.Property(sidemenu_path)],1163)</onleft>
-            <onleft condition="!Control.HasFocus(309) + !Control.HasFocus(308)">SetProperty(Header,$INFO[Container(300).ListItem.Label],1163)</onleft>
-            <onleft condition="!Control.HasFocus(309) + !Control.HasFocus(308)">SetProperty(Icon,$INFO[Container(300).ListItem.Icon],1163)</onleft>
-            <onleft condition="!Control.HasFocus(309) + !Control.HasFocus(308)">ActivateWindow(1163)</onleft>
+            <onleft condition="!Skin.String(Home.LeftMenu.Action,Bump)">SetProperty(Target,$VAR[Action_HomeMenu_OnLeft_Target],1163)</onleft>
+            <onleft condition="!Skin.String(Home.LeftMenu.Action,Bump)">SetProperty(Path,$VAR[Action_HomeMenu_OnLeft_Path],1163)</onleft>
+            <onleft condition="!Skin.String(Home.LeftMenu.Action,Bump)">SetProperty(Header,$VAR[Action_HomeMenu_OnLeft_Header],1163)</onleft>
+            <onleft condition="!Skin.String(Home.LeftMenu.Action,Bump)">ActivateWindow(1163)</onleft>
 
-            <onleft condition="Control.HasFocus(308)">ClearProperty(Target,1163)</onleft>
-            <onleft condition="Control.HasFocus(308)">SetProperty(Path,plugin://script.skinvariables/?info=get_shortcuts_node&amp;menu=powermainmenu$VAR[Path_SkinVariables_SkinFolder,&amp;skin=,],1163)</onleft>
-            <onleft condition="Control.HasFocus(308)">SetProperty(Header,$LOCALIZE[33063],1163)</onleft>
-            <onleft condition="Control.HasFocus(308)">SetProperty(Icon,special://skin/extras/icons/bars.png,1163)</onleft>
-            <onleft condition="Control.HasFocus(308)">ActivateWindow(1163)</onleft>
+            <onleft condition="Skin.String(Home.LeftMenu.Action,Bump)">SetProperty(List.ViewContainer,300)</onleft>
+            <onleft condition="Skin.String(Home.LeftMenu.Action,Bump)">SetFocus(331)</onleft>
 
-            <onleft condition="Control.HasFocus(309)">$VAR[Action_ActivateSearchDiscover]</onleft>
-
-            <onright condition="$PARAM[c_view] + !$EXP[Exp_Navigation_OnMenu]">SetFocus($PARAM[i_view],0,absolute)</onright>
-            <onright condition="$PARAM[c_view] + $EXP[Exp_Navigation_OnMenu]">SetFocus($PARAM[i_view])</onright>
+            <onright condition="$PARAM[c_view]">SetFocus($PARAM[i_view],0,absolute)</onright>
             <onright condition="!$PARAM[c_view] + $PARAM[c_tmdb]">SetFocus($PARAM[i_tmdb])</onright>
             <onright condition="!$PARAM[c_view] + !$PARAM[c_tmdb]">$PARAM[onlist]</onright>
             <onright>ClearProperty(List.ViewContainer)</onright>
-            <onright>ClearProperty(List.ViewContainer.Left)</onright>
-            <onright>ClearProperty(List.ViewContainer.Bump)</onright>
-
-            <onback condition="!$EXP[Exp_Window_IsHub]">ClearProperty(List.ViewContainer)</onback>
-            <onback condition="!$EXP[Exp_Window_IsHub]">ClearProperty(List.ViewContainer.Left)</onback>
-            <onback condition="!$EXP[Exp_Window_IsHub]">ClearProperty(TMDbHelper.WidgetContainer)</onback>
 
             <onup condition="$PARAM[search]">SetFocus(309)</onup>
             <ondown condition="$PARAM[option]">SetFocus(308)</ondown>
-
         </definition>
     </include>
 
@@ -488,8 +461,6 @@
             <onback condition="$PARAM[enable] + ![$PARAM[onback] | Container($PARAM[id]).ListItem.IsParentFolder] + $EXP[Exp_Navigation_OnPrevious]">$PARAM[backid]</onback>
             <onback condition="$PARAM[enable] + ![$PARAM[onback] | Container($PARAM[id]).ListItem.IsParentFolder] + $EXP[Exp_Navigation_OnPrevious]">SetFocus($PARAM[id],0,absolute)</onback>
 
-            <onback condition="$PARAM[enable] + [$EXP[Exp_Navigation_OnMenu] | [$EXP[Exp_ClassicHome_IsVisible] + ![![$PARAM[onback] | Container($PARAM[id]).ListItem.IsParentFolder] + $EXP[Exp_Navigation_OnPrevious]]]] + $PARAM[onbump]">SetProperty(List.ViewContainer.Bump,True)</onback>
-            <onback condition="$PARAM[enable] + [$EXP[Exp_Navigation_OnMenu] | [$EXP[Exp_ClassicHome_IsVisible] + ![![$PARAM[onback] | Container($PARAM[id]).ListItem.IsParentFolder] + $EXP[Exp_Navigation_OnPrevious]]]] + ![$PARAM[onbump]]">ClearProperty(List.ViewContainer.Bump)</onback>
             <onback condition="$PARAM[enable] + [$EXP[Exp_Navigation_OnMenu] | [$EXP[Exp_ClassicHome_IsVisible] + ![![$PARAM[onback] | Container($PARAM[id]).ListItem.IsParentFolder] + $EXP[Exp_Navigation_OnPrevious]]]]">$PARAM[menuid]</onback>
 
             <onback condition="$PARAM[enable] + $PARAM[always]">SetFocus($PARAM[id],0,absolute)</onback>
@@ -498,7 +469,6 @@
     </include>
 
     <include name="Action_View_Movement_OnLeft">
-        <param name="onleft" />
         <param name="onbump">[False]</param>
         <param name="onwrap">$EXP[Exp_Navigation_OnWrap]</param>
         <param name="onside">[!String.IsEmpty(Window.Property(SideMenu.CurrentItem))]</param>
@@ -507,7 +477,6 @@
             <!-- Menu -->
             <onleft condition="![$PARAM[onbump]] + ![$PARAM[onwrap]]">$PARAM[menuid]</onleft>
             <onleft condition="![$PARAM[onbump]] + ![$PARAM[onwrap]]">SetProperty(List.ViewContainer,$PARAM[id])</onleft>
-            <onleft condition="![$PARAM[onbump]] + ![$PARAM[onwrap]]">SetProperty(List.ViewContainer.Left,$PARAM[onleft])</onleft>
             <onleft condition="![$PARAM[onbump]] + ![$PARAM[onwrap]]">SetFocus($PARAM[id],0,absolute)</onleft>
             <onleft condition="![$PARAM[onbump]] + ![$PARAM[onwrap]] + ![$PARAM[onside]]">SetFocus($PARAM[menuid])</onleft>
             <onleft condition="![$PARAM[onbump]] + ![$PARAM[onwrap]] + $PARAM[onside]">SetFocus($PARAM[menuid],$INFO[Window.Property(SideMenu.CurrentItem)],absolute)</onleft>
@@ -521,7 +490,6 @@
     </include>
 
     <include name="Action_View_Movement_OnRight">
-        <param name="onleft" />
         <param name="onbump">$EXP[Exp_Navigation_OnBump]</param>
         <param name="onwrap">$EXP[Exp_Navigation_OnWrap]</param>
         <param name="onside">[!String.IsEmpty(Window.Property(SideMenu.CurrentItem))]</param>
@@ -531,7 +499,6 @@
             <!-- Menu -->
             <onright condition="![$PARAM[onbump]] + ![$PARAM[onwrap]]">$PARAM[menuid]</onright>
             <onright condition="![$PARAM[onbump]] + ![$PARAM[onwrap]]">SetProperty(List.ViewContainer,$PARAM[id])</onright>
-            <onright condition="![$PARAM[onbump]] + ![$PARAM[onwrap]]">SetProperty(List.ViewContainer.Left,$PARAM[onleft])</onright>
             <onright condition="![$PARAM[onbump]] + ![$PARAM[onwrap]]">SetFocus($PARAM[id],0,absolute)</onright>
             <onright condition="![$PARAM[onbump]] + ![$PARAM[onwrap]] + ![$PARAM[onside]]">SetFocus($PARAM[menuid])</onright>
             <onright condition="![$PARAM[onbump]] + ![$PARAM[onwrap]] + $PARAM[onside]">SetFocus(300,$INFO[Window.Property(SideMenu.CurrentItem)],absolute)</onright>
@@ -559,16 +526,13 @@
             <include content="Action_View_Movement_OnLeft">
                 <param name="id">$PARAM[id]</param>
                 <param name="menuid">$PARAM[menuid]</param>
-                <param name="onleft">$PARAM[onleft]</param>
             </include>
             <include content="Action_View_Movement_OnRight">
                 <param name="id">$PARAM[id]</param>
                 <param name="menuid">$PARAM[menuid]</param>
-                <param name="onleft">$PARAM[onleft]</param>
             </include>
             <include content="Action_View_Movement_OnBack" condition="$PARAM[include_onback]">
                 <param name="id">$PARAM[id]</param>
-                <param name="onleft">$PARAM[onleft]</param>
                 <param name="onback">$PARAM[onback]</param>
                 <param name="backid">$PARAM[backid]</param>
                 <param name="menuid">$PARAM[menuid]</param>

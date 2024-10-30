@@ -19,7 +19,7 @@
                 <width>$PARAM[width]</width>
             </control>
             <control type="group">
-                <top>-25</top>
+                <top>info_title_text_buffer_h</top>
                 <height>0</height>
                 <visible>$PARAM[visible]</visible>
             </control>
@@ -36,11 +36,11 @@
             </include>
 
             <control type="group">
-                <height>120</height>
+                <height>info_title_h</height>
                 <width>$PARAM[width]</width>
                 <visible>$PARAM[mainlogo_visible]</visible>
                 <control type="image">
-                    <height>132</height>
+                    <height>info_title_logo_h</height>
                     <aspectratio align="left" aligny="center">keep</aspectratio>
                     <fadetime>200</fadetime>
                     <texture background="true">$PARAM[mainlogo_texture]</texture>
@@ -1608,11 +1608,10 @@
         <param name="colordiffuse">main_fg</param>
         <param name="details">true</param>
         <param name="details_include">Items_Null</param>
-        <param name="plotheight_size">auto</param>
         <definition>
             <control type="textbox">
                 <top>17</top>
-                <height max="$PARAM[plotheight]">$PARAM[plotheight_size]</height>
+                <height max="$PARAM[plotheight]">auto</height>
                 <width>$PARAM[plotwidth]</width>
                 <label>$PARAM[plotlabel]</label>
                 <aligny>top</aligny>
@@ -1625,9 +1624,27 @@
         </definition>
     </include>
 
+    <include name="Info_Panel_Dimensions_FullSize">
+        <height>420</height>
+        <top>view_pad</top>
+    </include>
+
+    <include name="Info_Panel_Dimensions_MainSize">
+        <height>320</height>
+        <top>view_top</top>
+    </include>
+
+    <include name="Info_Panel_Dimensions">
+        <width>info_panel_w</width>
+        <left>view_pad</left>
+        <include condition="Skin.HasSetting(View.EnableFullSizeInfo)">Info_Panel_Dimensions_FullSize</include>
+        <include condition="!Skin.HasSetting(View.EnableFullSizeInfo)">Info_Panel_Dimensions_MainSize</include>
+    </include>
+
     <include name="Info_Panel">
         <param name="container" />
         <param name="plotheight">80</param>
+        <param name="plotheight_full">160</param>
         <param name="plotwidth">info_plot_w</param>
         <param name="colordiffuse">main_fg</param>
         <param name="ratings">true</param>
@@ -1669,7 +1686,7 @@
                     <!-- InfoLine -->
                     <control type="group">
                         <height>50</height>
-                        <include>$PARAM[details_include]</include>
+                        <!-- <include>$PARAM[details_include]</include> -->
                         <include content="$PARAM[infoline_include]">
                             <param name="colordiffuse">$PARAM[colordiffuse]</param>
                             <param name="container">$PARAM[container]</param>
@@ -1682,11 +1699,18 @@
                     </control>
 
                     <!-- Textbox -->
-                    <include content="Info_Panel_Textbox">
+                    <include content="Info_Panel_Textbox" condition="!Skin.HasSetting(View.EnableFullSizeInfo)">
                         <param name="plotlabel">$PARAM[plotlabel]</param>
                         <param name="plotwidth">$PARAM[plotwidth]</param>
                         <param name="plotheight">$PARAM[plotheight]</param>
-                        <param name="plotheight_size">$PARAM[plotheight_size]</param>
+                        <param name="details">$PARAM[details]</param>
+                        <param name="details_include">$PARAM[details_include]</param>
+                        <param name="container">$PARAM[container]</param>
+                    </include>
+                    <include content="Info_Panel_Textbox" condition="Skin.HasSetting(View.EnableFullSizeInfo)">
+                        <param name="plotlabel">$PARAM[plotlabel]</param>
+                        <param name="plotwidth">$PARAM[plotwidth]</param>
+                        <param name="plotheight">$PARAM[plotheight_full]</param>
                         <param name="details">$PARAM[details]</param>
                         <param name="details_include">$PARAM[details_include]</param>
                         <param name="container">$PARAM[container]</param>
