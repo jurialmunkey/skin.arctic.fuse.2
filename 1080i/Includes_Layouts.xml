@@ -579,10 +579,8 @@
                 <left>20</left>
             </include>
 
-
-            <!-- PVR002: Object for PVR only -->
-            <!-- include content="Object_InfoCircle_Text_Top" condition="$PARAM[include_detailed_labels]" -->
-            <include content="Object_InfoCircle_Text_Top_PVR" condition="$PARAM[include_detailed_labels]">
+            <!-- PVR002: Object removed - Label control below used instead -->
+            <!-- include content="Object_InfoCircle_Text_Top" condition="$PARAM[include_detailed_labels]">
                 <param name="id">1</param>
                 <include condition="$PARAM[selected]">Color_SelectedText</include>
                 <label>$VAR[Label_PVRPrograms]</label>
@@ -590,7 +588,7 @@
                 <selectedcolor>main_fg_90</selectedcolor>
                 <left>60</left>
                 <right>40</right>
-            </include>
+            </include -->
 
             <!-- PVR002: Remove Genre -->
             <!-- include content="Object_InfoCircle_Text_Sub" condition="$PARAM[include_detailed_labels]">
@@ -604,14 +602,18 @@
             </include -->
 
             <control type="label" id="1">
-                <font>font_mini</font>
-                <label>$INFO[ListItem.Label]</label>
+                <!-- PVR002: font changed from font_mini -->
+				<font>font_mini_bold</font>
+				<!-- PVR002: label changed from $INFO[ListItem.Label] -->
+                <label>$VAR[Label_PVRPrograms]</label>
                 <align>left</align>
                 <left>60</left>
                 <right>40</right>
                 <include condition="$PARAM[selected]">Color_SelectedText</include>
-                <textcolor>main_fg_70</textcolor>
-                <visible>![$PARAM[include_detailed_labels]]</visible>
+                <!-- PVR002: textcolor changed from main_fg_70 -->
+				<textcolor>main_fg_90</textcolor>
+				<!-- PVR002: visibility removed -->
+                <!-- visible>![$PARAM[include_detailed_labels]]</visible -->
             </control>
 
             <control type="image" id="1">
