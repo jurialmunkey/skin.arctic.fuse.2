@@ -25,16 +25,26 @@
 
             <include content="Recommendations_Group">
                 <control type="group">
-                    <include content="Recommendations_Widgets_Grouplist">
-                        <param name="onup">333</param>
-                        <param name="widget_windowchange_animation">false</param>
-                        <include>skinvariables-searchmenu-widgets</include>
-                        <include>DialogInfo_Widget_EndLine</include>
-                    </include>
+                    <control type="group">
+                        <visible>!String.IsEmpty(Container(5099).ListItem.Property(guid))</visible>
+                        <include>Recommendations_InfoPanel</include>
+                    </control>
+
+                    <control type="group">
+                        <animation effect="slide" start="0" end="0,440" condition="!String.IsEmpty(Container(5099).ListItem.Property(guid))">Conditional</animation>
+                        <include content="Recommendations_Widgets_Grouplist">
+                            <param name="onup">333</param>
+                            <param name="widget_windowchange_animation">false</param>
+                            <include>skinvariables-searchmenu-widgets</include>
+                            <include>DialogInfo_Widget_EndLine</include>
+                        </include>
+                    </control>
+
                     <visible>!String.IsEmpty(Control.GetLabel(9099).index(1))</visible>
                     <include content="Animation_ConditionalFade">
                         <param name="condition">[String.IsEmpty(Control.GetLabel(9099).index(1)) | Integer.IsEqual(Container(5000).NumItems,0)]</param>
                     </include>
+
                 </control>
 
                 <include>Search_Widgets_NoResults</include>
@@ -48,7 +58,6 @@
         <control type="group">
             <visible>!$EXP[Exp_InfoDialogs]</visible>
             <include>Furniture_Top_Right</include>
-            <visible>String.IsEmpty(Control.GetLabel(9099).index(1)) | Integer.IsEqual(Container(5000).NumItems,0)</visible>
         </control>
         <control type="group">
             <visible>!$EXP[Exp_InfoDialogs]</visible>
@@ -56,6 +65,50 @@
         </control>
 
         <include>View_Dialog_Plot</include>
+
+
+        <include>Search_View_Selector</include>
+    </include>
+
+    <include name="Search_View_Selector">
+        <control type="group">
+            <left>40</left>
+            <width>view_menu_main</width>
+            <visible>Control.HasFocus(5099)</visible>
+            <include content="List_DialogSelect">
+                <param name="id">5099</param>
+                <param name="textcolor">main_fg</param>
+                <param name="itemlayout_include">Layout_MenuList</param>
+                <param name="hidden_button">List_ButtonMenu_Row_HiddenButton_ERow</param>
+                <param name="hidden_button_enabled">True</param>
+                <onback>SetProperty(TMDbHelper.WidgetContainer,$INFO[ListItem.Property(widget_id)])</onback>
+                <onback>5098</onback>
+                <onleft>SetProperty(TMDbHelper.WidgetContainer,$INFO[ListItem.Property(widget_id)])</onleft>
+                <onleft>5098</onleft>
+                <onright>SetProperty(TMDbHelper.WidgetContainer,$INFO[ListItem.Property(widget_id)])</onright>
+                <onright condition="Integer.IsEqual(Container(5000).NumItems,0)">SetFocus(5098)</onright>
+                <onright condition="!Integer.IsEqual(Container(5000).NumItems,0)">SetFocus(5000)</onright>
+                <onclick>SetProperty(TMDbHelper.WidgetContainer,$INFO[ListItem.Property(widget_id)])</onclick>
+                <onclick>SetFocus(5098)</onclick>
+                <!-- <onclick condition="Integer.IsEqual(Container(5000).NumItems,0)">SetFocus(5098)</onclick>
+                <onclick condition="!Integer.IsEqual(Container(5000).NumItems,0)">SetFocus(5000)</onclick> -->
+
+                <onup>SetProperty(TMDbHelper.WidgetContainer,$INFO[ListItem.Property(widget_id)])</onup>
+                <onup>5098</onup>
+                <ondown>noop</ondown>
+                <left>20</left>
+                <right>60</right>
+                <top>460</top>
+                <content>
+                    <item>
+                        <label>$LOCALIZE[593]</label>
+                        <icon>special://skin/extras/icons/shapes.png</icon>
+                        <property name="hide_artwork">True</property>
+                    </item>
+                    <include>skinvariables-searchmenu-selector</include>
+                </content>
+            </include>
+        </control>
     </include>
 
     <include name="Search_View_Discover">
@@ -142,7 +195,7 @@
 
                 <include>Search_Widgets_NoResults</include>
                 <control type="group">
-                    <visible>!Skin.HasSetting(View.EnableFullSizeInfo) | String.IsEmpty(Control.GetLabel(9099).index(1)) | Integer.IsEqual(Container(5000).NumItems,0)</visible>
+                    <visible>!Skin.HasSetting(View.EnableFullSizeInfo) | Integer.IsEqual(Container(5000).NumItems,0)</visible>
                     <include>Furniture_Top_Left</include>
                 </control>
             </include>
@@ -497,19 +550,53 @@
     </include>
 
     <include name="Search_Panel_Autocomplete">
-        <control type="fixedlist" id="9993">
+        <control type="grouplist" id="5092">
+            <height>80</height>
+            <align>center</align>
+            <ondown>SetFocus(9993,0,absolute)</ondown>
             <onup>9994</onup>
+            <onright>5000</onright>
+            <orientation>horizontal</orientation>
+            <visible allowhiddenfocus="true">!Control.HasFocus(5099)</visible>
+            <control type="button" id="5098">
+                <ondown>SetFocus(9993,0,absolute)</ondown>
+                <onup>9994</onup>
+                <onright>5000</onright>
+                <top>20</top>
+                <height>60</height>
+                <textoffsety>-5</textoffsety>
+                <textoffsetx>-20</textoffsetx>
+                <width>auto</width>
+                <centerleft>50%</centerleft>
+                <include>Texture_Highlight_Underline_H</include>
+                <align>center</align>
+                <font>font_main</font>
+                <textcolor>main_fg_70</textcolor>
+                <selectedcolor>main_fg_70</selectedcolor>
+                <focusedcolor>main_fg_100</focusedcolor>
+                <label>$LOCALIZE[31324]: $INFO[Container(5099).ListItem.Label]</label>
+                <onclick>SetFocus(5099)</onclick>
+                <onfocus>SetProperty(Background.ShowOverlay,True,Home)</onfocus>
+                <!-- <onclick>SetFocus(5099,0,absolute)</onclick> -->
+                <!-- <onclick>Control.Move(5099,1)</onclick>
+                <onclick>SetProperty(TMDbHelper.WidgetContainer,$INFO[Container(5099).ListItem.Property(widget_id)])</onclick> -->
+            </control>
+        </control>
+
+        <control type="fixedlist" id="9993">
+            <onup>5098</onup>
             <onright>5000</onright>
             <onleft>noop</onleft>
             <onfocus>SetProperty(Background.ShowOverlay,True,Home)</onfocus>
+            <visible>!Control.HasFocus(5099)</visible>
 
             <orientation>vertical</orientation>
 
-            <focusposition>4</focusposition>
-            <movement>4</movement>
+            <focusposition>3</focusposition>
+            <movement>3</movement>
 
             <top>50</top>
-            <height>540</height>
+            <height>420</height>
             <width>360</width>
             <centerleft>50%</centerleft>
 
@@ -700,15 +787,5 @@
             </control>
         </control>
     </include>
-
-    <variable name="Search_Content_Discover">
-        <value condition="String.IsEqual(Container(5099).ListItem.Property(guid),guid-libraryall)">$VAR[Path_DiscoverWidgets_Join]$VAR[Path_DiscoverWidgets_Film,&amp;&amp;,]$VAR[Path_DiscoverWidgets_Show,&amp;&amp;,]</value>
-        <value condition="String.IsEqual(Container(5099).ListItem.Property(guid),guid-librarymovies)">$VAR[Path_DiscoverWidgets_Join]$VAR[Path_DiscoverWidgets_Film,&amp;&amp;,]</value>
-        <value condition="String.IsEqual(Container(5099).ListItem.Property(guid),guid-librarytvshows)">$VAR[Path_DiscoverWidgets_Join]$VAR[Path_DiscoverWidgets_Show,&amp;&amp;,]</value>
-        <value condition="String.IsEqual(Container(5099).ListItem.Property(guid),guid-discoverall)">$VAR[Path_DiscoverWidgets_Join]$VAR[Path_DiscoverWidgets_Film,&amp;&amp;,]$VAR[Path_DiscoverWidgets_Show,&amp;&amp;,]</value>
-        <value condition="String.IsEqual(Container(5099).ListItem.Property(guid),guid-discovermovies)">$VAR[Path_DiscoverWidgets_Join]$VAR[Path_DiscoverWidgets_Film,&amp;&amp;,]</value>
-        <value condition="String.IsEqual(Container(5099).ListItem.Property(guid),guid-discovertvshows)">$VAR[Path_DiscoverWidgets_Join]$VAR[Path_DiscoverWidgets_Show,&amp;&amp;,]</value>
-        <value>-</value>
-    </variable>
 
 </includes>

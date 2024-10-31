@@ -328,11 +328,11 @@
                             <param name="role">$INFO[ListItem.ChannelName]</param>
                             <param name="include_labels">$PARAM[include_detailed_labels]</param>
                             <control type="label">
-                                <font>font_mini_bold</font>
+                                <font>font_mini</font>
                                 <label>$INFO[ListItem.Label]</label>
                                 <align>left</align>
                                 <left>80</left>
-                                <textcolor>main_fg_90</textcolor>
+                                <textcolor>main_fg_70</textcolor>
                                 <visible>![$PARAM[include_detailed_labels]]</visible>
                             </control>
                             <include content="Object_InfoCircle_Image">
@@ -353,7 +353,7 @@
                             <param name="textcolor_sub">$VAR[ColorSelected]</param>
                             <param name="include_labels">$PARAM[include_detailed_labels]</param>
                             <control type="label">
-                                <font>font_mini_bold</font>
+                                <font>font_mini</font>
                                 <label>$INFO[ListItem.Label]</label>
                                 <align>left</align>
                                 <left>80</left>
@@ -543,13 +543,13 @@
             </include>
 
             <control type="label">
-                <font>font_mini_bold</font>
+                <font>font_mini</font>
                 <label>$INFO[ListItem.$PARAM[affix]Title]</label>
                 <align>left</align>
                 <left>40</left>
                 <right>40</right>
                 <include condition="$PARAM[selected]">Color_SelectedText</include>
-                <textcolor>main_fg_90</textcolor>
+                <textcolor>main_fg_70</textcolor>
                 <visible>![$PARAM[include_detailed_labels]]</visible>
             </control>
         </definition>
@@ -604,13 +604,13 @@
             </include -->
 
             <control type="label" id="1">
-                <font>font_mini_bold</font>
+                <font>font_mini</font>
                 <label>$INFO[ListItem.Label]</label>
                 <align>left</align>
                 <left>60</left>
                 <right>40</right>
                 <include condition="$PARAM[selected]">Color_SelectedText</include>
-                <textcolor>main_fg_90</textcolor>
+                <textcolor>main_fg_70</textcolor>
                 <visible>![$PARAM[include_detailed_labels]]</visible>
             </control>
 
@@ -887,11 +887,11 @@
                                 <param name="icon">$VAR[Image_MediaList_Thumb]</param>
                             </include>
                             <control type="label">
-                                <font>font_mini_bold</font>
+                                <font>font_mini</font>
                                 <label>$INFO[ListItem.Label]</label>
                                 <align>left</align>
                                 <left>80</left>
-                                <textcolor>main_fg_90</textcolor>
+                                <textcolor>main_fg_70</textcolor>
                                 <visible>![$PARAM[include_detailed_labels]]</visible>
                             </control>
                             <control type="label">
@@ -928,7 +928,7 @@
                                 <param name="icon">$VAR[Image_MediaList_Thumb]</param>
                             </include>
                             <control type="label">
-                                <font>font_mini_bold</font>
+                                <font>font_mini</font>
                                 <label>$INFO[ListItem.Label]</label>
                                 <align>left</align>
                                 <left>80</left>
@@ -1858,6 +1858,7 @@
                         <param name="listitem">$PARAM[listitem]</param>
                         <param name="textcolor">panel_fg</param>
                         <param name="fade">true</param>
+                        <param name="include_detailed_labels">true</param>
                     </include>
 
                     <include content="Object_ClearLogo_WithShadow" condition="![$PARAM[variation]]">
@@ -2088,6 +2089,7 @@
                         <param name="listitem">$PARAM[listitem]</param>
                         <param name="textcolor">panel_fg</param>
                         <param name="fade">true</param>
+                        <param name="include_detailed_labels">true</param>
                     </include>
                 </control>
                 <control type="group">
@@ -2558,7 +2560,7 @@
                     <align>$PARAM[align]</align>
                     <!-- <aligny>center</aligny> -->
                     <include condition="$PARAM[selected]">Color_SelectedText</include>
-                    <textcolor>main_fg_90</textcolor>
+                    <textcolor>main_fg_70</textcolor>
                     <visible>![$PARAM[include_detailed_labels]]</visible>
                 </control>
             </control>
@@ -2640,6 +2642,7 @@
         <param name="textcolor">main_fg</param>
         <param name="misc">-20</param>
         <param name="affix" />
+        <param name="include_detailed_labels">!Skin.HasSetting(View.DisableDetailedListLabels)</param>
         <definition>
             <control type="group">
                 <height>$PARAM[item_h]</height>
@@ -2694,26 +2697,36 @@
                     <control type="group">
                         <left>30</left>
                         <right>40</right>
-                        <include content="Object_InfoCircle_Text_Top">
+                        <include content="Object_InfoCircle_Text_Top" condition="$PARAM[include_detailed_labels]">
                             <label>$INFO[$PARAM[listitem].Label]</label>
                             <align>$PARAM[align]</align>
                             <textcolor>main_fg_90</textcolor>
                             <selectedcolor>main_fg_90</selectedcolor>
                             <visible>String.IsEmpty($PARAM[listitem].Title) | String.IsEmpty($PARAM[listitem].ChannelNumberLabel)</visible>
                         </include>
-                        <include content="Object_InfoCircle_Text_Top">
+                        <include content="Object_InfoCircle_Text_Top" condition="$PARAM[include_detailed_labels]">
                             <label>$INFO[$PARAM[listitem].Title]</label>
                             <textcolor>main_fg_90</textcolor>
                             <selectedcolor>main_fg_90</selectedcolor>
                             <align>$PARAM[align]</align>
                             <visible>!String.IsEmpty($PARAM[listitem].Title) + !String.IsEmpty($PARAM[listitem].ChannelNumberLabel)</visible>
                         </include>
-                        <include content="Object_InfoCircle_Text_Sub">
+                        <include content="Object_InfoCircle_Text_Sub" condition="$PARAM[include_detailed_labels]">
                             <label>$VAR[Label_Landscape_Lower$PARAM[affix]]</label>
                             <textcolor>main_fg_70</textcolor>
                             <selectedcolor>main_fg_70</selectedcolor>
                             <align>$PARAM[align]</align>
                         </include>
+                        <control type="textbox">
+                            <!-- <top>7</top> -->
+                            <height>80</height>
+                            <font>font_mini_plot</font>
+                            <label>$INFO[$PARAM[listitem].Label]</label>
+                            <align>$PARAM[align]</align>
+                            <aligny>center</aligny>
+                            <textcolor>main_fg_70</textcolor>
+                            <visible>![$PARAM[include_detailed_labels]]</visible>
+                        </control>
                     </control>
                 </control>
 
@@ -2818,7 +2831,7 @@
                         <align>$PARAM[align]</align>
                         <!-- <aligny>center</aligny> -->
                         <include condition="$PARAM[selected]">Color_SelectedText</include>
-                        <textcolor>main_fg_90</textcolor>
+                        <textcolor>main_fg_70</textcolor>
                         <visible>![$PARAM[include_detailed_labels]]</visible>
                     </control>
 
@@ -3157,6 +3170,7 @@
                     <param name="listitem">$PARAM[listitem]</param>
                     <param name="textcolor">panel_fg</param>
                     <param name="fade">true</param>
+                    <param name="include_detailed_labels">true</param>
                 </include>
 
                 <!-- MISC028: No progress line on Home Page widgets - "  + condition !Window.IsVisible(Home)" added --> 
