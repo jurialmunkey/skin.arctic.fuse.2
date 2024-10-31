@@ -316,15 +316,15 @@
                                             <visible>!String.IsEqual(Container(22001).ListItem.Property(blank),True)</visible>
                                         </include>
 
-                                        <!-- =================== -->
-                                        <!-- Custom Menu Options -->
-                                        <!-- =================== -->
+                                        <!-- ================ -->
+                                        <!-- Shortcut Options -->
+                                        <!-- ================ -->
                                         <include content="Settings_Label">
                                             <param name="dialog">true</param>
-                                            <param name="id">23098</param>
-                                            <label>$LOCALIZE[33061] $LOCALIZE[33063]</label>
+                                            <param name="id">23097</param>
+                                            <label>$LOCALIZE[31511] $LOCALIZE[33063]</label>
 
-                                            <visible>[$EXP[Shortcuts_Dialog_Exp_HasSideMenuEdit]] | String.IsEqual(Container(22001).ListItem.Property(path),Custom_Menu) | [$EXP[Shortcuts_Dialog_Exp_HasShortcutPath] + !$EXP[Shortcuts_Dialog_Exp_IsWidgetMode]]</visible>
+                                            <visible>String.IsEqual(Container(22001).ListItem.Property(path),Custom_Submenu) | [$EXP[Shortcuts_Dialog_Exp_HasShortcutPath] + !$EXP[Shortcuts_Dialog_Exp_IsWidgetMode]]</visible>
 
                                             <visible>[!String.IsEqual(Container(22001).ListItem.Property(disabled),True) + !String.IsEqual(Container(22001).ListItem.Property(blank),True)]</visible>
 
@@ -364,6 +364,40 @@
                                             <visible>[!String.IsEqual(Container(22001).ListItem.Property(disabled),True) + !String.IsEqual(Container(22001).ListItem.Property(blank),True)]</visible>
                                         </include>
 
+                                        <!-- Edit custom submenu widget item -->
+                                        <include content="Settings_Button">
+                                            <param name="dialog">true</param>
+                                            <param name="id">23042</param>
+                                            <label>$LOCALIZE[31516]</label>
+                                            <visible>String.IsEqual(Container(22001).ListItem.Property(path),Custom_Submenu)</visible>
+                                            <visible>[!String.IsEqual(Container(22001).ListItem.Property(disabled),True) + !String.IsEqual(Container(22001).ListItem.Property(blank),True)]</visible>
+
+                                            <onclick>SetProperty(Shortcuts.EditMenu.Previous,$INFO[Window(Home).Property(Shortcuts.EditMenu)],Home)</onclick>
+                                            <onclick>SetProperty(Shortcuts.EditMode.Previous,$INFO[Window(Home).Property(Shortcuts.EditMode)],Home)</onclick>
+                                            <onclick>SetProperty(Shortcuts.EditGUID.Previous,$INFO[Window(Home).Property(Shortcuts.EditGUID)],Home)</onclick>
+
+                                            <onclick>SetProperty(Shortcuts.EditGUID,guid=$INFO[Container(22001).ListItem.Property(guid)],Home)</onclick>
+                                            <onclick>SetProperty(Shortcuts.EditMenu,menu=$INFO[Container(22001).ListItem.Property(menu)],Home)</onclick>
+                                            <onclick>SetProperty(Shortcuts.EditMode,mode=submenu,Home)</onclick>
+
+                                            <onback>29999</onback>
+                                        </include>
+
+                                        <!-- =================== -->
+                                        <!-- Custom Menu Options -->
+                                        <!-- =================== -->
+                                        <include content="Settings_Label">
+                                            <param name="dialog">true</param>
+                                            <param name="id">23098</param>
+                                            <label>$LOCALIZE[33061] $LOCALIZE[33063]</label>
+
+                                            <visible>$EXP[Shortcuts_Dialog_Exp_HasSideMenuEdit]</visible>
+
+                                            <visible>[!String.IsEqual(Container(22001).ListItem.Property(disabled),True) + !String.IsEqual(Container(22001).ListItem.Property(blank),True)]</visible>
+
+                                            <onback>29999</onback>
+                                        </include>
+
                                         <!-- Edit menu node items -->
                                         <include content="Settings_Button">
                                             <param name="dialog">true</param>
@@ -384,34 +418,13 @@
                                             <onback>29999</onback>
                                         </include>
 
-                                        <!-- Edit custom submenu widget item -->
-                                        <include content="Settings_Button">
-                                            <param name="dialog">true</param>
-                                            <param name="id">23042</param>
-                                            <label>$LOCALIZE[31516]</label>
-                                            <visible>String.IsEqual(Container(22001).ListItem.Property(path),Custom_Submenu)</visible>
-                                            <visible>[!String.IsEqual(Container(22001).ListItem.Property(disabled),True) + !String.IsEqual(Container(22001).ListItem.Property(blank),True)]</visible>
-
-                                            <onclick>SetProperty(Shortcuts.EditMenu.Previous,$INFO[Window(Home).Property(Shortcuts.EditMenu)],Home)</onclick>
-                                            <onclick>SetProperty(Shortcuts.EditMode.Previous,$INFO[Window(Home).Property(Shortcuts.EditMode)],Home)</onclick>
-                                            <onclick>SetProperty(Shortcuts.EditGUID.Previous,$INFO[Window(Home).Property(Shortcuts.EditGUID)],Home)</onclick>
-
-                                            <onclick>SetProperty(Shortcuts.EditGUID,guid=$INFO[Container(22001).ListItem.Property(guid)],Home)</onclick>
-                                            <onclick>SetProperty(Shortcuts.EditMenu,menu=$INFO[Container(22001).ListItem.Property(menu)],Home)</onclick>
-                                            <onclick>SetProperty(Shortcuts.EditMode,mode=submenu,Home)</onclick>
-
-                                            <onback>29999</onback>
-                                        </include>
-
-
-
                                         <!-- ================ -->
-                                        <!-- SideMenu Options -->
+                                        <!-- Category Options -->
                                         <!-- ================ -->
                                         <include content="Settings_Label">
                                             <param name="dialog">true</param>
                                             <param name="id">23090</param>
-                                            <label>$LOCALIZE[31150] $LOCALIZE[33063]</label>
+                                            <label>$LOCALIZE[21866] $LOCALIZE[33063]</label>
 
                                             <visible>[String.IsEqual(Window(Home).Property(Shortcuts.EditMenu),menu=sidemenu) + String.IsEmpty(Window(Home).Property(Shortcuts.EditMode)) + String.IsEmpty(Window(Home).Property(Shortcuts.EditGUID))]</visible>
                                             <visible>[!String.IsEqual(Container(22001).ListItem.Property(disabled),True) + !String.IsEqual(Container(22001).ListItem.Property(blank),True)]</visible>
@@ -438,10 +451,6 @@
                                             <onback>29999</onback>
                                         </include>
 
-
-                                        <!-- ================ -->
-                                        <!-- Category Options -->
-                                        <!-- ================ -->
                                         <include content="Settings_Label">
                                             <param name="dialog">true</param>
                                             <param name="id">23905</param>

@@ -1434,13 +1434,6 @@
         <param name="icon">$INFO[ListItem.Icon]</param>
         <param name="textcolor">dialog_fg</param>
         <definition>
-            <include content="Object_Control" condition="[$PARAM[selected]] + [$PARAM[variation]]">
-                <param name="control">button</param>
-                <visible allowhiddenfocus="true">false</visible>
-                <animation effect="fade" start="0" end="0" time="500" reversible="false">Focus</animation>
-                <onfocus>SetProperty(SpecialFolderPath,$INFO[ListItem.FolderPath])</onfocus>
-                <onfocus>SetProperty(SpecialFolderLabel,$INFO[ListItem.Label])</onfocus>
-            </include>
             <include content="Object_Control" condition="$PARAM[selected]">
                 <param name="control">image</param>
                 <include>Texture_Menu_Highlight_H</include>
@@ -1450,7 +1443,6 @@
                 <right>40</right>
                 <control type="group">
                     <visible>!$PARAM[variation]</visible>
-                    <visible>String.IsEmpty(ListItem.Property(special_icon))</visible>
                     <include condition="!$PARAM[selected]" content="Object_IsSelected_Checkmark">
                         <param name="selected">$PARAM[misc]</param>
                         <param name="color_off">$PARAM[textcolor]_30</param>
@@ -1478,15 +1470,6 @@
                             <width>32</width>
                             <height>32</height>
                         </control>
-                    </control>
-                    <control type="image">
-                        <visible>!$PARAM[variation]</visible>
-                        <visible>!String.IsEmpty(ListItem.Property(special_icon))</visible>
-                        <include content="Object_ColorDiffuse" condition="$PARAM[selected]">
-                            <param name="colordiffuse">$VAR[ColorSelected]</param>
-                        </include>
-                        <colordiffuse>$PARAM[textcolor]_70</colordiffuse>
-                        <texture>$INFO[ListItem.Property(special_icon)]</texture>
                     </control>
                 </control>
                 <control type="group">

@@ -20,11 +20,10 @@
             <width max="300">auto</width>
             <height>80</height>
             <centertop>50%</centertop>
-            <aligny>top</aligny>
+            <aligny>center</aligny>
             <texturenofocus />
             <include>Texture_Highlight_ToggleButton_FakeFocus</include>
             <font>font_main_bold</font>
-            <textoffsety>16</textoffsety>
             <textcolor>$PARAM[textcolor]</textcolor>
             <label>$INFO[Container($PARAM[id]).ListItemNoWrap($PARAM[pos]).Label]</label>
             <textoffsetx>20</textoffsetx>
@@ -39,11 +38,10 @@
             <width max="300">auto</width>
             <height>80</height>
             <centertop>50%</centertop>
-            <aligny>top</aligny>
+            <aligny>center</aligny>
             <include>Texture_Highlight_ToggleButton_FakeFocus</include>
             <usealttexture>Control.HasFocus($PARAM[id])</usealttexture>
             <font>font_main_bold</font>
-            <textoffsety>16</textoffsety>
             <textcolor>$PARAM[textcolor]</textcolor>
             <label>$INFO[Container($PARAM[id]).ListItem.Label]</label>
             <textoffsetx>20</textoffsetx>
@@ -69,127 +67,131 @@
                     <height>80</height>
                     <centertop>50%</centertop>
 
-                    <animation effect="slide" start="0" end="-60" time="400" tween="quadratic" easing="out" condition="!Container($PARAM[id]).OnScrollNext" reversible="false">Conditional</animation>
-                    <animation effect="slide" start="0" end="60" time="400" tween="quadratic" easing="out" condition="!Container($PARAM[id]).OnScrollPrevious" reversible="false">Conditional</animation>
-
-                    <!-- Position 0 -->
-                    <control type="grouplist">
-                        <hitrect x="0" y="0" w="0" h="0" />
+                    <control type="group">
+                        <top>view_line_top</top>
                         <height>80</height>
-                        <orientation>horizontal</orientation>
-                        <itemgap>20</itemgap>
-                        <visible>Container($PARAM[id]).Position(0)</visible>
-                        <include content="Categories_Selector_Fake_Button_FO">
-                            <param name="textcolor">$PARAM[color_fo]</param>
-                            <param name="id">$PARAM[id]</param>
-                            <param name="pos">0</param>
-                        </include>
-                        <include content="Categories_Selector_Fake_Button_NF">
-                            <param name="textcolor">$PARAM[color_nf]</param>
-                            <param name="id">$PARAM[id]</param>
-                            <param name="pos">1</param>
-                        </include>
-                        <include content="Categories_Selector_Fake_Button_NF">
-                            <param name="textcolor">$PARAM[color_nf]</param>
-                            <param name="id">$PARAM[id]</param>
-                            <param name="pos">2</param>
-                        </include>
-                        <include content="Categories_Selector_Fake_Button_NF">
-                            <param name="textcolor">$PARAM[color_nf]</param>
-                            <param name="id">$PARAM[id]</param>
-                            <param name="pos">3</param>
-                        </include>
-                        <include content="Categories_Selector_Fake_Button_NF" condition="$PARAM[include_five]">
-                            <param name="id">$PARAM[id]</param>
-                            <param name="pos">4</param>
-                        </include>
-                    </control>
+                        <animation effect="slide" start="0" end="-60" time="400" tween="quadratic" easing="out" condition="!Container($PARAM[id]).OnScrollNext" reversible="false">Conditional</animation>
+                        <animation effect="slide" start="0" end="60" time="400" tween="quadratic" easing="out" condition="!Container($PARAM[id]).OnScrollPrevious" reversible="false">Conditional</animation>
 
-                    <!-- Position 1 -->
-                    <control type="grouplist">
-                        <hitrect x="0" y="0" w="0" h="0" />
-                        <height>80</height>
-                        <orientation>horizontal</orientation>
-                        <itemgap>20</itemgap>
-                        <visible>Container($PARAM[id]).Position(1)</visible>
-                        <include content="Categories_Selector_Fake_Button_NF">
-                            <param name="textcolor">$PARAM[color_nf]</param>
-                            <param name="id">$PARAM[id]</param>
-                            <param name="pos">-1</param>
-                        </include>
-                        <include content="Categories_Selector_Fake_Button_FO">
-                            <param name="textcolor">$PARAM[color_fo]</param>
-                            <param name="id">$PARAM[id]</param>
-                            <param name="pos">0</param>
-                        </include>
-                        <include content="Categories_Selector_Fake_Button_NF">
-                            <param name="textcolor">$PARAM[color_nf]</param>
-                            <param name="id">$PARAM[id]</param>
-                            <param name="pos">1</param>
-                        </include>
-                        <include content="Categories_Selector_Fake_Button_NF">
-                            <param name="textcolor">$PARAM[color_nf]</param>
-                            <param name="id">$PARAM[id]</param>
-                            <param name="pos">2</param>
-                        </include>
-                    </control>
+                        <!-- Position 0 -->
+                        <control type="grouplist">
+                            <hitrect x="0" y="0" w="0" h="0" />
+                            <height>80</height>
+                            <orientation>horizontal</orientation>
+                            <itemgap>20</itemgap>
+                            <visible>Container($PARAM[id]).Position(0)</visible>
+                            <include content="Categories_Selector_Fake_Button_FO">
+                                <param name="textcolor">$PARAM[color_fo]</param>
+                                <param name="id">$PARAM[id]</param>
+                                <param name="pos">0</param>
+                            </include>
+                            <include content="Categories_Selector_Fake_Button_NF">
+                                <param name="textcolor">$PARAM[color_nf]</param>
+                                <param name="id">$PARAM[id]</param>
+                                <param name="pos">1</param>
+                            </include>
+                            <include content="Categories_Selector_Fake_Button_NF">
+                                <param name="textcolor">$PARAM[color_nf]</param>
+                                <param name="id">$PARAM[id]</param>
+                                <param name="pos">2</param>
+                            </include>
+                            <include content="Categories_Selector_Fake_Button_NF">
+                                <param name="textcolor">$PARAM[color_nf]</param>
+                                <param name="id">$PARAM[id]</param>
+                                <param name="pos">3</param>
+                            </include>
+                            <include content="Categories_Selector_Fake_Button_NF" condition="$PARAM[include_five]">
+                                <param name="id">$PARAM[id]</param>
+                                <param name="pos">4</param>
+                            </include>
+                        </control>
 
-                    <!-- Position 2 -->
-                    <control type="grouplist">
-                        <hitrect x="0" y="0" w="0" h="0" />
-                        <height>80</height>
-                        <orientation>horizontal</orientation>
-                        <itemgap>20</itemgap>
-                        <visible>Container($PARAM[id]).Position(2)</visible>
-                        <include content="Categories_Selector_Fake_Button_NF">
-                            <param name="textcolor">$PARAM[color_nf]</param>
-                            <param name="id">$PARAM[id]</param>
-                            <param name="pos">-2</param>
-                        </include>
-                        <include content="Categories_Selector_Fake_Button_NF">
-                            <param name="textcolor">$PARAM[color_nf]</param>
-                            <param name="id">$PARAM[id]</param>
-                            <param name="pos">-1</param>
-                        </include>
-                        <include content="Categories_Selector_Fake_Button_FO">
-                            <param name="textcolor">$PARAM[color_fo]</param>
-                            <param name="id">$PARAM[id]</param>
-                            <param name="pos">0</param>
-                        </include>
-                        <include content="Categories_Selector_Fake_Button_NF">
-                            <param name="textcolor">$PARAM[color_nf]</param>
-                            <param name="id">$PARAM[id]</param>
-                            <param name="pos">1</param>
-                        </include>
-                    </control>
+                        <!-- Position 1 -->
+                        <control type="grouplist">
+                            <hitrect x="0" y="0" w="0" h="0" />
+                            <height>80</height>
+                            <orientation>horizontal</orientation>
+                            <itemgap>20</itemgap>
+                            <visible>Container($PARAM[id]).Position(1)</visible>
+                            <include content="Categories_Selector_Fake_Button_NF">
+                                <param name="textcolor">$PARAM[color_nf]</param>
+                                <param name="id">$PARAM[id]</param>
+                                <param name="pos">-1</param>
+                            </include>
+                            <include content="Categories_Selector_Fake_Button_FO">
+                                <param name="textcolor">$PARAM[color_fo]</param>
+                                <param name="id">$PARAM[id]</param>
+                                <param name="pos">0</param>
+                            </include>
+                            <include content="Categories_Selector_Fake_Button_NF">
+                                <param name="textcolor">$PARAM[color_nf]</param>
+                                <param name="id">$PARAM[id]</param>
+                                <param name="pos">1</param>
+                            </include>
+                            <include content="Categories_Selector_Fake_Button_NF">
+                                <param name="textcolor">$PARAM[color_nf]</param>
+                                <param name="id">$PARAM[id]</param>
+                                <param name="pos">2</param>
+                            </include>
+                        </control>
 
-                    <!-- Position 3 -->
-                    <control type="grouplist">
-                        <hitrect x="0" y="0" w="0" h="0" />
-                        <height>80</height>
-                        <orientation>horizontal</orientation>
-                        <itemgap>20</itemgap>
-                        <visible>Container($PARAM[id]).Position(3)</visible>
-                        <include content="Categories_Selector_Fake_Button_NF">
-                            <param name="textcolor">$PARAM[color_nf]</param>
-                            <param name="id">$PARAM[id]</param>
-                            <param name="pos">-3</param>
-                        </include>
-                        <include content="Categories_Selector_Fake_Button_NF">
-                            <param name="textcolor">$PARAM[color_nf]</param>
-                            <param name="id">$PARAM[id]</param>
-                            <param name="pos">-2</param>
-                        </include>
-                        <include content="Categories_Selector_Fake_Button_NF">
-                            <param name="textcolor">$PARAM[color_nf]</param>
-                            <param name="id">$PARAM[id]</param>
-                            <param name="pos">-1</param>
-                        </include>
-                        <include content="Categories_Selector_Fake_Button_FO">
-                            <param name="textcolor">$PARAM[color_fo]</param>
-                            <param name="id">$PARAM[id]</param>
-                            <param name="pos">0</param>
-                        </include>
+                        <!-- Position 2 -->
+                        <control type="grouplist">
+                            <hitrect x="0" y="0" w="0" h="0" />
+                            <height>80</height>
+                            <orientation>horizontal</orientation>
+                            <itemgap>20</itemgap>
+                            <visible>Container($PARAM[id]).Position(2)</visible>
+                            <include content="Categories_Selector_Fake_Button_NF">
+                                <param name="textcolor">$PARAM[color_nf]</param>
+                                <param name="id">$PARAM[id]</param>
+                                <param name="pos">-2</param>
+                            </include>
+                            <include content="Categories_Selector_Fake_Button_NF">
+                                <param name="textcolor">$PARAM[color_nf]</param>
+                                <param name="id">$PARAM[id]</param>
+                                <param name="pos">-1</param>
+                            </include>
+                            <include content="Categories_Selector_Fake_Button_FO">
+                                <param name="textcolor">$PARAM[color_fo]</param>
+                                <param name="id">$PARAM[id]</param>
+                                <param name="pos">0</param>
+                            </include>
+                            <include content="Categories_Selector_Fake_Button_NF">
+                                <param name="textcolor">$PARAM[color_nf]</param>
+                                <param name="id">$PARAM[id]</param>
+                                <param name="pos">1</param>
+                            </include>
+                        </control>
+
+                        <!-- Position 3 -->
+                        <control type="grouplist">
+                            <hitrect x="0" y="0" w="0" h="0" />
+                            <height>80</height>
+                            <orientation>horizontal</orientation>
+                            <itemgap>20</itemgap>
+                            <visible>Container($PARAM[id]).Position(3)</visible>
+                            <include content="Categories_Selector_Fake_Button_NF">
+                                <param name="textcolor">$PARAM[color_nf]</param>
+                                <param name="id">$PARAM[id]</param>
+                                <param name="pos">-3</param>
+                            </include>
+                            <include content="Categories_Selector_Fake_Button_NF">
+                                <param name="textcolor">$PARAM[color_nf]</param>
+                                <param name="id">$PARAM[id]</param>
+                                <param name="pos">-2</param>
+                            </include>
+                            <include content="Categories_Selector_Fake_Button_NF">
+                                <param name="textcolor">$PARAM[color_nf]</param>
+                                <param name="id">$PARAM[id]</param>
+                                <param name="pos">-1</param>
+                            </include>
+                            <include content="Categories_Selector_Fake_Button_FO">
+                                <param name="textcolor">$PARAM[color_fo]</param>
+                                <param name="id">$PARAM[id]</param>
+                                <param name="pos">0</param>
+                            </include>
+                        </control>
                     </control>
                 </control>
             </control>
