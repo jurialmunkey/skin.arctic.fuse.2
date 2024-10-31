@@ -37,6 +37,36 @@
             <param name="id">63</param>
             <onfocus>SetFocus(50)</onfocus>
         </include>
+
+        <include content="Object_Hidden_Button">
+            <param name="id">610</param>
+            <onup>50</onup>
+            <ondown>SetFocus(600,$VAR[Action_View_Filter_Focus],absolute)</ondown>
+            <onback>50</onback>
+            <onleft>SetFocus(50)</onleft>
+            <onleft>Action(PrevLetter)</onleft>
+            <onleft>SetFocus(610)</onleft>
+            <onright>SetFocus(50)</onright>
+            <onright>Action(NextLetter)</onright>
+            <onright>SetFocus(610)</onright>
+            <onfocus condition="!$EXP[Exp_IsAlphabetStrip]">SetFocus(60)</onfocus>
+        </include>
+
+        <include content="Object_Hidden_Button">
+            <param name="id">611</param>
+            <onleft>50</onleft>
+            <onright>SetFocus(8000)</onright>
+            <onback>50</onback>
+            <onup>SetFocus(50)</onup>
+            <onup>Action(PrevLetter)</onup>
+            <onup>SetFocus(611)</onup>
+            <ondown>SetFocus(50)</ondown>
+            <ondown>Action(NextLetter)</ondown>
+            <ondown>SetFocus(611)</ondown>
+            <onfocus condition="!$EXP[Exp_IsAlphabetStrip] + $EXP[Exp_View_Scrollbar_Mini_V]">SetFocus(64)</onfocus>
+            <onfocus condition="!$EXP[Exp_IsAlphabetStrip] + $EXP[Exp_View_Scrollbar_Midi_V]">SetFocus(65)</onfocus>
+            <onfocus condition="!$EXP[Exp_IsAlphabetStrip] + $EXP[Exp_View_Scrollbar_Maxi_V]">SetFocus(66)</onfocus>
+        </include>
     </include>
 
     <include name="View_Row_Info">
@@ -277,12 +307,13 @@
     </include>
 
     <include name="View_Scrollbar_Strip">
+
         <control type="group">
             <centertop>50%</centertop>
             <height>scrollbar_w</height>
             <left>view_poster_itemlayout_w</left>
             <right>view_poster_itemlayout_w</right>
-            <visible allowhiddenfocus="true">Control.HasFocus(60)</visible>
+            <visible allowhiddenfocus="true">Control.HasFocus(60) | Control.HasFocus(610)</visible>
             <visible>!$EXP[Exp_View_Scrollbar_Midi_V]</visible>
             <visible>!$EXP[Exp_View_Scrollbar_Mini_V]</visible>
             <visible>!$EXP[Exp_View_Scrollbar_Maxi_V]</visible>
@@ -295,6 +326,7 @@
                 <orientation>horizontal</orientation>
                 <!-- <texturesliderbackground /> -->
                 <texturesliderbackground colordiffuse="main_fg_12" border="4">scrollbar/scrollh_line.png</texturesliderbackground>
+                <include>Texture_Scrollbar_SliderBar_H</include>
                 <include>Texture_Scrollbar_H</include>
                 <onup>50</onup>
                 <ondown>SetFocus(600,$VAR[Action_View_Filter_Focus],absolute)</ondown>
@@ -688,13 +720,14 @@
             <width>scrollbar_w</width>
             <bottom>view_top</bottom>
             <height>$PARAM[height]</height>
-            <visible allowhiddenfocus="true">Control.HasFocus($PARAM[id])</visible>
+            <visible allowhiddenfocus="true">Control.HasFocus($PARAM[id]) | Control.HasFocus(611)</visible>
             <visible>$PARAM[visible]</visible>
             <control type="scrollbar" id="$PARAM[id]">
                 <orientation>vertical</orientation>
                 <top>20</top>
                 <bottom>20</bottom>
                 <include>Texture_Scrollbar_V</include>
+                <include>Texture_Scrollbar_SliderBar_H</include>
                 <texturesliderbackground colordiffuse="main_fg_12" border="4">scrollbar/scrollv_line.png</texturesliderbackground>
                 <onleft>50</onleft>
                 <onright condition="!Window.IsVisible(MyPlaylist.xml)">SetFocus(8000)</onright>
