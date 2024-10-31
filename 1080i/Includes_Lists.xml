@@ -868,6 +868,8 @@
         <param name="prefix" />
         <definition>
             <onfocus condition="$PARAM[condition]">SetProperty(TMDbHelper.WidgetContainer,$INFO[$PARAM[container]ListItem.Property(widget_id)])</onfocus>
+            <onfocus condition="$PARAM[condition] + !String.IsEmpty($PARAM[container]ListItem.Property(hide_artwork)) + !Skin.HasSetting(Widgets.DontHideArtworkOnClassic)">SetProperty(Background.HideArtwork,True)</onfocus>
+            <onfocus condition="$PARAM[condition] + !String.IsEmpty($PARAM[container]ListItem.Property(unhide_artwork))">ClearProperty(Background.HideArtwork)</onfocus>
         </definition>
     </include>
     <include name="List_ButtonMenu_Row_HiddenButton_ERow">
