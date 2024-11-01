@@ -2,40 +2,29 @@
 <includes>
 
     <include name="Dialog_Background_Blur_Standard">
-        <param name="flipy">false</param>
         <param name="shadow">true</param>
         <param name="border">20</param>
         <definition>
-            <!-- <control type="image">
-                <aspectratio scalediffuse="false">$PARAM[aspectratio]</aspectratio>
-                <include condition="$PARAM[shadow]">Texture_Shadow_80</include>
-                <texture border="$PARAM[border]" flipy="$PARAM[flipy]" diffuse="$PARAM[diffuse]">$VAR[Image_SimpleDialogBackground]</texture>
-            </control>
             <control type="image">
-                <texture colordiffuse="dialog_overlay" border="20">common/dialog.png</texture>
-            </control>
-            <include content="Object_Control" condition="Skin.HasSetting(Glass.EnableBorders)">
-                <param name="control">image</param>
-                <bordersize>0</bordersize>
-                <texture colordiffuse="dialog_fg_12" border="20">common/box-outline.png</texture>
-            </include> -->
-            <control type="image">
-                <texture flipy="$PARAM[flipy]" border="20">$VAR[Image_SimpleDialogBackground]</texture>
+                <texture border="20">$VAR[Image_SimpleDialogBackground]</texture>
                 <include condition="$PARAM[shadow]">Texture_Shadow_80</include>
             </control>
             <control type="image">
                 <texture colordiffuse="dialog_overlay" border="20">common/dialog.png</texture>
             </control>
-            <include content="Object_Control" condition="Skin.HasSetting(Glass.EnableBorders)">
-                <param name="control">image</param>
-                <bordersize>0</bordersize>
+            <control type="image">
+                <animation effect="fade" start="100" end="50" condition="!Skin.HasSetting(Glass.EnableBorders)">Conditional</animation>
                 <texture colordiffuse="dialog_fg_12" border="20">common/box-outline.png</texture>
-            </include>
+            </control>
         </definition>
     </include>
 
+    <variable name="Dialog_Background_Blur_Adaptive_Artwork">
+        <value condition="!Skin.HasSetting(TMDbHelper.EnableBlur)">special://skin/extras/backgrounds/dialogs/classic_blur.png</value>
+        <value>$VAR[Image_Background]</value>
+    </variable>
+
     <include name="Dialog_Background_Blur_Adaptive">
-        <param name="flipy">false</param>
         <param name="shadow">true</param>
         <param name="diffuse">diffuse/dialog_w1000_h1000.png</param>
         <definition>
@@ -45,29 +34,24 @@
             </control>
             <control type="image">
                 <fadetime>background_fadetime</fadetime>
-                <aspectratio scalediffuse="false" align="left">scale</aspectratio>
-                <texture flipy="$PARAM[flipy]" diffuse="$PARAM[diffuse]" colordiffuse="dialog_fg_30">$VAR[Image_Background]</texture>
+                <aspectratio scalediffuse="false" align="center">scale</aspectratio>
+                <texture diffuse="$PARAM[diffuse]" colordiffuse="overlay_hard">$VAR[Dialog_Background_Blur_Adaptive_Artwork]</texture>
             </control>
-            <include content="Object_Control" condition="Skin.HasSetting(Glass.EnableBorders)">
-                <param name="control">image</param>
-                <bordersize>0</bordersize>
+            <control type="image">
+                <animation effect="fade" start="100" end="50" condition="!Skin.HasSetting(Glass.EnableBorders)">Conditional</animation>
                 <texture colordiffuse="dialog_fg_12" border="20">common/box-outline.png</texture>
-            </include>
+            </control>
         </definition>
     </include>
 
     <include name="Dialog_Background_Blur">
         <include content="Dialog_Background_Blur_Standard" condition="!$EXP[Exp_DialogTheme_IsAdaptive]">
             <param name="shadow">$PARAM[shadow]</param>
-            <param name="flipy">$PARAM[flipy]</param>
-            <param name="flipx">$PARAM[flipx]</param>
             <param name="diffuse">$PARAM[diffuse]</param>
             <param name="border">$PARAM[border]</param>
         </include>
         <include content="Dialog_Background_Blur_Adaptive" condition="$EXP[Exp_DialogTheme_IsAdaptive]">
             <param name="shadow">$PARAM[shadow]</param>
-            <param name="flipy">$PARAM[flipy]</param>
-            <param name="flipx">$PARAM[flipx]</param>
             <param name="diffuse">$PARAM[diffuse]</param>
             <param name="border">$PARAM[border]</param>
         </include>
@@ -108,6 +92,20 @@
         </include>
     </include>
 
+    <include name="Dialog_Background_BlurDimension_DialogMiniHome">
+        <include content="Dialog_Background_Blur">
+            <param name="shadow">$PARAM[shadow]</param>
+            <param name="diffuse">diffuse/dialog_w120_h1000.png</param>
+        </include>
+    </include>
+
+    <include name="Dialog_Background_BlurDimension_DialogMaxiHome">
+        <include content="Dialog_Background_Blur">
+            <param name="shadow">$PARAM[shadow]</param>
+            <param name="diffuse">diffuse/dialog_w440_h1000.png</param>
+        </include>
+    </include>
+
     <include name="Dialog_Overlay_Mode_Glass">
         <definition>
             <control type="image">
@@ -136,7 +134,7 @@
     <include name="Dialog_Background_Glass">
         <control type="image">
             <animation effect="fade" start="100" end="50" condition="true">Conditional</animation>
-            <texture colordiffuse="main_fg_12" border="20">common/dialog.png</texture>
+            <texture colordiffuse="dialog_fg_12" border="20">common/dialog.png</texture>
         </control>
     </include>
 

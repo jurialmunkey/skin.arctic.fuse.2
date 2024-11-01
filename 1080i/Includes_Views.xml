@@ -7,7 +7,7 @@
     <include name="View_Row_Header">
         <definition>
             <control type="group">
-                <visible>!Skin.HasSetting(View.EnableFullSizeInfo) | !$EXP[Exp_View_IsMedia] | [$EXP[Exp_View_FullSize] + ![Window.IsVisible(DialogBusy.xml) + Integer.IsEqual(Container.NumItems,0)]]</visible>
+                <visible>Skin.HasSetting(View.DisableFullSizeInfo) | !$EXP[Exp_View_IsMedia] | [$EXP[Exp_View_FullSize] + ![Window.IsVisible(DialogBusy.xml) + Integer.IsEqual(Container.NumItems,0)]]</visible>
                 <include content="Furniture_Top_Left">
                     <param name="label">$PARAM[label]</param>
                 </include>
@@ -49,7 +49,8 @@
             <onright>SetFocus(50)</onright>
             <onright>Action(NextLetter)</onright>
             <onright>SetFocus(610)</onright>
-            <onfocus condition="!$EXP[Exp_IsAlphabetStrip]">SetFocus(60)</onfocus>
+            <onfocus condition="!$EXP[Exp_IsAlphabetStrip] + !Integer.IsEqual(Container.NumPages,1)">SetFocus(60)</onfocus>
+            <onfocus condition="Integer.IsEqual(Container.NumPages,1)">SetFocus(8000)</onfocus>
         </include>
 
         <include content="Object_Hidden_Button">
@@ -63,9 +64,10 @@
             <ondown>SetFocus(50)</ondown>
             <ondown>Action(NextLetter)</ondown>
             <ondown>SetFocus(611)</ondown>
-            <onfocus condition="!$EXP[Exp_IsAlphabetStrip] + $EXP[Exp_View_Scrollbar_Mini_V]">SetFocus(64)</onfocus>
-            <onfocus condition="!$EXP[Exp_IsAlphabetStrip] + $EXP[Exp_View_Scrollbar_Midi_V]">SetFocus(65)</onfocus>
-            <onfocus condition="!$EXP[Exp_IsAlphabetStrip] + $EXP[Exp_View_Scrollbar_Maxi_V]">SetFocus(66)</onfocus>
+            <onfocus condition="!$EXP[Exp_IsAlphabetStrip] + !Integer.IsEqual(Container.NumPages,1) + $EXP[Exp_View_Scrollbar_Mini_V]">SetFocus(64)</onfocus>
+            <onfocus condition="!$EXP[Exp_IsAlphabetStrip] + !Integer.IsEqual(Container.NumPages,1) + $EXP[Exp_View_Scrollbar_Midi_V]">SetFocus(65)</onfocus>
+            <onfocus condition="!$EXP[Exp_IsAlphabetStrip] + !Integer.IsEqual(Container.NumPages,1) + $EXP[Exp_View_Scrollbar_Maxi_V]">SetFocus(66)</onfocus>
+            <onfocus condition="Integer.IsEqual(Container.NumPages,1)">SetFocus(8000)</onfocus>
         </include>
     </include>
 

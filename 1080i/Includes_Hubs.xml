@@ -337,7 +337,7 @@
                     <!-- Furniture -->
                     <control type="group">
                         <visible>![$PARAM[widgets_only]]</visible>
-                        <visible>!Skin.HasSetting(View.EnableFullSizeInfo)</visible>
+                        <visible>Skin.HasSetting(View.DisableFullSizeInfo)</visible>
                         <!-- <visible>!$EXP[Exp_InfoDialogs]</visible> -->
                         <control type="group">
                             <include>Hub_Top_Animation_Invert</include>
@@ -389,10 +389,10 @@
             <include content="Animation_Fade_In">
                 <param name="condition">$PARAM[mod][$PARAM[condition]]</param>
             </include>
-            <include content="Animation_Fade_Out" condition="!Skin.HasSetting(View.EnableFullSizeInfo)">
+            <include content="Animation_Fade_Out" condition="Skin.HasSetting(View.DisableFullSizeInfo)">
                 <param name="condition">![$PARAM[mod][$PARAM[condition]]]</param>
             </include>
-            <include content="Animation_ConditionalFade" condition="Skin.HasSetting(View.EnableFullSizeInfo)">
+            <include content="Animation_ConditionalFade" condition="!Skin.HasSetting(View.DisableFullSizeInfo)">
                 <param name="condition">![$PARAM[mod][$PARAM[condition]]]</param>
             </include>
         </definition>
@@ -425,7 +425,7 @@
             </include>
         </include>
 
-        <include content="Furniture_Top_Left" condition="Skin.HasSetting(Hub.$PARAM[window_id].EnableDetailedInformation) + !Skin.HasSetting(View.EnableFullSizeInfo)">
+        <include content="Furniture_Top_Left" condition="Skin.HasSetting(Hub.$PARAM[window_id].EnableDetailedInformation) + Skin.HasSetting(View.DisableFullSizeInfo)">
             <param name="label">$VAR[Label_Header_Hubs,[CAPITALIZE],[/CAPITALIZE]]</param>
         </include>
     </include>
@@ -453,7 +453,7 @@
             <include>skinvariables-$PARAM[categories]-widgets</include>
         </control>
 
-        <include content="Hub_Widgets_Infopanel" condition="Skin.HasSetting(View.EnableFullSizeInfo) + Skin.HasSetting(Hub.$PARAM[window_id].DisableSpotlight)">
+        <include content="Hub_Widgets_Infopanel" condition="!Skin.HasSetting(View.DisableFullSizeInfo) + Skin.HasSetting(Hub.$PARAM[window_id].DisableSpotlight)">
             <animation effect="slide" start="0" end="0,160" time="400" tween="back" easing="out" reversible="false" condition="$EXP[Exp_HubName_IsVisible]">Conditional</animation>
             <animation effect="slide" start="0,160" end="0" time="400" tween="back" easing="out" reversible="false" condition="!$EXP[Exp_HubName_IsVisible]">Conditional</animation>
             <include content="Info_Panel">
@@ -464,7 +464,7 @@
                 <param name="details_include">Hub_Top_Animation_Invert</param>
             </include>
         </include>
-        <include content="Hub_Widgets_Infopanel" condition="![Skin.HasSetting(View.EnableFullSizeInfo) + Skin.HasSetting(Hub.$PARAM[window_id].DisableSpotlight)]">
+        <include content="Hub_Widgets_Infopanel" condition="![!Skin.HasSetting(View.DisableFullSizeInfo) + Skin.HasSetting(Hub.$PARAM[window_id].DisableSpotlight)]">
             <include content="Info_Panel">
                 <param name="container">Container.</param>
                 <param name="visible">!Integer.IsEqual(Window.Property(TMDBHelper.WidgetContainer),301)</param>
@@ -553,91 +553,96 @@
     </include>
 
     <include name="Hub_Categories_Search">
+
         <control type="group">
-            <left>view_pad</left>
+            <height>80</height>
+            <width>80</width>
             <centertop>100</centertop>
-            <height>40</height>
-            <width>40</width>
-            <control type="image">
-                <include>Texture_CircleButtonDialog_Highlight_V</include>
-                <aspectratio>keep</aspectratio>
-                <height>160</height>
-                <width>160</width>
-                <centertop>50%</centertop>
-                <centerleft>50%</centerleft>
-                <visible>Control.HasFocus(309)</visible>
-            </control>
-            <control type="button" id="309">
-                <texturenofocus />
-                <texturefocus />
-                <width>80</width>
+            <centerleft>100</centerleft>
+            <control type="group">
+                <top>view_line_top</top>
                 <height>80</height>
-                <centerleft>50%</centerleft>
-                <centertop>50%</centertop>
-                <include content="Hub_Categories_Definition_Content">
-                    <param name="window_id">$PARAM[window_id]</param>
-                    <param name="property_window_id">$PARAM[property_window_id]</param>
-                </include>
-                <onfocus>SetProperty(Slide.WidgetContainer,300,$PARAM[property_window_id])</onfocus>
-                <onclick>$VAR[Action_ActivateSearchDiscover]</onclick>
-                <onleft>308</onleft>
-                <onright>SetFocus(300,0,absolute)</onright>
-            </control>
-            <control type="image">
-                <texture colordiffuse="main_fg_30">$VAR[Image_SearchDiscover]</texture>
-                <bordersize>icon_home_bordersize</bordersize>
-                <visible>!Control.HasFocus(309)</visible>
-            </control>
-            <control type="image">
-                <texture colordiffuse="$VAR[ColorSelected]">$VAR[Image_SearchDiscover]</texture>
-                <bordersize>icon_home_bordersize</bordersize>
-                <visible>Control.HasFocus(309)</visible>
+                <control type="image">
+                    <include>Texture_Circle_Highlight_V</include>
+                    <aspectratio>keep</aspectratio>
+                    <visible>Control.HasFocus(309)</visible>
+                </control>
+                <control type="button" id="309">
+                    <texturenofocus />
+                    <texturefocus />
+                    <include content="Hub_Categories_Definition_Content">
+                        <param name="window_id">$PARAM[window_id]</param>
+                        <param name="property_window_id">$PARAM[property_window_id]</param>
+                    </include>
+                    <onfocus>SetProperty(Slide.WidgetContainer,300,$PARAM[property_window_id])</onfocus>
+                    <onclick>$VAR[Action_ActivateSearchDiscover]</onclick>
+                    <onleft>308</onleft>
+                    <onright>SetFocus(300,0,absolute)</onright>
+                </control>
+                <control type="group">
+                    <height>40</height>
+                    <width>40</width>
+                    <centertop>50%</centertop>
+                    <centerleft>50%</centerleft>
+                    <control type="image">
+                        <texture colordiffuse="main_fg_30">$VAR[Image_SearchDiscover]</texture>
+                        <bordersize>icon_home_bordersize</bordersize>
+                        <visible>!Control.HasFocus(309)</visible>
+                    </control>
+                    <control type="image">
+                        <texture colordiffuse="$VAR[ColorSelected]">$VAR[Image_SearchDiscover]</texture>
+                        <bordersize>icon_home_bordersize</bordersize>
+                        <visible>Control.HasFocus(309)</visible>
+                    </control>
+                </control>
             </control>
         </control>
     </include>
 
     <include name="Hub_Categories_Options">
         <control type="group">
-            <right>view_pad</right>
+            <height>80</height>
+            <width>80</width>
             <centertop>100</centertop>
-            <height>40</height>
-            <width>40</width>
-            <control type="image">
-                <include>Texture_CircleButtonDialog_Highlight_V</include>
-                <aspectratio>keep</aspectratio>
-                <height>160</height>
-                <width>160</width>
-                <centertop>50%</centertop>
-                <centerleft>50%</centerleft>
-                <visible>Control.HasFocus(308)</visible>
-            </control>
-            <control type="button" id="308">
-                <texturenofocus />
-                <texturefocus />
-                <width>80</width>
+            <centerright>100</centerright>
+            <control type="group">
+                <top>view_line_top</top>
                 <height>80</height>
-                <centerleft>50%</centerleft>
-                <centertop>50%</centertop>
-                <include content="Hub_Categories_Definition_Content">
-                    <param name="window_id">$PARAM[window_id]</param>
-                    <param name="property_window_id">$PARAM[property_window_id]</param>
-                </include>
-                <onfocus>SetProperty(Slide.WidgetContainer,300,$PARAM[property_window_id])</onfocus>
-                <onclick>SetProperty(307Refocus,308)</onclick>
-                <onclick>SetFocus(307)</onclick>
-                <onright>309</onright>
-                <onleft>SetFocus(300,9999,absolute)</onleft>
-            </control>
-            <control type="image">
-                <texture colordiffuse="main_fg_30">special://skin/extras/icons/bars.png</texture>
-                <bordersize>icon_home_bordersize</bordersize>
-                <visible>!Control.HasFocus(308)</visible>
-                <visible>!Skin.HasSetting(Furniture.EnableClock)</visible>
-            </control>
-            <control type="image">
-                <texture colordiffuse="$VAR[ColorSelected]">special://skin/extras/icons/bars.png</texture>
-                <bordersize>icon_home_bordersize</bordersize>
-                <visible>Control.HasFocus(308)</visible>
+                <control type="image">
+                    <include>Texture_Circle_Highlight_V</include>
+                    <aspectratio>keep</aspectratio>
+                    <visible>Control.HasFocus(308)</visible>
+                </control>
+                <control type="button" id="308">
+                    <texturenofocus />
+                    <texturefocus />
+                    <include content="Hub_Categories_Definition_Content">
+                        <param name="window_id">$PARAM[window_id]</param>
+                        <param name="property_window_id">$PARAM[property_window_id]</param>
+                    </include>
+                    <onfocus>SetProperty(Slide.WidgetContainer,300,$PARAM[property_window_id])</onfocus>
+                    <onclick>SetProperty(307Refocus,308)</onclick>
+                    <onclick>SetFocus(307)</onclick>
+                    <onright>309</onright>
+                    <onleft>SetFocus(300,9999,absolute)</onleft>
+                </control>
+                <control type="group">
+                    <height>40</height>
+                    <width>40</width>
+                    <centertop>50%</centertop>
+                    <centerleft>50%</centerleft>
+                    <control type="image">
+                        <texture colordiffuse="main_fg_30">special://skin/extras/icons/bars.png</texture>
+                        <bordersize>icon_home_bordersize</bordersize>
+                        <visible>!Control.HasFocus(308)</visible>
+                        <visible>!Skin.HasSetting(Furniture.EnableClock)</visible>
+                    </control>
+                    <control type="image">
+                        <texture colordiffuse="$VAR[ColorSelected]">special://skin/extras/icons/bars.png</texture>
+                        <bordersize>icon_home_bordersize</bordersize>
+                        <visible>Control.HasFocus(308)</visible>
+                    </control>
+                </control>
             </control>
         </control>
     </include>

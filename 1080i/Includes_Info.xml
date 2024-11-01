@@ -5,7 +5,7 @@
         <param name="label">$VAR[Label_Title_Container]</param>
         <param name="wrapmultiline">false</param>
         <param name="visible">true</param>
-        <param name="width">info_plot_w</param>
+        <param name="width">info_title_w</param>
         <param name="height">162</param>
         <definition>
             <control type="textbox">
@@ -33,6 +33,7 @@
                 <param name="label">$PARAM[label]</param>
                 <param name="colordiffuse">$PARAM[colordiffuse]</param>
                 <param name="visible">![$PARAM[mainlogo_visible]]</param>
+                <param name="width">$PARAM[width]</param>
             </include>
 
             <control type="group">
@@ -52,7 +53,7 @@
     <include name="Info_Title">
         <param name="colordiffuse">main_fg</param>
         <param name="container" />
-        <param name="width">info_plot_w</param>
+        <param name="width">info_title_w</param>
         <!-- <param name="mainlogo_visible">[!String.IsEmpty(Window(Home).Property(TMDBHelper.ListItem.CropImage))]</param> -->
         <param name="mainlogo_visible">[!String.IsEmpty(Window(Home).Property(TMDBHelper.ListItem.CropImage)) | !String.IsEmpty(ListItem.Art(clearlogo)) | !String.IsEmpty(ListItem.Art(tvshow.clearlogo)) | !String.IsEmpty(ListItem.Art(artist.clearlogo))]</param>
         <param name="mainlogo_texture">$VAR[Image_CropLogo]</param>
@@ -967,7 +968,7 @@
         <textcolor>main_fg_90</textcolor>
         <font>font_main_bold</font>
         <width>auto</width>
-        <top>-3</top>
+        <top>view_line_top</top>
         <height>80</height>
     </include>
 
@@ -1712,8 +1713,8 @@
     <include name="Info_Panel_Dimensions">
         <width>info_panel_w</width>
         <left>view_pad</left>
-        <include condition="Skin.HasSetting(View.EnableFullSizeInfo)">Info_Panel_Dimensions_FullSize</include>
-        <include condition="!Skin.HasSetting(View.EnableFullSizeInfo)">Info_Panel_Dimensions_MainSize</include>
+        <include condition="!Skin.HasSetting(View.DisableFullSizeInfo)">Info_Panel_Dimensions_FullSize</include>
+        <include condition="Skin.HasSetting(View.DisableFullSizeInfo)">Info_Panel_Dimensions_MainSize</include>
     </include>
 
     <include name="Info_Panel">
@@ -1726,6 +1727,7 @@
         <param name="ratings">true</param>
         <param name="details">true</param>
         <param name="title">true</param>
+        <param name="titlewidth">info_title_w</param>
         <param name="titlelabel">$VAR[Label_Title]</param>
         <param name="plotlabel">$VAR[Label_Plot]</param>
         <param name="details_include">Items_Null</param>
@@ -1754,7 +1756,7 @@
                     <include content="Info_Title" condition="$PARAM[title]">
                         <param name="label">$PARAM[titlelabel]</param>
                         <param name="colordiffuse">$PARAM[colordiffuse]</param>
-                        <param name="width">$PARAM[plotwidth]</param>
+                        <param name="width">$PARAM[titlewidth]</param>
                         <param name="mainlogo_visible">$PARAM[mainlogo_visible]</param>
                         <param name="mainlogo_texture">$PARAM[mainlogo_texture]</param>
                     </include>
@@ -1775,7 +1777,7 @@
                     </control>
 
                     <!-- Textbox -->
-                    <include content="Info_Panel_Textbox" condition="!Skin.HasSetting(View.EnableFullSizeInfo)">
+                    <include content="Info_Panel_Textbox" condition="Skin.HasSetting(View.DisableFullSizeInfo)">
                         <param name="plotlabel">$PARAM[plotlabel]</param>
                         <param name="plotwidth">$PARAM[plotwidth]</param>
                         <param name="plotheight">$PARAM[plotheight]</param>
@@ -1783,7 +1785,7 @@
                         <param name="details_include">$PARAM[details_include]</param>
                         <param name="container">$PARAM[container]</param>
                     </include>
-                    <include content="Info_Panel_Textbox" condition="Skin.HasSetting(View.EnableFullSizeInfo)">
+                    <include content="Info_Panel_Textbox" condition="!Skin.HasSetting(View.DisableFullSizeInfo)">
                         <param name="plotlabel">$PARAM[plotlabel]</param>
                         <param name="plotwidth">$PARAM[plotwidth]</param>
                         <param name="plotheight">$PARAM[plotheight_full]</param>

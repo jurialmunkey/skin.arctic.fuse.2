@@ -240,7 +240,7 @@
 
     <include name="Home_Menu_Button_Icon">
         <param name="focused">$EXP[Exp_HomeMenu_HasFocus]</param>
-        <param name="color_nf">main_fg_30</param>
+        <param name="color_nf">dialog_fg_30</param>
         <definition>
             <control type="group">
                 <nested />
@@ -442,7 +442,7 @@
                     <control type="group">
                         <include content="Furniture_MainLabel" condition="$PARAM[include_label]">
                             <param name="label">$PARAM[label]</param>
-                            <param name="textcolor">main_fg_100</param>
+                            <param name="textcolor">dialog_fg_100</param>
                         </include>
                     </control>
 
@@ -457,7 +457,7 @@
                             </include>
                             <bordersize>40</bordersize>
                             <bordertexture colordiffuse="shadow_soft">shadows/circle_50-shadow-40.png</bordertexture>
-                            <texture colordiffuse="main_fg_100">diffuse/circle_50.png</texture>
+                            <texture colordiffuse="dialog_fg_100">diffuse/circle_50.png</texture>
                         </control>
                         <include content="Object_InfoCircle_Image">
                             <param name="bordersize">2</param>
@@ -485,7 +485,7 @@
                         <include content="View_Furniture_Bottom_ViewLine" condition="$PARAM[include_label]">
                             <param name="label">$PARAM[label]</param>
                             <param name="fade_condition">false</param>
-                            <param name="textcolor">main_fg_90</param>
+                            <param name="textcolor">dialog_fg_90</param>
                         </include>
                     </control>
                     <control type="group">
@@ -524,11 +524,19 @@
     <include name="Home_Menu_Vert_Background">
         <param name="subline_visible">true</param>
         <param name="include_glass">true</param>
-        <param name="diffuse">diffuse/dialog_w440_h1000.png</param>
+        <param name="dialog_size">Dimension_DialogMaxiHome</param>
         <definition>
             <control type="group">
                 <left>$PARAM[left]</left>
                 <width>$PARAM[width]</width>
+                <control type="group">
+                    <left>-20</left>
+                    <right>-20</right>
+                    <include content="Dialog_Background_Group">
+                        <param name="include_glass">true</param>
+                        <param name="dialog_size">$PARAM[dialog_size]</param>
+                    </include>
+                </control>
                 <control type="group">
                     <top>40</top>
                     <bottom>40</bottom>
@@ -536,18 +544,11 @@
                     <left>20</left>
 
                     <control type="image">
-                        <texture border="20" colordiffuse="main_bg_30">common/dialog.png</texture>
-                    </control>
-                    <control type="image">
-                        <texture colordiffuse="main_fg_12" border="12">common/box-outline.png</texture>
-                    </control>
-
-                    <control type="image">
                         <top>120</top>
                         <left>40</left>
                         <right>40</right>
                         <height>1</height>
-                        <texture colordiffuse="main_fg_12">common/white.png</texture>
+                        <texture colordiffuse="dialog_fg_12">common/white.png</texture>
                     </control>
 
                     <control type="image">
@@ -555,7 +556,7 @@
                         <left>40</left>
                         <right>40</right>
                         <height>1</height>
-                        <texture colordiffuse="main_fg_12">common/white.png</texture>
+                        <texture colordiffuse="dialog_fg_12">common/white.png</texture>
                         <visible>$PARAM[subline_visible]</visible>
                     </control>
                 </control>
@@ -578,7 +579,7 @@
             <include content="Home_Menu_Vert_Background">
                 <param name="left">-view_menu_mini</param>
                 <param name="width">view_menu_mini</param>
-                <param name="diffuse">diffuse/dialog_w120_h1000.png</param>
+                <param name="dialog_size">Dimension_DialogMiniHome</param>
             </include>
         </control>
     </include>
