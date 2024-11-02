@@ -6,21 +6,37 @@
         <param name="wrapmultiline">false</param>
         <param name="visible">true</param>
         <param name="width">info_title_w</param>
-        <param name="height">162</param>
+        <param name="autoheight">false</param>
         <definition>
             <control type="textbox">
                 <top>-20</top>
                 <label>$PARAM[label]</label>
                 <textcolor>$PARAM[colordiffuse]_100</textcolor>
                 <font>font_title_main</font>
-                <aligny>center</aligny>
-                <height max="162">$PARAM[height]</height>
+                <aligny>top</aligny>
+                <height max="160">auto</height>
                 <visible>$PARAM[visible]</visible>
                 <width>$PARAM[width]</width>
+                <autoscroll>false</autoscroll>
+                <visible>$PARAM[autoheight]</visible>
+            </control>
+            <control type="label">
+                <top>-20</top>
+                <label>$PARAM[label]</label>
+                <wrapmultiline>true</wrapmultiline>
+                <textcolor>$PARAM[colordiffuse]_100</textcolor>
+                <font>font_title_main</font>
+                <aligny>center</aligny>
+                <height>160</height>
+                <visible>$PARAM[visible]</visible>
+                <width>$PARAM[width]</width>
+                <autoscroll>false</autoscroll>
+                <scroll>false</scroll>
+                <visible>![$PARAM[autoheight]]</visible>
             </control>
             <control type="group">
                 <top>info_title_text_buffer_h</top>
-                <height>3</height>
+                <height>5</height>
                 <visible>$PARAM[visible]</visible>
             </control>
         </definition>
@@ -64,7 +80,7 @@
                 <param name="colordiffuse">$PARAM[colordiffuse]</param>
                 <param name="visible">True</param>
                 <param name="width">$PARAM[width]</param>
-                <param name="height">auto</param>
+                <param name="autoheight">true</param>
             </include>
             <!-- Other -->
             <include content="Info_Title_Logo" condition="Skin.HasSetting(TMDbHelper.EnableCrop)">
@@ -73,7 +89,6 @@
                 <param name="mainlogo_visible">$PARAM[mainlogo_visible]</param>
                 <param name="mainlogo_texture">$PARAM[mainlogo_texture]</param>
                 <param name="width">$PARAM[width]</param>
-                <param name="height">$PARAM[height]</param>
             </include>
         </definition>
     </include>

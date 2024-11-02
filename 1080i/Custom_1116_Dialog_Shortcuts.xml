@@ -361,6 +361,23 @@
                                             <onback>29999</onback>
 
                                             <visible>$EXP[Shortcuts_Dialog_Exp_HasShortcutPath] + !$EXP[Shortcuts_Dialog_Exp_IsWidgetMode]</visible>
+                                            <visible>String.IsEqual(Container(22001).ListItem.Property(path_opendialog),True)</visible>
+                                            <visible>[!String.IsEqual(Container(22001).ListItem.Property(disabled),True) + !String.IsEqual(Container(22001).ListItem.Property(blank),True)]</visible>
+                                        </include>
+                                        <include content="Settings_Button">
+                                            <param name="dialog">true</param>
+                                            <param name="id">23005</param>
+                                            <param name="control">radiobutton</param>
+                                            <label> -- $LOCALIZE[31419]</label>
+
+                                            <selected>!String.IsEmpty(Container(22001).ListItem.Property(path_opendialog_plotbox))</selected>
+                                            <onclick>RunPlugin($INFO[Container(22001).ListItem.Property(url),,&amp;func=do_toggle&amp;&amp;path_opendialog_plotbox])</onclick>
+
+                                            <onback>29999</onback>
+
+                                            <visible>$EXP[Shortcuts_Dialog_Exp_HasShortcutPath] + !$EXP[Shortcuts_Dialog_Exp_IsWidgetMode]</visible>
+                                            <visible>String.IsEqual(Container(22001).ListItem.Property(path_opendialog),True)</visible>
+                                            <visible>String.IsEqual(Container(22001).ListItem.Property(path_opendialog_expanded),True)</visible>
                                             <visible>[!String.IsEqual(Container(22001).ListItem.Property(disabled),True) + !String.IsEqual(Container(22001).ListItem.Property(blank),True)]</visible>
                                         </include>
 
