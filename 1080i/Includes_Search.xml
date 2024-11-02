@@ -65,22 +65,49 @@
         </control>
 
         <include>View_Dialog_Plot</include>
-
-
-        <include>Search_View_Selector</include>
     </include>
 
     <include name="Search_View_Selector">
         <control type="group">
-            <left>40</left>
-            <width>view_menu_main</width>
             <visible>Control.HasFocus(5099)</visible>
+            <control type="group">
+                <include>Dimension_Bottombar</include>
+                <control type="group">
+                    <left>-20</left>
+                    <animation effect="fade" start="100" end="70" condition="true">Conditional</animation>
+                    <include>Dimension_Furniture_Gutters</include>
+                    <control type="group">
+                        <include content="View_Furniture_Bottom_ViewLine">
+                            <param name="label">$INFO[Container(5099).NumItems,, $LOCALIZE[31304]]</param>
+                            <param name="fade_condition">false</param>
+                            <param name="textcolor">dialog_fg_90</param>
+                        </include>
+                    </control>
+                </control>
+            </control>
+            <control type="image">
+                <top>480</top>
+                <height>1</height>
+                <left>60</left>
+                <right>60</right>
+                <texture colordiffuse="dialog_fg_12">common/white.png</texture>
+            </control>
+            <control type="image">
+                <bottom>160</bottom>
+                <height>1</height>
+                <left>60</left>
+                <right>60</right>
+                <texture colordiffuse="dialog_fg_12">common/white.png</texture>
+            </control>
             <include content="List_DialogSelect">
                 <param name="id">5099</param>
                 <param name="textcolor">dialog_fg</param>
                 <param name="itemlayout_include">Layout_MenuList</param>
                 <param name="hidden_button">List_ButtonMenu_Row_HiddenButton_ERow</param>
                 <param name="hidden_button_enabled">True</param>
+                <param name="control">fixedlist</param>
+                <focusposition>2</focusposition>
+                <movement>2</movement>
                 <onback>SetProperty(TMDbHelper.WidgetContainer,$INFO[ListItem.Property(widget_id)])</onback>
                 <onback>5098</onback>
                 <onleft>SetProperty(TMDbHelper.WidgetContainer,$INFO[ListItem.Property(widget_id)])</onleft>
@@ -96,9 +123,10 @@
                 <onup>SetProperty(TMDbHelper.WidgetContainer,$INFO[ListItem.Property(widget_id)])</onup>
                 <onup>5098</onup>
                 <ondown>noop</ondown>
-                <left>20</left>
-                <right>60</right>
-                <top>460</top>
+                <left>40</left>
+                <right>40</right>
+                <top>500</top>
+                <bottom>160</bottom>
                 <content>
                     <item>
                         <label>$LOCALIZE[593]</label>
@@ -752,6 +780,8 @@
                     <include condition="Window.IsVisible(1185)">Search_Panel_Autocomplete</include>
                     <include condition="Window.IsVisible(1105)">Search_Panel_DiscoverFilter</include>
                 </control>
+
+                <include condition="Window.IsVisible(1185)">Search_View_Selector</include>
 
             </control>
         </control>
