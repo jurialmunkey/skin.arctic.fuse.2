@@ -3,31 +3,17 @@
 
     <!-- Media List -->
     <include name="View_550_MediaList">
-        <include content="View_MediaList_Include" condition="!Window.IsVisible(videos)">
+        <include content="View_MediaList_Include">
             <param name="id">550</param>
             <param name="viewtype_label">$LOCALIZE[31480]</param>
             <param name="visible">$EXP[Exp_View_550]</param>
-            <param name="right">560</param>
-            <param name="top">288</param>
-            <param name="item_height">86.2</param>
+            <param name="left">infodialog_left_w</param>
+            <param name="right">20</param>
+            <param name="top">240</param>
             <param name="focusposition">1</param>
-            <param name="movement">3</param>
+            <param name="movement">4</param>
             <param name="scrollbar_id">65</param>
-            <param name="overlay">false</param>
-            <include>View_MediaList_Square</include>
-        </include>
-        <include content="View_MediaList_Include" condition="Window.IsVisible(videos)">
-            <param name="id">550</param>
-            <param name="viewtype_label">$LOCALIZE[31480]</param>
-            <param name="visible">$EXP[Exp_View_550]</param>
-            <param name="right">400</param>
-            <param name="top">288</param>
-            <param name="item_height">86.2</param>
-            <param name="focusposition">1</param>
-            <param name="movement">3</param>
-            <param name="scrollbar_id">65</param>
-            <param name="overlay">false</param>
-            <include>View_MediaList_Poster</include>
+            <param name="overlay">true</param>
         </include>
     </include>
     <include name="View_551_Landscape_MediaList">
@@ -36,6 +22,8 @@
             <param name="viewtype_label">$LOCALIZE[31480]</param>
             <param name="visible">$EXP[Exp_View_551]</param>
             <param name="right">900</param>
+            <!-- <param name="left">880</param> -->
+            <!-- <param name="right">20</param> -->
             <param name="top">400</param>
             <param name="focusposition">1</param>
             <param name="movement">2</param>
@@ -52,30 +40,41 @@
             <param name="id">552</param>
             <param name="viewtype_label">$LOCALIZE[31559]</param>
             <param name="visible">$EXP[Exp_View_552]</param>
-            <param name="right">560</param>
-            <param name="top">48</param>
-            <param name="item_height">83.9</param>
+            <param name="left">infodialog_left_w</param>
+            <param name="right">20</param>
+            <param name="top">-40</param>
             <param name="focusposition">1</param>
-            <param name="movement">4</param>
+            <param name="movement">5</param>
             <param name="scrollbar_id">66</param>
             <param name="overlay">true</param>
-            <include>View_MediaListOverview_Artwork</include>
         </include>
     </include>
 
     <include name="View_553_Basic_MediaList">
+        <!-- <include content="View_MediaListOverview_Include">
+            <param name="id">553</param>
+            <param name="viewtype_label">$LOCALIZE[31120]</param>
+            <param name="visible">$EXP[Exp_View_553]</param>
+            <param name="right">20</param>
+            <param name="top">-40</param>
+            <param name="focusposition">1</param>
+            <param name="movement">5</param>
+            <param name="scrollbar_id">66</param>
+            <param name="overlay">true</param>
+        </include> -->
         <include content="View_MediaList_Include">
             <param name="id">553</param>
             <param name="viewtype_label">$LOCALIZE[31120]</param>
             <param name="visible">$EXP[Exp_View_553]</param>
-            <param name="right">1265</param>
+            <param name="right">1340</param>
             <param name="top">48</param>
+            <param name="item_height">84</param>
             <param name="focusposition">2</param>
-            <param name="item_height">83.9</param>
             <param name="movement">5</param>
             <param name="scrollbar_id">66</param>
             <param name="overlay">true</param>
             <param name="variation">true</param>
+            <param name="include_detailed_labels">false</param>
 
             <control type="fadelabel" id="99998">
                 <description>Randomizer for plugin-free multiple fanart</description>
@@ -109,8 +108,8 @@
             </control>
 
             <control type="group">
-                <height>672</height>
-                <width>1195</width>
+                <height>720</height>
+                <width>1280</width>
                 <bottom>0</bottom>
                 <right>0</right>
                 <control type="image">
@@ -145,9 +144,10 @@
 
     <include name="View_MediaListOverview_Artwork">
         <control type="group">
-            <right>0</right>
-            <width>viewlist_poster_w</width>
-            <height>viewlist_poster_h</height>
+            <left>0</left>
+            <top>-100</top>
+            <width>infodialog_poster_w</width>
+            <height>infodialog_poster_h</height>
 
             <control type="group">
                 <visible>![String.IsEmpty(ListItem.Art(poster)) + String.IsEmpty(ListItem.Art(tvshow.poster)) + String.IsEmpty(ListItem.Art(season.poster))]</visible>
@@ -160,9 +160,9 @@
             <control type="group">
                 <visible>String.IsEmpty(ListItem.Art(poster)) + String.IsEmpty(ListItem.Art(tvshow.poster)) + String.IsEmpty(ListItem.Art(season.poster))</visible>
                 <control type="image">
-                    <width>viewlist_poster_w</width>
-                    <height>viewlist_poster_w</height>
-                    <centertop>viewlist_poster_w</centertop>
+                    <width>infodialog_poster_w</width>
+                    <height>infodialog_poster_w</height>
+                    <centertop>infodialog_poster_w</centertop>
                     <texture background="true">$VAR[Image_DiscArt]</texture>
                     <bordersize>20</bordersize>
                     <animation effect="rotate" condition="Player.Playing" start="0" end="-360" loop="true" time="30000" center="auto" reversible="false">Conditional</animation>
@@ -171,7 +171,7 @@
                 <include content="Object_BigPoster">
                     <param name="icon">$VAR[Image_Poster]</param>
                     <param name="diffuse">diffuse/square_w480_h480.png</param>
-                    <height>viewlist_poster_w</height>
+                    <height>infodialog_poster_w</height>
                     <top>0</top>
                 </include>
             </control>
@@ -296,6 +296,7 @@
                         <param name="itemlayout_include">Layout_MediaList</param>
                         <param name="item_height">$PARAM[item_height]</param>
                         <param name="variation">$PARAM[variation]</param>
+                        <param name="include_detailed_labels">$PARAM[include_detailed_labels]</param>
 
                         <include>$PARAM[include_reposition]</include>
 
