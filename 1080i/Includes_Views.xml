@@ -7,7 +7,6 @@
     <include name="View_Row_Header">
         <definition>
             <control type="group">
-                <visible>Skin.HasSetting(View.DisableFullSizeInfo) | !$EXP[Exp_View_IsMedia] | [$EXP[Exp_View_FullSize] + ![Window.IsVisible(DialogBusy.xml) + Integer.IsEqual(Container.NumItems,0)]]</visible>
                 <include content="Furniture_Top_Left">
                     <param name="label">$PARAM[label]</param>
                 </include>
@@ -74,36 +73,66 @@
     <include name="View_Row_Info">
         <control type="group">
             <visible>!Integer.IsEqual(Container.NumItems,0)</visible>
-            <include content="Info_Viewline">
-                <param name="visible">$EXP[Exp_View_FullSize]</param>
-                <param name="top">170</param>
-            </include>
-            <include content="Info_Viewline">
-                <param name="visible">$EXP[Exp_View_MidiSize]</param>
-                <param name="top">410</param>
-            </include>
-            <include content="Info_Viewline">
-                <param name="visible">!$EXP[Exp_View_MidiSize] + !$EXP[Exp_View_FullSize]</param>
-            </include>
             <control type="group">
-                <visible>!$EXP[Exp_View_FullSize]</visible>
-
-                <include>Info_Panel_Dimensions</include>
-
-                <include content="Info_Panel">
-                    <param name="visible">String.IsEmpty(Window.Property(TMDBHelper.WidgetContainer))</param>
-                    <param name="details">!$EXP[Exp_View_MidiSize]</param>
-                </include>
-
-                <include content="View_Combined_Info" condition="$EXP[Exp_View_502_Include]">
-                    <param name="id">50</param>
-                </include>
-                <include content="View_Combined_Info" condition="$EXP[Exp_View_512_Include]">
-                    <param name="id">51</param>
-                </include>
-                <include content="View_Combined_Info" condition="$EXP[Exp_View_522_Include]">
-                    <param name="id">52</param>
-                </include>
+                <visible>$EXP[Exp_View_FullSize] | $EXP[Exp_View_MidiSize]</visible>
+                <control type="group">
+                    <visible>![Control.IsVisible(550) | Control.IsVisible(552)]</visible>
+                    <include>Furniture_Top_Left</include>
+                    <control type="group">
+                        <include content="Info_Viewline">
+                            <param name="top">170</param>
+                        </include>
+                    </control>
+                </control>
+                <control type="group">
+                    <visible>Control.IsVisible(550) | Control.IsVisible(552)</visible>
+                    <control type="group">
+                        <include>Dimension_Info</include>
+                        <include>View_MediaListOverview_Artwork</include>
+                    </control>
+                    <control type="group">
+                        <left>infodialog_left_w</left>
+                        <control type="group">
+                            <visible>Control.IsVisible(552)</visible>
+                            <include content="Info_Viewline">
+                                <param name="top">80</param>
+                            </include>
+                        </control>
+                        <control type="group">
+                            <visible>Control.IsVisible(550)</visible>
+                            <include content="Info_Viewline">
+                                <param name="top">360</param>
+                            </include>
+                            <control type="group">
+                                <include>Info_Panel_Dimensions</include>
+                                <include content="Info_Panel">
+                                    <param name="visible">String.IsEmpty(Window.Property(TMDBHelper.WidgetContainer))</param>
+                                    <param name="details">false</param>
+                                    <param name="grouplistid">99953</param>
+                                </include>
+                            </control>
+                        </control>
+                    </control>
+                </control>
+            </control>
+            <control type="group">
+                <visible>![$EXP[Exp_View_FullSize] | $EXP[Exp_View_MidiSize]]</visible>
+                <include>Info_Viewline</include>
+                <control type="group">
+                    <include>Info_Panel_Dimensions</include>
+                    <include content="Info_Panel">
+                        <param name="visible">String.IsEmpty(Window.Property(TMDBHelper.WidgetContainer))</param>
+                    </include>
+                    <include content="View_Combined_Info" condition="$EXP[Exp_View_502_Include]">
+                        <param name="id">50</param>
+                    </include>
+                    <include content="View_Combined_Info" condition="$EXP[Exp_View_512_Include]">
+                        <param name="id">51</param>
+                    </include>
+                    <include content="View_Combined_Info" condition="$EXP[Exp_View_522_Include]">
+                        <param name="id">52</param>
+                    </include>
+                </control>
             </control>
         </control>
     </include>
@@ -729,7 +758,7 @@
                 <top>20</top>
                 <bottom>20</bottom>
                 <include>Texture_Scrollbar_V</include>
-                <include>Texture_Scrollbar_SliderBar_H</include>
+                <include>Texture_Scrollbar_SliderBar_V</include>
                 <texturesliderbackground colordiffuse="main_fg_12" border="4">scrollbar/scrollv_line.png</texturesliderbackground>
                 <onleft>50</onleft>
                 <onright condition="!Window.IsVisible(MyPlaylist.xml)">SetFocus(8000)</onright>
@@ -764,7 +793,6 @@
                         <param name="visible">$EXP[Exp_View_Scrollbar_Maxi_V]</param>
                     </include>
                 </control>
-                <include>View_Row_Header</include>
             </control>
 
             <control type="group">

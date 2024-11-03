@@ -181,6 +181,18 @@
                             <visible>String.IsEmpty(Skin.String(Hub.Home.ReplaceWindow))</visible>
                         </include>
 
+                        <include content="Settings_Button" description="Back menu">
+                            <param name="dialog">false</param>
+                            <param name="id">1012</param>
+                            <param name="dialog">false</param>
+                            <param name="control">button</param>
+                            <label>$LOCALIZE[10000] > $LOCALIZE[31166]</label>
+                            <label2>$VAR[Label_Setting_Home_OnBack]</label2>
+                            <onclick condition="Skin.HasSetting(Home.DisableMenuOnBack)">Skin.Reset(Home.DisableMenuOnBack)</onclick>
+                            <onclick condition="!Skin.HasSetting(Home.DisableMenuOnBack)">RunScript(script.skinvariables,run_dialog=yesno,heading=$LOCALIZE[10000] > $LOCALIZE[31166],message=[B][COLOR=red][UPPERCASE]$LOCALIZE[14117][/UPPERCASE][/B][/COLOR][CR]$LOCALIZE[31277],yeslabel=$LOCALIZE[24021],nolabel=$LOCALIZE[222],"executebuiltin=Skin.SetBool(Home.DisableMenuOnBack)")</onclick>
+                            <visible>Container(3).HasFocus(1)</visible>
+                        </include>
+
                         <include content="Settings_Button" description="Sidemenu default focus">
                             <param name="dialog">false</param>
                             <param name="id">1014</param>
@@ -213,7 +225,7 @@
                             <!-- Hubs+Home (switch to Disabled on warning otherwise switch back to Home only) -->
                             <onclick condition="Skin.HasSetting(HubsMenu.EnableSearchAndOptions)">Skin.Reset(SideMenu.DisableSearchAndOptions)</onclick>
                             <onclick condition="Skin.HasSetting(HubsMenu.EnableSearchAndOptions)">Skin.Reset(HubsMenu.EnableSearchAndOptions)</onclick>
-                            <onclick condition="Skin.HasSetting(HubsMenu.EnableSearchAndOptions)">RunScript(script.skinvariables,run_dialog=yesno,heading=$LOCALIZE[31151],message=[B][COLOR=red][UPPERCASE]$LOCALIZE[14117][/UPPERCASE][/B][/COLOR][CR]$LOCALIZE[31277],yeslabel=Disable,nolabel=Cancel,"executebuiltin=Skin.SetBool(SideMenu.DisableSearchAndOptions)||Skin.Reset(HubsMenu.EnableSearchAndOptions)")</onclick>
+                            <onclick condition="Skin.HasSetting(HubsMenu.EnableSearchAndOptions)">RunScript(script.skinvariables,run_dialog=yesno,heading=$LOCALIZE[31151],message=[B][COLOR=red][UPPERCASE]$LOCALIZE[14117][/UPPERCASE][/B][/COLOR][CR]$LOCALIZE[31277],yeslabel=$LOCALIZE[24021],nolabel=$LOCALIZE[222],"executebuiltin=Skin.SetBool(SideMenu.DisableSearchAndOptions)||Skin.Reset(HubsMenu.EnableSearchAndOptions)")</onclick>
 
                             <selected>!Skin.HasSetting(SideMenu.DisableSearchAndOptions)</selected>
                             <visible>Container(3).HasFocus(1)</visible>
@@ -538,25 +550,6 @@
                             <onclick>Skin.ToggleSetting(Furniture.BottomRight.Disable)</onclick>
                         </include>
 
-                        <include content="Settings_Label" description="Info">
-                            <param name="id">5020</param>
-                            <label>$LOCALIZE[19033]</label>
-                            <visible>Container(3).HasFocus(4)</visible>
-                        </include>
-                        <include content="Settings_Button" description="Info: Right">
-                            <param name="dialog">false</param>
-                            <param name="id">5021</param>
-                            <param name="control">radiobutton</param>
-                            <label>$LOCALIZE[31278] ($LOCALIZE[31280])</label>
-                            <selected>!Skin.HasSetting(View.DisableFullSizeInfo)</selected>
-                            <visible>Container(3).HasFocus(4)</visible>
-                            <onclick>Skin.ToggleSetting(View.DisableFullSizeInfo)</onclick>
-                            <onclick>ReloadSkin()</onclick>
-                            <onclick>AlarmClock(refocus1,SetFocus(3,3),00:00,silent)</onclick>
-                            <onclick>AlarmClock(refocus2,SetFocus(5021),00:00,silent)</onclick>
-                        </include>
-
-
                         <!-- Behaviour / Playback -->
                         <include content="Settings_Label" description="Widgets">
                             <param name="id">6000</param>
@@ -629,15 +622,6 @@
                             <visible>Container(3).HasFocus(5)</visible>
                             <label2>$INFO[Skin.String(OSD_Timeout),,s]</label2>
                             <onclick>Skin.SetNumeric(OSD_Timeout)</onclick>
-                        </include>
-                        <include content="Settings_Button" description="Always show title">
-                            <param name="dialog">false</param>
-                            <param name="id">6012</param>
-                            <param name="control">radiobutton</param>
-                            <label>$LOCALIZE[31201]</label>
-                            <visible>Container(3).HasFocus(5)</visible>
-                            <onclick>Skin.ToggleSetting(OSD.DisplayTitleDetailsOnSeek)</onclick>
-                            <selected>Skin.HasSetting(OSD.DisplayTitleDetailsOnSeek)</selected>
                         </include>
                         <include content="Settings_Button" description="Autohide seekbar after pausing">
                             <param name="dialog">false</param>

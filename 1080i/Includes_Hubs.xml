@@ -334,19 +334,6 @@
                         <include condition="![$PARAM[widgets_only]] + !Skin.HasSetting(Hub.$PARAM[window_id].DisableSpotlight)">Spotlight_Info</include>
 
                     </control>
-                    <!-- Furniture -->
-                    <control type="group">
-                        <visible>![$PARAM[widgets_only]]</visible>
-                        <visible>Skin.HasSetting(View.DisableFullSizeInfo)</visible>
-                        <!-- <visible>!$EXP[Exp_InfoDialogs]</visible> -->
-                        <control type="group">
-                            <include>Hub_Top_Animation_Invert</include>
-
-                            <include content="Furniture_Top_Left">
-                                <param name="label">$VAR[Label_Header_Hubs_Categories]</param>
-                            </include>
-                        </control>
-                    </control>
                 </control>
 
                 <!-- SideMenu -->
@@ -389,10 +376,7 @@
             <include content="Animation_Fade_In">
                 <param name="condition">$PARAM[mod][$PARAM[condition]]</param>
             </include>
-            <include content="Animation_Fade_Out" condition="Skin.HasSetting(View.DisableFullSizeInfo)">
-                <param name="condition">![$PARAM[mod][$PARAM[condition]]]</param>
-            </include>
-            <include content="Animation_ConditionalFade" condition="!Skin.HasSetting(View.DisableFullSizeInfo)">
+            <include content="Animation_ConditionalFade">
                 <param name="condition">![$PARAM[mod][$PARAM[condition]]]</param>
             </include>
         </definition>
@@ -424,10 +408,6 @@
                 <param name="plotlabel">$VAR[Label_WidgetContainer_400_Plot]</param>
             </include>
         </include>
-
-        <include content="Furniture_Top_Left" condition="Skin.HasSetting(Hub.$PARAM[window_id].EnableDetailedInformation) + Skin.HasSetting(View.DisableFullSizeInfo)">
-            <param name="label">$VAR[Label_Header_Hubs,[CAPITALIZE],[/CAPITALIZE]]</param>
-        </include>
     </include>
 
     <variable name="Hub_Submenu_Content">
@@ -453,7 +433,7 @@
             <include>skinvariables-$PARAM[categories]-widgets</include>
         </control>
 
-        <include content="Hub_Widgets_Infopanel" condition="!Skin.HasSetting(View.DisableFullSizeInfo) + Skin.HasSetting(Hub.$PARAM[window_id].DisableSpotlight)">
+        <include content="Hub_Widgets_Infopanel" condition="Skin.HasSetting(Hub.$PARAM[window_id].DisableSpotlight)">
             <animation effect="slide" start="0" end="0,160" time="400" tween="back" easing="out" reversible="false" condition="$EXP[Exp_HubName_IsVisible]">Conditional</animation>
             <animation effect="slide" start="0,160" end="0" time="400" tween="back" easing="out" reversible="false" condition="!$EXP[Exp_HubName_IsVisible]">Conditional</animation>
             <include content="Info_Panel">
@@ -464,7 +444,7 @@
                 <param name="details_include">Hub_Top_Animation_Invert</param>
             </include>
         </include>
-        <include content="Hub_Widgets_Infopanel" condition="![!Skin.HasSetting(View.DisableFullSizeInfo) + Skin.HasSetting(Hub.$PARAM[window_id].DisableSpotlight)]">
+        <include content="Hub_Widgets_Infopanel" condition="!Skin.HasSetting(Hub.$PARAM[window_id].DisableSpotlight)">
             <include content="Info_Panel">
                 <param name="container">Container.</param>
                 <param name="visible">!Integer.IsEqual(Window.Property(TMDBHelper.WidgetContainer),301)</param>

@@ -567,9 +567,23 @@
                     <param name="border">40,0,40,0</param>
                 </include>
                 <visible>$PARAM[visible]</visible>
-                <left>24</left>
-                <!-- <top>4</top>
-                <bottom>4</bottom> -->
+                <left>20</left>
+            </include>
+
+            <include content="Object_Control" condition="$PARAM[selected]">
+                <param name="control">image</param>
+                <param name="id">1</param>
+                <bordersize>3</bordersize>
+                <left>20</left>
+                <texture colordiffuse="cd808080" border="40,0,40,0" fallback="pvr/genre/0.png">$INFO[ListItem.Property(GenreType),pvr/genre/,.png]</texture>
+            </include>
+
+            <include content="Object_Control" condition="!$PARAM[selected]">
+                <param name="control">image</param>
+                <param name="id">1</param>
+                <bordersize>3</bordersize>
+                <left>20</left>
+                <texture colordiffuse="40808080" border="40,0,40,0" fallback="pvr/genre/0.png">$INFO[ListItem.Property(GenreType),pvr/genre/,.png]</texture>
             </include>
 
             <include content="Object_Control" condition="!$PARAM[selected]">
@@ -582,7 +596,7 @@
             <!-- PVR002: Object removed - Label control below used instead -->
             <!-- include content="Object_InfoCircle_Text_Top" condition="$PARAM[include_detailed_labels]">
                 <param name="id">1</param>
-                <include condition="$PARAM[selected]">Color_SelectedText</include>
+                <include condition="$PARAM[selected] + false">Color_SelectedText</include>
                 <label>$VAR[Label_PVRPrograms]</label>
                 <textcolor>main_fg_90</textcolor>
                 <selectedcolor>main_fg_90</selectedcolor>
@@ -593,7 +607,7 @@
             <!-- PVR002: Remove Genre -->
             <!-- include content="Object_InfoCircle_Text_Sub" condition="$PARAM[include_detailed_labels]">
                 <param name="id">1</param>
-                <include condition="$PARAM[selected]">Color_SelectedText</include>
+                <include condition="$PARAM[selected] + false">Color_SelectedText</include>
                 <label>$INFO[ListItem.Genre]</label>
                 <textcolor>main_fg_70</textcolor>
                 <selectedcolor>main_fg_70</selectedcolor>
@@ -622,6 +636,10 @@
                 <centertop>25%</centertop>
                 <aspectratio align="right">keep</aspectratio>
                 <height>32</height>
+                <include content="Object_ColorDiffuse" condition="$PARAM[selected] + false">
+                    <param name="colordiffuse">$VAR[ColorSelected]</param>
+                </include>
+                <colordiffuse>main_fg_70</colordiffuse>
                 <texture>$VAR[Image_PVRGuide_Indicator]</texture>
             </control>
 
@@ -1065,6 +1083,14 @@
                                 <!-- <include>Texture_Circle_Highlight_V</include> -->
                                 <visible>$PARAM[selected]</visible>
                             </control>
+                            <control type="image">
+                                <bordersize>-6</bordersize>
+                                <animation effect="fade" start="100" end="20" condition="true">Conditional</animation>
+                                <texture colordiffuse="$VAR[ColorGradient]">common/circle.png</texture>
+                                <!-- Needs to be ColorHighlight to match gradient in big box -->
+                                <!-- <include>Texture_Circle_Highlight_V</include> -->
+                                <visible>$PARAM[selected]</visible>
+                            </control>
                         </control>
                     </control>
                     <control type="image">
@@ -1081,12 +1107,6 @@
                             <top>15</top>
                             <right>10</right>
                             <bottom>15</bottom>
-
-                            <!-- <control type="image">
-                                <bordersize>-6</bordersize>
-                                <include>Texture_Circle_Highlight_V</include>
-                                <visible>$PARAM[selected]</visible>
-                            </control> -->
                             <control type="group">
                                 <visible>![$EXP[Exp_IsGenre] | $EXP[Exp_IsStudio] | $EXP[Exp_IsCountry]]</visible>
                                 <control type="image">
@@ -1143,8 +1163,8 @@
                     </control>
 
                     <control type="group">
-                        <top>50</top>
-                        <bottom>50</bottom>
+                        <top>45</top>
+                        <bottom>45</bottom>
                         <left>$PARAM[item_h]</left>
 
                         <control type="group">
@@ -1225,7 +1245,7 @@
                             <label fallback="19055">$VAR[Label_Landscape_Plot]</label>
                             <font>font_tiny_plot</font>
                             <textcolor>main_fg_70</textcolor>
-                            <top>80</top>
+                            <top>85</top>
                             <bottom>10</bottom>
                             <left>20</left>
                             <right>40</right>
