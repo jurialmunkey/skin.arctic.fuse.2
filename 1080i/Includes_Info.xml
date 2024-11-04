@@ -8,6 +8,19 @@
         <param name="width">info_title_w</param>
         <param name="autoheight">false</param>
         <definition>
+            <!-- MISC008: START include Label_Header_Main / Label_Header_Main_Home -->
+            <control type="textbox">
+                <top>-20</top>
+                <label>$VAR[Custom_Label_Header_Main]</label>
+                <textcolor>main_fg_100</textcolor>
+                <font>font_midi_black</font>
+                <aligny>top</aligny>
+                <height max="160">100</height>
+                <visible>$PARAM[visible]</visible>
+                <width>$PARAM[width]</width>
+                <autoscroll>false</autoscroll>              
+            </control>
+            <!-- MISC008: START include Label_Header_Main / Label_Header_Main_Home -->
             <control type="textbox">
                 <top>-20</top>
                 <label>$PARAM[label]</label>
@@ -76,11 +89,10 @@
         <definition>
             <!-- Title Only -->
             <include content="Info_Title_Text" condition="!Skin.HasSetting(TMDbHelper.EnableCrop)">
-                <!-- MISC008: param changed from $PARAM[label] -->
-                <param name="label">$VAR[Custom_Label_Title]</param>
+                <param name="label">$PARAM[label]</param>
                 <param name="colordiffuse">$PARAM[colordiffuse]</param>
                 <param name="visible">True</param>
-                <!-- MISC008: param changed from $PARAM[width] -->
+                <!-- MISC008: param changed from $PARAM[width] (ensures rating line is displayed) -->
                 <param name="width">1000</param>
                 <param name="autoheight">true</param>
             </include>
