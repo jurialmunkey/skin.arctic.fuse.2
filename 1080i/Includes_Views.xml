@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <includes>
     <include name="View_MediaWindows_ID">
-        <views>50,51,52,53,54,57,500,510,520,530,540,560,570,502,512,522,550,551,552,553</views>
+        <views>50,51,52,53,54,57,500,510,520,530,540,560,570,502,512,522,550,551,552,553,554,555</views>
     </include>
 
     <include name="View_Row_Header">
@@ -73,55 +73,68 @@
     <include name="View_Row_Info">
         <control type="group">
             <visible>!Integer.IsEqual(Container.NumItems,0)</visible>
+
             <control type="group">
-                <visible>$EXP[Exp_View_FullSize] | $EXP[Exp_View_MidiSize]</visible>
+                <visible>$EXP[Exp_View_HasHeader]</visible>
+                <include>Furniture_Top_Left</include>
                 <control type="group">
-                    <visible>![Control.IsVisible(550) | Control.IsVisible(552)]</visible>
-                    <include>Furniture_Top_Left</include>
-                    <control type="group">
-                        <include content="Info_Viewline">
-                            <param name="top">170</param>
-                        </include>
-                    </control>
+                    <include content="Info_Viewline">
+                        <param name="top">170</param>
+                    </include>
+                </control>
+            </control>
+
+            <control type="group">
+                <visible>$EXP[Exp_View_HasIndent]</visible>
+                <control type="group">
+                    <include>Dimension_Info</include>
+                    <include>View_MediaListOverview_Artwork</include>
                 </control>
                 <control type="group">
-                    <visible>Control.IsVisible(550) | Control.IsVisible(552)</visible>
+                    <left>infodialog_left_w</left>
+
                     <control type="group">
-                        <include>Dimension_Info</include>
-                        <include>View_MediaListOverview_Artwork</include>
+                        <visible>Control.IsVisible(552)</visible>
+                        <include content="Info_Viewline">
+                            <param name="top">80</param>
+                        </include>
                     </control>
+
                     <control type="group">
-                        <left>infodialog_left_w</left>
+                        <visible>Control.IsVisible(550)</visible>
+                        <include content="Info_Viewline">
+                            <param name="top">440</param>
+                        </include>
                         <control type="group">
-                            <visible>Control.IsVisible(552)</visible>
-                            <include content="Info_Viewline">
-                                <param name="top">80</param>
+                            <include>Info_Panel_Dimensions</include>
+                            <include content="Info_Panel">
+                                <param name="visible">String.IsEmpty(Window.Property(TMDBHelper.WidgetContainer))</param>
+                                <param name="grouplistid">99953</param>
+                                <param name="plotwidth">90%</param>
+                                <param name="plotheight">80</param>
                             </include>
-                        </control>
-                        <control type="group">
-                            <visible>Control.IsVisible(550)</visible>
-                            <include content="Info_Viewline">
-                                <param name="top">360</param>
-                            </include>
-                            <control type="group">
-                                <include>Info_Panel_Dimensions</include>
-                                <include content="Info_Panel">
-                                    <param name="visible">String.IsEmpty(Window.Property(TMDBHelper.WidgetContainer))</param>
-                                    <param name="details">false</param>
-                                    <param name="grouplistid">99953</param>
-                                </include>
-                            </control>
                         </control>
                     </control>
                 </control>
             </control>
             <control type="group">
-                <visible>![$EXP[Exp_View_FullSize] | $EXP[Exp_View_MidiSize]]</visible>
-                <include>Info_Viewline</include>
+                <visible>!$EXP[Exp_View_HasHeader]</visible>
+                <visible>!$EXP[Exp_View_HasIndent]</visible>
+                <control type="group">
+                    <visible>![Control.IsVisible(553) | Control.IsVisible(554)]</visible>
+                    <include>Info_Viewline</include>
+                </control>
+                <control type="group">
+                    <visible>[Control.IsVisible(553) | Control.IsVisible(554)]</visible>
+                    <include content="Info_Viewline">
+                        <param name="top">280</param>
+                    </include>
+                </control>
                 <control type="group">
                     <include>Info_Panel_Dimensions</include>
                     <include content="Info_Panel">
                         <param name="visible">String.IsEmpty(Window.Property(TMDBHelper.WidgetContainer))</param>
+                        <param name="details">![Control.IsVisible(553) | Control.IsVisible(554)]</param>
                     </include>
                     <include content="View_Combined_Info" condition="$EXP[Exp_View_502_Include]">
                         <param name="id">50</param>
@@ -784,7 +797,7 @@
                     </include>
                     <include content="View_Furniture_Scrollbar_V">
                         <param name="id">65</param>
-                        <param name="height">viewlist_poster_w</param>
+                        <param name="height">585</param>
                         <param name="visible">$EXP[Exp_View_Scrollbar_Midi_V]</param>
                     </include>
                     <include content="View_Furniture_Scrollbar_V">

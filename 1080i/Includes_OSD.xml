@@ -499,10 +499,17 @@
                     <param name="textcolor">panel_fg_70</param>
                 </include>
 
-                <!-- Ends -->
+                <!-- Ends (Video) -->
                 <include content="Info_Line_Item">
                     <param name="label">$INFO[Player.FinishTime,$LOCALIZE[31184] ,]</param>
-                    <param name="visible">!String.IsEmpty(Player.FinishTime)</param>
+                    <param name="visible">!String.IsEmpty(Player.FinishTime) + !Pvr.IsPlayingTv</param>
+                    <param name="textcolor">panel_fg_70</param>
+                </include>
+
+                <!-- Ends (PVR) -->
+                <include content="Info_Line_Item">
+                    <param name="label">$INFO[PVR.EpgEventFinishTime,$LOCALIZE[31184] ,]</param>
+                    <param name="visible">!String.IsEmpty(PVR.EpgEventFinishTime) + Pvr.IsPlayingTv</param>
                     <param name="textcolor">panel_fg_70</param>
                 </include>
 

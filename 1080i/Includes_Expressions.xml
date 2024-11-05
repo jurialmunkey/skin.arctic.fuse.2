@@ -71,7 +71,7 @@
     <expression name="Exp_IsWindow_TVShows">[Container.Content(tvshows) | Container.Content(seasons) | Container.Content(episodes) | String.StartsWith(Container.FolderPath,videodb://tvshows/) | String.StartsWith(Container.FolderPath,library://video/tvshows/) | Window.IsVisible(1130) | Window.IsVisible(1131)]</expression>
     <expression name="Exp_IsWindow_Music">[Window.IsVisible(MyMusicNav.xml) | Container.Content(musicvideos)]</expression>
 
-    <expression name="Exp_HomeMenu_HasFocus">[Control.HasFocus(300) | Control.HasFocus(307) | Control.HasFocus(308) | Control.HasFocus(309) | Control.HasFocus(331)]</expression>
+    <expression name="Exp_HomeMenu_HasFocus">[Control.HasFocus(300) | Control.HasFocus(306) | Control.HasFocus(307) | Control.HasFocus(308) | Control.HasFocus(309) | Control.HasFocus(331)]</expression>
     <expression name="Exp_HomeMenu_IsExpanded">[Skin.HasSetting(Home.ExpandedMenu)]</expression>
 
 
@@ -88,11 +88,7 @@
     <expression name="Exp_ClassicHome_IsPrevious">[Window.Previous(Home) + String.IsEmpty(Skin.String(Hub.Home.ReplaceWindow))]</expression>
     <expression name="Exp_ClassicHome_IsNext">[Window.Next(Home) + String.IsEmpty(Skin.String(Hub.Home.ReplaceWindow))]</expression>
 
-    <expression name="Exp_HubName_IsVisible">[[Integer.IsEqual(Window.Property(TMDbHelper.WidgetContainer),301) + !Integer.IsEqual(Container(300).NumItems,0) + Control.IsVisible(300)] | Control.HasFocus(300) | Control.HasFocus(308) | Control.HasFocus(309) | Control.HasFocus(307)]</expression>
-
-    <!-- <expression name="Exp_HubName_IsVisible">[Control.HasFocus(300)]</expression> -->
-
-    <!-- <expression name="Exp_HubName_IsVisible">[!Integer.IsEqual(Container(300).NumItems,0)]</expression> -->
+    <expression name="Exp_HubName_IsVisible">[[Integer.IsEqual(Window.Property(TMDbHelper.WidgetContainer),301) + !Integer.IsEqual(Container(300).NumItems,0) + Control.IsVisible(300)] | $EXP[Exp_HomeMenu_HasFocus]]</expression>
 
     <expression name="Exp_Navigation_OnWrap">[!$EXP[Exp_ClassicHome_IsVisible] | Skin.HasSetting(SideMenu.FocusWidgetsFirst)]</expression>
     <expression name="Exp_Navigation_OnBump">[!$EXP[Exp_Navigation_OnWrap]]</expression>
@@ -131,9 +127,9 @@
 
     <expression name="Exp_PVRGuide_NoFocus">[Control.HasFocus(28) | Control.HasFocus(11)]</expression>
 
-    <expression name="Exp_View_Scrollbar_Midi_V">[Control.IsVisible(550)]</expression>
+    <expression name="Exp_View_Scrollbar_Midi_V">[Control.IsVisible(550) | Control.IsVisible(553) | Control.IsVisible(554)]</expression>
     <expression name="Exp_View_Scrollbar_Mini_V">[Control.IsVisible(551)]</expression>
-    <expression name="Exp_View_Scrollbar_Maxi_V">[Control.IsVisible(552) | Control.IsVisible(553) | [$EXP[Exp_View_WallMode] + $EXP[Exp_View_WallVert]]]</expression>
+    <expression name="Exp_View_Scrollbar_Maxi_V">[Control.IsVisible(552) | [$EXP[Exp_View_WallMode] + $EXP[Exp_View_WallVert]]]</expression>
     <expression name="Exp_View_ScrollFilter_HasFocus">[Control.HasFocus(60) | Control.HasFocus(64) | Control.HasFocus(65) | Control.HasFocus(66) | Control.HasFocus(19) | Control.HasFocus(600) | Control.HasFocus(601) | Control.HasFocus(610) | Control.HasFocus(611) | $EXP[Exp_View_SortModeButtons_HasFocus]]</expression>
     <expression name="Exp_View_SortModeButtons_HasFocus">[ControlGroup(8000).HasFocus() | [Control.HasFocus(330) + Integer.IsEqual(Window.Property(List.ViewContainer,8000))]]</expression>
 
@@ -147,9 +143,8 @@
 
     <expression name="Exp_View_IsMedia">[Window.IsVisible(videos) | Window.IsVisible(music) | Window.IsVisible(programs) | Window.IsVisible(pictures) | Window.IsVisible(games) | Window.IsVisible(MyPVRRecordings.xml) | Window.IsVisible(MyPVRTimers.xml) | Window.IsVisible(MyPVRSearch.xml)]</expression>
 
-    <expression name="Exp_View_FullSize">[$EXP[Exp_View_IsMedia] + [Control.IsVisible(552) | Control.IsVisible(553) | $EXP[Exp_View_WallMode]]]</expression>
-
-    <expression name="Exp_View_MidiSize">[$EXP[Exp_View_IsMedia] + [Control.IsVisible(550)]]</expression>
+    <expression name="Exp_View_HasHeader">[$EXP[Exp_View_IsMedia] + [$EXP[Exp_View_WallMode]]]</expression>
+    <expression name="Exp_View_HasIndent">[$EXP[Exp_View_IsMedia] + [Control.IsVisible(552) | Control.IsVisible(550)]]</expression>
 
     <!-- Scrollbar -->
     <expression name="Exp_FurnitureFooter_Left_IsVisible">[![Control.IsVisible(502) | Control.IsVisible(512) | Control.IsVisible(522)] | $EXP[Exp_View_ScrollFilter_HasFocus]]</expression>

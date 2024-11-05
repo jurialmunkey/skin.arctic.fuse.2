@@ -49,9 +49,10 @@
                             <content>
                                 <item id="0">
                                     <label>$LOCALIZE[10000]</label>
-                                    <property name="value">Hub.Home</property>
-                                    <property name="categories_menu">menu=sidemenu</property>
-                                    <property name="hub_prefix">Home</property>
+                                    <property name="value">$VAR[Shortcuts_Window_Var_HomeItem_Property_Value]</property>
+                                    <property name="categories_menu">$VAR[Shortcuts_Window_Var_HomeItem_Property_Categories_Menu]</property>
+                                    <property name="hub_prefix">$VAR[Shortcuts_Window_Var_HomeItem_Property_Categories_Hub_Prefix]</property>
+                                    <property name="is_homemenu">true</property>
                                 </item>
                                 <item id="1">
                                     <label>$NUMBER[1101] > $VAR[Label_Header_Main_1101]</label>
@@ -138,6 +139,8 @@
 
                                     <onclick condition="String.IsEqual(Container(30000).ListItem.Property(categories_menu),menu=sidemenu)">Skin.Reset(Hub.Home.ReplaceWindow)</onclick>
 
+                                    <visible>String.IsEmpty(Container(30000).ListItem.Property(is_homemenu))</visible>
+
                                     <include content="Shortcuts_Window_UseAsHome_Toggle_OnClick"><param name="id">1101</param></include>
                                     <include content="Shortcuts_Window_UseAsHome_Toggle_OnClick"><param name="id">1102</param></include>
                                     <include content="Shortcuts_Window_UseAsHome_Toggle_OnClick"><param name="id">1103</param></include>
@@ -149,10 +152,26 @@
                                     <include content="Shortcuts_Window_UseAsHome_Toggle_OnClick"><param name="id">1109</param></include>
 
                                     <onfocus>SetProperty(HelpHead,$LOCALIZE[31551],1115)</onfocus>
-                                    <onfocus>SetProperty(HelpText,$LOCALIZE[31004],1115)</onfocus>
+                                    <onfocus>SetProperty(HelpText,$LOCALIZE[31004][CR][CR][B][COLOR=red]$LOCALIZE[14117][/COLOR][/B] — $LOCALIZE[31315][CR][CR]$LOCALIZE[31277],1115)</onfocus>
                                     <onunfocus>ClearProperty(HelpText,1115)</onunfocus>
                                     <onunfocus>ClearProperty(HelpHead,1115)</onunfocus>
                                 </include>
+                                <include content="Settings_Button">
+                                    <param name="id">3302</param>
+                                    <param name="control">button</param>
+                                    <label>$LOCALIZE[31551]</label>
+                                    <label2>$VAR[Shortcuts_Window_Var_HomeItem_Property_Current_Home_Hub]</label2>
+
+                                    <onclick>RunScript(script.skinvariables,run_dialog=select,preselect=$VAR[Shortcuts_Window_Var_HomeItem_Property_Current_Home_Hub],heading=$LOCALIZE[31551],separator=||,list=$LOCALIZE[31143] $LOCALIZE[10000] ($LOCALIZE[31059])||$LOCALIZE[31026] $NUMBER[1101] ($LOCALIZE[31060])||$LOCALIZE[31026] $NUMBER[1102] ($LOCALIZE[31060])||$LOCALIZE[31026] $NUMBER[1103] ($LOCALIZE[31060])||$LOCALIZE[31026] $NUMBER[1104] ($LOCALIZE[31060])||$LOCALIZE[31026] $NUMBER[1106] ($LOCALIZE[31060])||$LOCALIZE[31026] $NUMBER[1107] ($LOCALIZE[31060])||$LOCALIZE[31026] $NUMBER[1108] ($LOCALIZE[31060])||$LOCALIZE[31026] $NUMBER[1109] ($LOCALIZE[31060]),"executebuiltin_0=Skin.Reset(Hub.Home.ReplaceWindow)","executebuiltin_1=Skin.SetString(Hub.Home.ReplaceWindow,$NUMBER[1101])||Skin.SetBool(Hub.1101.EnableDetailedInformation)||Skin.Reset(Hub.1101.DisableSubmenu)","executebuiltin_2=Skin.SetString(Hub.Home.ReplaceWindow,$NUMBER[1102])||Skin.SetBool(Hub.1102.EnableDetailedInformation)||Skin.Reset(Hub.1102.DisableSubmenu)","executebuiltin_3=Skin.SetString(Hub.Home.ReplaceWindow,$NUMBER[1103])||Skin.SetBool(Hub.1103.EnableDetailedInformation)||Skin.Reset(Hub.1103.DisableSubmenu)","executebuiltin_4=Skin.SetString(Hub.Home.ReplaceWindow,$NUMBER[1104])||Skin.SetBool(Hub.1104.EnableDetailedInformation)||Skin.Reset(Hub.1104.DisableSubmenu)","executebuiltin_5=Skin.SetString(Hub.Home.ReplaceWindow,$NUMBER[1106])||Skin.SetBool(Hub.1106.EnableDetailedInformation)||Skin.Reset(Hub.1106.DisableSubmenu)","executebuiltin_6=Skin.SetString(Hub.Home.ReplaceWindow,$NUMBER[1107])||Skin.SetBool(Hub.1107.EnableDetailedInformation)||Skin.Reset(Hub.1107.DisableSubmenu)","executebuiltin_7=Skin.SetString(Hub.Home.ReplaceWindow,$NUMBER[1108])||Skin.SetBool(Hub.1108.EnableDetailedInformation)||Skin.Reset(Hub.1108.DisableSubmenu)","executebuiltin_8=Skin.SetString(Hub.Home.ReplaceWindow,$NUMBER[1109])||Skin.SetBool(Hub.1109.EnableDetailedInformation)||Skin.Reset(Hub.1109.DisableSubmenu)")</onclick>
+
+                                    <visible>!String.IsEmpty(Container(30000).ListItem.Property(is_homemenu))</visible>
+
+                                    <onfocus>SetProperty(HelpHead,$LOCALIZE[31551],1115)</onfocus>
+                                    <onfocus>SetProperty(HelpText,$LOCALIZE[31004][CR][CR][B][COLOR=red]$LOCALIZE[14117][/COLOR][/B] — $LOCALIZE[31315][CR][CR]$LOCALIZE[31277],1115)</onfocus>
+                                    <onunfocus>ClearProperty(HelpText,1115)</onunfocus>
+                                    <onunfocus>ClearProperty(HelpHead,1115)</onunfocus>
+                                </include>
+
                                 <!-- Classic or Complex -->
                                 <include content="Settings_Button">
                                     <param name="id">390</param>
@@ -175,7 +194,7 @@
 
 
                                     <onfocus>SetProperty(HelpHead,$LOCALIZE[456],1115)</onfocus>
-                                    <onfocus>SetProperty(HelpText,$LOCALIZE[31008],1115)</onfocus>
+                                    <onfocus>SetProperty(HelpText,$LOCALIZE[31278][CR][CR]$LOCALIZE[31280] $LOCALIZE[31305] $LOCALIZE[31306][CR][CR][COLOR=main_fg_90][B]$LOCALIZE[31170][/B][/COLOR] — $LOCALIZE[31314],1115)</onfocus>
 
                                     <onunfocus>ClearProperty(HelpText,1115)</onunfocus>
                                     <onunfocus>ClearProperty(HelpHead,1115)</onunfocus>
@@ -200,7 +219,7 @@
                                     <visible>!String.IsEqual(Container(30000).ListItem.Property(categories_menu),menu=sidemenu)</visible>
 
                                     <onfocus>SetProperty(HelpHead,$LOCALIZE[21899],1115)</onfocus>
-                                    <onfocus>SetProperty(HelpText,$LOCALIZE[31007],1115)</onfocus>
+                                    <onfocus>SetProperty(HelpText,$LOCALIZE[31201],1115)</onfocus>
                                     <onunfocus>ClearProperty(HelpText,1115)</onunfocus>
                                     <onunfocus>ClearProperty(HelpHead,1115)</onunfocus>
                                 </include>
