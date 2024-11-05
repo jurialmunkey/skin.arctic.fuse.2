@@ -1,6 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <includes>
 
+    <include name="Dialog_Background_Glass_Panel">
+        <control type="image">
+            <bordersize>1</bordersize>
+            <texture colordiffuse="dialog_bg_30" border="20">common/dialog.png</texture>
+            <visible>Skin.HasSetting(Glass.DarkPanels)</visible>
+        </control>
+        <control type="image">
+            <animation effect="fade" start="100" end="50" condition="!Skin.HasSetting(Glass.EnableBorders) + !Skin.HasSetting(Glass.DarkPanels)">Conditional</animation>
+            <texture colordiffuse="dialog_fg_12" border="20">common/box-outline.png</texture>
+        </control>
+    </include>
+
     <include name="Dialog_Background_Blur_Standard">
         <param name="shadow">true</param>
         <param name="border">20</param>
@@ -12,10 +24,7 @@
             <control type="image">
                 <texture colordiffuse="dialog_overlay" border="20">common/dialog.png</texture>
             </control>
-            <control type="image">
-                <animation effect="fade" start="100" end="50" condition="!Skin.HasSetting(Glass.EnableBorders)">Conditional</animation>
-                <texture colordiffuse="dialog_fg_12" border="20">common/box-outline.png</texture>
-            </control>
+            <include>Dialog_Background_Glass_Panel</include>
         </definition>
     </include>
 
@@ -37,10 +46,7 @@
                 <aspectratio scalediffuse="false" align="center">scale</aspectratio>
                 <texture diffuse="$PARAM[diffuse]" colordiffuse="overlay_hard">$VAR[Dialog_Background_Blur_Adaptive_Artwork]</texture>
             </control>
-            <control type="image">
-                <animation effect="fade" start="100" end="50" condition="!Skin.HasSetting(Glass.EnableBorders)">Conditional</animation>
-                <texture colordiffuse="dialog_fg_12" border="20">common/box-outline.png</texture>
-            </control>
+            <include>Dialog_Background_Glass_Panel</include>
         </definition>
     </include>
 
@@ -154,7 +160,7 @@
                         <param name="shadow">$PARAM[shadow]</param>
                     </include>
                 </control>
-                <include condition="$PARAM[include_glass]">Dialog_Background_Glass</include>
+                <!-- <include condition="$PARAM[include_glass]">Dialog_Background_Glass</include> -->
             </control>
         </definition>
     </include>
