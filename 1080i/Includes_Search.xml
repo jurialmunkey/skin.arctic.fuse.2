@@ -19,7 +19,6 @@
         <include>Background</include>
 
         <control type="group">
-
             <include>Search_Group</include>
             <include>Search_Panel</include>
 
@@ -254,8 +253,6 @@
         <onload>ClearProperty(CustomSearchTerm,Home)</onload>
 
         <onunload condition="!String.IsEmpty(Control.GetLabel(9099).index(1))">RunScript(script.skinvariables,add_skinstring_history=SearchHistory,value=$VAR[Path_SearchTerm])</onunload>
-
-        <onload>SetProperty(TMDbHelper.WidgetContainer,5001)</onload>
     </include>
 
     <include name="Search_Panel_Edit">
@@ -748,6 +745,9 @@
     <include name="Search_Group">
         <include content="Hub_Menu_Slide">
             <param name="condition">!ControlGroup(5000).HasFocus() + !Control.HasFocus(330) + !Control.HasFocus(332) + !Control.HasFocus(333)</param>
+        </include>
+        <include content="Hub_Left_Bezier_Object">
+            <param name="visible">!ControlGroup(5000).HasFocus() + !Control.HasFocus(330) + !Control.HasFocus(332) + !Control.HasFocus(333)</param>
         </include>
     </include>
 
