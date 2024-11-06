@@ -61,9 +61,15 @@
             <include>Dimension_Topbar</include>
             <control type="group">
                 <include>Dimension_Furniture_Gutters</include>
-                <!-- MISC039: use Furniture_Clock_Expanded -->
-                <!-- include content="Furniture_Clock" condition="Skin.HasSetting(Furniture.EnableClock)" -->
-                <include content="Furniture_Clock_Expanded" condition="Skin.HasSetting(Furniture.EnableClock)">
+
+                <include content="Furniture_Clock" condition="Skin.HasSetting(Furniture.EnableClock) + !Skin.HasSetting(Furniture.EnableExpandedClock)">
+                    <param name="textcolor">$PARAM[textcolor]</param>
+                    <param name="textcolor_sublabel">$PARAM[textcolor_sublabel]</param>
+                    <param name="shadowcolor">$PARAM[shadowcolor_sublabel]</param>
+                    <param name="shadowcolor_sublabel">$PARAM[shadowcolor_sublabel]</param>
+                </include>
+
+                <include content="Furniture_Clock_Expanded" condition="Skin.HasSetting(Furniture.EnableClock) + Skin.HasSetting(Furniture.EnableExpandedClock)">
                     <param name="textcolor">$PARAM[textcolor]</param>
                     <param name="textcolor_sublabel">$PARAM[textcolor_sublabel]</param>
                     <param name="shadowcolor">$PARAM[shadowcolor_sublabel]</param>
@@ -116,7 +122,7 @@
                 <control type="group">
                     <visible>!Window.IsActive(visualisation)</visible>
                     <visible>!Window.IsActive(fullscreenvideo)</visible>
-                    <right>-20</right>
+                    <right>-25</right>
                     <height>80</height>
                     <centertop>50%</centertop>
                     <control type="group">
@@ -264,7 +270,8 @@
                 <font>font_midi_black</font>
                 <textcolor>$PARAM[textcolor]</textcolor>
                 <width max="$PARAM[max]">$PARAM[width]</width>
-                <height>54</height>
+                <height>40</height>
+                <centertop>50%</centertop>
                 <visible>$PARAM[visible]</visible>
             </control>
         </definition>
@@ -516,6 +523,7 @@
         </definition>
     </include>
 
+
     <include name="Furniture_Clock_Expanded">
         <param name="flipx">true</param>
         <param name="toplabel">$INFO[System.Time]</param>
@@ -537,15 +545,12 @@
                 </include>
 
                 <include content="Object_Left" condition="!$PARAM[flipx]">
-                    <!-- MISC039: parameter changed from -20 -->
-                    <param name="left">-100</param>
+                    <param name="left">-25</param>
                 </include>
                 <include content="Object_Right" condition="$PARAM[flipx]">
-                    <!-- MISC039: parameter changed from -20 -->
-                    <param name="right">-100</param>
+                    <param name="right">-25</param>
                 </include>
-                <!-- MISC039: remove analog clock -->
-                <!-- control type="group">
+                <control type="group">
                     <centertop>50%</centertop>
                     <height>50</height>
                     <width>50</width>
@@ -581,7 +586,7 @@
                         </control>
                     </control>
 
-                </control -->
+                </control>
                 <control type="group">
                     <height>80</height>
                     <centertop>50%</centertop>
