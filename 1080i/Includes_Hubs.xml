@@ -257,6 +257,40 @@
         </control>
     </include>
 
+    <include name="Hub_Left_Bezier_Object">
+        <param name="left">-960</param>
+        <param name="width">1680</param>
+        <param name="visible">[$EXP[Exp_HomeMenu_HasFocus] | Window.IsActive(1163)]</param>
+        <definition>
+            <control type="image">
+                <left>$PARAM[left]</left>
+                <width>$PARAM[width]</width>
+                <height>1080</height>
+                <visible>$PARAM[visible]</visible>
+                <texture colordiffuse="$VAR[ColorBackground]" border="0,0,1079,0">background/combined_sidemenu.png</texture>
+                <include content="Animation_Fade_In">
+                    <param name="type">Visible</param>
+                    <param name="time">200</param>
+                </include>
+                <include content="Animation_Fade_Out">
+                    <param name="type">Hidden</param>
+                    <param name="time">600</param>
+                </include>
+            </control>
+        </definition>
+    </include>
+
+    <include name="Hub_Left_Bezier">
+        <include content="Hub_Left_Bezier_Object" condition="!$EXP[Exp_HomeMenu_IsExpanded] + $PARAM[is_homemenu]">
+            <param name="left">-640</param>
+            <param name="width">1360</param>
+        </include>
+        <include condition="$EXP[Exp_HomeMenu_IsExpanded] + $PARAM[is_homemenu]">Hub_Left_Bezier_Object</include>
+        <include content="Hub_Left_Bezier_Object" condition="![$PARAM[is_homemenu]]">
+            <param name="visible">[Window.IsActive(1163)]</param>
+        </include>
+    </include>
+
     <include name="Hub_Controls">
         <param name="fullscreen_content">$VAR[Path_Spotlight_Fallback_Content]</param>
         <param name="fullscreen_target">$VAR[Path_Spotlight_Fallback_Target]</param>
@@ -273,6 +307,7 @@
 
             <include content="Object_Hidden_Button">
                 <param name="id">306</param>
+                <onfocus condition="!$EXP[Exp_ClassicHome_IsVisible]">ClearProperty(TMDbHelper.WidgetContainer.UpdateLock,1198)</onfocus>
                 <onfocus condition="Integer.IsEqual(Window.Property(Focus.ControlID),300) + Control.IsVisible(311)">SetFocus(311)</onfocus>
                 <onfocus condition="Integer.IsEqual(Window.Property(Focus.ControlID),300) + !Control.IsVisible(311)">SetFocus(400)</onfocus>
                 <onfocus condition="String.IsEmpty(Window.Property(SideMenu.CurrentItem)) + !Integer.IsEqual(Window.Property(Focus.ControlID),300)">SetFocus(300)</onfocus>
@@ -293,13 +328,18 @@
                 <param name="include_layer">Hub_SpotlightFanart</param>
             </include>
             <include condition="![![$PARAM[widgets_only]] + !Skin.HasSetting(Hub.$PARAM[window_id].DisableSpotlight)]">Background_Main</include>
+
+
+
             <include>Background_Transition</include>
             <include condition="![$PARAM[widgets_only]]">Hub_Top_Bezier</include>
 
             <control type="group">
+                <include content="Hub_Left_Bezier">
+                    <param name="is_homemenu">$PARAM[is_homemenu]</param>
+                </include>
                 <include condition="$PARAM[is_homemenu]">Hub_Menu_Slide</include>
                 <include>Hub_Menu_Dialog_Slide</include>
-
                 <control type="group">
                     <include>Animation_Group_Bumper</include>
                     <include>Animation_View_WindowChange</include>
@@ -559,6 +599,7 @@
                 <control type="button" id="309">
                     <texturenofocus />
                     <texturefocus />
+                    <onfocus>ClearProperty(TMDbHelper.WidgetContainer.UpdateLock,1198)</onfocus>
                     <include content="Hub_Categories_Definition_Content">
                         <param name="window_id">$PARAM[window_id]</param>
                         <param name="property_window_id">$PARAM[property_window_id]</param>
@@ -605,6 +646,7 @@
                 <control type="button" id="308">
                     <texturenofocus />
                     <texturefocus />
+                    <onfocus>ClearProperty(TMDbHelper.WidgetContainer.UpdateLock,1198)</onfocus>
                     <include content="Hub_Categories_Definition_Content">
                         <param name="window_id">$PARAM[window_id]</param>
                         <param name="property_window_id">$PARAM[property_window_id]</param>
@@ -647,14 +689,6 @@
                 <itemgap>20</itemgap>
                 <centertop>100</centertop>
                 <height>100</height>
-                <!-- <control type="label">
-                    <left>40</left>
-                    <label>$VAR[Label_Header_Hubs,[CAPITALIZE],[/CAPITALIZE]]</label>
-                    <font>font_midi_black</font>
-                    <textcolor>00ffffff</textcolor>
-                    <width>auto</width>
-                    <height>74</height>
-                </control> -->
 
                 <control type="group">
                     <width>75</width>
