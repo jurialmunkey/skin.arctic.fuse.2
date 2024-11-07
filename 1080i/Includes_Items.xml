@@ -987,10 +987,10 @@
                 <param name="zoom_in_include">$PARAM[zoom_in_include]</param>
                 <param name="include_slide">true</param>
                 <param name="itemgap">$PARAM[itemgap]</param>
-                <param name="visible">!String.IsEmpty(ListItem.Trailer) | !String.IsEmpty(Container(99950).ListItem.Trailer)</param>
+                <param name="visible">!String.IsEmpty(ListItem.Trailer) | !String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.Trailer))</param>
                 <include content="Action_PlayTrailer_OnClick">
                     <param name="trailer">ListItem.Trailer</param>
-                    <param name="trailer_fallback">Container(99950).ListItem.Trailer</param>
+                    <param name="trailer_fallback">Window(Home).Property(TMDbHelper.ListItem.Trailer)</param>
                 </include>
                 <onfocus>SetProperty(DetailsView,Trailer)</onfocus>
                 <include content="DialogInfo_Button_HintLabel">
@@ -1052,9 +1052,9 @@
                 <param name="itemgap">$PARAM[itemgap]</param>
                 <param name="visible">!String.IsEmpty(Window(Home).Property(TMDbHelper.TraktIsAuth)) + !String.IsEqual(ListItem.DBType,musicvideo)</param>
                 <onclick condition="!String.IsEmpty(ListItem.Property(tmdb_id)) + [String.IsEqual(ListItem.DBType,movie) | String.IsEqual(ListItem.DBType,tvshow) | String.IsEqual(ListItem.DBType,season)]">RunScript(plugin.video.themoviedb.helper,sync_trakt,tmdb_id=$INFO[ListItem.Property(tmdb_id)],$VAR[Path_Param_Type],cache_refresh)</onclick>
-                <onclick condition="String.IsEmpty(ListItem.Property(tmdb_id)) + !String.IsEmpty(Container(99950).ListItem.Property(tmdb_id)) + [String.IsEqual(ListItem.DBType,movie) | String.IsEqual(ListItem.DBType,tvshow) | String.IsEqual(ListItem.DBType,season)]">RunScript(plugin.video.themoviedb.helper,sync_trakt,tmdb_id=$INFO[Container(99950).ListItem.Property(tmdb_id)],$VAR[Path_Param_Type],cache_refresh)</onclick>
+                <onclick condition="String.IsEmpty(ListItem.Property(tmdb_id)) + !String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.tmdb_id)) + [String.IsEqual(ListItem.DBType,movie) | String.IsEqual(ListItem.DBType,tvshow) | String.IsEqual(ListItem.DBType,season)]">RunScript(plugin.video.themoviedb.helper,sync_trakt,tmdb_id=$INFO[Window(Home).Property(TMDbHelper.ListItem.tmdb_id)],$VAR[Path_Param_Type],cache_refresh)</onclick>
                 <onclick condition="!String.IsEmpty(ListItem.Property(tmdb_id)) + String.IsEqual(ListItem.DBType,episode)">RunScript(plugin.video.themoviedb.helper,sync_trakt,tmdb_id=$INFO[ListItem.Property(tmdb_id)],$VAR[Path_Param_Type],season=$INFO[ListItem.Season],episode=$INFO[ListItem.Episode],cache_refresh)</onclick>
-                <onclick condition="String.IsEmpty(ListItem.Property(tmdb_id)) + !String.IsEmpty(Container(99950).ListItem.Property(tmdb_id)) + String.IsEqual(ListItem.DBType,episode)">RunScript(plugin.video.themoviedb.helper,sync_trakt,tmdb_id=$INFO[Container(99950).ListItem.Property(tmdb_id)],$VAR[Path_Param_Type],season=$INFO[ListItem.Season],episode=$INFO[ListItem.Episode],cache_refresh)</onclick>
+                <onclick condition="String.IsEmpty(ListItem.Property(tmdb_id)) + !String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.tmdb_id)) + String.IsEqual(ListItem.DBType,episode)">RunScript(plugin.video.themoviedb.helper,sync_trakt,tmdb_id=$INFO[Window(Home).Property(TMDbHelper.ListItem.tmdb_id)],$VAR[Path_Param_Type],season=$INFO[ListItem.Season],episode=$INFO[ListItem.Episode],cache_refresh)</onclick>
 
                 <onfocus>SetProperty(DetailsView,Reviews)</onfocus>
 

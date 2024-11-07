@@ -2,14 +2,14 @@
 <includes>
 
     <variable name="Dialog_ContextMenu_SideButtons_WikiTitle">
-        <value condition="!String.IsEmpty(Container(99950).ListItem.Property(base_tvshowtitle))">$ESCINFO[Container(99950).ListItem.Property(base_tvshowtitle)]</value>
-        <value condition="!String.IsEmpty(Container(99950).ListItem.Property(base_title))">$ESCINFO[Container(99950).ListItem.Property(base_title)]</value>
-        <value condition="!String.IsEmpty(Container(99950).ListItem.Property(base_label))">$ESCINFO[Container(99950).ListItem.Property(base_label)]</value>
+        <value condition="!String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.base_tvshowtitle))">$ESCINFO[Window(Home).Property(TMDbHelper.ListItem.base_tvshowtitle)]</value>
+        <value condition="!String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.base_title))">$ESCINFO[Window(Home).Property(TMDbHelper.ListItem.base_title)]</value>
+        <value condition="!String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.base_label))">$ESCINFO[Window(Home).Property(TMDbHelper.ListItem.base_label)]</value>
     </variable>
 
     <variable name="Dialog_ContextMenu_SideButtons_WikiType">
-        <value condition="String.IsEqual(Container(99950).ListItem.Property(base_dbtype),tvshow) | String.IsEqual(Container(99950).ListItem.Property(base_dbtype),season) | String.IsEqual(Container(99950).ListItem.Property(base_dbtype),episode)"> tv series</value>
-        <value condition="String.IsEqual(Container(99950).ListItem.Property(base_dbtype),movie)"> film</value>
+        <value condition="String.IsEqual(Window(Home).Property(TMDbHelper.ListItem.base_dbtype),tvshow) | String.IsEqual(Window(Home).Property(TMDbHelper.ListItem.base_dbtype),season) | String.IsEqual(Window(Home).Property(TMDbHelper.ListItem.base_dbtype),episode)"> tv series</value>
+        <value condition="String.IsEqual(Window(Home).Property(TMDbHelper.ListItem.base_dbtype),movie)"> film</value>
     </variable>
 
     <include name="Dialog_ContextMenu_SideButtons">
@@ -28,14 +28,14 @@
                         <param name="id">02</param>
                         <param name="label">$LOCALIZE[207]</param>
                         <param name="icon">special://skin/extras/icons/quote.png</param>
-                        <param name="visible">[!String.IsEmpty(Container(99950).ListItem.Property(base_plot))]</param>
+                        <param name="visible">[!String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.base_plot))]</param>
                         <onclick>ActivateWindow(1113)</onclick>
                     </include>
                     <include content="Dialog_Side_Button" condition="!$EXP[Exp_InfoDialogs]">
                         <param name="id">03</param>
                         <param name="label">$LOCALIZE[31066]</param>
                         <param name="icon">special://skin/extras/icons/binoculars.png</param>
-                        <param name="visible">[!String.IsEmpty(Container(99950).ListItem.Property(base_title))]</param>
+                        <param name="visible">[!String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.base_title))]</param>
                         <onclick>Dialog.Close(contextmenu,true)</onclick>
                         <onclick>SetProperty(CustomSearchTerm,$VAR[Dialog_ContextMenu_SideButtons_WikiTitle],Home)</onclick>
                         <onclick>SetProperty(ReplaceWindow,1105,Home)</onclick>
@@ -46,7 +46,7 @@
                         <param name="id">04</param>
                         <param name="label">Wiki</param>
                         <param name="icon">special://skin/extras/icons/globe.png</param>
-                        <param name="visible">[!String.IsEmpty(Container(99950).ListItem.Property(base_title))]</param>
+                        <param name="visible">[!String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.base_title))]</param>
                         <onclick>Dialog.Close(contextmenu,true)</onclick>
                         <onclick>runscript(script.wikipedia,wikipedia=$VAR[Dialog_ContextMenu_SideButtons_WikiTitle]$VAR[Dialog_ContextMenu_SideButtons_WikiType])</onclick>
                     </include>
@@ -54,7 +54,7 @@
                         <param name="id">05</param>
                         <param name="label">$LOCALIZE[31041]</param>
                         <param name="icon">special://skin/extras/icons/fire2.png</param>
-                        <param name="visible">[String.IsEqual(Container(99950).ListItem.Property(base_dbtype),tvshow) | String.IsEqual(Container(99950).ListItem.Property(base_dbtype),season) | String.IsEqual(Container(99950).ListItem.Property(base_dbtype),episode) | String.IsEqual(Container(99950).ListItem.Property(base_dbtype),movie)]</param>
+                        <param name="visible">[String.IsEqual(Window(Home).Property(TMDbHelper.ListItem.base_dbtype),tvshow) | String.IsEqual(Window(Home).Property(TMDbHelper.ListItem.base_dbtype),season) | String.IsEqual(Window(Home).Property(TMDbHelper.ListItem.base_dbtype),episode) | String.IsEqual(Window(Home).Property(TMDbHelper.ListItem.base_dbtype),movie)]</param>
                         <onclick>Dialog.Close(contextmenu,true)</onclick>
                         <onclick>RunScript(plugin.video.themoviedb.helper,related_lists,query=$VAR[Path_ContextParams_Query],tmdb_type=$VAR[Path_ContextParams_TMDbType])</onclick>
                     </include>
@@ -62,7 +62,7 @@
                         <param name="id">06</param>
                         <param name="label">$LOCALIZE[20410]</param>
                         <param name="icon">special://skin/extras/icons/video.png</param>
-                        <param name="visible">[!String.IsEmpty(Container(99950).ListItem.Trailer)]</param>
+                        <param name="visible">[!String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.Trailer))]</param>
                         <onclick>Dialog.Close(contextmenu,true)</onclick>
                         <onclick>RunScript(script.skinvariables,run_executebuiltin=special://skin/shortcuts/builtins/skinvariables-playtrailer.json,use_rules)</onclick>
                     </include>
@@ -144,7 +144,7 @@
         <param name="lines_right">476</param>
         <param name="header">$VAR[Label_ContextMenu_Title]</param>
         <definition>
-            <include>Defs_TMDbHelper_Loader</include>
+            <include>Defs_Background_Loader</include>
             <include>Dialog_Dim_Overlay</include>
 
 
