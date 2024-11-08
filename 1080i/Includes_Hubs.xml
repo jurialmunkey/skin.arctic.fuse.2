@@ -258,37 +258,35 @@
     </include>
 
     <include name="Hub_Left_Bezier_Object">
-        <param name="left">-960</param>
-        <param name="width">1680</param>
-        <param name="visible">[$EXP[Exp_HomeMenu_HasFocus] | Window.IsActive(1163)]</param>
+        <param name="visible">[true]</param>
         <definition>
             <control type="image">
-                <left>$PARAM[left]</left>
-                <width>$PARAM[width]</width>
+                <left>40</left>
+                <!-- <right>240</right> -->
+                <!-- <right>480</right> -->
+                <!-- <width>720</width> -->
+                <width>1080</width>
+                <!-- <width>1280</width> -->
+                <!-- <width>1600</width> -->
+                <!-- <width>1440</width> -->
                 <height>1080</height>
                 <visible>$PARAM[visible]</visible>
-                <texture colordiffuse="$VAR[ColorBackground]" border="0,0,1079,0">background/combined_sidemenu.png</texture>
-                <include content="Animation_Fade_In">
-                    <param name="type">Visible</param>
-                    <param name="time">200</param>
-                </include>
-                <include content="Animation_Fade_Out">
-                    <param name="type">Hidden</param>
-                    <param name="time">600</param>
-                </include>
+                <include>Animation_Home_Menu_Fade</include>
+                <texture colordiffuse="$VAR[ColorBackground]">background/combined_sidemenu.png</texture>
             </control>
         </definition>
     </include>
 
     <include name="Hub_Left_Bezier">
-        <include content="Hub_Left_Bezier_Object" condition="!$EXP[Exp_HomeMenu_IsExpanded] + $PARAM[is_homemenu]">
-            <param name="left">-640</param>
-            <param name="width">1360</param>
+        <include content="Hub_Left_Bezier_Object" condition="$PARAM[is_homemenu]">
+            <param name="visible">[$EXP[Exp_HomeMenu_HasFocus]]</param>
         </include>
-        <include condition="$EXP[Exp_HomeMenu_IsExpanded] + $PARAM[is_homemenu]">Hub_Left_Bezier_Object</include>
+        <!-- <include content="Hub_Left_Bezier_Object" condition="$PARAM[is_homemenu]">
+            <param name="visible">[$EXP[Exp_HomeMenu_HasFocus] | Window.IsActive(1163)]</param>
+        </include>
         <include content="Hub_Left_Bezier_Object" condition="![$PARAM[is_homemenu]]">
             <param name="visible">[Window.IsActive(1163)]</param>
-        </include>
+        </include> -->
     </include>
 
     <include name="Hub_Controls">
@@ -335,11 +333,12 @@
             <include condition="![$PARAM[widgets_only]]">Hub_Top_Bezier</include>
 
             <control type="group">
-                <include content="Hub_Left_Bezier">
+                <include condition="!Skin.HasSetting(Hubs.DisableSlideOver) + $PARAM[is_homemenu]">Hub_Menu_Slide</include>
+                <!-- <include condition="!Skin.HasSetting(Hubs.DisableSlideOver)">Hub_Menu_Dialog_Slide</include> -->
+                <include content="Hub_Left_Bezier" condition="!Skin.HasSetting(Hubs.DisableSlideOver)">
                     <param name="is_homemenu">$PARAM[is_homemenu]</param>
                 </include>
-                <include condition="$PARAM[is_homemenu]">Hub_Menu_Slide</include>
-                <include>Hub_Menu_Dialog_Slide</include>
+
                 <control type="group">
                     <include>Animation_Group_Bumper</include>
                     <include>Animation_View_WindowChange</include>
@@ -385,11 +384,20 @@
                 </control>
 
                 <!-- SideMenu -->
-                <include content="Home_Menu" condition="$PARAM[is_homemenu]">
-                    <param name="window_id">$PARAM[window_id]</param>
-                    <param name="property_window_id">$PARAM[property_window_id]</param>
-                    <param name="onlist">400</param>
-                </include>
+                <control type="group">
+                    <include condition="Skin.HasSetting(Hubs.DisableSlideOver) + $PARAM[is_homemenu]">Hub_Menu_Slide</include>
+                    <!-- <include condition="Skin.HasSetting(Hubs.DisableSlideOver)">Hub_Menu_Dialog_Slide</include> -->
+
+                    <include content="Hub_Left_Bezier" condition="Skin.HasSetting(Hubs.DisableSlideOver)">
+                        <param name="is_homemenu">$PARAM[is_homemenu]</param>
+                    </include>
+
+                    <include content="Home_Menu" condition="$PARAM[is_homemenu]">
+                        <param name="window_id">$PARAM[window_id]</param>
+                        <param name="property_window_id">$PARAM[property_window_id]</param>
+                        <param name="onlist">400</param>
+                    </include>
+                </control>
             </control>
 
             <control type="group">

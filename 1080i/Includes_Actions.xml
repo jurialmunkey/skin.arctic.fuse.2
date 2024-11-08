@@ -212,8 +212,8 @@
             </include>
 
             <!-- Set Default IDs (TODO: Check this is correct!) -->
-            <onload condition="![[$PARAM[is_homemenu]] | Skin.HasSetting(Hub.$PARAM[window_id].DisableSubmenu)] + String.IsEmpty(Window($PARAM[window_id]).Property(TMDbHelper.WidgetContainer))">SetProperty(TMDbHelper.WidgetContainer,301,$PARAM[property_window_id])</onload>
-            <onload condition="[[$PARAM[is_homemenu]] | Skin.HasSetting(Hub.$PARAM[window_id].DisableSubmenu)] + String.IsEmpty(Window($PARAM[window_id]).Property(TMDbHelper.WidgetContainer))">SetProperty(TMDbHelper.WidgetContainer,100601,$PARAM[property_window_id])</onload>
+            <onload condition="![[$PARAM[is_homemenu]] | Skin.HasSetting(Hub.$PARAM[window_id].DisableSubmenu)] + String.IsEmpty(Window($PARAM[property_window_id]).Property(TMDbHelper.WidgetContainer))">SetProperty(TMDbHelper.WidgetContainer,301,$PARAM[property_window_id])</onload>
+            <onload condition="[[$PARAM[is_homemenu]] | Skin.HasSetting(Hub.$PARAM[window_id].DisableSubmenu)] + String.IsEmpty(Window($PARAM[property_window_id]).Property(TMDbHelper.WidgetContainer))">SetProperty(TMDbHelper.WidgetContainer,100601,$PARAM[property_window_id])</onload>
 
             <!-- Set Default Positions -->
             <onload>SetProperty(Slide.WidgetContainer,True,Home)</onload>
@@ -233,8 +233,8 @@
             <include>Action_BuildShortcuts_OnLoad</include>
 
             <!-- Hubs Refocus -->
-            <onload condition="![$PARAM[is_homemenu]] + Skin.HasSetting(Hub.$PARAM[window_id].DisableSubmenu) + !String.IsEmpty(Window($PARAM[window_id]).Property(Hub.ResetDefaultControl))">SetFocus(400)</onload>
-            <onload condition="![$PARAM[is_homemenu]] + !Skin.HasSetting(Hub.$PARAM[window_id].DisableSubmenu) + !String.IsEmpty(Window($PARAM[window_id]).Property(Hub.ResetDefaultControl))">SetFocus(300)</onload>
+            <onload condition="![$PARAM[is_homemenu]] + Skin.HasSetting(Hub.$PARAM[window_id].DisableSubmenu) + !String.IsEmpty(Window($PARAM[property_window_id]).Property(Hub.ResetDefaultControl))">SetFocus(400)</onload>
+            <onload condition="![$PARAM[is_homemenu]] + !Skin.HasSetting(Hub.$PARAM[window_id].DisableSubmenu) + !String.IsEmpty(Window($PARAM[property_window_id]).Property(Hub.ResetDefaultControl))">SetFocus(300)</onload>
             <onload>ClearProperty(Hub.ResetDefaultControl,$PARAM[property_window_id])</onload>
         </definition>
     </include>

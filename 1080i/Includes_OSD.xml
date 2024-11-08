@@ -571,6 +571,7 @@
                         <param name="label">$VAR[Label_OSD_Title]</param>
                         <param name="mainlogo_visible">[!String.IsEmpty(Window(Home).Property(TMDbHelper.Player.CropImage))]</param>
                         <param name="mainlogo_texture">$INFO[Window(Home).Property(TMDbHelper.Player.CropImage)]</param>
+                        <param name="autoheight">true</param>
                     </include>
 
                     <control type="group">
@@ -1042,8 +1043,8 @@
 
                 <control type="group">
 
-                    <animation effect="fade" start="0" end="100" delay="300" time="300" condition="[!Window.IsActive(1143) + !Integer.IsEqual(Window(Home).Property(OSD_Focus),6003)]">Conditional</animation>
-                    <animation effect="fade" start="100" end="0" time="300" condition="![!Window.IsActive(1143) + !Integer.IsEqual(Window(Home).Property(OSD_Focus),6003)]">Conditional</animation>
+                    <animation effect="fade" start="0" end="100" delay="300" time="300" condition="[!Window.IsActive(1143) + [!Integer.IsEqual(Window(Home).Property(OSD_Focus),6003) | VideoPlayer.Content(livetv)]]">Conditional</animation>
+                    <animation effect="fade" start="100" end="0" time="300" condition="![!Window.IsActive(1143) + [!Integer.IsEqual(Window(Home).Property(OSD_Focus),6003) | VideoPlayer.Content(livetv)]]">Conditional</animation>
 
                     <animation effect="fade" start="0" end="100" time="300" delay="200" reversible="false" condition="Window.IsActive(videoosd) | Window.IsActive(musicosd) | Window.IsActive(script-cu-lrclyrics-main.xml) | $EXP[Exp_OSD_QuickInfo]">Conditional</animation>
                     <animation effect="fade" start="100" end="0" time="300" delay="0" reversible="false" condition="![Window.IsActive(videoosd) | Window.IsActive(musicosd) | Window.IsActive(script-cu-lrclyrics-main.xml) | $EXP[Exp_OSD_QuickInfo]]">Conditional</animation>

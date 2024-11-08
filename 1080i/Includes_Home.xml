@@ -73,8 +73,10 @@
                     <include>Home_Menu_List_Vert_Main</include>
                     <include>Home_Menu_List_OnBackInfo</include>
 
-                    <onfocus condition="!Skin.HasSetting(Hub.Home.EnableDetailedInformation) | $EXP[Exp_HomeMenu_IsExpanded]">SetProperty(Background.ShowOverlay,True,Home)</onfocus>
-                    <onfocus condition="![!Skin.HasSetting(Hub.Home.EnableDetailedInformation) | $EXP[Exp_HomeMenu_IsExpanded]]">ClearProperty(Background.ShowOverlay,Home)</onfocus>
+                    <!-- <onfocus condition="!Skin.HasSetting(Hub.Home.EnableDetailedInformation) | $EXP[Exp_HomeMenu_IsExpanded]">SetProperty(Background.ShowOverlay,True,Home)</onfocus>
+                    <onfocus condition="![!Skin.HasSetting(Hub.Home.EnableDetailedInformation) | $EXP[Exp_HomeMenu_IsExpanded]]">ClearProperty(Background.ShowOverlay,Home)</onfocus> -->
+
+                    <onfocus>ClearProperty(Background.ShowOverlay,Home)</onfocus>
 
                     <onfocus>ClearProperty(WidgetGroup.Movement)</onfocus>
                     <onfocus>ClearProperty(SideMenu.CurrentItem)</onfocus>
@@ -275,8 +277,10 @@
                 <centerleft>50%</centerleft>
                 <centertop>50%</centertop>
 
-                <onfocus condition="!Skin.HasSetting(Hub.Home.EnableDetailedInformation) | $EXP[Exp_HomeMenu_IsExpanded]">SetProperty(Background.ShowOverlay,True,Home)</onfocus>
-                <onfocus condition="![!Skin.HasSetting(Hub.Home.EnableDetailedInformation) | $EXP[Exp_HomeMenu_IsExpanded]]">ClearProperty(Background.ShowOverlay,Home)</onfocus>
+                <!-- <onfocus condition="!Skin.HasSetting(Hub.Home.EnableDetailedInformation) | $EXP[Exp_HomeMenu_IsExpanded]">SetProperty(Background.ShowOverlay,True,Home)</onfocus>
+                <onfocus condition="![!Skin.HasSetting(Hub.Home.EnableDetailedInformation) | $EXP[Exp_HomeMenu_IsExpanded]]">ClearProperty(Background.ShowOverlay,Home)</onfocus> -->
+
+                <onfocus>ClearProperty(Background.ShowOverlay,Home)</onfocus>
 
                 <onfocus>ClearProperty(TMDbHelper.WidgetContainer.UpdateLock.OnFocus,1198)</onfocus>
 
@@ -319,8 +323,10 @@
                 <centertop>50%</centertop>
                 <onclick>ActivateWindow(1170)</onclick>
 
-                <onfocus condition="!Skin.HasSetting(Hub.Home.EnableDetailedInformation) | $EXP[Exp_HomeMenu_IsExpanded]">SetProperty(Background.ShowOverlay,True,Home)</onfocus>
-                <onfocus condition="![!Skin.HasSetting(Hub.Home.EnableDetailedInformation) | $EXP[Exp_HomeMenu_IsExpanded]]">ClearProperty(Background.ShowOverlay,Home)</onfocus>
+                <!-- <onfocus condition="!Skin.HasSetting(Hub.Home.EnableDetailedInformation) | $EXP[Exp_HomeMenu_IsExpanded]">SetProperty(Background.ShowOverlay,True,Home)</onfocus>
+                <onfocus condition="![!Skin.HasSetting(Hub.Home.EnableDetailedInformation) | $EXP[Exp_HomeMenu_IsExpanded]]">ClearProperty(Background.ShowOverlay,Home)</onfocus> -->
+
+                <onfocus>ClearProperty(Background.ShowOverlay,Home)</onfocus>
 
                 <onfocus>ClearProperty(TMDbHelper.WidgetContainer.UpdateLock.OnFocus,1198)</onfocus>
 
@@ -528,8 +534,9 @@
 
     <include name="Home_Menu_Vert_Background">
         <param name="subline_visible">true</param>
-        <param name="include_glass">true</param>
         <param name="dialog_size">Dimension_DialogMaxiHome</param>
+        <param name="include_dialog">true</param>
+        <param name="include_mask">true</param>
         <definition>
             <control type="group">
                 <left>$PARAM[left]</left>
@@ -537,7 +544,12 @@
                 <control type="group">
                     <left>-20</left>
                     <right>-20</right>
-                    <include content="Dialog_Background_Group">
+                    <control type="image">
+                        <left>-1920</left>
+                        <visible>$PARAM[include_mask]</visible>
+                        <texture colordiffuse="$VAR[ColorBackground]">common/white.png</texture>
+                    </control>
+                    <include content="Dialog_Background_Group" condition="$PARAM[include_dialog]">
                         <param name="include_glass">true</param>
                         <param name="dialog_size">$PARAM[dialog_size]</param>
                     </include>
@@ -547,6 +559,8 @@
                     <bottom>40</bottom>
                     <right>20</right>
                     <left>20</left>
+
+                    <visible>$PARAM[include_dialog]</visible>
 
                     <control type="image">
                         <top>120</top>
@@ -578,13 +592,14 @@
     </include>
 
     <include name="Home_Menu_Vert_Small">
-        <left>40</left>
+        <left>80</left>
         <control type="group">
-            <left>-20</left>
+            <left>-60</left>
             <include content="Home_Menu_Vert_Background">
                 <param name="left">-view_menu_mini</param>
                 <param name="width">view_menu_mini</param>
                 <param name="dialog_size">Dimension_DialogMiniHome</param>
+                <param name="include_dialog">false</param>
             </include>
         </control>
     </include>
@@ -597,15 +612,7 @@
             <include condition="![Window.IsVisible(Home) + !$EXP[Exp_HomeMenu_IsExpanded]]">Home_Menu_Vert_Large</include>
 
             <visible allowhiddenfocus="true">$EXP[Exp_HomeMenu_HasFocus]</visible>
-            <include content="Animation_Fade_In">
-                <param name="type">Visible</param>
-                <param name="time">200</param>
-            </include>
-            <include content="Animation_Fade_Out">
-                <param name="type">Hidden</param>
-                <param name="time">200</param>
-            </include>
-
+            <include>Animation_Home_Menu_Fade</include>
 
             <control type="group">
                 <include>Hub_Menu_Fade</include>
