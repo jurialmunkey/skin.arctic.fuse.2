@@ -1735,8 +1735,14 @@
     </variable>
 
     <variable name="Label_Plot_TMDbHelper">
-        <value condition="String.IsEqual(Window(Home).Property(TMDbHelper.ListItem.DBType),episode) + !String.IsEmpty(Window(Home).Property(TMDBHelper.ListItem.base_plot))">$VAR[Label_Plot_Episode_Type_TMDBHelper,,: ]$VAR[Label_Plot_Episode_Number_TMDbHelper,,. ]$INFO[Window(Home).Property(TMDbHelper.ListItem.Title)]$INFO[Window(Home).Property(TMDBHelper.ListItem.base_plot), ~ ,]</value>
-        <value condition="String.IsEqual(Window(Home).Property(TMDbHelper.ListItem.DBType),episode) + !String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.Plot))">$VAR[Label_Plot_Episode_Type_TMDBHelper,,: ]$VAR[Label_Plot_Episode_Number_TMDbHelper,,. ]$INFO[Window(Home).Property(TMDbHelper.ListItem.Title)]$INFO[Window(Home).Property(TMDbHelper.ListItem.Plot), ~ ,]</value>
+        <!-- MISC019: consistency with other changes -->
+        <!-- MISC019: remove NxNN -->
+        <!-- MISC019: remove Episode Type -->
+        <!-- MISC019: Episode title in Bold, color=main_fg_100 -->
+        <!-- value condition="String.IsEqual(Window(Home).Property(TMDbHelper.ListItem.DBType),episode) + !String.IsEmpty(Window(Home).Property(TMDBHelper.ListItem.base_plot))">$VAR[Label_Plot_Episode_Type_TMDBHelper,,: ]$VAR[Label_Plot_Episode_Number_TMDbHelper,,. ]$INFO[Window(Home).Property(TMDbHelper.ListItem.Title)]$INFO[Window(Home).Property(TMDBHelper.ListItem.base_plot), ~ ,]</value -->
+        <value condition="String.IsEqual(Window(Home).Property(TMDbHelper.ListItem.DBType),episode) + !String.IsEmpty(Window(Home).Property(TMDBHelper.ListItem.base_plot))">[B][COLOR=main_fg_100]$INFO[Window(Home).Property(TMDbHelper.ListItem.Title)][/COLOR][/B]$INFO[Window(Home).Property(TMDBHelper.ListItem.base_plot), ~ ,]</value>
+        <!-- value condition="String.IsEqual(Window(Home).Property(TMDbHelper.ListItem.DBType),episode) + !String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.Plot))">$VAR[Label_Plot_Episode_Type_TMDBHelper,,: ]$VAR[Label_Plot_Episode_Number_TMDbHelper,,. ]$INFO[Window(Home).Property(TMDbHelper.ListItem.Title)]$INFO[Window(Home).Property(TMDbHelper.ListItem.Plot), ~ ,]</valuem-->
+        <value condition="String.IsEqual(Window(Home).Property(TMDbHelper.ListItem.DBType),episode) + !String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.Plot))">[B][COLOR=main_fg_100]$INFO[Window(Home).Property(TMDbHelper.ListItem.Title)][/COLOR][/B]$INFO[Window(Home).Property(TMDbHelper.ListItem.Plot), ~ ,]</value>
         <value condition="!String.IsEmpty(Window(Home).Property(TMDBHelper.ListItem.base_plot))">$INFO[Window(Home).Property(TMDBHelper.ListItem.base_plot)]</value>
         <value condition="!String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.Plot))">$INFO[Window(Home).Property(TMDbHelper.ListItem.Plot)]</value>
         <value condition="!String.IsEmpty(Window(Home).Property(TMDBHelper.ListItem.biography))">$INFO[Window(Home).Property(TMDBHelper.ListItem.biography)]</value>
