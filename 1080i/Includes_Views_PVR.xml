@@ -97,8 +97,6 @@
     <!-- EPG -->
     <include name="View_PVRGuide_Standard">
         <param name="channelwidth">420</param>
-        <param name="epg_bottom">0</param>
-        <param name="epg_top">0</param>
         <param name="viewtype_label">19069</param>
         <definition>
             <include content="List_EPGGrid">
@@ -121,16 +119,105 @@
         </definition>
     </include>
 
+    <include name="View_PVR_ProgrammePanel">
+        <control type="group">
+            <include>Settings_Box</include>
+            <bottom>80</bottom>
+            <top>40</top>
+            <left>380</left>
+        </control>
+    </include>
+
+    <include name="View_PVR_InformationPanel">
+        <control type="group">
+            <right>0</right>
+            <width>400</width>
+            <include>Settings_Box</include>
+            <bottom>80</bottom>
+            <top>40</top>
+
+            <control type="grouplist">
+                <orientation>vertical</orientation>
+                <bottom>20</bottom>
+
+                <control type="group">
+                    <height>242.5</height>
+                    <control type="group">
+                        <include content="Dimension_Padding">
+                            <param name="pad">20</param>
+                        </include>
+                        <include content="Dialog_Outline_InnerBox">
+                            <control type="image">
+                                <aspectratio scalediffuse="false">keep</aspectratio>
+                                <texture background="true" diffuse="diffuse/landscape_w356_h200.png">$VAR[Image_Landscape]</texture>
+                            </control>
+                        </include>
+                    </control>
+                </control>
+
+                <control type="group">
+                    <height>15</height>
+                </control>
+
+                <control type="label">
+                    <font>font_main_bold</font>
+                    <height>40</height>
+                    <aligny>top</aligny>
+                    <textcolor>main_fg_90</textcolor>
+                    <label>$INFO[ListItem.Title]</label>
+                    <left>30</left>
+                    <right>30</right>
+                    <visible>!String.IsEmpty(ListItem.Title)</visible>
+                </control>
+
+                <control type="textbox">
+                    <font>font_mini_plot</font>
+                    <height>80</height>
+                    <aligny>top</aligny>
+                    <textcolor>main_fg_70</textcolor>
+                    <label>$INFO[ListItem.StartDate,,[CR]]$INFO[ListItem.StartTime]$INFO[ListItem.EndTime, - ,]</label>
+                    <left>30</left>
+                    <right>30</right>
+                </control>
+
+                <control type="textbox">
+                    <font>font_mini_plot</font>
+                    <height>340</height>
+                    <top>15</top>
+                    <textcolor>main_fg_70</textcolor>
+                    <label>$INFO[ListItem.Plot]</label>
+                    <left>30</left>
+                    <right>30</right>
+                </control>
+
+            </control>
+
+        </control>
+    </include>
+
 
     <include name="View_PVRGuide">
         <control type="group">
             <visible>Control.IsVisible(500)</visible>
+            <include>View_PVR_ProgrammePanel</include>
             <include content="View_PVRGuide_Standard">
                 <param name="id">500</param>
                 <param name="progresstexture">pvr/progressline-full.png</param>
-                <param name="epg_bottom">0</param>
                 <param name="viewtype_label">$LOCALIZE[571]</param>
             </include>
+        </control>
+        <control type="group">
+            <visible>Control.IsVisible(501)</visible>
+            <control type="group">
+                <right>440</right>
+                <include>View_PVR_ProgrammePanel</include>
+                <include content="View_PVRGuide_Standard">
+                    <param name="id">501</param>
+                    <param name="progresstexture">pvr/progressline-full.png</param>
+                    <param name="viewtype_label">$LOCALIZE[571]</param>
+                </include>
+            </control>
+            <include>View_PVR_InformationPanel</include>
         </control>
     </include>
 
@@ -144,17 +231,6 @@
                     <bottom>80</bottom>
                     <right>view_pad</right>
                     <left>view_pad</left>
-                    <include content="Settings_Left_Group">
-                        <top>-120</top>
-                        <bottom>-80</bottom>
-                        <left>-80</left>
-                    </include>
-                    <control type="group">
-                        <include>Settings_Box</include>
-                        <bottom>80</bottom>
-                        <top>40</top>
-                        <left>380</left>
-                    </control>
                     <include>$PARAM[include]</include>
                 </control>
             </control>
@@ -218,7 +294,6 @@
             <include content="View_PVR_Full">
                 <param name="include">$PARAM[include]</param>
             </include>
-
             <include>View_Dialog_Plot</include>
             <include>View_PVR_Menu</include>
         </control>
@@ -240,7 +315,6 @@
                     <left>360</left>
                     <right>60</right>
                     <onup>50</onup>
-                    <onback>PreviousMenu</onback>
                     <ondown>SetProperty(List.ViewContainer,8000)</ondown>
                     <ondown>SetFocus(330)</ondown>
 
@@ -258,6 +332,20 @@
                         <param name="visible">true</param>
                         <param name="include_hintlabel">true</param>
                         <onclick>SendClick(28)</onclick>
+                    </include>
+
+                    <!-- View -->
+                    <include content="DialogInfo_Button">
+                        <param name="vertical">false</param>
+                        <param name="id">9020</param>
+                        <param name="groupid">9120</param>
+                        <param name="sliceid">9220</param>
+                        <param name="label">$LOCALIZE[31319]</param>
+                        <param name="icon">special://skin/extras/icons/table.png</param>
+                        <param name="itemgap">0</param>
+                        <param name="visible">true</param>
+                        <param name="include_hintlabel">true</param>
+                        <onclick>SendClick(2)</onclick>
                     </include>
 
                     <!-- Sort -->
@@ -367,8 +455,6 @@
     <include name="View_PVRChannels_Standard">
         <param name="channelheight">80</param>
         <param name="channelwidth">420</param>
-        <param name="epg_bottom">0</param>
-        <param name="epg_top">0</param>
         <definition>
             <control type="group">
                 <top>-10</top>
@@ -471,13 +557,27 @@
     <include name="View_PVRChannels">
         <control type="group">
             <visible>Control.IsVisible(50)</visible>
+            <include>View_PVR_ProgrammePanel</include>
             <include content="View_PVRChannels_Standard">
                 <param name="id">50</param>
-                <param name="epg_bottom">0</param>
                 <param name="viewtype_label">$LOCALIZE[571]</param>
                 <param name="focusposition">4</param>
                 <param name="movement">4</param>
             </include>
+        </control>
+        <control type="group">
+            <visible>Control.IsVisible(51)</visible>
+            <control type="group">
+                <right>440</right>
+                <include>View_PVR_ProgrammePanel</include>
+                <include content="View_PVRChannels_Standard">
+                    <param name="id">51</param>
+                    <param name="viewtype_label">$LOCALIZE[571]</param>
+                    <param name="focusposition">4</param>
+                    <param name="movement">4</param>
+                </include>
+            </control>
+            <include>View_PVR_InformationPanel</include>
         </control>
     </include>
 

@@ -1043,6 +1043,28 @@
                         </include>
                         <visible>!String.IsEmpty(VideoPlayer.VideoCodec)</visible>
                     </include>
+
+                    <!-- Episodes -->
+                    <include content="Object_InfoCircle" condition="![$PARAM[is_player]]">
+                        <param name="name">$INFO[ListItem.Property(watchedepisodes),$LOCALIZE[16102] , $LOCALIZE[1443] ]$INFO[ListItem.Property(totalepisodes)] $LOCALIZE[20453]</param>
+                        <param name="role">$LOCALIZE[20360]</param>
+                        <param name="icon">special://skin/extras/icons/photo-film.png</param>
+                        <include content="Object_InfoCircle_Image">
+                            <param name="colordiffuse">white</param>
+                            <param name="icon">$INFO[ListItem.Art(poster)]</param>
+                        </include>
+                        <visible>!String.IsEmpty(ListItem.Property(totalepisodes))</visible>
+                    </include>
+                    <include content="Object_InfoCircle" condition="$PARAM[is_player]">
+                        <param name="name">$INFO[VideoPlayer.Property(watchedepisodes),$LOCALIZE[16102] , $LOCALIZE[1443] ]$INFO[VideoPlayer.Property(totalepisodes)] $LOCALIZE[20453]</param>
+                        <param name="role">$LOCALIZE[20360]</param>
+                        <param name="icon">special://skin/extras/icons/photo-film.png</param>
+                        <include content="Object_InfoCircle_Image">
+                            <param name="colordiffuse">white</param>
+                            <param name="icon">$INFO[VideoPlayer.Art(poster)]</param>
+                        </include>
+                        <visible>!String.IsEmpty(VideoPlayer.Property(totalepisodes))</visible>
+                    </include>
                 </control>
 
                 <control type="grouplist">

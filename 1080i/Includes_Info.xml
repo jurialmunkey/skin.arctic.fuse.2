@@ -917,12 +917,22 @@
                 <param name="label">$INFO[Window(Home).Property(TMDbHelper.ListItem.Birthday)]</param>
                 <param name="visible">!String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.Birthday))</param>
             </include>
+            <include content="Info_IconLine_Object" condition="![$PARAM[is_player]]">
+                <param name="icon">&#xf1fd;</param>
+                <param name="label">$INFO[Window(Home).Property(TMDbHelper.ListItem.base_birthday)]</param>
+                <param name="visible">String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.Birthday)) + !String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.base_birthday))</param>
+            </include>
 
             <!-- Deathday -->
             <include content="Info_IconLine_Object" condition="![$PARAM[is_player]]">
                 <param name="icon">&#x271d;</param>
                 <param name="label">$INFO[Window(Home).Property(TMDbHelper.ListItem.Deathday)]</param>
                 <param name="visible">!String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.Deathday))</param>
+            </include>
+            <include content="Info_IconLine_Object" condition="![$PARAM[is_player]]">
+                <param name="icon">&#x271d;</param>
+                <param name="label">$INFO[Window(Home).Property(TMDbHelper.ListItem.base_deathday)]</param>
+                <param name="visible">String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.Deathday)) + !String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.base_deathday))</param>
             </include>
         </definition>
     </include>
@@ -931,20 +941,6 @@
     <include name="Info_IconLine_Music">
         <param name="is_player">false</param>
         <definition>
-
-            <!-- Birthday -->
-            <include content="Info_IconLine_Object" condition="![$PARAM[is_player]]">
-                <param name="icon">&#xf1fd;</param>
-                <param name="label">$INFO[Window(Home).Property(TMDbHelper.ListItem.base_birthday)]</param>
-                <param name="visible">!String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.base_birthday))</param>
-            </include>
-
-            <!-- Deathday -->
-            <include content="Info_IconLine_Object" condition="![$PARAM[is_player]]">
-                <param name="icon">&#x271d;</param>
-                <param name="label">$INFO[Window(Home).Property(TMDbHelper.ListItem.base_deathday)]</param>
-                <param name="visible">!String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.base_deathday))</param>
-            </include>
 
             <!-- Total Discs -->
             <include content="Info_IconLine_Object" condition="![$PARAM[is_player]]">
@@ -1345,6 +1341,7 @@
     </include>
 
     <include name="Info_Line_VideoQuality">
+        <param name="is_version">false</param>
         <param name="is_collection">false</param>
         <param name="is_web">false</param>
         <param name="visible">true</param>
@@ -1352,7 +1349,6 @@
             <include content="Info_Line_VideoQuality_Resolution">
                 <param name="visible">$PARAM[visible]</param>
                 <param name="colordiffuse">$PARAM[colordiffuse]</param>
-                <param name="is_collection">[$PARAM[is_collection]]</param>
                 <param name="is_web">[$PARAM[is_web]]</param>
                 <param name="is_8k">[Integer.IsGreater($PARAM[listitem_videoresolution],2160) | String.IsEqual($PARAM[listitem_videoresolution],8K)]</param>
                 <param name="is_4k">[Integer.IsGreater($PARAM[listitem_videoresolution],1080) | String.IsEqual($PARAM[listitem_videoresolution],4K)]</param>
@@ -1374,7 +1370,13 @@
             </include>
             <include content="Info_Line_VideoQuality_Icon">
                 <param name="colordiffuse">$PARAM[colordiffuse]</param>
-                <param name="icon">flags/sets-inverted.png</param>
+                <param name="icon">flags/version-inverted.png</param>
+                <param name="visible">$PARAM[visible] + $PARAM[is_version]</param>
+            </include>
+            <include content="Info_Line_VideoQuality_Icon">
+                <param name="colordiffuse">$PARAM[colordiffuse]</param>
+                <param name="width">40</param>
+                <param name="icon">flags/collection-inverted.png</param>
                 <param name="visible">$PARAM[visible] + $PARAM[is_collection]</param>
             </include>
         </definition>
@@ -1397,23 +1399,25 @@
 
                 <include content="Info_Line_VideoQuality">
                     <param name="colordiffuse">$PARAM[colordiffuse]_90</param>
-                    <param name="is_collection">[$PARAM[container]ListItem.IsCollection | $PARAM[container]ListItem.HasVideoVersions]</param>
+                    <param name="is_version">[$PARAM[container]ListItem.HasVideoVersions]</param>
+                    <param name="is_collection">[$PARAM[container]ListItem.IsCollection | !String.IsEmpty($PARAM[container]ListItem.Set)]</param>
                     <param name="is_web">[[String.IsEqual($PARAM[container]ListItem.DBType,movie) | String.IsEqual($PARAM[container]ListItem.DBType,episode) | String.IsEqual($PARAM[container]ListItem.DBType,video)] + !String.IsEqual($PARAM[container]ListItem.Property(item.type),person)]</param>
                     <param name="listitem_videoresolution">$PARAM[container]ListItem.VideoResolution</param>
                     <param name="listitem_dbtype">$PARAM[container]ListItem.DBType</param>
                     <param name="listitem_hdrtype">$PARAM[container]ListItem.HdrType</param>
                     <param name="listitem_audiochannels">$PARAM[container]ListItem.AudioChannels</param>
-                    <param name="visible">!Integer.IsEqual(Container($PARAM[grouplistid]).NumItems,0) + !String.IsEmpty($PARAM[container]ListItem.DBType)</param>
+                    <param name="visible">!Integer.IsEqual(Container($PARAM[grouplistid]).NumItems,0) + Integer.IsEqual(Window.Property(TMDBHelper.WidgetContainer),System.CurrentControlID)</param>
                 </include>
                 <include content="Info_Line_VideoQuality">
                     <param name="colordiffuse">$PARAM[colordiffuse]_90</param>
-                    <param name="is_collection">[$PARAM[container]ListItem.IsCollection | $PARAM[container]ListItem.HasVideoVersions]</param>
+                    <param name="is_version">[$PARAM[container]ListItem.HasVideoVersions]</param>
+                    <param name="is_collection">[$PARAM[container]ListItem.IsCollection | !String.IsEmpty($PARAM[container]ListItem.Set)]</param>
                     <param name="is_web">[[String.IsEqual(Window(Home).Property(TMDbHelper.ListItem.base_dbtype),movie) | String.IsEqual(Window(Home).Property(TMDbHelper.ListItem.base_dbtype),episode) | String.IsEqual(Window(Home).Property(TMDbHelper.ListItem.base_dbtype),video)] + !String.IsEqual($PARAM[container]ListItem.Property(item.type),person)]</param>
                     <param name="listitem_videoresolution">Window(Home).Property(TMDbHelper.ListItem.base_videoresolution)</param>
                     <param name="listitem_dbtype">Window(Home).Property(TMDbHelper.ListItem.base_dbtype)</param>
                     <param name="listitem_hdrtype">Window(Home).Property(TMDbHelper.ListItem.base_hdrtype)</param>
                     <param name="listitem_audiochannels">Window(Home).Property(TMDbHelper.ListItem.base_audiochannels)</param>
-                    <param name="visible">!Integer.IsEqual(Container($PARAM[grouplistid]).NumItems,0) + String.IsEmpty($PARAM[container]ListItem.DBType)</param>
+                    <param name="visible">!Integer.IsEqual(Container($PARAM[grouplistid]).NumItems,0) + !Integer.IsEqual(Window.Property(TMDBHelper.WidgetContainer),System.CurrentControlID)</param>
                 </include>
 
                 <!-- Star Rating -->

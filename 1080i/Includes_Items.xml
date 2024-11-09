@@ -373,7 +373,7 @@
             <onclick>Action(Select)</onclick>
         </include>
 
-        <include condition="[Window.IsActive(DialogVideoInfo.xml) | Window.IsActive(DialogMusicInfo.xml)]">DialogSelect_SideButtons_Artwork</include>
+        <include>DialogSelect_SideButtons_Artwork</include>
     </include>
 
     <include name="Items_DialogVideoManager">
@@ -2025,6 +2025,7 @@
             <selected>!Skin.HasSetting(Indicator.DisableWatched)</selected>
             <label>$LOCALIZE[16102]</label>
         </include>
+
         <include content="Settings_Button">
             <param name="id">8002</param>
             <param name="control">radiobutton</param>
@@ -2033,6 +2034,7 @@
             <selected>!Skin.HasSetting(Indicator.DisableLatest)</selected>
             <label>$LOCALIZE[20382]</label>
         </include>
+
         <include content="Settings_Button">
             <param name="id">8003</param>
             <param name="control">radiobutton</param>
@@ -2041,6 +2043,7 @@
             <selected>!Skin.HasSetting(Indicator.DisableLibrary)</selected>
             <label>$LOCALIZE[14022]</label>
         </include>
+
         <include content="Settings_Button">
             <param name="id">8004</param>
             <param name="control">radiobutton</param>
@@ -2049,21 +2052,33 @@
             <selected>!Skin.HasSetting(Indicator.DisableCollection)</selected>
             <label>$LOCALIZE[31236]</label>
         </include>
+
         <include content="Settings_Button">
             <param name="id">8005</param>
-            <param name="control">radiobutton</param>
-            <param name="dialog">true</param>
-            <onclick>Skin.ToggleSetting(Indicator.DisableEpisodes)</onclick>
-            <selected>!Skin.HasSetting(Indicator.DisableEpisodes)</selected>
-            <label>$LOCALIZE[20360]</label>
-        </include>
-        <include content="Settings_Button">
-            <param name="id">8006</param>
             <param name="control">radiobutton</param>
             <param name="dialog">true</param>
             <onclick>Skin.ToggleSetting(Indicator.DisableProgress)</onclick>
             <selected>!Skin.HasSetting(Indicator.DisableProgress)</selected>
             <label>$LOCALIZE[31237]</label>
+        </include>
+
+        <include content="Settings_Button">
+            <param name="id">8006</param>
+            <param name="control">radiobutton</param>
+            <param name="dialog">true</param>
+            <onclick>Skin.ToggleSetting(Indicator.DisableEpisodes)</onclick>
+            <selected>!Skin.HasSetting(Indicator.DisableEpisodes)</selected>
+            <label>$LOCALIZE[20360] ($LOCALIZE[31090])</label>
+        </include>
+
+        <include content="Settings_Button">
+            <param name="id">8007</param>
+            <param name="control">radiobutton</param>
+            <param name="dialog">true</param>
+            <onclick>Skin.ToggleSetting(Indicator.EnableUnwatchedCount)</onclick>
+            <selected>Skin.HasSetting(Indicator.EnableUnwatchedCount)</selected>
+            <visible>!Skin.HasSetting(Indicator.DisableEpisodes)</visible>
+            <label>$LOCALIZE[20360] ($LOCALIZE[16101])</label>
         </include>
 
         <include content="Settings_Button">
@@ -2075,17 +2090,23 @@
             <label>$LOCALIZE[31252] ($LOCALIZE[31000])</label>
         </include>
 
-        <include content="Settings_Button">
-            <param name="id">8007</param>
-            <param name="control">radiobutton</param>
+        <include content="Settings_Label">
+            <param name="id">8091</param>
             <param name="dialog">true</param>
-            <onclick>Skin.ToggleSetting(Indicator.RatingsCircle)</onclick>
-            <selected>Skin.HasSetting(Indicator.RatingsCircle)</selected>
-            <label>$LOCALIZE[563] ($LOCALIZE[31357])</label>
+            <label>$LOCALIZE[31357]</label>
         </include>
 
         <include content="Settings_Button">
             <param name="id">8009</param>
+            <param name="control">radiobutton</param>
+            <param name="dialog">true</param>
+            <onclick>Skin.ToggleSetting(Indicator.RatingsCircle)</onclick>
+            <selected>Skin.HasSetting(Indicator.RatingsCircle)</selected>
+            <label>$LOCALIZE[563]</label>
+        </include>
+
+        <include content="Settings_Button">
+            <param name="id">8010</param>
             <param name="control">radiobutton</param>
             <param name="dialog">true</param>
             <onclick>Skin.ToggleSetting(Indicator.ProgressPercent)</onclick>
@@ -2094,7 +2115,7 @@
         </include>
 
         <include content="Settings_Button">
-            <param name="id">8010</param>
+            <param name="id">8011</param>
             <param name="control">radiobutton</param>
             <param name="dialog">true</param>
             <onclick>Skin.ToggleSetting(Indicator.EpisodeTypeBanner)</onclick>
@@ -2103,7 +2124,7 @@
         </include>
 
         <include content="Settings_Button">
-            <param name="id">8011</param>
+            <param name="id">8012</param>
             <param name="control">radiobutton</param>
             <param name="dialog">true</param>
             <onclick>Skin.ToggleSetting(Indicator.MovieVersionBanner)</onclick>

@@ -79,6 +79,21 @@
         </control>
     </include>
 
+    <variable name="DialogSelect_Widgets_Preview">
+        <value condition="String.IsEqual(Container(3).ListItem.Label,$LOCALIZE[20021])">special://skin/extras/widgets/poster.jpg</value>
+        <value condition="String.IsEqual(Container(3).ListItem.Label,$LOCALIZE[31045])">special://skin/extras/widgets/landscape.jpg</value>
+        <value condition="String.IsEqual(Container(3).ListItem.Label,$LOCALIZE[31320])">special://skin/extras/widgets/square.jpg</value>
+        <value condition="String.IsEqual(Container(3).ListItem.Label,$LOCALIZE[31431])">special://skin/extras/widgets/circle.jpg</value>
+        <value condition="String.IsEqual(Container(3).ListItem.Label,$LOCALIZE[31423])">special://skin/extras/widgets/card.jpg</value>
+        <value condition="String.IsEqual(Container(3).ListItem.Label,$LOCALIZE[31423] (T))">special://skin/extras/widgets/card_t.jpg</value>
+        <value condition="String.IsEqual(Container(3).ListItem.Label,$LOCALIZE[31424])">special://skin/extras/widgets/board.jpg</value>
+        <value condition="String.IsEqual(Container(3).ListItem.Label,$LOCALIZE[31424] (T))">special://skin/extras/widgets/board_t.jpg</value>
+        <value condition="String.IsEqual(Container(3).ListItem.Label,$LOCALIZE[31558])">special://skin/extras/widgets/signpost.jpg</value>
+        <value condition="String.IsEqual(Container(3).ListItem.Label,$LOCALIZE[31419])">special://skin/extras/widgets/overview.jpg</value>
+        <value condition="String.IsEqual(Container(3).ListItem.Label,$LOCALIZE[20020])">special://skin/extras/widgets/banner.jpg</value>
+        <value condition="String.IsEqual(Container(3).ListItem.Label,$LOCALIZE[31320])">special://skin/extras/widgets/square.jpg</value>
+    </variable>
+
     <include name="DialogSelect_Standard">
         <include>Dialog_Dim_Overlay</include>
 
@@ -92,6 +107,14 @@
                 <visible>Control.IsVisible(6)</visible>
                 <visible>String.IsEqual(Control.GetLabel(1),$LOCALIZE[13511]) | String.IsEqual(Control.GetLabel(1),$LOCALIZE[20437])</visible>
                 <animation effect="slide" end="0,200" condition="Container(6).Position(4) | Container(6).Position(5) | Container(6).Position(6) | Container(6).Position(7)">Conditional</animation>
+            </control>
+            <control type="group">
+                <include content="Dialog_Preview_Def">
+                    <param name="icon">$VAR[DialogSelect_Widgets_Preview]</param>
+                </include>
+                <visible>Control.IsVisible(3)</visible>
+                <visible>String.IsEqual(Control.GetLabel(1),$LOCALIZE[736])</visible>
+                <animation effect="slide" end="0,200" condition="Container(3).Position(4) | Container(3).Position(5) | Container(3).Position(6) | Container(3).Position(7)">Conditional</animation>
             </control>
         </control>
 
@@ -265,7 +288,7 @@
             <param name="id">06</param>
             <param name="label">$LOCALIZE[1000]</param>
             <param name="icon">special://skin/extras/icons/image.png</param>
-            <param name="visible">[String.IsEqual(Control.GetLabel(1),$LOCALIZE[13511]) | String.IsEqual(Control.GetLabel(1),$LOCALIZE[20437]) | String.IsEqual(Control.GetLabel(1),$LOCALIZE[13521])]</param>
+            <param name="visible">[String.IsEqual(Control.GetLabel(1),$LOCALIZE[13511]) | String.IsEqual(Control.GetLabel(1),$LOCALIZE[20437]) | String.IsEqual(Control.GetLabel(1),$LOCALIZE[13521]) | String.IsEqual(Control.GetLabel(1),$LOCALIZE[736])]</param>
             <param name="control">radiobutton</param>
             <param name="radiocross">true</param>
             <selected>!Skin.HasSetting(Dialog.DisableArtworkPreview)</selected>
