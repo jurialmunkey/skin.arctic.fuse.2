@@ -271,8 +271,8 @@
             <ondown>9992</ondown>
             <onright>5000</onright>
             <onleft>noop</onleft>
-            <!-- <onfocus>SetProperty(Background.ShowOverlay,True,Home)</onfocus> -->
-            <onfocus>ClearProperty(Background.ShowOverlay,Home)</onfocus>
+            <onfocus condition="Skin.String(Home.MenuStyle,Ribbon)">SetProperty(Background.ShowOverlay,True,Home)</onfocus>
+            <onfocus condition="![Skin.String(Home.MenuStyle,Ribbon)]">ClearProperty(Background.ShowOverlay,Home)</onfocus>
         </control>
     </include>
 
@@ -286,8 +286,9 @@
             <width>360</width>
             <height>180</height>
             <centerleft>50%</centerleft>
-            <!-- <onfocus>SetProperty(Background.ShowOverlay,True,Home)</onfocus> -->
-            <onfocus>ClearProperty(Background.ShowOverlay,Home)</onfocus>
+
+            <onfocus condition="Skin.String(Home.MenuStyle,Ribbon)">SetProperty(Background.ShowOverlay,True,Home)</onfocus>
+            <onfocus condition="![Skin.String(Home.MenuStyle,Ribbon)]">ClearProperty(Background.ShowOverlay,Home)</onfocus>
 
             <itemlayout width="40" height="60">
                 <control type="label">
@@ -500,8 +501,8 @@
             <width>240</width>
             <height>60</height>
             <centerleft>50%</centerleft>
-            <!-- <onfocus>SetProperty(Background.ShowOverlay,True,Home)</onfocus> -->
-            <onfocus>ClearProperty(Background.ShowOverlay,Home)</onfocus>
+            <onfocus condition="Skin.String(Home.MenuStyle,Ribbon)">SetProperty(Background.ShowOverlay,True,Home)</onfocus>
+            <onfocus condition="![Skin.String(Home.MenuStyle,Ribbon)]">ClearProperty(Background.ShowOverlay,Home)</onfocus>
 
             <itemlayout width="60" height="60">
                 <control type="label">
@@ -606,8 +607,8 @@
                 <focusedcolor>dialog_fg_100</focusedcolor>
                 <label>$LOCALIZE[31324]: $INFO[Container(5099).ListItem.Label]</label>
                 <onclick>SetFocus(5099)</onclick>
-                <!-- <onfocus>SetProperty(Background.ShowOverlay,True,Home)</onfocus> -->
-                <onfocus>ClearProperty(Background.ShowOverlay,Home)</onfocus>
+                <onfocus condition="Skin.String(Home.MenuStyle,Ribbon)">SetProperty(Background.ShowOverlay,True,Home)</onfocus>
+                <onfocus condition="![Skin.String(Home.MenuStyle,Ribbon)]">ClearProperty(Background.ShowOverlay,Home)</onfocus>
                 <!-- <onclick>SetFocus(5099,0,absolute)</onclick> -->
                 <!-- <onclick>Control.Move(5099,1)</onclick>
                 <onclick>SetProperty(TMDbHelper.WidgetContainer,$INFO[Container(5099).ListItem.Property(widget_id)])</onclick> -->
@@ -618,8 +619,8 @@
             <onup>5098</onup>
             <onright>5000</onright>
             <onleft>noop</onleft>
-            <!-- <onfocus>SetProperty(Background.ShowOverlay,True,Home)</onfocus> -->
-            <onfocus>ClearProperty(Background.ShowOverlay,Home)</onfocus>
+            <onfocus condition="Skin.String(Home.MenuStyle,Ribbon)">SetProperty(Background.ShowOverlay,True,Home)</onfocus>
+            <onfocus condition="![Skin.String(Home.MenuStyle,Ribbon)]">ClearProperty(Background.ShowOverlay,Home)</onfocus>
             <visible>!Control.HasFocus(5099)</visible>
 
             <orientation>vertical</orientation>
@@ -683,8 +684,8 @@
             <onup>9994</onup>
             <onright>5000</onright>
             <onleft>noop</onleft>
-            <!-- <onfocus>SetProperty(Background.ShowOverlay,True,Home)</onfocus> -->
-            <onfocus>ClearProperty(Background.ShowOverlay,Home)</onfocus>
+            <onfocus condition="Skin.String(Home.MenuStyle,Ribbon)">SetProperty(Background.ShowOverlay,True,Home)</onfocus>
+            <onfocus condition="![Skin.String(Home.MenuStyle,Ribbon)]">ClearProperty(Background.ShowOverlay,Home)</onfocus>
 
             <orientation>vertical</orientation>
 
@@ -755,7 +756,7 @@
         <include content="Hub_Menu_Slide">
             <param name="condition">!ControlGroup(5000).HasFocus() + !Control.HasFocus(330) + !Control.HasFocus(332) + !Control.HasFocus(333)</param>
         </include>
-        <include content="Hub_Left_Bezier_Object">
+        <include content="Hub_Left_Bezier_Object" condition="!Skin.String(Home.MenuStyle,Ribbon)">
             <param name="visible">!ControlGroup(5000).HasFocus() + !Control.HasFocus(330) + !Control.HasFocus(332) + !Control.HasFocus(333)</param>
         </include>
     </include>
@@ -763,15 +764,19 @@
 
     <include name="Search_Panel">
         <control type="group">
-            <left>20</left>
-
+            <left>view_menu_main_pad_x</left>
             <include>Animation_Search_Fade</include>
-
-            <include content="Home_Menu_Vert_Background">
-                <param name="left">-view_menu_main</param>
-                <param name="width">view_menu_main</param>
-                <param name="subline_visible">false</param>
-            </include>
+            <control type="group">
+                <left>view_menu_main_offset_x</left>
+                <include content="Home_Menu_Vert_Background">
+                    <param name="left">-view_menu_main</param>
+                    <param name="width">view_menu_main</param>
+                    <param name="subline_visible">false</param>
+                    <param name="include_ribbon">Skin.String(Home.MenuStyle,Ribbon)</param>
+                    <param name="include_dialog">!Skin.String(Home.MenuStyle,Ribbon)</param>
+                    <param name="include_mask">!Skin.String(Home.MenuStyle,Ribbon)</param>
+                </include>
+            </control>
             <control type="group">
                 <left>-view_menu_main</left>
                 <width>view_menu_main</width>

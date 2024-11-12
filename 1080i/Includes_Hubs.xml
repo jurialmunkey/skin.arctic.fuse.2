@@ -334,8 +334,8 @@
 
             <control type="group">
                 <include condition="$PARAM[is_homemenu]">Hub_Menu_Slide</include>
-                <include condition="Skin.HasSetting(Hubs.EnableSlideOver)">Hub_Menu_Dialog_Slide</include>
-                <include content="Hub_Left_Bezier">
+                <include condition="!String.IsEmpty(Skin.String(Home.MenuStyle))">Hub_Menu_Dialog_Slide</include>
+                <include content="Hub_Left_Bezier" condition="!Skin.String(Home.MenuStyle,Ribbon)">
                     <param name="is_homemenu">$PARAM[is_homemenu]</param>
                 </include>
 

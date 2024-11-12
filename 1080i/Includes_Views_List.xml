@@ -17,13 +17,11 @@
         </include>
     </include>
     <include name="View_551_Landscape_MediaList">
-        <include content="View_MediaList_Include" condition="Window.IsVisible(videos)">
+        <include content="View_MediaList_Include" condition="Window.IsVisible(videos) + !Skin.HasSetting(View.DisableFlixArtListPoster)">
             <param name="id">551</param>
             <param name="viewtype_label">$LOCALIZE[31480]</param>
             <param name="visible">$EXP[Exp_View_551]</param>
             <param name="right">910</param>
-            <!-- <param name="left">880</param>
-            <param name="right">20</param> -->
             <param name="top">400</param>
             <param name="focusposition">1</param>
             <param name="movement">2</param>
@@ -33,19 +31,31 @@
                 <param name="flipx">false</param>
             </include>
         </include>
-        <include content="View_MediaList_Include" condition="!Window.IsVisible(videos)">
+        <include content="View_MediaList_Include" condition="!Window.IsVisible(videos) + !Skin.HasSetting(View.DisableFlixArtListPoster)">
             <param name="id">551</param>
             <param name="viewtype_label">$LOCALIZE[31480]</param>
             <param name="visible">$EXP[Exp_View_551]</param>
             <param name="right">1010</param>
-            <!-- <param name="left">880</param>
-            <param name="right">20</param> -->
             <param name="top">400</param>
             <param name="focusposition">1</param>
             <param name="movement">2</param>
             <param name="scrollbar_id">64</param>
             <param name="overlay">false</param>
             <include content="View_MediaList_SquareLandscape">
+                <param name="flipx">false</param>
+            </include>
+        </include>
+        <include content="View_MediaList_Include" condition="Skin.HasSetting(View.DisableFlixArtListPoster)">
+            <param name="id">551</param>
+            <param name="viewtype_label">$LOCALIZE[31480]</param>
+            <param name="visible">$EXP[Exp_View_551]</param>
+            <param name="right">650</param>
+            <param name="top">400</param>
+            <param name="focusposition">1</param>
+            <param name="movement">2</param>
+            <param name="scrollbar_id">64</param>
+            <param name="overlay">false</param>
+            <include content="View_MediaList_Landscape">
                 <param name="flipx">false</param>
             </include>
         </include>
@@ -234,6 +244,34 @@
         </definition>
     </include>
 
+    <include name="View_MediaList_Landscape">
+        <param name="visible">!$EXP[Exp_InfoDialogs]</param>
+        <param name="flipx">false</param>
+        <definition>
+            <control type="group">
+                <right>-40</right>
+                <bottom>-40</bottom>
+                <height>360</height>
+                <control type="group">
+                    <include content="Object_Left" condition="$PARAM[flipx]">
+                        <param name="left">0</param>
+                    </include>
+                    <include content="Object_Right" condition="![$PARAM[flipx]]">
+                        <param name="right">0</param>
+                    </include>
+                    <height>360</height>
+                    <width>610</width>
+                    <include content="Layout_Poster">
+                        <param name="icon">$VAR[Image_Landscape]</param>
+                        <param name="diffuse">diffuse/landscape_w520_h294.png</param>
+                        <param name="indicator">true</param>
+                        <param name="item_w">570</param>
+                        <param name="item_h">320</param>
+                    </include>
+                </control>
+            </control>
+        </definition>
+    </include>
 
     <include name="View_MediaList_PosterLandscape">
         <param name="visible">!$EXP[Exp_InfoDialogs]</param>

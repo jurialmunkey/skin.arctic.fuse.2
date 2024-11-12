@@ -162,18 +162,21 @@
                             <param name="dialog">false</param>
                             <param name="id">1010</param>
                             <param name="control">button</param>
-                            <label>$LOCALIZE[10000] > $LOCALIZE[736]</label>
+                            <label>$LOCALIZE[10000] > $LOCALIZE[736] ($LOCALIZE[39162])</label>
                             <label2>$VAR[Label_Setting_SideMenuStyle]</label2>
                             <visible>Container(3).HasFocus(1)</visible>
+
+                            <!-- <onclick>RunScript(script.skinvariables,run_dialog=select,preselect=$VAR[Label_Setting_SideMenuStyle],heading=$LOCALIZE[10000] > $LOCALIZE[736],separator=||,list=$LOCALIZE[31274] ($LOCALIZE[571])||$LOCALIZE[31274] ($LOCALIZE[31486])||$LOCALIZE[31274] ($LOCALIZE[31317])||$LOCALIZE[31118] ($LOCALIZE[31486])||$LOCALIZE[31118] ($LOCALIZE[31317]),"executebuiltin_0=Skin.Reset(Home.ExpandedMenu)||Skin.Reset(Home.MenuStyle)||ReloadSkin()||SetFocus(1010)","executebuiltin_1=Skin.Reset(Home.ExpandedMenu)||Skin.SetString(Home.MenuStyle,Dialog)||ReloadSkin()||SetFocus(1010)","executebuiltin_2=Skin.Reset(Home.ExpandedMenu)||Skin.SetString(Home.MenuStyle,Ribbon)||ReloadSkin()||SetFocus(1010)","executebuiltin_3=Skin.SetBool(Home.ExpandedMenu)||Skin.SetString(Home.MenuStyle,Dialog)||ReloadSkin()||SetFocus(1010)","executebuiltin_4=Skin.SetBool(Home.ExpandedMenu)||Skin.SetString(Home.MenuStyle,Ribbon)||ReloadSkin()||SetFocus(1010)")</onclick> -->
+
                             <onclick>Skin.ToggleSetting(Home.ExpandedMenu)</onclick>
-                            <visible>String.IsEmpty(Skin.String(Hub.Home.ReplaceWindow))</visible>
+                            <!-- <visible>String.IsEmpty(Skin.String(Hub.Home.ReplaceWindow))</visible> -->
                         </include>
 
                         <include content="Settings_Button" description="Left menu">
                             <param name="dialog">false</param>
                             <param name="id">1011</param>
                             <param name="control">button</param>
-                            <label>$LOCALIZE[10000] > $LOCALIZE[39162]</label>
+                            <label>$LOCALIZE[10000] > $LOCALIZE[15217] ($LOCALIZE[39162])</label>
                             <label2>$VAR[Label_Setting_LeftMenuStyle]</label2>
                             <onclick>RunScript(script.skinvariables,run_dialog=select,preselect=$VAR[Label_Setting_LeftMenuStyle],heading=$LOCALIZE[10000] > $LOCALIZE[39162],separator=||,list=$LOCALIZE[31446]||$LOCALIZE[33061]||$LOCALIZE[1036]||$LOCALIZE[33063],"executebuiltin_0=Skin.SetString(Home.LeftMenu.Action,Bump)","executebuiltin_1=Skin.Reset(Home.LeftMenu.Action)","executebuiltin_2=Skin.SetString(Home.LeftMenu.Action,Favourites)","executebuiltin_3=Skin.SetString(Home.LeftMenu.Action,Options)")</onclick>
 
@@ -186,7 +189,7 @@
                             <param name="id">1012</param>
                             <param name="dialog">false</param>
                             <param name="control">button</param>
-                            <label>$LOCALIZE[10000] > $LOCALIZE[31166]</label>
+                            <label>$LOCALIZE[10000] > $LOCALIZE[15217] ($LOCALIZE[31166])</label>
                             <label2>$VAR[Label_Setting_Home_OnBack]</label2>
                             <onclick condition="Skin.HasSetting(Home.DisableMenuOnBack)">Skin.Reset(Home.DisableMenuOnBack)</onclick>
                             <onclick condition="!Skin.HasSetting(Home.DisableMenuOnBack)">RunScript(script.skinvariables,run_dialog=yesno,heading=$LOCALIZE[10000] > $LOCALIZE[31166],message=[B][COLOR=red][UPPERCASE]$LOCALIZE[14117][/UPPERCASE][/B][/COLOR][CR]$LOCALIZE[31277],yeslabel=$LOCALIZE[24021],nolabel=$LOCALIZE[222],"executebuiltin=Skin.SetBool(Home.DisableMenuOnBack)")</onclick>
@@ -419,7 +422,7 @@
                             <param name="dialog">false</param>
                             <param name="id">3012</param>
                             <param name="control">button</param>
-                            <label>$LOCALIZE[31082]</label>
+                            <label>$LOCALIZE[31106] ([CAPITALIZE]$LOCALIZE[31082][/CAPITALIZE])</label>
                             <label2>$VAR[Label_Settings_WallOrientation]</label2>
                             <visible>Container(3).HasFocus(3)</visible>
                             <visible>String.IsEqual(Skin.AspectRatio,16:9)</visible>
@@ -444,6 +447,16 @@
                             <label2>$VAR[Label_Settings_BoardViewMode]</label2>
                             <visible>Container(3).HasFocus(3)</visible>
                             <onclick>Skin.ToggleSetting(View.UseTextBasedBoard)</onclick>
+                        </include>
+
+                        <include content="Settings_Button" description="Use Landscape only for FlixArt List Library">
+                            <param name="dialog">false</param>
+                            <param name="id">3016</param>
+                            <param name="control">button</param>
+                            <label>$LOCALIZE[31106] ($LOCALIZE[31480])</label>
+                            <label2>$VAR[Label_Settings_ListFlixArtViewMode]</label2>
+                            <visible>Container(3).HasFocus(3)</visible>
+                            <onclick>Skin.ToggleSetting(View.DisableFlixArtListPoster)</onclick>
                         </include>
 
                         <include content="Settings_Button" description="Use Simple Text">

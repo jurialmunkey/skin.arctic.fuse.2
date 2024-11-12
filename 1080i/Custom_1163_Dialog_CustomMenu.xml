@@ -12,7 +12,12 @@
         <control type="group">
             <control type="group">
                 <left>view_menu_main</left>
-                <include condition="!Skin.HasSetting(Hubs.EnableSlideOver)">Hub_Left_Bezier_Object</include>
+                <control type="group">
+                    <include content="Object_Left" condition="Skin.String(Home.MenuStyle,Ribbon)">
+                        <param name="left">-40</param>
+                    </include>
+                    <include condition="String.IsEmpty(Skin.String(Home.MenuStyle))">Hub_Left_Bezier_Object</include>
+                </control>
             </control>
             <include content="Animation_Slide_In">
                 <param name="type">WindowOpen</param>
@@ -23,18 +28,24 @@
                 <param name="posx">-view_menu_main</param>
             </include>
             <control type="group">
-                <width>view_menu_main</width>
+                <left>view_menu_main_pad_x</left>
                 <control type="group">
-                    <left>20</left>
+                    <left>view_menu_main_offset_x</left>
 
                     <include content="Home_Menu_Vert_Background">
                         <param name="left">0</param>
                         <param name="width">view_menu_main</param>
-                        <param name="include_mask">!Skin.HasSetting(Hubs.EnableSlideOver)</param>
+                        <param name="include_mask">String.IsEmpty(Skin.String(Home.MenuStyle))</param>
+                        <param name="include_ribbon">Skin.String(Home.MenuStyle,Ribbon)</param>
+                        <param name="include_dialog">!Skin.String(Home.MenuStyle,Ribbon)</param>
                     </include>
+                </control>
+
+                <control type="group">
+                    <width>view_menu_main</width>
 
                     <control type="group">
-                        <left>-20</left>
+                        <left>view_menu_main_head_x</left>
                         <control type="group">
                             <include>Dimension_Topbar</include>
                             <control type="group">
@@ -92,7 +103,7 @@
                                 <top>160</top>
                                 <bottom>160</bottom>
                                 <left>20</left>
-                                <right>0</right>
+                                <right>20</right>
                                 <onclick>$VAR[DialogCustom1162_OnClick]</onclick>
 
                                 <content>
