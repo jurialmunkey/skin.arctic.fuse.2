@@ -60,6 +60,7 @@
         <param name="plotlabel">$VAR[Label_Plot]</param>
         <definition>
             <left>infodialog_left_w</left>
+            <bottom>-10</bottom>
             <include content="Animation_Slide_In">
                 <param name="type">WindowOpen</param>
                 <param name="posx">320</param>
@@ -891,19 +892,25 @@
                     <param name="id">$PARAM[id]</param>
                 </include>
 
-                <control type="image">
-                    <texture colordiffuse="$PARAM[textcolor]_$PARAM[nf_opacity]">$PARAM[icon]</texture>
-                    <aspectratio>keep</aspectratio>
-                    <bordersize>icon_menu_bordersize</bordersize>
-                    <bordersize>$PARAM[bordersize]</bordersize>
-                    <visible>!Control.HasFocus($PARAM[id])</visible>
-                </control>
-                <control type="image">
-                    <texture colordiffuse="$VAR[ColorSelected]">$PARAM[icon]</texture>
-                    <aspectratio>keep</aspectratio>
-                    <bordersize>icon_menu_bordersize</bordersize>
-                    <bordersize>$PARAM[bordersize]</bordersize>
-                    <visible>Control.HasFocus($PARAM[id])</visible>
+                <control type="group">
+                    <include content="Object_Top" condition="![$PARAM[include_hintlabel]]">
+                        <param name="top">10</param>
+                    </include>
+                    <height>$PARAM[icon_size]</height>
+                    <control type="image">
+                        <texture colordiffuse="$PARAM[textcolor]_$PARAM[nf_opacity]">$PARAM[icon]</texture>
+                        <aspectratio>keep</aspectratio>
+                        <bordersize>icon_menu_bordersize</bordersize>
+                        <bordersize>$PARAM[bordersize]</bordersize>
+                        <visible>!Control.HasFocus($PARAM[id])</visible>
+                    </control>
+                    <control type="image">
+                        <texture colordiffuse="$VAR[ColorSelected]">$PARAM[icon]</texture>
+                        <aspectratio>keep</aspectratio>
+                        <bordersize>icon_menu_bordersize</bordersize>
+                        <bordersize>$PARAM[bordersize]</bordersize>
+                        <visible>Control.HasFocus($PARAM[id])</visible>
+                    </control>
                 </control>
             </control>
         </definition>
@@ -925,7 +932,6 @@
 
     <!-- Additional Video Info Details not included in info line such as Director and Genres -->
     <include name="DialogInfo_VideoDetails">
-        <param name="is_player">false</param>
         <definition>
 
             <control type="group">
@@ -941,7 +947,7 @@
                     <height>320</height>
 
                     <!-- Director -->
-                    <include content="Object_InfoCircle" condition="![$PARAM[is_player]]">
+                    <include content="Object_InfoCircle">
                         <param name="name">$VAR[Label_FromDirector]</param>
                         <param name="role">$LOCALIZE[20339]</param>
                         <param name="icon">special://skin/extras/icons/video-addons.png</param>
@@ -951,19 +957,9 @@
                         </include>
                         <visible>!String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.Director)) | !String.IsEmpty(ListItem.Director)</visible>
                     </include>
-                    <include content="Object_InfoCircle" condition="[$PARAM[is_player]]">
-                        <param name="name">$VAR[Label_OSD_FromDirector]</param>
-                        <param name="role">$LOCALIZE[20339]</param>
-                        <param name="icon">special://skin/extras/icons/video-addons.png</param>
-                        <include content="Object_InfoCircle_Image">
-                            <param name="colordiffuse">white</param>
-                            <param name="icon">$VAR[Image_OSD_DirectorIcon]</param>
-                        </include>
-                        <visible>!String.IsEmpty(Window(Home).Property(TMDbHelper.Player.Director)) | !String.IsEmpty(VideoPlayer.Director)</visible>
-                    </include>
 
                     <!-- Writer -->
-                    <include content="Object_InfoCircle" condition="![$PARAM[is_player]]">
+                    <include content="Object_InfoCircle">
                         <param name="name">$VAR[Label_FromWriter]</param>
                         <param name="role">$LOCALIZE[20417]</param>
                         <param name="icon">special://skin/extras/icons/write.png</param>
@@ -973,19 +969,9 @@
                         </include>
                         <visible>!String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.Writer)) | !String.IsEmpty(ListItem.Writer)</visible>
                     </include>
-                    <include content="Object_InfoCircle" condition="[$PARAM[is_player]]">
-                        <param name="name">$VAR[Label_OSD_FromWriter]</param>
-                        <param name="role">$LOCALIZE[20417]</param>
-                        <param name="icon">special://skin/extras/icons/write.png</param>
-                        <include content="Object_InfoCircle_Image">
-                            <param name="colordiffuse">white</param>
-                            <param name="icon">$VAR[Image_OSD_WriterIcon]</param>
-                        </include>
-                        <visible>!String.IsEmpty(Window(Home).Property(TMDbHelper.Player.Writer)) | !String.IsEmpty(VideoPlayer.Writer)</visible>
-                    </include>
 
                     <!-- Creator -->
-                    <!-- <include content="Object_InfoCircle" condition="![$PARAM[is_player]]">
+                    <!-- <include content="Object_InfoCircle">
                         <param name="name">$VAR[Label_Creator]</param>
                         <param name="role">$LOCALIZE[31065]</param>
                         <param name="icon">special://skin/extras/icons/person.png</param>
@@ -994,34 +980,40 @@
                             <param name="icon">$VAR[Image_CreatorIcon]</param>
                         </include>
                         <visible>!String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.Creator)) | !String.IsEmpty(ListItem.Property(Creator))</visible>
-                    </include>
-                    <include content="Object_InfoCircle" condition="[$PARAM[is_player]]">
-                        <param name="name">$INFO[Window(Home).Property(TMDbHelper.Player.Creator)]</param>
-                        <param name="role">$LOCALIZE[31065]</param>
-                        <param name="icon">special://skin/extras/icons/person.png</param>
-                        <include content="Object_InfoCircle_Image">
-                            <param name="colordiffuse">white</param>
-                            <param name="icon">$VAR[Image_OSD_CreatorIcon]</param>
-                        </include>
-                        <visible>!String.IsEmpty(Window(Home).Property(TMDbHelper.Player.Creator))</visible>
                     </include> -->
 
                     <!-- Studio -->
-                    <include content="Object_InfoCircle" condition="![$PARAM[is_player]]">
+                    <include content="Object_InfoCircle">
                         <param name="name">$VAR[Label_FromStudio]</param>
                         <param name="role">$LOCALIZE[572]</param>
-                        <param name="icon">special://skin/extras/icons/director.png</param>
+                        <!-- <param name="icon">special://skin/extras/icons/director.png</param> -->
+                        <include content="Object_InfoCircle_Image">
+                            <param name="colordiffuse">main_bg_100</param>
+                            <param name="icon">common/white.png</param>
+                        </include>
+                        <include content="Object_InfoCircle_Image">
+                            <param name="colordiffuse">white</param>
+                            <param name="icon">$VAR[Image_CombinedStudio]</param>
+                            <param name="aspectratio">keep</param>
+                            <param name="fallback">special://skin/extras/icons/director.png</param>
+                        </include>
                         <visible>!String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.Studio)) | !String.IsEmpty(ListItem.Studio)</visible>
                     </include>
-                    <include content="Object_InfoCircle" condition="[$PARAM[is_player]]">
-                        <param name="name">$VAR[Label_OSD_FromStudio]</param>
-                        <param name="role">$LOCALIZE[572]</param>
-                        <param name="icon">special://skin/extras/icons/director.png</param>
-                        <visible>!String.IsEmpty(Window(Home).Property(TMDbHelper.Player.Studio)) | !String.IsEmpty(VideoPlayer.Studio)</visible>
+
+                    <!-- Episodes -->
+                    <include content="Object_InfoCircle">
+                        <param name="name">$INFO[ListItem.Property(watchedepisodes),$LOCALIZE[16102] , $LOCALIZE[1443] ]$INFO[ListItem.Property(totalepisodes)] $LOCALIZE[20453]</param>
+                        <param name="role">$LOCALIZE[20360]</param>
+                        <param name="icon">special://skin/extras/icons/photo-film.png</param>
+                        <include content="Object_InfoCircle_Image">
+                            <param name="colordiffuse">white</param>
+                            <param name="icon">$INFO[ListItem.Art(poster)]</param>
+                        </include>
+                        <visible>!String.IsEmpty(ListItem.Property(totalepisodes))</visible>
                     </include>
 
                     <!-- Codecs -->
-                    <include content="Object_InfoCircle" condition="![$PARAM[is_player]]">
+                    <include content="Object_InfoCircle">
                         <param name="name">[UPPERCASE]$INFO[ListItem.VideoResolution,, • ]$INFO[ListItem.VideoCodec]$INFO[ListItem.VideoAspect, • ,:1]$INFO[ListItem.AudioCodec, • ,]$VAR[Label_ListItem_AudioChannels, • ,][/UPPERCASE]</param>
                         <param name="role">$INFO[ListItem.VideoVersionName]</param>
                         <param name="icon">special://skin/extras/icons/photo-film.png</param>
@@ -1032,38 +1024,19 @@
                         </include>
                         <visible>!String.IsEmpty(ListItem.VideoCodec)</visible>
                     </include>
-                    <include content="Object_InfoCircle" condition="[$PARAM[is_player]]">
-                        <param name="name">[UPPERCASE]$INFO[VideoPlayer.VideoResolution,, • ]$INFO[VideoPlayer.VideoCodec]$INFO[VideoPlayer.VideoAspect, • ,:1]$INFO[VideoPlayer.AudioCodec, • ,]$VAR[Label_VideoPlayer_AudioChannels, • ,][/UPPERCASE]</param>
-                        <param name="role">$INFO[VideoPlayer.VideoVersionName]</param>
-                        <param name="icon">special://skin/extras/icons/photo-film.png</param>
-                        <param name="fallback_role">$LOCALIZE[31207]</param>
-                        <include content="Object_InfoCircle_Image">
-                            <param name="colordiffuse">white</param>
-                            <param name="icon">$INFO[VideoPlayer.Art(poster)]</param>
-                        </include>
-                        <visible>!String.IsEmpty(VideoPlayer.VideoCodec)</visible>
-                    </include>
 
-                    <!-- Episodes -->
-                    <include content="Object_InfoCircle" condition="![$PARAM[is_player]]">
-                        <param name="name">$INFO[ListItem.Property(watchedepisodes),$LOCALIZE[16102] , $LOCALIZE[1443] ]$INFO[ListItem.Property(totalepisodes)] $LOCALIZE[20453]</param>
-                        <param name="role">$LOCALIZE[20360]</param>
+                    <!-- Providers -->
+                    <include content="Object_InfoCircle">
+                        <param name="name">$INFO[Window(Home).Property(TMDbHelper.ListItem.Provider.1.Name)]$INFO[Window(Home).Property(TMDbHelper.ListItem.Provider.2.Name), • ,]$INFO[Window(Home).Property(TMDbHelper.ListItem.Provider.3.Name), • ,]$INFO[Window(Home).Property(TMDbHelper.ListItem.Provider.4.Name), • ,]$INFO[Window(Home).Property(TMDbHelper.ListItem.Provider.5.Name), • ,]</param>
+                        <param name="role">JustWatch</param>
                         <param name="icon">special://skin/extras/icons/photo-film.png</param>
                         <include content="Object_InfoCircle_Image">
                             <param name="colordiffuse">white</param>
-                            <param name="icon">$INFO[ListItem.Art(poster)]</param>
+                            <param name="icon">$INFO[Window(Home).Property(TMDbHelper.ListItem.Provider.1.Icon)]</param>
                         </include>
-                        <visible>!String.IsEmpty(ListItem.Property(totalepisodes))</visible>
-                    </include>
-                    <include content="Object_InfoCircle" condition="$PARAM[is_player]">
-                        <param name="name">$INFO[VideoPlayer.Property(watchedepisodes),$LOCALIZE[16102] , $LOCALIZE[1443] ]$INFO[VideoPlayer.Property(totalepisodes)] $LOCALIZE[20453]</param>
-                        <param name="role">$LOCALIZE[20360]</param>
-                        <param name="icon">special://skin/extras/icons/photo-film.png</param>
-                        <include content="Object_InfoCircle_Image">
-                            <param name="colordiffuse">white</param>
-                            <param name="icon">$INFO[VideoPlayer.Art(poster)]</param>
-                        </include>
-                        <visible>!String.IsEmpty(VideoPlayer.Property(totalepisodes))</visible>
+                        <visible>!String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.Provider.1.Icon))</visible>
+                        <visible>String.IsEmpty(ListItem.VideoCodec)</visible>
+                        <visible>String.IsEqual(ListItem.DBType,movie) | String.IsEqual(ListItem.DBType,episode) | String.IsEqual(ListItem.DBType,season) | String.IsEqual(ListItem.DBType,tvshow)</visible>
                     </include>
                 </control>
 
@@ -1074,83 +1047,44 @@
                     <left>480</left>
 
                     <!-- Genre -->
-                    <include content="Object_InfoCircle" condition="![$PARAM[is_player]]">
+                    <include content="Object_InfoCircle">
                         <param name="icon">special://skin/extras/icons/genre.png</param>
                         <param name="role">$LOCALIZE[515]</param>
                         <param name="name">$VAR[Label_Genre]</param>
                         <visible>!String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.Genre)) | !String.IsEmpty(ListItem.Genre)</visible>
                     </include>
-                    <include content="Object_InfoCircle" condition="[$PARAM[is_player]]">
-                        <param name="icon">special://skin/extras/icons/genre.png</param>
-                        <param name="role">$LOCALIZE[515]</param>
-                        <param name="name">$INFO[VideoPlayer.Genre]</param>
-                        <visible>!String.IsEmpty(VideoPlayer.Genre)</visible>
-                    </include>
 
                     <!-- Country -->
-                    <include content="Object_InfoCircle" condition="![$PARAM[is_player]]">
+                    <include content="Object_InfoCircle">
                         <param name="icon">special://skin/extras/icons/earth-americas.png</param>
                         <param name="role">$LOCALIZE[574]</param>
                         <param name="name">$VAR[Label_Country]</param>
                         <visible>!String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.Country)) | !String.IsEmpty(ListItem.Country)</visible>
                     </include>
-                    <include content="Object_InfoCircle" condition="[$PARAM[is_player]]">
-                        <param name="icon">special://skin/extras/icons/earth-americas.png</param>
-                        <param name="role">$LOCALIZE[574]</param>
-                        <param name="name">$INFO[VideoPlayer.Country]</param>
-                        <visible>!String.IsEmpty(VideoPlayer.Country)</visible>
-                    </include>
-
-                    <!-- Status -->
-                    <!-- <include content="Object_InfoCircle" condition="![$PARAM[is_player]]">
-                        <param name="icon">$VAR[Image_DialogInfo_Status]</param>
-                        <param name="role">$VAR[Label_ListItem_NextAired_Header]</param>
-                        <param name="name">$VAR[Label_ListItem_NextAired]$VAR[Label_ListItem_Status, (,)]</param>
-                        <visible>!String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.Status)) | !String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.Status))</visible>
-                    </include> -->
 
                     <!-- Budget / Revenue -->
-                    <include content="Object_InfoCircle" condition="![$PARAM[is_player]]">
+                    <include content="Object_InfoCircle">
                         <param name="icon">special://skin/extras/icons/coins.png</param>
                         <param name="role">$LOCALIZE[31264] / $LOCALIZE[31265]</param>
                         <param name="name">$INFO[Window(Home).Property(TMDbHelper.ListItem.Revenue),, $LOCALIZE[19159] ]$INFO[Window(Home).Property(TMDbHelper.ListItem.Budget)]</param>
                         <visible>!String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.Revenue)) | !String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.Budget))</visible>
                         <visible>!String.IsEqual(Window(Home).Property(TMDbHelper.ListItem.Budget),$0)</visible>
                     </include>
-                    <include content="Object_InfoCircle" condition="[$PARAM[is_player]]">
-                        <param name="icon">special://skin/extras/icons/coins.png</param>
-                        <param name="role">$LOCALIZE[31264] / $LOCALIZE[31265]</param>
-                        <param name="name">$INFO[Window(Home).Property(TMDbHelper.Player.Revenue),, $LOCALIZE[19159] ]$INFO[Window(Home).Property(TMDbHelper.Player.Budget)]</param>
-                        <visible>!String.IsEmpty(Window(Home).Property(TMDbHelper.Player.Revenue)) | !String.IsEmpty(Window(Home).Property(TMDbHelper.Player.Budget))</visible>
-                        <visible>!String.IsEqual(Window(Home).Property(TMDbHelper.Player.Budget),$0)</visible>
-                    </include>
 
                     <!-- Awards -->
-                    <include content="Object_InfoCircle" condition="![$PARAM[is_player]]">
+                    <include content="Object_InfoCircle">
                         <param name="icon">special://skin/extras/icons/trophy.png</param>
                         <param name="role">$LOCALIZE[31064]</param>
                         <param name="name">$INFO[Window(Home).Property(TMDbHelper.ListItem.Awards)]</param>
                         <visible>!String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.Awards))</visible>
                     </include>
-                    <include content="Object_InfoCircle" condition="[$PARAM[is_player]]">
-                        <param name="icon">special://skin/extras/icons/trophy.png</param>
-                        <param name="role">$LOCALIZE[31064]</param>
-                        <param name="name">$INFO[Window(Home).Property(TMDbHelper.Player.Awards)]</param>
-                        <visible>!String.IsEmpty(Window(Home).Property(TMDbHelper.Player.Awards))</visible>
-                    </include>
 
                     <!-- Tagline -->
-                    <include content="Object_InfoCircle" condition="![$PARAM[is_player]]">
+                    <include content="Object_InfoCircle">
                         <param name="icon">special://skin/extras/icons/tag.png</param>
                         <param name="role">$LOCALIZE[202]</param>
                         <param name="name">$INFO[Window(Home).Property(TMDbHelper.ListItem.Tagline)]</param>
                         <visible>!String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.Tagline))</visible>
-                    </include>
-                    <include content="Object_InfoCircle" condition="[$PARAM[is_player]]">
-                        <param name="icon">special://skin/extras/icons/tag.png</param>
-                        <param name="role">$LOCALIZE[202]</param>
-                        <param name="name">$INFO[Window(Home).Property(TMDbHelper.Player.Tagline)]</param>
-                        <visible>!String.IsEmpty(Window(Home).Property(TMDbHelper.Player.Tagline))</visible>
                     </include>
                 </control>
 
@@ -1427,9 +1361,7 @@
                                 <onclick>Dialog.Close(1141,true)</onclick>
                                 <onclick>Dialog.Close(videobookmarks,true)</onclick>
                                 <onclick>RunScript(plugin.video.themoviedb.helper,add_path=$INFO[Window.Property(path)],call_auto=1190,return)</onclick>
-                                <include content="DialogInfo_Button_HintLabel">
-                                    <param name="label">$LOCALIZE[29915]</param>
-                                </include>
+                                <param name="include_hintlabel">true</param>
                             </include>
                             <!-- Wiki -->
                             <include content="DialogInfo_Button">
@@ -1441,9 +1373,7 @@
 
                                 <onclick>runscript(script.wikipedia,wikipedia=$INFO[Window.Property(header)])</onclick>
 
-                                <include content="DialogInfo_Button_HintLabel">
-                                    <param name="label">Wiki</param>
-                                </include>
+                                <param name="include_hintlabel">true</param>
                             </include>
                             <!-- Trailer -->
                             <include content="DialogInfo_Button">
@@ -1457,9 +1387,7 @@
                                     <param name="trailer">Window.Property(trailer)</param>
                                     <param name="trailer_fallback">Window(Home).Property(TMDbHelper.ListItem.Trailer)</param>
                                 </include>
-                                <include content="DialogInfo_Button_HintLabel">
-                                    <param name="label">$LOCALIZE[20410]</param>
-                                </include>
+                                <param name="include_hintlabel">true</param>
                             </include>
 
                         </control>

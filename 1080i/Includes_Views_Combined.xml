@@ -2,7 +2,7 @@
 <includes>
 
     <include name="View_Combined_Info">
-        <include content="Info_Panel">
+        <include content="Info_Panel" condition="$EXP[Exp_View_$PARAM[id]2_Include]">
             <param name="container">Container($PARAM[id]3).</param>
             <param name="titlelabel">$VAR[Label_Title_C$PARAM[id]3]</param>
             <param name="plotlabel">$VAR[Label_Plot_C$PARAM[id]3]</param>
@@ -28,6 +28,39 @@
         <value condition="String.IsEmpty(Window.Property(SpecialFolderPath)) + !String.IsEmpty(Container(522).ListItem.FolderPath) + Container(522).ListItem.IsFolder">$INFO[Container(522).ListItem.FolderPath]</value>
         <value condition="!String.IsEmpty(Window.Property(SpecialFolderPath))">$INFO[Window.Property(SpecialFolderPath)]</value>
     </variable>
+    <variable name="View_533_Content">
+        <value condition="String.IsEmpty(Window.Property(SpecialFolderPath)) + !String.IsEmpty(Container(532).ListItem.FolderPath) + Container(532).ListItem.IsFolder">$INFO[Container(532).ListItem.FolderPath]</value>
+        <value condition="!String.IsEmpty(Window.Property(SpecialFolderPath))">$INFO[Window.Property(SpecialFolderPath)]</value>
+    </variable>
+    <variable name="View_543_Content">
+        <value condition="String.IsEmpty(Window.Property(SpecialFolderPath)) + !String.IsEmpty(Container(542).ListItem.FolderPath) + Container(542).ListItem.IsFolder">$INFO[Container(542).ListItem.FolderPath]</value>
+        <value condition="!String.IsEmpty(Window.Property(SpecialFolderPath))">$INFO[Window.Property(SpecialFolderPath)]</value>
+    </variable>
+    <variable name="View_573_Content">
+        <value condition="String.IsEmpty(Window.Property(SpecialFolderPath)) + !String.IsEmpty(Container(572).ListItem.FolderPath) + Container(572).ListItem.IsFolder">$INFO[Container(572).ListItem.FolderPath]</value>
+        <value condition="!String.IsEmpty(Window.Property(SpecialFolderPath))">$INFO[Window.Property(SpecialFolderPath)]</value>
+    </variable>
+
+    <include name="View_Combined_Info_Panel">
+        <include content="View_Combined_Info">
+            <param name="id">50</param>
+        </include>
+        <include content="View_Combined_Info">
+            <param name="id">51</param>
+        </include>
+        <include content="View_Combined_Info">
+            <param name="id">52</param>
+        </include>
+        <include content="View_Combined_Info">
+            <param name="id">53</param>
+        </include>
+        <include content="View_Combined_Info">
+            <param name="id">54</param>
+        </include>
+        <include content="View_Combined_Info">
+            <param name="id">57</param>
+        </include>
+    </include>
 
     <!-- Horizontal Layout (Classic) -->
     <include name="View_Combined_Row_Horz">
@@ -103,12 +136,6 @@
 
         <ondown>SetFocus(8000)</ondown>
 
-        <!-- <pagecontrol>65</pagecontrol>
-        <include content="Action_View_Movement_OnDown">
-            <param name="to_scrollbar">false</param>
-            <param name="id">$PARAM[id]2</param>
-        </include> -->
-
         <onfocus>SetProperty(TMDbHelper.WidgetContainer,$PARAM[id]3)</onfocus>
         <onfocus>ClearProperty(SpecialFolderPath)</onfocus>
         <onfocus>ClearProperty(Background.ShowOverlay,Home)</onfocus>
@@ -121,7 +148,6 @@
             <visible allowhiddenfocus="true">!$EXP[Exp_View_ScrollFilter_HasFocus]</visible>
             <control type="group">
                 <visible>$PARAM[visible]</visible>
-                <!-- <left>view_poster_itemlayout_w</left> -->
                 <include content="Categories_Selector">
                     <param name="id">$PARAM[id]2</param>
                     <param name="font">font_mini</param>
@@ -135,8 +161,6 @@
                         <param name="visible">$PARAM[visible]</param>
                         <param name="viewtype_label">$PARAM[viewtype_label]</param>
                     </include>
-                    <!-- <focusposition>2</focusposition>
-                    <movement>2</movement> -->
                 </include>
             </control>
         </control>
@@ -149,7 +173,6 @@
                     <param name="id">$PARAM[id]</param>
                     <param name="include">$PARAM[include]</param>
                     <param name="visible">$EXP[Exp_View_$PARAM[id]2]</param>
-                    <param name="icon_base_var">$PARAM[icon_base_var]</param>
                 </include>
             </control>
         </definition>
@@ -160,10 +183,6 @@
         <include content="View_Combined_Row">
             <param name="id">50</param>
             <param name="include">List_Square_Row</param>
-            <param name="icon_base_var">Image_Icon</param>
-            <param name="slide_x">480</param>
-            <param name="item_w">480</param>
-            <param name="item_alt_w">460</param>
         </include>
     </include>
 
@@ -172,10 +191,6 @@
         <include content="View_Combined_Row">
             <param name="id">51</param>
             <param name="include">List_Landscape_Row</param>
-            <param name="icon_base_var">Image_Landscape</param>
-            <param name="slide_x">420</param>
-            <param name="item_w">420</param>
-            <param name="item_alt_w">400</param>
         </include>
     </include>
 
@@ -184,10 +199,38 @@
         <include content="View_Combined_Row">
             <param name="id">52</param>
             <param name="include">List_Poster_Row</param>
-            <param name="icon_base_var">Image_Poster</param>
-            <param name="slide_x">480</param>
-            <param name="item_w">480</param>
-            <param name="item_alt_w">460</param>
+        </include>
+    </include>
+
+    <!-- Combined Circle -->
+    <include name="View_532_Circle_Combined_Row">
+        <include content="View_Combined_Row">
+            <param name="id">53</param>
+            <param name="include">List_Circle_Row</param>
+        </include>
+    </include>
+
+    <!-- Combined Card -->
+    <include name="View_542_Card_Combined_Row">
+        <include content="View_Combined_Row" condition="!Skin.HasSetting(View.UseTextBasedCard)">
+            <param name="id">54</param>
+            <param name="include">List_Card_Row</param>
+        </include>
+        <include content="View_Combined_Row" condition="Skin.HasSetting(View.UseTextBasedCard)">
+            <param name="id">54</param>
+            <param name="include">List_Corflute_Row</param>
+        </include>
+    </include>
+
+    <!-- Combined Board -->
+    <include name="View_572_Board_Combined_Row">
+        <include content="View_Combined_Row" condition="!Skin.HasSetting(View.UseTextBasedBoard)">
+            <param name="id">57</param>
+            <param name="include">List_Board_Row</param>
+        </include>
+        <include content="View_Combined_Row" condition="Skin.HasSetting(View.UseTextBasedBoard)">
+            <param name="id">57</param>
+            <param name="include">List_Placard_Row</param>
         </include>
     </include>
 
@@ -207,6 +250,21 @@
                 <param name="id">52</param>
                 <param name="viewtype_label">$LOCALIZE[31083]</param>
                 <param name="visible">$EXP[Exp_View_522]</param>
+            </include>
+            <include content="View_Combined_List_Horz" condition="$EXP[Exp_View_532_Include]">
+                <param name="id">53</param>
+                <param name="viewtype_label">$LOCALIZE[31083]</param>
+                <param name="visible">$EXP[Exp_View_532]</param>
+            </include>
+            <include content="View_Combined_List_Horz" condition="$EXP[Exp_View_542_Include]">
+                <param name="id">54</param>
+                <param name="viewtype_label">$LOCALIZE[31083]</param>
+                <param name="visible">$EXP[Exp_View_542]</param>
+            </include>
+            <include content="View_Combined_List_Horz" condition="$EXP[Exp_View_572_Include]">
+                <param name="id">57</param>
+                <param name="viewtype_label">$LOCALIZE[31083]</param>
+                <param name="visible">$EXP[Exp_View_572]</param>
             </include>
         </control>
     </include>

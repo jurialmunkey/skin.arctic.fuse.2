@@ -252,7 +252,7 @@
                             <label>$LOCALIZE[10000] > $LOCALIZE[31146]</label>
                             <onclick>Skin.ToggleSetting(SideMenu.DisableProfileLogo)</onclick>
                             <selected>!Skin.HasSetting(SideMenu.DisableProfileLogo)</selected>
-                            <visible>!Skin.HasSetting(SideMenu.DisableSearchAndOptions)</visible>
+                            <visible>![Skin.HasSetting(SideMenu.DisableSearchAndOptions) + $EXP[Exp_HomeMenu_IsExpanded]]</visible>
                             <visible>String.IsEmpty(Skin.String(Hub.Home.ReplaceWindow))</visible>
                             <visible>Container(3).HasFocus(1)</visible>
                         </include>
@@ -404,7 +404,40 @@
 
 
 
-                        <!-- Viewtypes -->
+                        <!-- Interface -->
+                        <include content="Settings_Label" description="Style">
+                            <param name="id">3020</param>
+                            <label>$LOCALIZE[736]</label>
+                            <visible>Container(3).HasFocus(3)</visible>
+                        </include>
+                        <include content="Settings_Button" description="Title">
+                            <param name="dialog">false</param>
+                            <param name="id">3023</param>
+                            <param name="control">button</param>
+                            <label>$LOCALIZE[369]</label>
+                            <label2>$VAR[Label_Setting_ForegroundLogo]</label2>
+                            <onclick>Skin.ToggleSetting(TMDbHelper.EnableCrop)</onclick>
+                            <visible>Container(3).HasFocus(3)</visible>
+                        </include>
+                        <include content="Settings_Button" description="Infoline">
+                            <param name="dialog">false</param>
+                            <param name="id">3024</param>
+                            <param name="control">button</param>
+                            <label>$LOCALIZE[31178]</label>
+                            <label2>$VAR[Label_Setting_InfoLineStyle]</label2>
+                            <onclick>Skin.ToggleSetting(Info.EnablePillboxStyle)</onclick>
+                            <visible>Container(3).HasFocus(3)</visible>
+                        </include>
+                        <include content="Settings_Button" description="Ratings">
+                            <param name="dialog">false</param>
+                            <param name="id">3025</param>
+                            <param name="control">button</param>
+                            <label>$LOCALIZE[31202]</label>
+                            <label2>$VAR[Label_Setting_RatingsStyle]</label2>
+                            <onclick>Skin.ToggleSetting(Furniture.EnableColourRatings)</onclick>
+                            <visible>Container(3).HasFocus(3)</visible>
+                        </include>
+
                         <include content="Settings_Label" description="Viewtypes">
                             <param name="id">3010</param>
                             <label>$LOCALIZE[31044]</label>
@@ -467,40 +500,6 @@
                             <label2>$VAR[Label_Settings_TextViewMode]</label2>
                             <visible>Container(3).HasFocus(3)</visible>
                             <onclick>Skin.ToggleSetting(View.DisableDetailedListLabels)</onclick>
-                        </include>
-
-                        <include content="Settings_Label" description="Style">
-                            <param name="id">3020</param>
-                            <label>$LOCALIZE[736]</label>
-                            <visible>Container(3).HasFocus(3)</visible>
-                        </include>
-
-                        <include content="Settings_Button" description="Title">
-                            <param name="dialog">false</param>
-                            <param name="id">3023</param>
-                            <param name="control">button</param>
-                            <label>$LOCALIZE[369]</label>
-                            <label2>$VAR[Label_Setting_ForegroundLogo]</label2>
-                            <onclick>Skin.ToggleSetting(TMDbHelper.EnableCrop)</onclick>
-                            <visible>Container(3).HasFocus(3)</visible>
-                        </include>
-                        <include content="Settings_Button" description="Infoline">
-                            <param name="dialog">false</param>
-                            <param name="id">3024</param>
-                            <param name="control">button</param>
-                            <label>$LOCALIZE[31178]</label>
-                            <label2>$VAR[Label_Setting_InfoLineStyle]</label2>
-                            <onclick>Skin.ToggleSetting(Info.EnablePillboxStyle)</onclick>
-                            <visible>Container(3).HasFocus(3)</visible>
-                        </include>
-                        <include content="Settings_Button" description="Ratings">
-                            <param name="dialog">false</param>
-                            <param name="id">3025</param>
-                            <param name="control">button</param>
-                            <label>$LOCALIZE[31202]</label>
-                            <label2>$VAR[Label_Setting_RatingsStyle]</label2>
-                            <onclick>Skin.ToggleSetting(Furniture.EnableColourRatings)</onclick>
-                            <visible>Container(3).HasFocus(3)</visible>
                         </include>
 
 
