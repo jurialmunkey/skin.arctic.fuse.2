@@ -100,25 +100,28 @@
                 <control type="group">
                     <include>Dimension_Dialog_Body</include>
                     <control type="grouplist" id="9000">
-                        <include>Dialog_Side_Grouplist_Def</include>
+                        <include>Dialog_Side_Expanded_Grouplist_Def</include>
                         <onleft>5</onleft>
                         <onright>61</onright>
-                        <include content="Dialog_Side_Button">
-                            <param name="id">01</param>
+                        <include content="DialogInfo_ExpandedButton">
+                            <param name="id">9001</param>
+                            <param name="groupid">9101</param>
                             <param name="label">$INFO[Control.GetLabel(28)]</param>
                             <param name="icon">special://skin/extras/icons/circle-check.png</param>
                             <param name="visible">Control.IsEnabled(28) + Control.IsVisible(28)</param>
                             <onclick>SendClick(28)</onclick>
                         </include>
-                        <include content="Dialog_Side_Button">
-                            <param name="id">02</param>
+                        <include content="DialogInfo_ExpandedButton">
+                            <param name="id">9002</param>
+                            <param name="groupid">9102</param>
                             <param name="label">$LOCALIZE[15067]</param>
                             <param name="icon">special://skin/extras/icons/circle-xmark.png</param>
                             <param name="visible">Control.IsEnabled(29) + Control.IsVisible(29)</param>
                             <onclick>SendClick(29)</onclick>
                         </include>
-                        <include content="Dialog_Side_Button">
-                            <param name="id">03</param>
+                        <include content="DialogInfo_ExpandedButton">
+                            <param name="id">9003</param>
+                            <param name="groupid">9103</param>
                             <param name="label">$INFO[Control.GetLabel(30)]</param>
                             <param name="icon">special://skin/extras/icons/triangle-exclamation.png</param>
                             <param name="visible">Control.IsEnabled(30) + Control.IsVisible(30)</param>
@@ -130,10 +133,6 @@
 
             <include content="Dialog_Foreground_Side">
                 <param name="dialog_size">Dimension_DialogWideMenu</param>
-                <param name="slide_condition">True</param>
-                <param name="lines_right">0</param>
-                <param name="topline">true</param>
-                <param name="subline">true</param>
 
                 <!-- Header -->
                 <include content="Dialog_Head">
@@ -149,14 +148,16 @@
                         <onright>9000</onright>
                         <pagecontrol>61</pagecontrol>
                     </control>
-
-                    <include content="Dialog_Scrollbar">
-                        <param name="id">61</param>
-                        <param name="slide_condition">True</param>
-                        <onleft>9000</onleft>
-                    </include>
                 </control>
             </include>
+
+            <control type="group">
+                <include>Dimension_Dialog_Body</include>
+                <include content="Dialog_Scrollbar">
+                    <param name="id">61</param>
+                    <onleft>9000</onleft>
+                </include>
+            </control>
 
         </control>
     </controls>

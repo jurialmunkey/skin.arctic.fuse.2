@@ -15,18 +15,17 @@
                 <control type="group">
                     <include>Dimension_Dialog_Body</include>
                     <control type="grouplist" id="9000">
-                        <include>Dialog_Side_Grouplist_Def</include>
+                        <include content="Dialog_Side_Expanded_Grouplist_Def">
+                            <param name="condition">[true]</param>
+                        </include>
                         <onright>61</onright>
                         <onleft>120</onleft>
-                        <include content="DialogInfo_Button">
-                            <param name="vertical">true</param>
+                        <include content="DialogInfo_ExpandedButton">
                             <param name="id">160</param>
                             <param name="groupid">9102</param>
-                            <param name="sliceid">9202</param>
                             <param name="label">$LOCALIZE[413]</param>
                             <param name="icon">special://skin/extras/icons/circle-plus.png</param>
                             <param name="textcolor">dialog_fg</param>
-                            <param name="include_hintlabel">true</param>
                         </include>
                     </control>
                 </control>
@@ -34,8 +33,7 @@
 
             <include content="Dialog_Foreground_Side">
                 <param name="dialog_size">Dimension_DialogFullMenu</param>
-                <param name="slide_condition">True</param>
-                <param name="lines_right">0</param>
+                <param name="slide_condition">true</param>
                 <param name="topline">false</param>
                 <param name="subline">false</param>
 
@@ -136,13 +134,17 @@
                         </control>
                     </control>
 
-                    <include content="Dialog_Scrollbar">
-                        <param name="id">61</param>
-                        <param name="slide_condition">True</param>
-                        <onleft>9000</onleft>
-                    </include>
+
                 </control>
             </include>
+
+            <control type="group">
+                <include>Dimension_Dialog_Body</include>
+                <include content="Dialog_Scrollbar">
+                    <param name="id">61</param>
+                    <onleft>9000</onleft>
+                </include>
+            </control>
 
         </control>
 

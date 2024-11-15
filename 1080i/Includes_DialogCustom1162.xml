@@ -13,11 +13,28 @@
         <param name="landscape_icon">$VAR[Image_Landscape_C450]</param>
         <param name="textbox_label">$VAR[Label_Plot_C450]</param>
         <definition>
-            <include content="Dialog_Outline_InnerBox">
+            <!-- <include content="Dialog_Outline_InnerBox"> -->
+            <control type="group">
                 <width>800</width>
-                <right>20</right>
+                <left>-20</left>
                 <top>-20</top>
                 <bottom>-20</bottom>
+                <include content="Object_Control">
+                    <param name="control">image</param>
+                    <top>0</top>
+                    <height>1</height>
+                    <left>40</left>
+                    <right>40</right>
+                    <texture colordiffuse="$VAR[Color_DialogBorder]">common/white.png</texture>
+                </include>
+                <include content="Object_Control">
+                    <param name="control">image</param>
+                    <bottom>0</bottom>
+                    <height>1</height>
+                    <left>40</left>
+                    <right>40</right>
+                    <texture colordiffuse="$VAR[Color_DialogBorder]">common/white.png</texture>
+                </include>
                 <control type="grouplist">
                     <orientation>vertical</orientation>
                     <itemgap>40</itemgap>
@@ -44,13 +61,12 @@
                         <label>$PARAM[textbox_label]</label>
                     </control>
                 </control>
-            </include>
+            </control>
         </definition>
     </include>
 
     <include name="DialogCustom1162_Main">
         <param name="dialog_size">Dimension_DialogFullMenu</param>
-        <param name="lines_right">476</param>
         <param name="include_artwork">true</param>
         <param name="include_plotbox">false</param>
         <definition>
@@ -73,10 +89,8 @@
                 </include>
                 <include content="Dialog_Foreground_Side">
                     <param name="dialog_size">$PARAM[dialog_size]</param>
-                    <param name="slide_animation">False</param>
-                    <param name="topline">true</param>
-                    <param name="subline">true</param>
-                    <param name="lines_right">$PARAM[lines_right]</param>
+                    <param name="topline">false</param>
+                    <param name="subline">false</param>
 
                     <!-- Header -->
                     <include content="Dialog_Head">
@@ -97,57 +111,82 @@
                             </include>
                             <include condition="$PARAM[include_artwork] + $PARAM[include_plotbox]">DialogCustom1162_Plotbox</include>
                             <control type="group">
-                                <right>$PARAM[lines_right]</right>
-                                <include content="List_DialogSelect" condition="![$PARAM[include_artwork]]">
-                                    <param name="id">450</param>
-                                    <param name="textcolor">dialog_fg</param>
-                                    <param name="itemlayout_include">Layout_MenuList</param>
-                                    <pagecontrol>61</pagecontrol>
-
-                                    <onright>61</onright>
-                                    <onleft>Close</onleft>
-                                    <onclick>Close</onclick>
-
-                                    <onclick>$VAR[DialogCustom1162_OnClick]</onclick>
 
 
-                                    <content>$INFO[Window.Property(Path)]</content>
+                                <include content="Dialog_Outline_InnerBox">
+                                    <include content="Object_Left" condition="$PARAM[include_artwork] + $PARAM[include_plotbox]">
+                                        <param name="left">780</param>
+                                    </include>
+                                    <left>420</left>
+                                    <top>-20</top>
+                                    <bottom>-20</bottom>
+                                    <right>20</right>
 
+                                    <include content="List_DialogSelect" condition="![$PARAM[include_artwork]]">
+                                        <param name="id">450</param>
+                                        <param name="textcolor">dialog_fg</param>
+                                        <param name="itemlayout_include">Layout_MenuList</param>
+                                        <pagecontrol>61</pagecontrol>
+
+                                        <onright>61</onright>
+                                        <onleft>Close</onleft>
+                                        <onclick>Close</onclick>
+
+                                        <right>-10</right>
+                                        <left>10</left>
+                                        <include content="Dimension_Padding">
+                                            <param name="pad">20</param>
+                                        </include>
+
+                                        <onclick>$VAR[DialogCustom1162_OnClick]</onclick>
+
+
+                                        <content>$INFO[Window.Property(Path)]</content>
+
+                                    </include>
+
+                                    <include content="List_DialogSelect" condition="$PARAM[include_artwork]">
+                                        <param name="id">450</param>
+                                        <param name="detailed">True</param>
+                                        <param name="item_height">100</param>
+                                        <param name="textcolor">dialog_fg</param>
+                                        <param name="itemlayout_include">Layout_MediaList</param>
+                                        <param name="misc">10</param>
+
+                                        <right>-10</right>
+                                        <left>10</left>
+                                        <include content="Dimension_Padding">
+                                            <param name="pad">20</param>
+                                        </include>
+
+                                        <pagecontrol>61</pagecontrol>
+
+                                        <onright>61</onright>
+                                        <onleft>Close</onleft>
+                                        <onclick>Close</onclick>
+
+                                        <onclick>$VAR[DialogCustom1162_OnClick]</onclick>
+
+                                        <content>$INFO[Window.Property(Path)]</content>
+
+                                    </include>
                                 </include>
 
-                                <include content="List_DialogSelect" condition="$PARAM[include_artwork]">
-                                    <param name="id">450</param>
-                                    <param name="detailed">True</param>
-                                    <param name="item_height">100</param>
-                                    <param name="textcolor">dialog_fg</param>
-                                    <param name="itemlayout_include">Layout_MediaList</param>
-                                    <param name="misc">10</param>
 
-                                    <!-- <include content="Object_Right" condition="$PARAM[include_artwork]">
-                                        <param name="right">-40</param>
-                                    </include> -->
-
-                                    <right>-20</right>
-                                    <pagecontrol>61</pagecontrol>
-
-                                    <onright>61</onright>
-                                    <onleft>Close</onleft>
-                                    <onclick>Close</onclick>
-
-                                    <onclick>$VAR[DialogCustom1162_OnClick]</onclick>
-
-                                    <content>$INFO[Window.Property(Path)]</content>
-
-                                </include>
                             </control>
                         </control>
-                        <include content="Dialog_Scrollbar">
-                            <param name="id">61</param>
-                            <onleft>450</onleft>
-                            <right>0</right>
-                        </include>
+
                     </control>
                 </include>
+
+                <control type="group">
+                    <include>Dimension_Dialog_Body</include>
+                    <include content="Dialog_Scrollbar">
+                        <param name="id">61</param>
+                        <onleft>450</onleft>
+                        <right>0</right>
+                    </include>
+                </control>
             </control>
         </definition>
     </include>

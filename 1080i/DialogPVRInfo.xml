@@ -11,18 +11,20 @@
         <include>Dialog_Dim_Overlay</include>
 
         <control type="group">
-            <include>Dimension_DialogHugeMenu</include>
+            <include>Dimension_DialogFullMenu</include>
             <include>Animation_Right_Delay</include>
 
             <!-- Bottom Layer -->
             <include content="Dialog_Background_Side">
-                <param name="dialog_size">Dimension_DialogHugeMenu</param>
+                <param name="dialog_size">Dimension_DialogFullMenu</param>
 
                 <!-- Side Buttons -->
                 <control type="group">
                     <include>Dimension_Dialog_Body</include>
                     <control type="grouplist" id="9000">
-                        <include>Dialog_Side_Grouplist_Def</include>
+                        <include content="Dialog_Side_Expanded_Grouplist_Def">
+                            <param name="condition">[true]</param>
+                        </include>
                         <onleft>Close</onleft>
                         <onright>61</onright>
                         <include>Items_DialogPVRInfo_MenuBar</include>
@@ -32,10 +34,9 @@
 
             <include content="Dialog_Foreground_Side">
                 <param name="slide_condition">True</param>
-                <param name="dialog_size">Dimension_DialogHugeMenu</param>
-                <param name="lines_right">476</param>
-                <param name="topline">true</param>
-                <param name="subline">true</param>
+                <param name="dialog_size">Dimension_DialogFullMenu</param>
+                <param name="topline">false</param>
+                <param name="subline">false</param>
 
                 <!-- Header -->
                 <include content="Dialog_Head">
@@ -52,26 +53,33 @@
                             <param name="square_icon">$INFO[ListItem.Icon]</param>
                             <param name="landscape_icon">$VAR[Image_PVREpgLandscapeArt]</param>
                         </include>
-                        <control type="group">
-                            <right>476</right>
+                        <include content="Dialog_Outline_InnerBox">
+                            <left>420</left>
+                            <top>-20</top>
+                            <bottom>-20</bottom>
+                            <right>20</right>
                             <control type="textbox">
                                 <font>font_midi_plot</font>
                                 <textcolor>main_fg_70</textcolor>
                                 <label>[B][COLOR=main_fg_90]$LOCALIZE[31181][/COLOR][/B][CR]$INFO[ListItem.StartDate,,[CR]]$INFO[ListItem.StartTime]$INFO[ListItem.EndTime, - ,]$INFO[ListItem.Genre,[CR][CR][B][COLOR=main_fg_90]$LOCALIZE[515][/COLOR][/B][CR],][CR][CR]$INFO[ListItem.Plot,[B][COLOR=main_fg_90]$LOCALIZE[31028][/COLOR][/B][CR],]</label>
                                 <include content="Dimension_Padding">
-                                    <param name="pad">20</param>
+                                    <param name="pad">40</param>
                                 </include>
                                 <pagecontrol>61</pagecontrol>
                             </control>
-                        </control>
+                        </include>
                     </control>
-                    <include content="Dialog_Scrollbar">
-                        <param name="id">61</param>
-                        <param name="slide_condition">True</param>
-                        <onleft>9000</onleft>
-                    </include>
+
                 </control>
             </include>
+
+            <control type="group">
+                <include>Dimension_Dialog_Body</include>
+                <include content="Dialog_Scrollbar">
+                    <param name="id">61</param>
+                    <onleft>9000</onleft>
+                </include>
+            </control>
 
         </control>
     </controls>

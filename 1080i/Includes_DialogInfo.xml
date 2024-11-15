@@ -791,11 +791,95 @@
         <textureradioonnofocus colordiffuse="$PARAM[color_nofocus]">buttons/check-on.png</textureradioonnofocus>
     </include>
 
+    <include name="DialogInfo_ExpandedButton">
+        <param name="icon_size">40</param>
+        <param name="bordersize">-4</param>
+        <param name="visible">true</param>
+        <param name="vertical">true</param>
+        <param name="textcolor">main_fg</param>
+        <param name="nf_opacity">70</param>
+        <param name="db_opacity">30</param>
+        <param name="control">button</param>
+        <param name="builtin">false</param>
+        <param name="radiocross">false</param>
+        <param name="radiocheck">false</param>
+        <param name="radioround">false</param>
+        <definition>
+            <control type="$PARAM[control]" id="$PARAM[id]">
+                <height>80</height>
+                <visible>$PARAM[visible]</visible>
+                <textcolor>$PARAM[textcolor]_$PARAM[nf_opacity]</textcolor>
+                <selectedcolor>$PARAM[textcolor]_$PARAM[nf_opacity]</selectedcolor>
+                <label>$PARAM[label]</label>
+                <align>left</align>
+                <font>font_mini</font>
+
+                <radiowidth>36</radiowidth>
+                <radioheight>16</radioheight>
+                <radioposy>50</radioposy>
+                <!-- <radiowidth>64</radiowidth> -->
+
+                <include content="DialogInfo_Button_RadioCheck" condition="$PARAM[radiocheck]">
+                    <param name="color_nofocus">$PARAM[textcolor]_$PARAM[nf_opacity]</param>
+                    <param name="color_disabled">$PARAM[textcolor]_$PARAM[db_opacity]</param>
+                </include>
+
+                <include content="DialogInfo_Button_RadioCross" condition="$PARAM[radiocross]">
+                    <param name="color_nofocus">$PARAM[textcolor]_$PARAM[nf_opacity]</param>
+                    <param name="color_disabled">$PARAM[textcolor]_$PARAM[db_opacity]</param>
+                </include>
+
+                <include content="DialogInfo_Button_RadioRound" condition="$PARAM[radioround]">
+                    <param name="color_nofocus">$PARAM[textcolor]_$PARAM[nf_opacity]</param>
+                    <param name="color_disabled">$PARAM[textcolor]_$PARAM[db_opacity]</param>
+                </include>
+
+                <texturenofocus />
+                <nested />
+            </control>
+            <control type="group" id="$PARAM[groupid]">
+                <top>-80</top>
+                <height>80</height>
+                <visible>$PARAM[visible]</visible>
+                <visible>Control.IsVisible($PARAM[id])</visible>
+                <control type="group">
+                    <centertop>50%</centertop>
+                    <centerright>40</centerright>
+                    <width>$PARAM[icon_size]</width>
+                    <height>$PARAM[icon_size]</height>
+                    <control type="image">
+                        <texture colordiffuse="$PARAM[textcolor]_$PARAM[db_opacity]">$PARAM[icon]</texture>
+                        <aspectratio>keep</aspectratio>
+                        <bordersize>icon_menu_bordersize</bordersize>
+                        <bordersize>$PARAM[bordersize]</bordersize>
+                        <visible>!Control.HasFocus($PARAM[id])</visible>
+                        <visible>!Control.IsEnabled($PARAM[id])</visible>
+                    </control>
+                    <control type="image">
+                        <texture colordiffuse="$PARAM[textcolor]_$PARAM[nf_opacity]">$PARAM[icon]</texture>
+                        <aspectratio>keep</aspectratio>
+                        <bordersize>icon_menu_bordersize</bordersize>
+                        <bordersize>$PARAM[bordersize]</bordersize>
+                        <visible>!Control.HasFocus($PARAM[id])</visible>
+                        <visible>Control.IsEnabled($PARAM[id])</visible>
+                    </control>
+                    <control type="image">
+                        <texture colordiffuse="$VAR[ColorSelected]">$PARAM[icon]</texture>
+                        <aspectratio>keep</aspectratio>
+                        <bordersize>icon_menu_bordersize</bordersize>
+                        <bordersize>$PARAM[bordersize]</bordersize>
+                        <visible>Control.HasFocus($PARAM[id])</visible>
+                    </control>
+                </control>
+            </control>
+        </definition>
+    </include>
+
     <include name="DialogInfo_Button">
         <param name="back_size">160</param>
         <param name="icon_size">40</param>
         <param name="bordersize">-4</param>
-        <param name="itemgap">10</param>
+        <param name="itemgap">0</param>
         <param name="visible">true</param>
         <param name="vertical">true</param>
         <param name="textcolor">main_fg</param>
@@ -1187,12 +1271,27 @@
         <param name="square_icon">$INFO[ListItem.Icon]</param>
         <param name="landscape_icon">$VAR[Image_Landscape]</param>
         <param name="clearlogo_icon">$VAR[Image_Clearlogo]</param>
+        <param name="topline">true</param>
+        <param name="subline">true</param>
         <definition>
-            <include content="Dialog_Outline_InnerBox">
-                <width>436</width>
-                <right>20</right>
-                <top>-20</top>
-                <bottom>-20</bottom>
+            <control type="group">
+                <width>360</width>
+                <left>20</left>
+                <top>20</top>
+                <bottom>20</bottom>
+
+                <include content="Object_Control" condition="$PARAM[topline]">
+                    <param name="control">image</param>
+                    <top>-40</top>
+                    <height>1</height>
+                    <texture colordiffuse="$VAR[Color_DialogBorder]">common/white.png</texture>
+                </include>
+                <include content="Object_Control" condition="$PARAM[subline]">
+                    <param name="control">image</param>
+                    <bottom>-40</bottom>
+                    <height>1</height>
+                    <texture colordiffuse="$VAR[Color_DialogBorder]">common/white.png</texture>
+                </include>
 
                 <!-- Hidden Images to Test Availability -->
                 <control type="image" id="99981">
@@ -1210,12 +1309,7 @@
                     <orientation>vertical</orientation>
                     <itemgap>40</itemgap>
                     <control type="group">
-                        <height>0</height>
-                    </control>
-                    <control type="group">
-                        <left>40</left>
-                        <right>40</right>
-                        <height>520</height>
+                        <height>517.50</height>
                         <visible>!String.IsEmpty(Control.GetLabel(99981))</visible>
                         <include content="Dialog_Outline_InnerBox">
                             <control type="image">
@@ -1226,9 +1320,7 @@
                     </control>
 
                     <control type="group">
-                        <height>356</height>
-                        <left>40</left>
-                        <right>40</right>
+                        <height>360</height>
                         <visible>String.IsEmpty(Control.GetLabel(99981))</visible>
                         <visible>!String.IsEmpty(Control.GetLabel(99982))</visible>
                         <include content="Dialog_Outline_InnerBox">
@@ -1240,9 +1332,7 @@
                     </control>
 
                     <control type="group">
-                        <left>40</left>
-                        <right>40</right>
-                        <height>200</height>
+                        <height>202.50</height>
                         <visible>!String.IsEmpty(Control.GetLabel(99983))</visible>
                         <include content="Dialog_Outline_InnerBox">
                             <control type="image">
@@ -1253,9 +1343,7 @@
                     </control>
 
                     <control type="group">
-                        <left>40</left>
-                        <right>40</right>
-                        <height>124</height>
+                        <height>117.5</height>
                         <visible>String.IsEmpty(Control.GetLabel(99981))</visible>
                         <control type="image">
                             <aspectratio scalediffuse="false" aligny="center">keep</aspectratio>
@@ -1263,7 +1351,7 @@
                         </control>
                     </control>
                 </control>
-            </include>
+            </control>
         </definition>
     </include>
 
@@ -1279,11 +1367,10 @@
         <param name="scrollbar_fakefocus">false</param>
         <definition>
             <include content="Dialog_Foreground_Side">
-                <param name="slide_condition">$PARAM[slide_condition]</param>
+                <param name="slide_condition">true</param>
                 <param name="dialog_size">Dimension_DialogFullMenu</param>
-                <param name="lines_right">476</param>
-                <param name="topline">true</param>
-                <param name="subline">true</param>
+                <param name="topline">false</param>
+                <param name="subline">false</param>
 
                 <!-- Header -->
                 <include content="Dialog_Head">
@@ -1301,26 +1388,35 @@
                             <param name="landscape_icon">$PARAM[landscape_icon]</param>
                             <param name="clearlogo_icon">$PARAM[clearlogo_icon]</param>
                         </include>
+                        <include content="Dialog_Outline_InnerBox">
+                            <left>420</left>
+                            <top>-20</top>
+                            <bottom>-20</bottom>
+                            <right>20</right>
+                        </include>
                         <control type="textbox">
                             <font>font_midi_plot</font>
                             <textcolor>dialog_fg_70</textcolor>
                             <pagecontrol>61</pagecontrol>
                             <label>$PARAM[textbox]</label>
                             <autoscroll>false</autoscroll>
-                            <right>496</right>
+                            <left>460</left>
+                            <right>60</right>
                             <include content="Dimension_Padding">
                                 <param name="pad">20</param>
                             </include>
                         </control>
                     </control>
-                    <include content="Dialog_Scrollbar">
-                        <param name="id">61</param>
-                        <param name="slide_condition">$PARAM[slide_condition]</param>
-                        <include>$PARAM[include_movement]</include>
-                        <include condition="$PARAM[scrollbar_fakefocus]">Texture_Scrollbar_SliderBar_V</include>
-                    </include>
                 </control>
             </include>
+            <control type="group">
+                <include>Dimension_Dialog_Body</include>
+                <include content="Dialog_Scrollbar">
+                    <param name="id">61</param>
+                    <include>$PARAM[include_movement]</include>
+                    <include condition="$PARAM[scrollbar_fakefocus]">Texture_Scrollbar_SliderBar_V</include>
+                </include>
+            </control>
         </definition>
     </include>
 
@@ -1334,22 +1430,19 @@
                 <include>Animation_Right_Delay</include>
 
                 <include content="Dialog_Background_Side" condition="!String.IsEmpty(Window.Property(path))">
-                    <param name="slide_condition">!Integer.IsEqual(Container(8000).NumItems,0)</param>
                     <param name="dialog_size">$PARAM[size]</param>
 
                     <!-- Side Buttons -->
                     <control type="group">
                         <include>Dimension_Dialog_Body</include>
-                        <control type="grouplist" id="8000">
-                            <include>Dialog_Side_Grouplist_Def</include>
-                            <onleft>Close</onleft>
+                        <control type="grouplist" id="9000">
+                            <include>Dialog_Side_Expanded_Grouplist_Def</include>
                             <onright>61</onright>
                             <!-- Info -->
-                            <include content="DialogInfo_Button">
+                            <include content="DialogInfo_ExpandedButton">
                                 <param name="vertical">true</param>
                                 <param name="id">8001</param>
                                 <param name="groupid">8101</param>
-                                <param name="sliceid">8201</param>
                                 <param name="label">$LOCALIZE[29915]</param>
                                 <param name="icon">special://skin/extras/icons/info2.png</param>
                                 <param name="visible">!String.IsEmpty(Window.Property(path))</param>
@@ -1361,25 +1454,21 @@
                                 <onclick>Dialog.Close(1141,true)</onclick>
                                 <onclick>Dialog.Close(videobookmarks,true)</onclick>
                                 <onclick>RunScript(plugin.video.themoviedb.helper,add_path=$INFO[Window.Property(path)],call_auto=1190,return)</onclick>
-                                <param name="include_hintlabel">true</param>
                             </include>
                             <!-- Wiki -->
-                            <include content="DialogInfo_Button">
+                            <include content="DialogInfo_ExpandedButton">
                                 <param name="id">9005</param>
                                 <param name="groupid">9105</param>
-                                <param name="sliceid">9205</param>
                                 <param name="label">Wiki</param>
                                 <param name="icon">special://skin/extras/icons/globe.png</param>
 
                                 <onclick>runscript(script.wikipedia,wikipedia=$INFO[Window.Property(header)])</onclick>
 
-                                <param name="include_hintlabel">true</param>
                             </include>
                             <!-- Trailer -->
-                            <include content="DialogInfo_Button">
+                            <include content="DialogInfo_ExpandedButton">
                                 <param name="id">9002</param>
                                 <param name="groupid">9102</param>
-                                <param name="sliceid">9202</param>
                                 <param name="label">$LOCALIZE[20410]</param>
                                 <param name="icon">special://skin/extras/icons/videoplay.png</param>
                                 <param name="visible">!String.IsEmpty(Window.Property(trailer)) | !String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.Trailer))</param>
@@ -1387,7 +1476,6 @@
                                     <param name="trailer">Window.Property(trailer)</param>
                                     <param name="trailer_fallback">Window(Home).Property(TMDbHelper.ListItem.Trailer)</param>
                                 </include>
-                                <param name="include_hintlabel">true</param>
                             </include>
 
                         </control>
@@ -1396,31 +1484,10 @@
                 </include>
 
                 <include content="Dialog_Foreground_Side">
-                    <param name="slide_condition">!Integer.IsEqual(Container(8000).NumItems,0)</param>
+                    <param name="slide_condition">true</param>
                     <param name="dialog_size">$PARAM[size]</param>
                     <param name="topline">false</param>
                     <param name="subline">false</param>
-
-                    <control type="group">
-                        <right>80</right>
-                        <left>80</left>
-                        <control type="image">
-                            <top>160</top>
-                            <height>1</height>
-                            <texture colordiffuse="$VAR[Color_DialogBorder]">common/white.png</texture>
-                            <include content="Object_Right" condition="$PARAM[include_artwork]">
-                                <param name="right">476</param>
-                            </include>
-                        </control>
-                        <control type="image">
-                            <bottom>80</bottom>
-                            <height>1</height>
-                            <texture colordiffuse="$VAR[Color_DialogBorder]">common/white.png</texture>
-                            <include content="Object_Right" condition="$PARAM[include_artwork]">
-                                <param name="right">476</param>
-                            </include>
-                        </control>
-                    </control>
 
                     <!-- Header -->
                     <include content="Dialog_Head">
@@ -1439,28 +1506,38 @@
                                 <param name="landscape_icon">$INFO[Window.Property(landscape)]</param>
                                 <param name="clearlogo_icon">$INFO[Window.Property(clearlogo)]</param>
                             </include>
-                            <control type="textbox">
-                                <font>font_midi_plot</font>
-                                <textcolor>dialog_fg_70</textcolor>
-                                <pagecontrol>61</pagecontrol>
-                                <label>$VAR[Label_Overlay_1114_PlotBox]</label>
-                                <autoscroll>false</autoscroll>
-                                <include content="Object_Right" condition="$PARAM[include_artwork]">
-                                    <param name="right">496</param>
+                            <include content="Dialog_Outline_InnerBox">
+                                <include content="Object_Left" condition="![$PARAM[include_artwork]]">
+                                    <param name="left">20</param>
                                 </include>
-                                <include content="Dimension_Padding">
-                                    <param name="pad">20</param>
-                                </include>
-                            </control>
+                                <left>420</left>
+                                <top>-20</top>
+                                <bottom>-20</bottom>
+                                <right>20</right>
+                                <control type="textbox">
+                                    <font>font_midi_plot</font>
+                                    <textcolor>dialog_fg_70</textcolor>
+                                    <pagecontrol>61</pagecontrol>
+                                    <label>$VAR[Label_Overlay_1114_PlotBox]</label>
+                                    <autoscroll>false</autoscroll>
+                                    <include content="Dimension_Padding">
+                                        <param name="pad">40</param>
+                                    </include>
+                                </control>
+                            </include>
                         </control>
-                        <include content="Dialog_Scrollbar">
-                            <param name="id">61</param>
-                            <param name="slide_condition">!Integer.IsEqual(Container(8000).NumItems,0)</param>
-                            <onleft>8000</onleft>
-                            <include condition="String.IsEmpty(Window.Property(path))">Texture_Scrollbar_SliderBar_V</include>
-                        </include>
+
                     </control>
                 </include>
+
+                <control type="group">
+                    <include>Dimension_Dialog_Body</include>
+                    <include content="Dialog_Scrollbar">
+                        <param name="id">61</param>
+                        <onleft>9000</onleft>
+                        <include condition="String.IsEmpty(Window.Property(path))">Texture_Scrollbar_SliderBar_V</include>
+                    </include>
+                </control>
             </control>
         </definition>
     </include>
@@ -1474,10 +1551,12 @@
             <control type="group">
                 <include>Dimension_Dialog_Body</include>
                 <control type="grouplist" id="9000">
-                    <include>Dialog_Side_Grouplist_Def</include>
+                    <include content="Dialog_Side_Expanded_Grouplist_Def">
+                        <param name="condition">[true]</param>
+                    </include>
                     <onback>8000</onback>
-                    <onleft>8000</onleft>
                     <onright>61</onright>
+                    <onleft>8000</onleft>
                     <include>Items_DialogVideoInfo_MenuBar</include>
                 </control>
             </control>
@@ -1532,7 +1611,6 @@
                     <param name="landscape_icon">$PARAM[landscape_icon]</param>
                     <param name="clearlogo_icon">$PARAM[clearlogo_icon]</param>
                     <param name="scrollbar_fakefocus">$PARAM[scrollbar_fakefocus]</param>
-                    <param name="slide_condition">!Integer.IsEqual(Container(9000).NumItems,0)</param>
                 </include>
             </control>
         </definition>

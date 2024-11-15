@@ -19,25 +19,26 @@
 
             <!-- Bottom Layer -->
             <include content="Dialog_Background_Side">
-                <param name="slide_condition">True</param>
                 <param name="dialog_size">Dimension_DialogHugeMenu</param>
 
                 <!-- Side Buttons -->
                 <control type="group">
                     <include>Dimension_Dialog_Body</include>
                     <control type="grouplist" id="9000">
-                        <include>Dialog_Side_Grouplist_Def</include>
+                        <include>Dialog_Side_Expanded_Grouplist_Def</include>
                         <onleft>450</onleft>
                         <onright>61</onright>
-                        <include content="Dialog_Side_Button">
-                            <param name="id">01</param>
+                        <include content="DialogInfo_ExpandedButton">
+                            <param name="id">9001</param>
+                            <param name="groupid">9101</param>
                             <param name="label">$LOCALIZE[222]</param>
                             <param name="icon">special://skin/extras/icons/circle-xmark.png</param>
                             <onclick>Close</onclick>
                         </include>
-                        <include content="Dialog_Side_Button">
-                            <param name="id">02</param>
-                            <param name="label">Browse</param>
+                        <include content="DialogInfo_ExpandedButton">
+                            <param name="id">9002</param>
+                            <param name="groupid">9102</param>
+                            <param name="label">$LOCALIZE[1024]</param>
                             <param name="icon">special://skin/extras/icons/folder.png</param>
                             <onclick>Close</onclick>
                             <onclick>RunPlugin($INFO[Window.Property(url),,&amp;func=do_icon&amp;&amp;icon_dir::])</onclick>
@@ -48,7 +49,6 @@
 
             <include content="Dialog_Foreground_Side">
                 <param name="dialog_size">Dimension_DialogHugeMenu</param>
-                <param name="slide_condition">True</param>
                 <param name="lines_right">840</param>
                 <param name="topline">true</param>
                 <param name="subline">true</param>
@@ -179,14 +179,17 @@
                         </include>
                     </control>
 
-                    <include content="Dialog_Scrollbar">
-                        <param name="id">61</param>
-                        <param name="slide_condition">True</param>
-                        <onleft>9000</onleft>
-                    </include>
+
                 </control>
             </include>
 
+            <control type="group">
+                <include>Dimension_Dialog_Body</include>
+                <include content="Dialog_Scrollbar">
+                    <param name="id">61</param>
+                    <onleft>9000</onleft>
+                </include>
+            </control>
         </control>
 
         <include content="Furniture_Busy">

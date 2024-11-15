@@ -124,7 +124,6 @@
 
             <!-- Bottom Layer -->
             <include content="Dialog_Background_Side">
-                <param name="slide_condition">True</param>
                 <param name="dialog_size">Dimension_DialogWideMenu</param>
                 <!-- Side Buttons -->
                 <control type="group">
@@ -136,10 +135,6 @@
 
             <include content="Dialog_Foreground_Side">
                 <param name="dialog_size">Dimension_DialogWideMenu</param>
-                <param name="slide_condition">True</param>
-                <param name="lines_right">0</param>
-                <param name="topline">true</param>
-                <param name="subline">true</param>
 
                 <!-- Header -->
                 <include content="Dialog_Head">
@@ -162,8 +157,7 @@
                             <param name="id">3</param>
                             <param name="textcolor">dialog_fg</param>
                             <pagecontrol>61</pagecontrol>
-                            <onright condition="Control.IsVisible(9001)">9001</onright>
-                            <onright condition="!Control.IsVisible(9001)">9000</onright>
+                            <onright>9000</onright>
                         </include>
                         <include content="List_DialogSelect" condition="![[Window.IsActive(gamevideofilter) | Window.IsActive(gamestretchmode) | Window.IsActive(gamesaves) | Window.IsActive(gamevideorotation) | Window.IsActive(ingamesaves)]]">
                             <param name="id">6</param>
@@ -205,32 +199,32 @@
                             </control>
                         </control>
                     </control>
-
-                    <include content="Dialog_Scrollbar">
-                        <param name="id">61</param>
-                        <param name="slide_condition">True</param>
-                        <visible>Control.IsVisible(3)</visible>
-                        <onleft condition="Control.IsVisible(9001)">9001</onleft>
-                        <onleft condition="!Control.IsVisible(9001)">9000</onleft>
-                    </include>
-
-                    <include content="Dialog_Scrollbar">
-                        <param name="id">62</param>
-                        <param name="slide_condition">True</param>
-                        <visible>Control.IsVisible(6)</visible>
-                        <onleft condition="Control.IsVisible(9001)">9001</onleft>
-                        <onleft condition="!Control.IsVisible(9001)">9000</onleft>
-                    </include>
-
-                    <include content="Dialog_Scrollbar">
-                        <param name="id">63</param>
-                        <param name="slide_condition">True</param>
-                        <visible>Control.IsVisible(10811)</visible>
-                        <onleft condition="Control.IsVisible(9001)">9001</onleft>
-                        <onleft condition="!Control.IsVisible(9001)">9000</onleft>
-                    </include>
                 </control>
             </include>
+
+            <control type="group">
+                <include>Dimension_Dialog_Body</include>
+                <include content="Dialog_Scrollbar">
+                    <param name="id">61</param>
+                    <visible>Control.IsVisible(3)</visible>
+                    <onleft condition="Control.IsVisible(9001)">9001</onleft>
+                    <onleft condition="!Control.IsVisible(9001)">9000</onleft>
+                </include>
+
+                <include content="Dialog_Scrollbar">
+                    <param name="id">62</param>
+                    <visible>Control.IsVisible(6)</visible>
+                    <onleft condition="Control.IsVisible(9001)">9001</onleft>
+                    <onleft condition="!Control.IsVisible(9001)">9000</onleft>
+                </include>
+
+                <include content="Dialog_Scrollbar">
+                    <param name="id">63</param>
+                    <visible>Control.IsVisible(10811)</visible>
+                    <onleft condition="Control.IsVisible(9001)">9001</onleft>
+                    <onleft condition="!Control.IsVisible(9001)">9000</onleft>
+                </include>
+            </control>
 
         </control>
     </include>
@@ -273,7 +267,7 @@
 
     <include name="DialogSelect_SideButtons_Standard">
         <control type="grouplist" id="9000">
-            <include>Dialog_Side_Grouplist_Def</include>
+            <include>Dialog_Side_Expanded_Grouplist_Def</include>
             <onright condition="Control.IsVisible(61)">61</onright>
             <onright condition="Control.IsVisible(62)">62</onright>
             <onright condition="Control.IsVisible(63)">63</onright>
@@ -284,8 +278,9 @@
     </include>
 
     <include name="DialogSelect_SideButtons_Artwork">
-        <include content="Dialog_Side_Button">
-            <param name="id">06</param>
+        <include content="DialogInfo_ExpandedButton">
+            <param name="id">9006</param>
+            <param name="groupid">9106</param>
             <param name="label">$LOCALIZE[1000]</param>
             <param name="icon">special://skin/extras/icons/image.png</param>
             <param name="visible">[String.IsEqual(Control.GetLabel(1),$LOCALIZE[13511]) | String.IsEqual(Control.GetLabel(1),$LOCALIZE[20437]) | String.IsEqual(Control.GetLabel(1),$LOCALIZE[13521]) | String.IsEqual(Control.GetLabel(1),$LOCALIZE[736])]</param>
@@ -306,13 +301,12 @@
 
                 <!-- Bottom Layer -->
                 <include content="Dialog_Background_Side">
-                    <param name="slide_condition">!Integer.IsEqual(Container(9000).NumItems,0)</param>
                     <param name="dialog_size">Dimension_DialogFullMenu</param>
                     <!-- Side Buttons -->
                     <control type="group">
                         <include>Dimension_Dialog_Body</include>
                         <control type="grouplist" id="9000">
-                            <include>Dialog_Side_Grouplist_Def</include>
+                            <include>Dialog_Side_Expanded_Grouplist_Def</include>
                             <onleft>7000</onleft>
                             <onright>62</onright>
                             <include>$PARAM[include_sidegrouplist_items]</include>
@@ -322,10 +316,9 @@
 
                 <include content="Dialog_Foreground_Side">
                     <param name="dialog_size">Dimension_DialogFullMenu</param>
-                    <param name="slide_condition">!Integer.IsEqual(Container(9000).NumItems,0)</param>
-                    <param name="lines_right">476</param>
-                    <param name="topline">true</param>
-                    <param name="subline">true</param>
+                    <param name="slide_condition">true</param>
+                    <param name="topline">false</param>
+                    <param name="subline">false</param>
 
                     <!-- Header -->
                     <include content="Dialog_Head">
@@ -345,9 +338,12 @@
                                 <param name="landscape_icon">$PARAM[landscape_icon]</param>
                             </include>
 
-                            <control type="group" id="7000">
-                                <right>496</right>
-                                <control type="group">
+                            <include content="Dialog_Outline_InnerBox">
+                                <left>420</left>
+                                <top>-20</top>
+                                <bottom>-20</bottom>
+                                <right>20</right>
+                                <control type="group" id="7000">
                                     <include content="List_DialogSelect">
                                         <param name="id">$PARAM[id]</param>
                                         <param name="detailed">True</param>
@@ -358,14 +354,18 @@
                                         <onright condition="Control.IsVisible(9001)">9001</onright>
                                         <onright condition="!Control.IsVisible(9001)">9000</onright>
                                         <onright>62</onright>
-                                        <right>-20</right>
+                                        <right>20</right>
+                                        <left>20</left>
+                                        <top>20</top>
+                                        <bottom>20</bottom>
                                         <pagecontrol>62</pagecontrol>
                                     </include>
                                     <control type="group">
                                         <height>40</height>
-                                        <bottom>-60</bottom>
+                                        <bottom>-40</bottom>
+                                        <left>20</left>
+                                        <right>20</right>
                                         <control type="label">
-                                            <left>20</left>
                                             <aligny>center</aligny>
                                             <align>left</align>
                                             <font>font_hint_black</font>
@@ -382,14 +382,19 @@
                                         </control>
                                     </control>
                                 </control>
-                            </control>
+                            </include>
                         </control>
-                        <include content="Dialog_Scrollbar">
-                            <param name="id">62</param>
-                            <onleft>7000</onleft>
-                        </include>
+
                     </control>
                 </include>
+
+                <control type="group">
+                    <include>Dimension_Dialog_Body</include>
+                    <include content="Dialog_Scrollbar">
+                        <param name="id">62</param>
+                        <onleft>7000</onleft>
+                    </include>
+                </control>
 
             </control>
         </definition>

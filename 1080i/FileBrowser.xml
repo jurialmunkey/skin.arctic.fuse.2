@@ -42,34 +42,38 @@
                 <control type="group">
                     <include>Dimension_Dialog_Body</include>
                     <control type="grouplist" id="9000">
-                        <include>Dialog_Side_Grouplist_Def</include>
+                        <include>Dialog_Side_Expanded_Grouplist_Def</include>
                         <onleft condition="Control.IsVisible(450)">450</onleft>
                         <onleft condition="Control.IsVisible(451)">451</onleft>
                         <onright condition="Control.IsVisible(61)">61</onright>
                         <onright condition="Control.IsVisible(62)">62</onright>
-                        <include content="Dialog_Side_Button">
-                            <param name="id">01</param>
+                        <include content="DialogInfo_ExpandedButton">
+                            <param name="id">9001</param>
+                            <param name="groupid">9101</param>
                             <param name="label">$LOCALIZE[186]</param>
                             <param name="icon">special://skin/extras/icons/circle-check.png</param>
                             <param name="visible">Control.IsEnabled(413) + Control.IsVisible(413) + Control.IsVisible(450)</param>
                             <onclick>SendClick(413)</onclick>
                         </include>
-                        <include content="Dialog_Side_Button">
-                            <param name="id">02</param>
+                        <include content="DialogInfo_ExpandedButton">
+                            <param name="id">9002</param>
+                            <param name="groupid">9102</param>
                             <param name="label">$LOCALIZE[222]</param>
                             <param name="icon">special://skin/extras/icons/circle-xmark.png</param>
                             <param name="visible">Control.IsEnabled(414) + Control.IsVisible(414)</param>
                             <onclick>SendClick(414)</onclick>
                         </include>
-                        <include content="Dialog_Side_Button">
-                            <param name="id">03</param>
+                        <include content="DialogInfo_ExpandedButton">
+                            <param name="id">9003</param>
+                            <param name="groupid">9103</param>
                             <param name="label">$LOCALIZE[119]</param>
                             <param name="icon">special://skin/extras/icons/circle-plus.png</param>
                             <param name="visible">Control.IsEnabled(415) + Control.IsVisible(415)</param>
                             <onclick>SendClick(415)</onclick>
                         </include>
-                        <include content="Dialog_Side_Button">
-                            <param name="id">04</param>
+                        <include content="DialogInfo_ExpandedButton">
+                            <param name="id">9004</param>
+                            <param name="groupid">9104</param>
                             <param name="label">$LOCALIZE[1000]</param>
                             <param name="icon">special://skin/extras/icons/image.png</param>
                             <param name="visible">Control.IsVisible(451) + [String.IsEqual(Control.GetLabel(411),$LOCALIZE[13511]) | String.IsEqual(Control.GetLabel(411),$LOCALIZE[20437])]</param>
@@ -84,8 +88,6 @@
 
             <include content="Dialog_Foreground_Side">
                 <param name="dialog_size">Dimension_DialogWideMenu</param>
-                <param name="slide_condition">True</param>
-                <param name="lines_right">0</param>
                 <param name="topline">true</param>
                 <param name="subline">true</param>
 
@@ -131,20 +133,23 @@
                         </include>
                     </control>
 
-                    <include content="Dialog_Scrollbar">
-                        <param name="slide_condition">True</param>
-                        <param name="id">61</param>
-                        <visible>Control.IsVisible(450)</visible>
-                        <onleft>9000</onleft>
-                    </include>
-                    <include content="Dialog_Scrollbar">
-                        <param name="slide_condition">True</param>
-                        <param name="id">62</param>
-                        <visible>Control.IsVisible(451)</visible>
-                        <onleft>9000</onleft>
-                    </include>
+
                 </control>
             </include>
+
+            <control type="group">
+                <include>Dimension_Dialog_Body</include>
+                <include content="Dialog_Scrollbar">
+                    <param name="id">61</param>
+                    <visible>Control.IsVisible(450)</visible>
+                    <onleft>9000</onleft>
+                </include>
+                <include content="Dialog_Scrollbar">
+                    <param name="id">62</param>
+                    <visible>Control.IsVisible(451)</visible>
+                    <onleft>9000</onleft>
+                </include>
+            </control>
 
         </control>
     </controls>

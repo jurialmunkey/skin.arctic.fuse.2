@@ -16,40 +16,43 @@
             <include>Animation_Right_Delay</include>
             <!-- Bottom Layer -->
             <include content="Dialog_Background_Side">
-                <param name="slide_condition">True</param>
                 <param name="dialog_size">Dimension_DialogFullMenu</param>
                 <!-- Side Buttons -->
                 <control type="group">
                     <include>Dimension_Dialog_Body</include>
                     <control type="grouplist" id="9000">
-                        <include>Dialog_Side_Grouplist_Def</include>
+                        <include>Dialog_Side_Expanded_Grouplist_Def</include>
                         <onleft condition="!Player.HasVideo">Close</onleft>
                         <onleft condition="Player.HasVideo">Seek(-10)</onleft>
                         <onright condition="Player.HasVideo">Seek(10)</onright>
-                        <include content="Dialog_Side_Button">
-                            <param name="id">02</param>
+                        <include content="DialogInfo_ExpandedButton">
+                            <param name="id">9002</param>
+                            <param name="groupid">9102</param>
                             <param name="label">$LOCALIZE[31485]</param>
                             <param name="icon">special://skin/extras/icons/stop.png</param>
                             <param name="visible">Player.HasVideo</param>
                             <onclick>Action(Stop)</onclick>
                             <onclick>Close</onclick>
                         </include>
-                        <include content="Dialog_Side_Button">
-                            <param name="id">03</param>
+                        <include content="DialogInfo_ExpandedButton">
+                            <param name="id">9003</param>
+                            <param name="groupid">9103</param>
                             <param name="label">$VAR[Label_Trailer_PlayPause]</param>
                             <param name="icon">$VAR[Image_Trailer_PlayPause]</param>
                             <param name="visible">Player.HasVideo</param>
                             <onclick>PlayerControl(Play)</onclick>
                         </include>
-                        <include content="Dialog_Side_Button">
-                            <param name="id">04</param>
+                        <include content="DialogInfo_ExpandedButton">
+                            <param name="id">9004</param>
+                            <param name="groupid">9104</param>
                             <param name="label">$LOCALIZE[31483]</param>
                             <param name="icon">special://skin/extras/icons/repeat2.png</param>
                             <param name="visible">!String.IsEmpty(Window(Home).Property(PlayTrailer))</param>
                             <onclick>PlayMedia($ESCINFO[Window(Home).Property(PlayTrailer)],False,1)</onclick>
                         </include>
-                        <include content="Dialog_Side_Button">
-                            <param name="id">05</param>
+                        <include content="DialogInfo_ExpandedButton">
+                            <param name="id">9005</param>
+                            <param name="groupid">9105</param>
                             <param name="label">Fullscreen</param>
                             <param name="icon">special://skin/extras/icons/fullscreen.png</param>
                             <param name="visible">Player.HasVideo</param>
@@ -65,10 +68,6 @@
 
             <include content="Dialog_Foreground_Side">
                 <param name="dialog_size">Dimension_DialogFullMenu</param>
-                <param name="slide_condition">True</param>
-                <param name="lines_right">0</param>
-                <param name="topline">true</param>
-                <param name="subline">true</param>
 
                 <!-- Header -->
                 <include content="Dialog_Head">

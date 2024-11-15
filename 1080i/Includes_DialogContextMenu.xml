@@ -21,18 +21,20 @@
             <control type="group">
                 <include>Dimension_Dialog_Body</include>
                 <control type="grouplist" id="9000">
-                    <include>Dialog_Side_Grouplist_Def</include>
+                    <include>Dialog_Side_Expanded_Grouplist_Def</include>
                     <onleft>996</onleft>
                     <onright>61</onright>
-                    <include content="Dialog_Side_Button" condition="!$EXP[Exp_InfoDialogs]">
-                        <param name="id">02</param>
+                    <include content="DialogInfo_ExpandedButton" condition="!$EXP[Exp_InfoDialogs]">
+                        <param name="id">9002</param>
+                        <param name="groupid">9102</param>
                         <param name="label">$LOCALIZE[207]</param>
                         <param name="icon">special://skin/extras/icons/quote.png</param>
                         <param name="visible">[!String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.base_plot))]</param>
                         <onclick>ActivateWindow(1113)</onclick>
                     </include>
-                    <include content="Dialog_Side_Button" condition="!$EXP[Exp_InfoDialogs]">
-                        <param name="id">03</param>
+                    <include content="DialogInfo_ExpandedButton" condition="!$EXP[Exp_InfoDialogs]">
+                        <param name="id">9003</param>
+                        <param name="groupid">9103</param>
                         <param name="label">$LOCALIZE[31066]</param>
                         <param name="icon">special://skin/extras/icons/binoculars.png</param>
                         <param name="visible">[!String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.base_title))]</param>
@@ -42,40 +44,45 @@
                         <onclick condition="!Window.IsActive(1105)">ActivateWindow(1105)</onclick>
                         <onclick condition="Window.IsActive(1105)">ReplaceWindow(1197)</onclick>
                     </include>
-                    <include content="Dialog_Side_Button" condition="!$EXP[Exp_InfoDialogs]">
-                        <param name="id">04</param>
+                    <include content="DialogInfo_ExpandedButton" condition="!$EXP[Exp_InfoDialogs]">
+                        <param name="id">9004</param>
+                        <param name="groupid">9104</param>
                         <param name="label">Wiki</param>
                         <param name="icon">special://skin/extras/icons/globe.png</param>
                         <param name="visible">[!String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.base_title))]</param>
                         <onclick>Dialog.Close(contextmenu,true)</onclick>
                         <onclick>runscript(script.wikipedia,wikipedia=$VAR[Dialog_ContextMenu_SideButtons_WikiTitle]$VAR[Dialog_ContextMenu_SideButtons_WikiType])</onclick>
                     </include>
-                    <include content="Dialog_Side_Button" condition="!$EXP[Exp_InfoDialogs]">
-                        <param name="id">05</param>
+                    <include content="DialogInfo_ExpandedButton" condition="!$EXP[Exp_InfoDialogs]">
+                        <param name="id">9005</param>
+                        <param name="groupid">9105</param>
                         <param name="label">$LOCALIZE[31041]</param>
                         <param name="icon">special://skin/extras/icons/fire2.png</param>
                         <param name="visible">[String.IsEqual(Window(Home).Property(TMDbHelper.ListItem.base_dbtype),tvshow) | String.IsEqual(Window(Home).Property(TMDbHelper.ListItem.base_dbtype),season) | String.IsEqual(Window(Home).Property(TMDbHelper.ListItem.base_dbtype),episode) | String.IsEqual(Window(Home).Property(TMDbHelper.ListItem.base_dbtype),movie)]</param>
                         <onclick>Dialog.Close(contextmenu,true)</onclick>
                         <onclick>RunScript(plugin.video.themoviedb.helper,related_lists,query=$VAR[Path_ContextParams_Query],tmdb_type=$VAR[Path_ContextParams_TMDbType])</onclick>
                     </include>
-                    <include content="Dialog_Side_Button" condition="!$EXP[Exp_InfoDialogs]">
-                        <param name="id">06</param>
+                    <include content="DialogInfo_ExpandedButton" condition="!$EXP[Exp_InfoDialogs]">
+                        <param name="id">9006</param>
+                        <param name="groupid">9106</param>
                         <param name="label">$LOCALIZE[20410]</param>
                         <param name="icon">special://skin/extras/icons/video.png</param>
                         <param name="visible">[!String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.Trailer))]</param>
                         <onclick>Dialog.Close(contextmenu,true)</onclick>
                         <onclick>RunScript(script.skinvariables,run_executebuiltin=special://skin/shortcuts/builtins/skinvariables-playtrailer.json,use_rules)</onclick>
                     </include>
-                    <include content="Dialog_Side_Button" condition="!$EXP[Exp_InfoDialogs] + Window.IsMedia">
-                        <param name="id">07</param>
+                    <include content="DialogInfo_ExpandedButton" condition="!$EXP[Exp_InfoDialogs] + Window.IsMedia">
+                        <param name="id">9007</param>
+                        <param name="groupid">9107</param>
                         <param name="label">$LOCALIZE[33061]</param>
                         <param name="icon">special://skin/extras/icons/circle-plus.png</param>
                         <param name="visible">ListItem.IsFolder</param>
                         <onclick>Dialog.Close(contextmenu,true)</onclick>
                         <onclick>RunScript(script.skinvariables,set_listitem_to_menunode=sidemenu||1101menu||1102menu||1103menu||1104menu||1106menu||1107menu||1108menu||1109menu||powermainmenu,skin=$VAR[Path_SkinVariables_SkinFolder])</onclick>
                     </include>
-                    <include content="Dialog_Side_Button" condition="!$EXP[Exp_InfoDialogs] + Window.IsMedia">
-                        <param name="id">08</param>
+                    <include content="DialogInfo_ExpandedButton" condition="!$EXP[Exp_InfoDialogs] + Window.IsMedia">
+                        <param name="id">9008</param>
+                        <param name="groupid">9108</param>
                         <param name="label">$LOCALIZE[5]</param>
                         <param name="icon">special://skin/extras/icons/settings.png</param>
                         <param name="visible">!String.IsEmpty(Container.PluginName)</param>
@@ -87,25 +94,10 @@
         </include>
     </include>
 
-    <include name="Dialog_ContextMenu_BodyContent_Artwork">
-        <control type="group">
-            <include>Dimension_Dialog_Body_Group</include>
-            <include content="DialogInfo_PlotBox_Artwork">
-                <param name="poster_icon">$VAR[Image_ContextPoster]</param>
-                <param name="landscape_icon">$VAR[Image_ContextFanart]</param>
-                <param name="square_icon">$VAR[Image_ContextIcon]</param>
-                <param name="clearlogo_icon">$VAR[Image_ContextClearLogo]</param>
-            </include>
-        </control>
-    </include>
-
     <include name="Dialog_ContextMenu_BodyContent">
-        <param name="include_artwork">true</param>
         <definition>
             <control type="group">
                 <include>Dimension_Dialog_Body</include>
-
-                <include condition="$PARAM[include_artwork]">Dialog_ContextMenu_BodyContent_Artwork</include>
 
                 <control type="grouplist" id="996">
                     <include>Dimension_Dialog_Body_Group</include>
@@ -114,13 +106,6 @@
                     <onright condition="Integer.IsEqual(Container(9000).NumItems,0)">61</onright>
                     <pagecontrol>61</pagecontrol>
                 </control>
-
-                <include content="Dialog_Scrollbar">
-                    <param name="id">61</param>
-                    <param name="slide_condition">$PARAM[slide_condition]</param>
-                    <onleft condition="!Integer.IsEqual(Container(9000).NumItems,0)">9000</onleft>
-                    <onleft condition="Integer.IsEqual(Container(9000).NumItems,0)">996</onleft>
-                </include>
             </control>
         </definition>
     </include>
@@ -138,11 +123,9 @@
     </include>
 
     <include name="Dialog_ContextMenu">
-        <param name="include_fullmenu">true</param>
         <param name="dialog_size">Dimension_DialogHugeMenu</param>
-        <param name="button_width">764</param>
-        <param name="lines_right">476</param>
         <param name="header">$VAR[Label_ContextMenu_Title]</param>
+        <param name="button_width">dialog_main_button_w</param>
         <definition>
             <include>Defs_Background_Loader</include>
             <include>Dialog_Dim_Overlay</include>
@@ -159,11 +142,7 @@
 
                 <!-- Foreground Layer -->
                 <include content="Dialog_Foreground_Side">
-                    <param name="slide_condition">!Integer.IsEqual(Container(9000).NumItems,0)</param>
                     <param name="dialog_size">$PARAM[dialog_size]</param>
-                    <param name="topline">true</param>
-                    <param name="subline">true</param>
-                    <param name="lines_right">$PARAM[lines_right]</param>
 
                     <!-- Header -->
                     <include content="Dialog_Head">
@@ -174,12 +153,20 @@
 
                     <!-- Content -->
                     <include content="Dialog_ContextMenu_BodyContent">
-                        <param name="include_artwork">$PARAM[include_fullmenu]</param>
                         <param name="lines_right">$PARAM[lines_right]</param>
-                        <param name="slide_condition">!Integer.IsEqual(Container(9000).NumItems,0)</param>
                     </include>
 
                 </include>
+
+                <control type="group">
+                    <include>Dimension_Dialog_Body</include>
+                    <include content="Dialog_Scrollbar">
+                        <param name="id">61</param>
+                        <onleft condition="!Integer.IsEqual(Container(9000).NumItems,0)">9000</onleft>
+                        <onleft condition="Integer.IsEqual(Container(9000).NumItems,0)">996</onleft>
+                    </include>
+                </control>
+
             </control>
 
             <include content="Settings_Button">
