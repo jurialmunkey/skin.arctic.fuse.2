@@ -62,6 +62,13 @@
         </include>
     </include>
 
+    <include name="Dialog_Background_BlurDimension_DialogMiniMenu">
+        <include content="Dialog_Background_Blur">
+            <param name="shadow">$PARAM[shadow]</param>
+            <param name="diffuse">diffuse/dialog_w680_h1000.png</param>
+        </include>
+    </include>
+
     <include name="Dialog_Background_BlurDimension_DialogSideMenu">
         <include content="Dialog_Background_Blur">
             <param name="shadow">$PARAM[shadow]</param>
@@ -163,19 +170,26 @@
         </definition>
     </include>
 
-    <include name="Dialog_Background_Side">
-        <param name="slide_visible">!Integer.IsEqual(Container(9000).NumItems,0)</param>
+    <include name="Dialog_Side_Panel_Group_Def">
+        <param name="width">dialog_panelgroup_w</param>
         <definition>
+            <width>$PARAM[width]</width>
+            <right>0</right>
             <control type="group">
-                <include content="Animation_ConditionalFade">
-                    <param name="condition">![$PARAM[slide_visible]]</param>
-                </include>
-                <include content="Dialog_Background_Group">
-                    <param name="include_glass">false</param>
-                    <param name="dialog_size">$PARAM[dialog_size]</param>
-                    <param name="shadow">false</param>
-                </include>
-                <nested />
+                <top>40</top>
+                <left>-40</left>
+                <right>40</right>
+                <bottom>40</bottom>
+                <control type="image">
+                    <bordersize>1</bordersize>
+                    <texture border="20" colordiffuse="dialog_bg_12">common/dialog_overlay.png</texture>
+                </control>
+                <control type="image">
+                    <width>1</width>
+                    <top>1</top>
+                    <bottom>1</bottom>
+                    <texture colordiffuse="$VAR[Color_DialogBorder]">common/white.png</texture>
+                </control>
             </control>
         </definition>
     </include>
@@ -184,21 +198,12 @@
         <param name="topline">true</param>
         <param name="subline">true</param>
         <param name="lines_right">0</param>
-        <param name="slide_visible">!Integer.IsEqual(Container(9000).NumItems,0)</param>
-        <param name="slide_condition">ControlGroup(9000).HasFocus()</param>
-        <param name="slide_posx">-240</param>
         <definition>
             <control type="group">
                 <include content="Dialog_Background_Group">
                     <param name="include_glass">true</param>
                     <param name="dialog_size">$PARAM[dialog_size]</param>
                 </include>
-                <animation effect="slide" start="0" end="-120" time="400" tween="sine" easing="inout" condition="$PARAM[slide_visible]">Conditional</animation>
-                <animation effect="slide" start="0" end="$PARAM[slide_posx]" time="400" tween="sine" easing="inout" condition="$PARAM[slide_condition] + $PARAM[slide_visible]">Conditional</animation>
-
-                <!-- <animation effect="slide" start="0" end="120" time="400" tween="sine" easing="inout" condition="$PARAM[slide_visible] + Control.HasFocus(61)">Conditional</animation> -->
-
-                <nested />
                 <control type="group">
                     <right>80</right>
                     <left>80</left>
@@ -289,128 +294,68 @@
     </include>
 
     <include name="Dialog_Side_Grouplist_Def">
-        <top>-20</top>
-        <itemgap>0</itemgap>
-        <orientation>vertical</orientation>
-        <width>160</width>
-        <right>-20</right>
-    </include>
-
-    <include name="Dialog_Side_Expanded_Grouplist_Def">
-        <param name="header">$LOCALIZE[33063]</param>
-        <param name="condition">[ControlGroup(9000).HasFocus()]</param>
         <definition>
             <top>-120</top>
             <itemgap>0</itemgap>
             <orientation>vertical</orientation>
-            <width>320</width>
+            <width>160</width>
+            <right>-20</right>
+            <control type="group" id="9098">
+                <height>100</height>
+                <left>60</left>
+                <right>60</right>
+                <control type="group">
+                    <control type="image">
+                        <height>40</height>
+                        <width>40</width>
+                        <centertop>60</centertop>
+                        <right>0</right>
+                        <bordersize>-8</bordersize>
+                        <texture colordiffuse="dialog_fg_70">special://skin/extras/icons/sliders.png</texture>
+                    </control>
+                    <control type="image">
+                        <height>1</height>
+                        <centerbottom>-20</centerbottom>
+                        <texture colordiffuse="$VAR[Color_DialogBorder]">common/white.png</texture>
+                    </control>
+                </control>
+            </control>
+        </definition>
+    </include>
+
+    <include name="Dialog_Side_Expanded_Grouplist_Def">
+        <param name="header">$LOCALIZE[33063]</param>
+        <definition>
+            <top>-120</top>
+            <itemgap>0</itemgap>
+            <orientation>vertical</orientation>
+            <width>400</width>
             <right>20</right>
             <control type="group" id="9098">
-                <height>120</height>
+                <height>140</height>
                 <left>20</left>
                 <right>20</right>
                 <control type="label">
                     <height>40</height>
-                    <centertop>50%</centertop>
+                    <centertop>60</centertop>
                     <textcolor>dialog_fg_90</textcolor>
                     <font>font_main_black</font>
                     <label>$PARAM[header]</label>
                 </control>
-                <control type="group">
-                    <visible>!$PARAM[condition]</visible>
-                    <control type="image">
-                        <height>40</height>
-                        <width>40</width>
-                        <centertop>50%</centertop>
-                        <right>0</right>
-                        <bordersize>-8</bordersize>
-                        <texture colordiffuse="dialog_fg_70">special://skin/extras/icons/sliders.png</texture>
-                    </control>
-                    <control type="image">
-                        <height>1</height>
-                        <centerbottom>0</centerbottom>
-                        <width>40</width>
-                        <right>0</right>
-                        <texture colordiffuse="$VAR[Color_DialogBorder]">common/white.png</texture>
-                    </control>
+                <control type="image">
+                    <height>40</height>
+                    <width>40</width>
+                    <centertop>60</centertop>
+                    <right>0</right>
+                    <bordersize>-8</bordersize>
+                    <texture colordiffuse="dialog_fg_70">special://skin/extras/icons/sliders.png</texture>
                 </control>
-                <control type="group">
-                    <visible>$PARAM[condition]</visible>
-                    <control type="image">
-                        <height>40</height>
-                        <width>40</width>
-                        <centertop>50%</centertop>
-                        <right>0</right>
-                        <bordersize>-8</bordersize>
-                        <texture colordiffuse="dialog_fg_70">special://skin/extras/icons/sliders.png</texture>
-                    </control>
-                    <control type="image">
-                        <height>1</height>
-                        <centerbottom>0</centerbottom>
-                        <texture colordiffuse="$VAR[Color_DialogBorder]">common/white.png</texture>
-                    </control>
+                <control type="image">
+                    <height>1</height>
+                    <centerbottom>20</centerbottom>
+                    <texture colordiffuse="$VAR[Color_DialogBorder]">common/white.png</texture>
                 </control>
             </control>
-            <control type="group" id="9097">
-                <height>20</height>
-            </control>
-        </definition>
-    </include>
-
-
-    <include name="Dialog_Side_Button">
-        <param name="vertical">true</param>
-        <param name="textcolor">dialog_fg</param>
-        <param name="id_prefix">0</param>
-        <param name="groupid_prefix">1</param>
-        <param name="baseid">9</param>
-        <param name="include_slide">false</param>
-        <definition>
-            <include content="DialogInfo_Button">
-                <param name="vertical">$PARAM[vertical]</param>
-                <param name="itemgap">$PARAM[itemgap]</param>
-                <param name="id">$PARAM[baseid]$PARAM[id_prefix]$PARAM[id]</param>
-                <param name="groupid">$PARAM[baseid]$PARAM[groupid_prefix]$PARAM[id]</param>
-                <param name="label">$PARAM[label]</param>
-                <param name="icon">$PARAM[icon]</param>
-                <param name="textcolor">$PARAM[textcolor]</param>
-                <param name="nf_opacity">$PARAM[nf_opacity]</param>
-                <param name="db_opacity">$PARAM[db_opacity]</param>
-                <param name="visible">$PARAM[visible]</param>
-                <param name="control">$PARAM[control]</param>
-                <param name="radioround">$PARAM[radioround]</param>
-                <param name="radiocross">$PARAM[radiocross]</param>
-                <param name="radiocheck">$PARAM[radiocheck]</param>
-                <param name="include_slide">$PARAM[include_slide]</param>
-                <param name="include_hintlabel">true</param>
-                <nested />
-            </include>
-        </definition>
-    </include>
-
-    <include name="Dialog_Side_Button_BuiltIn">
-        <param name="vertical">true</param>
-        <param name="textcolor">dialog_fg</param>
-        <definition>
-            <include content="DialogInfo_Button">
-                <param name="vertical">$PARAM[vertical]</param>
-                <param name="itemgap">$PARAM[itemgap]</param>
-                <param name="id">$PARAM[id]</param>
-                <param name="groupid">$PARAM[groupid]</param>
-                <param name="label">$PARAM[label]</param>
-                <param name="icon">$PARAM[icon]</param>
-                <param name="textcolor">$PARAM[textcolor]</param>
-                <param name="nf_opacity">$PARAM[nf_opacity]</param>
-                <param name="db_opacity">$PARAM[db_opacity]</param>
-                <param name="visible">$PARAM[visible]</param>
-                <param name="control">$PARAM[control]</param>
-                <param name="builtin">true</param>
-                <param name="radioround">$PARAM[radioround]</param>
-                <param name="radiocross">$PARAM[radiocross]</param>
-                <param name="radiocheck">$PARAM[radiocheck]</param>
-                <param name="include_hintlabel">true</param>
-                <nested />
-            </include>
         </definition>
     </include>
 
@@ -502,7 +447,7 @@
                 </control>
                 <include content="Object_Control" condition="Skin.HasSetting(Glass.EnableBorders)">
                     <param name="control">image</param>
-                    <texture colordiffuse="panel_fg_12" border="40">common/menu-outline.png</texture>
+                    <texture colordiffuse="dialog_fg_12" border="40">common/menu-outline.png</texture>
                 </include>
             </control>
         </definition>
@@ -641,12 +586,12 @@
     <include name="Dialog_Outline">
         <include content="Object_Control" condition="Skin.HasSetting(Glass.EnableBorders)">
             <param name="control">image</param>
-            <texture colordiffuse="panel_fg_12" border="12">common/box-outline.png</texture>
+            <texture colordiffuse="dialog_fg_12" border="12">common/box-outline.png</texture>
         </include>
     </include>
 
     <include name="Dialog_Box">
-        <param name="colordiffuse">panel_fg_12</param>
+        <param name="colordiffuse">dialog_fg_12</param>
         <definition>
             <include content="Object_Shadow_40" condition="Skin.HasSetting(Glass.EnableBorders)">
                 <param name="colordiffuse">shadow_soft</param>
@@ -672,8 +617,7 @@
     <include name="Dialog_Outline_InnerBox">
         <definition>
             <control type="group">
-                <include condition="$EXP[Exp_DialogTheme_IsLight]">Dialog_Box</include>
-                <include condition="!$EXP[Exp_DialogTheme_IsLight]">Dialog_InnerBox</include>
+                <include>Dialog_InnerBox</include>
                 <nested />
                 <control type="image">
                     <texture colordiffuse="$VAR[Color_DialogBorder]" border="20">common/box-outline.png</texture>

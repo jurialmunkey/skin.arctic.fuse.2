@@ -14,31 +14,17 @@
         <include>Dialog_Dim_Overlay</include>
 
         <control type="group">
-            <include>Dimension_DialogFullMenu</include>
+            <include>Dimension_DialogMainMenu</include>
             <include>Animation_Right_Delay</include>
 
-            <!-- Bottom Layer -->
-            <include content="Dialog_Background_Side">
-                <param name="dialog_size">Dimension_DialogFullMenu</param>
-                <!-- Side Buttons -->
-                <control type="group">
-                    <include>Dimension_Dialog_Body</include>
-                    <control type="grouplist" id="9000">
-                        <include content="Dialog_Side_Expanded_Grouplist_Def">
-                            <param name="condition">[true]</param>
-                        </include>
-                        <onright>61</onright>
-                        <include>Items_DialogAddonInfo_MenuBar</include>
-                    </control>
-                </control>
-            </include>
-
             <include content="Dialog_Foreground_Side">
-                <param name="dialog_size">Dimension_DialogFullMenu</param>
-                <param name="slide_condition">true</param>
+                <param name="dialog_size">Dimension_DialogMainMenu</param>
                 <param name="topline">false</param>
                 <param name="subline">false</param>
+            </include>
 
+            <control type="group">
+                <right>dialog_panelgroup_w</right>
                 <!-- Header -->
                 <include content="Dialog_Head">
                     <param name="label">$INFO[ListItem.Label]</param>
@@ -51,10 +37,6 @@
                     <control type="group">
                         <include>Dimension_Dialog_Body_Group</include>
                         <include content="DialogInfo_PlotBox_Artwork">
-                            <param name="poster_icon">$PARAM[poster_icon]</param>
-                            <param name="square_icon">$PARAM[square_icon]</param>
-                            <param name="landscape_icon">$PARAM[landscape_icon]</param>
-                            <param name="clearlogo_icon">$PARAM[clearlogo_icon]</param>
                         </include>
                         <include content="Dialog_Outline_InnerBox">
                             <left>420</left>
@@ -157,7 +139,19 @@
                         </control>
                     </control>
                 </control>
-            </include>
+            </control>
+
+            <control type="group">
+                <include>Dialog_Side_Panel_Group_Def</include>
+                <control type="group">
+                    <include>Dimension_Dialog_Body</include>
+                    <control type="grouplist" id="9000">
+                        <include>Dialog_Side_Expanded_Grouplist_Def</include>
+                        <onright>61</onright>
+                        <include>Items_DialogAddonInfo_MenuBar</include>
+                    </control>
+                </control>
+            </control>
 
             <control type="group">
                 <include>Dimension_Dialog_Body</include>

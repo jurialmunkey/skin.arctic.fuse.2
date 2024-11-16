@@ -9,36 +9,14 @@
         <control type="group">
             <include>Dimension_DialogWideMenu</include>
             <include>Animation_Right_Delay</include>
-            <!-- Bottom Layer -->
-            <include content="Dialog_Background_Side">
-                <param name="dialog_size">Dimension_DialogWideMenu</param>
-                <!-- Side Buttons -->
-                <control type="group">
-                    <include>Dimension_Dialog_Body</include>
-                    <control type="grouplist" id="9000">
-                        <include>Dialog_Side_Expanded_Grouplist_Def</include>
-                        <onleft>11</onleft>
-                        <include content="DialogInfo_ExpandedButton">
-                            <param name="id">9002</param>
-                            <param name="groupid">9102</param>
-                            <param name="label">$LOCALIZE[186]</param>
-                            <param name="icon">special://skin/extras/icons/circle-check.png</param>
-                            <onclick>SendClick(18)</onclick>
-                        </include>
-                        <include content="DialogInfo_ExpandedButton">
-                            <param name="id">9003</param>
-                            <param name="groupid">9103</param>
-                            <param name="label">$LOCALIZE[222]</param>
-                            <param name="icon">special://skin/extras/icons/circle-xmark.png</param>
-                            <onclick>SendClick(19)</onclick>
-                        </include>
-                    </control>
-                </control>
-            </include>
 
             <include content="Dialog_Foreground_Side">
                 <param name="dialog_size">Dimension_DialogWideMenu</param>
+                <param name="lines_right">dialog_buttongroup_w</param>
+            </include>
 
+            <control type="group">
+                <right>dialog_buttongroup_w</right>
                 <!-- Header -->
                 <include content="Dialog_Head">
                     <param name="id">2</param>
@@ -156,7 +134,37 @@
                         </control>
                     </control>
                 </control>
-            </include>
+            </control>
+
+            <!-- Side Buttons -->
+            <control type="group">
+                <include content="Dialog_Side_Panel_Group_Def">
+                    <param name="width">dialog_buttongroup_w</param>
+                </include>
+                <control type="group">
+                    <include>Dimension_Dialog_Body</include>
+                    <control type="grouplist" id="9000">
+                        <include>Dialog_Side_Grouplist_Def</include>
+                        <onleft>11</onleft>
+                        <include content="DialogInfo_Button">
+                            <param name="include_hintlabel">true</param>
+                            <param name="id">9002</param>
+                            <param name="groupid">9102</param>
+                            <param name="label">$LOCALIZE[186]</param>
+                            <param name="icon">special://skin/extras/icons/circle-check.png</param>
+                            <onclick>SendClick(18)</onclick>
+                        </include>
+                        <include content="DialogInfo_Button">
+                            <param name="include_hintlabel">true</param>
+                            <param name="id">9003</param>
+                            <param name="groupid">9103</param>
+                            <param name="label">$LOCALIZE[222]</param>
+                            <param name="icon">special://skin/extras/icons/circle-xmark.png</param>
+                            <onclick>SendClick(19)</onclick>
+                        </include>
+                    </control>
+                </control>
+            </control>
 
         </control>
     </controls>

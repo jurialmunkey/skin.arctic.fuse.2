@@ -202,7 +202,7 @@
         <control type="group">
             <visible>Control.IsVisible(501)</visible>
             <control type="group">
-                <right>440</right>
+                <right>dialog_panelgroup_w</right>
                 <include>View_PVR_ProgrammePanel</include>
                 <include content="View_PVRGuide_Standard">
                     <param name="id">501</param>
@@ -528,7 +528,7 @@
         <control type="group">
             <visible>Control.IsVisible(51)</visible>
             <control type="group">
-                <right>440</right>
+                <right>dialog_panelgroup_w</right>
                 <include>View_PVR_ProgrammePanel</include>
                 <include content="View_PVRChannels_Standard">
                     <param name="id">51</param>
@@ -584,117 +584,5 @@
     <include name="View_PVR_RecordingSubList">
         <visible>Container(50).ListItem.IsFolder</visible>
         <content>$INFO[Container(50).ListItem.FolderPath]</content>
-    </include>
-
-
-    <include name="View_PVR_RecordingDetails">
-        <control type="group">
-            <visible>!Container(50).ListItem.IsFolder + [!String.IsEmpty(ListItem.ChannelName) | !String.IsEmpty(ListItem.Title)]</visible>
-            <top>20</top>
-            <bottom>40</bottom>
-            <left>40</left>
-            <right>40</right>
-            <control type="image">
-                <top>20</top>
-                <height>180</height>
-                <width>600</width>
-                <right>0</right>
-                <aspectratio align="right">keep</aspectratio>
-                <texture>$INFO[ListItem.Icon]</texture>
-            </control>
-            <control type="grouplist">
-                <orientation>vertical</orientation>
-                <control type="label">
-                    <height>80</height>
-                    <label>$INFO[ListItem.ChannelName]</label>
-                    <font>font_main_bold</font>
-                    <textcolor>main_fg_100</textcolor>
-                </control>
-                <control type="label">
-                    <height>40</height>
-                    <label>$INFO[ListItem.StartDate]</label>
-                    <textcolor>main_fg_70</textcolor>
-                </control>
-                <control type="label">
-                    <height>40</height>
-                    <label>$INFO[ListItem.StartTime]$INFO[ListItem.EndTime, - ,]</label>
-                    <textcolor>main_fg_70</textcolor>
-                </control>
-                <control type="label">
-                    <height>40</height>
-                    <label>$INFO[ListItem.Duration(h),, hours ]$INFO[ListItem.Duration(m),, minutes]</label>
-                    <textcolor>main_fg_70</textcolor>
-                </control>
-                <control type="group">
-                    <height>80</height>
-                    <include content="Object_Separator_V">
-                        <param name="colordiffuse">main_fg_12</param>
-                        <centertop>50%</centertop>
-                    </include>
-                </control>
-                <control type="label">
-                    <top>-20</top>
-                    <height>80</height>
-                    <label>$INFO[ListItem.Title]</label>
-                    <font>font_main_bold</font>
-                    <textcolor>main_fg_100</textcolor>
-                </control>
-                <control type="label">
-                    <height>40</height>
-                    <label>$VAR[Label_OSD_Plot_Episode_Number,,. ]$INFO[ListItem.EpisodeName]</label>
-                    <visible>!String.IsEmpty(ListItem.EpisodeName)</visible>
-                    <textcolor>main_fg_70</textcolor>
-                </control>
-                <control type="label">
-                    <height>40</height>
-                    <label>$INFO[ListItem.EPGEventTitle]</label>
-                    <visible>!String.IsEmpty(ListItem.EPGEventTitle)</visible>
-                    <textcolor>main_fg_70</textcolor>
-                </control>
-                <control type="label">
-                    <height>40</height>
-                    <label>$INFO[ListItem.Genre]</label>
-                    <visible>!String.IsEmpty(ListItem.Genre)</visible>
-                    <textcolor>main_fg_70</textcolor>
-                </control>
-                <control type="label">
-                    <height>40</height>
-                    <label>$INFO[ListItem.Size]</label>
-                    <visible>!String.IsEmpty(ListItem.Size) + !String.IsEqual(ListITem.Size,0 B)</visible>
-                    <textcolor>main_fg_70</textcolor>
-                </control>
-                <control type="label">
-                    <height>40</height>
-                    <label>$INFO[ListItem.ExpirationDate] $INFO[ListItem.ExpirationTime]</label>
-                    <visible>!String.IsEmpty(ListItem.ExpirationDate)</visible>
-                    <textcolor>main_fg_70</textcolor>
-                </control>
-                <control type="textbox">
-                    <top>40</top>
-                    <height>auto</height>
-                    <label>$VAR[Label_Plot]</label>
-                    <font>font_main_plot</font>
-                    <textcolor>main_fg_70</textcolor>
-                </control>
-            </control>
-        </control>
-    </include>
-
-    <include name="View_PVR_RecordingList">
-        <definition>
-            <control type="group">
-                <include>Dimension_Info</include>
-                <include content="View_PVR_RecordingInfo">
-                        <param name="id">5050</param>
-                        <param name="path_label">$LOCALIZE[19033]</param>
-                        <param name="has_scrollbar">false</param>
-                        <param name="has_file_view">$PARAM[has_file_view]</param>
-                        <param name="include_content">View_PVR_RecordingSubList</param>
-                        <left>600</left>
-                        <right>0</right>
-                        <include>View_PVR_RecordingDetails</include>
-                    </include>
-            </control>
-        </definition>
     </include>
 </includes>

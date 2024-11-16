@@ -12,47 +12,47 @@
                 <param name="lines_right">0</param>
                 <param name="topline">true</param>
                 <param name="subline">true</param>
+            </include>
 
-                <!-- Header -->
-                <include content="Dialog_Head">
-                    <param name="id">1</param>
-                </include>
-                <include>Dialog_Head_CloseButton</include>
+            <!-- Header -->
+            <include content="Dialog_Head">
+                <param name="id">1</param>
+            </include>
+            <include>Dialog_Head_CloseButton</include>
 
-                <!-- Content -->
+            <!-- Content -->
+            <control type="group">
+                <include>Dimension_Dialog_Body</include>
                 <control type="group">
-                    <include>Dimension_Dialog_Body</include>
+                    <include>Dimension_Dialog_Body_Group</include>
+                    <include content="List_DialogSelect">
+                        <param name="id">3</param>
+                        <param name="textcolor">dialog_fg</param>
+                        <pagecontrol>61</pagecontrol>
+                        <onright condition="Control.IsVisible(9001)">9001</onright>
+                        <onright condition="!Control.IsVisible(9001)">9000</onright>
+                    </include>
                     <control type="group">
-                        <include>Dimension_Dialog_Body_Group</include>
-                        <include content="List_DialogSelect">
-                            <param name="id">3</param>
-                            <param name="textcolor">dialog_fg</param>
-                            <pagecontrol>61</pagecontrol>
-                            <onright condition="Control.IsVisible(9001)">9001</onright>
-                            <onright condition="!Control.IsVisible(9001)">9000</onright>
-                        </include>
-                        <control type="group">
-                            <height>40</height>
-                            <right>20</right>
-                            <bottom>-60</bottom>
-                            <control type="label">
-                                <aligny>center</aligny>
-                                <align>right</align>
-                                <font>font_hint_black</font>
-                                <textcolor>main_fg_30</textcolor>
-                                <label>$INFO[Container(3).NumItems,, $LOCALIZE[31022]]</label>
-                            </control>
+                        <height>40</height>
+                        <right>20</right>
+                        <bottom>-60</bottom>
+                        <control type="label">
+                            <aligny>center</aligny>
+                            <align>right</align>
+                            <font>font_hint_black</font>
+                            <textcolor>main_fg_30</textcolor>
+                            <label>$INFO[Container(3).NumItems,, $LOCALIZE[31022]]</label>
                         </control>
                     </control>
-
-                    <include content="Dialog_Scrollbar">
-                        <param name="id">61</param>
-                        <onleft condition="Control.IsVisible(9001)">9001</onleft>
-                        <onleft condition="!Control.IsVisible(9001)">9000</onleft>
-                    </include>
-
                 </control>
-            </include>
+
+                <include content="Dialog_Scrollbar">
+                    <param name="id">61</param>
+                    <onleft condition="Control.IsVisible(9001)">9001</onleft>
+                    <onleft condition="!Control.IsVisible(9001)">9000</onleft>
+                </include>
+
+            </control>
 
         </control>
 
@@ -61,17 +61,17 @@
             <control type="group">
                 <include content="Dialog_Preview_Def" condition="![String.IsEqual(Skin.AspectRatio,4:3) | String.IsEqual(Skin.AspectRatio,3:2) | String.IsEqual(Skin.AspectRatio,16:10)]">
                     <param name="icon">$INFO[Container(3).ListItem.Icon]</param>
-                    <param name="height">680</param>
-                    <param name="width">1147</param>
-                    <param name="right">640</param>
+                    <param name="height">620</param>
+                    <param name="width">1040</param>
+                    <param name="right">760</param>
                     <param name="diffuse">diffuse/landscape_w1140_h680.png</param>
                 </include>
 
                 <include content="Dialog_Preview_Def" condition="[String.IsEqual(Skin.AspectRatio,4:3) | String.IsEqual(Skin.AspectRatio,3:2) | String.IsEqual(Skin.AspectRatio,16:10)]">
                     <param name="icon">$INFO[Container(3).ListItem.Icon]</param>
-                    <param name="height">560</param>
-                    <param name="width">933</param>
-                    <param name="right">640</param>
+                    <param name="height">485</param>
+                    <param name="width">800</param>
+                    <param name="right">760</param>
                     <param name="diffuse">diffuse/landscape_w720_h405.png</param>
                 </include>
 
@@ -122,20 +122,13 @@
             <include>Dimension_DialogWideMenu</include>
             <include>Animation_Right_Delay</include>
 
-            <!-- Bottom Layer -->
-            <include content="Dialog_Background_Side">
-                <param name="dialog_size">Dimension_DialogWideMenu</param>
-                <!-- Side Buttons -->
-                <control type="group">
-                    <include>Dimension_Dialog_Body</include>
-                    <include condition="[Window.IsActive(gamevideofilter) | Window.IsActive(gamestretchmode) | Window.IsActive(gamesaves) | Window.IsActive(gamevideorotation) | Window.IsActive(ingamesaves)]">DialogSelect_SideButtons_Games</include>
-                    <include condition="![Window.IsActive(gamevideofilter) | Window.IsActive(gamestretchmode) | Window.IsActive(gamesaves) | Window.IsActive(gamevideorotation) | Window.IsActive(ingamesaves)]">DialogSelect_SideButtons_Standard</include>
-                </control>
-            </include>
-
             <include content="Dialog_Foreground_Side">
                 <param name="dialog_size">Dimension_DialogWideMenu</param>
+                <param name="lines_right">dialog_buttongroup_w</param>
+            </include>
 
+            <control type="group">
+                <right>dialog_buttongroup_w</right>
                 <!-- Header -->
                 <include content="Dialog_Head">
                     <param name="label">$VAR[Label_ProfileName]</param>
@@ -200,7 +193,19 @@
                         </control>
                     </control>
                 </control>
-            </include>
+            </control>
+
+            <control type="group">
+                <include content="Dialog_Side_Panel_Group_Def">
+                    <param name="width">dialog_buttongroup_w</param>
+                </include>
+                <!-- Side Buttons -->
+                <control type="group">
+                    <include>Dimension_Dialog_Body</include>
+                    <include condition="[Window.IsActive(gamevideofilter) | Window.IsActive(gamestretchmode) | Window.IsActive(gamesaves) | Window.IsActive(gamevideorotation) | Window.IsActive(ingamesaves)]">DialogSelect_SideButtons_Games</include>
+                    <include condition="![Window.IsActive(gamevideofilter) | Window.IsActive(gamestretchmode) | Window.IsActive(gamesaves) | Window.IsActive(gamevideorotation) | Window.IsActive(ingamesaves)]">DialogSelect_SideButtons_Standard</include>
+                </control>
+            </control>
 
             <control type="group">
                 <include>Dimension_Dialog_Body</include>
@@ -233,8 +238,10 @@
         <control type="grouplist" id="9000">
             <include>Dialog_Side_Grouplist_Def</include>
             <onleft>10811</onleft>
-            <include content="Dialog_Side_Button">
-                <param name="id">01</param>
+            <include content="DialogInfo_Button">
+                <param name="include_hintlabel">true</param>
+                <param name="id">9001</param>
+                <param name="groupid">9101</param>
                 <param name="label">$LOCALIZE[15067]</param>
                 <param name="icon">special://skin/extras/icons/circle-xmark.png</param>
                 <onclick>Close</onclick>
@@ -267,7 +274,7 @@
 
     <include name="DialogSelect_SideButtons_Standard">
         <control type="grouplist" id="9000">
-            <include>Dialog_Side_Expanded_Grouplist_Def</include>
+            <include>Dialog_Side_Grouplist_Def</include>
             <onright condition="Control.IsVisible(61)">61</onright>
             <onright condition="Control.IsVisible(62)">62</onright>
             <onright condition="Control.IsVisible(63)">63</onright>
@@ -278,7 +285,8 @@
     </include>
 
     <include name="DialogSelect_SideButtons_Artwork">
-        <include content="DialogInfo_ExpandedButton">
+        <include content="DialogInfo_Button">
+            <param name="include_hintlabel">true</param>
             <param name="id">9006</param>
             <param name="groupid">9106</param>
             <param name="label">$LOCALIZE[1000]</param>
@@ -296,30 +304,17 @@
             <include>Dialog_Dim_Overlay</include>
 
             <control type="group">
-                <include>Dimension_DialogFullMenu</include>
+                <include>Dimension_DialogMainMenu</include>
                 <include>Animation_Right_Delay</include>
 
-                <!-- Bottom Layer -->
-                <include content="Dialog_Background_Side">
-                    <param name="dialog_size">Dimension_DialogFullMenu</param>
-                    <!-- Side Buttons -->
-                    <control type="group">
-                        <include>Dimension_Dialog_Body</include>
-                        <control type="grouplist" id="9000">
-                            <include>Dialog_Side_Expanded_Grouplist_Def</include>
-                            <onleft>7000</onleft>
-                            <onright>62</onright>
-                            <include>$PARAM[include_sidegrouplist_items]</include>
-                        </control>
-                    </control>
-                </include>
-
                 <include content="Dialog_Foreground_Side">
-                    <param name="dialog_size">Dimension_DialogFullMenu</param>
-                    <param name="slide_condition">true</param>
+                    <param name="dialog_size">Dimension_DialogMainMenu</param>
                     <param name="topline">false</param>
                     <param name="subline">false</param>
+                </include>
 
+                <control type="group">
+                    <right>dialog_panelgroup_w</right>
                     <!-- Header -->
                     <include content="Dialog_Head">
                         <param name="id">0</param>
@@ -386,7 +381,22 @@
                         </control>
 
                     </control>
-                </include>
+                </control>
+
+
+                <!-- Side Buttons -->
+                <control type="group">
+                    <include>Dialog_Side_Panel_Group_Def</include>
+                    <control type="group">
+                        <include>Dimension_Dialog_Body</include>
+                        <control type="grouplist" id="9000">
+                            <include>Dialog_Side_Expanded_Grouplist_Def</include>
+                            <onleft>7000</onleft>
+                            <onright>62</onright>
+                            <include>$PARAM[include_sidegrouplist_items]</include>
+                        </control>
+                    </control>
+                </control>
 
                 <control type="group">
                     <include>Dimension_Dialog_Body</include>
