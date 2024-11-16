@@ -6,55 +6,16 @@
         <include>Dialog_Dim_Overlay</include>
 
         <control type="group">
-            <include>Dimension_DialogFullMenu</include>
+            <include>Dimension_DialogMainMenu</include>
             <include>Animation_Right_Delay</include>
-            <!-- Bottom Layer -->
-            <include content="Dialog_Background_Side">
-                <param name="dialog_size">Dimension_DialogFullMenu</param>
-                <!-- Side Buttons -->
-                <control type="group">
-                    <include>Dimension_Dialog_Body</include>
-                    <control type="grouplist" id="9000">
-                        <include content="Dialog_Side_Expanded_Grouplist_Def">
-                            <param name="condition">[true]</param>
-                        </include>
-                        <onleft>8000</onleft>
-                        <include content="DialogInfo_ExpandedButton">
-                            <param name="builtin">true</param>
-                            <param name="id">4</param>
-                            <param name="groupid">9101</param>
-                            <param name="label">$LOCALIZE[186]</param>
-                            <param name="icon">special://skin/extras/icons/circle-check.png</param>
-                            <param name="include_hintlabel">true</param>
-                        </include>
-                        <include content="DialogInfo_ExpandedButton">
-                            <param name="builtin">true</param>
-                            <param name="id">6</param>
-                            <param name="groupid">9103</param>
-                            <param name="label">$LOCALIZE[222]</param>
-                            <param name="icon">special://skin/extras/icons/circle-xmark.png</param>
-                            <param name="include_hintlabel">true</param>
-                        </include>
-                        <include content="DialogInfo_ExpandedButton">
-                            <param name="builtin">true</param>
-                            <param name="id">5</param>
-                            <param name="groupid">9102</param>
-                            <param name="visible">Control.IsEnabled(5)</param>
-                            <param name="label">$LOCALIZE[31032]</param>
-                            <param name="icon">special://skin/extras/icons/circle-plus.png</param>
-                            <param name="include_hintlabel">true</param>
-                        </include>
-                    </control>
-                </control>
-            </include>
-
             <include content="Dialog_Foreground_Side">
-                <param name="slide_condition">True</param>
-                <param name="dialog_size">Dimension_DialogFullMenu</param>
-                <param name="lines_right">0</param>
+                <param name="dialog_size">Dimension_DialogMainMenu</param>
                 <param name="topline">false</param>
                 <param name="subline">false</param>
+            </include>
 
+            <control type="group">
+                <right>dialog_panelgroup_w</right>
                 <!-- Header -->
                 <include content="Dialog_Head">
                     <param name="id">2</param>
@@ -73,7 +34,7 @@
                                 <width>50%</width>
 
                                 <control type="image">
-                                    <texture colordiffuse="main_fg_12">common/white.png</texture>
+                                    <texture colordiffuse="$VAR[Color_DialogBorder]">common/white.png</texture>
                                     <height>1</height>
                                     <top>-20</top>
                                     <left>20</left>
@@ -81,7 +42,7 @@
                                 </control>
 
                                 <control type="image">
-                                    <texture colordiffuse="main_fg_12">common/white.png</texture>
+                                    <texture colordiffuse="$VAR[Color_DialogBorder]">common/white.png</texture>
                                     <height>1</height>
                                     <bottom>-20</bottom>
                                     <left>20</left>
@@ -183,7 +144,44 @@
                     </control>
 
                 </control>
-            </include>
+            </control>
+
+            <!-- Side Buttons -->
+            <control type="group">
+                <include>Dialog_Side_Panel_Group_Def</include>
+                <control type="group">
+                    <include>Dimension_Dialog_Body</include>
+                    <control type="grouplist" id="9000">
+                        <include>Dialog_Side_Expanded_Grouplist_Def</include>
+                        <onleft>8000</onleft>
+                        <include content="DialogInfo_ExpandedButton">
+                            <param name="builtin">true</param>
+                            <param name="id">4</param>
+                            <param name="groupid">9101</param>
+                            <param name="label">$LOCALIZE[186]</param>
+                            <param name="icon">special://skin/extras/icons/circle-check.png</param>
+                            <param name="include_hintlabel">true</param>
+                        </include>
+                        <include content="DialogInfo_ExpandedButton">
+                            <param name="builtin">true</param>
+                            <param name="id">6</param>
+                            <param name="groupid">9103</param>
+                            <param name="label">$LOCALIZE[222]</param>
+                            <param name="icon">special://skin/extras/icons/circle-xmark.png</param>
+                            <param name="include_hintlabel">true</param>
+                        </include>
+                        <include content="DialogInfo_ExpandedButton">
+                            <param name="builtin">true</param>
+                            <param name="id">5</param>
+                            <param name="groupid">9102</param>
+                            <param name="visible">Control.IsEnabled(5)</param>
+                            <param name="label">$LOCALIZE[31032]</param>
+                            <param name="icon">special://skin/extras/icons/circle-plus.png</param>
+                            <param name="include_hintlabel">true</param>
+                        </include>
+                    </control>
+                </control>
+            </control>
 
         </control>
 

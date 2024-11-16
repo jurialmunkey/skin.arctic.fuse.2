@@ -9,62 +9,15 @@
             <control type="group">
                 <include>Dimension_DialogHugeMenu</include>
                 <include>Animation_Right_Delay</include>
-                <!-- Bottom Layer -->
-                <include content="Dialog_Background_Side">
-                    <param name="dialog_size">Dimension_DialogHugeMenu</param>
-
-                    <!-- Side Buttons -->
-                    <control type="group">
-                        <include>Dimension_Dialog_Body</include>
-                        <control type="grouplist" id="9000">
-                            <include content="Dialog_Side_Expanded_Grouplist_Def">
-                                <param name="condition">[true]</param>
-                            </include>
-                            <onleft>Close</onleft>
-                            <include content="DialogInfo_ExpandedButton">
-                                <param name="id">9003</param>
-                                <param name="groupid">9103</param>
-                                <param name="label">$LOCALIZE[31310]</param>
-                                <param name="icon">special://skin/extras/icons/fullscreen.png</param>
-                                <onclick>Close</onclick>
-                                <onclick>ActivateWindow(weather)</onclick>
-                            </include>
-                            <include content="DialogInfo_ExpandedButton">
-                                <param name="id">9004</param>
-                                <param name="groupid">9104</param>
-                                <param name="label">$LOCALIZE[31311]</param>
-                                <param name="icon">special://skin/extras/icons/calendar-day.png</param>
-                                <param name="visible">!String.IsEmpty(Window(weather).Property(Radar))</param>
-                                <onclick>Close</onclick>
-                                <onclick>ActivateWindow(weather)</onclick>
-                            </include>
-                            <include content="DialogInfo_ExpandedButton">
-                                <param name="id">9005</param>
-                                <param name="groupid">9105</param>
-                                <param name="label">$LOCALIZE[31473]</param>
-                                <param name="icon">special://skin/extras/icons/radar.png</param>
-                                <param name="visible">!String.IsEmpty(Window(weather).Property(Radar))</param>
-                                <onclick>Close</onclick>
-                                <onclick>ActivateWindow(weather)</onclick>
-                            </include>
-                            <include content="DialogInfo_ExpandedButton">
-                                <param name="id">9006</param>
-                                <param name="groupid">9106</param>
-                                <param name="label">$LOCALIZE[5]</param>
-                                <param name="icon">special://skin/extras/icons/settings.png</param>
-                                <onclick>Close</onclick>
-                                <onclick>ActivateWindow(servicesettings,weather)</onclick>
-                            </include>
-                        </control>
-                    </control>
-                </include>
 
                 <include content="Dialog_Foreground_Side">
                     <param name="dialog_size">Dimension_DialogHugeMenu</param>
-                    <param name="slide_condition">true</param>
                     <param name="topline">false</param>
                     <param name="subline">false</param>
+                </include>
 
+                <control type="group">
+                    <right>dialog_buttongroup_w</right>
                     <!-- Header -->
                     <include content="Dialog_Head">
                         <param name="label">$INFO[Weather.Location]</param>
@@ -200,7 +153,60 @@
                             </control>
                         </control>
                     </control>
-                </include>
+                </control>
+
+
+                <!-- Side Buttons -->
+                <control type="group">
+                    <include content="Dialog_Side_Panel_Group_Def">
+                        <param name="width">dialog_buttongroup_w</param>
+                    </include>
+                    <control type="group">
+                        <include>Dimension_Dialog_Body</include>
+                        <control type="grouplist" id="9000">
+                            <include>Dialog_Side_Grouplist_Def</include>
+                            <onleft>Close</onleft>
+                            <include content="DialogInfo_Button">
+                                <param name="include_hintlabel">true</param>
+                                <param name="id">9003</param>
+                                <param name="groupid">9103</param>
+                                <param name="label">$LOCALIZE[31310]</param>
+                                <param name="icon">special://skin/extras/icons/fullscreen.png</param>
+                                <onclick>Close</onclick>
+                                <onclick>ActivateWindow(weather)</onclick>
+                            </include>
+                            <include content="DialogInfo_Button">
+                                <param name="include_hintlabel">true</param>
+                                <param name="id">9004</param>
+                                <param name="groupid">9104</param>
+                                <param name="label">$LOCALIZE[31311]</param>
+                                <param name="icon">special://skin/extras/icons/calendar-day.png</param>
+                                <param name="visible">!String.IsEmpty(Window(weather).Property(Radar))</param>
+                                <onclick>Close</onclick>
+                                <onclick>ActivateWindow(weather)</onclick>
+                            </include>
+                            <include content="DialogInfo_Button">
+                                <param name="include_hintlabel">true</param>
+                                <param name="id">9005</param>
+                                <param name="groupid">9105</param>
+                                <param name="label">$LOCALIZE[31473]</param>
+                                <param name="icon">special://skin/extras/icons/radar.png</param>
+                                <param name="visible">!String.IsEmpty(Window(weather).Property(Radar))</param>
+                                <onclick>Close</onclick>
+                                <onclick>ActivateWindow(weather)</onclick>
+                            </include>
+                            <include content="DialogInfo_Button">
+                                <param name="include_hintlabel">true</param>
+                                <param name="id">9006</param>
+                                <param name="groupid">9106</param>
+                                <param name="label">$LOCALIZE[5]</param>
+                                <param name="icon">special://skin/extras/icons/settings.png</param>
+                                <onclick>Close</onclick>
+                                <onclick>ActivateWindow(servicesettings,weather)</onclick>
+                            </include>
+                        </control>
+                    </control>
+                </control>
 
             </control>
         </definition>

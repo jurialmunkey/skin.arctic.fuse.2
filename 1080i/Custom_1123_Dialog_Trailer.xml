@@ -12,63 +12,16 @@
         <include>Dialog_Dim_Overlay</include>
 
         <control type="group">
-            <include>Dimension_DialogFullMenu</include>
+            <include>Dimension_DialogMainMenu</include>
             <include>Animation_Right_Delay</include>
-            <!-- Bottom Layer -->
-            <include content="Dialog_Background_Side">
-                <param name="dialog_size">Dimension_DialogFullMenu</param>
-                <!-- Side Buttons -->
-                <control type="group">
-                    <include>Dimension_Dialog_Body</include>
-                    <control type="grouplist" id="9000">
-                        <include>Dialog_Side_Expanded_Grouplist_Def</include>
-                        <onleft condition="!Player.HasVideo">Close</onleft>
-                        <onleft condition="Player.HasVideo">Seek(-10)</onleft>
-                        <onright condition="Player.HasVideo">Seek(10)</onright>
-                        <include content="DialogInfo_ExpandedButton">
-                            <param name="id">9002</param>
-                            <param name="groupid">9102</param>
-                            <param name="label">$LOCALIZE[31485]</param>
-                            <param name="icon">special://skin/extras/icons/stop.png</param>
-                            <param name="visible">Player.HasVideo</param>
-                            <onclick>Action(Stop)</onclick>
-                            <onclick>Close</onclick>
-                        </include>
-                        <include content="DialogInfo_ExpandedButton">
-                            <param name="id">9003</param>
-                            <param name="groupid">9103</param>
-                            <param name="label">$VAR[Label_Trailer_PlayPause]</param>
-                            <param name="icon">$VAR[Image_Trailer_PlayPause]</param>
-                            <param name="visible">Player.HasVideo</param>
-                            <onclick>PlayerControl(Play)</onclick>
-                        </include>
-                        <include content="DialogInfo_ExpandedButton">
-                            <param name="id">9004</param>
-                            <param name="groupid">9104</param>
-                            <param name="label">$LOCALIZE[31483]</param>
-                            <param name="icon">special://skin/extras/icons/repeat2.png</param>
-                            <param name="visible">!String.IsEmpty(Window(Home).Property(PlayTrailer))</param>
-                            <onclick>PlayMedia($ESCINFO[Window(Home).Property(PlayTrailer)],False,1)</onclick>
-                        </include>
-                        <include content="DialogInfo_ExpandedButton">
-                            <param name="id">9005</param>
-                            <param name="groupid">9105</param>
-                            <param name="label">Fullscreen</param>
-                            <param name="icon">special://skin/extras/icons/fullscreen.png</param>
-                            <param name="visible">Player.HasVideo</param>
-                            <onback condition="!String.IsEmpty(Window.Property(TrailerFullscreen)) + Player.HasVideo">ClearProperty(TrailerFullscreen,1123)</onback>
-                            <onback condition="!String.IsEmpty(Window.Property(TrailerFullscreen)) + Player.HasVideo">9000</onback>
-                            <onclick condition="String.IsEmpty(Window.Property(TrailerFullscreen))">SetProperty(TrailerFullscreen,True,1123)</onclick>
-                            <onclick condition="!String.IsEmpty(Window.Property(TrailerFullscreen))">ClearProperty(TrailerFullscreen,1123)</onclick>
-                            <onunfocus>ClearProperty(TrailerFullscreen,1123)</onunfocus>
-                        </include>
-                    </control>
-                </control>
-            </include>
 
             <include content="Dialog_Foreground_Side">
-                <param name="dialog_size">Dimension_DialogFullMenu</param>
+                <param name="dialog_size">Dimension_DialogMainMenu</param>
+                <param name="lines_right">dialog_panelgroup_w</param>
+            </include>
 
+            <control type="group">
+                <right>dialog_panelgroup_w</right>
                 <!-- Header -->
                 <include content="Dialog_Head">
                     <param name="label">$LOCALIZE[20410]</param>
@@ -118,8 +71,58 @@
                         </control>
                     </control>
                 </control>
-            </include>
+            </control>
 
+            <control type="group">
+                <include>Dialog_Side_Panel_Group_Def</include>
+                <!-- Side Buttons -->
+                <control type="group">
+                    <include>Dimension_Dialog_Body</include>
+                    <control type="grouplist" id="9000">
+                        <include>Dialog_Side_Expanded_Grouplist_Def</include>
+                        <onleft condition="!Player.HasVideo">Close</onleft>
+                        <onleft condition="Player.HasVideo">Seek(-10)</onleft>
+                        <onright condition="Player.HasVideo">Seek(10)</onright>
+                        <include content="DialogInfo_ExpandedButton">
+                            <param name="id">9002</param>
+                            <param name="groupid">9102</param>
+                            <param name="label">$LOCALIZE[31485]</param>
+                            <param name="icon">special://skin/extras/icons/stop.png</param>
+                            <param name="visible">Player.HasVideo</param>
+                            <onclick>Action(Stop)</onclick>
+                            <onclick>Close</onclick>
+                        </include>
+                        <include content="DialogInfo_ExpandedButton">
+                            <param name="id">9003</param>
+                            <param name="groupid">9103</param>
+                            <param name="label">$VAR[Label_Trailer_PlayPause]</param>
+                            <param name="icon">$VAR[Image_Trailer_PlayPause]</param>
+                            <param name="visible">Player.HasVideo</param>
+                            <onclick>PlayerControl(Play)</onclick>
+                        </include>
+                        <include content="DialogInfo_ExpandedButton">
+                            <param name="id">9004</param>
+                            <param name="groupid">9104</param>
+                            <param name="label">$LOCALIZE[31483]</param>
+                            <param name="icon">special://skin/extras/icons/repeat2.png</param>
+                            <param name="visible">!String.IsEmpty(Window(Home).Property(PlayTrailer))</param>
+                            <onclick>PlayMedia($ESCINFO[Window(Home).Property(PlayTrailer)],False,1)</onclick>
+                        </include>
+                        <include content="DialogInfo_ExpandedButton">
+                            <param name="id">9005</param>
+                            <param name="groupid">9105</param>
+                            <param name="label">Fullscreen</param>
+                            <param name="icon">special://skin/extras/icons/fullscreen.png</param>
+                            <param name="visible">Player.HasVideo</param>
+                            <onback condition="!String.IsEmpty(Window.Property(TrailerFullscreen)) + Player.HasVideo">ClearProperty(TrailerFullscreen,1123)</onback>
+                            <onback condition="!String.IsEmpty(Window.Property(TrailerFullscreen)) + Player.HasVideo">9000</onback>
+                            <onclick condition="String.IsEmpty(Window.Property(TrailerFullscreen))">SetProperty(TrailerFullscreen,True,1123)</onclick>
+                            <onclick condition="!String.IsEmpty(Window.Property(TrailerFullscreen))">ClearProperty(TrailerFullscreen,1123)</onclick>
+                            <onunfocus>ClearProperty(TrailerFullscreen,1123)</onunfocus>
+                        </include>
+                    </control>
+                </control>
+            </control>
         </control>
 
         <control type="group">
