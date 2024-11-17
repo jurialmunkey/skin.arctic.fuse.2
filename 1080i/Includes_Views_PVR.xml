@@ -80,7 +80,7 @@
             <!-- control type="group">
                 <animation effect="fade" start="100" end="30" condition="true">Conditional</animation>
                 <include content="Info_Viewline">
-                    <param name="label">$INFO[Control.GetLabel(28)]</param>
+                    <param name="label">$INFO[Control.GetLabel(28)]$INFO[Container.NumItems, (,)]</param>
                     <param name="top">20</param>
                     <param name="left">0</param>
                 </include>
@@ -199,6 +199,7 @@
     <include name="View_PVRGuide">
         <control type="group">
             <visible>Control.IsVisible(500)</visible>
+            <include>Dimension_PVR_FullGuide</include>
             <include>View_PVR_ProgrammePanel</include>
             <include content="View_PVRGuide_Standard">
                 <param name="id">500</param>
@@ -208,6 +209,7 @@
         </control>
         <control type="group">
             <visible>Control.IsVisible(501)</visible>
+            <include>Dimension_PVR_FullGuide</include>
             <control type="group">
                 <right>dialog_panelgroup_w</right>
                 <include>View_PVR_ProgrammePanel</include>
@@ -226,15 +228,10 @@
             <include>Animation_Group_Bumper</include>
             <control type="group">
                 <include>Animation_View_WindowChange</include>
-                <control type="group">
-                    <height>880</height>
-                    <bottom>80</bottom>
-                    <right>view_pad</right>
-                    <left>view_pad</left>
-                    <include>$PARAM[include]</include>
-                </control>
+                <include>$PARAM[include]</include>
             </control>
             <control type="group">
+                <visible>!Control.IsVisible(52)</visible>
                 <visible allowhiddenfocus="true">!$EXP[Exp_View_SortModeButtons_HasFocus]</visible>
                 <!-- PVR010: Remove original program details -->
                 <!-- include content="Settings_InfoText">
@@ -279,7 +276,10 @@
                 <!-- PVR010: END custom plotbox for EPG -->
             </control>
             <include>View_PVR_GroupSwitcher</include>
-            <include>View_Row_Header</include>
+            <control type="group">
+                <visible>!Control.IsVisible(52)</visible>
+                <include>View_Row_Header</include>
+            </control>
         </control>
         <include>Furniture_Top_Right</include>
         <include>Furniture_Bottom_Right</include>
@@ -557,6 +557,7 @@
     <include name="View_PVRChannels">
         <control type="group">
             <visible>Control.IsVisible(50)</visible>
+            <include>Dimension_PVR_FullGuide</include>
             <include>View_PVR_ProgrammePanel</include>
             <include content="View_PVRChannels_Standard">
                 <param name="id">50</param>
@@ -567,6 +568,7 @@
         </control>
         <control type="group">
             <visible>Control.IsVisible(51)</visible>
+            <include>Dimension_PVR_FullGuide</include>
             <control type="group">
                 <right>dialog_panelgroup_w</right>
                 <include>View_PVR_ProgrammePanel</include>
@@ -578,6 +580,21 @@
                 </include>
             </control>
             <include>View_PVR_InformationPanel</include>
+        </control>
+        <control type="group">
+            <visible>Control.IsVisible(52)</visible>
+            <include content="Info_Viewline">
+                <param name="label">[CAPITALIZE]$VAR[Label_Header_Main][/CAPITALIZE]</param>
+            </include>
+            <include content="View_Row_Include">
+                <param name="id">52</param>
+                <param name="include">List_Landscape_Row</param>
+                <param name="viewtype_label">$LOCALIZE[31112]</param>
+            </include>
+            <control type="group">
+                <include>Info_Panel_Dimensions</include>
+                <include>Info_Panel</include>
+            </control>
         </control>
     </include>
 

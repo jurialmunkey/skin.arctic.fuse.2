@@ -129,7 +129,7 @@
     <expression name="Exp_View_ScrollFilter_HasFocus">[Control.HasFocus(60) | Control.HasFocus(64) | Control.HasFocus(65) | Control.HasFocus(66) | Control.HasFocus(19) | Control.HasFocus(600) | Control.HasFocus(601) | Control.HasFocus(610) | Control.HasFocus(611) | $EXP[Exp_View_SortModeButtons_HasFocus]]</expression>
     <expression name="Exp_View_SortModeButtons_HasFocus">[ControlGroup(8000).HasFocus() | [Control.HasFocus(330) + Integer.IsEqual(Window.Property(List.ViewContainer,8000))]]</expression>
 
-    <expression name="Exp_View_WallMode">[Control.IsVisible(500) | Control.IsVisible(510) | Control.IsVisible(520) | Control.IsVisible(530) | Control.IsVisible(540) | Control.IsVisible(560) | Control.IsVisible(570)]</expression>
+    <expression name="Exp_View_WallMode">[Control.IsVisible(500) | Control.IsVisible(510) | Control.IsVisible(520) | Control.IsVisible(530) | Control.IsVisible(540) | Control.IsVisible(560) | Control.IsVisible(570) | Control.IsVisible(580) | Control.IsVisible(590)]</expression>
 
     <expression name="Exp_View_WallVert">[String.IsEqual(Skin.AspectRatio,16:9) + Skin.HasSetting(View.SwitchWallOrientation)]</expression>
 
@@ -140,13 +140,13 @@
     <expression name="Exp_View_HasIndent">[$EXP[Exp_View_IsMedia] + [Control.IsVisible(552) | Control.IsVisible(550)]]</expression>
 
     <!-- Scrollbar -->
-    <expression name="Exp_FurnitureFooter_Left_IsVisible">[![Control.IsVisible(502) | Control.IsVisible(512) | Control.IsVisible(522) | Control.IsVisible(532) | Control.IsVisible(542) | Control.IsVisible(572)] | $EXP[Exp_View_ScrollFilter_HasFocus]]</expression>
+    <expression name="Exp_FurnitureFooter_Left_IsVisible">[![Control.IsVisible(502) | Control.IsVisible(512) | Control.IsVisible(522) | Control.IsVisible(532) | Control.IsVisible(542) | Control.IsVisible(572) | Control.IsVisible(582) | Control.IsVisible(592)] | $EXP[Exp_View_ScrollFilter_HasFocus]]</expression>
 
     <expression name="Exp_BackgroundArtwork_IsHidden">[[!$EXP[Exp_InfoDialogs] + [Window.IsVisible(favouritesbrowser) | Window.IsVisible(weather) | !String.IsEmpty(Window.Property(Background.HideArtwork))]] | [$EXP[Exp_InfoDialogs] + !String.IsEmpty(Window(Home).Property(Background.DialogInfo.HideArtwork))]]</expression>
 
     <expression name="Exp_BackgroundArtwork_IsOverlay">[$EXP[Exp_BackgroundArtwork_IsHidden] | [!$EXP[Exp_InfoDialogs] + !String.IsEmpty(Window(Home).Property(Background.ShowOverlay))] | $EXP[Exp_InfoDialogs]]</expression>
 
-    <expression name="Exp_BackgroundArtwork_IsSimple">[$EXP[Exp_PlainBackgroundWindows] | [Window.IsMedia + [[Window.IsVisible(DialogBusy.xml) + Integer.IsEqual(Container.NumItems,0)] | Container.Content()]]]</expression>
+    <expression name="Exp_BackgroundArtwork_IsSimple">[$EXP[Exp_PlainBackgroundWindows] | [Window.IsMedia + [[Window.IsVisible(DialogBusy.xml) + Integer.IsEqual(Container.NumItems,0)] | [Container.Content() + !$EXP[Exp_PVRWindows]]]]]</expression>
 
     <expression name="Exp_Notification_IsActive">[Window.IsActive(DialogExtendedProgressBar.xml) | Window.IsActive(DialogNotification.xml) | Skin.HasSetting(Furniture.EnableClock) | [Skin.HasSetting(Furniture.EnableNowPlaying) + Player.HasMedia]]</expression>
 

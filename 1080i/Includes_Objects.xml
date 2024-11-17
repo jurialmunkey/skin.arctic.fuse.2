@@ -514,7 +514,7 @@
         </definition>
     </include>
 
-    <include name="Object_Layout_Image">
+    <include name="Object_Layout_Image_Rectangle">
         <param name="aspectratio">keep</param>
         <param name="selected">false</param>
         <definition>
@@ -541,10 +541,10 @@
         </definition>
     </include>
 
-    <include name="Object_CircleLayout_Image">
+    <include name="Object_Layout_Image_Circle">
         <control type="group">
             <visible>![String.IsEmpty($PARAM[listitem].Art(discart)) + String.IsEmpty($PARAM[listitem].Art(album.discart)) + [String.IsEqual($PARAM[listitem].DBType,movie) | String.IsEqual($PARAM[listitem].DBType,album) | String.IsEqual($PARAM[listitem].DBType,song) | String.IsEqual($PARAM[listitem].DBType,season)]]</visible>
-            <include content="Object_Layout_Image">
+            <include content="Object_Layout_Image_Rectangle">
                 <param name="diffuse">$PARAM[diffuse]</param>
                 <param name="icon">$PARAM[icon]</param>
                 <param name="listitem">$PARAM[listitem]</param>
@@ -559,7 +559,7 @@
         </control>
         <control type="group">
             <visible>String.IsEmpty($PARAM[listitem].Art(discart)) + String.IsEmpty($PARAM[listitem].Art(album.discart)) + [String.IsEqual($PARAM[listitem].DBType,movie) | String.IsEqual($PARAM[listitem].DBType,album) | String.IsEqual($PARAM[listitem].DBType,song) | String.IsEqual($PARAM[listitem].DBType,season)]</visible>
-            <include content="Object_Layout_Image">
+            <include content="Object_Layout_Image_Rectangle">
                 <param name="diffuse">diffuse/discart.png</param>
                 <param name="icon">$PARAM[icon]</param>
                 <param name="listitem">$PARAM[listitem]</param>
@@ -573,7 +573,7 @@
         </control>
     </include>
 
-    <include name="Object_SquareIcon">
+    <include name="Object_Layout_Image_Icon">
         <param name="genre_bordersize">50</param>
         <param name="other_bordersize">20</param>
         <param name="include_discart">false</param>
@@ -584,7 +584,7 @@
                 <visible>![String.IsEqual($PARAM[listitem].DBType,studio) | String.IsEqual($PARAM[listitem].Property(DBType),studio)]</visible>
                 <visible>![String.IsEqual($PARAM[listitem].DBType,country) | String.IsEqual($PARAM[listitem].Property(DBType),country)]</visible>
 
-                <include content="Object_CircleLayout_Image" condition="$PARAM[include_discart]">
+                <include content="Object_Layout_Image_Circle" condition="$PARAM[include_discart]">
                     <param name="diffuse">$PARAM[diffuse]</param>
                     <param name="icon">$PARAM[icon]</param>
                     <param name="listitem">$PARAM[listitem]</param>
@@ -592,7 +592,7 @@
                     <param name="selected">$PARAM[selected]</param>
                 </include>
 
-                <include content="Object_Layout_Image" condition="![$PARAM[include_discart]]">
+                <include content="Object_Layout_Image_Rectangle" condition="![$PARAM[include_discart]]">
                     <param name="diffuse">$PARAM[diffuse]</param>
                     <param name="icon">$PARAM[icon]</param>
                     <param name="listitem">$PARAM[listitem]</param>
@@ -606,7 +606,7 @@
                     <param name="colordiffuse">$VAR[ColorSelected]</param>
                 </include>
                 <colordiffuse>main_fg_100</colordiffuse>
-                <texture background="true" diffuse="$PARAM[icon_diffuse]" fallback="DefaultGenres.png">$PARAM[icon]</texture>
+                <texture background="true" diffuse="$PARAM[icon_diffuse]" fallback="DefaultGenres.png">$VAR[Image_Icon]</texture>
                 <aspectratio scalediffuse="false">keep</aspectratio>
                 <bordersize>$PARAM[genre_bordersize]</bordersize>
                 <visible>[String.IsEqual($PARAM[listitem].DBType,genre) | String.IsEqual($PARAM[listitem].Property(DBType),genre)]</visible>
@@ -616,7 +616,7 @@
                     <param name="colordiffuse">$VAR[ColorSelected]</param>
                 </include>
                 <colordiffuse>main_fg_100</colordiffuse>
-                <texture background="true" diffuse="$PARAM[icon_diffuse]" fallback="DefaultStudios.png">$PARAM[icon]</texture>
+                <texture background="true" diffuse="$PARAM[icon_diffuse]" fallback="DefaultStudios.png">$VAR[Image_Icon]</texture>
                 <aspectratio scalediffuse="false">keep</aspectratio>
                 <bordersize>$PARAM[other_bordersize]</bordersize>
                 <visible>[String.IsEqual($PARAM[listitem].DBType,studio) | String.IsEqual($PARAM[listitem].Property(DBType),studio)]</visible>
@@ -626,54 +626,10 @@
                     <param name="colordiffuse">$VAR[ColorSelected]</param>
                 </include>
                 <colordiffuse>main_fg_100</colordiffuse>
-                <texture background="true" diffuse="$PARAM[icon_diffuse]" fallback="DefaultCountry.png">$PARAM[icon]</texture>
+                <texture background="true" diffuse="$PARAM[icon_diffuse]" fallback="DefaultCountry.png">$VAR[Image_Icon]</texture>
                 <aspectratio scalediffuse="false">keep</aspectratio>
                 <bordersize>$PARAM[other_bordersize]</bordersize>
                 <visible>[String.IsEqual($PARAM[listitem].DBType,country) | String.IsEqual($PARAM[listitem].Property(DBType),country)]</visible>
-            </control>
-        </definition>
-    </include>
-
-    <include name="Object_InfoCircle_Horizontal">
-        <param name="bordersize">3</param>
-        <param name="max">400</param>
-        <param name="top_label_left">-40</param>
-        <param name="bottom_label_left">-340</param>
-        <param name="aspectratio">scale</param>
-        <definition>
-            <control type="group">
-                <height>60</height>
-                <width>60</width>
-                <nested />
-                <control type="image">
-                    <bordersize>$PARAM[bordersize]</bordersize>
-                    <bordertexture colordiffuse="panel_fg_100">common/circle.png</bordertexture>
-                    <texture colordiffuse="panel_bg_70">common/circle.png</texture>
-                </control>
-                <control type="image">
-                    <bordersize>$PARAM[bordersize]</bordersize>
-                    <aspectratio scalediffuse="false">$PARAM[aspectratio]</aspectratio>
-                    <texture diffuse="common/circle.png" colordiffuse="panel_fg_100">$PARAM[icon]</texture>
-                </control>
-            </control>
-            <control type="label">
-                <left>$PARAM[top_label_left]</left>
-                <font>font_mini_bold</font>
-                <label>$PARAM[role]</label>
-                <textcolor>panel_fg_100</textcolor>
-                <height>30</height>
-                <width>280</width>
-                <nested />
-            </control>
-            <control type="label">
-                <left>$PARAM[bottom_label_left]</left>
-                <font>font_mini</font>
-                <label>$PARAM[name]</label>
-                <textcolor>panel_fg_70</textcolor>
-                <height>30</height>
-                <top>30</top>
-                <width max="$PARAM[max]">auto</width>
-                <nested />
             </control>
         </definition>
     </include>
