@@ -957,7 +957,11 @@
                 <param name="selected">$PARAM[selected]</param>
             </include>
             <control type="image">
-                <texture colordiffuse="$PARAM[progresscolor]" border="12,0,12,0">progress/progress-nib.png</texture>
+                <include content="Object_ColorDiffuse" condition="$PARAM[selected]">
+                    <param name="colordiffuse">$VAR[ColorSelected_30]</param>
+                </include>
+                <colordiffuse>$PARAM[progresscolor]</colordiffuse>
+                <texture border="12,0,12,0">progress/progress-nib.png</texture>
                 <centertop>50%</centertop>
                 <height>12</height>
             </control>
@@ -967,7 +971,7 @@
                 <height>24</height>
                 <width>24</width>
                 <animation effect="slide" end="52" condition="$PARAM[istempo] + String.IsEqual(Player.PlaySpeed,0.90)">Conditional</animation>
-                <animation effect="slide" end="104" condition="$PARAM[istempo] + String.IsEqual(Player.PlaySpeed,1.00) | String.IsEqual(Player.PlaySpeed,0.00)">Conditional</animation>
+                <animation effect="slide" end="104" condition="$PARAM[istempo] + [String.IsEqual(Player.PlaySpeed,1.00) | String.IsEqual(Player.PlaySpeed,0.00)]">Conditional</animation>
                 <animation effect="slide" end="156" condition="$PARAM[istempo] + String.IsEqual(Player.PlaySpeed,1.10)">Conditional</animation>
                 <animation effect="slide" end="208" condition="$PARAM[istempo] + String.IsEqual(Player.PlaySpeed,1.20)">Conditional</animation>
                 <animation effect="slide" end="260" condition="$PARAM[istempo] + String.IsEqual(Player.PlaySpeed,1.30)">Conditional</animation>
