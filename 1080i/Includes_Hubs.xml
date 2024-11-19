@@ -33,18 +33,6 @@
         <visible>Container($PARAM[id]).IsUpdating | !Integer.IsEqual(Container($PARAM[id]).NumItems,0)</visible>
     </include>
 
-    <include name="Hub_Categories_Spotlight_Slide_Animation">
-        <top>$PARAM[top]</top>
-        <animation effect="slide" start="0" end="0,$PARAM[y]" reversible="false" time="400" tween="quadratic" condition="$EXP[Exp_Hubs_Categories_SlideDown]">Conditional</animation>
-        <animation effect="slide" start="0,$PARAM[y]" end="0" reversible="false" time="400" tween="quadratic" condition="!$EXP[Exp_Hubs_Categories_SlideDown]">Conditional</animation>
-    </include>
-    <include name="Hub_Categories_Spotlight_Slide">
-        <top>$PARAM[top]</top>
-        <include content="Hub_Categories_Spotlight_Slide_Animation">
-            <param name="y">$PARAM[y]</param>
-        </include>
-    </include>
-
     <include name="Hub_Submenu_List">
         <param name="hidden_button">List_ButtonMenu_Row_HiddenButton_View</param>
         <definition>
@@ -129,25 +117,6 @@
                     <textcolor>main_logo</textcolor>
                     <label>$PARAM[label]...</label>
                 </control>
-                <!-- <control type="group">
-                    <centertop>750</centertop>
-                    <centerleft>50%</centerleft>
-                    <height>120</height>
-                    <width>120</width>
-                    <control type="image">
-                        <include content="Dimension_Padding">
-                            <param name="pad">-40</param>
-                        </include>
-                        <bordersize>40</bordersize>
-                        <bordertexture colordiffuse="shadow_hard">shadows/circle_120-shadow-40.png</bordertexture>
-                        <texture colordiffuse="main_fg_100">diffuse/circle_120.png</texture>
-                    </control>
-                    <control type="image">
-                        <bordersize>4</bordersize>
-                        <aspectratio scalediffuse="false">scale</aspectratio>
-                        <texture diffuse="diffuse/circle_120.png">$VAR[Image_ProfileThumb]</texture>
-                    </control>
-                </control> -->
                 <include content="Furniture_Busy" condition="$PARAM[busyspinner]">
                     <param name="hasspinner">true</param>
                     <param name="spinspinner">true</param>
@@ -458,11 +427,6 @@
             </include>
         </include>
     </include>
-
-    <variable name="Hub_Submenu_Content">
-        <value condition="!String.IsEmpty(Container(300).ListItem.Property(submenulist_path))">$INFO[Container(300).ListItem.Property(submenulist_path)]</value>
-        <value>plugin://script.skinvariables/?info=get_shortcuts_node$INFO[Container(300).ListItem.Property(menu),&amp;menu=,]$INFO[Container(300).ListItem.Property(list),&amp;node=,]$INFO[Container(300).ListItem.Property(skin),&amp;skin=,]$INFO[Window(Home).Property(SkinVariables.ShortcutsNode.Reload),&amp;reload=,]</value>
-    </variable>
 
     <include name="Hub_Standard">
         <include content="Hub_Menu_Group">

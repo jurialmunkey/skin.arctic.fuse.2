@@ -1,55 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <includes>
 
-    <include name="View_PVR_GroupSwitcher_Labels">
-        <param name="selected">false</param>
-        <definition>
-            <control type="group">
-                <left>80</left>
-                <height>80</height>
-                <centertop>50%</centertop>
-                <visible>$PARAM[visible]</visible>
-                <include content="Object_InfoCircle_Text_Top">
-                    <width>auto</width>
-                    <label fallback="19055">$INFO[Control.GetLabel(28)]</label>
-                    <include condition="$PARAM[selected]">Color_SelectedText</include>
-                </include>
-                <include content="Object_InfoCircle_Text_Sub">
-                    <label>$INFO[Container.NumItems,, ]$LOCALIZE[14301]</label>
-                    <include condition="$PARAM[selected]">Color_SelectedText</include>
-                </include>
-            </control>
-        </definition>
-    </include>
-
-    <include name="View_PVR_GroupSwitcher_Text">
-        <control type="group">
-            <width>50</width>
-            <height>50</height>
-            <centertop>50%</centertop>
-            <visible>Control.HasFocus(28)</visible>
-            <control type="image">
-                <include content="Dimension_Padding"><param name="pad">-40</param></include>
-                <bordersize>40</bordersize>
-                <bordertexture colordiffuse="shadow_hard">shadows/circle_50-shadow-40.png</bordertexture>
-                <texture colordiffuse="main_fg_100">diffuse/circle_50.png</texture>
-            </control>
-            <control type="image">
-                <bordersize>2</bordersize>
-                <texture colordiffuse="main_bg_100">diffuse/circle_50.png</texture>
-            </control>
-        </control>
-        <include>Info_KodiLogo_Image</include>
-        <include content="View_PVR_GroupSwitcher_Labels">
-            <param name="selected">false</param>
-            <param name="visible">!Control.HasFocus(28)</param>
-        </include>
-        <include content="View_PVR_GroupSwitcher_Labels">
-            <param name="selected">true</param>
-            <param name="visible">Control.HasFocus(28)</param>
-        </include>
-    </include>
-
     <!-- Group Switcher -->
     <include name="View_PVR_GroupSwitcher">
         <include content="Object_Hidden_List">
@@ -605,50 +556,5 @@
                 <include>Info_Panel</include>
             </control>
         </control>
-    </include>
-
-
-    <!-- Recordings / Timers / Search -->
-    <include name="View_PVR_RecordingInfo">
-        <param name="id">50</param>
-        <param name="scrollbar_id">60</param>
-        <param name="path_label">$INFO[Container.NumItems,, [CAPITALIZE]$LOCALIZE[31022][/CAPITALIZE]]</param>
-        <param name="has_scrollbar">true</param>
-        <param name="has_file_view">true</param>
-        <param name="onright">menu</param>
-        <param name="onleft">60</param>
-        <definition>
-            <control type="group">
-                <nested />
-                <control type="label">
-                    <top>-40</top>
-                    <height>30</height>
-                    <height>30</height>
-                    <width>auto</width>
-                    <font>font_tiny</font>
-                    <textcolor>main_fg_70</textcolor>
-                    <label fallback="19076">$PARAM[path_label]</label>
-                </control>
-                <include content="List_PVRRecordings" condition="$PARAM[has_file_view]">
-                    <param name="id">$PARAM[id]</param>
-                    <top>20</top>
-                    <bottom>20</bottom>
-                    <onleft>$PARAM[onleft]</onleft>
-                    <onright>$PARAM[onright]</onright>
-                    <pagecontrol>$PARAM[scrollbar_id]</pagecontrol>
-                    <include>$PARAM[include_content]</include>
-                </include>
-                <include content="Dialog_Scrollbar" condition="$PARAM[has_scrollbar]">
-                    <param name="id">$PARAM[scrollbar_id]</param>
-                    <left>0</left>
-                    <onright>$PARAM[id]</onright>
-                </include>
-            </control>
-        </definition>
-    </include>
-
-    <include name="View_PVR_RecordingSubList">
-        <visible>Container(50).ListItem.IsFolder</visible>
-        <content>$INFO[Container(50).ListItem.FolderPath]</content>
     </include>
 </includes>
