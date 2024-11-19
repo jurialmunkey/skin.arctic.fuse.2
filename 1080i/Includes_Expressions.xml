@@ -80,13 +80,13 @@
     <expression name="Exp_1108Hub_IsVisible">[Window.IsVisible(1108) | [Window.IsVisible(Home) + Integer.IsEqual(Skin.String(Hub.Home.ReplaceWindow),1108)]]</expression>
     <expression name="Exp_1109Hub_IsVisible">[Window.IsVisible(1109) | [Window.IsVisible(Home) + Integer.IsEqual(Skin.String(Hub.Home.ReplaceWindow),1109)]]</expression>
 
-    <expression name="Exp_ClassicHome_IsVisible">[Window.IsVisible(Home) + String.IsEmpty(Skin.String(Hub.Home.ReplaceWindow))]</expression>
-    <expression name="Exp_ClassicHome_IsPrevious">[Window.Previous(Home) + String.IsEmpty(Skin.String(Hub.Home.ReplaceWindow))]</expression>
-    <expression name="Exp_ClassicHome_IsNext">[Window.Next(Home) + String.IsEmpty(Skin.String(Hub.Home.ReplaceWindow))]</expression>
+    <expression name="Exp_HomeHub_IsVisible">[Window.IsVisible(Home) + String.IsEmpty(Skin.String(Hub.Home.ReplaceWindow))]</expression>
+    <expression name="Exp_HomeHub_IsPrevious">[Window.Previous(Home) + String.IsEmpty(Skin.String(Hub.Home.ReplaceWindow))]</expression>
+    <expression name="Exp_HomeHub_IsNext">[Window.Next(Home) + String.IsEmpty(Skin.String(Hub.Home.ReplaceWindow))]</expression>
 
     <expression name="Exp_HubName_IsVisible">[[Integer.IsEqual(Window.Property(TMDbHelper.WidgetContainer),301) + !Integer.IsEqual(Container(300).NumItems,0) + Control.IsVisible(300)] | $EXP[Exp_HomeMenu_HasFocus]]</expression>
 
-    <expression name="Exp_Navigation_OnWrap">[!$EXP[Exp_ClassicHome_IsVisible] | Skin.HasSetting(SideMenu.FocusWidgetsFirst)]</expression>
+    <expression name="Exp_Navigation_OnWrap">[![$EXP[Exp_HomeHub_IsVisible] + Skin.HasSetting(Hub.Home.DisableSubmenu)] | Skin.HasSetting(SideMenu.FocusWidgetsFirst)]</expression>
     <expression name="Exp_Navigation_OnBump">[!$EXP[Exp_Navigation_OnWrap]]</expression>
 
     <expression name="Exp_Navigation_OnMenu">[Window.IsVisible(1185) | Window.IsVisible(1105) | $EXP[Exp_InfoDialogs]]</expression>
@@ -129,7 +129,7 @@
     <expression name="Exp_View_ScrollFilter_HasFocus">[Control.HasFocus(60) | Control.HasFocus(64) | Control.HasFocus(65) | Control.HasFocus(66) | Control.HasFocus(19) | Control.HasFocus(600) | Control.HasFocus(601) | Control.HasFocus(610) | Control.HasFocus(611) | $EXP[Exp_View_SortModeButtons_HasFocus]]</expression>
     <expression name="Exp_View_SortModeButtons_HasFocus">[ControlGroup(8000).HasFocus() | [Control.HasFocus(330) + Integer.IsEqual(Window.Property(List.ViewContainer,8000))]]</expression>
 
-    <expression name="Exp_View_WallMode">[Control.IsVisible(500) | Control.IsVisible(510) | Control.IsVisible(520) | Control.IsVisible(530) | Control.IsVisible(540) | Control.IsVisible(560) | Control.IsVisible(570)]</expression>
+    <expression name="Exp_View_WallMode">[Control.IsVisible(500) | Control.IsVisible(510) | Control.IsVisible(520) | Control.IsVisible(530) | Control.IsVisible(540) | Control.IsVisible(560) | Control.IsVisible(570) | Control.IsVisible(580) | Control.IsVisible(590)]</expression>
 
     <expression name="Exp_View_WallVert">[String.IsEqual(Skin.AspectRatio,16:9) + Skin.HasSetting(View.SwitchWallOrientation)]</expression>
 
@@ -140,13 +140,13 @@
     <expression name="Exp_View_HasIndent">[$EXP[Exp_View_IsMedia] + [Control.IsVisible(552) | Control.IsVisible(550)]]</expression>
 
     <!-- Scrollbar -->
-    <expression name="Exp_FurnitureFooter_Left_IsVisible">[![Control.IsVisible(502) | Control.IsVisible(512) | Control.IsVisible(522) | Control.IsVisible(532) | Control.IsVisible(542) | Control.IsVisible(572)] | $EXP[Exp_View_ScrollFilter_HasFocus]]</expression>
+    <expression name="Exp_FurnitureFooter_Left_IsVisible">[![Control.IsVisible(502) | Control.IsVisible(512) | Control.IsVisible(522) | Control.IsVisible(532) | Control.IsVisible(542) | Control.IsVisible(572) | Control.IsVisible(582) | Control.IsVisible(592)] | $EXP[Exp_View_ScrollFilter_HasFocus]]</expression>
 
     <expression name="Exp_BackgroundArtwork_IsHidden">[[!$EXP[Exp_InfoDialogs] + [Window.IsVisible(favouritesbrowser) | Window.IsVisible(weather) | !String.IsEmpty(Window.Property(Background.HideArtwork))]] | [$EXP[Exp_InfoDialogs] + !String.IsEmpty(Window(Home).Property(Background.DialogInfo.HideArtwork))]]</expression>
 
     <expression name="Exp_BackgroundArtwork_IsOverlay">[$EXP[Exp_BackgroundArtwork_IsHidden] | [!$EXP[Exp_InfoDialogs] + !String.IsEmpty(Window(Home).Property(Background.ShowOverlay))] | $EXP[Exp_InfoDialogs]]</expression>
 
-    <expression name="Exp_BackgroundArtwork_IsSimple">[$EXP[Exp_PlainBackgroundWindows] | [Window.IsMedia + [[Window.IsVisible(DialogBusy.xml) + Integer.IsEqual(Container.NumItems,0)] | Container.Content()]]]</expression>
+    <expression name="Exp_BackgroundArtwork_IsSimple">[$EXP[Exp_PlainBackgroundWindows] | [Window.IsMedia + [[Window.IsVisible(DialogBusy.xml) + Integer.IsEqual(Container.NumItems,0)] | [Container.Content() + !$EXP[Exp_PVRWindows]]]]]</expression>
 
     <expression name="Exp_Notification_IsActive">[Window.IsActive(DialogExtendedProgressBar.xml) | Window.IsActive(DialogNotification.xml) | Skin.HasSetting(Furniture.EnableClock) | [Skin.HasSetting(Furniture.EnableNowPlaying) + Player.HasMedia]]</expression>
 
@@ -165,13 +165,13 @@
     <expression name="Exp_SettingsSwitcherWindows_Next">[Window.Next(SettingsCategory.xml) | Window.Next(SkinSettings.xml) | Window.Next(SettingsProfile.xml) | Window.Next(SettingsSystemInfo.xml)]</expression>
     <expression name="Exp_SettingsSwitcherWindows_Prev">[Window.Previous(SettingsCategory.xml) | Window.Previous(SkinSettings.xml) | Window.Previous(SettingsProfile.xml) | Window.Previous(SettingsSystemInfo.xml)]</expression>
 
-    <expression name="Exp_FullPanelWindows_Next">[Window.Next(1105) | Window.Next(1185) | [[$EXP[Exp_ClassicHome_IsNext] | Window.Next(1115)] + $EXP[Exp_HomeMenu_IsExpanded]]]</expression>
-    <expression name="Exp_FullPanelWindows_Prev">[Window.Previous(1105) | Window.Previous(1185) | [[$EXP[Exp_ClassicHome_IsPrevious] | Window.Previous(1115)] + $EXP[Exp_HomeMenu_IsExpanded]]]</expression>
-    <expression name="Exp_FullPanelWindows">[Window.IsVisible(1105) | Window.IsVisible(1185) | [[$EXP[Exp_ClassicHome_IsVisible] | Window.IsVisible(1115)] + $EXP[Exp_HomeMenu_IsExpanded]]]</expression>
+    <expression name="Exp_FullPanelWindows_Next">[Window.Next(1105) | Window.Next(1185) | [[[$EXP[Exp_HomeHub_IsNext] + Skin.HasSetting(Hub.Home.DisableSubmenu)] | Window.Next(1115)] + $EXP[Exp_HomeMenu_IsExpanded]]]</expression>
+    <expression name="Exp_FullPanelWindows_Prev">[Window.Previous(1105) | Window.Previous(1185) | [[[$EXP[Exp_HomeHub_IsPrevious] + Skin.HasSetting(Hub.Home.DisableSubmenu)] | Window.Previous(1115)] + $EXP[Exp_HomeMenu_IsExpanded]]]</expression>
+    <expression name="Exp_FullPanelWindows">[Window.IsVisible(1105) | Window.IsVisible(1185) | [[[$EXP[Exp_HomeHub_IsVisible]] | Window.IsVisible(1115)] + $EXP[Exp_HomeMenu_IsExpanded]]]</expression>
 
-    <expression name="Exp_MiniPanelWindows_Next">[[[$EXP[Exp_ClassicHome_IsNext] | Window.IsVisible(1115)] + !$EXP[Exp_HomeMenu_IsExpanded]] | $EXP[Exp_SettingsSwitcherWindows_Next]]</expression>
-    <expression name="Exp_MiniPanelWindows_Prev">[[[$EXP[Exp_ClassicHome_IsPrevious] | Window.Previous(1115)] + !$EXP[Exp_HomeMenu_IsExpanded]] | $EXP[Exp_SettingsSwitcherWindows_Prev]]</expression>
-    <expression name="Exp_MiniPanelWindows">[[[$EXP[Exp_ClassicHome_IsVisible] | Window.IsVisible(1115)] + !$EXP[Exp_HomeMenu_IsExpanded]] | $EXP[Exp_SettingsSwitcherWindows]]</expression>
+    <expression name="Exp_MiniPanelWindows_Next">[[[[$EXP[Exp_HomeHub_IsNext] + Skin.HasSetting(Hub.Home.DisableSubmenu)] | Window.IsVisible(1115)] + !$EXP[Exp_HomeMenu_IsExpanded]] | $EXP[Exp_SettingsSwitcherWindows_Next]]</expression>
+    <expression name="Exp_MiniPanelWindows_Prev">[[[[$EXP[Exp_HomeHub_IsPrevious] + Skin.HasSetting(Hub.Home.DisableSubmenu)] | Window.Previous(1115)] + !$EXP[Exp_HomeMenu_IsExpanded]] | $EXP[Exp_SettingsSwitcherWindows_Prev]]</expression>
+    <expression name="Exp_MiniPanelWindows">[[[[$EXP[Exp_HomeHub_IsVisible]] | Window.IsVisible(1115)] + !$EXP[Exp_HomeMenu_IsExpanded]] | $EXP[Exp_SettingsSwitcherWindows]]</expression>
 
     <expression name="Exp_NonePanelWindows_Next">[!$EXP[Exp_MiniPanelWindows_Next] + !$EXP[Exp_FullPanelWindows_Next]]</expression>
     <expression name="Exp_NonePanelWindows_Prev">[!$EXP[Exp_MiniPanelWindows_Prev] + !$EXP[Exp_FullPanelWindows_Prev]]</expression>

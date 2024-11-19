@@ -1766,7 +1766,7 @@
                         <param name="shadow_colordiffuse">$PARAM[shadow_colordiffuse]</param>
                     </include>
 
-                    <include content="Object_Layout_Image">
+                    <include content="Object_Layout_Image_Rectangle">
                         <param name="diffuse">$PARAM[diffuse]</param>
                         <param name="icon">$VAR[Image_Card_Fanart]</param>
                         <param name="listitem">$PARAM[listitem]</param>
@@ -1775,7 +1775,7 @@
                     </include>
 
                     <include content="Layout_Landscape_Labels" condition="$PARAM[variation]">
-                        <param name="top">-87</param>
+                        <param name="top">-85</param>
                         <param name="left">20</param>
                         <param name="right">20</param>
                         <param name="item_h">$PARAM[item_h]</param>
@@ -1828,7 +1828,7 @@
                         <param name="selected">$PARAM[selected]</param>
                         <param name="shadow_colordiffuse">$PARAM[shadow_colordiffuse]</param>
                     </include>
-                    <include content="Object_Layout_Image">
+                    <include content="Object_Layout_Image_Rectangle">
                         <param name="diffuse">$PARAM[diffuse]</param>
                         <param name="icon">$VAR[Image_Banner$PARAM[affix]]</param>
                         <param name="listitem">$PARAM[listitem]</param>
@@ -1924,7 +1924,7 @@
                         <visible>String.IsEmpty(ListItem.Art(poster))</visible>
                         <visible>String.IsEmpty(ListItem.Art(tvshow.poster))</visible>
                     </control>
-                    <include content="Object_Layout_Image">
+                    <include content="Object_Layout_Image_Rectangle">
                         <param name="diffuse">$PARAM[diffuse]</param>
                         <param name="icon">$PARAM[icon]</param>
                         <param name="listitem">$PARAM[listitem]</param>
@@ -1982,6 +1982,10 @@
                         <param name="selected">$PARAM[selected]</param>
                         <param name="shadow_colordiffuse">$PARAM[shadow_colordiffuse]</param>
                     </include>
+                    <include content="Object_Control" condition="$PARAM[selected]">
+                        <param name="control">image</param>
+                        <include>Texture_Box_Highlight_V</include>
+                    </include>
                     <control type="textbox">
                         <textcolor>main_fg_70</textcolor>
                         <label>$INFO[$PARAM[listitem].$PARAM[listitem_label]]</label>
@@ -1995,7 +1999,7 @@
                         <visible>String.IsEmpty(ListItem.Art(poster))</visible>
                         <visible>String.IsEmpty(ListItem.Art(tvshow.poster))</visible>
                     </control>
-                    <include content="Object_Layout_Image">
+                    <include content="Object_Layout_Image_Icon">
                         <param name="diffuse">$PARAM[diffuse]</param>
                         <param name="icon">$PARAM[icon]</param>
                         <param name="listitem">$PARAM[listitem]</param>
@@ -2006,7 +2010,7 @@
                 <control type="group">
                     <visible>String.IsEqual($PARAM[listitem].DBType,actor) | String.IsEqual($PARAM[listitem].DBType,video) | $PARAM[detailed]</visible>
                     <include content="Layout_Landscape_Labels">
-                        <param name="top">-87</param>
+                        <param name="top">-85</param>
                         <param name="left">20</param>
                         <param name="right">20</param>
                         <param name="item_h">$PARAM[item_h]</param>
@@ -2446,7 +2450,7 @@
         <param name="align">left</param>
         <definition>
             <control type="group">
-                <top>29</top>
+                <top>10</top>
                 <height>80</height>
 
                 <control type="group">
@@ -2507,7 +2511,7 @@
                 <width>$PARAM[item_w]</width>
                 <height>$PARAM[item_h]</height>
                 <control type="group">
-                    <height>$PARAM[item_w]</height>
+                    <height>$PARAM[item_h]</height>
                     <include content="Object_ItemBack">
                         <param name="selected">$PARAM[selected]</param>
                         <param name="shadow_colordiffuse">$PARAM[shadow_colordiffuse]</param>
@@ -2517,7 +2521,7 @@
                         <include>Texture_Box_Highlight_V</include>
                     </include>
 
-                    <include content="Object_SquareIcon">
+                    <include content="Object_Layout_Image_Icon">
                         <param name="selected">$PARAM[selected]</param>
                         <param name="diffuse">$PARAM[diffuse]</param>
                         <param name="icon">$PARAM[icon]</param>
@@ -2584,7 +2588,7 @@
                         <include>Texture_Circle_Highlight_V</include>
                     </include>
 
-                    <include content="Object_SquareIcon">
+                    <include content="Object_Layout_Image_Icon">
                         <param name="selected">$PARAM[selected]</param>
                         <param name="diffuse">diffuse/$PARAM[diffuse].png</param>
                         <param name="include_discart">true</param>
@@ -2686,7 +2690,7 @@
                         <include>Texture_Circle_Highlight_V</include>
                     </include>
 
-                    <include content="Object_SquareIcon">
+                    <include content="Object_Layout_Image_Icon">
                         <param name="selected">$PARAM[selected]</param>
                         <param name="diffuse">diffuse/$PARAM[diffuse].png</param>
                         <param name="include_discart">true</param>
@@ -2735,9 +2739,10 @@
                 <height>$PARAM[item_h]</height>
             </control>
 
+
+
             <control type="group">
                 <top>$PARAM[item_h]</top>
-
                 <control type="group">
                     <top>$PARAM[top]</top>
                     <left>$PARAM[left]</left>
@@ -2858,7 +2863,7 @@
                             <!-- <include content="Dimension_Padding">
                                 <param name="pad">10</param>
                             </include> -->
-                            <include content="Object_Layout_Image">
+                            <include content="Object_Layout_Image_Rectangle">
                                 <param name="diffuse">$PARAM[diffuse]</param>
                                 <param name="icon">$PARAM[icon]</param>
                                 <param name="listitem">$PARAM[listitem]</param>
@@ -2970,7 +2975,7 @@
                             <include>Texture_Circle_Highlight_V</include>
                         </include>
 
-                        <include content="Object_SquareIcon">
+                        <include content="Object_Layout_Image_Icon">
                             <param name="selected">$PARAM[selected]</param>
                             <param name="diffuse">diffuse/$PARAM[diffuse].png</param>
                             <param name="include_discart">true</param>
@@ -3057,7 +3062,7 @@
                     <include>Texture_Box_Highlight_V</include>
                 </include>
 
-                <include content="Object_Layout_Image" condition="![$PARAM[detailed]]">
+                <include content="Object_Layout_Image_Rectangle" condition="![$PARAM[detailed]]">
                     <param name="diffuse">$PARAM[diffuse]</param>
                     <param name="icon">$PARAM[icon]</param>
                     <param name="listitem">$PARAM[listitem]</param>
@@ -3065,7 +3070,7 @@
                     <param name="aspectratio">keep</param>
                 </include>
 
-                <include content="Object_Layout_Image" condition="$PARAM[detailed]">
+                <include content="Object_Layout_Image_Rectangle" condition="$PARAM[detailed]">
                     <param name="diffuse">$PARAM[diffuse]</param>
                     <param name="icon">$PARAM[icon]</param>
                     <param name="listitem">$PARAM[listitem]</param>
@@ -3080,7 +3085,7 @@
                 </include>
 
                 <include content="Layout_Landscape_Labels" condition="$PARAM[detailed] + $PARAM[variation]">
-                    <param name="top">-87</param>
+                    <param name="top">-85</param>
                     <param name="left">20</param>
                     <param name="right">20</param>
                     <param name="item_h">$PARAM[item_h]</param>
@@ -3114,7 +3119,7 @@
                 </include>
 
                 <include content="Layout_Landscape_Labels" condition="![$PARAM[detailed]]">
-                    <param name="top">15</param>
+                    <param name="top">10</param>
                     <param name="item_h">$PARAM[item_h]</param>
                     <param name="affix">$PARAM[affix]</param>
                     <param name="listitem">$PARAM[listitem]</param>

@@ -112,11 +112,6 @@
         <value>$INFO[System.BuildVersion,Kodi ,]$INFO[System.AddonVersion(skin.arctic.fuse.2), • AF2 v,]</value>
     </variable>
 
-    <variable name="Label_Scrollbar_Content">
-        <value condition="!String.IsEmpty(Container.Content)">$INFO[Container.Content]</value>
-        <value>$LOCALIZE[31022]</value>
-    </variable>
-
     <variable name="Label_Settings_KeyboardSize">
         <value condition="Skin.HasSetting(Keyboard.FullSized)">$LOCALIZE[31439]</value>
         <value>$LOCALIZE[1438]</value>
@@ -145,12 +140,6 @@
     <variable name="Label_Settings_ListFlixArtViewMode">
         <value condition="Skin.HasSetting(View.DisableFlixArtListPoster)">$LOCALIZE[31045]</value>
         <value>$LOCALIZE[20021] + $LOCALIZE[31045]</value>
-    </variable>
-
-    <variable name="Label_TraktStats_Recent_0_Type">
-        <value condition="String.IsEqual(Window(Home).Property(TMDbHelper.TraktStats.Recent.0.Type),episode)">$LOCALIZE[20359]</value>
-        <value condition="String.IsEqual(Window(Home).Property(TMDbHelper.TraktStats.Recent.0.Type),movie)">$LOCALIZE[20338]</value>
-        <value>$INFO[Window(Home).Property(TMDbHelper.TraktStats.Recent.0.Type)]</value>
     </variable>
 
     <variable name="Label_Shortcut_HelpHead">
@@ -239,6 +228,7 @@
 
     <variable name="Label_Spotlight_Name">
         <value condition="!String.IsEmpty(Container(300).ListItem.Property(spotlight_path)) + !String.IsEmpty(Container(300).ListItem.Property(spotlight_label))">$INFO[Container(300).ListItem.Property(spotlight_label)]</value>
+        <value condition="$EXP[Exp_HomeHub_IsVisible] + !String.IsEmpty(Skin.String(Hub.Home.Spotlight.Label))">$INFO[Skin.String(Hub.Home.Spotlight.Label)]</value>
         <value condition="$EXP[Exp_1101Hub_IsVisible] + !String.IsEmpty(Skin.String(Hub.1101.Spotlight.Label))">$INFO[Skin.String(Hub.1101.Spotlight.Label)]</value>
         <value condition="$EXP[Exp_1102Hub_IsVisible] + !String.IsEmpty(Skin.String(Hub.1102.Spotlight.Label))">$INFO[Skin.String(Hub.1102.Spotlight.Label)]</value>
         <value condition="$EXP[Exp_1103Hub_IsVisible] + !String.IsEmpty(Skin.String(Hub.1103.Spotlight.Label))">$INFO[Skin.String(Hub.1103.Spotlight.Label)]</value>
@@ -318,11 +308,6 @@
         <value condition="Skin.String(Seekbar.TimeDisplay,Combined)">$LOCALIZE[31353] / $LOCALIZE[31354]</value>
         <value condition="Skin.String(Seekbar.TimeDisplay,Remaining)">$LOCALIZE[31354] / $LOCALIZE[20161]</value>
         <value>$LOCALIZE[31353] / $LOCALIZE[20161]</value>
-    </variable>
-
-    <variable name="Label_Search_HeadingFilter">
-        <value condition="Window.IsVisible(1185)">$VAR[Path_SearchTerm, , ]</value>
-        <value>$VAR[Path_SearchTerm, , ]$INFO[Window.Property(SearchDiscover.GenreLabel),, ]$INFO[Window.Property(SearchDiscover.ProviderLabel),, ]$INFO[Window.Property(SearchDiscover.PeopleLabel),, ]$INFO[Window.Property(SearchDiscover.KeywordLabel),, ]$INFO[Window.Property(SearchDiscover.YearLow),&gt;=, ]$INFO[Window.Property(SearchDiscover.YearHigh),&lt;=, ]$INFO[Window.Property(SearchDiscover.RatingLow),&gt;=, ]$INFO[Skin.String(SearchDiscover.VoteLow),&gt;=, ]</value>
     </variable>
 
     <variable name="Label_VideoInfo_CastAge">
@@ -529,7 +514,6 @@
     <variable name="Label_Hub_Background">
         <value condition="!String.IsEmpty(Window.Property(SpecialFolderLabel))">$INFO[Window.Property(SpecialFolderLabel)]</value>
         <value condition="!String.IsEmpty(Window.Property(SpecialFolderPath))">$LOCALIZE[31105]</value>
-        <value>$VAR[Label_Hub_WidgetOnly_Background]</value>
     </variable>
 
     <variable name="Label_Hub_Sort">
@@ -1483,7 +1467,7 @@
     </variable>
 
     <variable name="Label_Header_Hubs">
-        <value condition="$EXP[Exp_ClassicHome_IsVisible]">$VAR[Label_Header_Main_Home]</value>
+        <value condition="$EXP[Exp_HomeHub_IsVisible]">$VAR[Label_Header_Main_Home]</value>
         <value condition="$EXP[Exp_1101Hub_IsVisible]">$VAR[Label_Header_Main_1101]</value>
         <value condition="$EXP[Exp_1102Hub_IsVisible]">$VAR[Label_Header_Main_1102]</value>
         <value condition="$EXP[Exp_1103Hub_IsVisible]">$VAR[Label_Header_Main_1103]</value>
@@ -1495,7 +1479,7 @@
     </variable>
 
     <variable name="Label_Header_Hubs_Categories">
-        <value condition="$EXP[Exp_ClassicHome_IsVisible]">$VAR[Label_Header_Main_Home]</value>
+        <value condition="$EXP[Exp_HomeHub_IsVisible]">$VAR[Label_Header_Main_Home]</value>
         <value condition="!String.IsEmpty(Container(300).ListItem.Label)">$INFO[Container(300).ListItem.Label]</value>
         <value condition="$EXP[Exp_1101Hub_IsVisible]">$VAR[Label_Header_Main_1101]</value>
         <value condition="$EXP[Exp_1102Hub_IsVisible]">$VAR[Label_Header_Main_1102]</value>
@@ -1567,6 +1551,10 @@
         <value>$INFO[Window(Home).Property(TMDbHelper.ListItem.LastPlayed),[CR]$LOCALIZE[568] ,]$INFO[Window(Home).Property(TMDbHelper.ListItem.DateAdded),[CR]$LOCALIZE[31200] ,]$INFO[Window(Home).Property(TMDbHelper.ListItem.filenameandpath),[CR],]</value>
     </variable>
 
+    <variable name="Label_Overlay_Providers">
+        <value condition="!String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.Provider.1.Name))">$INFO[Window(Home).Property(TMDbHelper.ListItem.Provider.1.Name)]$INFO[Window(Home).Property(TMDbHelper.ListItem.Provider.2.Name), • ,]$INFO[Window(Home).Property(TMDbHelper.ListItem.Provider.3.Name), • ,]$INFO[Window(Home).Property(TMDbHelper.ListItem.Provider.4.Name), • ,]$INFO[Window(Home).Property(TMDbHelper.ListItem.Provider.5.Name), • ,]$INFO[Window(Home).Property(TMDbHelper.ListItem.Provider.6.Name), • ,]$INFO[Window(Home).Property(TMDbHelper.ListItem.Provider.7.Name), • ,]$INFO[Window(Home).Property(TMDbHelper.ListItem.Provider.8.Name), • ,]$INFO[Window(Home).Property(TMDbHelper.ListItem.Provider.9.Name), • ,]$INFO[Window(Home).Property(TMDbHelper.ListItem.Provider.10.Name), • ,]</value>
+    </variable>
+
     <variable name="Label_Overlay_Directing">
         <value condition="!String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.Director.1.Name))">$INFO[Window(Home).Property(TMDbHelper.ListItem.Director.1.Name)]$INFO[Window(Home).Property(TMDbHelper.ListItem.Director.1.Role), (,)]$INFO[Window(Home).Property(TMDbHelper.ListItem.Director.2.Name),[CR],]$INFO[Window(Home).Property(TMDbHelper.ListItem.Director.2.Role), (,)]$INFO[Window(Home).Property(TMDbHelper.ListItem.Director.3.Name),[CR],]$INFO[Window(Home).Property(TMDbHelper.ListItem.Director.3.Role), (,)]$INFO[Window(Home).Property(TMDbHelper.ListItem.Director.4.Name),[CR],]$INFO[Window(Home).Property(TMDbHelper.ListItem.Director.4.Role), (,)]$INFO[Window(Home).Property(TMDbHelper.ListItem.Director.5.Name),[CR],]$INFO[Window(Home).Property(TMDbHelper.ListItem.Director.5.Role), (,)]$INFO[Window(Home).Property(TMDbHelper.ListItem.Director.6.Name),[CR],]$INFO[Window(Home).Property(TMDbHelper.ListItem.Director.6.Role), (,)]$INFO[Window(Home).Property(TMDbHelper.ListItem.Director.7.Name),[CR],]$INFO[Window(Home).Property(TMDbHelper.ListItem.Director.7.Role), (,)]$INFO[Window(Home).Property(TMDbHelper.ListItem.Director.8.Name),[CR],]$INFO[Window(Home).Property(TMDbHelper.ListItem.Director.8.Role), (,)]$INFO[Window(Home).Property(TMDbHelper.ListItem.Director.9.Name),[CR],]$INFO[Window(Home).Property(TMDbHelper.ListItem.Director.9.Role), (,)]</value>
     </variable>
@@ -1605,7 +1593,7 @@
     </variable>
 
     <variable name="Label_Overlay_PlotBox">
-        <value>$INFO[Window(Home).Property(TMDbHelper.ListItem.Tagline),[B][COLOR=dialog_fg_90]$LOCALIZE[202][/COLOR][/B][CR],[CR][CR]]$VAR[Label_Plot_TMDbHelper,[B][COLOR=dialog_fg_90]$LOCALIZE[31028][/COLOR][/B][CR],]$VAR[Label_Overlay_Critics,[CR][CR],]$VAR[Label_Overlay_Directing,[CR][CR][B][COLOR=dialog_fg_90]$LOCALIZE[31038][/COLOR][/B][CR],]$VAR[Label_Overlay_Writing,[CR][CR][B][COLOR=dialog_fg_90]$LOCALIZE[31039][/COLOR][/B][CR],]$VAR[Label_Overlay_TopCast,[CR][CR][B][COLOR=dialog_fg_90]$LOCALIZE[31076][/COLOR][/B][CR],]$VAR[Label_Overlay_Production,[CR][CR][B][COLOR=dialog_fg_90]$LOCALIZE[31383][/COLOR][/B][CR],]$VAR[Label_Overlay_Sound,[CR][CR][B][COLOR=dialog_fg_90]$LOCALIZE[31052][/COLOR][/B][CR],]$VAR[Label_Overlay_ArtDepartment,[CR][CR][B][COLOR=dialog_fg_90]$LOCALIZE[31072][/COLOR][/B][CR],]$VAR[Label_Overlay_Cinematography,[CR][CR][B][COLOR=dialog_fg_90]$LOCALIZE[31067][/COLOR][/B][CR],]$VAR[Label_Overlay_Editing,[CR][CR][B][COLOR=dialog_fg_90]$LOCALIZE[31075][/COLOR][/B][CR],]$INFO[Window(Home).Property(TMDbHelper.ListItem.Awards),[CR][CR][B][COLOR=dialog_fg_90]$LOCALIZE[31064][/COLOR][/B][CR],]$VAR[Label_Overlay_AwardsWon]$VAR[Label_Overlay_AwardsNominated]$VAR[Label_Overlay_FileDetails,[CR][CR][B][COLOR=dialog_fg_90]$LOCALIZE[561] $LOCALIZE[33029][/COLOR][/B],]</value>
+        <value>$INFO[Window(Home).Property(TMDbHelper.ListItem.Tagline),[B][COLOR=dialog_fg_90]$LOCALIZE[202][/COLOR][/B][CR],[CR][CR]]$VAR[Label_Plot_TMDbHelper,[B][COLOR=dialog_fg_90]$LOCALIZE[31028][/COLOR][/B][CR],]$VAR[Label_Overlay_Critics,[CR][CR],]$VAR[Label_Overlay_Directing,[CR][CR][B][COLOR=dialog_fg_90]$LOCALIZE[31038][/COLOR][/B][CR],]$VAR[Label_Overlay_Writing,[CR][CR][B][COLOR=dialog_fg_90]$LOCALIZE[31039][/COLOR][/B][CR],]$VAR[Label_Overlay_TopCast,[CR][CR][B][COLOR=dialog_fg_90]$LOCALIZE[31076][/COLOR][/B][CR],]$VAR[Label_Overlay_Production,[CR][CR][B][COLOR=dialog_fg_90]$LOCALIZE[31383][/COLOR][/B][CR],]$VAR[Label_Overlay_Sound,[CR][CR][B][COLOR=dialog_fg_90]$LOCALIZE[31052][/COLOR][/B][CR],]$VAR[Label_Overlay_ArtDepartment,[CR][CR][B][COLOR=dialog_fg_90]$LOCALIZE[31072][/COLOR][/B][CR],]$VAR[Label_Overlay_Cinematography,[CR][CR][B][COLOR=dialog_fg_90]$LOCALIZE[31067][/COLOR][/B][CR],]$VAR[Label_Overlay_Editing,[CR][CR][B][COLOR=dialog_fg_90]$LOCALIZE[31075][/COLOR][/B][CR],]$INFO[Window(Home).Property(TMDbHelper.ListItem.Awards),[CR][CR][B][COLOR=dialog_fg_90]$LOCALIZE[31064][/COLOR][/B][CR],]$VAR[Label_Overlay_AwardsWon]$VAR[Label_Overlay_AwardsNominated]$VAR[Label_Overlay_Providers,[CR][CR][B][COLOR=dialog_fg_90]JustWatch[/COLOR][/B][CR],]$VAR[Label_Overlay_FileDetails,[CR][CR][B][COLOR=dialog_fg_90]$LOCALIZE[561] $LOCALIZE[33029][/COLOR][/B],]</value>
     </variable>
 
     <variable name="Label_Overlay_1114_PlotBox">
@@ -1643,6 +1631,8 @@
         <value condition="String.IsEqual(ListItem.Property(widget_style),Overview)">$LOCALIZE[31419]</value>
         <value condition="String.IsEqual(ListItem.Property(widget_style),Signpost)">$LOCALIZE[31558]</value>
         <value condition="String.IsEqual(ListItem.Property(widget_style),Circle)">$LOCALIZE[31431]</value>
+        <value condition="String.IsEqual(ListItem.Property(widget_style),Quad)">$LOCALIZE[31333]</value>
+        <value condition="String.IsEqual(ListItem.Property(widget_style),Disc)">$LOCALIZE[427]</value>
 
         <value condition="String.IsEqual(ListItem.Property(widget_style),Poster)">$LOCALIZE[20021]</value>
         <value condition="String.IsEqual(ListItem.Property(widget_style),Banner)">$LOCALIZE[20020]</value>
@@ -1662,6 +1652,8 @@
         <value condition="String.IsEqual(Container(22001).ListItem.Property(widget_style),Overview)">$LOCALIZE[31419]</value>
         <value condition="String.IsEqual(Container(22001).ListItem.Property(widget_style),Signpost)">$LOCALIZE[31558]</value>
         <value condition="String.IsEqual(Container(22001).ListItem.Property(widget_style),Circle)">$LOCALIZE[31431]</value>
+        <value condition="String.IsEqual(Container(22001).ListItem.Property(widget_style),Quad)">$LOCALIZE[31333]</value>
+        <value condition="String.IsEqual(Container(22001).ListItem.Property(widget_style),Disc)">$LOCALIZE[427]</value>
 
         <value condition="String.IsEqual(Container(22001).ListItem.Property(widget_style),Poster)">$LOCALIZE[20021]</value>
         <value condition="String.IsEqual(Container(22001).ListItem.Property(widget_style),Banner)">$LOCALIZE[20020]</value>

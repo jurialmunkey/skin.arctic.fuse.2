@@ -43,10 +43,8 @@
                 <left>0</left>
                 <right>0</right>
                 <centerbottom>-15</centerbottom>
-                <texturebg colordiffuse="main_fg_12" border="2">progress/progress-bg.png</texturebg>
-                <lefttexture colordiffuse="main_logo" border="2">progress/progress-left.png</lefttexture>
-                <midtexture colordiffuse="main_logo" border="2">progress/progress-end.png</midtexture>
-                <righttexture colordiffuse="main_logo" border="2">progress/progress-right.png</righttexture>
+                <texturebg colordiffuse="main_fg_12" border="12,0,12,0">progress/progress-nib.png</texturebg>
+                <midtexture colordiffuse="main_logo" border="12,0,12,0">progress/progress-nib.png</midtexture>
             </control>
         </control>
     </include>
@@ -87,7 +85,8 @@
         <param name="top_title">$INFO[Window.Property(title)]</param>
         <param name="sub_title">$VAR[Label_OSD_UpNext_SubTitle]</param>
         <definition>
-            <include content="OSD_CastInfo_ExpandGroup">
+            <control type="group">
+                <include>OSD_Info_Dimensions</include>
 
                 <include>Animation_OSD_Seekbar_Slide</include>
 
@@ -134,7 +133,7 @@
 
                 <include condition="$PARAM[is_addon]">OSD_UpNext_Buttons</include>
 
-            </include>
+            </control>
 
             <include content="Object_Hidden_Button" condition="$PARAM[is_addon]">
                 <param name="id">3013</param>
@@ -667,10 +666,8 @@
                 <height>8</height>
                 <centertop>50%</centertop>
                 <info>Player.ProgressCache</info>
-                <texturebg colordiffuse="00ffffff">progress/progress-bg.png</texturebg>
-                <lefttexture colordiffuse="main_back">progress/progress-left.png</lefttexture>
-                <midtexture colordiffuse="main_back">progress/progress-end.png</midtexture>
-                <righttexture colordiffuse="main_back">progress/progress-right.png</righttexture>
+                <texturebg colordiffuse="00ffffff" border="12,0,12,0">progress/progress-nib.png</texturebg>
+                <midtexture colordiffuse="main_back" border="12,0,12,0">progress/progress-nib.png</midtexture>
                 <visible>Player.Playing | Player.Paused | Player.Caching</visible>
                 <visible>!Player.Seeking</visible>
                 <visible>Player.HasMedia</visible>
@@ -683,17 +680,17 @@
             <height>12</height>
             <info>Player.Progress</info>
             <visible>Player.HasMedia + !Pvr.IsPlayingTv</visible>
-            <texturebg colordiffuse="00ffffff" border="4">progress/progress-bg.png</texturebg>
+            <texturebg colordiffuse="00ffffff" border="12,0,12,0">progress/progress-nib.png</texturebg>
         </control>
         <control type="progress">
             <description>Progressbar</description>
             <width>100%</width>
             <height>12</height>
             <info>Player.Progress</info>
-            <texturebg colordiffuse="00ffffff">progress/progress-bg.png</texturebg>
-            <lefttexture colordiffuse="00ffffff">progress/progress-left.png</lefttexture>
-            <midtexture colordiffuse="$VAR[ColorGradient]" diffuse="progress/diffuse.png">progress/progress-end.png</midtexture>
-            <righttexture colordiffuse="$VAR[ColorGradient]" diffuse="progress/diffuse-end.png">progress/progress-right.png</righttexture>
+
+            <texturebg colordiffuse="00ffffff" border="12,0,12,0">progress/progress-bg.png</texturebg>
+            <midtexture colordiffuse="$VAR[ColorGradient]" border="12,0,12,0" diffuse="progress/diffuse.png">progress/progress-bg.png</midtexture>
+
             <include content="Defs_Progress_Colorfade">
                 <param name="id">499</param>
             </include>
@@ -706,17 +703,15 @@
             <height>12</height>
             <info>PVR.EpgEventProgress</info>
             <visible>Pvr.IsPlayingTv</visible>
-            <texturebg colordiffuse="00ffffff" border="4">progress/progress-bg.png</texturebg>
+            <texturebg colordiffuse="00ffffff" border="12,0,12,0">progress/progress-nib.png</texturebg>
         </control>
         <control type="progress">
             <description>Progressbar</description>
             <width>100%</width>
             <height>12</height>
             <info>PVR.EpgEventProgress</info>
-            <texturebg colordiffuse="00ffffff">progress/progress-bg.png</texturebg>
-            <lefttexture colordiffuse="00ffffff">progress/progress-left.png</lefttexture>
-            <midtexture colordiffuse="$VAR[ColorGradient]" diffuse="progress/diffuse.png">progress/progress-end.png</midtexture>
-            <righttexture colordiffuse="$VAR[ColorGradient]" diffuse="progress/diffuse-end.png">progress/progress-right.png</righttexture>
+            <texturebg colordiffuse="00ffffff" border="12,0,12,0">progress/progress-bg.png</texturebg>
+            <midtexture colordiffuse="$VAR[ColorGradient]" border="12,0,12,0" diffuse="progress/diffuse.png">progress/progress-bg.png</midtexture>
             <include content="Defs_Progress_Colorfade">
                 <param name="id">498</param>
             </include>
@@ -962,7 +957,11 @@
                 <param name="selected">$PARAM[selected]</param>
             </include>
             <control type="image">
-                <texture colordiffuse="$PARAM[progresscolor]" border="4">progress/progress-bg.png</texture>
+                <include content="Object_ColorDiffuse" condition="$PARAM[selected]">
+                    <param name="colordiffuse">$VAR[ColorSelected_30]</param>
+                </include>
+                <colordiffuse>$PARAM[progresscolor]</colordiffuse>
+                <texture border="12,0,12,0">progress/progress-nib.png</texture>
                 <centertop>50%</centertop>
                 <height>12</height>
             </control>
@@ -972,7 +971,7 @@
                 <height>24</height>
                 <width>24</width>
                 <animation effect="slide" end="52" condition="$PARAM[istempo] + String.IsEqual(Player.PlaySpeed,0.90)">Conditional</animation>
-                <animation effect="slide" end="104" condition="$PARAM[istempo] + String.IsEqual(Player.PlaySpeed,1.00) | String.IsEqual(Player.PlaySpeed,0.00)">Conditional</animation>
+                <animation effect="slide" end="104" condition="$PARAM[istempo] + [String.IsEqual(Player.PlaySpeed,1.00) | String.IsEqual(Player.PlaySpeed,0.00)]">Conditional</animation>
                 <animation effect="slide" end="156" condition="$PARAM[istempo] + String.IsEqual(Player.PlaySpeed,1.10)">Conditional</animation>
                 <animation effect="slide" end="208" condition="$PARAM[istempo] + String.IsEqual(Player.PlaySpeed,1.20)">Conditional</animation>
                 <animation effect="slide" end="260" condition="$PARAM[istempo] + String.IsEqual(Player.PlaySpeed,1.30)">Conditional</animation>
@@ -1046,8 +1045,8 @@
 
                 <control type="group">
 
-                    <animation effect="fade" start="0" end="100" delay="300" time="300" condition="[!Window.IsActive(1143) + [!Integer.IsEqual(Window(Home).Property(OSD_Focus),6003) | VideoPlayer.Content(livetv)]]">Conditional</animation>
-                    <animation effect="fade" start="100" end="0" time="300" condition="![!Window.IsActive(1143) + [!Integer.IsEqual(Window(Home).Property(OSD_Focus),6003) | VideoPlayer.Content(livetv)]]">Conditional</animation>
+                    <animation effect="fade" start="0" end="100" delay="300" time="300" condition="[[!Integer.IsEqual(Window(Home).Property(OSD_Focus),6003) | VideoPlayer.Content(livetv)]]">Conditional</animation>
+                    <animation effect="fade" start="100" end="0" time="300" condition="![[!Integer.IsEqual(Window(Home).Property(OSD_Focus),6003) | VideoPlayer.Content(livetv)]]">Conditional</animation>
 
                     <animation effect="fade" start="0" end="100" time="300" delay="200" reversible="false" condition="Window.IsActive(videoosd) | Window.IsActive(musicosd) | Window.IsActive(script-cu-lrclyrics-main.xml) | $EXP[Exp_OSD_QuickInfo]">Conditional</animation>
                     <animation effect="fade" start="100" end="0" time="300" delay="0" reversible="false" condition="![Window.IsActive(videoosd) | Window.IsActive(musicosd) | Window.IsActive(script-cu-lrclyrics-main.xml) | $EXP[Exp_OSD_QuickInfo]]">Conditional</animation>
@@ -1158,15 +1157,15 @@
                     </control>
 
                     <control type="group">
-                        <left>340</left>
+                        <left>0</left>
                         <height>240</height>
                         <bottom>-20</bottom>
                         <control type="group">
                             <width>460</width>
                             <visible>[Window.IsVisible(script-cu-lrclyrics-main.xml) | [!String.IsEmpty(Window(Home).Property(OSDArtistDetails)) + !Window.IsVisible(1142)]]</visible>
-                            <animation effect="slide" start="0" end="-340" time="400" tween="cubic" easing="out" reversible="false">Visible</animation>
+                            <animation effect="slide" start="340" end="0" time="400" tween="cubic" easing="out" reversible="false">Visible</animation>
                             <animation type="Hidden" reversible="false">
-                                <effect type="slide" end="0" start="-340" time="400" tween="cubic" easing="out" reversible="false" />
+                                <effect type="slide" end="340" start="0" time="400" tween="cubic" easing="out" reversible="false" />
                             </animation>
                             <include content="OSD_TitleDetails">
                                 <param name="top_logo">Player.Art(artist.clearlogo)</param>
@@ -1175,6 +1174,7 @@
                             </include>
                         </control>
                         <control type="group">
+                            <left>340</left>
                             <width>1080</width>
                             <visible>![Window.IsVisible(script-cu-lrclyrics-main.xml) | [!String.IsEmpty(Window(Home).Property(OSDArtistDetails)) + !Window.IsVisible(1142)]]</visible>
                             <animation type="Visible" reversible="false">
@@ -1201,14 +1201,14 @@
                         <texture colordiffuse="panel_fg_70">special://skin/extras/icons/microphone.png</texture>
                         <width>80</width>
                         <height>80</height>
-                        <bordersize>12</bordersize>
+                        <bordersize>8</bordersize>
                         <centerleft>100</centerleft>
-                        <centertop>100</centertop>
+                        <centerbottom>100</centerbottom>
                     </control>
 
                     <control type="label">
-                        <left>view_pad</left>
-                        <centerbottom>80</centerbottom>
+                        <left>140</left>
+                        <centerbottom>100</centerbottom>
                         <height>40</height>
                         <aligny>center</aligny>
                         <font>font_main_black</font>

@@ -460,7 +460,7 @@
             <onback condition="$PARAM[enable] + ![$PARAM[onback] | Container($PARAM[id]).ListItem.IsParentFolder] + $EXP[Exp_Navigation_OnPrevious]">$PARAM[backid]</onback>
             <onback condition="$PARAM[enable] + ![$PARAM[onback] | Container($PARAM[id]).ListItem.IsParentFolder] + $EXP[Exp_Navigation_OnPrevious]">SetFocus($PARAM[id],0,absolute)</onback>
 
-            <onback condition="$PARAM[enable] + [$EXP[Exp_Navigation_OnMenu] | [$EXP[Exp_ClassicHome_IsVisible] + ![![$PARAM[onback] | Container($PARAM[id]).ListItem.IsParentFolder] + $EXP[Exp_Navigation_OnPrevious]]]]">$PARAM[menuid]</onback>
+            <onback condition="$PARAM[enable] + [$EXP[Exp_Navigation_OnMenu] | [$EXP[Exp_HomeHub_IsVisible] + ![![$PARAM[onback] | Container($PARAM[id]).ListItem.IsParentFolder] + $EXP[Exp_Navigation_OnPrevious]]]]">$PARAM[menuid]</onback>
 
             <onback condition="$PARAM[enable] + $PARAM[always]">SetFocus($PARAM[id],0,absolute)</onback>
             <onback condition="$PARAM[enable] + $PARAM[always]">SetFocus(50)</onback>
@@ -673,12 +673,11 @@
     </include>
 
     <variable name="Action_Shortcut_SetWidgetStyle_LargeSize">
-        <!-- <value condition="String.IsEqual(Window(Home).Property(Shortcuts.EditMenu),menu=searchmenu)" /> -->
-        <value>&amp;$LOCALIZE[20020]=Banner&amp;$LOCALIZE[31423]=Card&amp;$LOCALIZE[31419]=Overview&amp;$LOCALIZE[31558]=Signpost&amp;$LOCALIZE[31424]=Board&amp;$LOCALIZE[31431]=Circle&amp;$LOCALIZE[31424] (T)=Placard&amp;$LOCALIZE[31423] (T)=Corflute</value>
+        <value>&amp;$LOCALIZE[20020]=Banner&amp;$LOCALIZE[31423]=Card&amp;$LOCALIZE[31333]=Quad&amp;$LOCALIZE[427]=Disc&amp;$LOCALIZE[31419]=Overview&amp;$LOCALIZE[31558]=Signpost&amp;$LOCALIZE[31424]=Board&amp;$LOCALIZE[31431]=Circle&amp;$LOCALIZE[31424] (T)=Placard&amp;$LOCALIZE[31423] (T)=Corflute</value>
     </variable>
 
     <variable name="Action_Shortcut_SetWidgetStyle">
         <value condition="String.IsEmpty(Container(22001).ListItem.Property(url))" />
-        <value>RunPlugin($INFO[Container(22001).ListItem.Property(url)]&amp;func=do_edit&amp;&amp;widget_style&amp;&amp;$LOCALIZE[20021]=Poster&amp;$LOCALIZE[31045]=Landscape&amp;$LOCALIZE[31320]=Square$VAR[Action_Shortcut_SetWidgetStyle_LargeSize]$VAR[Action_Shortcut_SetWidgetStyle_BoardSize]&amp;&amp;Style&amp;&amp;True)</value>
+        <value>RunPlugin($INFO[Container(22001).ListItem.Property(url)]&amp;func=do_edit&amp;&amp;widget_style&amp;&amp;$LOCALIZE[20021]=Poster&amp;$LOCALIZE[31045]=Landscape&amp;$LOCALIZE[31320]=Square$VAR[Action_Shortcut_SetWidgetStyle_LargeSize]&amp;&amp;Style&amp;&amp;True)</value>
     </variable>
 </includes>
