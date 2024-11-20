@@ -311,17 +311,19 @@
             <control type="group">
                 <right>20</right>
                 <left>20</left>
-                <include content="Object_Control" condition="$PARAM[selected]">
-                    <param name="control">image</param>
+                <!-- PVR001: Remove "Selected Highlight" from Channel -->
+                    <!-- param name="control">image</param>
                     <include>Texture_Menu_Highlight_H</include>
-                </include>
+                </include -->
                 <control type="group">
                     <height>80</height>
-                    <centertop>50%</centertop>
+                    <!-- PVR001: centertop was 50% (correct alignement with listings -->
+                    <centertop>70%</centertop>
                     <left>-20</left>
                     <right>40</right>
                     <control type="group">
-                        <include content="Object_InfoCircle" condition="!$PARAM[selected]">
+                        <!-- PVR001: Remove original "Unselected" Channel Details -->
+                        <!-- include content="Object_InfoCircle" condition="!$PARAM[selected]">
                             <param name="name">$INFO[ListItem.ChannelNumberLabel,$LOCALIZE[19029] ,]</param>
                             <param name="role">$INFO[ListItem.ChannelName]</param>
                             <param name="include_labels">$PARAM[include_detailed_labels]</param>
@@ -368,7 +370,75 @@
                                 <param name="aspectratio">keep</param>
                                 <param name="bordersize">5</param>
                             </include>
-                        </include>
+                        </include -->
+                        <!-- PVR001: Channel Number -->
+                        <control type="label">                          
+                            <left>45</left>
+                            <top>-2</top>
+                            <width>60</width>
+                            <height>53</height>                                 
+                            <align>left</align>
+                            <label>$INFO[ListItem.ChannelNumberLabel]</label>
+                        </control>
+                        <!-- PVR001: Channel Icon -->
+                        <control type="image">                          
+                            <left>107</left>
+                            <top>-7</top>
+                            <width>203</width>
+                            <height>64</height>                                 
+                            <texture>$VAR[ImagePVREPGIcon]</texture>
+                            <align>center</align>
+                            <aligny>center</aligny>
+                            <aspectratio>keep</aspectratio>
+                        </control>
+                        <!-- PVR001: For Club Specific Channels, display Icon (Club Badge) -->
+                        <control type="image">  
+                            <left>327</left>
+                            <top>-4</top>
+                            <width>60</width>
+                            <height>60</height>                                 
+                            <texture>$INFO[ListItem.Icon]</texture>
+                            <align>center</align>
+                            <aligny>center</aligny>
+                            <aspectratio>keep</aspectratio>
+                            <visible>$EXP[Live_Football_Club_Channel]</visible>
+                        </control>
+                        
+                        <!-- PVR001: For Sky Sports+ Channels, display Event No. over Channel Icon-->                       
+                        <control type="label">                          
+                            <left>170</left>
+                            <top>16</top>
+                            <width>150</width>
+                            <height>53</height>                                 
+                            <align>center</align>
+                            <!--textcolor>FF940102</textcolor -->
+                            <textcolor>FF1E1E7F</textcolor>
+                            <font>font_tiny</font>
+                            <label>$VAR[TextPVREPGSkySportsPlusEventNo]</label>
+                            <visible>$EXP[Live_Football_Anova_SkySportsPlus]</visible>
+                        </control>
+                        
+                        <!-- PVR001: Channel Resolution Icon -->
+                        <control type="image">                      
+                            <left>322</left>
+                            <top>16</top>
+                            <width>70</width>
+                            <height>38</height>                                 
+                            <texture>$VAR[ImagePVRChannelResolutionIcon]</texture>
+                            <align>center</align>
+                            <aligny>center</aligny>
+                            <aspectratio>keep</aspectratio>
+                            <visible>!$EXP[Live_Football_Anova_SkySportsPlus]</visible>
+                        </control>
+                        <!-- PVR001: Provider Icon (temporarily disabled) -->
+                        <!--control type="image">
+                            <aspectratio align="right">keep</aspectratio>
+                            <left>385</left>
+                            <top>16</top>
+                            <width>90</width>
+                            <height>38</height>
+                            <texture>$VAR[ImagePVRProviderIcon]</texture>
+                        </control -->
                     </control>
                 </control>
             </control>
@@ -523,9 +593,8 @@
                 <left>20</left>
             </include>
 
-
-
-            <include content="Object_InfoCircle_Text_Top" condition="$PARAM[include_detailed_labels]">
+            <!-- PVR002: Object removed - Label control below used instead -->
+            <!-- include content="Object_InfoCircle_Text_Top" condition="$PARAM[include_detailed_labels]">
                 <param name="id">1</param>
                 <include condition="$PARAM[selected] + false">Color_SelectedText</include>
                 <label>$VAR[Label_PVRPrograms]</label>
@@ -533,9 +602,10 @@
                 <selectedcolor>main_fg_90</selectedcolor>
                 <left>60</left>
                 <right>40</right>
-            </include>
+            </include -->
 
-            <include content="Object_InfoCircle_Text_Sub" condition="$PARAM[include_detailed_labels]">
+            <!-- PVR002: Remove Genre -->
+            <!-- include content="Object_InfoCircle_Text_Sub" condition="$PARAM[include_detailed_labels]">
                 <param name="id">1</param>
                 <include condition="$PARAM[selected] + false">Color_SelectedText</include>
                 <label>$INFO[ListItem.Genre]</label>
@@ -543,22 +613,27 @@
                 <selectedcolor>main_fg_70</selectedcolor>
                 <left>60</left>
                 <right>40</right>
-            </include>
+            </include -->
 
             <control type="label" id="1">
-                <font>font_mini</font>
-                <label>$INFO[ListItem.Label]</label>
+                <!-- PVR002: font changed from font_mini -->
+                <font>font_mini_bold</font>
+                <!-- PVR002: label changed from $INFO[ListItem.Label] -->
+                <label>$VAR[Label_PVRPrograms]</label>>
                 <align>left</align>
                 <left>60</left>
                 <right>40</right>
                 <include condition="$PARAM[selected] + false">Color_SelectedText</include>
-                <textcolor>main_fg_70</textcolor>
-                <visible>![$PARAM[include_detailed_labels]]</visible>
+                <!-- PVR002: textcolor changed from main_fg_70 -->
+                <textcolor>main_fg_90</textcolor>
+                <!-- PVR002: visibility removed -->
+                <!-- visible>![$PARAM[include_detailed_labels]]</visible -->
             </control>
 
             <control type="image" id="1">
                 <right>30</right>
-                <centertop>50%</centertop>
+                <!-- PVR002: Reposition Indicator (was 50%) -->
+                <centertop>25%</centertop>
                 <aspectratio align="right">keep</aspectratio>
                 <height>32</height>
                 <include content="Object_ColorDiffuse" condition="$PARAM[selected] + false">
@@ -2479,7 +2554,8 @@
                         <param name="icon_diffuse">$PARAM[diffuse]</param>
                     </include>
 
-                    <include content="Object_ProgressLine">
+                    <!-- MISC028: No progress line on Home Page widgets - "  + condition !Window.IsVisible(Home)" added --> 
+                    <include content="Object_ProgressLine" condition="!Window.IsVisible(Home)">
                         <param name="progress">$PARAM[listitem].$PARAM[progress]</param>
                     </include>
                     <include content="Object_Indicator" condition="!$PARAM[selected] + ![$PARAM[detailed]]">
@@ -2493,7 +2569,8 @@
                         <param name="listitem">$PARAM[listitem]</param>
                     </include>
                 </control>
-                <include content="Layout_Labels" condition="![$PARAM[variation]]">
+                <!-- MISC028: No labels on Icon/Square Home Page widgets - "  + condition !Window.IsVisible(Home)" added --> 
+                <include content="Layout_Labels" condition="![$PARAM[variation] + !Window.IsVisible(Home)]">
                     <param name="top">10</param>
                     <param name="item_h">$PARAM[item_h]</param>
                     <param name="affix">$PARAM[affix]</param>
@@ -3028,7 +3105,8 @@
                     <param name="include_detailed_labels">true</param>
                 </include>
 
-                <include content="Object_ProgressLine">
+                <!-- MISC028: No progress line on Home Page widgets - "  + condition !Window.IsVisible(Home)" added --> 
+                <include content="Object_ProgressLine" condition="!Window.IsVisible(Home)">
                     <param name="progress">$PARAM[listitem].$PARAM[progress]</param>
                 </include>
 
@@ -3049,8 +3127,10 @@
                     <param name="affix">$PARAM[affix]</param>
                     <param name="listitem">$PARAM[listitem]</param>
                 </include>
-
-                <include content="Layout_Labels" condition="![$PARAM[detailed]]">
+                
+                <!-- MISC028: No labels on Landscape Home Page widgets -->
+                <!-- MISC028: " + !Window.IsVisible(Home)"  added to condition -->
+                <include content="Layout_Labels" condition="![$PARAM[detailed]  + !Window.IsVisible(Home)]">
                     <param name="top">10</param>
                     <param name="item_h">$PARAM[item_h]</param>
                     <param name="affix">$PARAM[affix]</param>
