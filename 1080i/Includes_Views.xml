@@ -341,6 +341,37 @@
                 <hitrect x="0" y="0" w="0" h="0" />
                 <onclick>Filter</onclick>
             </include>
+
+            <!-- Update Library -->
+            <include content="DialogInfo_Button">
+                <param name="vertical">false</param>
+                <param name="id">8006</param>
+                <param name="groupid">8106</param>
+                <param name="sliceid">8206</param>
+                <param name="label">$VAR[Label_UpdateLibrary]</param>
+                <param name="icon">special://skin/extras/icons/update.png</param>
+                <param name="itemgap">0</param>
+                <param name="visible">!Container.Content(addons) + String.IsEmpty(Container.PluginName) + [Window.IsVisible(videos) | Window.IsVisible(music)]</param>
+                <param name="include_hintlabel">true</param>
+                <hitrect x="0" y="0" w="0" h="0" />
+                <onclick condition="Window.IsVisible(videos)">UpdateLibrary(video)</onclick>
+                <onclick condition="Window.IsVisible(music)">UpdateLibrary(music)</onclick>
+            </include>
+
+            <!-- Addon Settings -->
+            <include content="DialogInfo_Button">
+                <param name="vertical">false</param>
+                <param name="id">8007</param>
+                <param name="groupid">8107</param>
+                <param name="sliceid">8207</param>
+                <param name="label">$LOCALIZE[5]</param>
+                <param name="icon">special://skin/extras/icons/settings.png</param>
+                <param name="itemgap">0</param>
+                <param name="visible">!String.IsEmpty(Container.PluginName)</param>
+                <param name="include_hintlabel">true</param>
+                <hitrect x="0" y="0" w="0" h="0" />
+                <onclick>Addon.OpenSettings($INFO[Container.PluginName])</onclick>
+            </include>
         </control>
     </include>
 

@@ -313,8 +313,17 @@
             <param name="detailed">true</param>
             <param name="altvisible">!String.IsEqual(Window.Property(CurrentID),Window.Property(BaseID))</param>
             <onfocus>SetProperty(CurrentID,$INFO[Window.Property(BaseID)])</onfocus>
-            <content limit="1">$VAR[Path_FromDirector,plugin://plugin.video.themoviedb.helper/?info=details&amp;type=person]$VAR[Path_Param_Widget]</content>
-            <content>$VAR[Path_FromDirector,plugin://plugin.video.themoviedb.helper/?info=crew_in_both&amp;type=person&amp;filter_key=job&amp;filter_value=Director&amp;sort_key=year]$VAR[Path_Param_Widget]</content>
+            <content>
+                <item>
+                    <label>$VAR[Label_FromDirector]</label>
+                    <label2>$LOCALIZE[20339]</label2>
+                    <icon>$VAR[Image_FromDirector]</icon>
+                    <property name="tmdb_type">person</property>
+                    <property name="tmdb_id">$VAR[Path_FromDirector]</property>
+                    <property name="folderpath">$VAR[Path_FromDirector,plugin://plugin.video.themoviedb.helper/?info=details&amp;tmdb_type=person&amp;tmdb_id=,]</property>
+                </item>
+            </content>
+            <content>$VAR[Path_FromDirector,plugin://plugin.video.themoviedb.helper/?info=crew_in_both&amp;type=person&amp;filter_key=job&amp;filter_value=Director&amp;sort_key=year&amp;tmdb_id=,]$VAR[Path_Param_Widget]</content>
             <include>DialogInfo_Widgets_Action</include>
         </include>
 
@@ -333,8 +342,17 @@
             <param name="detailed">true</param>
             <param name="altvisible">!String.IsEqual(Window.Property(CurrentID),Window.Property(BaseID))</param>
             <onfocus>SetProperty(CurrentID,$INFO[Window.Property(BaseID)])</onfocus>
-            <content limit="1">$VAR[Path_FromWriter,plugin://plugin.video.themoviedb.helper/?info=details&amp;type=person,]$VAR[Path_Param_Widget]</content>
-            <content>$VAR[Path_FromWriter,plugin://plugin.video.themoviedb.helper/?info=crew_in_both&amp;type=person&amp;filter_key=department&amp;filter_value=Writing&amp;sort_key=year]$VAR[Path_Param_Widget]</content>
+            <content>
+                <item>
+                    <label>$VAR[Label_FromWriter]</label>
+                    <label2>$LOCALIZE[20417]</label2>
+                    <icon>$VAR[Image_FromWriter]</icon>
+                    <property name="tmdb_type">person</property>
+                    <property name="tmdb_id">$VAR[Path_FromWriter]</property>
+                    <property name="folderpath">$VAR[Path_FromWriter,plugin://plugin.video.themoviedb.helper/?info=details&amp;tmdb_type=person&amp;tmdb_id=,]</property>
+                </item>
+            </content>
+            <content>$VAR[Path_FromWriter,plugin://plugin.video.themoviedb.helper/?info=crew_in_both&amp;type=person&amp;filter_key=department&amp;filter_value=Writing&amp;sort_key=year&amp;tmdb_id=,]$VAR[Path_Param_Widget]</content>
             <include>DialogInfo_Widgets_Action</include>
         </include>
 
@@ -512,7 +530,8 @@
         <definition>
             <onclick>SetProperty(trailer,$INFO[Container.ListItem.Trailer],1114)</onclick>
 
-            <onclick condition="$PARAM[set_path]">SetProperty(path,$INFO[Container.ListItem.FolderPath],1114)</onclick>
+            <onclick condition="$PARAM[set_path] + !String.IsEmpty(Container.ListItem.FolderPath)">SetProperty(path,$INFO[Container.ListItem.FolderPath],1114)</onclick>
+            <onclick condition="$PARAM[set_path] + String.IsEmpty(Container.ListItem.FolderPath)">SetProperty(path,$INFO[Container.ListItem.Property(folderpath)],1114)</onclick>
             <onclick condition="![$PARAM[set_path]]">ClearProperty(path,1114)</onclick>
 
             <onclick>SetProperty(header,$INFO[Container.ListItem.Label]$INFO[Container.ListItem.Year, (,)],1114)</onclick>
