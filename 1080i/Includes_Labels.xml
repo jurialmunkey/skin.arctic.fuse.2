@@ -1,6 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <includes>
 
+    <variable name="Label_UpdateLibrary">
+        <value condition="library.isscanningmusic | library.isscanningvideo">$LOCALIZE[31485]</value>
+        <value>$LOCALIZE[24138]</value>
+    </variable>
+
     <variable name="Label_Search_NoResults">
         <value condition="!String.IsEmpty(Control.GetLabel(9099).index(1))">$LOCALIZE[31500] "[CAPITALIZE]$INFO[Control.GetLabel(9099).index(1), , ][/CAPITALIZE]".[CR]$LOCALIZE[31501].</value>
         <value condition="Window.IsVisible(1105)">$LOCALIZE[31284] $LOCALIZE[31288]</value>
@@ -96,7 +101,7 @@
         <value condition="System.HasVisibleModalDialog | ControlGroup(30040).HasFocus() | Control.HasFocus(60) | Control.HasFocus(20)">$LOCALIZE[14116]</value>
         <value condition="Window.IsVisible(SettingsCategory.xml) + [ControlGroup(3).HasFocus() | ControlGroup(5).HasFocus()]">$INFO[System.CurrentControl]</value>
         <value condition="Window.IsVisible(addonbrowser) + Control.HasFocus(50)">$INFO[Container(50).ListItem.AddonName]</value>
-        <value condition="[Window.IsVisible(tvguide) | Window.IsVisible(radioguide) | Window.IsVisible(tvchannels) | Window.IsVisible(radiochannels)] + !String.ISEmpty(ListItem.ChannelName)">$INFO[ListItem.ChannelNumberLabel,Ch , - ]$INFO[ListItem.ChannelName]</value>
+        <value condition="[Window.IsVisible(tvguide) | Window.IsVisible(radioguide) | Window.IsVisible(tvchannels) | Window.IsVisible(radiochannels)] + !String.ISEmpty(ListItem.ChannelName)">$INFO[ListItem.ChannelName]$INFO[ListItem.ChannelNumberLabel, • $LOCALIZE[19029] ,]</value>
         <value>$LOCALIZE[14116]</value>
     </variable>
 
@@ -1077,14 +1082,12 @@
 
     <variable name="Label_OSD_Plot_Episode_Number">
         <value condition="String.IsEmpty(VideoPlayer.Season) | String.IsEmpty(VideoPlayer.Episode)" />
-        <value condition="Skin.HasSetting(Info.UseS1E1StyleNumbers)">$INFO[VideoPlayer.Season,S,]$INFO[VideoPlayer.Episode,E,]</value>
         <value condition="!Integer.IsLess(VideoPlayer.Episode,10)">$INFO[VideoPlayer.Season]$INFO[VideoPlayer.Episode,x,]</value>
         <value>$INFO[VideoPlayer.Season]$INFO[VideoPlayer.Episode,x0,]</value>
     </variable>
 
     <variable name="Label_OSD_UpNext_Plot_Episode_Number">
         <value condition="String.IsEmpty(Window.Property(season)) | String.IsEmpty(Window.Property(episode))" />
-        <value condition="Skin.HasSetting(Info.UseS1E1StyleNumbers)">$INFO[Window.Property(season),S,]$INFO[Window.Property(episode),E,]</value>
         <value condition="!Integer.IsLess(Window.Property(episode),10)">$INFO[Window.Property(season)]$INFO[Window.Property(episode),x,]</value>
         <value condition="True">$INFO[Window.Property(season)]$INFO[Window.Property(episode),x0,]</value>
     </variable>
@@ -1674,7 +1677,6 @@
 
     <variable name="Label_Plot_Episode_Number_TMDbHelper">
         <value condition="!String.IsEqual(Window(Home).Property(TMDbHelper.ListItem.DBType),episode) | String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.Season)) | String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.Episode))"/>
-        <value condition="Skin.HasSetting(Info.UseS1E1StyleNumbers)">$INFO[Window(Home).Property(TMDbHelper.ListItem.Season),S,]$INFO[Window(Home).Property(TMDbHelper.ListItem.Episode),E,]</value>
         <value condition="!Integer.IsLess(Window(Home).Property(TMDbHelper.ListItem.Episode),10)">$INFO[Window(Home).Property(TMDbHelper.ListItem.Season)]$INFO[Window(Home).Property(TMDbHelper.ListItem.Episode),x,]</value>
         <value condition="True">$INFO[Window(Home).Property(TMDbHelper.ListItem.Season)]$INFO[Window(Home).Property(TMDbHelper.ListItem.Episode),x0,]</value>
     </variable>
