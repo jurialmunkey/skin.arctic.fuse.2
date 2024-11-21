@@ -169,22 +169,6 @@
         </definition>
     </include>
 
-    <include name="Hub_Menu_Dialog_Slide">
-        <param name="condition">Window.IsActive(1163)</param>
-        <param name="size">view_menu_main</param>
-        <definition>
-
-            <!-- Full Panels -->
-            <!-- In/Out Animation -->
-            <animation effect="slide" tween="cubic" easing="out" time="400" start="0" end="$PARAM[size]" reversible="false" condition="[$PARAM[condition]]">Conditional</animation>
-            <animation effect="slide" tween="cubic" easing="out" time="400" start="$PARAM[size]" end="0" reversible="false" condition="![$PARAM[condition]]">Conditional</animation>
-
-            <animation effect="fade" time="400" start="100" end="100" reversible="false" condition="Window.IsVisible(1163)">WindowClose</animation>
-
-
-        </definition>
-    </include>
-
     <include name="Hub_Menu_Fade">
         <param name="condition">$EXP[Exp_HomeMenu_HasFocus]</param>
         <definition>
@@ -303,7 +287,6 @@
 
             <control type="group">
                 <include condition="$PARAM[is_homemenu]">Hub_Menu_Slide</include>
-                <include condition="!String.IsEmpty(Skin.String(Home.MenuStyle))">Hub_Menu_Dialog_Slide</include>
                 <include content="Hub_Left_Bezier" condition="!Skin.String(Home.MenuStyle,Ribbon)">
                     <param name="is_homemenu">$PARAM[is_homemenu]</param>
                 </include>
@@ -656,7 +639,7 @@
                 <height>100</height>
 
                 <control type="group">
-                    <width>75</width>
+                    <width>80</width>
                     <visible>!Skin.HasSetting(SideMenu.DisableSearchAndOptions) + [Skin.HasSetting(HubsMenu.EnableSearchAndOptions) | [Window.IsVisible(Home) + Integer.IsEqual(Skin.String(Hub.Home.ReplaceWindow),$PARAM[window_id])]]</visible>
                 </control>
 

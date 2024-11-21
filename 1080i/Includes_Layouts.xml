@@ -91,13 +91,16 @@
     <include name="Layout_MenuList">
         <param name="selected">false</param>
         <param name="detailed">false</param>
+        <param name="variation">false</param>
         <param name="textcolor">dialog_fg</param>
         <definition>
+
+            <include content="Object_Control" condition="$PARAM[selected]">
+                <param name="control">image</param>
+                <include>Texture_Menu_Highlight_H</include>
+            </include>
+
             <control type="group">
-                <include content="Object_Control" condition="$PARAM[selected]">
-                    <param name="control">image</param>
-                    <include>Texture_Menu_Highlight_H</include>
-                </include>
                 <control type="label">
                     <include condition="$PARAM[selected]">Color_SelectedText</include>
                     <textoffsetx>40</textoffsetx>
@@ -124,18 +127,26 @@
                     <selectedcolor>$PARAM[textcolor]_70</selectedcolor>
                     <label>$INFO[ListItem.Label]</label>
                     <visible>!$PARAM[detailed]</visible>
-                    <right>60</right>
+                    <include content="Object_Left" condition="$PARAM[variation]">
+                        <param name="left">50</param>
+                    </include>
+                    <include content="Object_Right" condition="![$PARAM[variation]]">
+                        <param name="right">60</param>
+                    </include>
                 </control>
             </control>
 
             <control type="group">
-                <centerright>60</centerright>
+                <include content="Object_CenterLeft" condition="$PARAM[variation]">
+                    <param name="centerleft">50</param>
+                </include>
+                <include content="Object_CenterRight" condition="![$PARAM[variation]]">
+                    <param name="centerright">60</param>
+                </include>
                 <centertop>50%</centertop>
                 <width>40</width>
                 <height>40</height>
-                <visible>!$PARAM[detailed]</visible>
-
-
+                <visible>![$PARAM[detailed]]</visible>
                 <control type="image">
                     <bordersize>icon_home_bordersize</bordersize>
                     <aspectratio scalediffuse="false">scale</aspectratio>

@@ -89,8 +89,8 @@
                 </include>
                 <include content="Dialog_Foreground_Side">
                     <param name="dialog_size">$PARAM[dialog_size]</param>
-                    <param name="topline">false</param>
-                    <param name="subline">false</param>
+                    <param name="topline">![$PARAM[include_artwork] | $PARAM[include_plotbox]]</param>
+                    <param name="subline">![$PARAM[include_artwork] | $PARAM[include_plotbox]]</param>
                 </include>
 
                 <!-- Header -->
@@ -113,64 +113,66 @@
                         <include condition="$PARAM[include_artwork] + $PARAM[include_plotbox]">DialogCustom1162_Plotbox</include>
                         <control type="group">
 
+                            <include content="Object_Left" condition="$PARAM[include_artwork] + $PARAM[include_plotbox]">
+                                <param name="left">780</param>
+                            </include>
+                            <include content="Object_Left" condition="![$PARAM[include_artwork]] + ![$PARAM[include_plotbox]]">
+                                <param name="left">0</param>
+                            </include>
+                            <left>420</left>
+                            <top>-20</top>
+                            <bottom>-20</bottom>
+                            <right>20</right>
 
-                            <include content="Dialog_Outline_InnerBox">
-                                <include content="Object_Left" condition="$PARAM[include_artwork] + $PARAM[include_plotbox]">
-                                    <param name="left">780</param>
-                                </include>
-                                <left>420</left>
-                                <top>-20</top>
-                                <bottom>-20</bottom>
-                                <right>20</right>
+                            <include condition="$PARAM[include_artwork] | $PARAM[include_plotbox]">Dialog_Outline_InnerBox</include>
 
-                                <include content="List_DialogSelect" condition="![$PARAM[include_artwork]]">
-                                    <param name="id">450</param>
-                                    <param name="textcolor">dialog_fg</param>
-                                    <param name="itemlayout_include">Layout_MenuList</param>
-                                    <pagecontrol>61</pagecontrol>
+                            <include content="List_DialogSelect" condition="![$PARAM[include_artwork]]">
+                                <param name="id">450</param>
+                                <param name="textcolor">dialog_fg</param>
+                                <param name="itemlayout_include">Layout_MenuList</param>
+                                <pagecontrol>61</pagecontrol>
 
-                                    <onright>61</onright>
-                                    <onleft>Close</onleft>
-                                    <onclick>Close</onclick>
+                                <onright>61</onright>
+                                <onleft>Close</onleft>
+                                <onclick>Close</onclick>
 
-                                    <right>-10</right>
-                                    <left>10</left>
-                                    <include content="Dimension_Padding">
-                                        <param name="pad">20</param>
-                                    </include>
-
-                                    <onclick>$VAR[DialogCustom1162_OnClick]</onclick>
-
-
-                                    <content>$INFO[Window.Property(Path)]</content>
-
+                                <right>-10</right>
+                                <left>10</left>
+                                <include content="Dimension_Padding">
+                                    <param name="pad">20</param>
                                 </include>
 
-                                <include content="List_DialogSelect" condition="$PARAM[include_artwork]">
-                                    <param name="id">450</param>
-                                    <param name="detailed">True</param>
-                                    <param name="item_height">100</param>
-                                    <param name="textcolor">dialog_fg</param>
-                                    <param name="itemlayout_include">Layout_MediaList</param>
-                                    <param name="misc">10</param>
+                                <onclick>$VAR[DialogCustom1162_OnClick]</onclick>
 
-                                    <right>-10</right>
-                                    <left>10</left>
-                                    <include content="Dimension_Padding">
-                                        <param name="pad">20</param>
-                                    </include>
 
-                                    <pagecontrol>61</pagecontrol>
+                                <content>$INFO[Window.Property(Path)]</content>
 
-                                    <onright>61</onright>
-                                    <onleft>Close</onleft>
-                                    <onclick>Close</onclick>
+                            </include>
 
-                                    <onclick>$VAR[DialogCustom1162_OnClick]</onclick>
+                            <include content="List_DialogSelect" condition="$PARAM[include_artwork]">
+                                <param name="id">450</param>
+                                <param name="detailed">True</param>
+                                <param name="item_height">100</param>
+                                <param name="textcolor">dialog_fg</param>
+                                <param name="itemlayout_include">Layout_MediaList</param>
+                                <param name="misc">10</param>
 
-                                    <content>$INFO[Window.Property(Path)]</content>
-
+                                <right>-10</right>
+                                <left>10</left>
+                                <include content="Dimension_Padding">
+                                    <param name="pad">20</param>
                                 </include>
+
+                                <pagecontrol>61</pagecontrol>
+
+                                <onright>61</onright>
+                                <onleft>Close</onleft>
+                                <onclick>Close</onclick>
+
+                                <onclick>$VAR[DialogCustom1162_OnClick]</onclick>
+
+                                <content>$INFO[Window.Property(Path)]</content>
+
                             </include>
 
 

@@ -4,123 +4,230 @@
     <onunload>ClearProperty(Path,1163)</onunload>
     <onunload>ClearProperty(Target,1163)</onunload>
     <onunload>ClearProperty(Header,1163)</onunload>
+    <onunload>ClearProperty(Icon,1163)</onunload>
+    <onunload>ClearProperty(Indicator,1163)</onunload>
+    <onunload>ClearProperty(Position,1163)</onunload>
+    <onunload>ClearProperty(Offset,1163)</onunload>
     <onload>SetProperty(TMDbHelper.ContextMenu,True)</onload>
     <controls>
 
         <include>Dialog_Dim_Overlay</include>
 
-        <control type="group">
+        <control type="grouplist">
+
+            <animation effect="fade" start="100" end="0" time="0">WindowClose</animation>
+
+            <orientation>horizontal</orientation>
+            <itemgap>20</itemgap>
+
             <control type="group">
-                <left>view_menu_main</left>
-                <control type="group">
-                    <include content="Object_Left" condition="Skin.String(Home.MenuStyle,Ribbon)">
-                        <param name="left">-40</param>
-                    </include>
-                    <include condition="String.IsEmpty(Skin.String(Home.MenuStyle))">Hub_Left_Bezier_Object</include>
-                </control>
+                <width>80</width>
+                <visible>!Skin.HasSetting(SideMenu.DisableSearchAndOptions) + [Skin.HasSetting(HubsMenu.EnableSearchAndOptions) | Window.IsVisible(Home)]</visible>
+                <visible>![Window.IsVisible(Home) + String.IsEmpty(Skin.String(Hub.Home.ReplaceWindow)) + Skin.HasSetting(Hub.Home.DisableSubmenu)]</visible>
             </control>
-            <include content="Animation_Slide_In">
-                <param name="type">WindowOpen</param>
-                <param name="posx">-view_menu_main</param>
-            </include>
-            <include content="Animation_Slide_Out">
-                <param name="type">WindowClose</param>
-                <param name="posx">-view_menu_main</param>
-            </include>
+
             <control type="group">
-                <left>view_menu_main_pad_x</left>
-                <control type="group">
-                    <left>view_menu_main_offset_x</left>
+                <width>280</width>
+                <visible>$EXP[Exp_HomeMenu_IsExpanded]</visible>
+                <visible>[Window.IsVisible(Home) + String.IsEmpty(Skin.String(Hub.Home.ReplaceWindow)) + Skin.HasSetting(Hub.Home.DisableSubmenu)]</visible>
+            </control>
 
-                    <include content="Home_Menu_Vert_Background">
-                        <param name="left">0</param>
-                        <param name="width">view_menu_main</param>
-                        <param name="include_mask">String.IsEmpty(Skin.String(Home.MenuStyle))</param>
-                        <param name="include_ribbon">Skin.String(Home.MenuStyle,Ribbon)</param>
-                        <param name="include_dialog">!Skin.String(Home.MenuStyle,Ribbon)</param>
+            <include condition="Skin.HasSetting(Hubs.DisableTextCategories) + ![Window.IsVisible(Home) + String.IsEmpty(Skin.String(Hub.Home.ReplaceWindow)) + Skin.HasSetting(Hub.Home.DisableSubmenu)]">DialogCustom1163_Padding_Icons</include>
+            <include condition="!Skin.HasSetting(Hubs.DisableTextCategories) + ![Window.IsVisible(Home) + String.IsEmpty(Skin.String(Hub.Home.ReplaceWindow)) + Skin.HasSetting(Hub.Home.DisableSubmenu)]">DialogCustom1163_Padding_Labels</include>
+
+            <control type="group">
+                <control type="group">
+
+                    <top>-20</top>
+
+                    <include content="Animation_SlideIn_Dialog" condition="![Window.IsVisible(Home) + String.IsEmpty(Skin.String(Hub.Home.ReplaceWindow)) + Skin.HasSetting(Hub.Home.DisableSubmenu)]">
+                        <param name="visible_delay">150</param>
+                        <param name="windowopen_delay">150</param>
                     </include>
+                    <include content="Animation_SlideIn_Dialog_Left" condition="[Window.IsVisible(Home) + String.IsEmpty(Skin.String(Hub.Home.ReplaceWindow)) + Skin.HasSetting(Hub.Home.DisableSubmenu)]">
+                        <param name="visible_delay">150</param>
+                        <param name="windowopen_delay">150</param>
+                    </include>
+                    <control type="group">
+                        <width>520</width>
+                        <height>880</height>
+
+                        <include content="Object_Left" condition="[Window.IsVisible(Home) + String.IsEmpty(Skin.String(Hub.Home.ReplaceWindow)) + Skin.HasSetting(Hub.Home.DisableSubmenu)]">
+                            <param name="left">120</param>
+                        </include>
+
+                        <include content="Object_Top" condition="![Window.IsVisible(Home) + String.IsEmpty(Skin.String(Hub.Home.ReplaceWindow)) + Skin.HasSetting(Hub.Home.DisableSubmenu)]">
+                            <param name="top">140</param>
+                        </include>
+
+                        <include content="Dialog_Background_Resizer">
+                            <param name="diffuse">diffuse/dialog_w440_h820.png</param>
+                            <param name="visible">Integer.IsGreater(Container(450).NumItems,7)</param>
+                            <param name="bottom">0</param>
+                        </include>
+                        <include content="Dialog_Background_Resizer">
+                            <param name="diffuse">diffuse/dialog_w440_h740.png</param>
+                            <param name="visible">Integer.IsEqual(Container(450).NumItems,7)</param>
+                            <param name="bottom">80</param>
+                        </include>
+                        <include content="Dialog_Background_Resizer">
+                            <param name="diffuse">diffuse/dialog_w440_h660.png</param>
+                            <param name="visible">Integer.IsEqual(Container(450).NumItems,6)</param>
+                            <param name="bottom">160</param>
+                        </include>
+                        <include content="Dialog_Background_Resizer">
+                            <param name="diffuse">diffuse/dialog_w440_h580.png</param>
+                            <param name="visible">Integer.IsEqual(Container(450).NumItems,5)</param>
+                            <param name="bottom">240</param>
+                        </include>
+                        <include content="Dialog_Background_Resizer">
+                            <param name="diffuse">diffuse/dialog_w440_h500.png</param>
+                            <param name="visible">Integer.IsEqual(Container(450).NumItems,4)</param>
+                            <param name="bottom">320</param>
+                        </include>
+                        <include content="Dialog_Background_Resizer">
+                            <param name="diffuse">diffuse/dialog_w440_h420.png</param>
+                            <param name="visible">Integer.IsEqual(Container(450).NumItems,3)</param>
+                            <param name="bottom">400</param>
+                        </include>
+                        <include content="Dialog_Background_Resizer">
+                            <param name="diffuse">diffuse/dialog_w440_h340.png</param>
+                            <param name="visible">Integer.IsEqual(Container(450).NumItems,2)</param>
+                            <param name="bottom">480</param>
+                        </include>
+                        <include content="Dialog_Background_Resizer">
+                            <param name="diffuse">diffuse/dialog_w440_h260.png</param>
+                            <param name="visible">Integer.IsEqual(Container(450).NumItems,1)</param>
+                            <param name="bottom">560</param>
+                        </include>
+                        <include content="Dialog_Background_Resizer">
+                            <param name="diffuse">diffuse/dialog_w440_h180.png</param>
+                            <param name="visible">Integer.IsEqual(Container(450).NumItems,0)</param>
+                            <param name="bottom">640</param>
+                        </include>
+
+                        <control type="group">
+                            <include>Dimension_Dialog_Body_Group</include>
+                            <control type="group">
+                                <include content="Dimension_Padding">
+                                    <param name="pad">20</param>
+                                </include>
+                                <include content="Object_MenuHeader">
+                                    <param name="height">100</param>
+                                    <param name="label">$INFO[Window.Property(Header)]</param>
+                                    <param name="font">font_main_black</param>
+                                    <param name="icon">$INFO[Window.Property(icon)]</param>
+                                </include>
+                            </control>
+                            <control type="group">
+                                <top>100</top>
+                                <bottom>20</bottom>
+                                <include content="Animation_ConditionalFade">
+                                    <param name="condition">[Container(450).IsUpdating | Integer.IsEqual(Container(450).NumItems,0)]</param>
+                                </include>
+                                <include content="List_DialogSelect">
+                                    <param name="id">450</param>
+                                    <param name="textcolor">dialog_fg</param>
+                                    <param name="itemlayout_include">Layout_MenuList</param>
+                                    <param name="orientation">vertical</param>
+                                    <param name="variation">true</param>
+                                    <onleft>Close</onleft>
+                                    <onright>Close</onright>
+                                    <onclick>Close</onclick>
+                                    <include content="Dimension_Padding">
+                                        <param name="pad">40</param>
+                                    </include>
+                                    <onclick>$VAR[DialogCustom1162_OnClick]</onclick>
+
+                                    <content>
+                                        <item>
+                                            <label>$LOCALIZE[31166]</label>
+                                            <icon>special://skin/extras/icons/arrow-right.png</icon>
+                                            <visible>Integer.IsEqual(Container(450).NumItems,0) | [Integer.IsEqual(Container(450).NumItems,1) + String.IsEqual(Container(450).ListItemAbsolute(0).Label,$LOCALIZE[31166])]</visible>
+                                        </item>
+                                    </content>
+
+                                    <content>$INFO[Window.Property(Path)]</content>
+
+                                </include>
+                            </control>
+                        </control>
+                    </control>
+
+                    <include condition="Integer.IsEqual(Window(1163).Property(Offset),10)">DialogCustom1163_Offset_Dialog_07</include>
+                    <include condition="Integer.IsEqual(Window(1163).Property(Offset),11)">DialogCustom1163_Offset_Dialog_06</include>
+                    <include condition="Integer.IsEqual(Window(1163).Property(Offset),12)">DialogCustom1163_Offset_Dialog_06</include>
+                    <include condition="Integer.IsEqual(Window(1163).Property(Offset),13)">DialogCustom1163_Offset_Dialog_05</include>
+                    <include condition="Integer.IsEqual(Window(1163).Property(Offset),14)">DialogCustom1163_Offset_Dialog_05</include>
+                    <include condition="Integer.IsEqual(Window(1163).Property(Offset),15)">DialogCustom1163_Offset_Dialog_04</include>
+                    <include condition="Integer.IsEqual(Window(1163).Property(Offset),16)">DialogCustom1163_Offset_Dialog_04</include>
+                    <include condition="Integer.IsEqual(Window(1163).Property(Offset),17)">DialogCustom1163_Offset_Dialog_03</include>
+                    <include condition="Integer.IsEqual(Window(1163).Property(Offset),18)">DialogCustom1163_Offset_Dialog_03</include>
+                    <include condition="Integer.IsEqual(Window(1163).Property(Offset),19)">DialogCustom1163_Offset_Dialog_02</include>
+                    <include condition="Integer.IsEqual(Window(1163).Property(Offset),20)">DialogCustom1163_Offset_Dialog_02</include>
+                    <include condition="Integer.IsEqual(Window(1163).Property(Offset),21)">DialogCustom1163_Offset_Dialog_01</include>
+                    <include condition="Integer.IsEqual(Window(1163).Property(Offset),22)">DialogCustom1163_Offset_Dialog_01</include>
+
+                    <animation effect="slide" start="0" end="0,40" condition="Integer.IsEqual(Window(1163).Property(Offset),3)">Conditional</animation>
+                    <animation effect="slide" start="0" end="0,80" condition="Integer.IsEqual(Window(1163).Property(Offset),4)">Conditional</animation>
+                    <animation effect="slide" start="0" end="0,120" condition="Integer.IsEqual(Window(1163).Property(Offset),5)">Conditional</animation>
+                    <animation effect="slide" start="0" end="0,160" condition="Integer.IsEqual(Window(1163).Property(Offset),6)">Conditional</animation>
+                    <animation effect="slide" start="0" end="0,200" condition="Integer.IsEqual(Window(1163).Property(Offset),7)">Conditional</animation>
+                    <animation effect="slide" start="0" end="0,240" condition="Integer.IsEqual(Window(1163).Property(Offset),8)">Conditional</animation>
+                    <animation effect="slide" start="0" end="0,280" condition="Integer.IsEqual(Window(1163).Property(Offset),9)">Conditional</animation>
+                    <animation effect="slide" start="0" end="0,320" condition="Integer.IsEqual(Window(1163).Property(Offset),10)">Conditional</animation>
+                    <animation effect="slide" start="0" end="0,360" condition="Integer.IsEqual(Window(1163).Property(Offset),11)">Conditional</animation>
+                    <animation effect="slide" start="0" end="0,400" condition="Integer.IsEqual(Window(1163).Property(Offset),12)">Conditional</animation>
+                    <animation effect="slide" start="0" end="0,440" condition="Integer.IsEqual(Window(1163).Property(Offset),13)">Conditional</animation>
+                    <animation effect="slide" start="0" end="0,480" condition="Integer.IsEqual(Window(1163).Property(Offset),14)">Conditional</animation>
+                    <animation effect="slide" start="0" end="0,520" condition="Integer.IsEqual(Window(1163).Property(Offset),15)">Conditional</animation>
+                    <animation effect="slide" start="0" end="0,560" condition="Integer.IsEqual(Window(1163).Property(Offset),16)">Conditional</animation>
+                    <animation effect="slide" start="0" end="0,600" condition="Integer.IsEqual(Window(1163).Property(Offset),17)">Conditional</animation>
+                    <animation effect="slide" start="0" end="0,640" condition="Integer.IsEqual(Window(1163).Property(Offset),18)">Conditional</animation>
+                    <animation effect="slide" start="0" end="0,680" condition="Integer.IsEqual(Window(1163).Property(Offset),19)">Conditional</animation>
+                    <animation effect="slide" start="0" end="0,720" condition="Integer.IsEqual(Window(1163).Property(Offset),20)">Conditional</animation>
+                    <animation effect="slide" start="0" end="0,760" condition="Integer.IsEqual(Window(1163).Property(Offset),21)">Conditional</animation>
+                    <animation effect="slide" start="0" end="0,800" condition="Integer.IsEqual(Window(1163).Property(Offset),22)">Conditional</animation>
+
                 </control>
 
                 <control type="group">
-                    <width>view_menu_main</width>
+                    <centerleft>100</centerleft>
+                    <centertop>100</centertop>
+                    <width>40</width>
+                    <height>40</height>
 
-                    <control type="group">
-                        <left>view_menu_main_head_x</left>
-                        <control type="group">
-                            <include>Dimension_Topbar</include>
-                            <control type="group">
-                                <include>Dimension_Furniture_Gutters</include>
-                                <include content="Furniture_MainLabel">
-                                    <param name="label">$INFO[Window.Property(Header)]</param>
-                                    <param name="textcolor">dialog_fg_100</param>
-                                </include>
-                            </control>
-                        </control>
+                    <animation effect="slide" start="0" end="0,40" condition="Integer.IsEqual(Window(1163).Property(Offset),1)">Conditional</animation>
+                    <animation effect="slide" start="0" end="0,80" condition="Integer.IsEqual(Window(1163).Property(Offset),2)">Conditional</animation>
+                    <animation effect="slide" start="0" end="0,120" condition="Integer.IsEqual(Window(1163).Property(Offset),3)">Conditional</animation>
+                    <animation effect="slide" start="0" end="0,160" condition="Integer.IsEqual(Window(1163).Property(Offset),4)">Conditional</animation>
+                    <animation effect="slide" start="0" end="0,200" condition="Integer.IsEqual(Window(1163).Property(Offset),5)">Conditional</animation>
+                    <animation effect="slide" start="0" end="0,240" condition="Integer.IsEqual(Window(1163).Property(Offset),6)">Conditional</animation>
+                    <animation effect="slide" start="0" end="0,280" condition="Integer.IsEqual(Window(1163).Property(Offset),7)">Conditional</animation>
+                    <animation effect="slide" start="0" end="0,320" condition="Integer.IsEqual(Window(1163).Property(Offset),8)">Conditional</animation>
+                    <animation effect="slide" start="0" end="0,360" condition="Integer.IsEqual(Window(1163).Property(Offset),9)">Conditional</animation>
+                    <animation effect="slide" start="0" end="0,400" condition="Integer.IsEqual(Window(1163).Property(Offset),10)">Conditional</animation>
+                    <animation effect="slide" start="0" end="0,440" condition="Integer.IsEqual(Window(1163).Property(Offset),11)">Conditional</animation>
+                    <animation effect="slide" start="0" end="0,480" condition="Integer.IsEqual(Window(1163).Property(Offset),12)">Conditional</animation>
+                    <animation effect="slide" start="0" end="0,520" condition="Integer.IsEqual(Window(1163).Property(Offset),13)">Conditional</animation>
+                    <animation effect="slide" start="0" end="0,560" condition="Integer.IsEqual(Window(1163).Property(Offset),14)">Conditional</animation>
+                    <animation effect="slide" start="0" end="0,600" condition="Integer.IsEqual(Window(1163).Property(Offset),15)">Conditional</animation>
+                    <animation effect="slide" start="0" end="0,640" condition="Integer.IsEqual(Window(1163).Property(Offset),16)">Conditional</animation>
+                    <animation effect="slide" start="0" end="0,680" condition="Integer.IsEqual(Window(1163).Property(Offset),17)">Conditional</animation>
+                    <animation effect="slide" start="0" end="0,720" condition="Integer.IsEqual(Window(1163).Property(Offset),18)">Conditional</animation>
+                    <animation effect="slide" start="0" end="0,760" condition="Integer.IsEqual(Window(1163).Property(Offset),19)">Conditional</animation>
+                    <animation effect="slide" start="0" end="0,800" condition="Integer.IsEqual(Window(1163).Property(Offset),20)">Conditional</animation>
+                    <animation effect="slide" start="0" end="0,840" condition="Integer.IsEqual(Window(1163).Property(Offset),21)">Conditional</animation>
+                    <animation effect="slide" start="0" end="0,880" condition="Integer.IsEqual(Window(1163).Property(Offset),22)">Conditional</animation>
 
-                        <control type="group">
-                            <right>-30</right>
-                            <include content="Furniture_Busy">
-                                <param name="hasspinner">true</param>
-                                <param name="spinspinner">true</param>
-                                <param name="icon">special://skin/extras/icons/kodi.png</param>
-                                <param name="haslabel">false</param>
-                                <param name="spinnervisible">[!Window.IsActive(DialogVolumeBar.xml) | Player.Muted]</param>
-                                <param name="visible_delay">400</param>
-                                <param name="windowopen_condition">True</param>
-                                <param name="windowopen_delay">800</param>
-                                <param name="visible">[Container(450).IsUpdating]</param>
-                            </include>
-                        </control>
+                    <!-- <visible>![Window.IsVisible(Home) + String.IsEmpty(Skin.String(Hub.Home.ReplaceWindow)) + Skin.HasSetting(Hub.Home.DisableSubmenu)]</visible> -->
 
-                        <control type="group">
-                            <include>Dimension_Bottombar</include>
-                            <control type="group">
-                                <animation effect="fade" start="100" end="70" condition="true">Conditional</animation>
-                                <include>Dimension_Furniture_Gutters</include>
-                                <include content="View_Furniture_Bottom_ViewLine">
-                                    <param name="label">$INFO[Container(450).NumItems,, items]</param>
-                                    <param name="fade_condition">false</param>
-                                    <param name="textcolor">dialog_fg_90</param>
-                                </include>
-                            </control>
-                        </control>
-                    </control>
+                    <include condition="!Skin.HasSetting(Hubs.DisableTextCategories) + ![Window.IsVisible(Home) + String.IsEmpty(Skin.String(Hub.Home.ReplaceWindow)) + Skin.HasSetting(Hub.Home.DisableSubmenu)]">DialogCustom1163_FakeLabel_FO</include>
+                    <include condition="Skin.HasSetting(Hubs.DisableTextCategories) | [Window.IsVisible(Home) + String.IsEmpty(Skin.String(Hub.Home.ReplaceWindow)) + Skin.HasSetting(Hub.Home.DisableSubmenu)]">DialogCustom1163_FakeButton_FO</include>
 
-
-                    <control type="group">
-                        <include>Dimension_Dialog_Body_Group</include>
-                        <control type="group">
-                            <include content="Animation_ConditionalFade">
-                                <param name="condition">[Container(450).IsUpdating | Integer.IsEqual(Container(450).NumItems,0)]</param>
-                            </include>
-                            <include content="List_DialogSelect">
-                                <param name="id">450</param>
-                                <param name="textcolor">dialog_fg</param>
-                                <param name="itemlayout_include">Layout_MenuList</param>
-                                <param name="orientation">vertical</param>
-                                <onright>Close</onright>
-                                <onclick>Close</onclick>
-                                <top>160</top>
-                                <bottom>160</bottom>
-                                <left>20</left>
-                                <right>20</right>
-                                <onclick>$VAR[DialogCustom1162_OnClick]</onclick>
-
-                                <content>
-                                    <item>
-                                        <label>$LOCALIZE[31166]</label>
-                                        <icon>special://skin/extras/icons/arrow-right.png</icon>
-                                        <visible>Integer.IsEqual(Container(450).NumItems,0) | [Integer.IsEqual(Container(450).NumItems,1) + String.IsEqual(Container(450).ListItemAbsolute(0).Label,$LOCALIZE[31166])]</visible>
-                                    </item>
-                                </content>
-
-                                <content>$INFO[Window.Property(Path)]</content>
-
-
-                            </include>
-                        </control>
-                    </control>
                 </control>
+
+
             </control>
         </control>
 

@@ -261,12 +261,12 @@
             <control type="image">
                 <texture colordiffuse="$VAR[Layout_Home_Menu_Color_NF]">$VAR[Image_SearchDiscover]</texture>
                 <bordersize>icon_home_bordersize</bordersize>
-                <visible>!Control.HasFocus($PARAM[id])</visible>
+                <visible>![Control.HasFocus($PARAM[id]) + !Window.IsVisible(1163)]</visible>
             </control>
             <control type="image">
                 <texture colordiffuse="$VAR[ColorSelected]">$VAR[Image_SearchDiscover]</texture>
                 <bordersize>icon_home_bordersize</bordersize>
-                <visible>Control.HasFocus($PARAM[id])</visible>
+                <visible>Control.HasFocus($PARAM[id]) + !Window.IsVisible(1163)</visible>
             </control>
         </definition>
     </include>
@@ -299,16 +299,17 @@
 
                 <ondown>309</ondown>
                 <onup>SetFocus(300,9999,absolute)</onup>
+
             </control>
             <control type="image">
                 <texture colordiffuse="$VAR[Layout_Home_Menu_Color_NF]">special://skin/extras/icons/bars.png</texture>
                 <bordersize>icon_home_bordersize</bordersize>
-                <visible>!Control.HasFocus($PARAM[id])</visible>
+                <visible>![Control.HasFocus($PARAM[id]) + !Window.IsVisible(1163)]</visible>
             </control>
             <control type="image">
                 <texture colordiffuse="$VAR[ColorSelected]">special://skin/extras/icons/bars.png</texture>
                 <bordersize>icon_home_bordersize</bordersize>
-                <visible>Control.HasFocus($PARAM[id])</visible>
+                <visible>Control.HasFocus($PARAM[id]) + !Window.IsVisible(1163)</visible>
             </control>
         </definition>
     </include>
@@ -322,9 +323,8 @@
             <height>40</height>
             <control type="group">
                 <visible>Control.HasFocus(309)</visible>
+                <visible>!Window.IsVisible(1163)</visible>
                 <control type="image">
-                    <!-- <include>Texture_MainMenu_Highlight_V</include>
-                    <height>256</height> -->
                     <include>Texture_Menu_Highlight_H</include>
                     <height>80</height>
                     <left>40</left>
@@ -350,7 +350,7 @@
             <control type="group">
                 <include content="Layout_Home_Menu_Label" condition="$EXP[Exp_HomeMenu_IsExpanded]">
                     <param name="detailed">true</param>
-                    <param name="selected">[Control.HasFocus(309)]</param>
+                    <param name="selected">[Control.HasFocus(309) + !Window.IsVisible(1163)]</param>
                     <param name="label">$LOCALIZE[137]</param>
                 </include>
             </control>
@@ -366,6 +366,7 @@
             <height>40</height>
             <control type="group">
                 <visible>Control.HasFocus(308)</visible>
+                <visible>!Window.IsVisible(1163)</visible>
                 <control type="image">
                     <include>Texture_Menu_Highlight_H</include>
                     <height>80</height>
@@ -392,7 +393,7 @@
             <control type="group">
                 <include content="Layout_Home_Menu_Label" condition="$EXP[Exp_HomeMenu_IsExpanded]">
                     <param name="detailed">true</param>
-                    <param name="selected">[Control.HasFocus(308)]</param>
+                    <param name="selected">[Control.HasFocus(308) + !Window.IsVisible(1163)]</param>
                     <param name="label">$LOCALIZE[33063]</param>
                 </include>
             </control>

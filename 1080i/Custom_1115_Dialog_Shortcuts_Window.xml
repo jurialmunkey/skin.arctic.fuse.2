@@ -36,8 +36,8 @@
                             <onright>340</onright>
 
                             <onclick>ClearProperty(Shortcuts.Position,Home)</onclick>
-                            <onclick condition="!$EXP[Shortcuts_Window_Exp_WidgetsOnly]">SetProperty(Shortcuts.EditMenu,$INFO[Container(30000).ListItem.Property(categories_menu)],Home)</onclick>
-                            <onclick condition="$EXP[Shortcuts_Window_Exp_WidgetsOnly]">SetProperty(Shortcuts.EditMenu,$INFO[Container(30000).ListItem.Property(categories_menu),,-widgetsonly],Home)</onclick>
+                            <onclick condition="![$EXP[Shortcuts_Window_Exp_WidgetsOnly] + !String.IsEqual(Container(30000).ListItem.Property(categories_menu),menu=sidemenu)]">SetProperty(Shortcuts.EditMenu,$INFO[Container(30000).ListItem.Property(categories_menu)],Home)</onclick>
+                            <onclick condition="$EXP[Shortcuts_Window_Exp_WidgetsOnly] + !String.IsEqual(Container(30000).ListItem.Property(categories_menu),menu=sidemenu)">SetProperty(Shortcuts.EditMenu,$INFO[Container(30000).ListItem.Property(categories_menu),,-widgetsonly],Home)</onclick>
                             <onclick>ClearProperty(Shortcuts.EditMode,Home)</onclick>
                             <onclick>ClearProperty(Shortcuts.EditGUID,Home)</onclick>
                             <onclick>AlarmClock(openwindow,ActivateWindow(1116),00:00,silent)</onclick>
