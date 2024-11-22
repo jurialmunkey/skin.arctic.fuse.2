@@ -348,21 +348,27 @@
         <value>5000</value>
     </variable>
 
+    <variable name="Action_HomeMenu_OnLeft_GUID">
+        <value condition="Control.HasFocus(308)" />
+        <value condition="Control.HasFocus(309)" />
+        <value>$INFO[Container(300).ListItem.Property(guid)]</value>
+    </variable>
+
     <variable name="Action_HomeMenu_OnLeft_Path">
-        <value condition="[Control.HasFocus(308) + String.IsEmpty(Skin.String(Home.LeftMenu.Action))] | Skin.String(Home.LeftMenu.Action,Options)">plugin://script.skinvariables/?info=get_shortcuts_node&amp;menu=powermainmenu$VAR[Path_SkinVariables_SkinFolder,&amp;skin=,]</value>
-        <value condition="[Control.HasFocus(309) + String.IsEmpty(Skin.String(Home.LeftMenu.Action))] | Skin.String(Home.LeftMenu.Action,Favourites)">favourites://</value>
-        <value>$INFO[Container(300).ListItem.Property(sidemenu_path)]</value>
+        <value condition="Control.HasFocus(308)">plugin://script.skinvariables/?info=get_shortcuts_node&amp;menu=powermainmenu$VAR[Path_SkinVariables_SkinFolder,&amp;skin=,]</value>
+        <value condition="Control.HasFocus(309)">favourites://</value>
+        <!-- <value>$INFO[Container(300).ListItem.Property(sidemenu_path)]</value> -->
     </variable>
 
     <variable name="Action_HomeMenu_OnLeft_Target">
-        <value condition="[Control.HasFocus(308) + String.IsEmpty(Skin.String(Home.LeftMenu.Action))] | Skin.String(Home.LeftMenu.Action,Options)" />
-        <value condition="[Control.HasFocus(309) + String.IsEmpty(Skin.String(Home.LeftMenu.Action))] | Skin.String(Home.LeftMenu.Action,Favourites)" />
-        <value>$INFO[Container(300).ListItem.Property(sidemenu_target)]</value>
+        <value condition="Control.HasFocus(308)" />
+        <value condition="Control.HasFocus(309)" />
+        <!-- <value>$INFO[Container(300).ListItem.Property(sidemenu_target)]</value> -->
     </variable>
 
     <variable name="Action_HomeMenu_OnLeft_Header">
-        <value condition="[Control.HasFocus(308) + String.IsEmpty(Skin.String(Home.LeftMenu.Action))] | Skin.String(Home.LeftMenu.Action,Options)">$LOCALIZE[33063]</value>
-        <value condition="[Control.HasFocus(309) + String.IsEmpty(Skin.String(Home.LeftMenu.Action))] | Skin.String(Home.LeftMenu.Action,Favourites)">$LOCALIZE[1036]</value>
+        <value condition="Control.HasFocus(308)">$LOCALIZE[33063]</value>
+        <value condition="Control.HasFocus(309)">$LOCALIZE[1036]</value>
         <value>$INFO[Container(300).ListItem.Label]</value>
     </variable>
 
@@ -373,8 +379,8 @@
     </variable>
 
     <variable name="Action_HomeMenu_OnLeft_Icon">
-        <value condition="[Control.HasFocus(308) + String.IsEmpty(Skin.String(Home.LeftMenu.Action))] | Skin.String(Home.LeftMenu.Action,Options)">special://skin/extras/icons/bars.png</value>
-        <value condition="[Control.HasFocus(309) + String.IsEmpty(Skin.String(Home.LeftMenu.Action))] | Skin.String(Home.LeftMenu.Action,Favourites)">special://skin/extras/icons/star.png</value>
+        <value condition="Control.HasFocus(308)">special://skin/extras/icons/bars.png</value>
+        <value condition="Control.HasFocus(309)">special://skin/extras/icons/star.png</value>
         <value>$INFO[Container(300).ListItem.Icon]</value>
     </variable>
 
@@ -505,13 +511,17 @@
         <param name="option">!Skin.HasSetting(SideMenu.DisableSearchAndOptions)</param>
         <definition>
 
-            <onleft condition="!Skin.String(Home.LeftMenu.Action,Bump)">SetProperty(Target,$VAR[Action_HomeMenu_OnLeft_Target],1163)</onleft>
-            <onleft condition="!Skin.String(Home.LeftMenu.Action,Bump)">SetProperty(Path,$VAR[Action_HomeMenu_OnLeft_Path],1163)</onleft>
-            <onleft condition="!Skin.String(Home.LeftMenu.Action,Bump)">SetProperty(Header,$VAR[Action_HomeMenu_OnLeft_Header],1163)</onleft>
-            <onleft condition="!Skin.String(Home.LeftMenu.Action,Bump)">SetProperty(Icon,$VAR[Action_HomeMenu_OnLeft_Icon],1163)</onleft>
-            <onleft condition="!Skin.String(Home.LeftMenu.Action,Bump)">SetProperty(Indicator,$VAR[Action_HomeMenu_OnLeft_Indicator],1163)</onleft>
-            <onleft condition="!Skin.String(Home.LeftMenu.Action,Bump)">SetProperty(Offset,$VAR[Action_HomeMenu_OnLeft_Offset],1163)</onleft>
-            <onleft condition="!Skin.String(Home.LeftMenu.Action,Bump)">ActivateWindow(1163)</onleft>
+            <onleft condition="Skin.String(Home.LeftMenu.Action,Menu) | String.IsEmpty(Skin.String(Home.LeftMenu.Action))">SetProperty(Target,$VAR[Action_HomeMenu_OnLeft_Target],1163)</onleft>
+            <onleft condition="Skin.String(Home.LeftMenu.Action,Menu) | String.IsEmpty(Skin.String(Home.LeftMenu.Action))">SetProperty(Path,$VAR[Action_HomeMenu_OnLeft_Path],1163)</onleft>
+            <onleft condition="Skin.String(Home.LeftMenu.Action,Menu) | String.IsEmpty(Skin.String(Home.LeftMenu.Action))">SetProperty(Header,$VAR[Action_HomeMenu_OnLeft_Header],1163)</onleft>
+            <onleft condition="Skin.String(Home.LeftMenu.Action,Menu) | String.IsEmpty(Skin.String(Home.LeftMenu.Action))">SetProperty(Icon,$VAR[Action_HomeMenu_OnLeft_Icon],1163)</onleft>
+            <onleft condition="Skin.String(Home.LeftMenu.Action,Menu) | String.IsEmpty(Skin.String(Home.LeftMenu.Action))">SetProperty(Indicator,$VAR[Action_HomeMenu_OnLeft_Indicator],1163)</onleft>
+            <onleft condition="Skin.String(Home.LeftMenu.Action,Menu) | String.IsEmpty(Skin.String(Home.LeftMenu.Action))">SetProperty(Offset,$VAR[Action_HomeMenu_OnLeft_Offset],1163)</onleft>
+            <onleft condition="Skin.String(Home.LeftMenu.Action,Menu) | String.IsEmpty(Skin.String(Home.LeftMenu.Action))">SetProperty(GUID,$VAR[Action_HomeMenu_OnLeft_GUID],1163)</onleft>
+            <onleft condition="Skin.String(Home.LeftMenu.Action,Menu) | String.IsEmpty(Skin.String(Home.LeftMenu.Action))">ActivateWindow(1163)</onleft>
+
+            <onleft condition="Skin.String(Home.LeftMenu.Action,Options)">ActivateWindow(1170)</onleft>
+            <onleft condition="Skin.String(Home.LeftMenu.Action,Favourites)">ActivateWindow(1160)</onleft>
 
             <onleft condition="Skin.String(Home.LeftMenu.Action,Bump)">SetProperty(List.ViewContainer,300)</onleft>
             <onleft condition="Skin.String(Home.LeftMenu.Action,Bump)">SetFocus(331)</onleft>
@@ -810,6 +820,6 @@
 
     <variable name="Action_Shortcut_SetWidgetStyle">
         <value condition="String.IsEmpty(Container(22001).ListItem.Property(url))" />
-        <value>RunPlugin($INFO[Container(22001).ListItem.Property(url)]&amp;func=do_edit&amp;&amp;widget_style&amp;&amp;$LOCALIZE[20021]=Poster&amp;$LOCALIZE[31045]=Landscape&amp;$LOCALIZE[31320]=Square$VAR[Action_Shortcut_SetWidgetStyle_LargeSize]&amp;&amp;Style&amp;&amp;True)</value>
+        <value>RunPlugin($INFO[Container(22001).ListItem.Property(url)]&amp;func=do_edit&amp;&amp;widget_style&amp;&amp;$LOCALIZE[20021]=Poster&amp;$LOCALIZE[31045]=Landscape&amp;$LOCALIZE[31320]=Square$VAR[Action_Shortcut_SetWidgetStyle_LargeSize]&amp;&amp;$LOCALIZE[736]&amp;&amp;True)</value>
     </variable>
 </includes>

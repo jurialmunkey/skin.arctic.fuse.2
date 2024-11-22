@@ -8,6 +8,7 @@
     <onunload>ClearProperty(Indicator,1163)</onunload>
     <onunload>ClearProperty(Position,1163)</onunload>
     <onunload>ClearProperty(Offset,1163)</onunload>
+    <onunload>ClearProperty(GUID,1163)</onunload>
     <onload>SetProperty(TMDbHelper.ContextMenu,True)</onload>
     <controls>
 
@@ -131,13 +132,15 @@
                                     <param name="itemlayout_include">Layout_MenuList</param>
                                     <param name="orientation">vertical</param>
                                     <param name="variation">true</param>
+
                                     <onleft>Close</onleft>
                                     <onright>Close</onright>
-                                    <onclick>Close</onclick>
+                                    <onclick condition="!String.IsEmpty(Window.Property(Path))">Close</onclick>
+                                    <onclick condition="!String.IsEmpty(Window.Property(Path))">$VAR[DialogCustom1162_OnClick]</onclick>
+
                                     <include content="Dimension_Padding">
                                         <param name="pad">40</param>
                                     </include>
-                                    <onclick>$VAR[DialogCustom1162_OnClick]</onclick>
 
                                     <content>
                                         <item>
@@ -145,15 +148,30 @@
                                             <icon>special://skin/extras/icons/arrow-right.png</icon>
                                             <visible>Integer.IsEqual(Container(450).NumItems,0) | [Integer.IsEqual(Container(450).NumItems,1) + String.IsEqual(Container(450).ListItemAbsolute(0).Label,$LOCALIZE[31166])]</visible>
                                         </item>
+
+                                        <include condition="$EXP[Exp_HomeHub_IsVisible]">skinvariables-sidemenu-customitems</include>
+                                        <include condition="$EXP[Exp_1101Hub_IsVisible]">skinvariables-1101menu-customitems</include>
+                                        <include condition="$EXP[Exp_1102Hub_IsVisible]">skinvariables-1102menu-customitems</include>
+                                        <include condition="$EXP[Exp_1103Hub_IsVisible]">skinvariables-1103menu-customitems</include>
+                                        <include condition="$EXP[Exp_1104Hub_IsVisible]">skinvariables-1104menu-customitems</include>
+                                        <include condition="$EXP[Exp_1105Hub_IsVisible]">skinvariables-1105menu-customitems</include>
+                                        <include condition="$EXP[Exp_1106Hub_IsVisible]">skinvariables-1106menu-customitems</include>
+                                        <include condition="$EXP[Exp_1107Hub_IsVisible]">skinvariables-1107menu-customitems</include>
+                                        <include condition="$EXP[Exp_1108Hub_IsVisible]">skinvariables-1108menu-customitems</include>
+                                        <include condition="$EXP[Exp_1109Hub_IsVisible]">skinvariables-1109menu-customitems</include>
+
                                     </content>
 
-                                    <content>$INFO[Window.Property(Path)]</content>
+                                    <include content="Object_ContentDynamic" condition="!String.IsEmpty(Window.Property(path))">
+                                        <param name="content">$INFO[Window.Property(Path)]</param>
+                                    </include>
 
                                 </include>
                             </control>
                         </control>
                     </control>
 
+                    <include condition="Integer.IsEqual(Window(1163).Property(Offset),9)">DialogCustom1163_Offset_Dialog_07</include>
                     <include condition="Integer.IsEqual(Window(1163).Property(Offset),10)">DialogCustom1163_Offset_Dialog_07</include>
                     <include condition="Integer.IsEqual(Window(1163).Property(Offset),11)">DialogCustom1163_Offset_Dialog_06</include>
                     <include condition="Integer.IsEqual(Window(1163).Property(Offset),12)">DialogCustom1163_Offset_Dialog_06</include>

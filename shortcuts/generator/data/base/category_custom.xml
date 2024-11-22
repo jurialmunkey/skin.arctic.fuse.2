@@ -1,0 +1,27 @@
+<contents>
+    <value name="comments">Static Custom Menu</value>
+    <template>generator/data/parts/basic_include.xmltemplate</template>
+    <value name="includes_name">skinvariables-{item}-customitems</value>
+    <value name="includes_part">
+        <items menu="{item}">
+            <item>
+                <items menu="{item_menu}-customnode-{item_guid}">
+                    <item>
+                        <template>generator/data/parts/menu_item.xmltemplate</template>
+                        <datafile>generator/data/setup/property_window_id.xml</datafile>
+                        <datafile>generator/data/setup/onclick_path.xml</datafile>
+                        <condition>{item_disabled}!=True</condition>
+                        <value name="parts_visible">String.IsEqual(Window.Property(GUID),{parent_item_guid})</value>
+                        <value name="parts_additional">
+                            <template>
+                                <![CDATA[
+                                <onclick>Dialog.Close(1163)</onclick>
+                                ]]>
+                            </template>
+                        </value>
+                    </item>
+                </items>
+            </item>
+        </items>
+    </value>
+</contents>
