@@ -996,7 +996,7 @@
                 <param name="library">!Skin.HasSetting(Indicator.DisableLibrary) + !String.IsEmpty($PARAM[listitem].DBID) + !String.IsEmpty($PARAM[listitem].Property(Item.Info))</param>
                 <param name="collection">!Skin.HasSetting(Indicator.DisableCollection) + [$PARAM[listitem].IsCollection]</param>
 				<!-- MISC004: add "online video" option -->
-                <param name="onlinevideo">[String.IsEqual($PARAM[listitem].DBType,tvshow) | String.IsEqual($PARAM[listitem].DBType,season) | String.IsEqual($PARAM[listitem].DBType,movie)] + [String.Contains($PARAM[listitem].Path,Video Library VOD Streams) | String.Contains($PARAM[listitem].Path,context.addtolib)]</param>
+                <param name="onlinevideo">[String.IsEqual($PARAM[listitem].DBType,tvshow) | String.IsEqual($PARAM[listitem].DBType,season) | String.IsEqual($PARAM[listitem].DBType,episode) | String.IsEqual($PARAM[listitem].DBType,movie)] + [String.Contains($PARAM[listitem].Path,Video Library VOD Streams) | String.Contains($PARAM[listitem].Path,context.addtolib)]</param>
             </include>
         </definition>
     </include>
@@ -1106,8 +1106,8 @@
                         <param name="listitem">$PARAM[listitem]</param>
                     </include>
                 </include>
-				
-				<!-- MISC004: START indicator for an online video library item -->
+                
+                <!-- MISC004: START indicator for an online video library item -->
                 <include content="Object_Control">
                     <param name="control">image</param>
                     <include content="Dimension_Padding">
@@ -1118,9 +1118,9 @@
                     <include content="Object_Indicator_Visible">
                         <param name="include_type">All</param>
                         <param name="listitem">$PARAM[listitem]</param>
-                    </include>	
+                    </include>
  
-                    <visible>[String.IsEqual($PARAM[listitem].DBType,tvshow) | String.IsEqual($PARAM[listitem].DBType,season) | String.IsEqual($PARAM[listitem].DBType,movie)] + [String.Contains($PARAM[listitem].Path,Video Library VOD Streams) | String.Contains($PARAM[listitem].Path,context.addtolib)]</visible>
+                    <visible>[String.IsEqual($PARAM[listitem].DBType,tvshow) | String.IsEqual($PARAM[listitem].DBType,season) | String.IsEqual($PARAM[listitem].DBType,episode) | String.IsEqual($PARAM[listitem].DBType,movie)] + [String.Contains($PARAM[listitem].Path,Video Library VOD Streams) | String.Contains($PARAM[listitem].Path,context.addtolib)]</visible>
                 </include>
                 <!-- MISC004: END indicator for an online video library item -->
 
