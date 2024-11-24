@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<window type="dialog" id="1124">
+    <visible>Skin.HasSetting(Background.DisableVideo)</visible>
+    <visible>Player.HasVideo</visible>
+    <visible>Window.IsMedia | $EXP[Exp_Window_IsHub]</visible>
+    <visible>!Window.IsVisible(addonbrowser)</visible>
+    <visible>!$EXP[Exp_InfoDialogs]</visible>
+    <visible>!Window.IsVisible(1123)</visible>
+    <visible>!Window.IsVisible(1113)</visible>
+    <visible>!Window.IsVisible(1114)</visible>
+    <controls>
+
+        <control type="group">
+            <animation type="WindowOpen" reversible="false">
+                <!-- <effect type="fade" start="0" end="100" time="300" /> -->
+                <effect type="slide" start="0,48" end="0" center="auto" tween="back" easing="out" time="400" />
+            </animation>
+            <right>40</right>
+            <bottom>40</bottom>
+            <width>560</width>
+            <height>360</height>
+            <control type="group">
+                <include content="Dialog_Background_Blur">
+                    <param name="shadow">true</param>
+                    <param name="diffuse">diffuse/dialog_w480_h400.png</param>
+                </include>
+                <include condition="true">Dialog_Background_Glass</include>
+                <control type="group">
+                    <include content="Dimension_Padding">
+                        <param name="pad">20</param>
+                    </include>
+                    <visible>Player.HasVideo</visible>
+                    <control type="image">
+                        <texture colordiffuse="black" border="20">common/box.png</texture>
+                    </control>
+                    <control type="videowindow">
+                        <top>5</top>
+                        <bottom>5</bottom>
+                    </control>
+                </control>
+            </control>
+        </control>
+    </controls>
+</window>

@@ -232,10 +232,10 @@
                     <top>20</top>
                     <include content="Dialog_Outline_Box">
                         <control type="image">
-                            <texture colordiffuse="7f7f7f7f" border="12">common/dialog.png</texture>
+                            <texture colordiffuse="7f7f7f7f" border="20">common/dialog.png</texture>
                         </control>
                         <control type="image">
-                            <texture colordiffuse="panel_fg_12" border="12">common/dialog.png</texture>
+                            <texture colordiffuse="panel_fg_12" border="20">common/dialog.png</texture>
                         </control>
                         <control type="label">
                             <height>60</height>
@@ -864,7 +864,7 @@
             <imagepath diffuse="$PARAM[diffuse]" colordiffuse="ff555555">$PARAM[imagepath]</imagepath>
         </control>
         <control type="image">
-            <texture colordiffuse="panel_fg_12" border="12">common/box.png</texture>
+            <texture colordiffuse="panel_fg_12" border="20">common/box.png</texture>
         </control>
     </include>
 
@@ -897,37 +897,6 @@
             <font>font_main_black</font>
             <shadowcolor>panel_bg_70</shadowcolor>
             <textcolor>panel_fg_90</textcolor>
-        </control>
-    </include>
-
-    <include name="Weather_Forecast_Itemlayout">
-        <control type="group">
-            <right>40</right>
-
-            <include content="Weather_Item_Backing">
-                <param name="imagepath">$INFO[ListItem.Property(Fanart)]</param>
-                <param name="diffuse">diffuse/weather_w240_h294.png</param>
-            </include>
-
-            <include content="Weather_Item_Icon">
-                <param name="size">120</param>
-                <param name="icon">$INFO[ListItem.Icon]</param>
-                <centerleft>50%</centerleft>
-                <centertop>50%</centertop>
-            </include>
-
-            <include content="Weather_Item_Label">
-                <label>$INFO[ListItem.Property(DayName)]</label>
-                <align>center</align>
-                <top>40</top>
-            </include>
-
-            <include content="Weather_Item_Label">
-                <label>$INFO[ListItem.Label]</label>
-                <align>center</align>
-                <bottom>40</bottom>
-            </include>
-
         </control>
     </include>
 
@@ -992,99 +961,6 @@
             <property name="HighTemp">$INFO[Window(Weather).Property(Day6.HighTemp)]</property>
             <property name="LowTemp">$INFO[Window(Weather).Property(Day6.LowTemp)]</property>
         </item>
-    </include>
-
-    <include name="Weather_Details_GroupItem">
-        <param name="hasicon">true</param>
-        <param name="diffuse">diffuse/weather_w240_h294.png</param>
-        <definition>
-            <control type="group">
-                <width>$PARAM[width]</width>
-                <height>view_poster_itemlayout_h</height>
-
-                <control type="group">
-                    <top>40</top>
-                    <right>40</right>
-                    <height>view_poster_item_h</height>
-
-                    <include content="Weather_Item_Backing">
-                        <param name="imagepath">$PARAM[imagepath]</param>
-                        <param name="diffuse">$PARAM[diffuse]</param>
-                    </include>
-
-                    <!-- Top -->
-                    <include content="Weather_Item_Label">
-                        <label>$PARAM[hi_label_a]</label>
-                        <include content="Object_Align" condition="![$PARAM[hasicon]]">
-                            <param name="align">center</param>
-                        </include>
-                        <include content="Object_Left" condition="$PARAM[hasicon]">
-                            <param name="left">160</param>
-                        </include>
-                        <top>40</top>
-                    </include>
-
-                    <include content="Weather_Item_Label">
-                        <label>$PARAM[hi_label_b]</label>
-                        <include content="Object_Align" condition="![$PARAM[hasicon]]">
-                            <param name="align">center</param>
-                        </include>
-                        <include content="Object_Left" condition="$PARAM[hasicon]">
-                            <param name="left">160</param>
-                        </include>
-                        <top>80</top>
-                        <font>font_main</font>
-                    </include>
-
-                    <include content="Weather_Item_Icon" condition="$PARAM[hasicon]">
-                        <param name="size">80</param>
-                        <param name="icon">$PARAM[hi_icon]</param>
-                        <left>40</left>
-                        <top>40</top>
-                    </include>
-
-                    <!-- Separator -->
-                    <control type="image">
-                        <height>1</height>
-                        <left>40</left>
-                        <right>40</right>
-                        <centertop>50%</centertop>
-                        <texture colordiffuse="panel_fg_30">common/white.png</texture>
-                    </control>
-
-                    <!-- Bottom -->
-                    <include content="Weather_Item_Label">
-                        <label>$PARAM[lo_label_a]</label>
-                        <include content="Object_Align" condition="![$PARAM[hasicon]]">
-                            <param name="align">center</param>
-                        </include>
-                        <include content="Object_Left" condition="$PARAM[hasicon]">
-                            <param name="left">160</param>
-                        </include>
-                        <bottom>80</bottom>
-                    </include>
-
-                    <include content="Weather_Item_Label">
-                        <label>$PARAM[lo_label_b]</label>
-                        <include content="Object_Align" condition="![$PARAM[hasicon]]">
-                            <param name="align">center</param>
-                        </include>
-                        <include content="Object_Left" condition="$PARAM[hasicon]">
-                            <param name="left">160</param>
-                        </include>
-                        <bottom>40</bottom>
-                        <font>font_main</font>
-                    </include>
-
-                    <include content="Weather_Item_Icon" condition="$PARAM[hasicon]">
-                        <param name="size">80</param>
-                        <param name="icon">$PARAM[lo_icon]</param>
-                        <left>40</left>
-                        <bottom>40</bottom>
-                    </include>
-                </control>
-            </control>
-        </definition>
     </include>
 
     <include name="Weather_Dialog_Details">
