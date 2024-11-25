@@ -143,7 +143,7 @@
         <definition>
             <control type="image">
                 <include content="Dimension_Padding"><param name="pad">$PARAM[pad]</param></include>
-                <texture border="52" colordiffuse="$PARAM[colordiffuse]">shadows/shadow-40.png</texture>
+                <texture border="60" colordiffuse="$PARAM[colordiffuse]">shadows/shadow-40.png</texture>
                 <nested />
             </control>
         </definition>
@@ -153,7 +153,7 @@
         <param name="colordiffuse">shadow_hard</param>
         <definition>
             <control type="image">
-                <texture border="52" colordiffuse="$PARAM[colordiffuse]">shadows/inner-glow.png</texture>
+                <texture border="60" colordiffuse="$PARAM[colordiffuse]">shadows/inner-glow.png</texture>
                 <nested />
             </control>
         </definition>
@@ -189,10 +189,13 @@
     </include>
 
     <include name="Object_ItemBack_Outline">
-        <include content="Object_Control" condition="Skin.HasSetting(Glass.EnableBorders)">
-            <param name="control">image</param>
-            <texture colordiffuse="main_fg_12" border="12">common/box-outline.png</texture>
-        </include>
+        <param name="border">21</param>
+        <definition>
+            <include content="Object_Control" condition="Skin.HasSetting(Glass.EnableBorders)">
+                <param name="control">image</param>
+                <texture colordiffuse="main_fg_12" border="$PARAM[border]">common/box-outline.png</texture>
+            </include>
+        </definition>
     </include>
 
     <include name="Object_Circle_200_Outline">
@@ -207,7 +210,7 @@
         <param name="shadow_include">Texture_Shadow_40</param>
         <param name="colordiffuse">main_fg_12</param>
         <param name="texture">common/box.png</param>
-        <param name="border">12</param>
+        <param name="border">20</param>
         <definition>
             <control type="image">
                 <include content="$PARAM[shadow_include]" condition="!$PARAM[selected]">
@@ -215,7 +218,9 @@
                 </include>
                 <texture colordiffuse="$PARAM[colordiffuse]" border="$PARAM[border]">$PARAM[texture]</texture>
             </control>
-            <include>Object_ItemBack_Outline</include>
+            <include content="Object_ItemBack_Outline">
+                <param name="border">$PARAM[border]</param>
+            </include>
         </definition>
     </include>
 
@@ -494,7 +499,7 @@
                     <include content="Texture_Shadow_40">
                         <param name="colordiffuse">$PARAM[shadow_colordiffuse]</param>
                     </include>
-                    <texture colordiffuse="$PARAM[posterback_colordiffuse]" border="12">common/box.png</texture>
+                    <texture colordiffuse="$PARAM[posterback_colordiffuse]" border="20">common/box.png</texture>
                 </include>
                 <nested />
                 <include content="Object_Control">
@@ -548,14 +553,14 @@
             </include>
             <control type="image">
                 <aspectratio>keep</aspectratio>
-                <texture>diffuse/circle_200_overlay.png</texture>
+                <texture>diffuse/circle/circle_200_overlay.png</texture>
                 <visible>String.IsEqual($PARAM[listitem].DBType,tvshow) | String.IsEqual($PARAM[listitem].DBType,episode) | String.IsEqual($PARAM[listitem].DBType,artist) | String.IsEqual($PARAM[listitem].DBType,video) | String.IsEqual($PARAM[listitem].DBType,set)</visible>
             </control>
         </control>
         <control type="group">
             <visible>String.IsEmpty($PARAM[listitem].Art(discart)) + String.IsEmpty($PARAM[listitem].Art(album.discart)) + [String.IsEqual($PARAM[listitem].DBType,movie) | String.IsEqual($PARAM[listitem].DBType,album) | String.IsEqual($PARAM[listitem].DBType,song) | String.IsEqual($PARAM[listitem].DBType,season)]</visible>
             <include content="Object_Layout_Image_Rectangle">
-                <param name="diffuse">diffuse/discart.png</param>
+                <param name="diffuse">diffuse/circle/discart.png</param>
                 <param name="icon">$PARAM[icon]</param>
                 <param name="listitem">$PARAM[listitem]</param>
                 <param name="aspectratio">scale</param>
@@ -563,7 +568,7 @@
             </include>
             <control type="image">
                 <aspectratio>keep</aspectratio>
-                <texture>diffuse/discart_overlay.png</texture>
+                <texture>diffuse/circle/discart_overlay.png</texture>
             </control>
         </control>
     </include>
@@ -633,7 +638,7 @@
         <param name="bordersize">2</param>
         <param name="aspectratio">scale</param>
         <param name="colordiffuse">main_bg_90</param>
-        <param name="diffuse">diffuse/circle_50.png</param>
+        <param name="diffuse">diffuse/circle/circle_50.png</param>
         <definition>
             <control type="image">
                 <centertop>50%</centertop>
@@ -688,7 +693,7 @@
                         <include content="Dimension_Padding"><param name="pad">-40</param></include>
                         <bordersize>40</bordersize>
                         <bordertexture colordiffuse="shadow_soft">shadows/circle_50-shadow-40.png</bordertexture>
-                        <texture colordiffuse="$PARAM[colorbacking]">diffuse/circle_50.png</texture>
+                        <texture colordiffuse="$PARAM[colorbacking]">diffuse/circle/circle_50.png</texture>
                         <visible>$PARAM[backing_visible]</visible>
                     </control>
                     <include content="Object_InfoCircle_Image">
@@ -1343,7 +1348,7 @@
                     <include content="Dimension_Padding"><param name="pad">-30</param></include>
                     <bordersize>30</bordersize>
                     <bordertexture colordiffuse="$PARAM[shadow_colordiffuse]">shadows/circle_50-shadow-30.png</bordertexture>
-                    <texture colordiffuse="$PARAM[back_colordiffuse]">diffuse/circle_50.png</texture>
+                    <texture colordiffuse="$PARAM[back_colordiffuse]">diffuse/circle/circle_50.png</texture>
                 </control>
                 <include content="Object_InfoCircle_Image">
                     <param name="bordersize">1</param>
