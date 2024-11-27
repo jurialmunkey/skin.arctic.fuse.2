@@ -1530,7 +1530,8 @@
     </include>
 
     <include name="DialogInfo_PlotBox_OnMove">
-        <onleft>9000</onleft>
+        <onright>9000</onright>
+        <onleft>8000</onleft>
         <onback>8000</onback>
     </include>
 
@@ -1587,17 +1588,15 @@
                             </include>
                         </control>
                     </control>
+                    <include content="Dialog_Scrollbar">
+                        <param name="id">61</param>
+                        <param name="inset">true</param>
+                        <include>$PARAM[include_movement]</include>
+                        <include condition="$PARAM[scrollbar_fakefocus]">Texture_Scrollbar_SliderBar_V</include>
+                    </include>
                 </control>
             </control>
             <include condition="$PARAM[include_buttons_condition]">$PARAM[include_buttons]</include>
-            <control type="group">
-                <include>Dimension_Dialog_Body</include>
-                <include content="Dialog_Scrollbar">
-                    <param name="id">61</param>
-                    <include>$PARAM[include_movement]</include>
-                    <include condition="$PARAM[scrollbar_fakefocus]">Texture_Scrollbar_SliderBar_V</include>
-                </include>
-            </control>
         </definition>
     </include>
 
@@ -1658,6 +1657,12 @@
                                 </control>
                             </include>
                         </control>
+                        <include content="Dialog_Scrollbar">
+                            <param name="id">61</param>
+                            <param name="inset">true</param>
+                            <onright>9000</onright>
+                            <include condition="String.IsEmpty(Window.Property(path))">Texture_Scrollbar_SliderBar_V</include>
+                        </include>
 
                     </control>
                 </control>
@@ -1670,7 +1675,7 @@
                         <include>Dimension_Dialog_Body</include>
                         <control type="grouplist" id="9000">
                             <include>Dialog_Side_Expanded_Grouplist_Def</include>
-                            <onright>61</onright>
+                            <onleft>61</onleft>
                             <!-- Info -->
                             <include content="DialogInfo_ExpandedButton">
                                 <param name="vertical">true</param>
@@ -1715,14 +1720,6 @@
                     </control>
                 </include>
 
-                <control type="group">
-                    <include>Dimension_Dialog_Body</include>
-                    <include content="Dialog_Scrollbar">
-                        <param name="id">61</param>
-                        <onleft>9000</onleft>
-                        <include condition="String.IsEmpty(Window.Property(path))">Texture_Scrollbar_SliderBar_V</include>
-                    </include>
-                </control>
             </control>
         </definition>
     </include>
@@ -1737,8 +1734,8 @@
                 <control type="grouplist" id="9000">
                     <include>Dialog_Side_Expanded_Grouplist_Def</include>
                     <onback>8000</onback>
-                    <onright>61</onright>
-                    <onleft>8000</onleft>
+                    <onleft>61</onleft>
+                    <onright>8000</onright>
                     <include>Items_DialogVideoInfo_MenuBar</include>
                 </control>
             </control>

@@ -689,29 +689,30 @@
         </definition>
     </include>
 
+    <include name="Dialog_Scrollbar_Inset_Def">
+        <texturesliderbackground colordiffuse="$VAR[Color_DialogBorder]" border="4">scrollbar/scrollv_line.png</texturesliderbackground>
+        <centerright>20</centerright>
+    </include>
+
     <include name="Dialog_Scrollbar">
         <param name="id">61</param>
         <param name="showonepage">false</param>
+        <param name="inset">false</param>
         <definition>
             <control type="scrollbar" id="$PARAM[id]">
                 <nested />
+                <include condition="$PARAM[inset]">Dialog_Scrollbar_Inset_Def</include>
+                <!-- <include content="Animation_ConditionalFade" condition="![$PARAM[inset]]">
+                    <param name="condition">!Control.HasFocus($PARAM[id])</param>
+                </include> -->
                 <top>20</top>
                 <bottom>20</bottom>
-                <centerright>-20</centerright>
+                <centerright>0</centerright>
                 <width>scrollbar_w</width>
                 <showonepage>$PARAM[showonepage]</showonepage>
-                <texturesliderbackground colordiffuse="main_fg_12" border="4">scrollbar/scrollv_line.png</texturesliderbackground>
                 <texturesliderbackground />
                 <texturesliderbar colordiffuse="main_logo" border="4">scrollbar/scrollv.png</texturesliderbar>
                 <include>Texture_Scrollbar_V</include>
-                <!-- <include content="Animation_Fade_Out">
-                    <param name="condition">ControlGroup(9000).HasFocus()</param>
-                    <param name="time">0</param>
-                </include>
-                <include content="Animation_Fade_In">
-                    <param name="condition">!ControlGroup(9000).HasFocus()</param>
-                    <param name="delay">200</param>
-                </include> -->
             </control>
         </definition>
     </include>
