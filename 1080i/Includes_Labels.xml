@@ -684,6 +684,9 @@
     </variable>
 
     <variable name="Label_VideoInfo_DetailsItem">
+
+        <value condition="!String.IsEmpty(ListItem.Property(role))">$INFO[ListItem.Property(role)]</value>
+
         <value condition="ListItem.IsCollection">$LOCALIZE[31236]</value>
         <value condition="String.IsEqual(ListItem.DBType,episode) + !String.IsEmpty(ListItem.TvShowTitle)">$INFO[ListItem.TvShowTitle]</value>
         <value condition="[String.IsEqual(ListItem.DBType,movie) | String.IsEqual(ListItem.DBType,episode)] + !String.IsEmpty(ListItem.Director)">$INFO[ListItem.Director]</value>
@@ -695,7 +698,7 @@
         <value condition="!String.IsEmpty(ListItem.AlbumArtist) + !String.IsEqual(ListItem.DBType,artist)">$INFO[ListItem.AlbumArtist]</value>
         <value condition="!String.IsEmpty(ListItem.Property(Artist_Genre))">$INFO[ListItem.Property(Artist_Genre),,]</value>
         <value condition="!String.IsEmpty(ListItem.Property(Artist_YearsActive))">$INFO[ListItem.Property(Artist_YearsActive),,]</value>
-        <value condition="!String.IsEmpty(ListItem.Property(role))">$INFO[ListItem.Property(role)]</value>
+
         <value condition="!String.IsEmpty(ListItem.Label2)">$INFO[ListItem.Label2]</value>
         <value condition="!String.IsEmpty(ListItem.DBType)">[CAPITALIZE]$INFO[ListItem.DBType][/CAPITALIZE]</value>
 
@@ -951,6 +954,11 @@
     <variable name="Label_DialogInfo_PlayButton">
         <value condition="$EXP[Exp_IsFolder]">$LOCALIZE[1024]</value>
         <value>$LOCALIZE[208]</value>
+    </variable>
+
+    <variable name="Label_DialogInfo_Title">
+        <value condition="!String.IsEmpty(ListItem.Title)">$INFO[ListItem.Title]</value>
+        <value>$INFO[ListItem.Label]</value>
     </variable>
 
     <variable name="Label_PVRChannelMgrHeader">

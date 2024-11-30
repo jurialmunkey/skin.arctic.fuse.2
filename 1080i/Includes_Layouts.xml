@@ -1793,7 +1793,7 @@
                         <param name="listitem">$PARAM[listitem]</param>
                         <param name="textcolor">panel_fg</param>
                         <param name="fade">true</param>
-                        <param name="include_detailed_labels">true</param>
+                        <param name="use_label">true</param>
                     </include>
 
                     <include content="Object_ClearLogo_WithShadow" condition="![$PARAM[variation]]">
@@ -2556,6 +2556,7 @@
         <param name="fade">false</param>
         <param name="selected">false</param>
         <param name="include_detailed_labels">!Skin.HasSetting(View.DisableDetailedListLabels)</param>
+        <param name="use_label">false</param>
         <definition>
             <control type="image">
                 <texture border="20" colordiffuse="e7ffffff">common/poster_fade.png</texture>
@@ -2571,16 +2572,25 @@
                     <right>$PARAM[right]</right>
                     <height>80</height>
 
-                    <include content="Object_Control" condition="![$PARAM[include_detailed_labels]]">
+                    <include content="Object_Control" condition="![$PARAM[include_detailed_labels]] + ![$PARAM[use_label]]">
                         <param name="control">textbox</param>
                         <top>7</top>
-                        <height>80</height>
-                        <font>font_mini_plot</font>
+                        <height>68</height>
+                        <font>font_mini</font>
                         <label>$INFO[$PARAM[listitem].Label]</label>
                         <align>left</align>
                         <include condition="$PARAM[selected]">Color_SelectedText</include>
                         <textcolor>main_fg_70</textcolor>
-                        <visible>![$PARAM[include_detailed_labels]]</visible>
+                    </include>
+                    <include content="Object_Control" condition="![$PARAM[include_detailed_labels]] + $PARAM[use_label]">
+                        <param name="control">label</param>
+                        <top>40</top>
+                        <height>30</height>
+                        <font>font_mini</font>
+                        <label>$INFO[$PARAM[listitem].Label]</label>
+                        <align>left</align>
+                        <include condition="$PARAM[selected]">Color_SelectedText</include>
+                        <textcolor>main_fg_70</textcolor>
                     </include>
 
                     <include content="Object_InfoCircle_Text_Top" condition="$PARAM[include_detailed_labels]">
@@ -2903,7 +2913,7 @@
                     <param name="listitem">$PARAM[listitem]</param>
                     <param name="textcolor">panel_fg</param>
                     <param name="fade">true</param>
-                    <param name="include_detailed_labels">true</param>
+                    <param name="use_label">true</param>
                 </include>
 
                 <include content="Object_ProgressLine">

@@ -701,24 +701,56 @@
                             <label>$LOCALIZE[31482]</label>
                             <visible>Container(3).HasFocus(5)</visible>
                         </include>
-                        <include content="Settings_Button" description="Play trailer auto spotlight">
+                        <include content="Settings_Button" description="Play trailer auto">
                             <param name="dialog">false</param>
                             <param name="id">6010</param>
                             <param name="control">radiobutton</param>
-                            <label>$LOCALIZE[31481] ($LOCALIZE[31105])</label>
+                            <label>$LOCALIZE[31481]</label>
                             <visible>Container(3).HasFocus(5)</visible>
-                            <onclick>Skin.ToggleSetting(Trailers.EnableAutoPlayback)</onclick>
+                            <onclick condition="Skin.HasSetting(Trailers.EnableAutoPlayback)">Skin.Reset(Trailers.EnableAutoPlayback)</onclick>
+                            <onclick condition="!Skin.HasSetting(Trailers.EnableAutoPlayback)">RunScript(script.skinvariables,run_dialog=yesno,"heading=$LOCALIZE[31481]","message=[B][COLOR=red][UPPERCASE]$LOCALIZE[14117][/UPPERCASE][/B][/COLOR] - $LOCALIZE[31351] $LOCALIZE[31352] $LOCALIZE[31367] $LOCALIZE[31360] $LOCALIZE[31361]",yeslabel=$LOCALIZE[24022],nolabel=$LOCALIZE[222],"executebuiltin=Skin.SetBool(Trailers.EnableAutoPlayback)")</onclick>
                             <selected>Skin.HasSetting(Trailers.EnableAutoPlayback)</selected>
                         </include>
-                        <include content="Settings_Button" description="Play trailer auto information">
+                        <include content="Settings_Button" description="Play trailer auto spotlight">
                             <param name="dialog">false</param>
                             <param name="id">6011</param>
                             <param name="control">radiobutton</param>
-                            <label>$LOCALIZE[31481] ($LOCALIZE[14116])</label>
+                            <label>$LOCALIZE[31481]: $LOCALIZE[31105]</label>
+                            <visible>Container(3).HasFocus(5)</visible>
+                            <onclick>Skin.ToggleSetting(Trailers.DisableAutoPlayback.Spotlight)</onclick>
+                            <selected>!Skin.HasSetting(Trailers.DisableAutoPlayback.Spotlight)</selected>
+                            <visible>Skin.HasSetting(Trailers.EnableAutoPlayback)</visible>
+                        </include>
+                        <include content="Settings_Button" description="Play trailer auto widgets">
+                            <param name="dialog">false</param>
+                            <param name="id">6012</param>
+                            <param name="control">radiobutton</param>
+                            <label>$LOCALIZE[31481]: $LOCALIZE[31103]</label>
+                            <visible>Container(3).HasFocus(5)</visible>
+                            <onclick condition="Skin.HasSetting(Trailers.EnableAutoPlayback.Widgets)">Skin.Reset(Trailers.EnableAutoPlayback.Widgets)</onclick>
+                            <onclick condition="!Skin.HasSetting(Trailers.EnableAutoPlayback.Widgets)">RunScript(script.skinvariables,run_dialog=yesno,"heading=$LOCALIZE[31481] ($LOCALIZE[31103])","message=[B][COLOR=red][UPPERCASE]$LOCALIZE[14117][/UPPERCASE][/B][/COLOR] - $LOCALIZE[31351] $LOCALIZE[31352] $LOCALIZE[31367] $LOCALIZE[31360] $LOCALIZE[31361]",yeslabel=$LOCALIZE[24022],nolabel=$LOCALIZE[222],"executebuiltin=Skin.SetBool(Trailers.EnableAutoPlayback.Widgets)")</onclick>
+                            <selected>Skin.HasSetting(Trailers.EnableAutoPlayback.Widgets)</selected>
+                            <visible>Skin.HasSetting(Trailers.EnableAutoPlayback)</visible>
+                        </include>
+                        <include content="Settings_Button" description="Play trailer auto library">
+                            <param name="dialog">false</param>
+                            <param name="id">6013</param>
+                            <param name="control">radiobutton</param>
+                            <label>$LOCALIZE[31481]: $LOCALIZE[14022]</label>
+                            <visible>Container(3).HasFocus(5)</visible>
+                            <onclick condition="Skin.HasSetting(Trailers.EnableAutoPlayback.Library)">Skin.Reset(Trailers.EnableAutoPlayback.Library)</onclick>
+                            <onclick condition="!Skin.HasSetting(Trailers.EnableAutoPlayback.Library)">RunScript(script.skinvariables,run_dialog=yesno,"heading=$LOCALIZE[31481] ($LOCALIZE[14022])","message=[B][COLOR=red][UPPERCASE]$LOCALIZE[14117][/UPPERCASE][/B][/COLOR] - $LOCALIZE[31351] $LOCALIZE[31352] $LOCALIZE[31367] $LOCALIZE[31360] $LOCALIZE[31361]",yeslabel=$LOCALIZE[24022],nolabel=$LOCALIZE[222],"executebuiltin=Skin.SetBool(Trailers.EnableAutoPlayback.Library)")</onclick>
+                            <selected>Skin.HasSetting(Trailers.EnableAutoPlayback.Library)</selected>
+                            <visible>Skin.HasSetting(Trailers.EnableAutoPlayback)</visible>
+                        </include>
+                        <include content="Settings_Button" description="Play trailer auto information">
+                            <param name="dialog">false</param>
+                            <param name="id">6014</param>
+                            <param name="control">radiobutton</param>
+                            <label>$LOCALIZE[31481]: $LOCALIZE[14116]</label>
                             <visible>Container(3).HasFocus(5)</visible>
                             <onclick>Skin.ToggleSetting(Trailers.EnableAutoPlayback.Info)</onclick>
                             <selected>Skin.HasSetting(Trailers.EnableAutoPlayback.Info)</selected>
-                            <visible>!Skin.HasSetting(Background.DisableVideo)</visible>
                         </include>
 
 

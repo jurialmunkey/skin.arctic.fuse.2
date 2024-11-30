@@ -1,29 +1,40 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <includes>
 
+    <include name="Dialog_Background_Transparency">
+        <animation effect="fade" start="100" end="90" condition="true">Conditional</animation>
+    </include>
+
     <include name="Dialog_Background_Glass_Panel">
         <control type="image">
             <bordersize>1</bordersize>
             <texture colordiffuse="dialog_bg_30" border="20">common/dialog.png</texture>
-            <visible>Skin.HasSetting(Glass.DarkPanels)</visible>
         </control>
+    </include>
+
+    <include name="Dialog_Background_Glass_Border">
         <control type="image">
-            <texture colordiffuse="$VAR[Color_DialogBorder]" border="21">common/dialog-outline.png</texture>
+            <texture colordiffuse="$VAR[Color_DialogBorder]" border="20">common/dialog-outline.png</texture>
         </control>
     </include>
 
     <include name="Dialog_Background_Blur_Standard">
         <param name="shadow">true</param>
         <param name="border">20</param>
+        <param name="transparency">false</param>
         <definition>
-            <control type="image">
-                <texture border="20">$VAR[Image_SimpleDialogBackground]</texture>
-                <include condition="$PARAM[shadow]">Texture_Shadow_80</include>
+            <control type="group">
+                <include condition="$PARAM[transparency]">Dialog_Background_Transparency</include>
+                <control type="image">
+                    <texture border="20">$VAR[Image_SimpleDialogBackground]</texture>
+                    <include condition="$PARAM[shadow]">Texture_Shadow_80</include>
+                </control>
+                <control type="image">
+                    <texture colordiffuse="dialog_overlay" border="20">common/dialog.png</texture>
+                </control>
+                <include condition="Skin.HasSetting(Glass.DarkPanels)">Dialog_Background_Glass_Panel</include>
             </control>
-            <control type="image">
-                <texture colordiffuse="dialog_overlay" border="20">common/dialog.png</texture>
-            </control>
-            <include>Dialog_Background_Glass_Panel</include>
+            <include>Dialog_Background_Glass_Border</include>
         </definition>
     </include>
 
@@ -35,17 +46,22 @@
     <include name="Dialog_Background_Blur_Adaptive">
         <param name="shadow">true</param>
         <param name="diffuse">diffuse/dialog_w1000_h1000.png</param>
+        <param name="transparency">false</param>
         <definition>
-            <control type="image">
-                <texture colordiffuse="dialog_bg_100" border="20">common/dialog.png</texture>
-                <include condition="$PARAM[shadow]">Texture_Shadow_80</include>
+            <control type="group">
+                <include condition="$PARAM[transparency]">Dialog_Background_Transparency</include>
+                <control type="image">
+                    <texture colordiffuse="dialog_bg_100" border="20">common/dialog.png</texture>
+                    <include condition="$PARAM[shadow]">Texture_Shadow_80</include>
+                </control>
+                <control type="image">
+                    <fadetime>background_fadetime</fadetime>
+                    <aspectratio scalediffuse="false" align="center">scale</aspectratio>
+                    <texture diffuse="$PARAM[diffuse]" colordiffuse="overlay_hard">$VAR[Dialog_Background_Blur_Adaptive_Artwork]</texture>
+                </control>
+                <include condition="Skin.HasSetting(Glass.DarkPanels)">Dialog_Background_Glass_Panel</include>
             </control>
-            <control type="image">
-                <fadetime>background_fadetime</fadetime>
-                <aspectratio scalediffuse="false" align="center">scale</aspectratio>
-                <texture diffuse="$PARAM[diffuse]" colordiffuse="overlay_hard">$VAR[Dialog_Background_Blur_Adaptive_Artwork]</texture>
-            </control>
-            <include>Dialog_Background_Glass_Panel</include>
+            <include>Dialog_Background_Glass_Border</include>
         </definition>
     </include>
 
@@ -53,18 +69,19 @@
         <include content="Dialog_Background_Blur_Standard" condition="!$EXP[Exp_DialogTheme_IsAdaptive]">
             <param name="shadow">$PARAM[shadow]</param>
             <param name="diffuse">$PARAM[diffuse]</param>
-            <param name="border">$PARAM[border]</param>
+            <param name="transparency">$PARAM[transparency]</param>
         </include>
         <include content="Dialog_Background_Blur_Adaptive" condition="$EXP[Exp_DialogTheme_IsAdaptive]">
             <param name="shadow">$PARAM[shadow]</param>
             <param name="diffuse">$PARAM[diffuse]</param>
-            <param name="border">$PARAM[border]</param>
+            <param name="transparency">$PARAM[transparency]</param>
         </include>
     </include>
 
     <include name="Dialog_Background_BlurDimension_DialogMiniMenu">
         <include content="Dialog_Background_Blur">
             <param name="shadow">$PARAM[shadow]</param>
+            <param name="transparency">$PARAM[transparency]</param>
             <param name="diffuse">diffuse/dialog_w560_h1000.png</param>
         </include>
     </include>
@@ -72,6 +89,7 @@
     <include name="Dialog_Background_BlurDimension_DialogSideMenu">
         <include content="Dialog_Background_Blur">
             <param name="shadow">$PARAM[shadow]</param>
+            <param name="transparency">$PARAM[transparency]</param>
             <param name="diffuse">diffuse/dialog_w680_h1000.png</param>
         </include>
     </include>
@@ -79,6 +97,7 @@
     <include name="Dialog_Background_BlurDimension_DialogMainMenu">
         <include content="Dialog_Background_Blur">
             <param name="shadow">$PARAM[shadow]</param>
+            <param name="transparency">$PARAM[transparency]</param>
             <param name="diffuse">diffuse/dialog_w1840_h1000.png</param>
         </include>
     </include>
@@ -86,6 +105,7 @@
     <include name="Dialog_Background_BlurDimension_DialogWideMenu">
         <include content="Dialog_Background_Blur">
             <param name="shadow">$PARAM[shadow]</param>
+            <param name="transparency">$PARAM[transparency]</param>
             <param name="diffuse">diffuse/dialog_w920_h1000.png</param>
         </include>
     </include>
@@ -93,6 +113,7 @@
     <include name="Dialog_Background_BlurDimension_DialogHugeMenu">
         <include content="Dialog_Background_Blur">
             <param name="shadow">$PARAM[shadow]</param>
+            <param name="transparency">$PARAM[transparency]</param>
             <param name="diffuse">diffuse/dialog_w1400_h1000.png</param>
         </include>
     </include>
@@ -100,6 +121,7 @@
     <include name="Dialog_Background_BlurDimension_DialogFullMenu">
         <include content="Dialog_Background_Blur">
             <param name="shadow">$PARAM[shadow]</param>
+            <param name="transparency">$PARAM[transparency]</param>
             <param name="diffuse">diffuse/dialog_w1480_h1000.png</param>
         </include>
     </include>
@@ -107,6 +129,7 @@
     <include name="Dialog_Background_BlurDimension_DialogMiniHome">
         <include content="Dialog_Background_Blur">
             <param name="shadow">$PARAM[shadow]</param>
+            <param name="transparency">$PARAM[transparency]</param>
             <param name="diffuse">diffuse/dialog_w120_h1000.png</param>
         </include>
     </include>
@@ -114,6 +137,7 @@
     <include name="Dialog_Background_BlurDimension_DialogMaxiHome">
         <include content="Dialog_Background_Blur">
             <param name="shadow">$PARAM[shadow]</param>
+            <param name="transparency">$PARAM[transparency]</param>
             <param name="diffuse">diffuse/dialog_w440_h1000.png</param>
         </include>
     </include>
@@ -184,9 +208,11 @@
                 <control type="group">
                     <include content="Dialog_Background_Blur$PARAM[dialog_size]" condition="$EXP[Exp_DialogTheme_IsAdaptive]">
                         <param name="shadow">$PARAM[shadow]</param>
+                        <param name="transparency">$PARAM[transparency]</param>
                     </include>
                     <include content="Dialog_Background_Blur_Standard" condition="!$EXP[Exp_DialogTheme_IsAdaptive]">
                         <param name="shadow">$PARAM[shadow]</param>
+                        <param name="transparency">$PARAM[transparency]</param>
                     </include>
                 </control>
                 <include condition="$PARAM[include_glass]">Dialog_Background_Glass</include>
@@ -227,6 +253,7 @@
                 <include content="Dialog_Background_Group">
                     <param name="include_glass">true</param>
                     <param name="dialog_size">$PARAM[dialog_size]</param>
+                    <param name="transparency">$PARAM[transparency]</param>
                 </include>
                 <control type="group">
                     <right>80</right>
@@ -610,7 +637,7 @@
     <include name="Dialog_Outline">
         <include content="Object_Control" condition="Skin.HasSetting(Glass.EnableBorders)">
             <param name="control">image</param>
-            <texture colordiffuse="dialog_fg_12" border="21">common/dialog-outline.png</texture>
+            <texture colordiffuse="dialog_fg_12" border="20">common/dialog-outline.png</texture>
         </include>
     </include>
 
@@ -621,7 +648,7 @@
                 <param name="colordiffuse">shadow_soft</param>
             </include>
             <control type="image">
-                <texture colordiffuse="$PARAM[colordiffuse]" border="21">common/dialog.png</texture>
+                <texture colordiffuse="$PARAM[colordiffuse]" border="20">common/dialog.png</texture>
             </control>
         </definition>
     </include>
@@ -644,7 +671,7 @@
                 <include>Dialog_InnerBox</include>
                 <nested />
                 <control type="image">
-                    <texture colordiffuse="$VAR[Color_DialogBorder]" border="21">common/dialog-outline.png</texture>
+                    <texture colordiffuse="$VAR[Color_DialogBorder]" border="20">common/dialog-outline.png</texture>
                 </control>
             </control>
         </definition>
@@ -662,29 +689,30 @@
         </definition>
     </include>
 
+    <include name="Dialog_Scrollbar_Inset_Def">
+        <texturesliderbackground colordiffuse="$VAR[Color_DialogBorder]" border="4">scrollbar/scrollv_line.png</texturesliderbackground>
+        <centerright>20</centerright>
+    </include>
+
     <include name="Dialog_Scrollbar">
         <param name="id">61</param>
         <param name="showonepage">false</param>
+        <param name="inset">false</param>
         <definition>
             <control type="scrollbar" id="$PARAM[id]">
                 <nested />
+                <include condition="$PARAM[inset]">Dialog_Scrollbar_Inset_Def</include>
+                <!-- <include content="Animation_ConditionalFade" condition="![$PARAM[inset]]">
+                    <param name="condition">!Control.HasFocus($PARAM[id])</param>
+                </include> -->
                 <top>20</top>
                 <bottom>20</bottom>
-                <centerright>-20</centerright>
+                <centerright>0</centerright>
                 <width>scrollbar_w</width>
                 <showonepage>$PARAM[showonepage]</showonepage>
-                <texturesliderbackground colordiffuse="main_fg_12" border="4">scrollbar/scrollv_line.png</texturesliderbackground>
                 <texturesliderbackground />
                 <texturesliderbar colordiffuse="main_logo" border="4">scrollbar/scrollv.png</texturesliderbar>
                 <include>Texture_Scrollbar_V</include>
-                <!-- <include content="Animation_Fade_Out">
-                    <param name="condition">ControlGroup(9000).HasFocus()</param>
-                    <param name="time">0</param>
-                </include>
-                <include content="Animation_Fade_In">
-                    <param name="condition">!ControlGroup(9000).HasFocus()</param>
-                    <param name="delay">200</param>
-                </include> -->
             </control>
         </definition>
     </include>

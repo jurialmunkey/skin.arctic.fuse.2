@@ -7,9 +7,11 @@
         <param name="visible">true</param>
         <param name="width">info_title_w</param>
         <param name="autoheight">false</param>
+        <param name="left">0</param>
         <definition>
             <control type="textbox">
                 <top>-20</top>
+                <left>$PARAM[left]</left>
                 <label>$PARAM[label]</label>
                 <textcolor>$PARAM[colordiffuse]_100</textcolor>
                 <font>font_title_main</font>
@@ -22,6 +24,7 @@
             </control>
             <control type="label">
                 <top>-20</top>
+                <left>$PARAM[left]</left>
                 <label>$PARAM[label]</label>
                 <wrapmultiline>true</wrapmultiline>
                 <textcolor>$PARAM[colordiffuse]_100</textcolor>
@@ -43,6 +46,7 @@
     </include>
 
     <include name="Info_Title_Logo">
+        <param name="left">0</param>
         <definition>
 
             <include content="Info_Title_Text">
@@ -51,9 +55,11 @@
                 <param name="visible">![$PARAM[mainlogo_visible]]</param>
                 <param name="width">$PARAM[width]</param>
                 <param name="autoheight">$PARAM[autoheight]</param>
+                <param name="left">$PARAM[left]</param>
             </include>
 
             <control type="group">
+                <left>$PARAM[left]</left>
                 <height>info_title_h</height>
                 <width>$PARAM[width]</width>
                 <visible>$PARAM[mainlogo_visible]</visible>
@@ -73,6 +79,7 @@
         <param name="width">info_title_w</param>
         <param name="mainlogo_visible">[!String.IsEmpty(Window(Home).Property(TMDBHelper.ListItem.CropImage))]</param>
         <param name="mainlogo_texture">$VAR[Image_CropLogo]</param>
+        <param name="left">0</param>
         <definition>
             <!-- Title Only -->
             <include content="Info_Title_Text" condition="!Skin.HasSetting(TMDbHelper.EnableCrop)">
@@ -81,6 +88,7 @@
                 <param name="visible">True</param>
                 <param name="width">$PARAM[width]</param>
                 <param name="autoheight">true</param>
+                <param name="left">$PARAM[left]</param>
             </include>
             <!-- Other -->
             <include content="Info_Title_Logo" condition="Skin.HasSetting(TMDbHelper.EnableCrop)">
@@ -90,6 +98,7 @@
                 <param name="mainlogo_texture">$PARAM[mainlogo_texture]</param>
                 <param name="width">$PARAM[width]</param>
                 <param name="autoheight">$PARAM[autoheight]</param>
+                <param name="left">$PARAM[left]</param>
             </include>
         </definition>
     </include>
@@ -1687,16 +1696,19 @@
         <param name="colordiffuse">main_fg</param>
         <param name="details">true</param>
         <param name="details_include">Items_Null</param>
+        <param name="visible">true</param>
+        <param name="left">0</param>
         <definition>
             <control type="textbox">
                 <top>17</top>
+                <left>$PARAM[left]</left>
                 <height max="$PARAM[plotheight]">auto</height>
                 <width>$PARAM[plotwidth]</width>
                 <label>$PARAM[plotlabel]</label>
                 <aligny>top</aligny>
                 <textcolor>$PARAM[colordiffuse]_70</textcolor>
                 <font>font_main_plot</font>
-                <nested />
+                <visible>$PARAM[visible]</visible>
                 <visible>$PARAM[details]</visible>
                 <include>$PARAM[details_include]</include>
             </control>
@@ -1742,6 +1754,7 @@
                 </include>
                 <control type="grouplist">
                     <top>-20</top>
+                    <left>-40</left>
                     <hitrect x="0" y="0" w="0" h="0" />
                     <orientation>vertical</orientation>
                     <itemgap>0</itemgap>
@@ -1759,10 +1772,12 @@
                         <param name="autoheight">$PARAM[titleautoheight]</param>
                         <param name="mainlogo_visible">$PARAM[mainlogo_visible]</param>
                         <param name="mainlogo_texture">$PARAM[mainlogo_texture]</param>
+                        <param name="left">40</param>
                     </include>
 
                     <!-- InfoLine -->
                     <control type="group">
+                        <left>40</left>
                         <height>50</height>
                         <visible>$PARAM[details]</visible>
                         <include>$PARAM[details_include]</include>
@@ -1783,9 +1798,11 @@
                         <param name="details">$PARAM[details]</param>
                         <param name="details_include">$PARAM[details_include]</param>
                         <param name="container">$PARAM[container]</param>
+                        <param name="left">40</param>
                     </include>
 
                     <control type="group">
+                        <left>40</left>
                         <top>12</top>
                         <left>0</left>
                         <height>40</height>

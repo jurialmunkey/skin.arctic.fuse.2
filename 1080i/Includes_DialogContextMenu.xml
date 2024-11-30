@@ -22,8 +22,8 @@
                 <include>Dimension_Dialog_Body</include>
                 <control type="grouplist" id="9000">
                     <include>Dialog_Side_Grouplist_Def</include>
+                    <!-- <onleft>61</onleft> -->
                     <onleft>996</onleft>
-                    <onright>61</onright>
                     <include content="DialogInfo_Button" condition="!$EXP[Exp_InfoDialogs]">
                         <param name="include_hintlabel">true</param>
                         <param name="id">9002</param>
@@ -99,10 +99,16 @@
                 <control type="grouplist" id="996">
                     <include>Dimension_Dialog_Body_Group</include>
                     <right>$PARAM[lines_right]</right>
-                    <onright condition="!Integer.IsEqual(Container(9000).NumItems,0)">9000</onright>
-                    <onright condition="Integer.IsEqual(Container(9000).NumItems,0)">61</onright>
-                    <pagecontrol>61</pagecontrol>
+                    <onright>9000</onright>
+                    <!-- <onright>61</onright>
+                    <pagecontrol>61</pagecontrol> -->
                 </control>
+
+                <!-- <include content="Dialog_Scrollbar">
+                    <param name="id">61</param>
+                    <onright>9000</onright>
+                    <onleft>996</onleft>
+                </include> -->
             </control>
         </definition>
     </include>
@@ -120,9 +126,9 @@
     </include>
 
     <include name="Dialog_ContextMenu">
-        <param name="dialog_size">Dimension_DialogMiniMenu</param>
+        <param name="dialog_size">Dimension_DialogSideMenu</param>
         <param name="header">$LOCALIZE[10106]</param>
-        <param name="button_width">settings_category_w</param>
+        <param name="button_width">dialog_main_button_w</param>
         <definition>
             <include>Defs_Background_Loader</include>
             <include>Dialog_Dim_Overlay</include>
@@ -147,20 +153,13 @@
 
                     <!-- Content -->
                     <include>Dialog_ContextMenu_BodyContent</include>
+
                 </control>
 
                 <include content="Dialog_ContextMenu_SideButtons">
                     <param name="dialog_size">$PARAM[dialog_size]</param>
                 </include>
 
-                <control type="group">
-                    <include>Dimension_Dialog_Body</include>
-                    <include content="Dialog_Scrollbar">
-                        <param name="id">61</param>
-                        <onleft condition="!Integer.IsEqual(Container(9000).NumItems,0)">9000</onleft>
-                        <onleft condition="Integer.IsEqual(Container(9000).NumItems,0)">996</onleft>
-                    </include>
-                </control>
 
             </control>
 

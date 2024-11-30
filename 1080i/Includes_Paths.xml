@@ -237,48 +237,8 @@
         <value condition="VideoPlayer.Content(episodes)">$INFO[Window(Home).Property(TMDbHelper.Player.TVShow.TMDb_ID),&amp;tmdb_id=,]$INFO[VideoPlayer.TVShowTitle,&amp;query=,]$INFO[VideoPlayer.Season,&amp;season=,]$INFO[VideoPlayer.Episode,&amp;episode=,]$INFO[VideoPlayer.Year,&amp;episode_year=,]</value>
     </variable>
 
-    <variable name="Path_VideoOSD_PersonCredits">
-        <value condition="String.IsEmpty(Window.Property(TMDb_ID))">plugin://plugin.video.themoviedb.helper/</value>
-        <value condition="Skin.String(VideoOSD.PersonCredits.WidgetInfo,crew)">plugin://plugin.video.themoviedb.helper/?info=crew_in_both&amp;tmdb_type=person&amp;limit=50$INFO[Window.Property(TMDb_ID),&amp;tmdb_id=,]$VAR[Path_Param_Widget]</value>
-        <value condition="Skin.String(VideoOSD.PersonCredits.WidgetInfo,films)">plugin://plugin.video.themoviedb.helper/?info=stars_in_movies&amp;tmdb_type=person&amp;limit=50$INFO[Window.Property(TMDb_ID),&amp;tmdb_id=,]$VAR[Path_Param_VideoOSD_SortKey_MovieCredits]$VAR[Path_Param_Widget]</value>
-        <value condition="Skin.String(VideoOSD.PersonCredits.WidgetInfo,shows)">plugin://plugin.video.themoviedb.helper/?info=stars_in_tvshows&amp;tmdb_type=person&amp;limit=50$INFO[Window.Property(TMDb_ID),&amp;tmdb_id=,]$VAR[Path_Param_VideoOSD_SortKey_TVShowCredits]$VAR[Path_Param_Widget]</value>
-    </variable>
-
-    <variable name="Path_Param_VideoOSD_SortKey_MovieCredits">
-        <value condition="Skin.String(VideoOSD.PersonCredits.SortKey,popular)">&amp;sort_key=popularity</value>
-        <value condition="Skin.String(VideoOSD.PersonCredits.SortKey,rating)">&amp;sort_key=vote_average</value>
-        <value condition="Skin.String(VideoOSD.PersonCredits.SortKey,votes)">&amp;sort_key=vote_count</value>
-        <value condition="Skin.String(VideoOSD.PersonCredits.SortKey,date)">&amp;sort_key=release_date</value>
-    </variable>
-
-    <variable name="Path_Param_VideoOSD_SortKey_TVShowCredits">
-        <value condition="Skin.String(VideoOSD.PersonCredits.SortKey,popular)">&amp;sort_key=popularity</value>
-        <value condition="Skin.String(VideoOSD.PersonCredits.SortKey,rating)">&amp;sort_key=vote_average</value>
-        <value condition="Skin.String(VideoOSD.PersonCredits.SortKey,votes)">&amp;sort_key=vote_count</value>
-        <value condition="Skin.String(VideoOSD.PersonCredits.SortKey,date)">&amp;sort_key=first_air_date</value>
-    </variable>
-
     <variable name="Path_Param_Widget">
         <value>&amp;nextpage=false&amp;fanarttv=false&amp;cacheonly=true&amp;length=1</value>
-    </variable>
-
-    <variable name="Path_Param_SortKey_MovieCredits">
-        <value condition="Skin.String(VideoInfo.PersonCredits.SortKey,popular)">&amp;sort_key=popularity</value>
-        <value condition="Skin.String(VideoInfo.PersonCredits.SortKey,rating)">&amp;sort_key=vote_average</value>
-        <value condition="Skin.String(VideoInfo.PersonCredits.SortKey,votes)">&amp;sort_key=vote_count</value>
-        <value condition="Skin.String(VideoInfo.PersonCredits.SortKey,date)">&amp;sort_key=release_date</value>
-    </variable>
-
-    <variable name="Path_Param_SortKey_TVShowCredits">
-        <value condition="Skin.String(VideoInfo.PersonCredits.SortKey,popular)">&amp;sort_key=popularity</value>
-        <value condition="Skin.String(VideoInfo.PersonCredits.SortKey,rating)">&amp;sort_key=vote_average</value>
-        <value condition="Skin.String(VideoInfo.PersonCredits.SortKey,votes)">&amp;sort_key=vote_count</value>
-        <value condition="Skin.String(VideoInfo.PersonCredits.SortKey,date)">&amp;sort_key=first_air_date</value>
-    </variable>
-
-    <variable name="Path_Param_SortKey">
-        <value condition="String.IsEqual(Window.Property(Item_Type),type=tv)">$VAR[Path_Param_SortKey_TVShowCredits]</value>
-        <value>$VAR[Path_Param_SortKey_MovieCredits]</value>
     </variable>
 
     <variable name="Path_Param_Query">
