@@ -21,7 +21,7 @@
             </include>
 
             <control type="group">
-                <right>dialog_panelgroup_w</right>
+                <right>dialog_buttongroup_w</right>
                 <!-- Header -->
                 <include content="Dialog_Head">
                     <param name="label">$LOCALIZE[20410]</param>
@@ -72,16 +72,19 @@
             </control>
 
             <control type="group">
-                <include>Dialog_Side_Panel_Group_Def</include>
+                <include content="Dialog_Side_Panel_Group_Def">
+                    <param name="width">dialog_buttongroup_w</param>
+                </include>
                 <!-- Side Buttons -->
                 <control type="group">
                     <include>Dimension_Dialog_Body</include>
                     <control type="grouplist" id="9000">
-                        <include>Dialog_Side_Expanded_Grouplist_Def</include>
+                        <include>Dialog_Side_Grouplist_Def</include>
                         <onleft condition="!Player.HasVideo">Close</onleft>
                         <onleft condition="Player.HasVideo">Seek(-10)</onleft>
                         <onright condition="Player.HasVideo">Seek(10)</onright>
-                        <include content="DialogInfo_ExpandedButton">
+                        <include content="DialogInfo_Button">
+                            <param name="include_hintlabel">true</param>
                             <param name="id">9002</param>
                             <param name="groupid">9102</param>
                             <param name="label">$LOCALIZE[31485]</param>
@@ -90,7 +93,8 @@
                             <onclick>Action(Stop)</onclick>
                             <onclick>Close</onclick>
                         </include>
-                        <include content="DialogInfo_ExpandedButton">
+                        <include content="DialogInfo_Button">
+                            <param name="include_hintlabel">true</param>
                             <param name="id">9003</param>
                             <param name="groupid">9103</param>
                             <param name="label">$VAR[Label_Trailer_PlayPause]</param>
@@ -98,7 +102,8 @@
                             <param name="visible">Player.HasVideo</param>
                             <onclick>PlayerControl(Play)</onclick>
                         </include>
-                        <include content="DialogInfo_ExpandedButton">
+                        <include content="DialogInfo_Button">
+                            <param name="include_hintlabel">true</param>
                             <param name="id">9004</param>
                             <param name="groupid">9104</param>
                             <param name="label">$LOCALIZE[31483]</param>
@@ -106,7 +111,8 @@
                             <param name="visible">!String.IsEmpty(Window(Home).Property(PlayTrailer))</param>
                             <onclick>PlayMedia($ESCINFO[Window(Home).Property(PlayTrailer)],False,1)</onclick>
                         </include>
-                        <include content="DialogInfo_ExpandedButton">
+                        <include content="DialogInfo_Button">
+                            <param name="include_hintlabel">true</param>
                             <param name="id">9005</param>
                             <param name="groupid">9105</param>
                             <param name="label">Fullscreen</param>

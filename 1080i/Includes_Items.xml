@@ -828,10 +828,9 @@
 
     <include name="Items_DialogVideoInfo_MenuBar">
         <param name="zoom_in_include">false</param>
-        <param name="vertical">true</param>
         <param name="itemgap">0</param>
         <definition>
-            <include content="DialogInfo_ExpandedButton" condition="!String.IsEqual(ListItem.Property(tmdb_type),person)">
+            <!-- <include content="DialogInfo_ExpandedButton" condition="!String.IsEqual(ListItem.Property(tmdb_type),person)">
                 <param name="id">4001</param>
                 <param name="groupid">4101</param>
                 <param name="sliceid">4201</param>
@@ -846,13 +845,14 @@
                 <onclick condition="!ListItem.HasVideoVersions">SendClick(8)</onclick>
                 <onclick condition="!ListItem.HasVideoVersions">RunScript(plugin.video.themoviedb.helper,close_dialog=1190)</onclick>
                 <onfocus>ClearProperty(DetailsView)</onfocus>
-            </include>
+            </include> -->
 
             <!-- Trailer -->
-            <include content="DialogInfo_ExpandedButton" condition="!String.IsEqual(ListItem.Property(tmdb_type),person)">
+            <include content="DialogInfo_Button" condition="!String.IsEqual(ListItem.Property(tmdb_type),person)">
                 <param name="id">4002</param>
                 <param name="groupid">4102</param>
                 <param name="sliceid">4202</param>
+                <param name="vertical">false</param>
                 <param name="label">$LOCALIZE[20410]</param>
                 <param name="icon">special://skin/extras/icons/videoplay.png</param>
                 <param name="zoom_in_delay">60</param>
@@ -869,10 +869,11 @@
             </include>
 
             <!-- Versions -->
-            <include content="DialogInfo_ExpandedButton" condition="String.IsEqual(ListItem.DBType,movie) + ListItem.HasVideoVersions">
+            <include content="DialogInfo_Button" condition="String.IsEqual(ListItem.DBType,movie) + ListItem.HasVideoVersions">
                 <param name="id">4021</param>
                 <param name="groupid">4121</param>
                 <param name="sliceid">4221</param>
+                <param name="vertical">false</param>
                 <param name="label">$LOCALIZE[40000]</param>
                 <param name="icon">special://skin/extras/icons/bookmarks.png</param>
                 <param name="zoom_in_delay">240</param>
@@ -886,10 +887,11 @@
             </include>
 
             <!-- Extras -->
-            <include content="DialogInfo_ExpandedButton" condition="String.IsEqual(ListItem.DBType,movie) + ListItem.HasVideoExtras">
+            <include content="DialogInfo_Button" condition="String.IsEqual(ListItem.DBType,movie) + ListItem.HasVideoExtras">
                 <param name="id">4022</param>
                 <param name="groupid">4122</param>
                 <param name="sliceid">4222</param>
+                <param name="vertical">false</param>
                 <param name="label">$LOCALIZE[40211]</param>
                 <param name="icon">special://skin/extras/icons/director.png</param>
                 <param name="zoom_in_delay">240</param>
@@ -903,10 +905,11 @@
             </include>
 
             <!-- Trakt -->
-            <include content="DialogInfo_ExpandedButton" condition="!String.IsEqual(ListItem.Property(tmdb_type),person)">
+            <include content="DialogInfo_Button" condition="!String.IsEqual(ListItem.Property(tmdb_type),person)">
                 <param name="id">4004</param>
                 <param name="groupid">4104</param>
                 <param name="sliceid">4204</param>
+                <param name="vertical">false</param>
                 <param name="label">Trakt</param>
                 <param name="icon">special://skin/extras/icons/watchlist.png</param>
                 <param name="zoom_in_delay">180</param>
@@ -926,10 +929,11 @@
             </include>
 
             <!-- Wiki -->
-            <include content="DialogInfo_ExpandedButton">
+            <include content="DialogInfo_Button">
                 <param name="id">4005</param>
                 <param name="groupid">4105</param>
                 <param name="sliceid">4205</param>
+                <param name="vertical">false</param>
                 <param name="label">Wiki</param>
                 <param name="icon">special://skin/extras/icons/globe.png</param>
                 <param name="zoom_in_delay">180</param>
@@ -944,10 +948,11 @@
             </include>
 
             <!-- Rating -->
-            <include content="DialogInfo_ExpandedButton" condition="!String.IsEqual(ListItem.Property(tmdb_type),person)">
+            <include content="DialogInfo_Button" condition="!String.IsEqual(ListItem.Property(tmdb_type),person)">
                 <param name="id">4007</param>
                 <param name="groupid">4107</param>
                 <param name="sliceid">4207</param>
+                <param name="vertical">false</param>
                 <param name="label">$LOCALIZE[563]</param>
                 <param name="icon">special://skin/extras/icons/star.png</param>
                 <param name="zoom_in_delay">240</param>
@@ -961,10 +966,11 @@
             </include>
 
             <!-- Artwork -->
-            <include content="DialogInfo_ExpandedButton" condition="!String.IsEqual(ListItem.Property(tmdb_type),person)">
+            <include content="DialogInfo_Button" condition="!String.IsEqual(ListItem.Property(tmdb_type),person)">
                 <param name="id">4009</param>
                 <param name="groupid">4109</param>
                 <param name="sliceid">4209</param>
+                <param name="vertical">false</param>
                 <param name="label">$LOCALIZE[39123]</param>
                 <param name="icon">special://skin/extras/icons/image.png</param>
                 <param name="zoom_in_delay">240</param>
@@ -977,10 +983,11 @@
             </include>
 
             <!-- Refresh -->
-            <include content="DialogInfo_ExpandedButton" condition="!String.IsEqual(ListItem.Property(tmdb_type),person)">
+            <include content="DialogInfo_Button" condition="!String.IsEqual(ListItem.Property(tmdb_type),person)">
                 <param name="id">4008</param>
                 <param name="groupid">4108</param>
                 <param name="sliceid">4208</param>
+                <param name="vertical">false</param>
                 <param name="label">$LOCALIZE[184]</param>
                 <param name="icon">special://skin/extras/icons/update.png</param>
                 <param name="zoom_in_delay">240</param>
@@ -997,11 +1004,11 @@
     </include>
 
     <include name="Items_DialogMusicInfo_MenuBar">
-        <param name="zoom_in_include">true</param>
-        <param name="vertical">true</param>
+        <param name="zoom_in_include">false</param>
+        <param name="vertical">false</param>
         <param name="itemgap">0</param>
         <definition>
-            <include content="DialogInfo_Button">
+            <!-- <include content="DialogInfo_Button">
                 <param name="vertical">$PARAM[vertical]</param>
                 <param name="id">4001</param>
                 <param name="groupid">4101</param>
@@ -1012,19 +1019,16 @@
                 <param name="zoom_in_include">$PARAM[zoom_in_include]</param>
                 <param name="include_slide">true</param>
                 <param name="itemgap">$PARAM[itemgap]</param>
-                <!-- Addon Not Installed -->
+
                 <onclick condition="!String.IsEqual(ListItem.DBType,artist) + !System.AddonIsEnabled(script.playalbum) + System.HasAddon(script.playalbum)">EnableAddon(script.playalbum)</onclick>
                 <onclick condition="!String.IsEqual(ListItem.DBType,artist) + !System.HasAddon(script.playalbum)">InstallAddon(script.playalbum)</onclick>
 
-                <!-- Addon Installed -->
                 <onclick condition="String.IsEqual(ListItem.DBType,artist)">Dialog.Close(musicinformation)</onclick>
                 <onclick condition="String.IsEqual(ListItem.DBType,artist)">Dialog.Close(songinformation)</onclick>
 
-                <!-- Artist Browse -->
                 <onclick condition="String.IsEqual(ListItem.DBType,artist) + Window.IsVisible(music)">Container.Update($VAR[Path_MusicInfo_ArtistFolder])</onclick>
                 <onclick condition="String.IsEqual(ListItem.DBType,artist) + !Window.IsVisible(music)">ActivateWindow(music,$VAR[Path_MusicInfo_ArtistFolder],return)</onclick>
 
-                <!-- Album / Song Play -->
                 <onclick condition="!String.IsEqual(ListItem.DBType,artist) + System.AddonIsEnabled(script.playalbum) + String.IsEmpty(ListItem.DBID) + !String.IsEqual(ListItem.DBType,artist)">PlayMedia($ESCINFO[ListItem.FilenameAndPath])</onclick>
                 <onclick condition="!String.IsEqual(ListItem.DBType,artist) + System.AddonIsEnabled(script.playalbum) + String.IsEqual(ListItem.DBType,album)">RunScript(script.playalbum,albumid=$INFO[ListItem.DBID])</onclick>
                 <onclick condition="!String.IsEqual(ListItem.DBType,artist) + System.AddonIsEnabled(script.playalbum) + String.IsEqual(ListItem.DBType,song)">RunScript(script.playalbum,songid=$INFO[ListItem.DBID])</onclick>
@@ -1032,7 +1036,7 @@
                 <param name="include_hintlabel">true</param>
 
                 <onfocus>ClearProperty(DetailsView)</onfocus>
-            </include>
+            </include> -->
             <include content="DialogInfo_Button">
                 <param name="vertical">$PARAM[vertical]</param>
                 <param name="id">4003</param>
