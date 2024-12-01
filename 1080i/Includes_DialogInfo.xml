@@ -60,7 +60,7 @@
         <param name="plotlabel">$VAR[Label_Plot]</param>
         <definition>
             <left>infodialog_left_w</left>
-            <bottom>-10</bottom>
+            <bottom>-40</bottom>
             <include content="Animation_Slide_In">
                 <param name="type">WindowOpen</param>
                 <param name="posx">320</param>
@@ -1067,8 +1067,10 @@
         <param name="radiocheck">true</param>
         <param name="zoom_in_delay">0</param>
         <param name="zoom_in_include">false</param>
-        <param name="include_slide">false</param>
         <param name="include_hintlabel">false</param>
+        <param name="include_customwidth">false</param>
+        <param name="back_width">220</param>
+        <param name="icon_offset_x">-60</param>
         <definition>
             <control type="$PARAM[control]" id="$PARAM[id]">
                 <include content="Object_Top" condition="$PARAM[vertical]">
@@ -1081,8 +1083,12 @@
                 <include content="Animation_DialogInfoButton_ZoomIn" condition="$PARAM[zoom_in_include]">
                     <param name="delay">$PARAM[zoom_in_delay]</param>
                 </include>
-
                 <height>$PARAM[back_size]</height>
+
+                <include content="Object_Width" condition="$PARAM[include_customwidth]">
+                    <param name="width">$PARAM[back_width]</param>
+                </include>
+
                 <width>$PARAM[back_size]</width>
                 <include>Texture_CircleButtonDialog_Highlight_Focus_V</include>
                 <texturenofocus />
@@ -1151,9 +1157,36 @@
                     <param name="id">$PARAM[id]</param>
                 </include>
 
+                <!-- <include content="Object_Control" condition="$PARAM[include_hintlabel] + Skin.HasSetting(Buttons.EnableTooltips) + Skin.HasSetting(Buttons.DisableHintLabels)">
+                    <param name="control">group</param>
+                    <left>-32</left>
+                    <right>-32</right>
+                    <height>24</height>
+                    <visible>Control.HasFocus($PARAM[id])</visible>
+                    <include content="Animation_Fade_In">
+                        <param name="type">visible</param>
+                        <param name="delay">600</param>
+                        <param name="time">200</param>
+                    </include>
+                    <centerbottom>-30</centerbottom>
+                    <control type="image">
+                        <texture colordiffuse="$VAR[ColorSelected]" border="12">common/widget_text.png</texture>
+                    </control>
+                    <control type="label">
+                        <textcolor>$VAR[ColorSelectedInverted]</textcolor>
+                        <label>$PARAM[label]</label>
+                        <font>font_hint</font>
+                        <align>center</align>
+                        <aligny>center</aligny>
+                    </control>
+                </include> -->
+
                 <control type="group">
                     <include content="Object_Top" condition="![$PARAM[include_hintlabel]]">
                         <param name="top">10</param>
+                    </include>
+                    <include content="Object_Left" condition="$PARAM[include_customwidth]">
+                        <param name="left">$PARAM[icon_offset_x]</param>
                     </include>
                     <height>$PARAM[icon_size]</height>
                     <control type="image">
@@ -1185,18 +1218,18 @@
             <align>center</align>
             <aligny>top</aligny>
             <textoffsetx>0</textoffsetx>
-            <textoffsety>85</textoffsety>
+            <textoffsety>84</textoffsety>
         </definition>
     </include>
 
     <include name="DialogInfo_Button_PlayBrowse">
-        <param name="width">345</param>
+        <param name="width">245</param>
         <param name="id">4001</param>
         <param name="groupid">4101</param>
         <param name="name">$VAR[Label_DialogInfo_Title]</param>
         <param name="role">$VAR[Label_DialogInfo_PlayButton]</param>
         <param name="icon">$VAR[Image_DialogInfo_PlayButton]</param>
-        <param name="image">$VAR[Image_DialogInfo_PlayThumb]</param>
+        <param name="include_detailed_labels">false</param>
         <definition>
             <control type="button" id="$PARAM[id]">
                 <width>$PARAM[width]</width>
@@ -1218,18 +1251,16 @@
                         <include content="Object_InfoCircle">
                             <param name="name">$PARAM[name]</param>
                             <param name="role">$PARAM[role]</param>
-                            <param name="icon">diffuse/circle/circle_50.png</param>
-                            <param name="bordersize">2</param>
-                            <include content="Object_InfoCircle_Image">
-                                <param name="colordiffuse">panel_fg_70</param>
-                                <param name="icon">$PARAM[image]</param>
-                            </include>
-                            <control type="image">
-                                <centertop>50%</centertop>
-                                <height>50</height>
-                                <width>50</width>
-                                <texture>$PARAM[icon]</texture>
-                                <bordersize>1</bordersize>
+                            <param name="icon">$PARAM[icon]</param>
+                            <param name="shadow_colordiffuse">shadow_hard</param>
+                            <param name="include_labels">$PARAM[include_detailed_labels]</param>
+                            <control type="label">
+                                <font>font_mini_bold</font>
+                                <label>$PARAM[role]</label>
+                                <align>left</align>
+                                <left>80</left>
+                                <textcolor>main_fg_90</textcolor>
+                                <visible>![$PARAM[include_detailed_labels]]</visible>
                             </control>
                         </include>
                     </control>
@@ -1239,20 +1270,20 @@
                         <include content="Object_InfoCircle">
                             <param name="name">$PARAM[name]</param>
                             <param name="role">$PARAM[role]</param>
-                            <param name="icon">diffuse/circle/circle_50.png</param>
+                            <param name="icon">$PARAM[icon]</param>
                             <param name="textcolor_top">$VAR[ColorSelected]</param>
                             <param name="textcolor_sub">$VAR[ColorSelected]</param>
-                            <param name="bordersize">2</param>
-                            <include content="Object_InfoCircle_Image">
-                                <param name="colordiffuse">panel_fg_70</param>
-                                <param name="icon">$PARAM[image]</param>
-                            </include>
-                            <control type="image">
-                                <centertop>50%</centertop>
-                                <height>50</height>
-                                <width>50</width>
-                                <texture>$PARAM[icon]</texture>
-                                <bordersize>1</bordersize>
+                            <param name="colorbacking">$VAR[ColorSelected]</param>
+                            <param name="colordiffuse">$VAR[ColorSelectedInverted]</param>
+                            <param name="shadow_colordiffuse">00ffffff</param>
+                            <param name="include_labels">$PARAM[include_detailed_labels]</param>
+                            <control type="label">
+                                <font>font_mini_bold</font>
+                                <label>$PARAM[role]</label>
+                                <align>left</align>
+                                <left>80</left>
+                                <textcolor>$VAR[ColorSelected]</textcolor>
+                                <visible>![$PARAM[include_detailed_labels]]</visible>
                             </control>
                         </include>
                     </control>
@@ -1670,6 +1701,7 @@
         <onright>8000</onright>
         <onleft>8000</onleft>
         <onback>8000</onback>
+        <showonepage>true</showonepage>
     </include>
 
     <include name="DialogInfo_PlotBox_Foreground">
@@ -1817,7 +1849,7 @@
                             <onleft>61</onleft>
                             <!-- Info -->
                             <include content="DialogInfo_Button">
-                                <param name="include_hintlabel">true</param>
+                                <param name="include_hintlabel">false</param>
                                 <param name="vertical">true</param>
                                 <param name="id">8001</param>
                                 <param name="groupid">8101</param>
@@ -1835,7 +1867,7 @@
                             </include>
                             <!-- Movies -->
                             <include content="DialogInfo_Button" condition="!String.IsEmpty(Window.Property(tmdb_id)) + String.IsEqual(Window.Property(tmdb_type),person)">
-                                <param name="include_hintlabel">true</param>
+                                <param name="include_hintlabel">false</param>
                                 <param name="id">9011</param>
                                 <param name="groupid">9111</param>
                                 <param name="label">$LOCALIZE[342]</param>
@@ -1848,7 +1880,7 @@
                             </include>
                             <!-- TV Shows -->
                             <include content="DialogInfo_Button" condition="!String.IsEmpty(Window.Property(tmdb_id)) + String.IsEqual(Window.Property(tmdb_type),person)">
-                                <param name="include_hintlabel">true</param>
+                                <param name="include_hintlabel">false</param>
                                 <param name="id">9012</param>
                                 <param name="groupid">9112</param>
                                 <param name="label">$LOCALIZE[20343]</param>
@@ -1861,7 +1893,7 @@
                             </include>
                             <!-- Crew -->
                             <include content="DialogInfo_Button" condition="!String.IsEmpty(Window.Property(tmdb_id)) + String.IsEqual(Window.Property(tmdb_type),person)">
-                                <param name="include_hintlabel">true</param>
+                                <param name="include_hintlabel">false</param>
                                 <param name="id">9013</param>
                                 <param name="groupid">9113</param>
                                 <param name="label">$LOCALIZE[31050]</param>
@@ -1874,7 +1906,7 @@
                             </include>
                             <!-- Cast -->
                             <include content="DialogInfo_Button" condition="!String.IsEmpty(Window.Property(tmdb_id)) + [String.IsEqual(Window.Property(tmdb_type),movie) | String.IsEqual(Window.Property(tmdb_type),tv)]">
-                                <param name="include_hintlabel">true</param>
+                                <param name="include_hintlabel">false</param>
                                 <param name="id">9014</param>
                                 <param name="groupid">9114</param>
                                 <param name="label">$LOCALIZE[206]</param>
@@ -1887,7 +1919,7 @@
                             </include>
                             <!-- Crew -->
                             <include content="DialogInfo_Button" condition="!String.IsEmpty(Window.Property(tmdb_id)) + [String.IsEqual(Window.Property(tmdb_type),movie) | String.IsEqual(Window.Property(tmdb_type),tv)]">
-                                <param name="include_hintlabel">true</param>
+                                <param name="include_hintlabel">false</param>
                                 <param name="id">9015</param>
                                 <param name="groupid">9115</param>
                                 <param name="label">$LOCALIZE[31050]</param>
@@ -1900,7 +1932,7 @@
                             </include>
                             <!-- Wiki -->
                             <include content="DialogInfo_Button">
-                                <param name="include_hintlabel">true</param>
+                                <param name="include_hintlabel">false</param>
                                 <param name="id">9005</param>
                                 <param name="groupid">9105</param>
                                 <param name="label">Wiki</param>
@@ -1909,7 +1941,7 @@
                             </include>
                             <!-- Trailer -->
                             <include content="DialogInfo_Button">
-                                <param name="include_hintlabel">true</param>
+                                <param name="include_hintlabel">false</param>
                                 <param name="id">9002</param>
                                 <param name="groupid">9102</param>
                                 <param name="label">$LOCALIZE[20410]</param>

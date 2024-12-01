@@ -336,22 +336,6 @@
         </definition>
     </include>
 
-    <include name="Object_ViewFilterButton">
-        <definition>
-            <include content="Object_Info_Button">
-                <param name="id">$PARAM[id]</param>
-                <param name="groupid">$PARAM[groupid]</param>
-                <param name="sliceid">$PARAM[sliceid]</param>
-                <param name="control">$PARAM[control]</param>
-                <param name="icon">$PARAM[icon]</param>
-                <param name="itempad">$PARAM[itempad]</param>
-                <param name="font">font_mini</param>
-                <param name="visible">$PARAM[visible]</param>
-                <nested />
-            </include>
-        </definition>
-    </include>
-
     <include name="Object_AlphabetLetter">
         <definition>
             <include content="Object_AlphabetLetter_Label">
@@ -682,6 +666,7 @@
         <param name="font_sub">font_mini</param>
         <param name="include_labels">true</param>
         <param name="backing_visible">true</param>
+        <param name="shadow_colordiffuse">shadow_soft</param>
         <definition>
             <control type="group">
                 <height>80</height>
@@ -692,7 +677,7 @@
                     <control type="image">
                         <include content="Dimension_Padding"><param name="pad">-40</param></include>
                         <bordersize>40</bordersize>
-                        <bordertexture colordiffuse="shadow_soft">shadows/circle_50-shadow-40.png</bordertexture>
+                        <bordertexture colordiffuse="$PARAM[shadow_colordiffuse]">shadows/circle_50-shadow-40.png</bordertexture>
                         <texture colordiffuse="$PARAM[colorbacking]">diffuse/circle/circle_50.png</texture>
                         <visible>$PARAM[backing_visible]</visible>
                     </control>
@@ -1331,103 +1316,6 @@
                     <include content="Dimension_Padding"><param name="pad">20</param></include>
                     <texture>indicator/timer.png</texture>
                     <visible>!$PARAM[checkmark]</visible>
-                </control>
-            </control>
-        </definition>
-    </include>
-
-    <include name="Object_Info_Button_Icon">
-        <param name="back_colordiffuse">main_fg_100</param>
-        <param name="shadow_colordiffuse">shadow_hard</param>
-        <definition>
-            <control type="group">
-                <nested />
-                <height>50</height>
-                <width>50</width>
-                <control type="image">
-                    <include content="Dimension_Padding"><param name="pad">-30</param></include>
-                    <bordersize>30</bordersize>
-                    <bordertexture colordiffuse="$PARAM[shadow_colordiffuse]">shadows/circle_50-shadow-30.png</bordertexture>
-                    <texture colordiffuse="$PARAM[back_colordiffuse]">diffuse/circle/circle_50.png</texture>
-                </control>
-                <include content="Object_InfoCircle_Image">
-                    <param name="bordersize">1</param>
-                    <param name="aspectratio">keep</param>
-                    <param name="colordiffuse">$PARAM[colordiffuse]</param>
-                    <param name="icon">$PARAM[icon]</param>
-                </include>
-            </control>
-        </definition>
-    </include>
-
-    <include name="Object_Info_Button_Left">
-        <control type="group">
-            <visible>$PARAM[visible]</visible>
-            <nested />
-            <include content="Object_Info_Button_Icon">
-                <param name="back_colordiffuse">$PARAM[back_colordiffuse]</param>
-                <param name="colordiffuse">$PARAM[icon_colordiffuse]</param>
-                <param name="icon">$PARAM[icon]</param>
-                <param name="shadow_colordiffuse">shadow_soft</param>
-                <left>60</left>
-                <centertop>50%</centertop>
-            </include>
-        </control>
-    </include>
-    <include name="Object_Info_Button">
-        <param name="visible">true</param>
-        <param name="control">button</param>
-        <param name="width">auto</param>
-        <param name="itemgap">60</param>
-        <param name="itempad">0</param>
-        <param name="textcolor">main_fg_70</param>
-        <param name="font">font_mini_bold</param>
-        <definition>
-            <control type="group" id="$PARAM[groupid]">
-                <left>$PARAM[itempad]</left>
-                <width>130</width>
-                <height>256</height>
-                <visible>$PARAM[visible]</visible>
-                <include content="Object_Info_Button_Left">
-                    <param name="visible">Control.HasFocus($PARAM[id])</param>
-                    <param name="icon">$PARAM[icon]</param>
-                    <param name="back_colordiffuse">$PARAM[flip_colordiffuse]</param>
-                    <param name="icon_colordiffuse">$PARAM[icon_colordiffuse]</param>
-                    <control type="image">
-                        <include>Texture_MainMenu_Highlight_H_X</include>
-                    </control>
-                </include>
-                <include content="Object_Info_Button_Left">
-                    <param name="visible">![Control.HasFocus($PARAM[id])]</param>
-                    <param name="icon">$PARAM[icon]</param>
-                    <param name="back_colordiffuse">$PARAM[back_colordiffuse]</param>
-                    <param name="icon_colordiffuse">$PARAM[icon_colordiffuse]</param>
-                </include>
-            </control>
-            <control type="$PARAM[control]" id="$PARAM[id]">
-                <left>$PARAM[itemgap]</left>
-                <width>$PARAM[width]</width>
-                <visible>$PARAM[visible]</visible>
-                <height>256</height>
-                <texturenofocus />
-                <alttexturenofocus />
-                <include>Texture_MainMenu_Highlight_Focus_H_Y</include>
-                <font>$PARAM[font]</font>
-                <align>left</align>
-                <textoffsetx>0</textoffsetx>
-                <textcolor>$PARAM[textcolor]</textcolor>
-                <focusedcolor>$VAR[ColorSelected]</focusedcolor>
-                <nested />
-                <label>$PARAM[label]</label>
-            </control>
-            <control type="group" id="$PARAM[sliceid]">
-                <left>$PARAM[itemgap]</left>
-                <visible>$PARAM[visible]</visible>
-                <width>80</width>
-                <height>256</height>
-                <control type="image">
-                    <visible>Control.HasFocus($PARAM[id])</visible>
-                    <include>Texture_MainMenu_Highlight_H_Z</include>
                 </control>
             </control>
         </definition>
