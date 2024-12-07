@@ -1560,9 +1560,13 @@
                 </include>
 
                 <!-- Genres -->
-                <include content="Info_Line_Items" condition="!Skin.HasSetting(InfoLine.EndTime)">
+                <!-- MISC046: remove condition="!Skin.HasSetting(InfoLine.EndTime) -->
+                <!-- include content="Info_Line_Items" condition="!Skin.HasSetting(InfoLine.EndTime)" -->
+                <include content="Info_Line_Items">
                     <include content="Info_Line_Visible_03">
-                        <param name="altvisible">[!String.IsEmpty($PARAM[container]ListItem.ChannelNumberLabel) | !String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.base_channelnumberlabel))]</param>
+                        <!-- MISC046: No PVR genre - altvisible changed to false -->
+                        <!--param name="altvisible">[!String.IsEmpty($PARAM[container]ListItem.ChannelNumberLabel) | !String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.base_channelnumberlabel))]</param -->
+                        <param name="altvisible">false</param>
                         <param name="container">$PARAM[container]</param>
                         <param name="dbtype_01">movie</param>
                         <param name="dbtype_02">tvshow</param>
@@ -1637,7 +1641,9 @@
                 </include>
 
                 <!-- End Time -->
-                <include content="Info_Line_Items" condition="Skin.HasSetting(InfoLine.EndTime)">
+                <!-- MISC046: remove condition="!Skin.HasSetting(InfoLine.EndTime) -->
+                <!-- include content="Info_Line_Items" condition="!Skin.HasSetting(InfoLine.EndTime)" -->
+                <include content="Info_Line_Items">
                     <include content="Info_Line_Visible_05">
                         <param name="altvisible">[!String.IsEmpty($PARAM[container]ListItem.ChannelNumberLabel) | !String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.base_channelnumberlabel))]</param>
                         <param name="container">$PARAM[container]</param>
