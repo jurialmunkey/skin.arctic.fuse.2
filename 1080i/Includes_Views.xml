@@ -244,128 +244,140 @@
     </include>
 
     <include name="View_Sorting_Buttons">
-        <control type="grouplist" id="8000">
-            <orientation>horizontal</orientation>
-            <height>160</height>
-            <centertop>50%</centertop>
-            <align>center</align>
-            <right>60</right>
-            <onup>50</onup>
-            <onback>50</onback>
-            <ondown>SetProperty(List.ViewContainer,8000)</ondown>
-            <ondown>SetFocus(330)</ondown>
+        <param name="itemgap">-40</param>
+        <param name="include_customwidth">true</param>
+        <param name="include_hintlabel">true</param>
+        <definition>
+            <control type="grouplist" id="8000">
+                <orientation>horizontal</orientation>
+                <height>160</height>
+                <centertop>50%</centertop>
+                <align>center</align>
+                <right>60</right>
+                <onup>50</onup>
+                <onback>50</onback>
+                <ondown>SetProperty(List.ViewContainer,8000)</ondown>
+                <ondown>SetFocus(330)</ondown>
 
-            <hitrect x="0" y="0" w="0" h="0" />
-
-            <visible allowhiddenfocus="true">$EXP[Exp_View_SortModeButtons_HasFocus]</visible>
-
-            <!-- View -->
-            <include content="DialogInfo_Button">
-                <param name="vertical">false</param>
-                <param name="id">8001</param>
-                <param name="groupid">8101</param>
-                <param name="label">$LOCALIZE[31319]</param>
-                <param name="icon">special://skin/extras/icons/table.png</param>
-                <param name="itemgap">0</param>
-                <param name="visible">true</param>
-                <param name="include_hintlabel">true</param>
                 <hitrect x="0" y="0" w="0" h="0" />
-                <onclick>Runscript(script.skinvariables,action=buildviews,contentid=$VAR[Items_ViewMode_Switch],pluginname=$INFO[Container.PluginName])</onclick>
-            </include>
 
-            <!-- Sort -->
-            <include content="DialogInfo_Button">
-                <param name="vertical">false</param>
-                <param name="id">8003</param>
-                <param name="groupid">8103</param>
-                <param name="label">$VAR[Label_SortMethod]</param>
-                <param name="icon">special://skin/extras/icons/list-ul.png</param>
-                <param name="itemgap">0</param>
-                <param name="visible">true</param>
-                <param name="include_hintlabel">true</param>
-                <hitrect x="0" y="0" w="0" h="0" />
-                <onclick>SetProperty(DialogSelectType,Menu,Home)</onclick>
-                <onclick condition="![Window.IsMedia + String.IsEqual(Container.FolderName,Skin Variables) + !String.IsEmpty(Window.Property(MediaFilter.BaseDir.Name))]">SendClick(3)</onclick>
-                <onclick condition="Window.IsMedia + String.IsEqual(Container.FolderName,Skin Variables) + !String.IsEmpty(Window.Property(MediaFilter.BaseDir.Name))">RunScript(script.skinvariables,run_dialog=select,heading=$LOCALIZE[581],separator=||,list=title||genre||year||rating||playcount||director||originaltitle||lastplayed||writer||studio||mpaa||country||premiered||top250||votes,"executebuiltin=SetProperty(MediaFilter.SortBy,{v})||route=run_executebuiltin=special://skin/shortcuts/builtins/skinvariables-mediafilter.json&amp;use_rules=True")</onclick>
-            </include>
+                <visible allowhiddenfocus="true">$EXP[Exp_View_SortModeButtons_HasFocus]</visible>
 
-            <!-- Order -->
-            <include content="DialogInfo_Button">
-                <param name="vertical">false</param>
-                <param name="id">8002</param>
-                <param name="groupid">8102</param>
-                <param name="label">$LOCALIZE[31015]</param>
-                <param name="icon">$VAR[Image_SortDirection]</param>
-                <param name="itemgap">0</param>
-                <param name="visible">true</param>
-                <param name="include_hintlabel">true</param>
-                <hitrect x="0" y="0" w="0" h="0" />
-                <onclick>SetProperty(DialogSelectType,Menu,Home)</onclick>
-                <onclick condition="![Window.IsMedia + String.IsEqual(Container.FolderName,Skin Variables) + !String.IsEmpty(Window.Property(MediaFilter.BaseDir.Name))]">SendClick(4)</onclick>
+                <!-- View -->
+                <include content="DialogInfo_Button">
+                    <param name="vertical">false</param>
+                    <param name="id">8001</param>
+                    <param name="groupid">8101</param>
+                    <param name="label">$LOCALIZE[31319]</param>
+                    <param name="icon">special://skin/extras/icons/table.png</param>
+                    <param name="itemgap">0</param>
+                    <param name="visible">true</param>
+                    <param name="include_hintlabel">$PARAM[include_hintlabel]</param>
+                    <param name="include_customwidth">$PARAM[include_customwidth]</param>
+                    <hitrect x="0" y="0" w="0" h="0" />
+                    <onclick>Runscript(script.skinvariables,action=buildviews,contentid=$VAR[Items_ViewMode_Switch],pluginname=$INFO[Container.PluginName])</onclick>
+                </include>
 
-                <onclick condition="!String.IsEqual(Window.Property(MediaFilter.SortHow),desc) + Window.IsMedia + String.IsEqual(Container.FolderName,Skin Variables) + !String.IsEmpty(Window.Property(MediaFilter.BaseDir.Name))">SetProperty(MediaFilter.SortHow,desc)</onclick>
-                <onclick condition="String.IsEqual(Window.Property(MediaFilter.SortHow),desc) + Window.IsMedia + String.IsEqual(Container.FolderName,Skin Variables) + !String.IsEmpty(Window.Property(MediaFilter.BaseDir.Name))">ClearProperty(MediaFilter.SortHow)</onclick>
+                <!-- Sort -->
+                <include content="DialogInfo_Button">
+                    <param name="vertical">false</param>
+                    <param name="id">8003</param>
+                    <param name="groupid">8103</param>
+                    <param name="label">$VAR[Label_SortMethod]</param>
+                    <param name="icon">special://skin/extras/icons/list-ul.png</param>
+                    <param name="itemgap">$PARAM[itemgap]</param>
+                    <param name="visible">true</param>
+                    <param name="include_hintlabel">$PARAM[include_hintlabel]</param>
+                    <param name="include_customwidth">$PARAM[include_customwidth]</param>
+                    <hitrect x="0" y="0" w="0" h="0" />
+                    <onclick>SetProperty(DialogSelectType,Menu,Home)</onclick>
+                    <onclick condition="![Window.IsMedia + String.IsEqual(Container.FolderName,Skin Variables) + !String.IsEmpty(Window.Property(MediaFilter.BaseDir.Name))]">SendClick(3)</onclick>
+                    <onclick condition="Window.IsMedia + String.IsEqual(Container.FolderName,Skin Variables) + !String.IsEmpty(Window.Property(MediaFilter.BaseDir.Name))">RunScript(script.skinvariables,run_dialog=select,heading=$LOCALIZE[581],separator=||,list=title||genre||year||rating||playcount||director||originaltitle||lastplayed||writer||studio||mpaa||country||premiered||top250||votes,"executebuiltin=SetProperty(MediaFilter.SortBy,{v})||route=run_executebuiltin=special://skin/shortcuts/builtins/skinvariables-mediafilter.json&amp;use_rules=True")</onclick>
+                </include>
 
-                <onclick condition="Window.IsMedia + String.IsEqual(Container.FolderName,Skin Variables) + !String.IsEmpty(Window.Property(MediaFilter.BaseDir.Name))">RunScript(script.skinvariables,"run_executebuiltin=special://skin/shortcuts/builtins/skinvariables-mediafilter.json",use_rules)</onclick>
-            </include>
+                <!-- Order -->
+                <include content="DialogInfo_Button">
+                    <param name="vertical">false</param>
+                    <param name="id">8002</param>
+                    <param name="groupid">8102</param>
+                    <param name="label">$LOCALIZE[31015]</param>
+                    <param name="icon">$VAR[Image_SortDirection]</param>
+                    <param name="itemgap">$PARAM[itemgap]</param>
+                    <param name="visible">true</param>
+                    <param name="include_hintlabel">$PARAM[include_hintlabel]</param>
+                    <param name="include_customwidth">$PARAM[include_customwidth]</param>
+                    <hitrect x="0" y="0" w="0" h="0" />
+                    <onclick>SetProperty(DialogSelectType,Menu,Home)</onclick>
+                    <onclick condition="![Window.IsMedia + String.IsEqual(Container.FolderName,Skin Variables) + !String.IsEmpty(Window.Property(MediaFilter.BaseDir.Name))]">SendClick(4)</onclick>
 
-            <!-- Watched -->
-            <include content="DialogInfo_Button">
-                <param name="vertical">false</param>
-                <param name="id">8004</param>
-                <param name="groupid">8104</param>
-                <param name="label">$VAR[Label_Watched]</param>
-                <param name="icon">$VAR[Image_Watched]</param>
-                <param name="itemgap">0</param>
-                <param name="visible">true</param>
-                <param name="include_hintlabel">true</param>
-                <hitrect x="0" y="0" w="0" h="0" />
-                <onclick>SendClick(14)</onclick>
-            </include>
+                    <onclick condition="!String.IsEqual(Window.Property(MediaFilter.SortHow),desc) + Window.IsMedia + String.IsEqual(Container.FolderName,Skin Variables) + !String.IsEmpty(Window.Property(MediaFilter.BaseDir.Name))">SetProperty(MediaFilter.SortHow,desc)</onclick>
+                    <onclick condition="String.IsEqual(Window.Property(MediaFilter.SortHow),desc) + Window.IsMedia + String.IsEqual(Container.FolderName,Skin Variables) + !String.IsEmpty(Window.Property(MediaFilter.BaseDir.Name))">ClearProperty(MediaFilter.SortHow)</onclick>
 
-            <!-- Filter -->
-            <include content="DialogInfo_Button">
-                <param name="vertical">false</param>
-                <param name="id">8005</param>
-                <param name="groupid">8105</param>
-                <param name="label">$LOCALIZE[587]</param>
-                <param name="icon">$VAR[Image_Filtered]</param>
-                <param name="itemgap">0</param>
-                <param name="visible">Container.CanFilterAdvanced</param>
-                <param name="include_hintlabel">true</param>
-                <hitrect x="0" y="0" w="0" h="0" />
-                <onclick>Filter</onclick>
-            </include>
+                    <onclick condition="Window.IsMedia + String.IsEqual(Container.FolderName,Skin Variables) + !String.IsEmpty(Window.Property(MediaFilter.BaseDir.Name))">RunScript(script.skinvariables,"run_executebuiltin=special://skin/shortcuts/builtins/skinvariables-mediafilter.json",use_rules)</onclick>
+                </include>
 
-            <!-- Update Library -->
-            <include content="DialogInfo_Button">
-                <param name="vertical">false</param>
-                <param name="id">8006</param>
-                <param name="groupid">8106</param>
-                <param name="label">$VAR[Label_UpdateLibrary]</param>
-                <param name="icon">special://skin/extras/icons/update.png</param>
-                <param name="itemgap">0</param>
-                <param name="visible">!Container.Content(addons) + String.IsEmpty(Container.PluginName) + [Window.IsVisible(videos) | Window.IsVisible(music)]</param>
-                <param name="include_hintlabel">true</param>
-                <hitrect x="0" y="0" w="0" h="0" />
-                <onclick condition="Window.IsVisible(videos)">UpdateLibrary(video)</onclick>
-                <onclick condition="Window.IsVisible(music)">UpdateLibrary(music)</onclick>
-            </include>
+                <!-- Watched -->
+                <include content="DialogInfo_Button">
+                    <param name="vertical">false</param>
+                    <param name="id">8004</param>
+                    <param name="groupid">8104</param>
+                    <param name="label">$VAR[Label_Watched]</param>
+                    <param name="icon">$VAR[Image_Watched]</param>
+                    <param name="itemgap">$PARAM[itemgap]</param>
+                    <param name="visible">true</param>
+                    <param name="include_hintlabel">$PARAM[include_hintlabel]</param>
+                    <param name="include_customwidth">$PARAM[include_customwidth]</param>
+                    <hitrect x="0" y="0" w="0" h="0" />
+                    <onclick>SendClick(14)</onclick>
+                </include>
 
-            <!-- Addon Settings -->
-            <include content="DialogInfo_Button">
-                <param name="vertical">false</param>
-                <param name="id">8007</param>
-                <param name="groupid">8107</param>
-                <param name="label">$LOCALIZE[5]</param>
-                <param name="icon">special://skin/extras/icons/settings.png</param>
-                <param name="itemgap">0</param>
-                <param name="visible">!String.IsEmpty(Container.PluginName)</param>
-                <param name="include_hintlabel">true</param>
-                <hitrect x="0" y="0" w="0" h="0" />
-                <onclick>Addon.OpenSettings($INFO[Container.PluginName])</onclick>
-            </include>
-        </control>
+                <!-- Filter -->
+                <include content="DialogInfo_Button">
+                    <param name="vertical">false</param>
+                    <param name="id">8005</param>
+                    <param name="groupid">8105</param>
+                    <param name="label">$LOCALIZE[587]</param>
+                    <param name="icon">$VAR[Image_Filtered]</param>
+                    <param name="itemgap">$PARAM[itemgap]</param>
+                    <param name="visible">Container.CanFilterAdvanced</param>
+                    <param name="include_hintlabel">$PARAM[include_hintlabel]</param>
+                    <param name="include_customwidth">$PARAM[include_customwidth]</param>
+                    <hitrect x="0" y="0" w="0" h="0" />
+                    <onclick>Filter</onclick>
+                </include>
+
+                <!-- Update Library -->
+                <include content="DialogInfo_Button">
+                    <param name="vertical">false</param>
+                    <param name="id">8006</param>
+                    <param name="groupid">8106</param>
+                    <param name="label">$VAR[Label_UpdateLibrary]</param>
+                    <param name="icon">special://skin/extras/icons/update.png</param>
+                    <param name="itemgap">$PARAM[itemgap]</param>
+                    <param name="visible">!Container.Content(addons) + String.IsEmpty(Container.PluginName) + [Window.IsVisible(videos) | Window.IsVisible(music)]</param>
+                    <param name="include_hintlabel">$PARAM[include_hintlabel]</param>
+                    <param name="include_customwidth">$PARAM[include_customwidth]</param>
+                    <hitrect x="0" y="0" w="0" h="0" />
+                    <onclick condition="Window.IsVisible(videos)">UpdateLibrary(video)</onclick>
+                    <onclick condition="Window.IsVisible(music)">UpdateLibrary(music)</onclick>
+                </include>
+
+                <!-- Addon Settings -->
+                <include content="DialogInfo_Button">
+                    <param name="vertical">false</param>
+                    <param name="id">8007</param>
+                    <param name="groupid">8107</param>
+                    <param name="label">$LOCALIZE[5]</param>
+                    <param name="icon">special://skin/extras/icons/settings.png</param>
+                    <param name="itemgap">$PARAM[itemgap]</param>
+                    <param name="visible">!String.IsEmpty(Container.PluginName)</param>
+                    <param name="include_hintlabel">$PARAM[include_hintlabel]</param>
+                    <param name="include_customwidth">$PARAM[include_customwidth]</param>
+                    <hitrect x="0" y="0" w="0" h="0" />
+                    <onclick>Addon.OpenSettings($INFO[Container.PluginName])</onclick>
+                </include>
+            </control>
+        </definition>
     </include>
 
     <include name="View_Scrollbar_Count">

@@ -13,82 +13,99 @@
     </variable>
 
     <include name="Dialog_ContextMenu_SideButtons">
-        <control type="group">
-            <include content="Dialog_Side_Panel_Group_Def">
-                <param name="width">dialog_buttongroup_w</param>
-            </include>
-            <!-- Side Buttons -->
+        <param name="include_hintlabel">true</param>
+        <!-- <param name="include_customwidth">true</param>
+        <param name="icon_offset_x">20</param> -->
+        <definition>
             <control type="group">
-                <include>Dimension_Dialog_Body</include>
-                <control type="grouplist" id="9000">
-                    <include>Dialog_Side_Grouplist_Def</include>
-                    <!-- <onleft>61</onleft> -->
-                    <onleft>996</onleft>
-                    <include content="DialogInfo_Button" condition="!$EXP[Exp_InfoDialogs]">
-                        <param name="include_hintlabel">false</param>
-                        <param name="id">9002</param>
-                        <param name="groupid">9102</param>
-                        <param name="label">$LOCALIZE[207]</param>
-                        <param name="icon">special://skin/extras/icons/quote.png</param>
-                        <param name="visible">[!String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.base_plot))]</param>
-                        <onclick>ActivateWindow(1113)</onclick>
-                    </include>
-                    <include content="DialogInfo_Button" condition="!$EXP[Exp_InfoDialogs]">
-                        <param name="include_hintlabel">false</param>
-                        <param name="id">9003</param>
-                        <param name="groupid">9103</param>
-                        <param name="label">$LOCALIZE[31066]</param>
-                        <param name="icon">special://skin/extras/icons/binoculars.png</param>
-                        <param name="visible">[!String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.base_title))]</param>
-                        <onclick>Dialog.Close(contextmenu,true)</onclick>
-                        <onclick>SetProperty(CustomSearchTerm,$VAR[Dialog_ContextMenu_SideButtons_WikiTitle],Home)</onclick>
-                        <onclick>SetProperty(ReplaceWindow,1105,Home)</onclick>
-                        <onclick condition="!Window.IsActive(1105)">ActivateWindow(1105)</onclick>
-                        <onclick condition="Window.IsActive(1105)">ReplaceWindow(1197)</onclick>
-                    </include>
-                    <include content="DialogInfo_Button" condition="!$EXP[Exp_InfoDialogs]">
-                        <param name="include_hintlabel">false</param>
-                        <param name="id">9004</param>
-                        <param name="groupid">9104</param>
-                        <param name="label">Wiki</param>
-                        <param name="icon">special://skin/extras/icons/globe.png</param>
-                        <param name="visible">[!String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.base_title))]</param>
-                        <onclick>Dialog.Close(contextmenu,true)</onclick>
-                        <onclick>runscript(script.wikipedia,wikipedia=$VAR[Dialog_ContextMenu_SideButtons_WikiTitle]$VAR[Dialog_ContextMenu_SideButtons_WikiType])</onclick>
-                    </include>
-                    <include content="DialogInfo_Button" condition="!$EXP[Exp_InfoDialogs]">
-                        <param name="include_hintlabel">false</param>
-                        <param name="id">9005</param>
-                        <param name="groupid">9105</param>
-                        <param name="label">$LOCALIZE[31041]</param>
-                        <param name="icon">special://skin/extras/icons/fire2.png</param>
-                        <param name="visible">[String.IsEqual(Window(Home).Property(TMDbHelper.ListItem.base_dbtype),tvshow) | String.IsEqual(Window(Home).Property(TMDbHelper.ListItem.base_dbtype),season) | String.IsEqual(Window(Home).Property(TMDbHelper.ListItem.base_dbtype),episode) | String.IsEqual(Window(Home).Property(TMDbHelper.ListItem.base_dbtype),movie)]</param>
-                        <onclick>Dialog.Close(contextmenu,true)</onclick>
-                        <onclick>RunScript(plugin.video.themoviedb.helper,related_lists,query=$VAR[Path_ContextParams_Query],tmdb_type=$VAR[Path_ContextParams_TMDbType])</onclick>
-                    </include>
-                    <include content="DialogInfo_Button" condition="!$EXP[Exp_InfoDialogs]">
-                        <param name="include_hintlabel">false</param>
-                        <param name="id">9006</param>
-                        <param name="groupid">9106</param>
-                        <param name="label">$LOCALIZE[20410]</param>
-                        <param name="icon">special://skin/extras/icons/video.png</param>
-                        <param name="visible">[!String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.Trailer))]</param>
-                        <onclick>Dialog.Close(contextmenu,true)</onclick>
-                        <onclick>RunScript(script.skinvariables,run_executebuiltin=special://skin/shortcuts/builtins/skinvariables-playtrailer.json,use_rules)</onclick>
-                    </include>
-                    <include content="DialogInfo_Button" condition="!$EXP[Exp_InfoDialogs] + Window.IsMedia">
-                        <param name="include_hintlabel">false</param>
-                        <param name="id">9007</param>
-                        <param name="groupid">9107</param>
-                        <param name="label">$LOCALIZE[33061]</param>
-                        <param name="icon">special://skin/extras/icons/circle-plus.png</param>
-                        <param name="visible">ListItem.IsFolder</param>
-                        <onclick>Dialog.Close(contextmenu,true)</onclick>
-                        <onclick>RunScript(script.skinvariables,set_listitem_to_menunode=sidemenu||1101menu||1102menu||1103menu||1104menu||1106menu||1107menu||1108menu||1109menu||powermainmenu,skin=$VAR[Path_SkinVariables_SkinFolder])</onclick>
-                    </include>
+                <include content="Dialog_Side_Panel_Group_Def">
+                    <param name="width">dialog_buttongroup_w</param>
+                </include>
+                <!-- Side Buttons -->
+                <control type="group">
+                    <include>Dimension_Dialog_Body</include>
+                    <control type="grouplist" id="9000">
+                        <include>Dialog_Side_Grouplist_Def</include>
+                        <!-- <onleft>61</onleft> -->
+                        <onleft>996</onleft>
+                        <include content="DialogInfo_Button" condition="!$EXP[Exp_InfoDialogs]">
+                            <param name="include_hintlabel">$PARAM[include_hintlabel]</param>
+                            <param name="include_customwidth">$PARAM[include_customwidth]</param>
+                            <param name="icon_offset_x">$PARAM[icon_offset_x]</param>
+                            <param name="id">9002</param>
+                            <param name="groupid">9102</param>
+                            <param name="label">$LOCALIZE[207]</param>
+                            <param name="icon">special://skin/extras/icons/quote.png</param>
+                            <param name="visible">[!String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.base_plot))]</param>
+                            <onclick>ActivateWindow(1113)</onclick>
+                        </include>
+                        <include content="DialogInfo_Button" condition="!$EXP[Exp_InfoDialogs]">
+                            <param name="include_hintlabel">$PARAM[include_hintlabel]</param>
+                            <param name="include_customwidth">$PARAM[include_customwidth]</param>
+                            <param name="icon_offset_x">$PARAM[icon_offset_x]</param>
+                            <param name="id">9003</param>
+                            <param name="groupid">9103</param>
+                            <param name="label">$LOCALIZE[31066]</param>
+                            <param name="icon">special://skin/extras/icons/binoculars.png</param>
+                            <param name="visible">[!String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.base_title))]</param>
+                            <onclick>Dialog.Close(contextmenu,true)</onclick>
+                            <onclick>SetProperty(CustomSearchTerm,$VAR[Dialog_ContextMenu_SideButtons_WikiTitle],Home)</onclick>
+                            <onclick>SetProperty(ReplaceWindow,1105,Home)</onclick>
+                            <onclick condition="!Window.IsActive(1105)">ActivateWindow(1105)</onclick>
+                            <onclick condition="Window.IsActive(1105)">ReplaceWindow(1197)</onclick>
+                        </include>
+                        <include content="DialogInfo_Button" condition="!$EXP[Exp_InfoDialogs]">
+                            <param name="include_hintlabel">$PARAM[include_hintlabel]</param>
+                            <param name="include_customwidth">$PARAM[include_customwidth]</param>
+                            <param name="icon_offset_x">$PARAM[icon_offset_x]</param>
+                            <param name="id">9004</param>
+                            <param name="groupid">9104</param>
+                            <param name="label">Wiki</param>
+                            <param name="icon">special://skin/extras/icons/globe.png</param>
+                            <param name="visible">[!String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.base_title))]</param>
+                            <onclick>Dialog.Close(contextmenu,true)</onclick>
+                            <onclick>runscript(script.wikipedia,wikipedia=$VAR[Dialog_ContextMenu_SideButtons_WikiTitle]$VAR[Dialog_ContextMenu_SideButtons_WikiType])</onclick>
+                        </include>
+                        <include content="DialogInfo_Button" condition="!$EXP[Exp_InfoDialogs]">
+                            <param name="include_hintlabel">$PARAM[include_hintlabel]</param>
+                            <param name="include_customwidth">$PARAM[include_customwidth]</param>
+                            <param name="icon_offset_x">$PARAM[icon_offset_x]</param>
+                            <param name="id">9005</param>
+                            <param name="groupid">9105</param>
+                            <param name="label">$LOCALIZE[31041]</param>
+                            <param name="icon">special://skin/extras/icons/fire2.png</param>
+                            <param name="visible">[String.IsEqual(Window(Home).Property(TMDbHelper.ListItem.base_dbtype),tvshow) | String.IsEqual(Window(Home).Property(TMDbHelper.ListItem.base_dbtype),season) | String.IsEqual(Window(Home).Property(TMDbHelper.ListItem.base_dbtype),episode) | String.IsEqual(Window(Home).Property(TMDbHelper.ListItem.base_dbtype),movie)]</param>
+                            <onclick>Dialog.Close(contextmenu,true)</onclick>
+                            <onclick>RunScript(plugin.video.themoviedb.helper,related_lists,query=$VAR[Path_ContextParams_Query],tmdb_type=$VAR[Path_ContextParams_TMDbType])</onclick>
+                        </include>
+                        <include content="DialogInfo_Button" condition="!$EXP[Exp_InfoDialogs]">
+                            <param name="include_hintlabel">$PARAM[include_hintlabel]</param>
+                            <param name="include_customwidth">$PARAM[include_customwidth]</param>
+                            <param name="icon_offset_x">$PARAM[icon_offset_x]</param>
+                            <param name="id">9006</param>
+                            <param name="groupid">9106</param>
+                            <param name="label">$LOCALIZE[31393]</param>
+                            <param name="icon">special://skin/extras/icons/video.png</param>
+                            <param name="visible">[!String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.Trailer))]</param>
+                            <onclick>Dialog.Close(contextmenu,true)</onclick>
+                            <onclick>RunScript(script.skinvariables,run_executebuiltin=special://skin/shortcuts/builtins/skinvariables-playtrailer.json,use_rules)</onclick>
+                        </include>
+                        <include content="DialogInfo_Button" condition="!$EXP[Exp_InfoDialogs] + Window.IsMedia">
+                            <param name="include_hintlabel">$PARAM[include_hintlabel]</param>
+                            <param name="include_customwidth">$PARAM[include_customwidth]</param>
+                            <param name="icon_offset_x">$PARAM[icon_offset_x]</param>
+                            <param name="id">9007</param>
+                            <param name="groupid">9107</param>
+                            <param name="label">$LOCALIZE[33061]</param>
+                            <param name="icon">special://skin/extras/icons/circle-plus.png</param>
+                            <param name="visible">ListItem.IsFolder</param>
+                            <onclick>Dialog.Close(contextmenu,true)</onclick>
+                            <onclick>RunScript(script.skinvariables,set_listitem_to_menunode=sidemenu||1101menu||1102menu||1103menu||1104menu||1106menu||1107menu||1108menu||1109menu||powermainmenu,skin=$VAR[Path_SkinVariables_SkinFolder])</onclick>
+                        </include>
+                    </control>
                 </control>
             </control>
-        </control>
+        </definition>
     </include>
 
     <include name="Dialog_ContextMenu_BodyContent">
