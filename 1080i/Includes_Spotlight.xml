@@ -139,7 +139,7 @@
                     <include content="DialogInfo_Button_PlayBrowse">
                         <param name="id">311</param>
                         <param name="groupid">321</param>
-                        <param name="width">250</param>
+                        <param name="width">240</param>
                         <param name="name">$VAR[Label_Title_C301]</param>
                         <param name="role">$VAR[Label_FullscreenWidget_PlayButton]</param>
                         <param name="icon">$VAR[Image_FullscreenWidget_PlayButton]</param>
@@ -160,7 +160,27 @@
                         </include>
                     </include>
 
-                    <include content="DialogInfo_Button">
+                    <include content="DialogInfo_Button_PlayBrowse">
+                        <param name="id">312</param>
+                        <param name="groupid">322</param>
+                        <param name="width">360</param>
+                        <param name="name">$VAR[Label_Title_C301]</param>
+                        <param name="role">$LOCALIZE[31077]</param>
+                        <param name="icon">special://skin/extras/icons/info2.png</param>
+
+                        <onclick condition="$EXP[Exp_Hubs_Spotlight_HasItems]">SetFocus(301)</onclick>
+                        <onclick condition="$EXP[Exp_Hubs_Spotlight_HasItems]">Action(Info)</onclick>
+                        <onclick condition="$EXP[Exp_Hubs_Spotlight_HasItems]">SetFocus(312)</onclick>
+                        <onclick condition="!$EXP[Exp_Hubs_Spotlight_HasItems] + Weather.IsFetched">ActivateWindow(1161)</onclick>
+                        <onclick condition="!$EXP[Exp_Hubs_Spotlight_HasItems] + !Weather.IsFetched">ActivateWindow(systeminfo)</onclick>
+                        <include content="Spotlight_Main_Button_Standard">
+                            <param name="id">312</param>
+                            <param name="window_id">$PARAM[window_id]</param>
+                            <param name="property_window_id">$PARAM[property_window_id]</param>
+                        </include>
+                    </include>
+
+                    <!-- <include content="DialogInfo_Button">
                         <param name="id">312</param>
                         <param name="groupid">322</param>
                         <param name="vertical">false</param>
@@ -201,10 +221,10 @@
                             <param name="window_id">$PARAM[window_id]</param>
                             <param name="property_window_id">$PARAM[property_window_id]</param>
                         </include>
-                    </include>
+                    </include> -->
 
                     <control type="image" id="315">
-                        <left>40</left>
+                        <left>0</left>
                         <width>40</width>
                         <height>40</height>
                         <centertop>50%</centertop>
@@ -216,52 +236,6 @@
                             <param name="condition">ControlGroup(310).HasFocus()</param>
                         </include>
                     </control>
-
-                    <!-- <control type="button" id="314">
-                        <left>20</left>
-                        <include>Defs_OSD_Button</include>
-                        <centertop>50%</centertop>
-                        <onclick condition="$EXP[Exp_Hubs_Spotlight_HasItems]">Control.Move(301,-1)</onclick>
-                        <onclick condition="!$EXP[Exp_Hubs_Spotlight_HasItems]">Control.Move(99971,-1)</onclick>
-                        <include content="Spotlight_Main_Button_Standard">
-                            <param name="id">314</param>
-                            <param name="window_id">$PARAM[window_id]</param>
-                            <param name="property_window_id">$PARAM[property_window_id]</param>
-                        </include>
-                    </control>
-                    <include content="OSD_Button_Icon_Overlay">
-                        <param name="icon">special://skin/extras/icons/caret-left.png</param>
-                        <param name="bordersize">0</param>
-                        <param name="id">314</param>
-                        <param name="groupid">324</param>
-                        <param name="vertical">false</param>
-                        <param name="itemgap">0</param>
-                        <param name="center">true</param>
-                        <param name="icon_colordiffuse">main_fg_90</param>
-                    </include>
-
-                    <control type="button" id="315">
-                        <left>20</left>
-                        <include>Defs_OSD_Button</include>
-                        <centertop>50%</centertop>
-                        <onclick condition="$EXP[Exp_Hubs_Spotlight_HasItems]">Control.Move(301,1)</onclick>
-                        <onclick condition="!$EXP[Exp_Hubs_Spotlight_HasItems]">Control.Move(99971,1)</onclick>
-                        <include content="Spotlight_Main_Button_Standard">
-                            <param name="id">315</param>
-                            <param name="window_id">$PARAM[window_id]</param>
-                            <param name="property_window_id">$PARAM[property_window_id]</param>
-                        </include>
-                    </control>
-                    <include content="OSD_Button_Icon_Overlay">
-                        <param name="icon">special://skin/extras/icons/caret-right.png</param>
-                        <param name="bordersize">0</param>
-                        <param name="id">315</param>
-                        <param name="groupid">325</param>
-                        <param name="vertical">false</param>
-                        <param name="itemgap">0</param>
-                        <param name="center">true</param>
-                        <param name="icon_colordiffuse">main_fg_90</param>
-                    </include> -->
 
                 </control>
             </control>

@@ -1,18 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <window type="dialog" id="1124">
     <visible>Skin.HasSetting(Background.DisableVideo)</visible>
-    <visible>Player.HasVideo</visible>
-    <visible>Window.IsMedia | $EXP[Exp_Window_IsHub]</visible>
-    <visible>!Window.IsVisible(addonbrowser)</visible>
-    <visible>!$EXP[Exp_InfoDialogs]</visible>
-    <visible>!Window.IsVisible(1123)</visible>
-    <visible>!Window.IsVisible(1113)</visible>
-    <visible>!Window.IsVisible(1114)</visible>
+    <visible>Player.HasVideo + !Window.IsActive(VideoFullScreen.xml)</visible>
     <controls>
 
         <control type="group">
+            <visible>!Skin.HasSetting(Background.DisablePIP) + [Window.IsMedia | $EXP[Exp_Window_IsHub] | Window.IsVisible(1130) | Window.IsVisible(1131) | Window.IsVisible(1105) | Window.IsVisible(1185)] + !Window.IsVisible(addonbrowser) + !$EXP[Exp_InfoDialogs] + !Window.IsVisible(1123) + !Window.IsVisible(1113) + !Window.IsVisible(1114)</visible>
+            <animation type="Visible" reversible="false">
+                <effect type="slide" start="0,48" end="0" center="auto" tween="back" easing="out" time="400" />
+            </animation>
             <animation type="WindowOpen" reversible="false">
-                <!-- <effect type="fade" start="0" end="100" time="300" /> -->
                 <effect type="slide" start="0,48" end="0" center="auto" tween="back" easing="out" time="400" />
             </animation>
             <right>40</right>
@@ -39,6 +36,16 @@
                     </control>
                 </control>
             </control>
+        </control>
+
+
+        <control type="group">
+            <visible>![!Skin.HasSetting(Background.DisablePIP) + [Window.IsMedia | $EXP[Exp_Window_IsHub] | Window.IsVisible(1130) | Window.IsVisible(1131) | Window.IsVisible(1105) | Window.IsVisible(1185)] + !Window.IsVisible(addonbrowser) + !$EXP[Exp_InfoDialogs] + !Window.IsVisible(1123) + !Window.IsVisible(1113) + !Window.IsVisible(1114)]</visible>
+            <left>-1920</left>
+            <top>-1080</top>
+            <width>100</width>
+            <height>100</height>
+            <control type="videowindow" />
         </control>
     </controls>
 </window>

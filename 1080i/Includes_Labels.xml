@@ -495,8 +495,18 @@
     </variable>
 
     <variable name="Label_Player_Plot">
-        <value condition="VideoPlayer.Content(episodes) + !String.IsEmpty(VideoPlayer.Plot)">$VAR[Label_OSD_Plot_Episode_Number,,. ]$INFO[VideoPlayer.Title,, ~ ]$INFO[VideoPlayer.Plot]</value>
+        <value condition="VideoPlayer.Content(episodes) + !String.IsEmpty(VideoPlayer.Plot) + !String.IsEmpty(VideoPlayer.Title)">$INFO[VideoPlayer.Title,, ~ ]$INFO[VideoPlayer.Plot]</value>
+        <value condition="!String.IsEmpty(VideoPlayer.EpisodeName) + !String.IsEmpty(VideoPlayer.Plot)">$INFO[VideoPlayer.EpisodeName,, ~ ]$INFO[VideoPlayer.Plot]</value>
         <value>$INFO[VideoPlayer.Plot]</value>
+    </variable>
+
+    <variable name="Label_PVR_Episode">
+        <value condition="!String.IsEmpty(ListItem.Episode) + !String.IsEmpty(ListItem.EpisodeName)">$INFO[ListItem.Season,,x]$INFO[ListItem.Episode,,. ]$INFO[ListItem.EpisodeName]</value>
+        <value condition="!String.IsEmpty(ListItem.Episode) + !String.IsEmpty(ListItem.Title)">$INFO[ListItem.Season,,x]$INFO[ListItem.Episode,,. ]$INFO[ListItem.Title]</value>
+        <value condition="!String.IsEmpty(ListItem.EpisodeName)">$INFO[ListItem.EpisodeName]</value>
+        <value condition="!String.IsEmpty(ListItem.Title)">$INFO[ListItem.Title]</value>
+        <value condition="!String.IsEmpty(ListItem.Episode)">$INFO[ListItem.Season,,x]$INFO[ListItem.Episode]</value>
+
     </variable>
 
     <variable name="Label_SearchStyle">
@@ -893,7 +903,7 @@
         <value>$LOCALIZE[19055]</value>
     </variable>
 
-    <variable name="Label_OSD_HeaderEpisodeChapter">
+    <variable name="Label_OSD_Header">
         <value condition="!String.IsEmpty(PVR.ChannelNumberInput)">$INFO[PVR.ChannelNumberInput,$LOCALIZE[19165] ,]</value>
         <value condition="!String.IsEmpty(Player.SeekNumeric)">$INFO[Player.SeekNumeric,$LOCALIZE[31233] ,]</value>
         <value condition="Player.Forwarding32x">FF 32x</value>
@@ -911,12 +921,10 @@
         <value condition="[Player.Seeking | Player.HasPerformedSeek(2)] + !String.IsEmpty(Player.SeekOffset)">$LOCALIZE[773]$INFO[Player.SeekOffset, ,]</value>
         <value condition="Player.Seeking + String.IsEmpty(Player.SeekOffset)">$LOCALIZE[773]$INFO[Player.SeekStepSize, ,]</value>
         <value condition="Player.Caching">$LOCALIZE[439] $INFO[Player.CacheLevel,,%]</value>
-        <value condition="VideoPlayer.Content(episodes) + !String.IsEmpty(VideoPlayer.Title)">$VAR[Label_OSD_Plot_Episode_Number,,. ]$INFO[VideoPlayer.Title]</value>
-        <value condition="VideoPlayer.Content(movies) + !String.IsEmpty(Player.Chapter) + !String.IsEqual(Player.Chapter,00) + !String.IsEmpty(Player.ChapterCount) + !String.IsEqual(Player.ChapterCount,00)">$INFO[Player.Chapter,$LOCALIZE[21396] ,]$INFO[Player.ChapterCount, $LOCALIZE[1443] ,]</value>
-        <value condition="VideoPlayer.Content(livetv) + !String.IsEmpty(VideoPlayer.ChannelNumberLabel)">$INFO[VideoPlayer.ChannelNumberLabel,$LOCALIZE[19029] ,]</value>
-        <value condition="VideoPlayer.Content(files) + !String.IsEmpty(VideoPlayer.Studio)">$INFO[VideoPlayer.Studio]</value>
         <value condition="Player.Paused">$LOCALIZE[112]</value>
         <value condition="!String.IsEmpty(Player.PlaySpeed) + !String.IsEqual(Player.PlaySpeed,1.00) + !String.IsEqual(Player.PlaySpeed,0.00)">$INFO[Player.PlaySpeed,$LOCALIZE[31071] ,x]</value>
+        <value condition="VideoPlayer.Content(movies) + !String.IsEmpty(Player.Chapter) + !String.IsEqual(Player.Chapter,00) + !String.IsEmpty(Player.ChapterCount) + !String.IsEqual(Player.ChapterCount,00)">$INFO[Player.Chapter,$LOCALIZE[21396] ,]$INFO[Player.ChapterCount, $LOCALIZE[1443] ,]</value>
+        <value condition="VideoPlayer.Content(livetv) + !String.IsEmpty(VideoPlayer.ChannelNumberLabel)">$INFO[VideoPlayer.ChannelNumberLabel,$LOCALIZE[19029] ,]</value>
         <value>$LOCALIZE[31134]</value>
     </variable>
 
@@ -1750,9 +1758,9 @@
         <!-- MISC019: remove NxNN -->
         <!-- MISC019: remove Episode Type -->
         <!-- MISC019: Episode title in Bold, color=main_fg_100 -->
-        <!-- value condition="String.IsEqual(Window(Home).Property(TMDbHelper.ListItem.DBType),episode) + !String.IsEmpty(Window(Home).Property(TMDBHelper.ListItem.base_plot))">$VAR[Label_Plot_Episode_Type_TMDBHelper,,: ]$VAR[Label_Plot_Episode_Number_TMDbHelper,,. ]$INFO[Window(Home).Property(TMDbHelper.ListItem.Title)]$INFO[Window(Home).Property(TMDBHelper.ListItem.base_plot), ~ ,]</value -->
+        <!-- value condition="String.IsEqual(Window(Home).Property(TMDbHelper.ListItem.DBType),episode) + !String.IsEmpty(Window(Home).Property(TMDBHelper.ListItem.base_plot))">$VAR[Label_Plot_Episode_Type_TMDBHelper,,: ]$INFO[Window(Home).Property(TMDbHelper.ListItem.Title)]$INFO[Window(Home).Property(TMDBHelper.ListItem.base_plot), ~ ,]</value -->
         <value condition="String.IsEqual(Window(Home).Property(TMDbHelper.ListItem.DBType),episode) + !String.IsEmpty(Window(Home).Property(TMDBHelper.ListItem.base_plot))">[B][COLOR=main_fg_100]$INFO[Window(Home).Property(TMDbHelper.ListItem.Title)][/COLOR][/B]$INFO[Window(Home).Property(TMDBHelper.ListItem.base_plot), ~ ,]</value>
-        <!-- value condition="String.IsEqual(Window(Home).Property(TMDbHelper.ListItem.DBType),episode) + !String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.Plot))">$VAR[Label_Plot_Episode_Type_TMDBHelper,,: ]$VAR[Label_Plot_Episode_Number_TMDbHelper,,. ]$INFO[Window(Home).Property(TMDbHelper.ListItem.Title)]$INFO[Window(Home).Property(TMDbHelper.ListItem.Plot), ~ ,]</valuem-->
+        <!-- value condition="String.IsEqual(Window(Home).Property(TMDbHelper.ListItem.DBType),episode) + !String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.Plot))">$VAR[Label_Plot_Episode_Type_TMDBHelper,,: ]$INFO[Window(Home).Property(TMDbHelper.ListItem.Title)]$INFO[Window(Home).Property(TMDbHelper.ListItem.Plot), ~ ,]</valuem-->
         <value condition="String.IsEqual(Window(Home).Property(TMDbHelper.ListItem.DBType),episode) + !String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.Plot))">[B][COLOR=main_fg_100]$INFO[Window(Home).Property(TMDbHelper.ListItem.Title)][/COLOR][/B]$INFO[Window(Home).Property(TMDbHelper.ListItem.Plot), ~ ,]</value>
         <value condition="!String.IsEmpty(Window(Home).Property(TMDBHelper.ListItem.base_plot))">$INFO[Window(Home).Property(TMDBHelper.ListItem.base_plot)]</value>
         <value condition="!String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.Plot))">$INFO[Window(Home).Property(TMDbHelper.ListItem.Plot)]</value>
