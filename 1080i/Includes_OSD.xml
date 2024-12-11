@@ -270,62 +270,65 @@
     </include>
 
     <include name="OSD_Stream_Selector_BackgroundResizer">
-        <control type="group">
-            <include content="OSD_Dialog_Background_Blur">
-                <param name="diffuse">diffuse/dialog_w640_h760.png</param>
-            </include>
-            <include>OSD_Stream_Selector_Divider</include>
-            <height>760</height>
-            <visible>Integer.IsGreater(Container($PARAM[id]).NumItems,6)</visible>
-        </control>
-        <control type="group">
-            <include content="OSD_Dialog_Background_Blur">
-                <param name="diffuse">diffuse/dialog_w640_h680.png</param>
-            </include>
-            <include>OSD_Stream_Selector_Divider</include>
-            <height>680</height>
-            <visible>Integer.IsEqual(Container($PARAM[id]).NumItems,6)</visible>
-        </control>
-        <control type="group">
-            <include content="OSD_Dialog_Background_Blur">
-                <param name="diffuse">diffuse/dialog_w640_h600.png</param>
-            </include>
-            <include>OSD_Stream_Selector_Divider</include>
-            <height>600</height>
-            <visible>Integer.IsEqual(Container($PARAM[id]).NumItems,5)</visible>
-        </control>
-        <control type="group">
-            <include content="OSD_Dialog_Background_Blur">
-                <param name="diffuse">diffuse/dialog_w640_h520.png</param>
-            </include>
-            <include>OSD_Stream_Selector_Divider</include>
-            <height>520</height>
-            <visible>Integer.IsEqual(Container($PARAM[id]).NumItems,4)</visible>
-        </control>
-        <control type="group">
-            <include content="OSD_Dialog_Background_Blur">
-                <param name="diffuse">diffuse/dialog_w640_h440.png</param>
-            </include>
-            <include>OSD_Stream_Selector_Divider</include>
-            <height>440</height>
-            <visible>Integer.IsEqual(Container($PARAM[id]).NumItems,3)</visible>
-        </control>
-        <control type="group">
-            <include content="OSD_Dialog_Background_Blur">
-                <param name="diffuse">diffuse/dialog_w640_h360.png</param>
-            </include>
-            <include>OSD_Stream_Selector_Divider</include>
-            <height>360</height>
-            <visible>Integer.IsEqual(Container($PARAM[id]).NumItems,2)</visible>
-        </control>
-        <control type="group">
-            <include content="OSD_Dialog_Background_Blur">
-                <param name="diffuse">diffuse/dialog_w640_h280.png</param>
-            </include>
-            <include>OSD_Stream_Selector_Divider</include>
-            <height>280</height>
-            <visible>Integer.IsLess(Container($PARAM[id]).NumItems,2)</visible>
-        </control>
+        <param name="diffuse_w">640</param>
+        <definition>
+            <control type="group">
+                <include content="OSD_Dialog_Background_Blur">
+                    <param name="diffuse">diffuse/dialog_w$PARAM[diffuse_w]_h760.png</param>
+                </include>
+                <include>OSD_Stream_Selector_Divider</include>
+                <height>760</height>
+                <visible>Integer.IsGreater(Container($PARAM[id]).NumItems,6)</visible>
+            </control>
+            <control type="group">
+                <include content="OSD_Dialog_Background_Blur">
+                    <param name="diffuse">diffuse/dialog_w$PARAM[diffuse_w]_h680.png</param>
+                </include>
+                <include>OSD_Stream_Selector_Divider</include>
+                <height>680</height>
+                <visible>Integer.IsEqual(Container($PARAM[id]).NumItems,6)</visible>
+            </control>
+            <control type="group">
+                <include content="OSD_Dialog_Background_Blur">
+                    <param name="diffuse">diffuse/dialog_w$PARAM[diffuse_w]_h600.png</param>
+                </include>
+                <include>OSD_Stream_Selector_Divider</include>
+                <height>600</height>
+                <visible>Integer.IsEqual(Container($PARAM[id]).NumItems,5)</visible>
+            </control>
+            <control type="group">
+                <include content="OSD_Dialog_Background_Blur">
+                    <param name="diffuse">diffuse/dialog_w$PARAM[diffuse_w]_h520.png</param>
+                </include>
+                <include>OSD_Stream_Selector_Divider</include>
+                <height>520</height>
+                <visible>Integer.IsEqual(Container($PARAM[id]).NumItems,4)</visible>
+            </control>
+            <control type="group">
+                <include content="OSD_Dialog_Background_Blur">
+                    <param name="diffuse">diffuse/dialog_w$PARAM[diffuse_w]_h440.png</param>
+                </include>
+                <include>OSD_Stream_Selector_Divider</include>
+                <height>440</height>
+                <visible>Integer.IsEqual(Container($PARAM[id]).NumItems,3)</visible>
+            </control>
+            <control type="group">
+                <include content="OSD_Dialog_Background_Blur">
+                    <param name="diffuse">diffuse/dialog_w$PARAM[diffuse_w]_h360.png</param>
+                </include>
+                <include>OSD_Stream_Selector_Divider</include>
+                <height>360</height>
+                <visible>Integer.IsEqual(Container($PARAM[id]).NumItems,2)</visible>
+            </control>
+            <control type="group">
+                <include content="OSD_Dialog_Background_Blur">
+                    <param name="diffuse">diffuse/dialog_w$PARAM[diffuse_w]_h280.png</param>
+                </include>
+                <include>OSD_Stream_Selector_Divider</include>
+                <height>280</height>
+                <visible>Integer.IsLess(Container($PARAM[id]).NumItems,2)</visible>
+            </control>
+        </definition>
     </include>
 
     <include name="OSD_Stream_Selector">
@@ -352,6 +355,7 @@
                     <animation effect="slide" start="0" end="0,480" condition="Integer.IsLess(Container($PARAM[id]).NumItems,2)">Conditional</animation>
                     <include content="OSD_Stream_Selector_BackgroundResizer">
                         <param name="id">$PARAM[id]</param>
+                        <param name="diffuse_w">$PARAM[width]</param>
                     </include>
                     <include content="Object_MenuHeader">
                         <param name="label">$PARAM[header]</param>

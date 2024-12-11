@@ -128,7 +128,7 @@
     </variable>
 
     <variable name="Label_Settings_TextViewMode">
-        <value condition="Skin.HasSetting(View.DisableDetailedListLabels)">$LOCALIZE[31438]</value>
+        <value condition="!Skin.HasSetting(View.UseDetailedListLabels)">$LOCALIZE[31438]</value>
         <value>$LOCALIZE[31137]</value>
     </variable>
 
@@ -462,7 +462,13 @@
 
     <variable name="Label_Setting_OptionalInfoLine">
         <value condition="Skin.HasSetting(InfoLine.EndTime)">$LOCALIZE[31192]</value>
-        <value>$LOCALIZE[515] / $LOCALIZE[31285]</value>
+        <value>$LOCALIZE[515]</value>
+    </variable>
+
+    <variable name="Label_Setting_AdditionalTags">
+        <value condition="Skin.HasSetting(InfoLine.DisableAdditionalTags) + Skin.HasSetting(Info.EnablePillboxStyle)">$LOCALIZE[16018]</value>
+        <value condition="Skin.HasSetting(InfoLine.DisableAdditionalTags)">$LOCALIZE[21870]</value>
+        <value>$LOCALIZE[21870] + HDR + $LOCALIZE[21444] + $LOCALIZE[31108]</value>
     </variable>
 
     <variable name="Label_Trailer_PlayPause">
@@ -958,6 +964,16 @@
         <value>$LOCALIZE[208]</value>
     </variable>
 
+    <variable name="Label_FullscreenWidget_InfoButton">
+        <value condition="Skin.HasSetting(Spotlight.UseMenuButton) + $EXP[Exp_Hubs_Spotlight_HasItems]">$LOCALIZE[31502]</value>
+        <value>$LOCALIZE[31077]</value>
+    </variable>
+
+    <variable name="Label_Setting_Spotlight_UseMenuButton">
+        <value condition="Skin.HasSetting(Spotlight.UseMenuButton)">$LOCALIZE[33061]</value>
+        <value>$LOCALIZE[29915]</value>
+    </variable>
+
     <variable name="Label_DialogInfo_PlayButton">
         <value condition="$EXP[Exp_IsFolder]">$LOCALIZE[1024]</value>
         <value>$LOCALIZE[208]</value>
@@ -1303,6 +1319,7 @@
     </variable>
 
     <variable name="Label_MediaList_Year">
+        <value condition="!Skin.HasSetting(View.UseDetailedListLabels) + !String.IsEmpty(ListItem.Label2) + !String.IsEqual(ListItem.Label2,ListItem.TrackNumber) + !String.IsEqual(ListItem.Label2,ListItem.Rating)">$INFO[ListItem.Label2]</value>
         <value condition="String.IsEqual(ListItem.DBType,episode)">$VAR[Label_Plot_Episode_Number]</value>
         <value condition="String.IsEqual(ListItem.DBType,song)">$INFO[ListItem.Duration]</value>
         <value>$INFO[ListItem.Year]</value>
@@ -1315,7 +1332,7 @@
 
     <variable name="Label_OSD_Title">
         <value condition="!String.IsEmpty(MusicPlayer.Album)">$INFO[MusicPlayer.Album]</value>
-        <value condition="!String.IsEmpty(VideoPlayer.TvShowTitle)">$INFO[VideoPlayer.TvShowTitle]</value>
+        <value condition="!String.IsEmpty(VideoPlayer.TvShowTitle) + String.IsEmpty(VideoPlayer.ChannelNumberLabel)">$INFO[VideoPlayer.TvShowTitle]</value>
         <value condition="!String.IsEmpty(VideoPlayer.Title)">$INFO[VideoPlayer.Title]</value>
         <value condition="!String.IsEmpty(VideoPlayer.Label)">$INFO[VideoPlayer.Label]</value>
         <value condition="!String.IsEmpty(Player.Title)">$INFO[Player.Title]</value>
