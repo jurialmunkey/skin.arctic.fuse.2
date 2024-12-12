@@ -11,7 +11,12 @@
         <control type="group">
             <left>view_pad</left>
             <control type="group">
-                <include>OSD_Dialog_Background_Blur</include>
+                <include content="OSD_Dialog_Background_Blur" condition="!VideoPlayer.Content(livetv)">
+                    <param name="diffuse">diffuse/dialog_w1280_h510.png</param>
+                </include>
+                <include content="OSD_Dialog_Background_Blur" condition="VideoPlayer.Content(livetv)">
+                    <param name="diffuse">diffuse/dialog_w1280_h740.png</param>
+                </include>
                 <include content="Animation_SlideIn_Dialog">
                     <param name="windowopen_delay">200</param>
                 </include>
