@@ -2478,6 +2478,71 @@
         </definition>
     </include>
 
+    <include name="Layout_Text">
+        <param name="diffuse">diffuse/square_w217_h217.png</param>
+        <param name="selected">false</param>
+        <param name="detailed">false</param>
+        <param name="variation">false</param>
+        <param name="icon">$VAR[Image_Poster]</param>
+        <param name="listitem">ListItem</param>
+        <param name="progress">Progress</param>
+        <param name="textcolor">main_fg</param>
+        <param name="misc">-20</param>
+        <param name="affix" />
+        <definition>
+            <control type="group">
+                <width>$PARAM[item_w]</width>
+                <height>$PARAM[item_h]</height>
+                <control type="group">
+                    <height>$PARAM[item_h]</height>
+                    <include content="Object_ItemBack">
+                        <param name="selected">$PARAM[selected]</param>
+                        <param name="shadow_colordiffuse">$PARAM[shadow_colordiffuse]</param>
+                    </include>
+                    <include content="Object_Control" condition="$PARAM[selected]">
+                        <param name="control">image</param>
+                        <include>Texture_Box_Highlight_V</include>
+                    </include>
+
+                    <!-- <include content="Object_Layout_Image_Icon">
+                        <param name="selected">$PARAM[selected]</param>
+                        <param name="diffuse">$PARAM[diffuse]</param>
+                        <param name="icon">$PARAM[icon]</param>
+                        <param name="listitem">$PARAM[listitem]</param>
+                        <param name="icon_diffuse">$PARAM[diffuse]</param>
+                    </include> -->
+
+                    <control type="textbox">
+                        <top>12</top>
+                        <bottom>12</bottom>
+                        <left>25</left>
+                        <right>25</right>
+                        <label>$INFO[ListItem.Label]</label>
+                        <include condition="$PARAM[selected]">Color_SelectedText</include>
+                        <textcolor>main_fg_70</textcolor>
+                        <font>font_mini_plot</font>
+                        <align>center</align>
+                        <aligny>center</aligny>
+                    </control>
+
+                    <include content="Object_ProgressLine">
+                        <param name="progress">$PARAM[listitem].$PARAM[progress]</param>
+                    </include>
+                    <include content="Object_Indicator" condition="!$PARAM[selected] + ![$PARAM[detailed]]">
+                        <param name="affix">$PARAM[affix]</param>
+                        <param name="listitem">$PARAM[listitem]</param>
+                    </include>
+                    <include content="Object_SelectBox" condition="$PARAM[selected]">
+                        <param name="affix">$PARAM[affix]</param>
+                        <param name="indicator">![$PARAM[detailed]]</param>
+                        <param name="focusbounce">true</param>
+                        <param name="listitem">$PARAM[listitem]</param>
+                    </include>
+                </control>
+            </control>
+        </definition>
+    </include>
+
     <include name="Layout_Ring">
         <param name="diffuse">circle_120</param>
         <param name="selected">false</param>
@@ -2842,7 +2907,7 @@
                         <param name="listitem">$PARAM[listitem]</param>
                     </include> -->
 
-                    <include content="Layout_Labels">
+                    <include content="Layout_Labels" condition="![$PARAM[variation]]">
                         <param name="top">-65</param>
                         <param name="item_h">$PARAM[item_h]</param>
                         <param name="affix">$PARAM[affix]</param>
@@ -2938,7 +3003,7 @@
                     </control>
                 </control>
 
-                <include content="Layout_Labels">
+                <include content="Layout_Labels" condition="![$PARAM[variation]]">
                     <param name="top">-65</param>
                     <param name="item_h">$PARAM[item_h]</param>
                     <param name="affix">$PARAM[affix]</param>

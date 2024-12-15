@@ -724,13 +724,18 @@
     <include name="Hub_Widgets_Grouplist">
         <definition>
             <control type="grouplist" id="$PARAM[id]">
-                <top>hub_widgets_grouplist_t</top>
+                <include content="Object_Top" condition="![$PARAM[widgets_only] + !Skin.HasSetting(Hub.$PARAM[window_id].EnableDetailedInformation)]">
+                    <param name="top">widget_grouplist_t_detailed</param>
+                </include>
+                <include content="Object_Top" condition="$PARAM[widgets_only] + !Skin.HasSetting(Hub.$PARAM[window_id].EnableDetailedInformation)">
+                    <param name="top">widget_grouplist_t</param>
+                </include>
 
                 <include content="Object_Bottom" condition="![$PARAM[widgets_only] + !Skin.HasSetting(Hub.$PARAM[window_id].EnableDetailedInformation)]">
-                    <param name="bottom">hub_infowidgets_grouplist_b</param>
+                    <param name="bottom">widget_grouplist_b_detailed</param>
                 </include>
                 <include content="Object_Bottom" condition="$PARAM[widgets_only] + !Skin.HasSetting(Hub.$PARAM[window_id].EnableDetailedInformation)">
-                    <param name="bottom">hub_widgets_grouplist_b</param>
+                    <param name="bottom">widget_grouplist_b</param>
                 </include>
 
                 <include condition="![$PARAM[widgets_only]]" content="Hub_Widgets_Grouplist__Def_Layout_Expanded">
@@ -752,12 +757,17 @@
                 </include>
 
                 <control type="group" id="$PARAM[bumperid]">
-                    <height>widget_tbump_h</height>
+                    <include content="Object_Height" condition="![$PARAM[widgets_only] + !Skin.HasSetting(Hub.$PARAM[window_id].EnableDetailedInformation)]">
+                        <param name="height">widget_tbump_h_detailed</param>
+                    </include>
+                    <include content="Object_Height" condition="$PARAM[widgets_only] + !Skin.HasSetting(Hub.$PARAM[window_id].EnableDetailedInformation)">
+                        <param name="height">widget_tbump_h</param>
+                    </include>
                 </control>
 
                 <nested />
 
-                <include content="DialogInfo_Widget_EndLine">
+                <include content="Widget_End_Bumper">
                     <param name="id">$PARAM[furnitureid]</param>
                     <param name="widgets_only">[$PARAM[widgets_only] + !Skin.HasSetting(Hub.$PARAM[window_id].EnableDetailedInformation)]</param>
                     <param name="visible">String.IsEmpty(Container(300).ListItem.Property(use_as_widget))</param>
