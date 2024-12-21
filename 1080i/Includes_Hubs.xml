@@ -14,6 +14,12 @@
     <include name="Hub_Slide_Spotlight_OnFanart">
         <animation effect="slide" start="0" end="0,hub_group_fanartspotlight_s" time="400" tween="quadratic" reversible="false" condition="$EXP[Exp_Hubs_Spotlight_SlideDown]">Conditional</animation>
         <animation effect="slide" end="0" start="0,hub_group_fanartspotlight_s" time="400" tween="quadratic" reversible="false" condition="!$EXP[Exp_Hubs_Spotlight_SlideDown]">Conditional</animation>
+
+        <animation effect="slide" start="0" end="0,120" time="400" tween="quadratic" reversible="false" condition="Integer.IsEqual(Container(400).NumItems,0)">Conditional</animation>
+        <animation effect="slide" end="0" start="0,120" time="400" tween="quadratic" reversible="false" condition="!Integer.IsEqual(Container(400).NumItems,0)">Conditional</animation>
+
+        <!-- <animation effect="slide" start="0" end="0,120" time="400" tween="quadratic" reversible="false" condition="[Integer.IsEqual(Container(400).NumItems,0) + $EXP[Exp_Hubs_Spotlight_ShowButtons]]">Conditional</animation>
+        <animation effect="slide" end="0" start="0,120" time="400" tween="quadratic" reversible="false" condition="![Integer.IsEqual(Container(400).NumItems,0) + $EXP[Exp_Hubs_Spotlight_ShowButtons]]">Conditional</animation> -->
     </include>
 
     <include name="Hub_Submenu_List_Definition_Content">
@@ -536,11 +542,12 @@
             <top>hub_spotlight_t</top>
             <height>hub_spotlight_h</height>
             <include content="Animation_Fade_In">
-                <param name="condition">Integer.IsEqual(Window.Property(TMDBHelper.WidgetContainer),301)</param>
+                <param name="condition">$EXP[Exp_Hubs_Spotlight_ShowButtons]</param>
                 <param name="delay">200</param>
+                <param name="time">300</param>
             </include>
             <include content="Animation_ConditionalFade">
-                <param name="condition">!Integer.IsEqual(Window.Property(TMDBHelper.WidgetContainer),301)</param>
+                <param name="condition">!$EXP[Exp_Hubs_Spotlight_ShowButtons]</param>
             </include>
             <include content="Info_Viewline">
                 <param name="label">$VAR[Label_Spotlight_Name]</param>
@@ -692,6 +699,10 @@
         <include content="Hub_Menu_Group">
             <param name="window_id">$PARAM[window_id]</param>
             <param name="property_window_id">$PARAM[property_window_id]</param>
+
+            <animation effect="slide" start="0" end="0,140" time="400" tween="quadratic" reversible="false" condition="!$EXP[Exp_Hubs_Spotlight_ShowButtons] + $EXP[Exp_Hubs_Spotlight_SlideDown]">Conditional</animation>
+            <animation effect="slide" end="0" start="0,140" time="400" tween="quadratic" reversible="false" condition="![!$EXP[Exp_Hubs_Spotlight_ShowButtons] + $EXP[Exp_Hubs_Spotlight_SlideDown]]">Conditional</animation>
+
             <include>Hub_Categories_Spotlight_Viewline</include>
             <include content="Spotlight_Main">
                 <param name="window_id">$PARAM[window_id]</param>
