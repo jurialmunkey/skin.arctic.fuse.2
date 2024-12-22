@@ -1522,11 +1522,17 @@
 
                 <!-- Episode Number -->
                 <include content="Info_Line_Items">
-                    <include content="Info_Line_Visible_01">
+                    <!-- MISC047: Prevent episode NxNN display in Infoline for PVR items -->
+                    <!-- include content="Info_Line_Visible_01">
                         <param name="altvisible">[!String.IsEmpty($PARAM[container]ListItem.ChannelNumberLabel) | !String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.base_channelnumberlabel))]</param>
                         <param name="container">$PARAM[container]</param>
                         <param name="dbtype_01">episode</param>
+                    </include -->                  
+                    <include content="Info_Line_Visible_01">
+                        <param name="container">$PARAM[container]</param>
+                        <param name="dbtype_01">episode</param>
                     </include>
+                    
                     <param name="items_06">true</param>
                     <param name="label_01">$INFO[$PARAM[container]ListItem.Season]$INFO[$PARAM[container]ListItem.Episode,x,]</param>
                     <param name="label_02">$INFO[Window(Home).Property(TMDbHelper.ListItem.base_season)]$INFO[Window(Home).Property(TMDbHelper.ListItem.base_episode),x,]</param>
