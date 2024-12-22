@@ -2153,6 +2153,61 @@
         </definition>
     </include>
 
+    <include name="Layout_Weather">
+        <param name="detailed">false</param>
+        <param name="selected">false</param>
+        <param name="diffuse">diffuse/poster_w217_h310.png</param>
+        <param name="listitem">ListItem</param>
+        <definition>
+            <control type="group">
+                <width>$PARAM[item_w]</width>
+                <height>$PARAM[item_h]</height>
+
+                <control type="group">
+                    <include content="Object_ItemBack">
+                        <param name="selected">$PARAM[selected]</param>
+                        <param name="shadow_colordiffuse">$PARAM[shadow_colordiffuse]</param>
+                    </include>
+                    <include content="Object_Control" condition="$PARAM[selected]">
+                        <param name="control">image</param>
+                        <include>Texture_Box_Highlight_V</include>
+                    </include>
+                    <control type="group">
+                        <include content="_Weather_Forecast_HighLow">
+                            <param name="diffuse">$PARAM[diffuse]</param>
+                            <param name="fanartcode">$INFO[$PARAM[listitem].Property(fanartcode)]</param>
+                            <param name="title">$INFO[$PARAM[listitem].Property(title)]</param>
+                            <param name="hightemp">$INFO[$PARAM[listitem].Property(hightemp)]</param>
+                            <param name="lowtemp">$INFO[$PARAM[listitem].Property(lowtemp)]</param>
+                            <param name="outlook">$INFO[$PARAM[listitem].Property(outlook)]</param>
+                            <param name="imagepath">$INFO[$PARAM[listitem].Property(imagepath)]</param>
+                            <param name="temp_height">110</param>
+                            <param name="temp_centertop">40%</param>
+                            <param name="icon_height">80</param>
+                            <param name="icon_centerbottom">30%</param>
+                            <param name="title_top">20</param>
+                            <param name="title_height">40</param>
+                            <param name="title_control">label</param>
+                            <param name="outlook_bottom">20</param>
+                            <param name="outlook_height">40</param>
+                            <param name="outlook_control">label</param>
+                        </include>
+                    </control>
+                </control>
+                <control type="group">
+                    <include content="Object_SelectBox" condition="$PARAM[selected]">
+                        <param name="affix">$PARAM[affix]</param>
+                        <param name="listitem">$PARAM[listitem]</param>
+                        <param name="indicator">false</param>
+                        <param name="focusbounce">true</param>
+                    </include>
+                </control>
+
+            </control>
+
+        </definition>
+    </include>
+
     <include name="Layout_Home_Menu_Label">
         <param name="selected">false</param>
         <param name="label">$INFO[ListItem.Label]</param>

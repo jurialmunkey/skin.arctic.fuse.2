@@ -442,11 +442,11 @@
                     <description>Busy animation</description>
                     <animation effect="rotate" condition="$PARAM[spinprogress]" start="0" end="360" loop="true" time="2000" center="auto">Conditional</animation>
                     <control type="image">
-                        <texture colordiffuse="$VAR[ColorHighlight]">$INFO[$PARAM[progress],progress/circle/p,.png]</texture>
+                        <texture colordiffuse="$VAR[ColorHighlight]" flipx="true" flipy="true">$INFO[$PARAM[progress],progress/circle/p,.png]</texture>
                         <aspectratio align="center" aligny="center">keep</aspectratio>
                     </control>
                     <control type="image">
-                        <texture colordiffuse="$VAR[ColorGradient]">$INFO[$PARAM[progress],progress/circle/p,.png]</texture>
+                        <texture colordiffuse="$VAR[ColorGradient]" flipx="true" flipy="true">$INFO[$PARAM[progress],progress/circle/p,.png]</texture>
                         <animation effect="fade" end="66" condition="true">Conditional</animation>
                         <aspectratio align="center" aligny="center">keep</aspectratio>
                         <include content="Defs_Progress_Colorfade">
@@ -1045,7 +1045,7 @@
                 <!-- Percentage -->
                 <include content="Object_Control">
                     <param name="control">image</param>
-                    <texture colordiffuse="$VAR[ColorWatchedProgress]" diffuse="indicator/circle-diffuse.png" background="true">$VAR[Defs_PercentPlayed$PARAM[affix],progress/circle/p,.png]</texture>
+                    <texture colordiffuse="$VAR[ColorWatchedProgress]" diffuse="indicator/circle-diffuse.png" background="true" flipx="true" flipy="true">$VAR[Defs_PercentPlayed$PARAM[affix],progress/circle/p,.png]</texture>
                     <aspectratio align="center" aligny="center">keep</aspectratio>
                     <include content="Object_Indicator_Visible">
                         <param name="include_type">Percentage</param>
@@ -1118,7 +1118,7 @@
                 <include content="Object_Control" condition="!Skin.HasSetting(Indicator.DisableWatched)">
                     <param name="control">group</param>
                     <control type="image">
-                        <texture colordiffuse="$VAR[ColorWatchedProgress]" diffuse="indicator/circle-diffuse.png" background="true">progress/circle/p100.png</texture>
+                        <texture colordiffuse="$VAR[ColorWatchedProgress]" diffuse="indicator/circle-diffuse.png" background="true" flipx="true" flipy="true">progress/circle/p100.png</texture>
                         <aspectratio align="center" aligny="center">keep</aspectratio>
                     </control>
                     <control type="image">
@@ -1184,7 +1184,7 @@
                     <include content="Dimension_Padding"><param name="pad">10</param></include>
                     <include content="Object_ColorDiffuse" condition="$PARAM[selected]"><param name="colordiffuse">$VAR[ColorSelected_30]</param></include>
                     <colordiffuse>main_fg_30</colordiffuse>
-                    <texture>progress/circle/p100.png</texture>
+                    <texture flipx="true" flipy="true">progress/circle/p100.png</texture>
                     <aspectratio align="center" aligny="center">keep</aspectratio>
                     <visible>$EXP[Exp_HasWatchedProgress]</visible>
                 </control>
@@ -1192,7 +1192,7 @@
                     <include content="Dimension_Padding"><param name="pad">10</param></include>
                     <include content="Object_ColorDiffuse" condition="$PARAM[selected]"><param name="colordiffuse">$VAR[ColorSelected]</param></include>
                     <colordiffuse>main_fg_90</colordiffuse>
-                    <texture>$VAR[Defs_PercentPlayed,progress/circle/p,.png]</texture>
+                    <texture flipx="true" flipy="true">$VAR[Defs_PercentPlayed,progress/circle/p,.png]</texture>
                     <aspectratio align="center" aligny="center">keep</aspectratio>
                     <visible>$EXP[Exp_HasWatchedProgress]</visible>
                 </control>
@@ -1287,13 +1287,13 @@
                 </control>
                 <control type="image">
                     <include content="Dimension_Padding"><param name="pad">0</param></include>
-                    <texture colordiffuse="$VAR[ColorWatchedProgress]">progress/circle/p$PARAM[progress].png</texture>
+                    <texture colordiffuse="$VAR[ColorWatchedProgress]" flipx="true" flipy="true">progress/circle/p$PARAM[progress].png</texture>
                     <aspectratio align="center" aligny="center">keep</aspectratio>
                     <visible>!String.IsEqual(Window(Home).Property(ColorPicker_Type),Indicator) | !Control.HasFocus(3000)</visible>
                 </control>
                 <control type="image">
                     <include content="Dimension_Padding"><param name="pad">0</param></include>
-                    <texture colordiffuse="$INFO[Container(3000).ListItem.Label]">progress/circle/p$PARAM[progress].png</texture>
+                    <texture colordiffuse="$INFO[Container(3000).ListItem.Label]" flipx="true" flipy="true">progress/circle/p$PARAM[progress].png</texture>
                     <aspectratio align="center" aligny="center">keep</aspectratio>
                     <visible>String.IsEqual(Window(Home).Property(ColorPicker_Type),Indicator) + Control.HasFocus(3000)</visible>
                 </control>

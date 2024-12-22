@@ -275,9 +275,19 @@
         </definition>
     </include>
 
-    <include name="Weather_Forecast_HighLow">
+    <include name="_Weather_Forecast_HighLow">
         <param name="diffuse">diffuse/landscape_w480_h270.png</param>
         <param name="day">Day0</param>
+        <param name="temp_height">160</param>
+        <param name="temp_centertop">33%</param>
+        <param name="title_top">20</param>
+        <param name="title_height">80</param>
+        <param name="title_control">textbox</param>
+        <param name="outlook_bottom">20</param>
+        <param name="outlook_height">80</param>
+        <param name="outlook_control">textbox</param>
+        <param name="icon_height">160</param>
+        <param name="icon_centerbottom">33%</param>
         <definition>
 
 
@@ -291,27 +301,27 @@
                 <randomize>true</randomize>
                 <fadetime>400</fadetime>
                 <aspectratio scalediffuse="false">scale</aspectratio>
-                <imagepath diffuse="$PARAM[diffuse]">resource://resource.images.weatherfanart.multi/$INFO[Window(weather).Property($PARAM[day].FanartCode)]/</imagepath>
+                <imagepath diffuse="$PARAM[diffuse]">$PARAM[imagepath]</imagepath>
             </control>
 
             <control type="group">
                 <control type="image">
                     <texture colordiffuse="7f000000">$PARAM[diffuse]</texture>
                 </control>
-                <control type="textbox">
-                    <top>20</top>
-                    <height>80</height>
-                    <label>$INFO[Window(weather).Property($PARAM[day].Title)]</label>
+                <control type="$PARAM[title_control]">
+                    <top>$PARAM[title_top]</top>
+                    <height>$PARAM[title_height]</height>
+                    <label>$PARAM[title]</label>
                     <textcolor>panel_fg_100</textcolor>
                     <font>font_main_bold</font>
                     <aligny>center</aligny>
                     <align>center</align>
                 </control>
                 <control type="group">
-                    <centertop>33%</centertop>
-                    <height>160</height>
+                    <centertop>$PARAM[temp_centertop]</centertop>
+                    <height>$PARAM[temp_height]</height>
                     <control type="label">
-                        <label>$INFO[Window(weather).Property($PARAM[day].HighTemp)]$INFO[System.TemperatureUnits]</label>
+                        <label>$PARAM[hightemp]$INFO[System.TemperatureUnits]</label>
                         <textcolor>panel_fg_100</textcolor>
                         <font>font_title_huge</font>
                         <aligny>center</aligny>
@@ -319,7 +329,7 @@
                         <height>80%</height>
                     </control>
                     <control type="label">
-                        <label>$INFO[Window(weather).Property($PARAM[day].LowTemp)]$INFO[System.TemperatureUnits]</label>
+                        <label>$PARAM[lowtemp]$INFO[System.TemperatureUnits]</label>
                         <textcolor>panel_fg_100</textcolor>
                         <font>font_main_bold</font>
                         <aligny>center</aligny>
@@ -329,19 +339,19 @@
                     </control>
                 </control>
                 <control type="image">
-                    <texture background="true" colordiffuse="panel_fg_100">resource://resource.images.weathericons.white/$INFO[Window(weather).Property($PARAM[day].FanartCode),,.png]</texture>
+                    <texture background="true" colordiffuse="panel_fg_100">resource://resource.images.weathericons.white/$PARAM[fanartcode].png</texture>
                     <width>160</width>
-                    <height>160</height>
-                    <centerbottom>33%</centerbottom>
+                    <height>$PARAM[icon_height]</height>
+                    <centerbottom>$PARAM[icon_centerbottom]</centerbottom>
                     <centerleft>50%</centerleft>
                     <aspectratio>keep</aspectratio>
                 </control>
-                <control type="textbox">
-                    <bottom>20</bottom>
-                    <height>80</height>
+                <control type="$PARAM[outlook_control]">
+                    <bottom>$PARAM[outlook_bottom]</bottom>
+                    <height>$PARAM[outlook_height]</height>
                     <left>40</left>
                     <right>40</right>
-                    <label>$INFO[Window(weather).Property($PARAM[day].Outlook)]</label>
+                    <label>$PARAM[outlook]</label>
                     <textcolor>panel_fg_100</textcolor>
                     <font>font_main_plot</font>
                     <aligny>center</aligny>
@@ -350,6 +360,60 @@
             </control>
 
         </definition>
+    </include>
+
+    <include name="Weather_Forecast_HighLow">
+        <param name="diffuse">diffuse/landscape_w480_h270.png</param>
+        <param name="day">Day0</param>
+        <definition>
+            <include content="_Weather_Forecast_HighLow">
+                <param name="diffuse">$PARAM[diffuse]</param>
+                <param name="fanartcode">$INFO[Window(weather).Property($PARAM[day].FanartCode)]</param>
+                <param name="title">$INFO[Window(weather).Property($PARAM[day].Title)]</param>
+                <param name="hightemp">$INFO[Window(weather).Property($PARAM[day].HighTemp)]</param>
+                <param name="lowtemp">$INFO[Window(weather).Property($PARAM[day].LowTemp)]</param>
+                <param name="outlook">$INFO[Window(weather).Property($PARAM[day].Outlook)]</param>
+                <param name="imagepath">resource://resource.images.weatherfanart.multi/$INFO[Window(weather).Property($PARAM[day].FanartCode)]/</param>
+            </include>
+        </definition>
+    </include>
+
+    <include name="Weather_Forecast_HighLow_Item">
+        <item>
+            <label>$INFO[Window(weather).Property($PARAM[day].Title)][CR]$INFO[Window(weather).Property($PARAM[day].HighTemp)]$INFO[System.TemperatureUnits] - $INFO[Window(weather).Property($PARAM[day].LowTemp)]$INFO[System.TemperatureUnits]</label>
+            <property name="fanartcode">$INFO[Window(weather).Property($PARAM[day].FanartCode)]</property>
+            <property name="title">$INFO[Window(weather).Property($PARAM[day].Title)]</property>
+            <property name="hightemp">$INFO[Window(weather).Property($PARAM[day].HighTemp)]</property>
+            <property name="lowtemp">$INFO[Window(weather).Property($PARAM[day].LowTemp)]</property>
+            <property name="outlook">$INFO[Window(weather).Property($PARAM[day].Outlook)]</property>
+            <property name="biography">$INFO[Window(weather).Property($PARAM[day].Outlook),,[CR]]$INFO[Window(weather).Property($PARAM[day].ChancePrecipitation),$LOCALIZE[31465]: ,]</property>
+            <property name="fanart">resource://resource.images.weatherfanart.multi/$INFO[Window(weather).Property($PARAM[day].FanartCode)]/weather-$INFO[Window(weather).Property($PARAM[day].FanartCode)]-00.jpg</property>
+            <property name="imagepath">resource://resource.images.weatherfanart.multi/$INFO[Window(weather).Property($PARAM[day].FanartCode)]/</property>
+            <property name="CustomInfo01">$LOCALIZE[8]</property>
+            <property name="CustomInfo02">$INFO[Weather.Location]</property>
+            <property name="is_weather">true</property>
+            <onclick>ActivateWindow(1161)</onclick>
+        </item>
+    </include>
+
+    <include name="Weather_Forecast_HighLow_Items">
+        <content>
+            <include content="Weather_Forecast_HighLow_Item">
+                <param name="day">Day0</param>
+            </include>
+            <include content="Weather_Forecast_HighLow_Item">
+                <param name="day">Day1</param>
+            </include>
+            <include content="Weather_Forecast_HighLow_Item">
+                <param name="day">Day2</param>
+            </include>
+            <include content="Weather_Forecast_HighLow_Item">
+                <param name="day">Day3</param>
+            </include>
+            <include content="Weather_Forecast_HighLow_Item">
+                <param name="day">Day4</param>
+            </include>
+        </content>
     </include>
 
     <include name="Weather_Detail_WindRain_Itemlayout">
