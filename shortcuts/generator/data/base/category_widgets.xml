@@ -32,14 +32,14 @@
 
                     <item>
                         <template>generator/data/parts/basic_template.xmltemplate</template>
+                        <datafile>generator/data/setup/widgets_standard.xml</datafile>
                         <value name="comments">Adaptive Widgets for Category {item_menu} {item_x} {item_label}</value>
-                        <value name="grouplist_item_x">{item_x}</value>
-                        <value name="widget_category_visible">String.IsEqual(Container(300).ListItem.Property(guid),{item_guid})</value>
                         <value name="includes_part">
                             <template>generator/data/parts/widgets_row.xmltemplate</template>
                             <datafile>generator/data/setup/widgets_row.xml</datafile>
                             <datafile>generator/data/setup/widgets_adaptive.xml</datafile>
                             <enumitem name="enum_x">widget_{item_menu}_{item_x}</enumitem>
+                            <enumitem name="enum_total_x">widget_{item_menu}</enumitem>
                         </value>
                         <condition>{item_use_as_widget}==True</condition>
                         <condition>{item_submenulist_path}!=</condition>
@@ -47,13 +47,9 @@
                     </item>
 
                     <item>
-                        <condition>{item_use_as_widget}==True</condition>
-                        <condition>{item_submenulist_path}==</condition>
-                        <condition>{item_disabled}!=True</condition>
                         <template>generator/data/parts/basic_template.xmltemplate</template>
+                        <datafile>generator/data/setup/widgets_standard.xml</datafile>
                         <value name="comments">Combined Widgets for Category {item_menu} {item_x} {item_label}</value>
-                        <value name="grouplist_item_x">{item_x}</value>
-                        <value name="widget_category_visible">String.IsEqual(Container(300).ListItem.Property(guid),{item_guid})</value>
                         <value name="includes_part">
                             <items menu="{item_menu}" item="{item_x}" mode="widgets">
                                 <item>
@@ -62,20 +58,21 @@
                                     <condition>{item_path}!=</condition>
                                     <condition>{item_disabled}!=True</condition>
                                     <enumitem name="enum_x">widget_{parent_item_menu}_{parent_item_x}</enumitem>
+                                    <enumitem name="enum_total_x">widget_{parent_item_menu}</enumitem>
                                     <value name="widget_visible">String.IsEqual(Container({grouplist_item_x}302).ListItem.Property(guid),{item_guid})</value>
                                     <value name="widget_widgetfade_disable">Control.HasFocus({grouplist_item_x}302)</value>
                                 </item>
                             </items>
                         </value>
+                        <condition>{item_use_as_widget}==True</condition>
+                        <condition>{item_submenulist_path}==</condition>
+                        <condition>{item_disabled}!=True</condition>
                     </item>
 
                     <item>
-                        <condition>{item_use_as_widget}!=True</condition>
-                        <condition>{item_disabled}!=True</condition>
                         <template>generator/data/parts/basic_template.xmltemplate</template>
+                        <datafile>generator/data/setup/widgets_standard.xml</datafile>
                         <value name="comments">Standard Widgets for Category {item_menu} {item_x} {item_label}</value>
-                        <value name="grouplist_item_x">{item_x}</value>
-                        <value name="widget_category_visible">String.IsEqual(Container(300).ListItem.Property(guid),{item_guid})</value>
                         <value name="includes_part">
                             <items menu="{item_menu}" item="{item_x}" mode="widgets">
                                 <item>
@@ -84,19 +81,20 @@
                                     <condition>{item_path}!=</condition>
                                     <condition>{item_disabled}!=True</condition>
                                     <enumitem name="enum_x">widget_{parent_item_menu}_{parent_item_x}</enumitem>
+                                    <enumitem name="enum_total_x">widget_{parent_item_menu}</enumitem>
                                 </item>
                             </items>
                         </value>
+                        <condition>{item_use_as_widget}!=True</condition>
+                        <condition>{item_disabled}!=True</condition>
                     </item>
                 </items>
             </value>
 
             <value name="all_constant_widgets">
-                <condition>!Skin.HasSetting(Hub.{window_id}.DisableSubmenu)</condition>
-                <value name="comments">Global Widgets for {item}</value>
                 <template>generator/data/parts/basic_template.xmltemplate</template>
-                <value name="widget_category_visible">String.IsEmpty(Container(300).ListItem.Property(use_as_widget))</value>
-                <value name="grouplist_item_x">200</value>
+                <datafile>generator/data/setup/widgets_constant.xml</datafile>
+                <value name="comments">Global Widgets for {item}</value>
                 <value name="includes_part">
                     <items menu="{item}-globalwidgets">
                         <item>
@@ -105,17 +103,17 @@
                             <condition>{item_path}!=</condition>
                             <condition>{item_disabled}!=True</condition>
                             <enumitem name="enum_x">widget_{parent_item}_globalwidgets</enumitem>
+                            <enumitem name="enum_total_x">widget_{parent_item}</enumitem>
                         </item>
                     </items>
                 </value>
+                <condition>!Skin.HasSetting(Hub.{window_id}.DisableSubmenu)</condition>
             </value>
 
             <value name="all_hubsmenu_widgets">
-                <condition>Skin.HasSetting(Hub.{window_id}.DisableSubmenu)</condition>
-                <value name="comments">Classic Widgets for {item}</value>
                 <template>generator/data/parts/basic_template.xmltemplate</template>
-                <value name="widget_category_visible">True</value>
-                <value name="grouplist_item_x">100</value>
+                <datafile>generator/data/setup/widgets_hubsmenu.xml</datafile>
+                <value name="comments">Classic Widgets for {item}</value>
                 <value name="includes_part">
                     <items menu="{item}-widgetsonly">
                         <item>
@@ -124,9 +122,11 @@
                             <condition>{item_path}!=</condition>
                             <condition>{item_disabled}!=True</condition>
                             <enumitem name="enum_x">widget_{parent_item}_widgetsonly</enumitem>
+                            <enumitem name="enum_total_x">widget_{parent_item}</enumitem>
                         </item>
                     </items>
                 </value>
+                <condition>Skin.HasSetting(Hub.{window_id}.DisableSubmenu)</condition>
             </value>
 
         </value>

@@ -1,0 +1,30 @@
+<contents>
+    <template>generator/data/parts/listcheck_content.xmltemplate</template>
+    <value name="comments">List Check Widgets</value>
+    <value name="includes_name">skinvariables-homemenu-widgets-listcheck</value>
+    <value name="all_sidemenu_widgets">
+        <items menu="sidemenu">
+            <item>
+                <value name="comments">Sidemenu Widgets for {item} {item_x} {item_label}</value>
+                <condition>{item_disabled}!=True</condition>
+                <template>generator/data/parts/basic_template.xmltemplate</template>
+                <value name="widget_category_visible">String.IsEqual(Container(300).ListItem.Property(guid),{item_guid}) | !Skin.HasSetting(Hub.Home.DisableMoveBetweenGroups)</value>
+                <value name="grouplist_item_x">$MATH[{item_x} + 100]</value>
+                <value name="includes_part">
+                    <items mode="widgets" item="{item_x}" menu="{item_menu}">
+                        <item>
+                            <template>generator/data/parts/listcheck_item.xmltemplate</template>
+                            <datafile>generator/data/setup/widgets_row.xml</datafile>
+                            <condition>{item_path}!=</condition>
+                            <condition>{item_disabled}!=True</condition>
+                            <enumitem name="enum_x">listcheck_{parent_item_menu}_{parent_item_x}</enumitem>
+                            <enumitem name="enum_total_x">listcheck_homemenu</enumitem>
+                        </item>
+                    </items>
+                </value>
+            </item>
+        </items>
+    </value>
+
+
+</contents>

@@ -58,6 +58,7 @@
         <param name="widget_positioning">false</param>
         <param name="positioningid" />
         <param name="positioningtop" />
+        <param name="positioningcheck">true</param>
         <definition>
             <include content="Widget_Label">
                 <param name="groupid">$PARAM[groupid]</param>
@@ -121,7 +122,7 @@
             <include content="Widget_Positioning" condition="$PARAM[widget_positioning]">
                 <param name="id">$PARAM[positioningid]</param>
                 <param name="top">$PARAM[positioningtop]</param>
-                <param name="visible">$PARAM[visible] + [Container($PARAM[id]).IsUpdating | !Integer.IsEqual(Container($PARAM[id]).NumItems,0) | $PARAM[altvisible]]</param>
+                <param name="visible">[$PARAM[visible] + [Container($PARAM[id]).IsUpdating | !Integer.IsEqual(Container($PARAM[id]).NumItems,0) | $PARAM[altvisible]]] + $PARAM[positioningcheck]</param>
             </include>
         </definition>
     </include>
@@ -744,6 +745,7 @@
                 <param name="widget_positioning">$PARAM[widget_positioning]</param>
                 <param name="positioningid">$PARAM[positioningid]</param>
                 <param name="positioningtop">$PARAM[positioningtop]</param>
+                <param name="positioningcheck">$PARAM[positioningcheck]</param>
                 <nested />
             </include>
         </definition>
@@ -771,6 +773,7 @@
                 <param name="widget_positioning">$PARAM[widget_positioning]</param>
                 <param name="positioningid">$PARAM[positioningid]</param>
                 <param name="positioningtop">$PARAM[positioningtop]</param>
+                <param name="positioningcheck">$PARAM[positioningcheck]</param>
 
                 <param name="widgettop">widget_items_t$PARAM[widgetconstants_affix]</param>
                 <param name="labelheight">widget_label_h$PARAM[widgetconstants_affix]</param>

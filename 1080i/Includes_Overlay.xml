@@ -1,19 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <includes>
-    <include name="Vert_Red_Line">
-        <control type="image">
-            <top>-1</top>
-            <height>1</height>
-            <texture colordiffuse="44ff0000">common/white.png</texture>
-        </control>
+    <include name="Vert_Line">
+        <param name="colordiffuse">44ff0000</param>
+        <definition>
+            <control type="image">
+                <top>-1</top>
+                <height>1</height>
+                <texture colordiffuse="$PARAM[colordiffuse]">common/white.png</texture>
+            </control>
+        </definition>
     </include>
 
-    <include name="Vert_Red_Line_5">
-        <include>Vert_Red_Line</include>
-        <include>Vert_Red_Line</include>
-        <include>Vert_Red_Line</include>
-        <include>Vert_Red_Line</include>
-        <include>Vert_Red_Line</include>
+    <include name="Vert_Line_5">
+        <include>Vert_Line</include>
+        <include>Vert_Line</include>
+        <include>Vert_Line</include>
+        <include>Vert_Line</include>
+        <include>Vert_Line</include>
     </include>
 
     <include name="Horz_Red_Line">
@@ -69,13 +72,13 @@
             <control type="grouplist">
                 <itemgap>40</itemgap>
                 <orientation>vertical</orientation>
-                <include>Vert_Red_Line_5</include>
-                <include>Vert_Red_Line_5</include>
-                <include>Vert_Red_Line_5</include>
-                <include>Vert_Red_Line_5</include>
-                <include>Vert_Red_Line_5</include>
-                <include>Vert_Red_Line</include>
-                <include>Vert_Red_Line</include>
+                <include>Vert_Line_5</include>
+                <include>Vert_Line_5</include>
+                <include>Vert_Line_5</include>
+                <include>Vert_Line_5</include>
+                <include>Vert_Line_5</include>
+                <include>Vert_Line</include>
+                <include>Vert_Line</include>
             </control>
 
             <!-- Horizontal 40 px lines -->
@@ -386,7 +389,7 @@
     </include>
 
 
-    <include name="Overlay_Test_Window">
+    <include name="Overlay_Test_Window_Dimensions">
         <control type="grouplist">
             <left>80</left>
             <include>Overlay_Test_Grouplist_Col_Def</include>
@@ -460,5 +463,147 @@
 
         </control>
 
+    </include>
+
+    <include name="Overlay_Fonts_Textbox_Tester">
+
+        <control type="grouplist">
+            <width>50%</width>
+            <control type="textbox">
+                <height>auto</height>
+                <font>$PARAM[font]</font>
+                <label>$PARAM[label]</label>
+            </control>
+            <control type="image">
+                <texture>common/white.png</texture>
+                <height>40</height>
+            </control>
+        </control>
+        <control type="grouplist">
+            <left>50%</left>
+            <width>50%</width>
+            <control type="textbox">
+                <height>auto</height>
+                <font>$PARAM[font]_test</font>
+                <label>$PARAM[label]</label>
+            </control>
+            <control type="image">
+                <texture>common/white.png</texture>
+                <height>40</height>
+            </control>
+        </control>
+    </include>
+
+
+    <include name="Overlay_Test_Window_Fonts">
+        <definition>
+            <control type="group">
+                <left>view_pad</left>
+                <right>view_pad</right>
+                <top>view_pad</top>
+                <bottom>view_pad</bottom>
+
+                <control type="grouplist">
+                    <itemgap>40</itemgap>
+                    <top>1</top>
+                    <include content="Vert_Line"><param name="colordiffuse">red</param></include>
+                    <include content="Vert_Line"><param name="colordiffuse">red</param></include>
+                    <include content="Vert_Line"><param name="colordiffuse">red</param></include>
+                    <include content="Vert_Line"><param name="colordiffuse">red</param></include>
+                    <include content="Vert_Line"><param name="colordiffuse">red</param></include>
+                    <include content="Vert_Line"><param name="colordiffuse">red</param></include>
+                    <include content="Vert_Line"><param name="colordiffuse">red</param></include>
+                    <include content="Vert_Line"><param name="colordiffuse">red</param></include>
+                    <include content="Vert_Line"><param name="colordiffuse">red</param></include>
+                    <include content="Vert_Line"><param name="colordiffuse">red</param></include>
+                </control>
+
+                <control type="group">
+                    <width>50%</width>
+                    <include content="Overlay_Fonts_Textbox_Tester">
+                        <param name="font">$PARAM[font]</param>
+                        <param name="label">Description[CR]Description[CR]Description[CR]Description</param>
+                    </include>
+
+                    <include content="Overlay_Fonts_Textbox_Tester">
+                        <param name="font">$PARAM[font]</param>
+                        <param name="label">[CR][CR][CR][CR][CR][CR][CR][CR][CR][CR][CR][CR][CR]Overview</param>
+                    </include>
+                </control>
+
+                <control type="group">
+                    <left>50%</left>
+                    <width>50%</width>
+                    <control type="group">
+                        <include content="Overlay_Fonts_Textbox_Tester">
+                            <param name="font">$PARAM[font]</param>
+                            <param name="label">Single</param>
+                        </include>
+                    </control>
+                    <control type="group">
+                        <top>160</top>
+                        <include content="Overlay_Fonts_Textbox_Tester">
+                            <param name="font">$PARAM[font]</param>
+                            <param name="label">Double[CR]Double</param>
+                        </include>
+                    </control>
+
+
+                </control>
+
+
+                <control type="group">
+                    <bottom>0</bottom>
+                    <height>240</height>
+                    <control type="grouplist">
+                        <width>33%</width>
+                        <control type="textbox">
+                            <height max="160">auto</height>
+                            <font>$PARAM[font]</font>
+                            <label>160px testing[CR]160px testing[CR]160px testing</label>
+                        </control>
+                        <control type="image">
+                            <texture>common/white.png</texture>
+                            <height>40</height>
+                        </control>
+                    </control>
+                    <control type="grouplist">
+                        <left>33%</left>
+                        <width>33%</width>
+                        <control type="group">
+                            <height>160</height>
+                            <control type="label">
+                                <height>120</height>
+                                <centertop>50%</centertop>
+                                <wrapmultiline>true</wrapmultiline>
+                                <font>$PARAM[font]</font>
+                                <label>160px testing[CR]160px testing[CR]160px testing</label>
+                            </control>
+                        </control>
+                        <control type="image">
+                            <texture>common/white.png</texture>
+                            <height>40</height>
+                        </control>
+                    </control>
+                    <control type="grouplist">
+                        <left>66%</left>
+                        <width>34%</width>
+                        <control type="textbox">
+                            <height max="160">auto</height>
+                            <font>$PARAM[font]</font>
+                            <label>160px testing[CR]160px testing</label>
+                        </control>
+                        <control type="image">
+                            <texture>common/white.png</texture>
+                            <height>40</height>
+                        </control>
+                    </control>
+                </control>
+
+
+
+
+            </control>
+        </definition>
     </include>
 </includes>
