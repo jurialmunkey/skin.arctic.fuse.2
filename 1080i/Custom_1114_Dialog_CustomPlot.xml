@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <window type="dialog" id="1114">
-    <defaultcontrol always="true">9000</defaultcontrol>
+    <defaultcontrol always="true">9001</defaultcontrol>
     <onunload>ClearProperty(header,1114)</onunload>
     <onunload>ClearProperty(textbox,1114)</onunload>
     <onunload>ClearProperty(poster,1114)</onunload>
@@ -18,8 +18,9 @@
             <param name="id">7000</param>
             <content limit="1">$INFO[Window.Property(tmdb_id),plugin://plugin.video.themoviedb.helper/?info=details&amp;tmdb_id=,]$INFO[Window.Property(tmdb_type),&amp;tmdb_type=,]</content>
         </include>
+
         <include content="Object_Hidden_Button" condition="String.IsEmpty(Window.Property(path))">
-            <param name="id">9000</param>
+            <param name="id">9001</param>
             <onleft>Close</onleft>
             <onclick>Close</onclick>
             <onup>Control.Message(61,pageup)</onup>
@@ -43,7 +44,7 @@
             <param name="haslabel">false</param>
             <param name="visible_delay">800</param>
             <param name="windowopen_delay">800</param>
-            <param name="visible">[[!Window.IsActive(DialogVolumeBar.xml) | Player.Muted] + !String.IsEmpty(Window.Property(tmdb_type)) + !String.IsEmpty(Window.Property(tmdb_id)) + Container(7000).IsUpdating]</param>
+            <param name="visible">[[!Window.IsActive(DialogVolumeBar.xml) | Player.Muted] + !String.IsEmpty(Window.Property(tmdb_type)) + !String.IsEmpty(Window.Property(tmdb_id)) + [Container(7000).IsUpdating | [Container(7001).IsUpdating + !String.IsEmpty(Window.Property(ModePath))]]]</param>
         </include>
     </controls>
 </window>
