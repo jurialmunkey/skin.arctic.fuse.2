@@ -15,11 +15,7 @@
         <animation effect="slide" start="0" end="0,hub_group_fanartspotlight_s" time="400" tween="quadratic" reversible="false" condition="$EXP[Exp_Hubs_Spotlight_SlideDown]">Conditional</animation>
         <animation effect="slide" end="0" start="0,hub_group_fanartspotlight_s" time="400" tween="quadratic" reversible="false" condition="!$EXP[Exp_Hubs_Spotlight_SlideDown]">Conditional</animation>
 
-        <animation effect="slide" start="0" end="0,120" time="400" tween="quadratic" reversible="false" condition="Integer.IsEqual(Container(400).NumItems,0)">Conditional</animation>
-        <animation effect="slide" end="0" start="0,120" time="400" tween="quadratic" reversible="false" condition="!Integer.IsEqual(Container(400).NumItems,0)">Conditional</animation>
-
-        <!-- <animation effect="slide" start="0" end="0,120" time="400" tween="quadratic" reversible="false" condition="[Integer.IsEqual(Container(400).NumItems,0) + $EXP[Exp_Hubs_Spotlight_ShowButtons]]">Conditional</animation>
-        <animation effect="slide" end="0" start="0,120" time="400" tween="quadratic" reversible="false" condition="![Integer.IsEqual(Container(400).NumItems,0) + $EXP[Exp_Hubs_Spotlight_ShowButtons]]">Conditional</animation> -->
+        <animation effect="slide" start="0" end="0,120" time="400" tween="sine" easing="inout" reversible="true" condition="Integer.IsEqual(Container(400).NumItems,0)">Conditional</animation>
     </include>
 
     <include name="Hub_Submenu_List_Definition_Content">
@@ -370,7 +366,7 @@
             <include>View_Dialog_Plot</include>
 
             <include content="Hub_Widget_Splash" condition="Skin.HasSetting(Startup.WaitForLoad) + [$PARAM[is_homemenu]]">
-                <param name="condition">System.HasAlarm(SplashTimeOut) + Integer.IsEqual(Container(100601).NumItems,0) + Container(100601).IsUpdating</param>
+                <param name="condition">System.HasAlarm(SplashTimeOut) + [Integer.IsEqual(Container(100601).NumItems,0) | [Integer.IsEqual(Container(100601).NumItems,1) + String.IsEqual(Container(100601).ListItemAbsolute(0).Label,$LOCALIZE[31046])]] + Container(100601).IsUpdating</param>
             </include>
             <include content="Hub_Widget_Splash" condition="Skin.HasSetting(Startup.WaitForLoad) + !Skin.HasSetting(Startup.WaitForLoad.DisableForHubs) + ![$PARAM[is_homemenu]] + ![$PARAM[widgets_only]] + !Skin.HasSetting(Hub.$PARAM[window_id].DisableSpotlight)">
                 <param name="condition">System.HasAlarm(SplashTimeOut) + Integer.IsEqual(Container(301).NumItems,0) + Container(301).IsUpdating</param>
@@ -379,7 +375,7 @@
                 <param name="condition">System.HasAlarm(SplashTimeOut) + Integer.IsEqual(Container(300).NumItems,0) + Container(300).IsUpdating</param>
             </include>
             <include content="Hub_Widget_Splash" condition="Skin.HasSetting(Startup.WaitForLoad) + !Skin.HasSetting(Startup.WaitForLoad.DisableForHubs) + ![$PARAM[is_homemenu]] + $PARAM[widgets_only]">
-                <param name="condition">System.HasAlarm(SplashTimeOut) + Integer.IsEqual(Container(100601).NumItems,0) + Container(100601).IsUpdating</param>
+                <param name="condition">System.HasAlarm(SplashTimeOut) + [Integer.IsEqual(Container(100601).NumItems,0) | [Integer.IsEqual(Container(100601).NumItems,1) + String.IsEqual(Container(100601).ListItemAbsolute(0).Label,$LOCALIZE[31046])]] + Container(100601).IsUpdating</param>
             </include>
         </definition>
     </include>

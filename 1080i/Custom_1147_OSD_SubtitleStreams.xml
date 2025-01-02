@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<window type="dialog" id="1147">
+
+    <defaultcontrol always="true">6007</defaultcontrol>
+
+    <controls>
+
+        <control type="group">
+            <left>view_pad</left>
+            <right>view_pad</right>
+
+            <visible>!Window.IsActive(DialogPlayerProcessInfo.xml)</visible>
+            <visible>!Window.IsVisible(DialogSlider.xml)</visible>
+
+            <control type="group">
+                <include content="OSD_Stream_Selector">
+                    <param name="id">6207</param>
+                    <param name="buttonid">6007</param>
+                    <param name="scrollbarid">6307</param>
+                    <param name="stream_type">subtitle</param>
+                    <param name="header">$LOCALIZE[287]</param>
+                    <param name="nibpos">180</param>
+                    <param name="width">640</param>
+                    <param name="method">set_player_subtitle</param>
+                    <param name="enabled">VideoPlayer.SubtitlesEnabled</param>
+                    <param name="toggle">true</param>
+                    <param name="icon">special://skin/extras/icons/quote.png</param>
+                </include>
+            </control>
+
+
+            <control type="grouplist">
+                <height>120</height>
+                <right>-10</right>
+                <centerbottom>80</centerbottom>
+                <orientation>horizontal</orientation>
+                <itemgap>osd_itemgap</itemgap>
+                <align>right</align>
+
+                <onup>CancelAlarm(osd_timeout,true)</onup>
+                <onup>SetFocus(6207)</onup>
+
+                <control type="button" id="6005">
+                    <width>80</width>
+                    <texturefocus />
+                    <texturenofocus />
+                    <font />
+                    <label />
+                    <onfocus>Close</onfocus>
+                    <onfocus>SetFocus(6005)</onfocus>
+                </control>
+
+                <control type="button" id="6006">
+                    <width>80</width>
+                    <texturefocus />
+                    <texturenofocus />
+                    <font />
+                    <label />
+                    <onfocus>Close</onfocus>
+                    <onfocus>SetFocus(6006)</onfocus>
+                </control>
+
+                <control type="button" id="6007">
+                    <include>Defs_OSD_Button</include>
+                    <label>$VAR[Label_OSD_SubtitlesLanguage]</label>
+                    <onclick>CancelAlarm(osd_timeout,true)</onclick>
+                    <onclick>ActivateWindow(osdsubtitlesettings)</onclick>
+                </control>
+                <include content="OSD_Button_Icon_Overlay">
+                    <param name="icon">special://skin/extras/icons/quote.png</param>
+                    <param name="id">6007</param>
+                    <param name="groupid">6107</param>
+                    <param name="itemgap">osd_itemgap</param>
+                    <param name="iconoffset_condition">[VideoPlayer.SubtitlesEnabled + !String.IsEmpty(VideoPlayer.SubtitlesLanguage)]</param>
+                </include>
+
+                <control type="button" id="6008">
+                    <width>80</width>
+                    <texturefocus />
+                    <texturenofocus />
+                    <font />
+                    <label />
+                    <onfocus>Close</onfocus>
+                    <onfocus>SetFocus(6008)</onfocus>
+                </control>
+            </control>
+        </control>
+
+    </controls>
+</window>

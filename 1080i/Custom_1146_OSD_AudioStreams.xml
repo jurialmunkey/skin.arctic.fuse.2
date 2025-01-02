@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<window type="dialog" id="1146">
+
+    <defaultcontrol always="true">6006</defaultcontrol>
+
+    <controls>
+
+        <control type="group">
+            <left>view_pad</left>
+            <right>view_pad</right>
+
+            <visible>!Window.IsActive(DialogPlayerProcessInfo.xml)</visible>
+            <visible>!Window.IsVisible(DialogSlider.xml)</visible>
+
+            <control type="group">
+                <include content="OSD_Stream_Selector">
+                    <param name="id">6206</param>
+                    <param name="buttonid">6006</param>
+                    <param name="scrollbarid">6306</param>
+                    <param name="stream_type">audio</param>
+                    <param name="header">$LOCALIZE[292]</param>
+                    <param name="nibpos">300</param>
+                    <param name="method">set_player_audiostream</param>
+                    <param name="icon">special://skin/extras/icons/volume.png</param>
+                </include>
+            </control>
+
+
+            <control type="grouplist">
+                <height>120</height>
+                <right>-10</right>
+                <centerbottom>80</centerbottom>
+                <orientation>horizontal</orientation>
+                <itemgap>osd_itemgap</itemgap>
+                <align>right</align>
+
+                <onup>CancelAlarm(osd_timeout,true)</onup>
+                <onup>SetFocus(6206)</onup>
+
+                <control type="button" id="6005">
+                    <width>80</width>
+                    <texturefocus />
+                    <texturenofocus />
+                    <font />
+                    <label />
+                    <onfocus>Close</onfocus>
+                    <onfocus>SetFocus(6005)</onfocus>
+                </control>
+
+                <control type="button" id="6006">
+                    <include>Defs_OSD_Button</include>
+                    <label>$INFO[VideoPlayer.AudioLanguage,[UPPERCASE],[/UPPERCASE]]</label>
+                    <onclick>CancelAlarm(osd_timeout,true)</onclick>
+                    <onclick>ActivateWindow(osdaudiosettings)</onclick>
+                </control>
+                <include content="OSD_Button_Icon_Overlay">
+                    <param name="icon">special://skin/extras/icons/volume.png</param>
+                    <param name="id">6006</param>
+                    <param name="groupid">6106</param>
+                    <param name="itemgap">osd_itemgap</param>
+                    <param name="iconoffset_condition">!String.IsEmpty(VideoPlayer.AudioLanguage)</param>
+                </include>
+
+                <control type="button" id="6007">
+                    <width>80</width>
+                    <texturefocus />
+                    <texturenofocus />
+                    <font />
+                    <label />
+                    <onfocus>Close</onfocus>
+                    <onfocus>SetFocus(6007)</onfocus>
+                </control>
+
+                <control type="button" id="6008">
+                    <width>80</width>
+                    <texturefocus />
+                    <texturenofocus />
+                    <font />
+                    <label />
+                    <onfocus>Close</onfocus>
+                    <onfocus>SetFocus(6008)</onfocus>
+                </control>
+            </control>
+        </control>
+
+    </controls>
+</window>

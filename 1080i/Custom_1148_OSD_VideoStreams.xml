@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<window type="dialog" id="1148">
+
+    <defaultcontrol always="true">6008</defaultcontrol>
+
+    <controls>
+
+        <control type="group">
+            <left>view_pad</left>
+            <right>view_pad</right>
+
+            <visible>!Window.IsActive(DialogPlayerProcessInfo.xml)</visible>
+            <visible>!Window.IsVisible(DialogSlider.xml)</visible>
+
+            <!-- Settings -->
+            <control type="group">
+                <include content="OSD_Dialog_Background_Blur">
+                    <param name="diffuse">diffuse/dialog_w520_h480.png</param>
+                </include>
+                <include>Animation_SlideIn_Dialog</include>
+                <include>OSD_Stream_Selector_Divider</include>
+                <right>-40</right>
+                <bottom>220</bottom>
+                <width>520</width>
+                <height>480</height>
+                <include content="Object_MenuHeader">
+                    <param name="label">$LOCALIZE[157]</param>
+                    <param name="icon">special://skin/extras/icons/video.png</param>
+                </include>
+                <control type="group">
+                    <top>120</top>
+                    <bottom>40</bottom>
+                    <control type="grouplist" id="6208">
+                        <top>20</top>
+                        <bottom>20</bottom>
+                        <left>20</left>
+                        <right>20</right>
+                        <ondown>7800</ondown>
+                        <onleft>6008</onleft>
+                        <onright>6008</onright>
+                        <onup>noop</onup>
+                        <orientation>vertical</orientation>
+                        <include content="Settings_Button">
+                            <param name="id">6805</param>
+                            <param name="control">button</param>
+                            <label />
+                            <font />
+                            <onclick>Action(PlayerProcessInfo)</onclick>
+                        </include>
+                        <control type="group" id="6895">
+                            <height>80</height>
+                            <top>-80</top>
+                            <left>-20</left>
+                            <visible>Control.IsEnabled(6805) + Control.IsVisible(6805)</visible>
+                            <control type="group">
+                                <visible>!Control.HasFocus(6805)</visible>
+                                <include content="OSD_Codecs">
+                                    <param name="textcolor_top">dialog_fg_90</param>
+                                    <param name="textcolor_sub">dialog_fg_70</param>
+                                </include>
+                            </control>
+                            <control type="group">
+                                <visible>Control.HasFocus(6805)</visible>
+                                <include content="OSD_Codecs">
+                                    <param name="textcolor_top">$VAR[ColorSelected]</param>
+                                    <param name="textcolor_sub">$VAR[ColorSelected]</param>
+                                </include>
+                            </control>
+                        </control>
+                    </control>
+                    <control type="group">
+                        <bottom>20</bottom>
+                        <height>160</height>
+                        <left>60</left>
+                        <right>60</right>
+                        <control type="image">
+                            <left>-20</left>
+                            <right>-20</right>
+                            <centertop>-20</centertop>
+                            <height>1</height>
+                            <texture colordiffuse="main_fg_12">common/white.png</texture>
+                        </control>
+                        <include content="Dialog_Menu_Button">
+                            <left>-40</left>
+                            <right>-40</right>
+                            <param name="id">7800</param>
+                            <param name="groupid">7890</param>
+                            <param name="control">button</param>
+                            <param name="icon" />
+                            <onup>6805</onup>
+                            <ondown>6008</ondown>
+                            <height>160</height>
+                            <onleft condition="Player.Paused">PlayerControl(Play)</onleft>
+                            <onright condition="Player.Paused">PlayerControl(Play)</onright>
+                            <onleft condition="Player.TempoEnabled">PlayerControl(TempoDown)</onleft>
+                            <onright condition="Player.TempoEnabled">PlayerControl(TempoUp)</onright>
+                            <onright condition="!Player.TempoEnabled + !Player.Forwarding32x">PlayerControl(Forward)</onright>
+                            <onleft condition="!Player.TempoEnabled + !Player.Rewinding32x">PlayerControl(Rewind)</onleft>
+                        </include>
+                        <control type="group">
+                            <visible>!Control.HasFocus(7800)</visible>
+                            <include content="OSD_TempoControl">
+                                <param name="istempo">Player.TempoEnabled</param>
+                            </include>
+                        </control>
+                        <control type="group">
+                            <visible>Control.HasFocus(7800)</visible>
+                            <include content="OSD_TempoControl">
+                                <param name="istempo">Player.TempoEnabled</param>
+                                <param name="selected">true</param>
+                            </include>
+                        </control>
+                    </control>
+                </control>
+            </control>
+
+
+            <control type="grouplist">
+                <height>120</height>
+                <right>-10</right>
+                <centerbottom>80</centerbottom>
+                <orientation>horizontal</orientation>
+                <itemgap>osd_itemgap</itemgap>
+                <align>right</align>
+
+                <onup>CancelAlarm(osd_timeout,true)</onup>
+                <onup>SetFocus(6207)</onup>
+
+                <control type="button" id="6005">
+                    <width>80</width>
+                    <texturefocus />
+                    <texturenofocus />
+                    <font />
+                    <label />
+                    <onfocus>Close</onfocus>
+                    <onfocus>SetFocus(6005)</onfocus>
+                </control>
+
+                <control type="button" id="6006">
+                    <width>80</width>
+                    <texturefocus />
+                    <texturenofocus />
+                    <font />
+                    <label />
+                    <onfocus>Close</onfocus>
+                    <onfocus>SetFocus(6006)</onfocus>
+                </control>
+
+                <control type="button" id="6007">
+                    <width>80</width>
+                    <texturefocus />
+                    <texturenofocus />
+                    <font />
+                    <label />
+                    <onfocus>Close</onfocus>
+                    <onfocus>SetFocus(6007)</onfocus>
+                </control>
+
+                <control type="button" id="6008">
+                    <include>Defs_OSD_Button</include>
+                    <onclick>CancelAlarm(osd_timeout,true)</onclick>
+                    <onclick>ActivateWindow(osdvideosettings)</onclick>
+                    <onup>SetFocus(7800)</onup>
+                </control>
+                <include content="OSD_Button_Icon_Overlay">
+                    <param name="icon">special://skin/extras/icons/video.png</param>
+                    <param name="id">6008</param>
+                    <param name="groupid">6108</param>
+                    <param name="itemgap">osd_itemgap</param>
+                </include>
+            </control>
+        </control>
+
+    </controls>
+</window>
