@@ -10,36 +10,10 @@
 
                 <include content="Settings_Left_Group">
                     <include content="Settings_Left_Content">
-                        <control type="list" id="3">
+                        <include content="Settings_Category_List">
+                            <param name="id">3</param>
                             <onright>5</onright>
                             <right>40</right>
-                            <itemlayout height="80">
-                                <control type="label">
-                                    <textoffsetx>40</textoffsetx>
-                                    <textcolor>main_fg_70</textcolor>
-                                    <label>$INFO[ListItem.Label]</label>
-                                </control>
-                            </itemlayout>
-                            <focusedlayout height="80">
-                                <control type="label">
-                                    <visible>[ControlGroup(30040).HasFocus()]</visible>
-                                    <textoffsetx>40</textoffsetx>
-                                    <textcolor>main_fg_70</textcolor>
-                                    <label>$INFO[ListItem.Label]</label>
-                                </control>
-                                <control type="group">
-                                    <visible>![ControlGroup(30040).HasFocus()]</visible>
-                                    <control type="image">
-                                        <include>Texture_Menu_Highlight_H</include>
-                                    </control>
-                                    <control type="label">
-                                        <include>Color_SelectedText</include>
-                                        <textcolor>main_fg_70</textcolor>
-                                        <textoffsetx>40</textoffsetx>
-                                        <label>$INFO[ListItem.Label]</label>
-                                    </control>
-                                </control>
-                            </focusedlayout>
                             <content>
                                 <item id="1">
                                     <label>$LOCALIZE[31150]</label>
@@ -53,9 +27,8 @@
                                     <label>$LOCALIZE[14116]</label>
                                     <onclick>ActivateWindow(systeminfo)</onclick>
                                 </item>
-
                             </content>
-                        </control>
+                        </include>
                     </include>
                 </include>
 
@@ -366,6 +339,36 @@
                                         <icon>special://skin/extras/icons/bars.png</icon>
                                         <onclick>SetProperty(CustomDialogSettingsTitle,[CAPITALIZE]$LOCALIZE[31086][/CAPITALIZE],Home)</onclick>
                                         <onclick>SetProperty(CustomDialogSettingsItems,Items_Settings_PowerMenuConfigure,Home)</onclick>
+                                        <onclick>ActivateWindow(1118)</onclick>
+                                    </item>
+                                    <item>
+                                        <label>$LOCALIZE[31203] $LOCALIZE[31434]</label>
+                                        <label2>skin.arctic.fuse.2</label2>
+                                        <icon>special://skin/extras/icons/gauge.png</icon>
+                                        <onclick>SetProperty(CustomDialogSettingsItems,Items_Settings_VideoOSDWidgets,Home)</onclick>
+                                        <onclick>SetProperty(CustomDialogSettingsTitle,$LOCALIZE[31430],Home)</onclick>
+                                        <onclick>ActivateWindow(1118)</onclick>
+                                    </item>
+                                    <item>
+                                        <label>[CAPITALIZE]$LOCALIZE[31203] $LOCALIZE[12003][/CAPITALIZE]</label>
+                                        <label2>skin.arctic.fuse.2</label2>
+                                        <icon>special://skin/extras/icons/circle-info.png</icon>
+                                        <onclick>SetProperty(CustomDialogSettingsItems,Items_Settings_VideoInfoWidgets,Home)</onclick>
+                                        <onclick>SetProperty(CustomDialogSettingsTitle,$LOCALIZE[31097],Home)</onclick>
+                                        <onclick>ActivateWindow(1118)</onclick>
+                                    </item>
+                                    <item>
+                                        <label>[CAPITALIZE]$LOCALIZE[31321][/CAPITALIZE]</label>
+                                        <label2>skin.arctic.fuse.2</label2>
+                                        <icon>special://skin/extras/icons/table.png</icon>
+                                        <onclick>runscript(script.skinvariables,action=buildviews,configure)</onclick>
+                                    </item>
+                                    <item>
+                                        <label>[CAPITALIZE]$LOCALIZE[31234][/CAPITALIZE]</label>
+                                        <label2>skin.arctic.fuse.2</label2>
+                                        <icon>special://skin/extras/icons/cube.png</icon>
+                                        <onclick>SetProperty(CustomDialogSettingsItems,Items_Settings_Indicators,Home)</onclick>
+                                        <onclick>SetProperty(CustomDialogSettingsTitle,$LOCALIZE[31235],Home)</onclick>
                                         <onclick>ActivateWindow(1118)</onclick>
                                     </item>
                                 </content>

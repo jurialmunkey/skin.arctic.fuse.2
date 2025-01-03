@@ -2,6 +2,7 @@
 <window type="dialog" id="1123">
     <defaultcontrol always="true">9000</defaultcontrol>
     <onload condition="String.IsEmpty(Window(Home).Property(PlayTrailer))">Close</onload>
+    <onload condition="String.IsEmpty(Window(Home).Property(PlayTrailerTitle))">SetProperty(PlayTrailerTitle,$LOCALIZE[20410],Home)</onload>
     <onload condition="!String.IsEmpty(Window(Home).Property(PlayTrailer)) + Player.HasVideo + !String.IsEqual(Window(Home).Property(PlayTrailer),Player.FileNameAndPath)">Action(Stop)</onload>
     <onload condition="!String.IsEmpty(Window(Home).Property(PlayTrailer)) + [!Player.HasVideo | !String.IsEqual(Window(Home).Property(PlayTrailer),Player.FileNameAndPath)]">PlayMedia($ESCINFO[Window(Home).Property(PlayTrailer)],False,1)</onload>
     <onunload>ClearProperty(TrailerFullscreen,1123)</onunload>
@@ -24,7 +25,7 @@
                 <right>dialog_buttongroup_w</right>
                 <!-- Header -->
                 <include content="Dialog_Head">
-                    <param name="label">$LOCALIZE[20410]</param>
+                    <param name="label">$INFO[Window(Home).Property(PlayTrailerTitle)]</param>
                 </include>
                 <include>Dialog_Head_CloseButton</include>
 
@@ -115,7 +116,7 @@
                             <param name="include_hintlabel">true</param>
                             <param name="id">9005</param>
                             <param name="groupid">9105</param>
-                            <param name="label">Fullscreen</param>
+                            <param name="label">$LOCALIZE[35232]</param>
                             <param name="icon">special://skin/extras/icons/fullscreen.png</param>
                             <param name="visible">Player.HasVideo</param>
                             <onback condition="!String.IsEmpty(Window.Property(TrailerFullscreen)) + Player.HasVideo">ClearProperty(TrailerFullscreen,1123)</onback>
@@ -123,6 +124,15 @@
                             <onclick condition="String.IsEmpty(Window.Property(TrailerFullscreen))">SetProperty(TrailerFullscreen,True,1123)</onclick>
                             <onclick condition="!String.IsEmpty(Window.Property(TrailerFullscreen))">ClearProperty(TrailerFullscreen,1123)</onclick>
                             <onunfocus>ClearProperty(TrailerFullscreen,1123)</onunfocus>
+                        </include>
+                        <include content="DialogInfo_Button">
+                            <param name="include_hintlabel">true</param>
+                            <param name="id">9006</param>
+                            <param name="groupid">9106</param>
+                            <param name="label">$LOCALIZE[31147]</param>
+                            <param name="icon">special://skin/extras/icons/videoplay.png</param>
+                            <param name="visible">!String.IsEmpty(Window(Home).Property(PlayTrailerItems)) + !String.IsEqual(Window(Home).Property(PlayTrailerItems),-)</param>
+                            <onclick>ActivateWindow(1122)</onclick>
                         </include>
                     </control>
                 </control>

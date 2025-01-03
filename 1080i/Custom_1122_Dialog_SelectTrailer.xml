@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<window type="dialog" id="1122">
+    <defaultcontrol always="true">8000</defaultcontrol>
+    <onload>SetProperty(TMDbHelper.ContextMenu,True)</onload>
+    <onload condition="String.IsEmpty(Window(Home).Property(PlayTrailerItems)) | String.IsEqual(Window(Home).Property(PlayTrailerItems),-)">Close</onload>
+    <controls>
+
+        <include>Dialog_Dim_Overlay</include>
+
+        <control type="group">
+            <include>Animation_Right_Delay</include>
+            <control type="group">
+                <include content="Dialog_Preview_Def">
+                    <param name="icon">$INFO[Container(8000).ListItem.Icon]</param>
+                </include>
+                <animation effect="slide" end="0,200" condition="Container(8000).Position(4) | Container(8000).Position(5) | Container(8000).Position(6) | Container(8000).Position(7)">Conditional</animation>
+            </control>
+        </control>
+
+        <control type="group">
+            <include>Dimension_DialogWideMenu</include>
+            <include>Animation_Right_Delay</include>
+
+            <include content="Dialog_Foreground_Side">
+                <param name="dialog_size">Dimension_DialogWideMenu</param>
+                <param name="lines_right">dialog_buttongroup_w</param>
+            </include>
+
+            <control type="group">
+                <right>dialog_buttongroup_w</right>
+                <!-- Header -->
+                <include content="Dialog_Head">
+                    <param name="label">$LOCALIZE[10025]</param>
+                </include>
+                <include>Dialog_Head_CloseButton</include>
+
+                <!-- Content -->
+                <control type="group">
+                    <include>Dimension_Dialog_Body</include>
+                    <control type="group">
+                        <include>Dimension_Dialog_Body_Group</include>
+                        <include content="List_DialogSelect">
+                            <param name="id">8000</param>
+                            <param name="detailed">True</param>
+                            <param name="item_height">100</param>
+                            <param name="textcolor">dialog_fg</param>
+                            <pagecontrol>61</pagecontrol>
+                            <onright>61</onright>
+                            <onclick>Close</onclick>
+                            <onclick>Dialog.Close(1123,true)</onclick>
+                            <include content="Action_PlayTrailer_OnClick">
+                                <param name="trailer">Container(8000).ListItem.FileNameAndPath</param>
+                                <param name="trailer_fallback" />
+                                <param name="title">$INFO[Container(8000).ListItem.Label]</param>
+                                <param name="items">$INFO[Window(Home).Property(PlayTrailerItems)]</param>
+                            </include>
+                            <content>$INFO[Window(Home).Property(PlayTrailerItems)]</content>
+                        </include>
+                        <control type="group">
+                            <height>40</height>
+                            <right>20</right>
+                            <bottom>-60</bottom>
+                            <control type="label">
+                                <aligny>center</aligny>
+                                <align>right</align>
+                                <font>font_hint_bold</font>
+                                <textcolor>main_fg_30</textcolor>
+                                <label>$INFO[Container(8000).NumItems,, $LOCALIZE[31022]]</label>
+                                <visible>Control.IsVisible(8000)</visible>
+                            </control>
+                        </control>
+                    </control>
+                    <control type="group">
+                        <include content="Dialog_Scrollbar">
+                            <param name="id">61</param>
+                            <onleft>8000</onleft>
+                            <onright>9000</onright>
+                        </include>
+                    </control>
+                </control>
+            </control>
+
+            <control type="group">
+                <include content="Dialog_Side_Panel_Group_Def">
+                    <param name="width">dialog_buttongroup_w</param>
+                </include>
+                <!-- Side Buttons -->
+                <control type="group">
+                    <include>Dimension_Dialog_Body</include>
+                    <control type="grouplist" id="9000">
+                        <include>Dialog_Side_Grouplist_Def</include>
+                        <onleft>61</onleft>
+                        <include content="DialogInfo_Button">
+                            <param name="include_hintlabel">true</param>
+                            <param name="id">9001</param>
+                            <param name="groupid">9101</param>
+                            <param name="label">$LOCALIZE[222]</param>
+                            <param name="icon">special://skin/extras/icons/circle-xmark.png</param>
+                            <onclick>Back</onclick>
+                        </include>
+                    </control>
+                </control>
+            </control>
+
+
+
+        </control>
+    </controls>
+</window>

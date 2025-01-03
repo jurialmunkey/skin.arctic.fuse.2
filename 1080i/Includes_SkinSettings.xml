@@ -410,6 +410,7 @@
             <param name="id">012</param>
             <label>$LOCALIZE[31103]</label>
         </include>
+
         <include content="Settings_Button" description="Blur background">
             <param name="dialog">false</param>
             <param name="window">skinsettings</param>
@@ -420,15 +421,50 @@
             <label2>$VAR[Label_Settings_WidgetBlurBackground]</label2>
             <onclick>Skin.ToggleSetting(Widgets.DontHideArtworkOnClassic)</onclick>
         </include>
-        <include content="Settings_Button" description="Show More Items">
+        <include content="Settings_Button" description="No Items Placeholder">
             <param name="dialog">false</param>
             <param name="window">skinsettings</param>
             <param name="baseid">$PARAM[baseid]</param>
             <param name="id">014</param>
+            <param name="control">button</param>
+            <label>$LOCALIZE[31519]</label>
+            <label2>$VAR[Label_Settings_WidgetNoResults]</label2>
+            <onclick condition="Skin.HasSetting(Widgets.DisableNoResultsItem)">Skin.Reset(Widgets.DisableNoResultsItem)</onclick>
+            <onclick condition="!Skin.HasSetting(Widgets.DisableNoResultsItem)">RunScript(script.skinvariables,run_dialog=yesno,"heading=$LOCALIZE[31519]","message=[B][COLOR=red][UPPERCASE]$LOCALIZE[14117][/UPPERCASE][/B][/COLOR] - $LOCALIZE[31522] $LOCALIZE[31524] $LOCALIZE[31523]",yeslabel=$LOCALIZE[31162],nolabel=$LOCALIZE[222],defaultbutton=10,"executebuiltin=Skin.SetBool(Widgets.DisableNoResultsItem)")</onclick>
+        </include>
+        <include content="Settings_Button" description="Show More Items">
+            <param name="dialog">false</param>
+            <param name="window">skinsettings</param>
+            <param name="baseid">$PARAM[baseid]</param>
+            <param name="id">015</param>
             <param name="control">radiobutton</param>
             <label>$LOCALIZE[31091]</label>
             <onclick>Skin.ToggleSetting(Widgets.DisableShowMore)</onclick>
             <selected>!Skin.HasSetting(Widgets.DisableShowMore)</selected>
+        </include>
+
+        <include content="Settings_Button" description="Customise VideoOSD Widgets">
+            <param name="dialog">false</param>
+            <param name="window">skinsettings</param>
+            <param name="baseid">$PARAM[baseid]</param>
+            <param name="id">016</param>
+            <param name="control">button</param>
+            <label>$LOCALIZE[31203] [LOWERCASE]$LOCALIZE[31434] $LOCALIZE[31103][/LOWERCASE]</label>
+            <onclick>SetProperty(CustomDialogSettingsItems,Items_Settings_VideoOSDWidgets,Home)</onclick>
+            <onclick>SetProperty(CustomDialogSettingsTitle,$LOCALIZE[31430],Home)</onclick>
+            <onclick>ActivateWindow(1118)</onclick>
+        </include>
+
+        <include content="Settings_Button" description="Customise VideoInfo Widgets">
+            <param name="dialog">false</param>
+            <param name="window">skinsettings</param>
+            <param name="baseid">$PARAM[baseid]</param>
+            <param name="id">017</param>
+            <param name="control">button</param>
+            <label>$LOCALIZE[31203] [LOWERCASE]$LOCALIZE[12003] $LOCALIZE[31103][/LOWERCASE]</label>
+            <onclick>SetProperty(CustomDialogSettingsItems,Items_Settings_VideoInfoWidgets,Home)</onclick>
+            <onclick>SetProperty(CustomDialogSettingsTitle,$LOCALIZE[31097],Home)</onclick>
+            <onclick>ActivateWindow(1118)</onclick>
         </include>
     </include>
 
@@ -993,37 +1029,6 @@
             <onclick>ActivateWindow(1118)</onclick>
         </include>
 
-        <include content="Settings_Label" description="Widgets">
-            <param name="window">skinsettings</param>
-            <param name="baseid">$PARAM[baseid]</param>
-            <param name="id">022</param>
-            <label>Widgets</label>
-        </include>
-
-        <include content="Settings_Button" description="Customise VideoOSD Widgets">
-            <param name="dialog">false</param>
-            <param name="window">skinsettings</param>
-            <param name="baseid">$PARAM[baseid]</param>
-            <param name="id">023</param>
-            <param name="control">button</param>
-            <label>$LOCALIZE[31103] > $LOCALIZE[31434]</label>
-            <onclick>SetProperty(CustomDialogSettingsItems,Items_Settings_VideoOSDWidgets,Home)</onclick>
-            <onclick>SetProperty(CustomDialogSettingsTitle,$LOCALIZE[31430],Home)</onclick>
-            <onclick>ActivateWindow(1118)</onclick>
-        </include>
-
-        <include content="Settings_Button" description="Customise VideoInfo Widgets">
-            <param name="dialog">false</param>
-            <param name="window">skinsettings</param>
-            <param name="baseid">$PARAM[baseid]</param>
-            <param name="id">024</param>
-            <param name="control">button</param>
-            <label>$LOCALIZE[31103] > $LOCALIZE[12003]</label>
-            <onclick>SetProperty(CustomDialogSettingsItems,Items_Settings_VideoInfoWidgets,Home)</onclick>
-            <onclick>SetProperty(CustomDialogSettingsTitle,$LOCALIZE[31097],Home)</onclick>
-            <onclick>ActivateWindow(1118)</onclick>
-        </include>
-
         <include content="Settings_Label" description="Details">
             <param name="window">skinsettings</param>
             <param name="baseid">$PARAM[baseid]</param>
@@ -1461,7 +1466,7 @@
             <top>20</top>
             <height>600</height>
             <autoscroll delay="6000" time="3000" repeat="10000">true</autoscroll>
-            <label>$LOCALIZE[31095][CR](AR) taiseer999, (DE) peat80, (PT) Havokdan, (IT) seppiola, (UA) dmt1z, (FR) Bindou, (ES) gtkingbuild, (RU) StellaLupus, (FI) Lam4hound, (ZH) kalifun[CR][CR]To all my amazing supporters on Ko-fi, thank-you![CR][CR]A special thanks to this month's supporters[CR]not_ booyakafoo EZ44 Pikszeles Rinicko Dml2023 Bindou Adamosborne83 AsparagusTrevor juanmazake Aemstel rf1967</label>
+            <label>$LOCALIZE[31095][CR](AR) taiseer999, (DE) peat80  jamal2362, (PT) Havokdan, (IT) seppiola, (UA) dmt1z, (FR) Bindou, (ES) gtkingbuild, (RU) StellaLupus, (FI) Lam4hound, (ZH) kalifun[CR][CR]To all my amazing supporters on Ko-fi, thank-you![CR][CR]A special thanks and happy new year to this month's supporters. Cheers![CR]anon ugug FattyKidd Muaad_Badurdeen Георги_Антонов Bindou Rinicko booyakafoo Blacky Ivan George masked__rider Luca Adamosoborne83</label>
             <left>40</left>
             <right>40</right>
             <visible>Container(10000).HasFocus($PARAM[baseid])</visible>
