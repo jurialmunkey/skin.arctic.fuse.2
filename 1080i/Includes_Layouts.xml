@@ -2673,36 +2673,15 @@
                     <control type="group">
                         <left>30</left>
                         <right>40</right>
-                        <include content="Object_InfoCircle_Text_Top" condition="$PARAM[include_detailed_labels]">
-                            <label>$INFO[$PARAM[listitem].Label]</label>
-                            <align>$PARAM[align]</align>
-                            <textcolor>main_fg_90</textcolor>
-                            <selectedcolor>main_fg_90</selectedcolor>
-                            <visible>String.IsEmpty($PARAM[listitem].Title) | String.IsEmpty($PARAM[listitem].ChannelNumberLabel)</visible>
+
+                        <include content="Layout_Labels">
+                            <param name="affix">$PARAM[affix]</param>
+                            <param name="listitem">$PARAM[listitem]</param>
+                            <param name="textcolor">$PARAM[textcolor]</param>
+                            <param name="include_detailed_labels">$PARAM[include_detailed_labels]</param>
+                            <param name="aligny">center</param>
                         </include>
-                        <include content="Object_InfoCircle_Text_Top" condition="$PARAM[include_detailed_labels]">
-                            <label>$INFO[$PARAM[listitem].Title]</label>
-                            <textcolor>main_fg_90</textcolor>
-                            <selectedcolor>main_fg_90</selectedcolor>
-                            <align>$PARAM[align]</align>
-                            <visible>!String.IsEmpty($PARAM[listitem].Title) + !String.IsEmpty($PARAM[listitem].ChannelNumberLabel)</visible>
-                        </include>
-                        <include content="Object_InfoCircle_Text_Sub" condition="$PARAM[include_detailed_labels]">
-                            <label>$VAR[Label_Landscape_Lower$PARAM[affix]]</label>
-                            <textcolor>main_fg_70</textcolor>
-                            <selectedcolor>main_fg_70</selectedcolor>
-                            <align>$PARAM[align]</align>
-                        </include>
-                        <control type="textbox">
-                            <!-- <top>7</top> -->
-                            <height>80</height>
-                            <font>font_mini_plot</font>
-                            <label>$INFO[$PARAM[listitem].Label]</label>
-                            <align>$PARAM[align]</align>
-                            <aligny>center</aligny>
-                            <textcolor>main_fg_70</textcolor>
-                            <visible>![$PARAM[include_detailed_labels]]</visible>
-                        </control>
+
                     </control>
                 </control>
 
@@ -2782,6 +2761,7 @@
         <param name="selected">false</param>
         <param name="include_detailed_labels">Skin.HasSetting(View.UseDetailedListLabels)</param>
         <param name="use_label">false</param>
+        <param name="aligny">top</param>
         <definition>
             <control type="image">
                 <texture border="20" colordiffuse="e7ffffff">common/poster_fade.png</texture>
@@ -2799,8 +2779,9 @@
 
                     <include content="Object_Control" condition="![$PARAM[include_detailed_labels]] + ![$PARAM[use_label]]">
                         <param name="control">textbox</param>
-                        <top>7</top>
-                        <height>68</height>
+                        <top>6</top>
+                        <height>67</height>
+                        <aligny>$PARAM[aligny]</aligny>
                         <font>font_mini</font>
                         <label>$INFO[$PARAM[listitem].Label]</label>
                         <align>left</align>
@@ -2809,8 +2790,9 @@
                     </include>
                     <include content="Object_Control" condition="![$PARAM[include_detailed_labels]] + $PARAM[use_label]">
                         <param name="control">label</param>
-                        <top>40</top>
-                        <height>30</height>
+                        <top>6</top>
+                        <height>67</height>
+                        <aligny>$PARAM[aligny]</aligny>
                         <font>font_mini</font>
                         <label>$INFO[$PARAM[listitem].Label]</label>
                         <align>left</align>
@@ -2877,21 +2859,6 @@
                 <control type="group">
                     <bottom>80</bottom>
 
-                    <!-- <include content="Object_ItemBack">
-                        <param name="selected">$PARAM[selected]</param>
-                        <param name="shadow_colordiffuse">$PARAM[shadow_colordiffuse]</param>
-                    </include>
-
-                    <include content="Object_Control" condition="$PARAM[selected]">
-                        <param name="control">image</param>
-                        <include>Texture_Box_Highlight_V</include>
-                    </include>
-
-                    <include content="Object_Control" condition="$PARAM[selected]">
-                        <param name="control">image</param>
-                        <texture colordiffuse="main_bg_70" border="20">common/box.png</texture>
-                    </include> -->
-
                     <control type="group">
                         <width>$PARAM[misc]</width>
                         <include content="Object_ItemBack">
@@ -2905,9 +2872,6 @@
                         </include>
 
                         <control type="group">
-                            <!-- <include content="Dimension_Padding">
-                                <param name="pad">10</param>
-                            </include> -->
                             <include content="Object_Layout_Image_Rectangle">
                                 <param name="diffuse">$PARAM[diffuse]</param>
                                 <param name="icon">$PARAM[icon]</param>
@@ -2945,31 +2909,11 @@
                             <align>left</align>
                             <aligny>center</aligny>
                             <font>font_mini_plot</font>
-                            <!-- <include condition="$PARAM[selected]">Color_SelectedText</include> -->
-                            <!-- <include content="Object_TextColor" condition="$PARAM[selected]">
-                                <param name="textcolor">$PARAM[textcolor]_100</param>
-                            </include> -->
                             <label fallback="19055">$VAR[Label_Landscape_Plot$PARAM[affix]]</label>
                             <textcolor>$PARAM[textcolor]_70</textcolor>
                             <autoscroll>false</autoscroll>
                         </control>
                     </control>
-
-                    <!-- <include content="Object_ProgressLine">
-                        <param name="progress">$PARAM[listitem].$PARAM[progress]</param>
-                    </include> -->
-
-                    <!-- <include content="Object_Indicator" condition="!$PARAM[selected]">
-                        <param name="affix">$PARAM[affix]</param>
-                        <param name="listitem">$PARAM[listitem]</param>
-                    </include>
-
-                    <include content="Object_SelectBox" condition="$PARAM[selected]">
-                        <param name="affix">$PARAM[affix]</param>
-                        <param name="indicator">true</param>
-                        <param name="focusbounce">true</param>
-                        <param name="listitem">$PARAM[listitem]</param>
-                    </include> -->
 
                     <include content="Layout_Labels" condition="![$PARAM[variation]]">
                         <param name="top">-65</param>
@@ -3057,10 +3001,6 @@
                         <align>left</align>
                         <aligny>center</aligny>
                         <font>font_mini_plot</font>
-                        <!-- <include condition="$PARAM[selected]">Color_SelectedText</include> -->
-                        <!-- <include content="Object_TextColor" condition="$PARAM[selected]">
-                            <param name="textcolor">$PARAM[textcolor]_100</param>
-                        </include> -->
                         <label fallback="19055">$VAR[Label_Landscape_Plot$PARAM[affix]]</label>
                         <textcolor>$PARAM[textcolor]_70</textcolor>
                         <autoscroll>false</autoscroll>
