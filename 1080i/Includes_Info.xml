@@ -719,14 +719,14 @@
         <param name="visible_tvshows">true</param>
         <definition>
             <include content="Info_RatingsLine_Items" condition="![$PARAM[is_player]]">
-                <param name="visible">[$PARAM[visible_movies] + [String.IsEqual(Window(Home).Property(TMDbHelper.ListItem.base_dbtype),movie) | String.IsEqual(Window(Home).Property(TMDbHelper.ListItem.base_dbtype),set)]]</param>
+                <param name="visible">[$PARAM[visible_movies] + [String.IsEqual(Window(Home).Property(TMDbHelper.ListItem.base_dbtype),movie) | String.IsEqual(Window(Home).Property(TMDbHelper.ListItem.base_dbtype),set)] | [String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.base_dbtype)) + [String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.TVShowTitle)) + String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.base_tvshowtitle))]]]</param>
                 <param name="content">Movies</param>
                 <param name="item">$PARAM[item]</param>
                 <param name="container">$PARAM[container]</param>
                 <param name="is_player">$PARAM[is_player]</param>
             </include>
             <include content="Info_RatingsLine_Items" condition="![$PARAM[is_player]]">
-                <param name="visible">[$PARAM[visible_tvshows] + [String.IsEqual(Window(Home).Property(TMDbHelper.ListItem.base_dbtype),tvshow) | String.IsEqual(Window(Home).Property(TMDbHelper.ListItem.base_dbtype),season) | String.IsEqual(Window(Home).Property(TMDbHelper.ListItem.base_dbtype),episode)]]</param>
+                <param name="visible">[$PARAM[visible_tvshows] + [String.IsEqual(Window(Home).Property(TMDbHelper.ListItem.base_dbtype),tvshow) | String.IsEqual(Window(Home).Property(TMDbHelper.ListItem.base_dbtype),season) | String.IsEqual(Window(Home).Property(TMDbHelper.ListItem.base_dbtype),episode)] | [String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.base_dbtype)) + ![String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.TVShowTitle)) + String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.base_tvshowtitle))]]]</param>
                 <param name="content">TVShows</param>
                 <param name="item">$PARAM[item]</param>
                 <param name="container">$PARAM[container]</param>
