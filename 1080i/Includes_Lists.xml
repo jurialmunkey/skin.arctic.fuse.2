@@ -86,76 +86,75 @@
     </include>
 
     <include name="List_EPGGrid">
+        <param name="programheight">80</param>
+        <param name="programwidth">480</param>
         <param name="channelheight">80</param>
-        <param name="channelwidth">520</param>
+        <param name="channelwidth">420</param>
+        <param name="rulerheight">55</param>
+        <param name="rulerdateheight">105</param>
         <param name="include_channels">Layout_PVRGuide_Channels</param>
         <param name="include_programs">Layout_PVRGuide_Programs</param>
+        <param name="include_ruler">Layout_PVRGuide_Ruler</param>
+        <param name="channelbottom">0</param>
+        <param name="channelright">20</param>
+        <param name="rulerunit">6</param>
+        <param name="timeblocks">24</param>
         <definition>
             <control type="epggrid" id="$PARAM[id]">
                 <nested />
                 <scrolltime tween="quadratic">300</scrolltime>
-                <timeblocks>24</timeblocks>
-                <rulerunit>6</rulerunit>
-                <rulerdatelayout height="105" />
-                <rulerlayout height="55">
-                    <control type="group">
-                        <bottom>5</bottom>
-                        <top>-10</top>
-                        <control type="image">
-                            <width>1</width>
-                            <texture colordiffuse="main_fg_30">common/white.png</texture>
-                            <bottom>15</bottom>
-                            <top>15</top>
-                        </control>
-                        <control type="label">
-                            <bottom>5</bottom>
-                            <left>10</left>
-                            <align>left</align>
-                            <aligny>center</aligny>
-                            <!-- PVR013: font changed from font_tiny -->
-                            <font>font_tiny_bold</font>
-                            <label>$INFO[ListItem.Label]</label>
-                            <!-- PVR013: textcolor changed from main_fg_70 -->
-                            <textcolor>main_fg_90</textcolor>
-                            <shadowcolor>main_bg_12</shadowcolor>
-                        </control>
-                    </control>
+                <timeblocks>$PARAM[timeblocks]</timeblocks>
+                <rulerunit>$PARAM[rulerunit]</rulerunit>
+                <rulerdatelayout height="$PARAM[rulerdateheight]"  width="$PARAM[rulerdatewidth]" />
+                <rulerlayout height="$PARAM[rulerheight]" width="$PARAM[rulerwidth]">
+                    <include>$PARAM[include_ruler]</include>
                 </rulerlayout>
                 <channellayout height="$PARAM[channelheight]" width="$PARAM[channelwidth]">
                     <include content="$PARAM[include_channels]">
                         <param name="detailed">$PARAM[detailed]</param>
-                        <param name="item_h">$PARAM[channelheight]</param>
+                        <param name="bottom">$PARAM[channelbottom]</param>
+                        <param name="right">$PARAM[channelright]</param>
                     </include>
                 </channellayout>
                 <focusedchannellayout height="$PARAM[channelheight]" width="$PARAM[channelwidth]">
                     <include content="$PARAM[include_channels]">
                         <param name="selected">false</param>
                         <param name="detailed">$PARAM[detailed]</param>
-                        <param name="item_h">$PARAM[channelheight]</param>
+                        <param name="bottom">$PARAM[channelbottom]</param>
+                        <param name="right">$PARAM[channelright]</param>
+
                         <visible>[$EXP[Exp_PVRGuide_NoFocus]]</visible>
                     </include>
                     <include content="$PARAM[include_channels]">
                         <param name="selected">true</param>
                         <param name="detailed">$PARAM[detailed]</param>
-                        <param name="item_h">$PARAM[channelheight]</param>
+                        <param name="bottom">$PARAM[channelbottom]</param>
+                        <param name="right">$PARAM[channelright]</param>
+
                         <visible>![$EXP[Exp_PVRGuide_NoFocus]]</visible>
                     </include>
                 </focusedchannellayout>
-                <itemlayout height="$PARAM[channelheight]" width="480">
+                <itemlayout height="$PARAM[programheight]" width="$PARAM[programwidth]">
                     <include content="$PARAM[include_programs]">
                         <param name="detailed">$PARAM[detailed]</param>
+                        <param name="border">$PARAM[border]</param>
+                        <param name="border_genre">$PARAM[border_genre]</param>
                     </include>
                 </itemlayout>
-                <focusedlayout height="$PARAM[channelheight]" width="480">
+                <focusedlayout height="$PARAM[programheight]" width="$PARAM[programwidth]">
                     <include content="$PARAM[include_programs]">
                         <param name="selected">false</param>
                         <param name="visible">[$EXP[Exp_PVRGuide_NoFocus]]</param>
                         <param name="detailed">$PARAM[detailed]</param>
+                        <param name="border">$PARAM[border]</param>
+                        <param name="border_genre">$PARAM[border_genre]</param>
                     </include>
                     <include content="$PARAM[include_programs]">
                         <param name="selected">true</param>
                         <param name="visible">![$EXP[Exp_PVRGuide_NoFocus]]</param>
                         <param name="detailed">$PARAM[detailed]</param>
+                        <param name="border">$PARAM[border]</param>
+                        <param name="border_genre">$PARAM[border_genre]</param>
                     </include>
                 </focusedlayout>
             </control>

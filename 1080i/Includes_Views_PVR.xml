@@ -47,16 +47,11 @@
 
     <!-- EPG -->
     <include name="View_PVRGuide_Standard">
-        <param name="channelwidth">420</param>
         <param name="viewtype_label">19069</param>
         <definition>
             <include content="List_EPGGrid">
                 <param name="id">$PARAM[id]</param>
-                <param name="channelheight">$PARAM[channelheight]</param>
-                <param name="channelwidth">$PARAM[channelwidth]</param>
                 <param name="detailed">$PARAM[detailed]</param>
-                <param name="include_channels">$PARAM[include_channels]</param>
-                <param name="include_programs">$PARAM[include_programs]</param>
                 <onup>$PARAM[id]</onup>
                 <ondown>$PARAM[id]</ondown>
                 <onback>9001</onback>
@@ -66,6 +61,43 @@
                 <top>-100</top>
                 <bottom>100</bottom>
                 <left>-40</left>
+            </include>
+        </definition>
+    </include>
+
+    <include name="View_PVRGuide_Horizontal">
+        <param name="viewtype_label">19069</param>
+        <definition>
+            <include content="List_EPGGrid">
+                <param name="id">$PARAM[id]</param>
+                <param name="channelheight">120</param>
+                <param name="channelbottom">40</param>
+                <param name="channelright">0</param>
+                <param name="channelwidth">328</param>
+                <param name="programwidth">328</param>
+                <param name="rulerwidth">100</param>
+                <param name="rulerdatewidth">100</param>
+                <param name="rulerheight">80</param>
+                <param name="rulerdateheight">80</param>
+                <param name="programheight">80</param>
+                <param name="detailed">$PARAM[detailed]</param>
+                <param name="include_ruler">Layout_PVRGuide_Ruler_Horizontal</param>
+                <param name="border">40</param>
+                <param name="border_genre">40,37,40,37</param>
+                <param name="timeblocks">16</param>
+                <param name="rulerunit">6</param>
+                <onup>$PARAM[id]</onup>
+                <ondown>$PARAM[id]</ondown>
+                <onback>9001</onback>
+                <viewtype label="$PARAM[viewtype_label]">list</viewtype>
+                <progresstexture border="160,40,60,40" colordiffuse="main_bg_30">$PARAM[progresstexture]</progresstexture>
+                <pagecontrol>8060</pagecontrol>
+                <!-- <top>-20</top> -->
+                <top>-20</top>
+                <bottom>80</bottom>
+                <!-- <left>-160</left> -->
+                <!-- <right>-40</right> -->
+                <orientation>horizontal</orientation>
             </include>
         </definition>
     </include>
@@ -172,6 +204,41 @@
             </control>
             <include>View_PVR_InformationPanel</include>
         </control>
+        <control type="group">
+            <visible>Control.IsVisible(502)</visible>
+            <include content="Info_Viewline">
+                <param name="label">[CAPITALIZE]$VAR[Label_Header_Main][/CAPITALIZE]</param>
+            </include>
+            <control type="group">
+                <include>Dimension_PVR_HalfGuide</include>
+                <include>View_PVR_ProgrammePanel</include>
+                <include content="View_PVRGuide_Standard">
+                    <param name="id">502</param>
+                    <param name="progresstexture">pvr/progressline-half.png</param>
+                    <param name="viewtype_label">$LOCALIZE[571]</param>
+                </include>
+            </control>
+            <control type="group">
+                <include>Info_Panel_Dimensions</include>
+                <include>Info_Panel</include>
+            </control>
+        </control>
+        <control type="group">
+            <visible>Control.IsVisible(503)</visible>
+            <include>Dimension_PVR_FullGuide</include>
+            <control type="group">
+                <top>120</top>
+                <left>-280</left>
+                <!-- <left>-420</left>
+                <right>-40</right> -->
+                <include>View_PVR_ProgrammePanel</include>
+            </control>
+            <include content="View_PVRGuide_Horizontal">
+                <param name="id">503</param>
+                <param name="progresstexture">pvr/progressline-horz.png</param>
+                <param name="viewtype_label">$LOCALIZE[571]</param>
+            </include>
+        </control>
     </include>
 
     <include name="View_PVR_Full">
@@ -229,6 +296,7 @@
             <include>View_PVR_GroupSwitcher</include>
             <control type="group">
                 <visible>!Control.IsVisible(52)</visible>
+                <visible>!Control.IsVisible(502)</visible>
                 <include>View_Row_Header</include>
             </control>
         </control>
@@ -309,6 +377,14 @@
                             <param name="include_customwidth">$PARAM[include_customwidth]</param>
                             <param name="visible">true</param>
                             <onclick>SendClick(2)</onclick>
+
+                            <!-- Reset Overlay onclick for View BEFORE the one needed (so that it switches onclick) -->
+                            <onclick condition="Window.IsVisible(MyPVRGuide.xml) + !Control.IsVisible(501)">SetProperty(Background.ShowOverlay,True,Home)</onclick>
+                            <onclick condition="Window.IsVisible(MyPVRGuide.xml) + Control.IsVisible(501)">ClearProperty(Background.ShowOverlay,Home)</onclick>
+
+                            <!-- Reset Overlay onclick for View BEFORE the one needed (so that it switches onclick) -->
+                            <onclick condition="Window.IsVisible(MyPVRChannels.xml) + !Control.IsVisible(51)">SetProperty(Background.ShowOverlay,True,Home)</onclick>
+                            <onclick condition="Window.IsVisible(MyPVRChannels.xml) + Control.IsVisible(51)">ClearProperty(Background.ShowOverlay,Home)</onclick>
                         </include>
 
                         <!-- Sort -->
@@ -561,4 +637,20 @@
             </control>
         </control>
     </include>
+
+    <variable name="PVR_GenreType">
+        <value condition="String.IsEmpty(ListItem.Genre) | [!String.IsEmpty(ListItem.Property(GenreType)) + !Integer.IsEqual(ListItem.Property(GenreType),256)]">$INFO[ListItem.Property(GenreType)]</value>
+        <value condition="String.Contains(ListItem.Genre,Drama) | String.Contains(ListItem.Genre,Comedy) | String.Contains(ListItem.Genre,Adventure) | String.Contains(ListItem.Genre,Crime) | String.Contains(ListItem.Genre,Horror) | String.Contains(ListItem.Genre,Action) | String.Contains(ListItem.Genre,Thriller) | String.Contains(ListItem.Genre,Movie) | String.Contains(ListItem.Genre,Fantasy) | String.Contains(ListItem.Genre,Science Fiction) | String.Contains(ListItem.Genre,Romance) | String.Contains(ListItem.Genre,Western)">16</value>
+        <value condition="String.Contains(ListItem.Genre,Documentary) | String.Contains(ListItem.Genre,News) | String.Contains(ListItem.Genre,Current Affairs)">32</value>
+        <value condition="String.Contains(ListItem.Genre,Entertainment) | String.Contains(ListItem.Genre,Reality) | String.Contains(ListItem.Genre,Game Show)">48</value>
+        <value condition="String.Contains(ListItem.Genre,Sport) | String.Contains(ListItem.Genre,Football) | String.Contains(ListItem.Genre,Golf) | String.Contains(ListItem.Genre,Cricket) | String.Contains(ListItem.Genre,Baseball) | String.Contains(ListItem.Genre,Basketball) | String.Contains(ListItem.Genre,Hockey) | String.Contains(ListItem.Genre,Tennis) | String.Contains(ListItem.Genre,Athletics) | String.Contains(ListItem.Genre,Squash) | String.Contains(ListItem.Genre,Equestrian) | String.Contains(ListItem.Genre,Soccer) | String.Contains(ListItem.Genre,Olympics)">64</value>
+        <value condition="String.Contains(ListItem.Genre,Kids) | String.Contains(ListItem.Genre,Family) | String.Contains(ListItem.Genre,Children) | String.Contains(ListItem.Genre,Cartoon)">80</value>
+        <value condition="String.Contains(ListItem.Genre,Music) | String.Contains(ListItem.Genre,Ballet) | String.Contains(ListItem.Genre,Dance) | String.Contains(ListItem.Genre,Opera)">96</value>
+        <value condition="String.Contains(ListItem.Genre,Arts) | String.Contains(ListItem.Genre,Culture) | String.Contains(ListItem.Genre,Religion) | String.Contains(ListItem.Genre,Fashion)">112</value>
+        <value condition="String.Contains(ListItem.Genre,Social) | String.Contains(ListItem.Genre,Political) | String.Contains(ListItem.Genre,Economics)">128</value>
+        <value condition="String.Contains(ListItem.Genre,Science) | String.Contains(ListItem.Genre,Nature) | String.Contains(ListItem.Genre,Education)">144</value>
+        <value condition="String.Contains(ListItem.Genre,Lifestyle) | String.Contains(ListItem.Genre,Special Interest) | String.Contains(ListItem.Genre,Cooking) | String.Contains(ListItem.Genre,Food) | String.Contains(ListItem.Genre,Fitness) | String.Contains(ListItem.Genre,Gardening) | String.Contains(ListItem.Genre,Advertisment) | String.Contains(ListItem.Genre,Shopping)">160</value>
+        <value condition="String.Contains(ListItem.Genre,Special) | String.Contains(ListItem.Genre,Live)">192</value>
+        <value>256</value>
+    </variable>
 </includes>

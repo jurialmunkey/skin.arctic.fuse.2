@@ -314,20 +314,69 @@
         </definition>
     </include>
 
+    <include name="Layout_PVRGuide_Ruler">
+        <control type="group">
+            <bottom>5</bottom>
+            <top>-10</top>
+            <control type="image">
+                <width>1</width>
+                <texture colordiffuse="main_fg_30">common/white.png</texture>
+                <bottom>15</bottom>
+                <top>15</top>
+            </control>
+            <control type="label">
+                <bottom>5</bottom>
+                <left>10</left>
+                <align>left</align>
+                <aligny>center</aligny>
+                <font>font_tiny</font>
+                <label>$INFO[ListItem.Label]</label>
+                <textcolor>main_fg_70</textcolor>
+                <shadowcolor>main_bg_12</shadowcolor>
+            </control>
+        </control>
+    </include>
+
+    <include name="Layout_PVRGuide_Ruler_Horizontal">
+        <control type="group">
+            <control type="image">
+                <top>6</top>
+                <height>1</height>
+                <right>0</right>
+                <texture colordiffuse="main_fg_30">common/white.png</texture>
+            </control>
+            <control type="label">
+                <top>15</top>
+                <!-- <align>right</align> -->
+                <aligny>top</aligny>
+                <!-- <animation effect="slide" start="0" end="25" condition="true">Conditional</animation> -->
+                <!-- <animation effect="rotate" start="0" end="90" condition="true" center="auto">Conditional</animation> -->
+                <font>font_tiny</font>
+                <label>$INFO[ListItem.Label]</label>
+                <textcolor>main_fg_70</textcolor>
+                <shadowcolor>main_bg_12</shadowcolor>
+            </control>
+        </control>
+    </include>
+
     <include name="Layout_PVRGuide_Channels">
         <param name="detailed">false</param>
         <param name="selected">false</param>
         <param name="include_detailed_labels">Skin.HasSetting(View.UseDetailedListLabels)</param>
+        <param name="bottom">0</param>
+        <param name="right">20</param>
         <definition>
             <control type="group">
-                <right>20</right>
+                <right>$PARAM[right]</right>
                 <left>20</left>
+                <bottom>$PARAM[bottom]</bottom>
                 <!-- PVR001: Remove "Selected Highlight" from Channel -->
-                    <!-- param name="control">image</param>
+                <!-- include content="Object_Control" condition="$PARAM[selected]">
+                    <param name="control">image</param>
                     <include>Texture_Menu_Highlight_H</include>
                 </include -->
                 <control type="group">
-                    <height>80</height>
+                    <height>80</height> 
                     <!-- PVR001: centertop was 50% (correct alignement with listings -->
                     <centertop>70%</centertop>
                     <left>-20</left>
@@ -570,12 +619,14 @@
         <param name="detailed">false</param>
         <param name="selected">false</param>
         <param name="include_detailed_labels">Skin.HasSetting(View.UseDetailedListLabels)</param>
+        <param name="border">40,0,40,0</param>
+        <param name="border_genre">40,0,40,0</param>
         <definition>
             <include content="Object_Control" condition="$PARAM[selected]">
                 <param name="control">image</param>
                 <param name="id">1</param>
                 <include content="Texture_Menu_Highlight_H">
-                    <param name="border">40,0,40,0</param>
+                    <param name="border">$PARAM[border]</param>
                 </include>
                 <visible>$PARAM[visible]</visible>
                 <left>20</left>
@@ -586,7 +637,7 @@
                 <param name="id">1</param>
                 <bordersize>3</bordersize>
                 <left>20</left>
-                <texture colordiffuse="cd808080" border="40,0,40,0" fallback="pvr/genre/0.png">$INFO[ListItem.Property(GenreType),pvr/genre/,.png]</texture>
+                <texture colordiffuse="cd808080" border="$PARAM[border_genre]" fallback="pvr/genre/0.png">$VAR[PVR_GenreType,pvr/genre/,.png]</texture>
             </include>
 
             <include content="Object_Control" condition="!$PARAM[selected]">
@@ -594,7 +645,7 @@
                 <param name="id">1</param>
                 <bordersize>3</bordersize>
                 <left>20</left>
-                <texture colordiffuse="40808080" border="40,0,40,0" fallback="pvr/genre/0.png">$INFO[ListItem.Property(GenreType),pvr/genre/,.png]</texture>
+                <texture colordiffuse="55808080" border="$PARAM[border_genre]" fallback="pvr/genre/0.png">$VAR[PVR_GenreType,pvr/genre/,.png]</texture>
             </include>
 
             <include content="Object_Control" condition="!$PARAM[selected]">
