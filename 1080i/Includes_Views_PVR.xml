@@ -289,6 +289,14 @@
                             <param name="include_customwidth">$PARAM[include_customwidth]</param>
                             <param name="visible">true</param>
                             <onclick>SendClick(2)</onclick>
+
+                            <!-- Reset Overlay onclick for View BEFORE the one needed (so that it switches onclick) -->
+                            <onclick condition="Window.IsVisible(MyPVRGuide.xml) + !Control.IsVisible(501)">SetProperty(Background.ShowOverlay,True,Home)</onclick>
+                            <onclick condition="Window.IsVisible(MyPVRGuide.xml) + Control.IsVisible(501)">ClearProperty(Background.ShowOverlay,Home)</onclick>
+
+                            <!-- Reset Overlay onclick for View BEFORE the one needed (so that it switches onclick) -->
+                            <onclick condition="Window.IsVisible(MyPVRChannels.xml) + !Control.IsVisible(51)">SetProperty(Background.ShowOverlay,True,Home)</onclick>
+                            <onclick condition="Window.IsVisible(MyPVRChannels.xml) + Control.IsVisible(51)">ClearProperty(Background.ShowOverlay,Home)</onclick>
                         </include>
 
                         <!-- Sort -->
