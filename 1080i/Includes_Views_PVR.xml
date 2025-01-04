@@ -139,69 +139,7 @@
         </control>
     </include>
 
-    <include name="View_PVR_Light_InformationPanel">
-        <control type="group">
-            <left>0</left>
-            <width>400</width>
-            <include>Settings_Box</include>
-            <bottom>80</bottom>
-            <top>-380</top>
 
-            <control type="grouplist">
-                <orientation>vertical</orientation>
-                <bottom>20</bottom>
-
-                <control type="group">
-                    <height>242.5</height>
-                    <control type="group">
-                        <include content="Dimension_Padding">
-                            <param name="pad">20</param>
-                        </include>
-                        <include content="Dialog_Outline_InnerBox">
-                            <control type="image">
-                                <aspectratio scalediffuse="false">keep</aspectratio>
-                                <texture background="true" diffuse="diffuse/landscape_w356_h200.png">$VAR[Image_Landscape]</texture>
-                            </control>
-                        </include>
-                    </control>
-                </control>
-
-                <control type="label">
-                    <font>font_main_bold</font>
-                    <height>40</height>
-                    <aligny>top</aligny>
-                    <textcolor>main_fg_90</textcolor>
-                    <label>$VAR[Label_PVR_Episode]</label>
-                    <left>30</left>
-                    <right>30</right>
-                    <visible>!String.IsEmpty(ListItem.Title)</visible>
-                </control>
-
-                <control type="textbox">
-                    <font>font_mini_plot</font>
-                    <height>35</height>
-                    <aligny>top</aligny>
-                    <textcolor>main_fg_70</textcolor>
-                    <label>$INFO[ListItem.StartTime]$INFO[ListItem.EndTime, - ,]</label>
-                    <left>30</left>
-                    <right>30</right>
-                </control>
-
-                <control type="textbox">
-                    <font>font_mini_plot</font>
-                    <height>340</height>
-                    <top>15</top>
-                    <textcolor>main_fg_70</textcolor>
-                    <label>$INFO[ListItem.Plot]</label>
-                    <left>30</left>
-                    <right>30</right>
-                </control>
-
-            </control>
-
-        </control>
-    </include>
-    
     <include name="View_PVRGuide">
         <control type="group">
             <visible>Control.IsVisible(500)</visible>
@@ -225,7 +163,7 @@
                     <param name="viewtype_label">$LOCALIZE[571]</param>
                 </include>
             </control>
-            <include>View_PVR_DetailInformationPanel</include>
+            <include>View_PVR_InformationPanel</include>
         </control>
         <control type="group">
             <visible>Control.IsVisible(502)</visible>
@@ -245,29 +183,6 @@
                 <param name="progresstexture">pvr/progressline-half.png</param>
                 <param name="viewtype_label">$LOCALIZE[571]</param>
             </include>
-        </control>
-        <control type="group">
-            <visible>Control.IsVisible(503)</visible>
-            <include>Dimension_PVR_HalfGuide</include>
-            <control type="group">
-                <top>-200</top>
-                <width>info_panel_w</width>
-                <left>dialog_panelgroup_w</left>
-                <include content="Info_Panel">
-                    <param name="titlelabel">$VAR[Label_Title]</param>
-                    <param name="plotlabel"></param>
-                </include>
-            </control>
-            <control type="group">
-                <left>dialog_panelgroup_w</left>
-                <include>View_PVR_ProgrammePanel</include>
-                <include content="View_PVRGuide_Standard">
-                    <param name="id">503</param>
-                    <param name="progresstexture">pvr/progressline-half.png</param>
-                    <param name="viewtype_label">$LOCALIZE[571]</param>
-                </include>
-            </control>
-            <include>View_PVR_Light_InformationPanel</include>
         </control>
     </include>
 
