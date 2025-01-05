@@ -1327,7 +1327,7 @@
         <param name="is_web">false</param>
         <param name="visible">true</param>
         <definition>
-            <include content="Info_Line_VideoQuality_Resolution" condition="!Skin.HasSetting(InfoLine.DisableAdditionalTags) | !Skin.HasSetting(Info.EnablePillboxStyle)">
+            <include content="Info_Line_VideoQuality_Resolution" condition="Skin.HasSetting(Infoline.Source) | !Skin.HasSetting(Info.EnablePillboxStyle)">
                 <param name="visible">$PARAM[visible]</param>
                 <param name="colordiffuse">$PARAM[colordiffuse]</param>
                 <param name="is_web">[$PARAM[is_web]]</param>
@@ -1337,24 +1337,24 @@
                 <param name="is_hd">[Integer.IsEqual($PARAM[listitem_videoresolution],720)]</param>
                 <param name="is_sd">[!String.IsEmpty($PARAM[listitem_videoresolution])]</param>
             </include>
-            <include content="Info_Line_VideoQuality_HDRType" condition="!Skin.HasSetting(InfoLine.DisableAdditionalTags)">
+            <include content="Info_Line_VideoQuality_HDRType" condition="Skin.HasSetting(Infoline.HDR)">
                 <param name="visible">$PARAM[visible]</param>
                 <param name="colordiffuse">$PARAM[colordiffuse]</param>
                 <param name="is_dolbyvision">[String.IsEqual($PARAM[listitem_hdrtype],dolbyvision)]</param>
                 <param name="is_hdr">[String.IsEqual($PARAM[listitem_hdrtype],hdr10)]</param>
                 <param name="is_hlg">[String.IsEqual($PARAM[listitem_hdrtype],hlg)]</param>
             </include>
-            <include content="Info_Line_AudioChannels" condition="!Skin.HasSetting(InfoLine.DisableAdditionalTags)">
+            <include content="Info_Line_AudioChannels" condition="Skin.HasSetting(Infoline.AudioChannels)">
                 <param name="colordiffuse">$PARAM[colordiffuse]</param>
                 <param name="listitem_audiochannels">$PARAM[listitem_audiochannels]</param>
                 <param name="visible">$PARAM[visible] + !String.IsEmpty($PARAM[listitem_audiochannels])</param>
             </include>
-            <include content="Info_Line_VideoQuality_Icon" condition="!Skin.HasSetting(InfoLine.DisableAdditionalTags)">
+            <include content="Info_Line_VideoQuality_Icon" condition="Skin.HasSetting(Infoline.Version)">
                 <param name="colordiffuse">$PARAM[colordiffuse]</param>
                 <param name="icon">flags/version-inverted.png</param>
                 <param name="visible">$PARAM[visible] + $PARAM[is_version]</param>
             </include>
-            <include content="Info_Line_VideoQuality_Icon" condition="!Skin.HasSetting(InfoLine.DisableAdditionalTags)">
+            <include content="Info_Line_VideoQuality_Icon" condition="Skin.HasSetting(Infoline.Collection)">
                 <param name="colordiffuse">$PARAM[colordiffuse]</param>
                 <param name="width">40</param>
                 <param name="icon">flags/collection-inverted.png</param>

@@ -485,11 +485,35 @@
         <value>$LOCALIZE[515]</value>
     </variable>
 
-    <variable name="Label_Setting_AdditionalTags">
-        <value condition="Skin.HasSetting(InfoLine.DisableAdditionalTags) + Skin.HasSetting(Info.EnablePillboxStyle)">$LOCALIZE[16018]</value>
-        <value condition="Skin.HasSetting(InfoLine.DisableAdditionalTags)">$LOCALIZE[21870]</value>
-        <value>$LOCALIZE[21870] + HDR + $LOCALIZE[21444] + $LOCALIZE[31108]</value>
+    <variable name="Label_Setting_AdditionalTags">       
+        <value condition="Skin.HasSetting(Info.EnablePillboxStyle) + !Skin.HasSetting(Infoline.Source) + !Skin.HasSetting(Infoline.HDR) + !Skin.HasSetting(Infoline.AudioChannels) + !Skin.HasSetting(Infoline.Version) + !Skin.HasSetting(Infoline.Collection)">$LOCALIZE[16018]</value> <!--  NONE -->		
+        <value>$VAR[Label_Setting_AdditionalTags_Source,   ,]$VAR[Label_Setting_AdditionalTags_HDR,   ,]$VAR[Label_Setting_AdditionalTags_AudioChannels,   ,]$VAR[Label_Setting_AdditionalTags_Version,   ,]$VAR[Label_Setting_AdditionalTags_Collection,   ,]</value>					
     </variable>
+	
+    <variable name="Label_Setting_AdditionalTags_Source">		
+        <value condition="Skin.HasSetting(InfoLine.Source) | !Skin.HasSetting(Info.EnablePillboxStyle)">$LOCALIZE[21870]</value>
+    </variable>
+	
+    <variable name="Label_Setting_AdditionalTags_HDR">	
+        <value condition="Skin.HasSetting(InfoLine.HDR)">HDR</value>
+    </variable>
+	
+    <variable name="Label_Setting_AdditionalTags_AudioChannels">
+        <value condition="Skin.HasSetting(InfoLine.AudioChannels)">$LOCALIZE[21444]</value> 
+    </variable>
+	
+    <variable name="Label_Setting_AdditionalTags_Version">
+        <value condition="Skin.HasSetting(InfoLine.Version)">$LOCALIZE[40013]</value>
+    </variable>
+	
+    <variable name="Label_Setting_AdditionalTags_Collection">
+        <value condition="Skin.HasSetting(InfoLine.Collection)">$LOCALIZE[31108]</value>
+    </variable>
+
+    <variable name="Label_Setting_AdditionalTags_None">
+        <value condition="!Skin.HasSetting(Info.EnablePillboxStyle)">$LOCALIZE[16018] ($LOCALIZE[21870])</value>
+        <value>$LOCALIZE[16018]</value>
+    </variable>	
 
     <variable name="Label_Trailer_PlayPause">
         <value condition="Player.Paused">$LOCALIZE[208]</value>

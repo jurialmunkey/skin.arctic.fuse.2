@@ -38,6 +38,70 @@
         <include condition="String.IsEqual(Window(Home).Property(CustomDialogSettingsItems),Items_Settings_MPAACountries)">Items_Settings_MPAACountries</include>
         <include condition="String.IsEqual(Window(Home).Property(CustomDialogSettingsItems),Items_Settings_VideoOSDWidgets)">Items_Settings_VideoOSDWidgets</include>
         <include condition="String.IsEqual(Window(Home).Property(CustomDialogSettingsItems),Items_Settings_VideoInfoWidgets)">Items_Settings_VideoInfoWidgets</include>
+        <include condition="String.IsEqual(Window(Home).Property(CustomDialogSettingsItems),Items_Settings_InfolineAdditionalTags)">Items_Settings_InfolineAdditionalTags</include>    
+	</include>
+	
+    <include name="Items_Settings_InfolineAdditionalTags">
+        <include content="Settings_Button" description="Source" condition="Skin.HasSetting(Info.EnablePillboxStyle)">
+            <param name="id">8001</param>
+            <param name="control">radiobutton</param>
+            <param name="dialog">true</param>            
+            <onclick>Skin.ToggleSetting(Infoline.Source)</onclick>
+            <selected>Skin.HasSetting(Infoline.Source)</selected>			
+            <label>$LOCALIZE[21870]</label>
+        </include>
+        <include content="Settings_Button" description="HDR" condition="!Skin.HasSetting(Info.EnablePillboxStyle)">
+            <param name="id">8001</param>
+            <param name="control">radiobutton</param>
+            <param name="dialog">true</param>           
+            <onclick>Skin.ToggleSetting(Infoline.HDR)</onclick>
+            <selected>Skin.HasSetting(Infoline.HDR)</selected>
+            <label>HDR</label>
+        </include>
+		<include content="Settings_Button" description="HDR" condition="Skin.HasSetting(Info.EnablePillboxStyle)">
+            <param name="id">8002</param>
+            <param name="control">radiobutton</param>
+            <param name="dialog">true</param>            
+            <onclick>Skin.ToggleSetting(Infoline.HDR)</onclick>
+            <selected>Skin.HasSetting(Infoline.HDR)</selected>
+            <label>HDR</label>
+        </include>
+        <include content="Settings_Button" description="Audio Channels">
+            <param name="id">8003</param>
+            <param name="control">radiobutton</param>
+            <param name="dialog">true</param>            
+            <onclick>Skin.ToggleSetting(Infoline.AudioChannels)</onclick>
+            <selected>Skin.HasSetting(Infoline.AudioChannels)</selected>
+            <label>$LOCALIZE[21444]</label>
+        </include>        
+        <include content="Settings_Button" description="Version">
+            <param name="id">8004</param>
+            <param name="control">radiobutton</param>
+            <param name="dialog">true</param>           
+            <onclick>Skin.ToggleSetting(Infoline.Version)</onclick>
+            <selected>Skin.HasSetting(Infoline.Version)</selected>
+            <label>$LOCALIZE[40013]</label>
+        </include>
+		<include content="Settings_Button" description="Collection">
+            <param name="id">8005</param>
+            <param name="control">radiobutton</param>
+            <param name="dialog">true</param>
+            <onclick>Skin.ToggleSetting(Infoline.Collection)</onclick>
+            <selected>Skin.HasSetting(Infoline.Collection)</selected>
+            <label>$LOCALIZE[31108]</label>
+        </include>
+		<include content="Settings_Button" description="None">
+            <param name="id">8006</param>
+            <param name="control">radiobutton</param>
+            <param name="dialog">true</param>            
+            <onclick>Skin.Reset(Infoline.Source)</onclick>
+            <onclick>Skin.Reset(Infoline.HDR)</onclick>
+            <onclick>Skin.Reset(Infoline.AudioChannels)</onclick>
+            <onclick>Skin.Reset(Infoline.Version)</onclick>
+            <onclick>Skin.Reset(Infoline.Collection)</onclick>
+            <selected>!Skin.HasSetting(Infoline.Source) + !Skin.HasSetting(Infoline.HDR) + !Skin.HasSetting(Infoline.AudioChannels) + !Skin.HasSetting(Infoline.Collection)</selected>
+            <label>$VAR[Label_Setting_AdditionalTags_None]</label>			
+        </include>
     </include>
 
     <include name="Items_Settings_VideoOSDWidgets">
