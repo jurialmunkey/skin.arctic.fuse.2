@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <window>
-    <views>500,501,502,503</views>
+    <views>500,501,502,503,504</views>
     <defaultcontrol always="true">500</defaultcontrol>
     <menucontrol>8000</menucontrol>
     <include content="_Action_Blur_Onload">
@@ -8,8 +8,8 @@
     </include>
     <include>Action_Media_Onload</include>
 
-    <onload condition="!Control.IsVisible(502)">SetProperty(Background.ShowOverlay,True,Home)</onload>
-    <onload condition="Control.IsVisible(502)">ClearProperty(Background.ShowOverlay,Home)</onload>
+    <onload condition="![Control.IsVisible(502) | Control.IsVisible(503)]">SetProperty(Background.ShowOverlay,True,Home)</onload>
+    <onload condition="[Control.IsVisible(502) | Control.IsVisible(503)]">ClearProperty(Background.ShowOverlay,Home)</onload>
 
     <controls>
         <include>Defs_Background_Loader</include>

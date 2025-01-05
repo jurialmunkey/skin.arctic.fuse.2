@@ -52,6 +52,9 @@
             <include content="List_EPGGrid">
                 <param name="id">$PARAM[id]</param>
                 <param name="detailed">$PARAM[detailed]</param>
+                <param name="timeblocks">$PARAM[timeblocks]</param>
+                <param name="rulerunit">$PARAM[rulerunit]</param>
+                <param name="border_genre">37</param>
                 <onup>$PARAM[id]</onup>
                 <ondown>$PARAM[id]</ondown>
                 <onback>9001</onback>
@@ -67,6 +70,8 @@
 
     <include name="View_PVRGuide_Horizontal">
         <param name="viewtype_label">19069</param>
+        <param name="timeblocks">16</param>
+        <param name="rulerunit">6</param>
         <definition>
             <include content="List_EPGGrid">
                 <param name="id">$PARAM[id]</param>
@@ -84,8 +89,8 @@
                 <param name="include_ruler">Layout_PVRGuide_Ruler_Horizontal</param>
                 <param name="border">40</param>
                 <param name="border_genre">40,37,40,37</param>
-                <param name="timeblocks">16</param>
-                <param name="rulerunit">6</param>
+                <param name="timeblocks">$PARAM[timeblocks]</param>
+                <param name="rulerunit">$PARAM[rulerunit]</param>
                 <onup>$PARAM[id]</onup>
                 <ondown>$PARAM[id]</ondown>
                 <onback>9001</onback>
@@ -178,6 +183,44 @@
         </control>
     </include>
 
+    <include name="View_PVR_HalfLandscapePanel">
+        <control type="group">
+            <right>0</right>
+            <width>464</width>
+            <include>Settings_Box</include>
+            <bottom>80</bottom>
+            <top>40</top>
+            <control type="grouplist">
+                <orientation>vertical</orientation>
+                <include content="Dimension_Padding">
+                    <param name="pad">20</param>
+                </include>
+                <control type="group">
+                    <height>241</height>
+                    <include content="Dialog_Outline_InnerBox">
+                        <control type="image">
+                            <aspectratio scalediffuse="false" aligny="top">keep</aspectratio>
+                            <texture background="true" diffuse="diffuse/landscape_w356_h200.png">$VAR[Image_Landscape]</texture>
+                        </control>
+                    </include>
+                </control>
+                <control type="label">
+                    <top>15</top>
+                    <height>30</height>
+                    <font>font_mini_bold</font>
+                    <textcolor>main_fg_70</textcolor>
+                    <label>$INFO[ListItem.Title]</label>
+                </control>
+                <control type="label">
+                    <height>30</height>
+                    <font>font_mini</font>
+                    <textcolor>main_fg_70</textcolor>
+                    <label>$VAR[Label_PVR_Episode]</label>
+                </control>
+            </control>
+        </control>
+    </include>
+
 
     <include name="View_PVRGuide">
         <control type="group">
@@ -207,9 +250,6 @@
         <!-- PVR014: disable EPG half and horizontal views --> 
         <control type="group">
             <visible>Control.IsVisible(502)</visible>
-            <include content="Info_Viewline">
-                <param name="label">[CAPITALIZE]$VAR[Label_Header_Main][/CAPITALIZE]</param>
-            </include>
             <control type="group">
                 <include>Dimension_PVR_HalfGuide</include>
                 <include>View_PVR_ProgrammePanel</include>
@@ -219,23 +259,34 @@
                     <param name="viewtype_label">$LOCALIZE[571]</param>
                 </include>
             </control>
-            <control type="group">
-                <include>Info_Panel_Dimensions</include>
-                <include>Info_Panel</include>
-            </control>
         </control>
         <control type="group">
             <visible>Control.IsVisible(503)</visible>
+            <control type="group">
+                <include>Dimension_PVR_HalfGuide</include>
+                <control type="group">
+                    <right>504</right>
+                    <include>View_PVR_ProgrammePanel</include>
+                    <include content="View_PVRGuide_Standard">
+                        <param name="id">503</param>
+                        <param name="progresstexture">pvr/progressline-half.png</param>
+                        <param name="viewtype_label">$LOCALIZE[571]</param>
+                        <param name="timeblocks">16</param>
+                    </include>
+                </control>
+                <include>View_PVR_HalfLandscapePanel</include>
+            </control>
+        </control>
+        <control type="group">
+            <visible>Control.IsVisible(504)</visible>
             <include>Dimension_PVR_FullGuide</include>
             <control type="group">
                 <top>120</top>
                 <left>-280</left>
-                <!-- <left>-420</left>
-                <right>-40</right --> 
                 <include>View_PVR_ProgrammePanel</include>
             </control>
             <include content="View_PVRGuide_Horizontal">
-                <param name="id">503</param>
+                <param name="id">504</param>
                 <param name="progresstexture">pvr/progressline-horz.png</param>
                 <param name="viewtype_label">$LOCALIZE[571]</param>
             </include>
@@ -298,7 +349,18 @@
             <control type="group">
                 <visible>!Control.IsVisible(52)</visible>
                 <visible>!Control.IsVisible(502)</visible>
+                <visible>!Control.IsVisible(503)</visible>
                 <include>View_Row_Header</include>
+            </control>
+            <control type="group">
+                <visible>Control.IsVisible(502) | Control.IsVisible(503)</visible>
+                <include content="Info_Viewline">
+                    <param name="label">[CAPITALIZE]$VAR[Label_Header_Main][/CAPITALIZE]</param>
+                </include>
+                <control type="group">
+                    <include>Info_Panel_Dimensions</include>
+                    <include>Info_Panel</include>
+                </control>
             </control>
         </control>
         <include>Furniture_Top_Right</include>
@@ -380,8 +442,8 @@
                             <onclick>SendClick(2)</onclick>
 
                             <!-- Reset Overlay onclick for View BEFORE the one needed (so that it switches onclick) -->
-                            <onclick condition="Window.IsVisible(MyPVRGuide.xml) + !Control.IsVisible(501)">SetProperty(Background.ShowOverlay,True,Home)</onclick>
-                            <onclick condition="Window.IsVisible(MyPVRGuide.xml) + Control.IsVisible(501)">ClearProperty(Background.ShowOverlay,Home)</onclick>
+                            <onclick condition="Window.IsVisible(MyPVRGuide.xml) + ![Control.IsVisible(501) | Control.IsVisible(502)]">SetProperty(Background.ShowOverlay,True,Home)</onclick>
+                            <onclick condition="Window.IsVisible(MyPVRGuide.xml) + [Control.IsVisible(501) | Control.IsVisible(502)]">ClearProperty(Background.ShowOverlay,Home)</onclick>
 
                             <!-- Reset Overlay onclick for View BEFORE the one needed (so that it switches onclick) -->
                             <onclick condition="Window.IsVisible(MyPVRChannels.xml) + !Control.IsVisible(51)">SetProperty(Background.ShowOverlay,True,Home)</onclick>
