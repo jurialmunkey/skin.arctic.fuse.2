@@ -316,6 +316,7 @@
 
     <include name="Layout_PVRGuide_Ruler">
         <control type="group">
+            <left>30</left>
             <bottom>5</bottom>
             <top>-10</top>
             <control type="image">
@@ -623,6 +624,8 @@
         <param name="include_detailed_labels">Skin.HasSetting(View.UseDetailedListLabels)</param>
         <param name="border">40,0,40,0</param>
         <param name="border_genre">40,0,40,0</param>
+        <param name="left">0</param>
+        <param name="left_text">40</param>
         <definition>
             <include content="Object_Control" condition="$PARAM[selected]">
                 <param name="control">image</param>
@@ -631,14 +634,14 @@
                     <param name="border">$PARAM[border]</param>
                 </include>
                 <visible>$PARAM[visible]</visible>
-                <left>20</left>
+                <left>$PARAM[left]</left>
             </include>
 
             <include content="Object_Control" condition="$PARAM[selected]">
                 <param name="control">image</param>
                 <param name="id">1</param>
                 <bordersize>3</bordersize>
-                <left>20</left>
+                <left>$PARAM[left]</left>
                 <texture colordiffuse="cd808080" border="$PARAM[border_genre]" fallback="pvr/genre/0.png">$VAR[PVR_GenreType,pvr/genre/,.png]</texture>
             </include>
 
@@ -646,7 +649,7 @@
                 <param name="control">image</param>
                 <param name="id">1</param>
                 <bordersize>3</bordersize>
-                <left>20</left>
+                <left>$PARAM[left]</left>
                 <texture colordiffuse="55808080" border="$PARAM[border_genre]" fallback="pvr/genre/0.png">$VAR[PVR_GenreType,pvr/genre/,.png]</texture>
             </include>
 
@@ -654,7 +657,7 @@
                 <param name="control">image</param>
                 <param name="id">1</param>
                 <texture colordiffuse="main_fg_30" border="40">pvr/progressline-back7.png</texture>
-                <left>20</left>
+                <left>$PARAM[left]</left>
             </include>
 
             <!-- PVR002: Object removed - Label control below used instead -->
@@ -664,7 +667,7 @@
                 <label>$VAR[Label_PVRPrograms]</label>
                 <textcolor>main_fg_90</textcolor>
                 <selectedcolor>main_fg_90</selectedcolor>
-                <left>60</left>
+                <left>$PARAM[left_text]</left>
                 <right>40</right>
             </include -->
 
@@ -675,7 +678,7 @@
                 <label>$INFO[ListItem.Genre]</label>
                 <textcolor>main_fg_70</textcolor>
                 <selectedcolor>main_fg_70</selectedcolor>
-                <left>60</left>
+                <left>$PARAM[left_text]</left>
                 <right>40</right>
             </include -->
 
@@ -685,7 +688,7 @@
                 <!-- PVR002: label changed from $INFO[ListItem.Label] -->
                 <label>$VAR[Label_PVRPrograms]</label>>
                 <align>left</align>
-                <left>60</left>
+                <left>$PARAM[left_text]</left>
                 <right>40</right>
                 <include condition="$PARAM[selected] + false">Color_SelectedText</include>
                 <!-- PVR002: textcolor changed from main_fg_70 -->

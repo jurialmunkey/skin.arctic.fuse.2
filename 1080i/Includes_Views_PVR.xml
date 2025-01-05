@@ -55,11 +55,13 @@
                 <param name="timeblocks">$PARAM[timeblocks]</param>
                 <param name="rulerunit">$PARAM[rulerunit]</param>
                 <param name="border_genre">37</param>
+                <param name="channelright">40</param>
+                <param name="channelwidth">440</param>
                 <onup>$PARAM[id]</onup>
                 <ondown>$PARAM[id]</ondown>
                 <onback>9001</onback>
                 <viewtype label="$PARAM[viewtype_label]">list</viewtype>
-                <progresstexture border="0,0,20,0" colordiffuse="main_bg_30">$PARAM[progresstexture]</progresstexture>
+                <progresstexture border="40,0,40,0">$PARAM[progresstexture]</progresstexture>
                 <pagecontrol>8060</pagecontrol>
                 <top>-100</top>
                 <bottom>100</bottom>
@@ -72,14 +74,15 @@
         <param name="viewtype_label">19069</param>
         <param name="timeblocks">16</param>
         <param name="rulerunit">6</param>
+        <param name="channelwidth">328</param>
         <definition>
             <include content="List_EPGGrid">
                 <param name="id">$PARAM[id]</param>
                 <param name="channelheight">120</param>
                 <param name="channelbottom">40</param>
                 <param name="channelright">0</param>
-                <param name="channelwidth">328</param>
-                <param name="programwidth">328</param>
+                <param name="channelwidth">$PARAM[channelwidth]</param>
+                <param name="programwidth">$PARAM[channelwidth]</param>
                 <param name="rulerwidth">100</param>
                 <param name="rulerdatewidth">100</param>
                 <param name="rulerheight">80</param>
@@ -91,11 +94,13 @@
                 <param name="border_genre">40,37,40,37</param>
                 <param name="timeblocks">$PARAM[timeblocks]</param>
                 <param name="rulerunit">$PARAM[rulerunit]</param>
+                <param name="programs_left">20</param>
+                <param name="programs_left_text">60</param>
                 <onup>$PARAM[id]</onup>
                 <ondown>$PARAM[id]</ondown>
                 <onback>9001</onback>
                 <viewtype label="$PARAM[viewtype_label]">list</viewtype>
-                <progresstexture border="160,40,60,40" colordiffuse="main_bg_30">$PARAM[progresstexture]</progresstexture>
+                <progresstexture border="160,40,60,40">$PARAM[progresstexture]</progresstexture>
                 <pagecontrol>8060</pagecontrol>
                 <!-- <top>-20</top> -->
                 <top>-20</top>
@@ -243,6 +248,7 @@
                     <param name="id">501</param>
                     <param name="progresstexture">pvr/progressline-full.png</param>
                     <param name="viewtype_label">$LOCALIZE[571]</param>
+                    <param name="timeblocks">16</param>
                 </include>
             </control>
             <include>View_PVR_InformationPanel</include>
@@ -290,6 +296,25 @@
                 <param name="progresstexture">pvr/progressline-horz.png</param>
                 <param name="viewtype_label">$LOCALIZE[571]</param>
             </include>
+        </control>
+        <control type="group">
+            <visible>Control.IsVisible(505)</visible>
+            <include>Dimension_PVR_FullGuide</include>
+            <control type="group">
+                <right>dialog_panelgroup_w</right>
+                <control type="group">
+                    <top>120</top>
+                    <left>-280</left>
+                    <include>View_PVR_ProgrammePanel</include>
+                </control>
+                <include content="View_PVRGuide_Horizontal">
+                    <param name="id">505</param>
+                    <param name="progresstexture">pvr/progressline-horz.png</param>
+                    <param name="viewtype_label">$LOCALIZE[571]</param>
+                    <param name="channelwidth">300</param>
+                </include>
+            </control>
+            <include>View_PVR_InformationPanel</include>
         </control>
     </include>
 
