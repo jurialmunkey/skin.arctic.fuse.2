@@ -667,8 +667,8 @@
     </include>
 
     <include name="Action_OSD_Button_OnFocus">
-        <onfocus condition="!String.IsEmpty(Skin.String(OSD_Timeout)) + Window.IsVisible(videoosd)">AlarmClock(osd_timeout,Dialog.Close(videoosd),$INFO[Skin.String(OSD_Timeout),00:,],silent)</onfocus>
-        <onfocus condition="!String.IsEmpty(Skin.String(OSD_Timeout)) + Window.IsVisible(musicosd)">AlarmClock(osd_timeout,Dialog.Close(musicosd),$INFO[Skin.String(OSD_Timeout),00:,],silent)</onfocus>
+        <onfocus condition="!String.IsEmpty(Skin.String(OSD_Timeout)) + Window.IsVisible(videoosd)">AlarmClock(osd_timeout,RunScript(script.skinvariables,run_executebuiltin=special://skin/shortcuts/builtins/skinvariables-closeosd.json,use_rules=True),$INFO[Skin.String(OSD_Timeout),00:,],silent)</onfocus>
+        <onfocus condition="!String.IsEmpty(Skin.String(OSD_Timeout)) + Window.IsVisible(musicosd)">AlarmClock(osd_timeout,RunScript(script.skinvariables,run_executebuiltin=special://skin/shortcuts/builtins/skinvariables-closeosd.json,use_rules=True),$INFO[Skin.String(OSD_Timeout),00:,],silent)</onfocus>
         <onunfocus>CancelAlarm(osd_timeout,true)</onunfocus>
     </include>
 
