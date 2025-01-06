@@ -95,8 +95,6 @@
             <control type="group">
                 <include>OSD_Info_Dimensions</include>
 
-                <include>Animation_OSD_Seekbar_Slide</include>
-
                 <include content="OSD_Info_Viewline">
                     <param name="label">$PARAM[label]$PARAM[secondary_label]</param>
                 </include>
@@ -415,46 +413,15 @@
         <param name="visible">true</param>
         <param name="flipx">false</param>
         <param name="icon_colordiffuse">panel_fg_70</param>
-        <param name="vertical">false</param>
-        <param name="grouplist">true</param>
-        <param name="center">false</param>
         <param name="iconoffset_condition">false</param>
         <definition>
-
             <control type="group" id="$PARAM[groupid]">
-                <include content="Object_CenterTop" condition="![$PARAM[vertical]] + $PARAM[center]">
-                    <param name="centertop">50%</param>
-                </include>
-                <include content="Object_Height" condition="![$PARAM[vertical]] + $PARAM[center]">
-                    <param name="height">$PARAM[size]</param>
-                </include>
-                <include content="Object_CenterLeft" condition="[$PARAM[vertical]] + $PARAM[center]">
-                    <param name="centerleft">50%</param>
-                </include>
-                <include content="Object_Width" condition="[$PARAM[vertical]] + $PARAM[center]">
-                    <param name="width">$PARAM[size]</param>
-                </include>
                 <animation effect="fade" start="100" end="30" condition="!Control.IsEnabled($PARAM[id])" reversible="false">Conditional</animation>
-                <include content="Object_Left" condition="!$PARAM[vertical] + $PARAM[grouplist]">
-                    <param name="left">-$PARAM[itemgap]</param>
-                </include>
-                <include content="Object_Width" condition="!$PARAM[vertical] + $PARAM[grouplist]">
-                    <param name="width">0</param>
-                </include>
-                <include content="Object_Top" condition="$PARAM[vertical] + $PARAM[grouplist]">
-                    <param name="top">-$PARAM[itemgap]</param>
-                </include>
-                <include content="Object_Height" condition="$PARAM[vertical] + $PARAM[grouplist]">
-                    <param name="height">0</param>
-                </include>
+                <left>-$PARAM[itemgap]</left>
+                <width>0</width>
                 <control type="group">
                     <animation effect="slide" start="0" end="0,-8" condition="$PARAM[iconoffset_condition]">Conditional</animation>
-                    <include content="Object_Left" condition="!$PARAM[vertical] + $PARAM[grouplist]">
-                        <param name="left">-$PARAM[size]</param>
-                    </include>
-                    <include content="Object_Top" condition="$PARAM[vertical] + $PARAM[grouplist]">
-                        <param name="top">-$PARAM[size]</param>
-                    </include>
+                    <left>-$PARAM[size]</left>
                     <visible>$PARAM[visible]</visible>
                     <control type="image">
                         <bordersize>$PARAM[bordersize]</bordersize>
@@ -561,111 +528,111 @@
         </control>
     </include>
 
-    <include name="OSD_Progress_Details">
-        <param name="extended">false</param>
+    <include name="OSD_Progress_Details_TitleInfoLine">
+        <include content="Info_Title">
+            <param name="colordiffuse">panel_fg</param>
+            <param name="container" />
+            <param name="label">$VAR[Label_OSD_Title]</param>
+            <param name="mainlogo_visible">[!String.IsEmpty(Window(Home).Property(TMDbHelper.Player.CropImage))]</param>
+            <param name="mainlogo_texture">$INFO[Window(Home).Property(TMDbHelper.Player.CropImage)]</param>
+            <param name="autoheight">true</param>
+        </include>
+
+        <control type="group">
+            <height>50</height>
+            <include>OSD_Info_Line</include>
+        </control>
+    </include>
+
+    <include name="OSD_Progress_Details_Grouplist_Def">
+        <align>bottom</align>
+        <left>view_pad</left>
+        <width>info_panel_w</width>
+        <top>-40</top>
+        <bottom>220</bottom>
+        <orientation>vertical</orientation>
+
+        <control type="group" description="Avoid grouplist chop with spacer">
+            <height>20</height>
+        </control>
+    </include>
+
+    <include name="OSD_Progress_Details_Extended">
         <definition>
-
-            <control type="group">
-                <bottom>240</bottom>
-
-                <visible>!Window.IsVisible(script-upnext-stillwatching.xml)</visible>
-                <visible>!Window.IsVisible(script-upnext-upnext.xml)</visible>
-                <control type="grouplist">
-                    <align>bottom</align>
-                    <left>view_pad</left>
-                    <width>info_panel_w</width>
-                    <top>-40</top>
-                    <bottom>-20</bottom>
-                    <orientation>vertical</orientation>
-
-                    <control type="group" description="Avoid grouplist chop with spacer">
-                        <height>20</height>
+            <control type="grouplist">
+                <bottom>44</bottom>
+                <include>OSD_Progress_Details_Grouplist_Def</include>
+                <control type="group">
+                    <height>view_landscape_item_h</height>
+                    <width>view_landscape_item_w</width>
+                    <include>Object_ItemBack</include>
+                    <control type="image">
+                        <texture background="true" diffuse="diffuse/landscape_w410_h231.png">$VAR[Image_OSD_Landscape]</texture>
+                        <aspectratio scalediffuse="false">keep</aspectratio>
                     </control>
                     <control type="group">
-                        <height>view_landscape_item_h</height>
-                        <width>view_landscape_item_w</width>
-                        <include>Object_ItemBack</include>
-                        <visible>$PARAM[extended]</visible>
-                        <control type="image">
-                            <texture background="true" diffuse="diffuse/landscape_w410_h231.png">$VAR[Image_OSD_Landscape]</texture>
-                            <aspectratio scalediffuse="false">keep</aspectratio>
-                        </control>
-                        <control type="group">
-                            <visible>VideoPlayer.Content(livetv)</visible>
-                            <include content="Object_ProgressLine">
-                                <param name="progress">PVR.EpgEventProgress</param>
-                            </include>
-                        </control>
-                        <control type="group">
-                            <visible>!VideoPlayer.Content(livetv)</visible>
-                            <include content="Object_ProgressLine">
-                                <param name="progress">Player.Progress</param>
-                            </include>
-                        </control>
+                        <visible>VideoPlayer.Content(livetv)</visible>
+                        <include content="Object_ProgressLine">
+                            <param name="progress">PVR.EpgEventProgress</param>
+                        </include>
                     </control>
-
-                    <control type="group" description="Avoid grouplist chop with spacer">
-                        <height>44</height>
-                        <visible>$PARAM[extended]</visible>
-                    </control>
-
-                    <include content="Info_Title">
-                        <param name="colordiffuse">panel_fg</param>
-                        <param name="container" />
-                        <param name="label">$VAR[Label_OSD_Title]</param>
-                        <param name="mainlogo_visible">[!String.IsEmpty(Window(Home).Property(TMDbHelper.Player.CropImage))]</param>
-                        <param name="mainlogo_texture">$INFO[Window(Home).Property(TMDbHelper.Player.CropImage)]</param>
-                        <param name="autoheight">true</param>
-                    </include>
-
                     <control type="group">
-                        <height>50</height>
-                        <include>OSD_Info_Line</include>
-                    </control>
-
-                    <include content="Info_Panel_Textbox">
-                        <param name="plotlabel">$VAR[Label_Player_Plot]</param>
-                        <param name="plotwidth">90%</param>
-                        <param name="plotheight">160</param>
-                        <param name="check_ratings">false</param>
-                        <param name="colordiffuse">panel_fg</param>
-                        <param name="visible">$PARAM[extended]</param>
-                    </include>
-
-                    <control type="group">
-                        <top>12</top>
-                        <visible>!String.IsEmpty(VideoPlayer.Plot) | !VideoPlayer.Content(livetv)</visible>
-                        <visible>$PARAM[extended]</visible>
-                    </control>
-
-                    <include content="Info_RatingsLine">
-                        <param name="is_player">true</param>
-                        <top>0</top>
-                        <left>0</left>
                         <visible>!VideoPlayer.Content(livetv)</visible>
-                        <visible>$PARAM[extended]</visible>
-                    </include>
-
-                    <control type="group" description="Avoid grouplist chop with spacer">
-                        <visible>$PARAM[extended] + !VideoPlayer.Content(livetv)</visible>
-                        <height>18</height>
+                        <include content="Object_ProgressLine">
+                            <param name="progress">Player.Progress</param>
+                        </include>
                     </control>
+                </control>
 
-                    <control type="group" description="Avoid grouplist chop with spacer">
-                        <height>20</height>
-                    </control>
+                <control type="group" description="Avoid grouplist chop with spacer">
+                    <height>44</height>
+                </control>
 
+                <include>OSD_Progress_Details_TitleInfoLine</include>
+
+                <include content="Info_Panel_Textbox">
+                    <param name="plotlabel">$VAR[Label_Player_Plot]</param>
+                    <param name="plotwidth">90%</param>
+                    <param name="plotheight">160</param>
+                    <param name="check_ratings">false</param>
+                    <param name="colordiffuse">panel_fg</param>
+                </include>
+
+                <control type="group">
+                    <top>12</top>
+                    <visible>!String.IsEmpty(VideoPlayer.Plot) | !VideoPlayer.Content(livetv)</visible>
+                </control>
+
+                <include content="Info_RatingsLine">
+                    <param name="is_player">true</param>
+                    <top>0</top>
+                    <left>0</left>
+                    <visible>!VideoPlayer.Content(livetv)</visible>
+                </include>
+
+                <control type="group" description="Avoid grouplist chop with spacer">
+                    <visible>!VideoPlayer.Content(livetv)</visible>
+                    <height>18</height>
+                </control>
+
+                <control type="group" description="Avoid grouplist chop with spacer">
+                    <height>20</height>
                 </control>
             </control>
         </definition>
     </include>
 
-    <include name="OSD_QuickInfo_Animation">
-        <animation effect="fade" start="0" end="100" time="300" delay="200" reversible="false" condition="Window.IsVisible(DialogSeekBar.xml)">Visible</animation>
-        <animation effect="fade" start="0" end="100" time="300" delay="0" reversible="false" condition="!Window.IsVisible(DialogSeekBar.xml)">Visible</animation>
-        <!-- <animation effect="fade" end="0" start="100" time="300">Hidden</animation> -->
-        <!-- <animation effect="fade" start="0" end="100" time="200" delay="200">Visible</animation> -->
-        <!-- <animation effect="fade" start="100" end="0" time="150" delay="200">Hidden</animation> -->
+    <include name="OSD_Progress_Details_Simple">
+        <definition>
+            <control type="grouplist">
+                <include>OSD_Progress_Details_Grouplist_Def</include>
+                <include>OSD_Progress_Details_TitleInfoLine</include>
+
+                <control type="group" description="Avoid grouplist chop with spacer">
+                    <height>20</height>
+                </control>
+            </control>
+        </definition>
     </include>
 
     <include name="OSD_Progress_Labels">
@@ -1053,10 +1020,6 @@
         </definition>
     </include>
 
-    <include name="OSD_Panel">
-        <description>None</description>
-    </include>
-
     <include name="OSD_Progress_PlayPause">
         <control type="group">
             <width>40</width>
@@ -1077,61 +1040,7 @@
         <animation effect="fade" time="200" delay="200" end="100" start="0" condition="!$EXP[Exp_OSD_HideControls]" reversible="false">Conditional</animation>
     </include>
 
-    <include name="OSD_VideoSeekBar">
-        <control type="group">
-            <include>OSD_Panel</include>
 
-
-            <!-- Progress Bar Group -->
-            <control type="group">
-
-                <control type="group">
-                    <animation effect="fade" start="0" end="100" time="300" delay="200" reversible="false" condition="Window.IsActive(videoosd) | Window.IsActive(musicosd) | Window.IsActive(script-cu-lrclyrics-main.xml) | $EXP[Exp_OSD_QuickInfo]">Conditional</animation>
-                    <animation effect="fade" start="100" end="0" time="300" delay="0" reversible="false" condition="![Window.IsActive(videoosd) | Window.IsActive(musicosd) | Window.IsActive(script-cu-lrclyrics-main.xml) | $EXP[Exp_OSD_QuickInfo]]">Conditional</animation>
-
-                    <animation effect="slide" start="0" end="0,100" time="0" tween="sine" easing="out" reversible="false" condition="$EXP[Exp_OSD_QuickInfo]">Conditional</animation>
-                    <animation effect="slide" end="0" start="0,100" time="0" tween="sine" easing="out" reversible="false" condition="!$EXP[Exp_OSD_QuickInfo]">Conditional</animation>
-
-
-
-                    <include>OSD_HideControls</include>
-
-                    <control type="group">
-                        <visible>$EXP[Exp_OSD_QuickInfo]</visible>
-                        <include>OSD_QuickInfo_Animation</include>
-                        <include content="OSD_Progress_Details">
-                            <param name="extended">true</param>
-                        </include>
-                    </control>
-                    <control type="group">
-                        <visible>!$EXP[Exp_OSD_QuickInfo]</visible>
-                        <include>OSD_QuickInfo_Animation</include>
-                        <include content="OSD_Progress_Details">
-                            <param name="extended">false</param>
-                        </include>
-                    </control>
-                </control>
-
-                <control type="group">
-                    <visible>!$EXP[Exp_OSD_QuickInfo]</visible>
-                    <include>OSD_QuickInfo_Animation</include>
-                    <include>OSD_Progress_Labels</include>
-                    <include>OSD_Progress_Bar</include>
-                </control>
-
-                <include>Animation_OSD_Seekbar_Slide</include>
-            </control>
-
-            <!-- Top Left Label -->
-            <control type="group">
-                <include content="Furniture_Top_Left">
-                    <param name="id">3099</param>
-                    <param name="label">$VAR[Label_OSD_Header]</param>
-                </include>
-                <include>Furniture_Top_Right</include>
-            </control>
-        </control>
-    </include>
 
     <include name="OSD_TitleDetails">
         <control type="grouplist">
@@ -1171,101 +1080,21 @@
         </control>
     </include>
 
-    <include name="OSD_MusicSeekBar">
-        <control type="group">
-
-            <!-- Progress Bar Group -->
-            <control type="group">
-                <include>OSD_Progress_Bar</include>
-                <include>OSD_Progress_Labels</include>
-
-                <control type="group">
-                    <width>280</width>
-                    <height>280</height>
-                    <bottom>240</bottom>
-                    <left>view_pad</left>
-                    <visible>!Window.IsVisible(1142)</visible>
-                    <control type="group">
-                        <animation effect="zoom" start="0,0,280,280" end="0,-380,480,480" time="400" tween="cubic" easing="out" reversible="false" condition="[Window.IsVisible(script-cu-lrclyrics-main.xml) | [!String.IsEmpty(Window(Home).Property(OSDArtistDetails)) + !Window.IsVisible(1142)]]">Conditional</animation>
-                        <animation effect="zoom" end="0,0,280,280" start="0,-380,480,480" time="400" tween="cubic" easing="out" reversible="false" condition="![Window.IsVisible(script-cu-lrclyrics-main.xml) | [!String.IsEmpty(Window(Home).Property(OSDArtistDetails)) + !Window.IsVisible(1142)]]">Conditional</animation>
-                        <include content="Object_BigPoster">
-                            <param name="diffuse">diffuse/square_w460_h460.png</param>
-                            <param name="icon">$INFO[Player.Icon]</param>
-                        </include>
-                    </control>
-
-                    <control type="group">
-                        <left>0</left>
-                        <height>240</height>
-                        <bottom>-20</bottom>
-                        <control type="group">
-                            <width>460</width>
-                            <visible>[Window.IsVisible(script-cu-lrclyrics-main.xml) | [!String.IsEmpty(Window(Home).Property(OSDArtistDetails)) + !Window.IsVisible(1142)]]</visible>
-                            <animation effect="slide" start="340" end="0" time="400" tween="cubic" easing="out" reversible="false">Visible</animation>
-                            <animation type="Hidden" reversible="false">
-                                <effect type="slide" end="340" start="0" time="400" tween="cubic" easing="out" reversible="false" />
-                            </animation>
-                            <include content="OSD_TitleDetails">
-                                <param name="top_logo">Player.Art(artist.clearlogo)</param>
-                                <param name="top_label">$INFO[MusicPlayer.Artist]</param>
-                                <param name="sub_label">$INFO[MusicPlayer.TrackNumber,,. ]$INFO[MusicPlayer.Title]</param>
-                            </include>
-                        </control>
-                        <control type="group">
-                            <left>340</left>
-                            <width>1080</width>
-                            <visible>![Window.IsVisible(script-cu-lrclyrics-main.xml) | [!String.IsEmpty(Window(Home).Property(OSDArtistDetails)) + !Window.IsVisible(1142)]]</visible>
-                            <animation type="Visible" reversible="false">
-                                <effect type="slide" end="0" start="-340" time="400" tween="cubic" easing="out" reversible="false" />
-                                <effect type="fade" start="0" end="100" delay="400" time="0" reversible="false" />
-                            </animation>
-                            <include content="OSD_TitleDetails">
-                                <param name="top_logo">Player.Art(artist.clearlogo)</param>
-                                <param name="top_label">$INFO[MusicPlayer.Artist]</param>
-                                <param name="sub_label">$INFO[MusicPlayer.TrackNumber,,. ]$INFO[MusicPlayer.Title]</param>
-                            </include>
-                        </control>
-                    </control>
-                </control>
-
-                <control type="group">
-                    <visible>Window.IsVisible(script-cu-lrclyrics-main.xml)</visible>
-                    <visible>!Window.IsActive(musicosd)</visible>
-                    <animation type="Visible" reversible="false">
-                        <effect type="fade" start="0" end="100" time="300" delay="400" tween="sine" easing="out"/>
-                    </animation>
-
-                    <control type="image">
-                        <texture colordiffuse="panel_fg_70">special://skin/extras/icons/microphone.png</texture>
-                        <width>80</width>
-                        <height>80</height>
-                        <bordersize>8</bordersize>
-                        <centerleft>100</centerleft>
-                        <centerbottom>100</centerbottom>
-                    </control>
-
-                    <control type="label">
-                        <left>140</left>
-                        <centerbottom>100</centerbottom>
-                        <height>40</height>
-                        <aligny>center</aligny>
-                        <font>font_main_bold</font>
-                        <textcolor>panel_fg_90</textcolor>
-                        <label>$LOCALIZE[24013]</label>
-                        <width>auto</width>
-                    </control>
-                </control>
-
-                <include>Animation_OSD_Seekbar_Slide</include>
-            </control>
+    <include name="OSD_Background_Dim">
+        <control type="image" id="1">
+            <bottom>0</bottom>
+            <height>240</height>
+            <texture colordiffuse="panel_bg_70" border="4,0,4,0">common/gradient-v.png</texture>
+            <include>Animation_OSD_Fullscreen_Change</include>
+            <visible>Window.IsActive(DialogSeekBar.xml) | Window.IsVisible(1152)</visible>
+            <visible>![Window.IsActive(videoosd) | Window.IsActive(musicosd) | Window.IsActive(1140) | Window.IsActive(1141) | Window.IsActive(1142) | Window.IsActive(1143) | Window.IsActive(1144) | Window.IsActive(1145) | Window.IsActive(1146) | Window.IsActive(1147) | Window.IsActive(1148) | Window.IsActive(1149) | Window.IsVisible(videobookmarks) | Window.IsVisible(pvrosdguide) | Window.IsVisible(pvrosdchannels) | Window.IsVisible(1152) | Window.IsActive(script-upnext-stillwatching.xml) | Window.IsActive(script-upnext-upnext.xml)]</visible>
         </control>
 
-        <!-- Top Label Lyrics -->
-        <control type="group">
-            <include content="Furniture_Top_Left">
-                <param name="label">$VAR[Label_OSD_Title]</param>
-            </include>
-            <include>Furniture_Top_Right</include>
+        <control type="image" id="1">
+            <texture colordiffuse="panel_bg_70">background/combined_flixart.png</texture>
+            <include>Animation_OSD_Fullscreen_Change</include>
+            <visible>Window.IsActive(DialogSeekBar.xml) | Window.IsVisible(1152)</visible>
+            <visible>Window.IsActive(videoosd) | Window.IsActive(musicosd) | Window.IsActive(1140) | Window.IsActive(1141) | Window.IsActive(1142) | Window.IsActive(1143) | Window.IsActive(1144) | Window.IsActive(1145) | Window.IsActive(1146) | Window.IsActive(1147) | Window.IsActive(1148) | Window.IsActive(1149) | Window.IsVisible(videobookmarks) | Window.IsVisible(pvrosdguide) | Window.IsVisible(pvrosdchannels) | Window.IsVisible(1152) | Window.IsActive(script-upnext-stillwatching.xml) | Window.IsActive(script-upnext-upnext.xml)</visible>
         </control>
     </include>
 </includes>

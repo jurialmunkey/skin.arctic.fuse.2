@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <window>
     <defaultcontrol always="true">6001</defaultcontrol>
-    <animation effect="fade" start="0" end="100" time="300" delay="200" condition="Window.IsVisible(DialogSeekBar.xml)">WindowOpen</animation>
-    <animation effect="fade" start="0" end="100" time="300" delay="0" condition="!Window.IsVisible(DialogSeekBar.xml)">WindowOpen</animation>
-    <animation effect="fade" end="0" start="100" time="300" condition="Window.IsVisible(DialogSeekBar.xml) + ![$EXP[Exp_OSD_PVRChannelSwitch] | Window.IsVisible(fullscreeninfo) | $EXP[Exp_OSD_DelayInfo]]">WindowClose</animation>
+    <animation effect="fade" start="0" end="100" time="300" delay="200" condition="Window.IsActive(DialogSeekBar.xml) | Window.IsVisible(1152)">WindowOpen</animation>
+    <animation effect="fade" start="0" end="100" time="300" condition="![Window.IsActive(DialogSeekBar.xml) | Window.IsVisible(1152)]">WindowOpen</animation>
+    <animation effect="fade" end="0" start="100" time="300">WindowClose</animation>
     <onload>SetProperty(UID,$ESCINFO[Player.Title]$INFO[Player.Time(ss)],1146)</onload>
     <onload>SetProperty(UID,$ESCINFO[Player.Title]$INFO[Player.Time(ss)],1147)</onload>
     <onunload>CancelAlarm(osd_timeout,true)</onunload>
@@ -186,6 +186,8 @@
                         </include>
                     </control>
                 </control>
+
+                <include>OSD_Progress_Details_Simple</include>
 
             </control>
 

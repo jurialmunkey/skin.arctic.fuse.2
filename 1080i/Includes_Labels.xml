@@ -484,10 +484,29 @@
         <value>$LOCALIZE[515]</value>
     </variable>
 
-    <variable name="Label_Setting_AdditionalTags">
-        <value condition="Skin.HasSetting(InfoLine.DisableAdditionalTags) + Skin.HasSetting(Info.EnablePillboxStyle)">$LOCALIZE[16018]</value>
-        <value condition="Skin.HasSetting(InfoLine.DisableAdditionalTags)">$LOCALIZE[21870]</value>
-        <value>$LOCALIZE[21870] + HDR + $LOCALIZE[21444] + $LOCALIZE[31108]</value>
+    <variable name="Label_Setting_AdditionalTags">       
+        <value condition="Skin.HasSetting(Info.EnablePillboxStyle) + Skin.HasSetting(Infoline.DisableSource) + Skin.HasSetting(Infoline.DisableHDR) + Skin.HasSetting(Infoline.DisableAudioChannels) + Skin.HasSetting(Infoline.DisableVersion) + Skin.HasSetting(Infoline.DisableCollection)">$LOCALIZE[16018]</value> <!--  NONE -->
+        <value>$VAR[Label_Setting_AdditionalTags_Source,   ,]$VAR[Label_Setting_AdditionalTags_HDR,   ,]$VAR[Label_Setting_AdditionalTags_AudioChannels,   ,]$VAR[Label_Setting_AdditionalTags_Version,   ,]$VAR[Label_Setting_AdditionalTags_Collection,   ,]</value>
+    </variable>
+
+    <variable name="Label_Setting_AdditionalTags_Source">
+        <value condition="!Skin.HasSetting(Infoline.DisableSource) | !Skin.HasSetting(Info.EnablePillboxStyle)">$LOCALIZE[21870]</value>
+    </variable>
+
+    <variable name="Label_Setting_AdditionalTags_HDR">
+        <value condition="!Skin.HasSetting(Infoline.DisableHDR)">HDR</value>
+    </variable>
+
+    <variable name="Label_Setting_AdditionalTags_AudioChannels">
+        <value condition="!Skin.HasSetting(Infoline.DisableAudioChannels)">$LOCALIZE[21444]</value>
+    </variable>
+
+    <variable name="Label_Setting_AdditionalTags_Version">
+        <value condition="!Skin.HasSetting(Infoline.DisableVersion)">$LOCALIZE[40013]</value>
+    </variable>
+
+    <variable name="Label_Setting_AdditionalTags_Collection">
+        <value condition="!Skin.HasSetting(Infoline.DisableCollection)">$LOCALIZE[31108]</value>
     </variable>
 
     <variable name="Label_Trailer_PlayPause">
