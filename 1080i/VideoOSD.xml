@@ -7,7 +7,6 @@
     <onload>SetProperty(UID,$ESCINFO[Player.Title]$INFO[Player.Time(ss)],1146)</onload>
     <onload>SetProperty(UID,$ESCINFO[Player.Title]$INFO[Player.Time(ss)],1147)</onload>
     <onunload>CancelAlarm(osd_timeout,true)</onunload>
-    <onunload>ClearProperty(OSD_Focus,Home)</onunload>
     <controls>
 
         <control type="group">
@@ -72,13 +71,9 @@
                         <control type="button" id="6003">
                             <include>Defs_OSD_Button</include>
                             <onclick condition="VideoPlayer.Content(livetv)">PVR.ToggleRecordPlayingChannel</onclick>
-                            <onclick condition="!VideoPlayer.Content(livetv)">CancelAlarm(osd_timeout,true)</onclick>
-                            <onclick condition="!VideoPlayer.Content(livetv) + Integer.IsLess(VideoPlayer.PlaylistPosition,VideoPlayer.PlaylistLength)">PlayerControl(Next)</onclick>
-                            <onclick condition="!VideoPlayer.Content(livetv) + !Integer.IsLess(VideoPlayer.PlaylistPosition,VideoPlayer.PlaylistLength)">PlayMedia($ESCINFO[Container(513).ListItem.FileNameAndPath])</onclick>
                             <onup>8200</onup>
 
-                            <onfocus>SetProperty(OSD_Focus,6003,Home)</onfocus>
-                            <onunfocus>ClearProperty(OSD_Focus,Home)</onunfocus>
+                            <onfocus condition="!VideoPlayer.Content(livetv)">ActivateWindow(1143)</onfocus>
 
                             <enable>PVR.CanRecordPlayingChannel | !VideoPlayer.Content(livetv)</enable>
                             <label>$VAR[Label_OSD_PVR_Recording]</label>

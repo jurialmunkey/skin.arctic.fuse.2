@@ -414,10 +414,11 @@
         <param name="flipx">false</param>
         <param name="icon_colordiffuse">panel_fg_70</param>
         <param name="iconoffset_condition">false</param>
+        <param name="itemgap_mod">-</param>
         <definition>
             <control type="group" id="$PARAM[groupid]">
                 <animation effect="fade" start="100" end="30" condition="!Control.IsEnabled($PARAM[id])" reversible="false">Conditional</animation>
-                <left>-$PARAM[itemgap]</left>
+                <left>$PARAM[itemgap_mod]$PARAM[itemgap]</left>
                 <width>0</width>
                 <control type="group">
                     <animation effect="slide" start="0" end="0,-8" condition="$PARAM[iconoffset_condition]">Conditional</animation>
@@ -1097,4 +1098,210 @@
             <visible>Window.IsActive(videoosd) | Window.IsActive(musicosd) | Window.IsActive(1140) | Window.IsActive(1141) | Window.IsActive(1142) | Window.IsActive(1143) | Window.IsActive(1144) | Window.IsActive(1145) | Window.IsActive(1146) | Window.IsActive(1147) | Window.IsActive(1148) | Window.IsActive(1149) | Window.IsVisible(videobookmarks) | Window.IsVisible(pvrosdguide) | Window.IsVisible(pvrosdchannels) | Window.IsVisible(1152) | Window.IsActive(script-upnext-stillwatching.xml) | Window.IsActive(script-upnext-upnext.xml)</visible>
         </control>
     </include>
+
+    <include name="OSD_CustomDialog_FakeButton">
+        <control type="button" id="600$PARAM[id]">
+            <width>80</width>
+            <texturefocus />
+            <texturenofocus />
+            <font />
+            <label />
+            <onfocus>Close</onfocus>
+            <onfocus>SetFocus(600$PARAM[id])</onfocus>
+        </control>
+    </include>
+
+    <include name="OSD_CustomDialog_RealButton">
+        <param name="onclick_condition">true</param>
+        <param name="onclick_condition_alt">false</param>
+        <definition>
+            <control type="button" id="600$PARAM[id]">
+                <include>Defs_OSD_Button</include>
+                <onclick>CancelAlarm(osd_timeout,true)</onclick>
+                <onclick condition="$PARAM[onclick_condition]">$PARAM[onclick]</onclick>
+                <onclick condition="$PARAM[onclick_condition_alt]">$PARAM[onclick_alt]</onclick>
+                <onup>$PARAM[onup]</onup>
+                <onup>$PARAM[onup_02]</onup>
+                <label>$PARAM[label]</label>
+            </control>
+            <include content="OSD_Button_Icon_Overlay">
+                <param name="icon">$PARAM[icon]</param>
+                <param name="id">600$PARAM[id]</param>
+                <param name="groupid">610$PARAM[id]</param>
+                <param name="itemgap">osd_itemgap</param>
+                <param name="iconoffset_condition">$PARAM[iconoffset_condition]</param>
+            </include>
+        </definition>
+    </include>
+
+    <include name="OSD_CustomDialog_GroupList">
+        <param name="button_1">false</param>
+        <param name="button_2">false</param>
+        <param name="button_3">false</param>
+        <param name="button_4">false</param>
+
+        <param name="button_5">false</param>
+        <param name="button_6">false</param>
+        <param name="button_7">false</param>
+        <param name="button_8">false</param>
+        <param name="iconoffset_condition">false</param>
+        <definition>
+
+            <control type="grouplist">
+                <height>120</height>
+                <left>-10</left>
+                <centerbottom>80</centerbottom>
+                <orientation>horizontal</orientation>
+                <itemgap>osd_itemgap</itemgap>
+                <align>left</align>
+
+                <onleft>6005</onleft>
+                <onright>6008</onright>
+
+                <include content="OSD_CustomDialog_FakeButton" condition="![$PARAM[button_1]]">
+                    <param name="id">1</param>
+                </include>
+                <include content="OSD_CustomDialog_RealButton" condition="$PARAM[button_1]">
+                    <param name="id">1</param>
+                    <param name="onclick">$PARAM[onclick]</param>
+                    <param name="onclick_condition">$PARAM[onclick_condition]</param>
+                    <param name="onclick_alt">$PARAM[onclick_alt]</param>
+                    <param name="onclick_condition_alt">$PARAM[onclick_condition_alt]</param>
+                    <param name="onup">$PARAM[onup]</param>
+                    <param name="onup_02">$PARAM[onup_02]</param>
+                    <param name="icon">$PARAM[icon]</param>
+                    <param name="label">$PARAM[label]</param>
+                    <param name="iconoffset_condition">$PARAM[iconoffset_condition]</param>
+                </include>
+
+                <include content="OSD_CustomDialog_FakeButton" condition="![$PARAM[button_2]]">
+                    <param name="id">2</param>
+                </include>
+                <include content="OSD_CustomDialog_RealButton" condition="$PARAM[button_2]">
+                    <param name="id">2</param>
+                    <param name="onclick">$PARAM[onclick]</param>
+                    <param name="onclick_condition">$PARAM[onclick_condition]</param>
+                    <param name="onclick_alt">$PARAM[onclick_alt]</param>
+                    <param name="onclick_condition_alt">$PARAM[onclick_condition_alt]</param>
+                    <param name="onup">$PARAM[onup]</param>
+                    <param name="onup_02">$PARAM[onup_02]</param>
+                    <param name="icon">$PARAM[icon]</param>
+                    <param name="label">$PARAM[label]</param>
+                    <param name="iconoffset_condition">$PARAM[iconoffset_condition]</param>
+                </include>
+
+                <include content="OSD_CustomDialog_FakeButton" condition="![$PARAM[button_3]]">
+                    <param name="id">3</param>
+                </include>
+                <include content="OSD_CustomDialog_RealButton" condition="$PARAM[button_3]">
+                    <param name="id">3</param>
+                    <param name="onclick">$PARAM[onclick]</param>
+                    <param name="onclick_condition">$PARAM[onclick_condition]</param>
+                    <param name="onclick_alt">$PARAM[onclick_alt]</param>
+                    <param name="onclick_condition_alt">$PARAM[onclick_condition_alt]</param>
+                    <param name="onup">$PARAM[onup]</param>
+                    <param name="onup_02">$PARAM[onup_02]</param>
+                    <param name="icon">$PARAM[icon]</param>
+                    <param name="label">$PARAM[label]</param>
+                    <param name="iconoffset_condition">$PARAM[iconoffset_condition]</param>
+                </include>
+
+                <include content="OSD_CustomDialog_FakeButton" condition="![$PARAM[button_4]]">
+                    <param name="id">4</param>
+                </include>
+                <include content="OSD_CustomDialog_RealButton" condition="$PARAM[button_4]">
+                    <param name="id">4</param>
+                    <param name="onclick">$PARAM[onclick]</param>
+                    <param name="onclick_condition">$PARAM[onclick_condition]</param>
+                    <param name="onclick_alt">$PARAM[onclick_alt]</param>
+                    <param name="onclick_condition_alt">$PARAM[onclick_condition_alt]</param>
+                    <param name="onup">$PARAM[onup]</param>
+                    <param name="onup_02">$PARAM[onup_02]</param>
+                    <param name="icon">$PARAM[icon]</param>
+                    <param name="label">$PARAM[label]</param>
+                    <param name="iconoffset_condition">$PARAM[iconoffset_condition]</param>
+                </include>
+
+            </control>
+
+            <control type="grouplist">
+                <height>120</height>
+                <right>-10</right>
+                <centerbottom>80</centerbottom>
+                <orientation>horizontal</orientation>
+                <itemgap>osd_itemgap</itemgap>
+                <align>right</align>
+
+                <onleft>6004</onleft>
+                <onright>6001</onright>
+
+                <include content="OSD_CustomDialog_FakeButton" condition="![$PARAM[button_5]]">
+                    <param name="id">5</param>
+                </include>
+                <include content="OSD_CustomDialog_RealButton" condition="$PARAM[button_5]">
+                    <param name="id">5</param>
+                    <param name="onclick">$PARAM[onclick]</param>
+                    <param name="onclick_condition">$PARAM[onclick_condition]</param>
+                    <param name="onclick_alt">$PARAM[onclick_alt]</param>
+                    <param name="onclick_condition_alt">$PARAM[onclick_condition_alt]</param>
+                    <param name="onup">$PARAM[onup]</param>
+                    <param name="onup_02">$PARAM[onup_02]</param>
+                    <param name="icon">$PARAM[icon]</param>
+                    <param name="label">$PARAM[label]</param>
+                    <param name="iconoffset_condition">$PARAM[iconoffset_condition]</param>
+                </include>
+
+                <include content="OSD_CustomDialog_FakeButton" condition="![$PARAM[button_6]]">
+                    <param name="id">6</param>
+                </include>
+                <include content="OSD_CustomDialog_RealButton" condition="$PARAM[button_6]">
+                    <param name="id">6</param>
+                    <param name="onclick">$PARAM[onclick]</param>
+                    <param name="onclick_condition">$PARAM[onclick_condition]</param>
+                    <param name="onclick_alt">$PARAM[onclick_alt]</param>
+                    <param name="onclick_condition_alt">$PARAM[onclick_condition_alt]</param>
+                    <param name="onup">$PARAM[onup]</param>
+                    <param name="onup_02">$PARAM[onup_02]</param>
+                    <param name="icon">$PARAM[icon]</param>
+                    <param name="label">$PARAM[label]</param>
+                    <param name="iconoffset_condition">$PARAM[iconoffset_condition]</param>
+                </include>
+
+                <include content="OSD_CustomDialog_FakeButton" condition="![$PARAM[button_7]]">
+                    <param name="id">7</param>
+                </include>
+                <include content="OSD_CustomDialog_RealButton" condition="$PARAM[button_7]">
+                    <param name="id">7</param>
+                    <param name="onclick">$PARAM[onclick]</param>
+                    <param name="onclick_condition">$PARAM[onclick_condition]</param>
+                    <param name="onclick_alt">$PARAM[onclick_alt]</param>
+                    <param name="onclick_condition_alt">$PARAM[onclick_condition_alt]</param>
+                    <param name="onup">$PARAM[onup]</param>
+                    <param name="onup_02">$PARAM[onup_02]</param>
+                    <param name="icon">$PARAM[icon]</param>
+                    <param name="label">$PARAM[label]</param>
+                    <param name="iconoffset_condition">$PARAM[iconoffset_condition]</param>
+                </include>
+
+                <include content="OSD_CustomDialog_FakeButton" condition="![$PARAM[button_8]]">
+                    <param name="id">8</param>
+                </include>
+                <include content="OSD_CustomDialog_RealButton" condition="$PARAM[button_8]">
+                    <param name="id">8</param>
+                    <param name="onclick">$PARAM[onclick]</param>
+                    <param name="onclick_condition">$PARAM[onclick_condition]</param>
+                    <param name="onclick_alt">$PARAM[onclick_alt]</param>
+                    <param name="onclick_condition_alt">$PARAM[onclick_condition_alt]</param>
+                    <param name="onup">$PARAM[onup]</param>
+                    <param name="onup_02">$PARAM[onup_02]</param>
+                    <param name="icon">$PARAM[icon]</param>
+                    <param name="label">$PARAM[label]</param>
+                    <param name="iconoffset_condition">$PARAM[iconoffset_condition]</param>
+                </include>
+
+            </control>
+        </definition>
+    </include>
 </includes>
+
+

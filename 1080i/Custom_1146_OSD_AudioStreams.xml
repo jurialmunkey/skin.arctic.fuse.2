@@ -25,62 +25,14 @@
                 </include>
             </control>
 
-
-            <control type="grouplist">
-                <height>120</height>
-                <right>-10</right>
-                <centerbottom>80</centerbottom>
-                <orientation>horizontal</orientation>
-                <itemgap>osd_itemgap</itemgap>
-                <align>right</align>
-
-                <onup>CancelAlarm(osd_timeout,true)</onup>
-                <onup>SetFocus(6206)</onup>
-
-                <control type="button" id="6005">
-                    <width>80</width>
-                    <texturefocus />
-                    <texturenofocus />
-                    <font />
-                    <label />
-                    <onfocus>Close</onfocus>
-                    <onfocus>SetFocus(6005)</onfocus>
-                </control>
-
-                <control type="button" id="6006">
-                    <include>Defs_OSD_Button</include>
-                    <label>$INFO[VideoPlayer.AudioLanguage,[UPPERCASE],[/UPPERCASE]]</label>
-                    <onclick>CancelAlarm(osd_timeout,true)</onclick>
-                    <onclick>ActivateWindow(osdaudiosettings)</onclick>
-                </control>
-                <include content="OSD_Button_Icon_Overlay">
-                    <param name="icon">special://skin/extras/icons/volume.png</param>
-                    <param name="id">6006</param>
-                    <param name="groupid">6106</param>
-                    <param name="itemgap">osd_itemgap</param>
-                    <param name="iconoffset_condition">!String.IsEmpty(VideoPlayer.AudioLanguage)</param>
-                </include>
-
-                <control type="button" id="6007">
-                    <width>80</width>
-                    <texturefocus />
-                    <texturenofocus />
-                    <font />
-                    <label />
-                    <onfocus>Close</onfocus>
-                    <onfocus>SetFocus(6007)</onfocus>
-                </control>
-
-                <control type="button" id="6008">
-                    <width>80</width>
-                    <texturefocus />
-                    <texturenofocus />
-                    <font />
-                    <label />
-                    <onfocus>Close</onfocus>
-                    <onfocus>SetFocus(6008)</onfocus>
-                </control>
-            </control>
+            <include content="OSD_CustomDialog_GroupList">
+                <param name="onclick">ActivateWindow(osdaudiosettings)</param>
+                <param name="onup">SetFocus(6206)</param>
+                <param name="icon">special://skin/extras/icons/volume.png</param>
+                <param name="label">$INFO[VideoPlayer.AudioLanguage,[UPPERCASE],[/UPPERCASE]]</param>
+                <param name="iconoffset_condition">!String.IsEmpty(VideoPlayer.AudioLanguage)</param>
+                <param name="button_6">true</param>
+            </include>
         </control>
 
     </controls>

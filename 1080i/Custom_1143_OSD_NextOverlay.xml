@@ -1,21 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <window type="dialog" id="1143">
-    <visible>Integer.IsEqual(Window(Home).Property(OSD_Focus),6003)</visible>
-    <visible>Window.IsActive(videoosd)</visible>
-    <visible>!VideoPlayer.Content(livetv)</visible>
-    <visible>!Window.IsVisible(pvrchannelguide)</visible>
-    <visible>!Window.IsVisible(pvrosdchannels)</visible>
-    <visible>!Window.IsVisible(videobookmarks)</visible>
-    <visible>!Window.IsVisible(1141)</visible>
-    <visible>!Window.IsVisible(1140)</visible>
-    <animation type="WindowOpen" reversible="true">
-        <effect type="fade" start="0" end="100" time="300" delay="600"/>
-        <effect type="slide" start="0,-48" end="0" center="auto" tween="back" easing="out" time="400" delay="600"/>
-    </animation>
-    <include content="Animation_Fade_Out">
-        <param name="type">WindowClose</param>
-        <param name="reversible">true</param>
-    </include>
+    <defaultcontrol always="true">6003</defaultcontrol>
     <controls>
 
         <control type="list" id="513">
@@ -29,6 +14,10 @@
 
         <control type="group">
             <bottom>290</bottom>
+            <animation type="WindowOpen" reversible="true">
+                <effect type="fade" start="0" end="100" time="300" delay="600"/>
+                <effect type="slide" start="0,-48" end="0" center="auto" tween="back" easing="out" time="400" delay="600"/>
+            </animation>
             <include content="OSD_UpNext">
                 <param name="is_addon">false</param>
                 <param name="icon">$VAR[Image_OSD_UpNext_Playlist_Landscape]</param>
@@ -36,6 +25,27 @@
                 <param name="secondary_label"> </param>
                 <param name="top_title">$VAR[Label_OSD_UpNext_Playlist_TopTitle]</param>
                 <param name="sub_title">$VAR[Label_OSD_UpNext_Playlist_SubTitle]</param>
+            </include>
+        </control>
+
+        <control type="group">
+            <left>view_pad</left>
+            <right>view_pad</right>
+
+            <visible>!Window.IsActive(DialogPlayerProcessInfo.xml)</visible>
+            <visible>!Window.IsVisible(DialogSlider.xml)</visible>
+
+            <include content="OSD_CustomDialog_GroupList">
+                <param name="onclick_condition">!VideoPlayer.Content(livetv) + Integer.IsLess(VideoPlayer.PlaylistPosition,VideoPlayer.PlaylistLength)</param>
+                <param name="onclick">PlayerControl(Next)</param>
+                <param name="onclick_condition_alt">!VideoPlayer.Content(livetv) + !Integer.IsLess(VideoPlayer.PlaylistPosition,VideoPlayer.PlaylistLength) + !String.IsEmpty(Container(513).ListItem.FileNameAndPath)</param>
+                <param name="onclick_alt">PlayMedia($ESCINFO[Container(513).ListItem.FileNameAndPath])</param>
+                <param name="icon">special://skin/extras/icons/forward-step.png</param>
+                <param name="button_3">true</param>
+
+                <param name="onup">Close</param>
+                <param name="onup_02">SetFocus(8200)</param>
+
             </include>
         </control>
 
