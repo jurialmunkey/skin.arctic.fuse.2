@@ -85,6 +85,41 @@
         </definition>
     </include>
 
+    <include name="OSD_UpNext_Labels">
+        <control type="group">
+            <top>view_landscape_item_h</top>
+
+            <control type="group">
+                <top>10</top>
+                <height>80</height>
+                <right>40</right>
+
+                <include content="Object_Control" condition="!Skin.HasSetting(View.UseDetailedListLabels)">
+                    <param name="control">textbox</param>
+                    <top>6</top>
+                    <height>67</height>
+                    <aligny>top</aligny>
+                    <font>font_mini</font>
+                    <label>$PARAM[top_title] [COLOR=panel_fg_30]•[/COLOR] $PARAM[sub_title]</label>
+                    <align>left</align>
+                    <textcolor>panel_fg_70</textcolor>
+                </include>
+
+                <include content="Object_InfoCircle_Text_Top" condition="Skin.HasSetting(View.UseDetailedListLabels)">
+                    <textcolor>panel_fg_90</textcolor>
+                    <selectedcolor>panel_fg_90</selectedcolor>
+                    <label>$PARAM[top_title]</label>
+                </include>
+
+                <include content="Object_InfoCircle_Text_Sub" condition="Skin.HasSetting(View.UseDetailedListLabels)">
+                    <textcolor>panel_fg_70</textcolor>
+                    <selectedcolor>panel_fg_70</selectedcolor>
+                    <label>$PARAM[sub_title]</label>
+                </include>
+            </control>
+        </control>
+    </include>
+
     <include name="OSD_UpNext">
         <param name="is_addon">true</param>
         <param name="icon">$VAR[Image_UpNext]</param>
@@ -114,26 +149,11 @@
 
                     <include condition="$PARAM[is_addon]">OSD_UpNext_Progress</include>
 
-                    <control type="group">
-                        <top>view_landscape_item_h</top>
+                    <include content="OSD_UpNext_Labels">
+                        <param name="top_title">$PARAM[top_title]</param>
+                        <param name="sub_title">$PARAM[sub_title]</param>
+                    </include>
 
-                        <control type="group">
-                            <top>15</top>
-                            <height>80</height>
-
-                            <include content="Object_InfoCircle_Text_Top">
-                                <textcolor>panel_fg_90</textcolor>
-                                <selectedcolor>panel_fg_90</selectedcolor>
-                                <label>$PARAM[top_title]</label>
-                            </include>
-
-                            <include content="Object_InfoCircle_Text_Sub">
-                                <textcolor>panel_fg_70</textcolor>
-                                <selectedcolor>panel_fg_70</selectedcolor>
-                                <label>$PARAM[sub_title]</label>
-                            </include>
-                        </control>
-                    </control>
                 </control>
 
                 <include condition="$PARAM[is_addon]">OSD_UpNext_Buttons</include>
@@ -1122,6 +1142,7 @@
                 <onclick condition="$PARAM[onclick_condition_alt]">$PARAM[onclick_alt]</onclick>
                 <onup>$PARAM[onup]</onup>
                 <onup>$PARAM[onup_02]</onup>
+                <ondown>ActivateWindow($VAR[Action_OSD_Main_OnDown])</ondown>
                 <label>$PARAM[label]</label>
             </control>
             <include content="OSD_Button_Icon_Overlay">
