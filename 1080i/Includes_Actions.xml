@@ -114,6 +114,19 @@
         <onload>AlarmClock(refocus_window,SetFocus(50),00:00,silent)</onload>
     </include>
 
+    <variable name="Action_OSD_SkipPrev">
+        <value condition="!String.IsEmpty(Player.Chapter) + !String.IsEqual(Player.Chapter,00) + !String.IsEmpty(Player.ChapterCount) + !String.IsEqual(Player.ChapterCount,00) + !String.IsEqual(Player.Chapter,01)">ChapterOrBigStepBack</value>
+        <value condition="Integer.IsGreater(VideoPlayer.PlaylistPosition,1) + Integer.IsGreater(VideoPlayer.PlaylistLength,1)">SkipPrevious</value>
+        <value>ChapterOrBigStepBack</value>
+    </variable>
+
+    <variable name="Action_OSD_SkipNext">
+        <value condition="!String.IsEmpty(Player.Chapter) + !String.IsEqual(Player.Chapter,00) + !String.IsEmpty(Player.ChapterCount) + !String.IsEqual(Player.ChapterCount,00) + !String.IsEqual(Player.Chapter,Player.ChapterCount)">ChapterOrBigStepForward</value>
+        <value condition="Integer.IsLess(VideoPlayer.PlaylistPosition,VideoPlayer.PlaylistLength)">SkipNext</value>
+        <value condition="!String.IsEmpty(Container(513).ListItem.FileNameAndPath) + Integer.IsLess(Player.TimeRemaining(mins),10)">PlayMedia($ESCINFO[Container(513).ListItem.FileNameAndPath])</value>
+        <value>ChapterOrBigStepForward</value>
+    </variable>
+
     <variable name="Action_OSD_Main_OnDown">
         <value condition="VideoPlayer.Content(livetv) + !Skin.HasSetting(OSD.OnDown.DisablePVROSDGuide) + VideoPlayer.HasEpg">pvrosdguide</value>
         <value condition="VideoPlayer.Content(livetv)">$VAR[Action_OSD_PVROSDGuide_OnDown]</value>
@@ -666,10 +679,13 @@
         </definition>
     </include>
 
-    <include name="Action_OSD_Button_OnFocus">
+    <include name="Action_OSD_Button">
         <onfocus condition="!String.IsEmpty(Skin.String(OSD_Timeout)) + Window.IsVisible(videoosd)">AlarmClock(osd_timeout,RunScript(script.skinvariables,run_executebuiltin=special://skin/shortcuts/builtins/skinvariables-closeosd.json,use_rules=True),$INFO[Skin.String(OSD_Timeout),00:,],silent)</onfocus>
         <onfocus condition="!String.IsEmpty(Skin.String(OSD_Timeout)) + Window.IsVisible(musicosd)">AlarmClock(osd_timeout,RunScript(script.skinvariables,run_executebuiltin=special://skin/shortcuts/builtins/skinvariables-closeosd.json,use_rules=True),$INFO[Skin.String(OSD_Timeout),00:,],silent)</onfocus>
         <onunfocus>CancelAlarm(osd_timeout,true)</onunfocus>
+
+        <onclick condition="!String.IsEmpty(Skin.String(OSD_Timeout)) + Window.IsVisible(videoosd)">AlarmClock(osd_timeout,RunScript(script.skinvariables,run_executebuiltin=special://skin/shortcuts/builtins/skinvariables-closeosd.json,use_rules=True),$INFO[Skin.String(OSD_Timeout),00:,],silent)</onclick>
+        <onclick condition="!String.IsEmpty(Skin.String(OSD_Timeout)) + Window.IsVisible(musicosd)">AlarmClock(osd_timeout,RunScript(script.skinvariables,run_executebuiltin=special://skin/shortcuts/builtins/skinvariables-closeosd.json,use_rules=True),$INFO[Skin.String(OSD_Timeout),00:,],silent)</onclick>
     </include>
 
     <include name="_Action_Blur_Onload">

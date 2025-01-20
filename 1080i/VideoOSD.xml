@@ -51,11 +51,11 @@
                             <onclick condition="VideoPlayer.Content(livetv)">CancelAlarm(osd_timeout,true)</onclick>
                             <onclick condition="VideoPlayer.Content(livetv)">Close</onclick>
                             <onclick condition="VideoPlayer.Content(livetv)">ActivateWindow(TVGuide)</onclick>
-                            <onclick condition="!VideoPlayer.Content(livetv)">PlayerControl(Previous)</onclick>
+                            <onclick condition="!VideoPlayer.Content(livetv)">$VAR[Action_OSD_SkipPrev]</onclick>
                             <onup>8200</onup>
                         </control>
                         <include content="OSD_Button_Icon_Overlay" condition="!VideoPlayer.Content(livetv)">
-                            <param name="icon">special://skin/extras/icons/backward-step.png</param>
+                            <param name="icon">$VAR[Image_OSD_SkipPrev]</param>
                             <param name="id">6002</param>
                             <param name="groupid">6102</param>
                             <param name="itemgap">osd_itemgap</param>
@@ -72,14 +72,12 @@
                             <include>Defs_OSD_Button</include>
                             <onclick condition="VideoPlayer.Content(livetv)">PVR.ToggleRecordPlayingChannel</onclick>
                             <onup>8200</onup>
-
                             <onfocus condition="!VideoPlayer.Content(livetv)">ActivateWindow(1143)</onfocus>
-
                             <enable>PVR.CanRecordPlayingChannel | !VideoPlayer.Content(livetv)</enable>
                             <label>$VAR[Label_OSD_PVR_Recording]</label>
                         </control>
                         <include content="OSD_Button_Icon_Overlay" condition="!VideoPlayer.Content(livetv)">
-                            <param name="icon">special://skin/extras/icons/forward-step.png</param>
+                            <param name="icon">$VAR[Image_OSD_SkipNext]</param>
                             <param name="id">6003</param>
                             <param name="groupid">6103</param>
                             <param name="itemgap">osd_itemgap</param>

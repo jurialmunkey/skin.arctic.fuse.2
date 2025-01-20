@@ -18,6 +18,8 @@
                 <bottom>290</bottom>
                 <visible>!Container(513).IsUpdating</visible>
                 <visible>!Integer.IsEqual(Container(513).NumItems,0)</visible>
+                <visible>![!String.IsEmpty(Player.Chapter) + !String.IsEqual(Player.Chapter,00) + !String.IsEmpty(Player.ChapterCount) + !String.IsEqual(Player.ChapterCount,00) + !String.IsEqual(Player.Chapter,Player.ChapterCount)]</visible>
+                <visible>Integer.IsLess(VideoPlayer.PlaylistPosition,VideoPlayer.PlaylistLength) | Integer.IsLess(Player.TimeRemaining(mins),10)</visible>
                 <animation type="WindowOpen" reversible="true">
                     <effect type="fade" start="0" end="100" time="300" delay="600"/>
                     <effect type="slide" start="0,-48" end="0" center="auto" tween="back" easing="out" time="400" delay="600"/>
@@ -44,11 +46,8 @@
                 <visible>!Window.IsVisible(DialogSlider.xml)</visible>
 
                 <include content="OSD_CustomDialog_GroupList">
-                    <param name="onclick_condition">!VideoPlayer.Content(livetv) + Integer.IsLess(VideoPlayer.PlaylistPosition,VideoPlayer.PlaylistLength)</param>
-                    <param name="onclick">PlayerControl(Next)</param>
-                    <param name="onclick_condition_alt">!VideoPlayer.Content(livetv) + !Integer.IsLess(VideoPlayer.PlaylistPosition,VideoPlayer.PlaylistLength) + !String.IsEmpty(Container(513).ListItem.FileNameAndPath)</param>
-                    <param name="onclick_alt">PlayMedia($ESCINFO[Container(513).ListItem.FileNameAndPath])</param>
-                    <param name="icon">special://skin/extras/icons/forward-step.png</param>
+                    <param name="onclick">$VAR[Action_OSD_SkipNext]</param>
+                    <param name="icon">$VAR[Image_OSD_SkipNext]</param>
                     <param name="button_3">true</param>
 
                     <param name="onup">Close</param>

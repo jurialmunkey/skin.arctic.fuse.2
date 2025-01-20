@@ -1,6 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <includes>
 
+    <variable name="Image_OSD_SkipPrev">
+        <value condition="!String.IsEmpty(Player.Chapter) + !String.IsEqual(Player.Chapter,00) + !String.IsEmpty(Player.ChapterCount) + !String.IsEqual(Player.ChapterCount,00) + !String.IsEqual(Player.Chapter,01)">special://skin/extras/icons/backward-fast.png</value>
+        <value condition="Integer.IsGreater(VideoPlayer.PlaylistPosition,1) + Integer.IsGreater(VideoPlayer.PlaylistLength,1)">special://skin/extras/icons/backward-step.png</value>
+        <value condition="Integer.IsLess(Player.Time(mins),10)">special://skin/extras/icons/backward-step.png</value>
+        <value>special://skin/extras/icons/backward-jump.png</value>
+    </variable>
+
+    <variable name="Image_OSD_SkipNext">
+        <value condition="!String.IsEmpty(Player.Chapter) + !String.IsEqual(Player.Chapter,00) + !String.IsEmpty(Player.ChapterCount) + !String.IsEqual(Player.ChapterCount,00) + !String.IsEqual(Player.Chapter,Player.ChapterCount)">special://skin/extras/icons/forward-fast.png</value>
+        <value condition="Integer.IsLess(VideoPlayer.PlaylistPosition,VideoPlayer.PlaylistLength)">special://skin/extras/icons/forward-step.png</value>
+        <value condition="Integer.IsLess(Player.TimeRemaining(mins),10)">special://skin/extras/icons/forward-step.png</value>
+        <value>special://skin/extras/icons/forward-jump.png</value>
+    </variable>
+
     <variable name="Image_1114_Poster">
         <value condition="Control.HasFocus(7001)">$INFO[Container(7001).ListItem.Art(poster)]</value>
         <value>$INFO[Window.Property(poster)]</value>
