@@ -7,28 +7,54 @@
         <include>Dialog_Dim_Overlay</include>
 
         <control type="group">
-            <include>Dimension_DialogMiniMenu</include>
+            <include>Dimension_DialogWideMenu</include>
             <include>Animation_Right_Delay</include>
 
             <include content="Dialog_Foreground_Side">
-                <param name="dialog_size">Dimension_DialogMiniMenu</param>
-                <param name="topline">true</param>
-                <param name="subline">true</param>
+                <param name="dialog_size">Dimension_DialogWideMenu</param>
+                <param name="lines_right">dialog_buttongroup_w</param>
             </include>
 
-            <!-- Header -->
-            <include content="Dialog_Head">
-                <param name="id">7000</param>
-                <param name="label">$INFO[Window(Home).Property(CustomDialogSettingsTitle)]</param>
-            </include>
-            <include>Dialog_Head_CloseButton</include>
-
-            <!-- Content -->
             <control type="group">
-                <include>Dimension_Dialog_Body</include>
-                <control type="grouplist" id="8000">
-                    <include>Items_Settings_CustomDialog</include>
-                    <include>Dimension_Dialog_Body_Group</include>
+                <right>dialog_buttongroup_w</right>
+
+                <!-- Header -->
+                <include content="Dialog_Head">
+                    <param name="id">7000</param>
+                    <param name="label">$INFO[Window(Home).Property(CustomDialogSettingsTitle)]</param>
+                </include>
+                <include>Dialog_Head_CloseButton</include>
+
+                <!-- Content -->
+                <control type="group">
+                    <include>Dimension_Dialog_Body</include>
+                    <control type="grouplist" id="8000">
+                        <onright>9000</onright>
+                        <include>Items_Settings_CustomDialog</include>
+                        <include>Dimension_Dialog_Body_Group</include>
+                    </control>
+                </control>
+            </control>
+
+            <!-- Side Buttons -->
+            <control type="group">
+                <include content="Dialog_Side_Panel_Group_Def">
+                    <param name="width">dialog_buttongroup_w</param>
+                </include>
+                <control type="group">
+                    <include>Dimension_Dialog_Body</include>
+                    <control type="grouplist" id="9000">
+                        <include>Dialog_Side_Grouplist_Def</include>
+                        <onleft>8000</onleft>
+                        <include content="DialogInfo_Button">
+                            <param name="include_hintlabel">true</param>
+                            <param name="id">9001</param>
+                            <param name="groupid">9101</param>
+                            <param name="label">$LOCALIZE[15067]</param>
+                            <param name="icon">special://skin/extras/icons/circle-xmark.png</param>
+                            <onclick>Close</onclick>
+                        </include>
+                    </control>
                 </control>
             </control>
         </control>

@@ -72,7 +72,7 @@
         </item>
     </include>
 
-    <include name="Weather_Forecast_Hourly_Items">
+    <include name="Weather_Forecast_TwoHour_Early_Items">
         <include content="Weather_Forecast_Hourly_Item">
             <param name="prefix">Hourly.1</param>
         </include>
@@ -93,7 +93,7 @@
         </include>
     </include>
 
-    <include name="Weather_Forecast_Later_Items">
+    <include name="Weather_Forecast_TwoHour_Later_Items">
         <include content="Weather_Forecast_Hourly_Item">
             <param name="prefix">Hourly.13</param>
         </include>
@@ -111,6 +111,27 @@
         </include>
         <include content="Weather_Forecast_Hourly_Item">
             <param name="prefix">Hourly.23</param>
+        </include>
+    </include>
+
+    <include name="Weather_Forecast_Hourly_Early_Items">
+        <include content="Weather_Forecast_Hourly_Item">
+            <param name="prefix">Hourly.1</param>
+        </include>
+        <include content="Weather_Forecast_Hourly_Item">
+            <param name="prefix">Hourly.2</param>
+        </include>
+        <include content="Weather_Forecast_Hourly_Item">
+            <param name="prefix">Hourly.3</param>
+        </include>
+        <include content="Weather_Forecast_Hourly_Item">
+            <param name="prefix">Hourly.4</param>
+        </include>
+        <include content="Weather_Forecast_Hourly_Item">
+            <param name="prefix">Hourly.5</param>
+        </include>
+        <include content="Weather_Forecast_Hourly_Item">
+            <param name="prefix">Hourly.6</param>
         </include>
     </include>
 
@@ -312,6 +333,7 @@
         <include content="Weather_Forecast_List">
             <param name="items">Weather_Forecast_Graph_Items</param>
             <param name="itemlayout">Weather_Forecast_Graph_Itemlayout</param>
+            <param name="control">wraplist</param>
             <param name="height">160</param>
             <param name="id">9207</param>
             <param name="visible">!String.IsEmpty(Window(weather).Property(hourly.1.temperaturegraph))</param>
@@ -333,6 +355,7 @@
                 <item>
                     <label>$LOCALIZE[31527]</label>
                     <visible>!String.IsEmpty(Window(weather).Property(hourly.23.outlook))</visible>
+                    <visible>!String.IsEqual(Weather.Plugin,weather.gismeteo)</visible>
                 </item>
             </content>
         </include>
@@ -340,21 +363,30 @@
             <param name="visible">String.IsEqual(Container(9204).ListItem.Label,$LOCALIZE[20169])</param>
             <param name="items">Weather_Forecast_Daily_Items</param>
         </include>
-        <include content="Weather_Forecast_List">
+
+        <!-- Every two hours for hourly to cover full 24hours in 2 pages of 6 items -->
+        <include content="Weather_Forecast_List" condition="!String.IsEqual(Weather.Plugin,weather.gismeteo)">
             <param name="visible">String.IsEqual(Container(9204).ListItem.Label,$LOCALIZE[31526])</param>
-            <param name="items">Weather_Forecast_Hourly_Items</param>
+            <param name="items">Weather_Forecast_TwoHour_Early_Items</param>
         </include>
-        <include content="Weather_Forecast_List">
+        <include content="Weather_Forecast_List" condition="!String.IsEqual(Weather.Plugin,weather.gismeteo)">
             <param name="visible">String.IsEqual(Container(9204).ListItem.Label,$LOCALIZE[31527])</param>
-            <param name="items">Weather_Forecast_Later_Items</param>
+            <param name="items">Weather_Forecast_TwoHour_Later_Items</param>
+        </include>
+
+        <!-- GisMeteo hourly is every 3 hours so dont artificially add in spacing -->
+        <include content="Weather_Forecast_List" condition="String.IsEqual(Weather.Plugin,weather.gismeteo)">
+            <param name="visible">String.IsEqual(Container(9204).ListItem.Label,$LOCALIZE[31526])</param>
+            <param name="items">Weather_Forecast_Hourly_Early_Items</param>
         </include>
     </include>
 
     <include name="Weather_Forecast_List">
         <param name="height">133.33</param>
         <param name="itemlayout">Weather_Forecast_Itemlayout</param>
+        <param name="control">list</param>
         <definition>
-            <control type="wraplist" id="$PARAM[id]">
+            <control type="$PARAM[control]" id="$PARAM[id]">
                 <left>-20</left>
                 <top>-20</top>
                 <right>-20</right>
