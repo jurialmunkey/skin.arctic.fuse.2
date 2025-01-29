@@ -640,7 +640,9 @@
             <param name="id">004</param>
             <label>$LOCALIZE[31191]</label>
             <label2>$VAR[Label_Setting_OptionalInfoLine]</label2>
-            <onclick>Skin.ToggleSetting(InfoLine.EndTime)</onclick>
+            <onclick condition="!Skin.String(InfoLine.Optional,Genre) + !Skin.String(InfoLine.Optional,Ends)">Skin.SetString(InfoLine.Optional,Genre)</onclick>
+            <onclick condition="Skin.String(InfoLine.Optional,Genre)">Skin.SetString(InfoLine.Optional,Ends)</onclick>
+            <onclick condition="Skin.String(InfoLine.Optional,Ends)">Skin.Reset(InfoLine.Optional)</onclick>
         </include>
 
         <include content="Settings_Label" description="Ratings">
