@@ -207,8 +207,6 @@
 
     <expression name="Exp_IsPVRItem">[!String.IsEmpty(ListItem.ChannelNumberLabel) | String.IsEqual(ListItem.Path,pvr://channels/tv/)]</expression>
 
-    <expression name="Exp_InfoDialogs_Cast_IsLocal">[Skin.HasSetting(Info.UseLocalCast) | [Integer.IsEqual(Container(5003).NumItems,0) + !Container(5003).IsUpdating]]</expression>
-
 
     <!-- === -->
     <!-- OSD -->
@@ -219,9 +217,9 @@
 
     <expression name="Exp_OSD_DelayInfo">[System.IdleTime(3) + Skin.HasSetting(OSD.AutoInfoOnPause) + Player.Paused]</expression>
 
-    <expression name="Exp_OSD_QuickInfo">[[$EXP[Exp_OSD_PVRChannelSwitch] | Window.IsVisible(fullscreeninfo) | $EXP[Exp_OSD_DelayInfo]] + !Window.IsActive(videoosd)]</expression>
+    <expression name="Exp_OSD_QuickInfo">[$EXP[Exp_OSD_PVRChannelSwitch] | Window.IsActive(fullscreeninfo) | $EXP[Exp_OSD_DelayInfo]]</expression>
 
-    <expression name="Exp_OSD_HideControls">[Window.IsActive(videobookmarks) | Window.IsActive(pvrchannelguide) | Window.IsActive(1140) | Window.IsActive(1141) | Window.IsActive(1142) | Window.IsActive(DialogPVRChannelsOSD.xml)]</expression>
+    <expression name="Exp_OSD_HideControls">[Window.IsActive(videobookmarks) | Window.IsActive(pvrchannelguide) | Window.IsActive(1140) | Window.IsActive(1141) | Window.IsActive(1142) | Window.IsActive(DialogPVRChannelsOSD.xml) | Window.IsActive(script-upnext-stillwatching.xml) | Window.IsActive(script-upnext-upnext.xml)]</expression>
 
 
     <!-- ==== -->

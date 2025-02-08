@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<window type="dialog" id="1151">
+    <visible>Player.ShowInfo | Window.IsActive(musicosd)</visible>
+    <visible>Window.IsActive(MusicVisualisation.xml)</visible>
+    <animation effect="fade" start="0" end="100" time="300">WindowOpen</animation>
+    <animation effect="fade" end="0" start="100" time="300">WindowClose</animation>
+    <controls>
+
+        <control type="group">
+
+            <control type="group">
+                <width>280</width>
+                <height>280</height>
+                <bottom>240</bottom>
+                <left>view_pad</left>
+                <visible>!Window.IsVisible(1142)</visible>
+                <control type="group">
+                    <animation effect="zoom" start="0,0,280,280" end="0,-380,480,480" time="400" tween="cubic" easing="out" reversible="false" condition="[Window.IsVisible(script-cu-lrclyrics-main.xml) | [!String.IsEmpty(Window(Home).Property(OSDArtistDetails)) + !Window.IsVisible(1142)]]">Conditional</animation>
+                    <animation effect="zoom" end="0,0,280,280" start="0,-380,480,480" time="400" tween="cubic" easing="out" reversible="false" condition="![Window.IsVisible(script-cu-lrclyrics-main.xml) | [!String.IsEmpty(Window(Home).Property(OSDArtistDetails)) + !Window.IsVisible(1142)]]">Conditional</animation>
+                    <include content="Object_BigPoster">
+                        <param name="diffuse">diffuse/square_w460_h460.png</param>
+                        <param name="icon">$INFO[Player.Icon]</param>
+                    </include>
+                </control>
+
+                <control type="group">
+                    <left>0</left>
+                    <height>240</height>
+                    <bottom>-20</bottom>
+                    <control type="group">
+                        <width>460</width>
+                        <visible>[Window.IsVisible(script-cu-lrclyrics-main.xml) | [!String.IsEmpty(Window(Home).Property(OSDArtistDetails)) + !Window.IsVisible(1142)]]</visible>
+                        <animation effect="slide" start="340" end="0" time="400" tween="cubic" easing="out" reversible="false">Visible</animation>
+                        <animation type="Hidden" reversible="false">
+                            <effect type="slide" end="340" start="0" time="400" tween="cubic" easing="out" reversible="false" />
+                        </animation>
+                        <include content="OSD_TitleDetails">
+                            <param name="top_logo">Player.Art(artist.clearlogo)</param>
+                            <param name="top_label">$INFO[MusicPlayer.Artist]</param>
+                            <param name="sub_label">$INFO[MusicPlayer.TrackNumber,,. ]$INFO[MusicPlayer.Title]</param>
+                        </include>
+                    </control>
+                    <control type="group">
+                        <left>340</left>
+                        <width>1080</width>
+                        <visible>![Window.IsVisible(script-cu-lrclyrics-main.xml) | [!String.IsEmpty(Window(Home).Property(OSDArtistDetails)) + !Window.IsVisible(1142)]]</visible>
+                        <animation type="Visible" reversible="false">
+                            <effect type="slide" end="0" start="-340" time="400" tween="cubic" easing="out" reversible="false" />
+                            <effect type="fade" start="0" end="100" delay="400" time="0" reversible="false" />
+                        </animation>
+                        <include content="OSD_TitleDetails">
+                            <param name="top_logo">Player.Art(artist.clearlogo)</param>
+                            <param name="top_label">$INFO[MusicPlayer.Artist]</param>
+                            <param name="sub_label">$INFO[MusicPlayer.TrackNumber,,. ]$INFO[MusicPlayer.Title]</param>
+                        </include>
+                    </control>
+                </control>
+            </control>
+
+            <include>Animation_OSD_MusicArtwork_Slide</include>
+        </control>
+    </controls>
+</window>

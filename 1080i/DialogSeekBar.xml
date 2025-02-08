@@ -1,37 +1,35 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <window>
     <zorder>0</zorder>
+    <visible>Window.IsActive(VideoFullScreen.xml) | Window.IsActive(MusicVisualisation.xml)</visible>
+
+    <visible>[Player.Paused + [!System.IdleTime(3) | !Skin.HasSetting(OSD.AutoHideOnPause)]] | Player.Caching | Player.Seeking | Player.HasPerformedSeek(2) | Player.Forwarding | Player.Rewinding | !String.IsEmpty(Player.SeekNumeric) | !String.IsEmpty(PVR.ChannelNumberInput) | Window.IsActive(script-upnext-stillwatching.xml) | Window.IsActive(script-upnext-upnext.xml) | Window.IsActive(videoosd) | Window.IsActive(musicosd) | Window.IsActive(1140) | Window.IsActive(1141) | Window.IsActive(1142) | Window.IsActive(1143) | Window.IsActive(1144) | Window.IsActive(1145) | Window.IsActive(1146) | Window.IsActive(1147) | Window.IsActive(1148) | Window.IsActive(1149) | Window.IsVisible(videobookmarks) | Window.IsVisible(pvrosdguide) | Window.IsVisible(pvrosdchannels) | [Window.IsVisible(script-cu-lrclyrics-main.xml) + Player.ShowInfo]</visible>
+
+    <visible>!Window.IsActive(DialogSlider.xml)</visible>
     <visible>!Player.HasGame</visible>
     <visible>!Window.IsActive(DialogPlayerProcessInfo.xml)</visible>
-    <visible>Window.IsActive(VideoFullScreen.xml) | Window.IsActive(MusicVisualisation.xml)</visible>
-    <visible>Window.IsActive(videoosd) | Window.IsActive(musicosd) | Player.Caching | Player.ShowInfo | Player.Seeking | Player.HasPerformedSeek(2) | [Player.Paused + [!System.IdleTime(3) | !Skin.HasSetting(OSD.AutoHideOnPause)]] | Player.Forwarding | Player.Rewinding | Window.IsActive(DialogFullScreenInfo.xml) | !String.IsEmpty(Player.SeekNumeric) | !String.IsEmpty(PVR.ChannelNumberInput) | Window.IsVisible(script-upnext-stillwatching.xml) | Window.IsVisible(script-upnext-upnext.xml)</visible>
-    <visible>!Window.IsVisible(DialogSlider.xml)</visible>
+    <visible>!Window.IsVisible(DialogPlayerProcessInfo.xml)</visible>
+    <visible>!Window.IsVisible(1152)</visible>
+
     <onload condition="Player.Paused + !String.IsEmpty(Window(Home).Property(OSDExtendedInfo))">PlayerControl(Play)</onload>
     <onload condition="Player.Paused + !String.IsEmpty(Window(Home).Property(OSDExtendedInfo))">ClearProperty(OSDExtendedInfo,Home)</onload>
     <controls>
 
         <control type="group">
-            <visible>Window.IsActive(VideoFullScreen.xml) | Window.IsActive(MusicVisualisation.xml)</visible>
+            <include>Animation_OSD_Fullscreen_Change</include>
 
-
-            <control type="image">
-                <bottom>0</bottom>
-                <height>240</height>
-                <texture colordiffuse="panel_bg_70" border="4,0,4,0">common/gradient-v.png</texture>
-                <include>Animation_OSD_Fullscreen_Change</include>
-                <visible>![Window.IsActive(MusicVisualisation.xml) | Window.IsVisible(videoosd) | $EXP[Exp_OSD_QuickInfo] | Window.IsVisible(script-upnext-stillwatching.xml) | Window.IsVisible(script-upnext-upnext.xml)]</visible>
-            </control>
-
-            <control type="image">
-                <texture colordiffuse="panel_bg_70">background/combined_flixart.png</texture>
-                <include>Animation_OSD_Fullscreen_Change</include>
-                <visible>Window.IsActive(MusicVisualisation.xml) | Window.IsVisible(videoosd) | $EXP[Exp_OSD_QuickInfo] | Window.IsVisible(script-upnext-stillwatching.xml) | Window.IsVisible(script-upnext-upnext.xml)</visible>
+            <control type="group">
+                <include>Animation_OSD_Seekbar_Slide</include>
+                <include>OSD_Progress_Labels</include>
+                <include>OSD_Progress_Bar</include>
             </control>
 
             <control type="group">
-                <include>Animation_OSD_Fullscreen_Change</include>
-                <include condition="VideoPlayer.IsFullscreen">OSD_VideoSeekBar</include>
-                <include condition="!VideoPlayer.IsFullscreen">OSD_MusicSeekBar</include>
+                <include content="Furniture_Top_Left">
+                    <param name="id">3099</param>
+                    <param name="label">$VAR[Label_OSD_Header]</param>
+                </include>
+                <include>Furniture_Top_Right</include>
             </control>
 
             <include content="OSD_CastInfo_HintText">

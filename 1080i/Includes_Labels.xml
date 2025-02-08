@@ -334,24 +334,6 @@
         <value>$LOCALIZE[31353] / $LOCALIZE[20161]</value>
     </variable>
 
-    <variable name="Label_VideoInfo_CastAge">
-        <value condition="!String.IsEmpty(Container(5003).ListItem.Property(Age)) + !Skin.HasSetting(Info.UseLocalCast)">$INFO[Container(5003).ListItem.Property(Age),, $LOCALIZE[31057]]$INFO[Container(5003).ListItem.Property(Deathday),   † ,]</value>
-        <value condition="!String.IsEmpty(Container(5203).ListItem.Property(Age)) + !Container(5203).IsUpdating">$INFO[Container(5203).ListItem.Property(Age),, $LOCALIZE[31057]]$INFO[Container(5203).ListItem.Property(Deathday),   † ,]</value>
-    </variable>
-
-    <variable name="Label_VideoInfo_CastBio">
-        <value condition="!String.IsEmpty(Container(5003).ListItem.Plot) + !Skin.HasSetting(Info.UseLocalCast)">$INFO[Container(5003).ListItem.Plot]</value>
-        <value condition="Container(5203).IsUpdating">$LOCALIZE[31023] [LOWERCASE]$LOCALIZE[14116][/LOWERCASE]...</value>
-        <value condition="!String.IsEmpty(Container(5203).ListItem.Plot)">$INFO[Container(5203).ListItem.Plot]</value>
-        <value>$LOCALIZE[19055]</value>
-    </variable>
-
-    <variable name="Label_VideoInfo_CastBio_Prop">
-        <value condition="!String.IsEmpty(Container(5003).ListItem.Plot)">$ESCINFO[Container(5003).ListItem.Plot]</value>
-        <value condition="!Container(5203).IsUpdating + !String.IsEmpty(Container(5203).ListItem.Plot)">$ESCINFO[Container(5203).ListItem.Plot]</value>
-        <value>$LOCALIZE[19055]</value>
-    </variable>
-
     <variable name="Label_Setting_BackgroundBlur">
         <value condition="Skin.String(Background.ArtworkStyle,Simple)">$LOCALIZE[31438] ($LOCALIZE[31254])</value>
         <value condition="Skin.String(Background.ArtworkStyle,Fanart)">$LOCALIZE[20445] ($LOCALIZE[31254])</value>
@@ -481,14 +463,34 @@
     </variable>
 
     <variable name="Label_Setting_OptionalInfoLine">
-        <value condition="Skin.HasSetting(InfoLine.EndTime)">$LOCALIZE[31192]</value>
-        <value>$LOCALIZE[515]</value>
+        <value condition="Skin.String(InfoLine.Optional,Ends)">$LOCALIZE[31192]</value>
+        <value condition="Skin.String(InfoLine.Optional,Genre)">$LOCALIZE[515]</value>
+        <value>$LOCALIZE[231]</value>
     </variable>
 
-    <variable name="Label_Setting_AdditionalTags">
-        <value condition="Skin.HasSetting(InfoLine.DisableAdditionalTags) + Skin.HasSetting(Info.EnablePillboxStyle)">$LOCALIZE[16018]</value>
-        <value condition="Skin.HasSetting(InfoLine.DisableAdditionalTags)">$LOCALIZE[21870]</value>
-        <value>$LOCALIZE[21870] + HDR + $LOCALIZE[21444] + $LOCALIZE[31108]</value>
+    <variable name="Label_Setting_AdditionalTags">       
+        <value condition="Skin.HasSetting(Info.EnablePillboxStyle) + Skin.HasSetting(Infoline.DisableSource) + Skin.HasSetting(Infoline.DisableHDR) + Skin.HasSetting(Infoline.DisableAudioChannels) + Skin.HasSetting(Infoline.DisableVersion) + Skin.HasSetting(Infoline.DisableCollection)">$LOCALIZE[16018]</value> <!--  NONE -->
+        <value>$VAR[Label_Setting_AdditionalTags_Source,   ,]$VAR[Label_Setting_AdditionalTags_HDR,   ,]$VAR[Label_Setting_AdditionalTags_AudioChannels,   ,]$VAR[Label_Setting_AdditionalTags_Version,   ,]$VAR[Label_Setting_AdditionalTags_Collection,   ,]</value>
+    </variable>
+
+    <variable name="Label_Setting_AdditionalTags_Source">
+        <value condition="!Skin.HasSetting(Infoline.DisableSource) | !Skin.HasSetting(Info.EnablePillboxStyle)">$LOCALIZE[21870]</value>
+    </variable>
+
+    <variable name="Label_Setting_AdditionalTags_HDR">
+        <value condition="!Skin.HasSetting(Infoline.DisableHDR)">HDR</value>
+    </variable>
+
+    <variable name="Label_Setting_AdditionalTags_AudioChannels">
+        <value condition="!Skin.HasSetting(Infoline.DisableAudioChannels)">$LOCALIZE[21444]</value>
+    </variable>
+
+    <variable name="Label_Setting_AdditionalTags_Version">
+        <value condition="!Skin.HasSetting(Infoline.DisableVersion)">$LOCALIZE[40013]</value>
+    </variable>
+
+    <variable name="Label_Setting_AdditionalTags_Collection">
+        <value condition="!Skin.HasSetting(Infoline.DisableCollection)">$LOCALIZE[31108]</value>
     </variable>
 
     <variable name="Label_Trailer_PlayPause">
@@ -804,8 +806,9 @@
     </variable>
 
     <variable name="Label_Studio">
-        <value condition="!String.IsEmpty(ListItem.Studio)">$INFO[ListItem.Studio]</value>
-        <value condition="!String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.Studio))">$INFO[Window(Home).Property(TMDbHelper.ListItem.Studio)]</value>
+        <value condition="!String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.base_studio))">$INFO[Window(Home).Property(TMDbHelper.ListItem.base_studio)]</value>
+        <value condition="!String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.Network.1.Name))">$INFO[Window(Home).Property(TMDbHelper.ListItem.Network.1.Name)]</value>
+        <value condition="!String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.Studio.1.Name))">$INFO[Window(Home).Property(TMDbHelper.ListItem.Studio.1.Name)]</value>
     </variable>
     <variable name="Label_FromStudio">
         <value condition="!String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.Network.1.Name))">$INFO[Window(Home).Property(TMDbHelper.ListItem.Network.1.Name)]</value>
@@ -944,12 +947,12 @@
         <value condition="Player.Rewinding4x">RW 4x</value>
         <value condition="Player.Rewinding2x">RW 2x</value>
         <value condition="Player.Rewinding">RW</value>
-        <value condition="[Player.Seeking | Player.HasPerformedSeek(2)] + !String.IsEmpty(Player.SeekOffset)">$LOCALIZE[773]$INFO[Player.SeekOffset, ,]</value>
+        <value condition="[Player.Seeking | Player.HasPerformedSeek(3)] + !String.IsEmpty(Player.SeekOffset)">$LOCALIZE[773]$INFO[Player.SeekOffset, ,]</value>
         <value condition="Player.Seeking + String.IsEmpty(Player.SeekOffset)">$LOCALIZE[773]$INFO[Player.SeekStepSize, ,]</value>
         <value condition="Player.Caching">$LOCALIZE[439] $INFO[Player.CacheLevel,,%]</value>
-        <value condition="Player.Paused">$LOCALIZE[112]</value>
         <value condition="!String.IsEmpty(Player.PlaySpeed) + !String.IsEqual(Player.PlaySpeed,1.00) + !String.IsEqual(Player.PlaySpeed,0.00)">$INFO[Player.PlaySpeed,$LOCALIZE[31071] ,x]</value>
-        <value condition="VideoPlayer.Content(movies) + !String.IsEmpty(Player.Chapter) + !String.IsEqual(Player.Chapter,00) + !String.IsEmpty(Player.ChapterCount) + !String.IsEqual(Player.ChapterCount,00)">$INFO[Player.Chapter,$LOCALIZE[21396] ,]$INFO[Player.ChapterCount, $LOCALIZE[1443] ,]</value>
+        <value condition="!String.IsEmpty(Player.Chapter) + !String.IsEqual(Player.Chapter,00) + !String.IsEmpty(Player.ChapterCount) + !String.IsEqual(Player.ChapterCount,00) + [Player.Seeking | Player.HasPerformedSeek(3) | Integer.IsEqual(System.CurrentControlID,8200)]">$INFO[Player.Chapter,$LOCALIZE[21396] ,]$INFO[Player.ChapterCount, / ,]$INFO[Player.ChapterName, - ,]</value>
+        <value condition="Player.Paused">$LOCALIZE[112]</value>
         <value condition="VideoPlayer.Content(livetv) + !String.IsEmpty(VideoPlayer.ChannelNumberLabel)">$INFO[VideoPlayer.ChannelNumberLabel,$LOCALIZE[19029] ,]</value>
         <value>$LOCALIZE[31134]</value>
     </variable>

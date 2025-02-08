@@ -1,0 +1,577 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<includes>
+
+    <include name="Weather_Forecast_Weekly_Item">
+        <item>
+            <label>$INFO[Window(Weather).Property($PARAM[prefix].HighTemp),[B],°[/B]]$INFO[Window(Weather).Property($PARAM[prefix].LowTemp), ,°]</label>
+            <icon>resource://resource.images.weathericons.white/$INFO[Window(weather).Property($PARAM[prefix].FanartCode),,.png]</icon>
+            <property name="Fanart">resource://resource.images.weatherfanart.multi/$INFO[Window(weather).Property($PARAM[prefix].FanartCode)]/</property>
+            <property name="DayName">$INFO[Window(Weather).Property($PARAM[prefix].Title)]</property>
+            <property name="Outlook">$INFO[Window(Weather).Property($PARAM[prefix].Outlook)]</property>
+            <property name="RainChance">$INFO[Window(Weather).Property($PARAM[prefix].ChancePrecipitation)]</property>
+            <property name="HighTemp">$INFO[Window(Weather).Property($PARAM[prefix].HighTemp)]</property>
+            <property name="LowTemp">$INFO[Window(Weather).Property($PARAM[prefix].LowTemp)]</property>
+            <property name="LowTempPrefix">$LOCALIZE[391]: </property>
+            <property name="TempUnit">°</property>
+        </item>
+    </include>
+
+    <include name="Weather_Forecast_Weekly_Items">
+        <include content="Weather_Forecast_Weekly_Item">
+            <param name="prefix">Day1</param>
+        </include>
+        <include content="Weather_Forecast_Weekly_Item">
+            <param name="prefix">Day2</param>
+        </include>
+        <include content="Weather_Forecast_Weekly_Item">
+            <param name="prefix">Day3</param>
+        </include>
+        <include content="Weather_Forecast_Weekly_Item">
+            <param name="prefix">Day4</param>
+        </include>
+        <include content="Weather_Forecast_Weekly_Item">
+            <param name="prefix">Day5</param>
+        </include>
+        <include content="Weather_Forecast_Weekly_Item">
+            <param name="prefix">Day6</param>
+        </include>
+    </include>
+
+    <include name="Weather_Forecast_Daily_Items">
+        <include content="Weather_Forecast_Weekly_Item">
+            <param name="prefix">Daily.2</param>
+        </include>
+        <include content="Weather_Forecast_Weekly_Item">
+            <param name="prefix">Daily.3</param>
+        </include>
+        <include content="Weather_Forecast_Weekly_Item">
+            <param name="prefix">Daily.4</param>
+        </include>
+        <include content="Weather_Forecast_Weekly_Item">
+            <param name="prefix">Daily.5</param>
+        </include>
+        <include content="Weather_Forecast_Weekly_Item">
+            <param name="prefix">Daily.6</param>
+        </include>
+        <include content="Weather_Forecast_Weekly_Item">
+            <param name="prefix">Daily.7</param>
+        </include>
+    </include>
+
+    <include name="Weather_Forecast_Hourly_Item">
+        <item>
+            <label>$INFO[Window(Weather).Property($PARAM[prefix].HighTemp),[B],°[/B]]$INFO[Window(Weather).Property($PARAM[prefix].LowTemp), ,°]</label>
+            <icon>resource://resource.images.weathericons.white/$INFO[Window(weather).Property($PARAM[prefix].FanartCode),,.png]</icon>
+            <property name="Fanart">resource://resource.images.weatherfanart.multi/$INFO[Window(weather).Property($PARAM[prefix].FanartCode)]/</property>
+            <property name="DayName">$INFO[Window(Weather).Property($PARAM[prefix].time)]</property>
+            <property name="Outlook">$INFO[Window(Weather).Property($PARAM[prefix].outlook)]</property>
+            <property name="RainChance">$INFO[Window(Weather).Property($PARAM[prefix].ChancePrecipitation)]</property>
+            <property name="HighTemp">$INFO[Window(Weather).Property($PARAM[prefix].temperature)]</property>
+            <property name="LowTemp">$INFO[Window(Weather).Property($PARAM[prefix].feelslike)]</property>
+            <visible>!String.IsEmpty(Window(weather).Property($PARAM[prefix].outlook))</visible>
+        </item>
+    </include>
+
+    <include name="Weather_Forecast_TwoHour_Early_Items">
+        <include content="Weather_Forecast_Hourly_Item">
+            <param name="prefix">Hourly.1</param>
+        </include>
+        <include content="Weather_Forecast_Hourly_Item">
+            <param name="prefix">Hourly.3</param>
+        </include>
+        <include content="Weather_Forecast_Hourly_Item">
+            <param name="prefix">Hourly.5</param>
+        </include>
+        <include content="Weather_Forecast_Hourly_Item">
+            <param name="prefix">Hourly.7</param>
+        </include>
+        <include content="Weather_Forecast_Hourly_Item">
+            <param name="prefix">Hourly.9</param>
+        </include>
+        <include content="Weather_Forecast_Hourly_Item">
+            <param name="prefix">Hourly.11</param>
+        </include>
+    </include>
+
+    <include name="Weather_Forecast_TwoHour_Later_Items">
+        <include content="Weather_Forecast_Hourly_Item">
+            <param name="prefix">Hourly.13</param>
+        </include>
+        <include content="Weather_Forecast_Hourly_Item">
+            <param name="prefix">Hourly.15</param>
+        </include>
+        <include content="Weather_Forecast_Hourly_Item">
+            <param name="prefix">Hourly.17</param>
+        </include>
+        <include content="Weather_Forecast_Hourly_Item">
+            <param name="prefix">Hourly.19</param>
+        </include>
+        <include content="Weather_Forecast_Hourly_Item">
+            <param name="prefix">Hourly.21</param>
+        </include>
+        <include content="Weather_Forecast_Hourly_Item">
+            <param name="prefix">Hourly.23</param>
+        </include>
+    </include>
+
+    <include name="Weather_Forecast_Hourly_Early_Items">
+        <include content="Weather_Forecast_Hourly_Item">
+            <param name="prefix">Hourly.1</param>
+        </include>
+        <include content="Weather_Forecast_Hourly_Item">
+            <param name="prefix">Hourly.2</param>
+        </include>
+        <include content="Weather_Forecast_Hourly_Item">
+            <param name="prefix">Hourly.3</param>
+        </include>
+        <include content="Weather_Forecast_Hourly_Item">
+            <param name="prefix">Hourly.4</param>
+        </include>
+        <include content="Weather_Forecast_Hourly_Item">
+            <param name="prefix">Hourly.5</param>
+        </include>
+        <include content="Weather_Forecast_Hourly_Item">
+            <param name="prefix">Hourly.6</param>
+        </include>
+    </include>
+
+    <include name="Weather_Forecast_Graph_Item">
+        <item>
+            <label>$PARAM[name]</label>
+            <property name="unit">$INFO[Window(weather).Property(unit.$PARAM[unit])]</property>
+
+            <property name="hour_01">$INFO[Window(weather).Property(hourly.1.time)]</property>
+            <property name="hour_02">$INFO[Window(weather).Property(hourly.2.time)]</property>
+            <property name="hour_03">$INFO[Window(weather).Property(hourly.3.time)]</property>
+            <property name="hour_04">$INFO[Window(weather).Property(hourly.4.time)]</property>
+            <property name="hour_05">$INFO[Window(weather).Property(hourly.5.time)]</property>
+            <property name="hour_06">$INFO[Window(weather).Property(hourly.6.time)]</property>
+            <property name="hour_07">$INFO[Window(weather).Property(hourly.7.time)]</property>
+            <property name="hour_08">$INFO[Window(weather).Property(hourly.8.time)]</property>
+            <property name="hour_09">$INFO[Window(weather).Property(hourly.9.time)]</property>
+            <property name="hour_10">$INFO[Window(weather).Property(hourly.10.time)]</property>
+            <property name="hour_11">$INFO[Window(weather).Property(hourly.11.time)]</property>
+            <property name="hour_12">$INFO[Window(weather).Property(hourly.12.time)]</property>
+            <property name="hour_13">$INFO[Window(weather).Property(hourly.13.time)]</property>
+            <property name="hour_14">$INFO[Window(weather).Property(hourly.14.time)]</property>
+            <property name="hour_15">$INFO[Window(weather).Property(hourly.15.time)]</property>
+            <property name="hour_16">$INFO[Window(weather).Property(hourly.16.time)]</property>
+            <property name="hour_17">$INFO[Window(weather).Property(hourly.17.time)]</property>
+            <property name="hour_18">$INFO[Window(weather).Property(hourly.18.time)]</property>
+            <property name="hour_19">$INFO[Window(weather).Property(hourly.19.time)]</property>
+            <property name="hour_20">$INFO[Window(weather).Property(hourly.20.time)]</property>
+            <property name="hour_21">$INFO[Window(weather).Property(hourly.21.time)]</property>
+            <property name="hour_22">$INFO[Window(weather).Property(hourly.22.time)]</property>
+            <property name="hour_23">$INFO[Window(weather).Property(hourly.23.time)]</property>
+            <property name="hour_24">$INFO[Window(weather).Property(hourly.24.time)]</property>
+
+            <property name="graph_01">$INFO[Window(weather).Property(hourly.1.$PARAM[type]graph)]</property>
+            <property name="graph_02">$INFO[Window(weather).Property(hourly.2.$PARAM[type]graph)]</property>
+            <property name="graph_03">$INFO[Window(weather).Property(hourly.3.$PARAM[type]graph)]</property>
+            <property name="graph_04">$INFO[Window(weather).Property(hourly.4.$PARAM[type]graph)]</property>
+            <property name="graph_05">$INFO[Window(weather).Property(hourly.5.$PARAM[type]graph)]</property>
+            <property name="graph_06">$INFO[Window(weather).Property(hourly.6.$PARAM[type]graph)]</property>
+            <property name="graph_07">$INFO[Window(weather).Property(hourly.7.$PARAM[type]graph)]</property>
+            <property name="graph_08">$INFO[Window(weather).Property(hourly.8.$PARAM[type]graph)]</property>
+            <property name="graph_09">$INFO[Window(weather).Property(hourly.9.$PARAM[type]graph)]</property>
+            <property name="graph_10">$INFO[Window(weather).Property(hourly.10.$PARAM[type]graph)]</property>
+            <property name="graph_11">$INFO[Window(weather).Property(hourly.11.$PARAM[type]graph)]</property>
+            <property name="graph_12">$INFO[Window(weather).Property(hourly.12.$PARAM[type]graph)]</property>
+            <property name="graph_13">$INFO[Window(weather).Property(hourly.13.$PARAM[type]graph)]</property>
+            <property name="graph_14">$INFO[Window(weather).Property(hourly.14.$PARAM[type]graph)]</property>
+            <property name="graph_15">$INFO[Window(weather).Property(hourly.15.$PARAM[type]graph)]</property>
+            <property name="graph_16">$INFO[Window(weather).Property(hourly.16.$PARAM[type]graph)]</property>
+            <property name="graph_17">$INFO[Window(weather).Property(hourly.17.$PARAM[type]graph)]</property>
+            <property name="graph_18">$INFO[Window(weather).Property(hourly.18.$PARAM[type]graph)]</property>
+            <property name="graph_19">$INFO[Window(weather).Property(hourly.19.$PARAM[type]graph)]</property>
+            <property name="graph_20">$INFO[Window(weather).Property(hourly.20.$PARAM[type]graph)]</property>
+            <property name="graph_21">$INFO[Window(weather).Property(hourly.21.$PARAM[type]graph)]</property>
+            <property name="graph_22">$INFO[Window(weather).Property(hourly.22.$PARAM[type]graph)]</property>
+            <property name="graph_23">$INFO[Window(weather).Property(hourly.23.$PARAM[type]graph)]</property>
+            <property name="graph_24">$INFO[Window(weather).Property(hourly.24.$PARAM[type]graph)]</property>
+
+            <property name="graphimagescale_01">$INFO[Window(weather).Property(hourly.1.$PARAM[type]graphimagescale)]</property>
+            <property name="graphimagescale_02">$INFO[Window(weather).Property(hourly.2.$PARAM[type]graphimagescale)]</property>
+            <property name="graphimagescale_03">$INFO[Window(weather).Property(hourly.3.$PARAM[type]graphimagescale)]</property>
+            <property name="graphimagescale_04">$INFO[Window(weather).Property(hourly.4.$PARAM[type]graphimagescale)]</property>
+            <property name="graphimagescale_05">$INFO[Window(weather).Property(hourly.5.$PARAM[type]graphimagescale)]</property>
+            <property name="graphimagescale_06">$INFO[Window(weather).Property(hourly.6.$PARAM[type]graphimagescale)]</property>
+            <property name="graphimagescale_07">$INFO[Window(weather).Property(hourly.7.$PARAM[type]graphimagescale)]</property>
+            <property name="graphimagescale_08">$INFO[Window(weather).Property(hourly.8.$PARAM[type]graphimagescale)]</property>
+            <property name="graphimagescale_09">$INFO[Window(weather).Property(hourly.9.$PARAM[type]graphimagescale)]</property>
+            <property name="graphimagescale_10">$INFO[Window(weather).Property(hourly.10.$PARAM[type]graphimagescale)]</property>
+            <property name="graphimagescale_11">$INFO[Window(weather).Property(hourly.11.$PARAM[type]graphimagescale)]</property>
+            <property name="graphimagescale_12">$INFO[Window(weather).Property(hourly.12.$PARAM[type]graphimagescale)]</property>
+            <property name="graphimagescale_13">$INFO[Window(weather).Property(hourly.13.$PARAM[type]graphimagescale)]</property>
+            <property name="graphimagescale_14">$INFO[Window(weather).Property(hourly.14.$PARAM[type]graphimagescale)]</property>
+            <property name="graphimagescale_15">$INFO[Window(weather).Property(hourly.15.$PARAM[type]graphimagescale)]</property>
+            <property name="graphimagescale_16">$INFO[Window(weather).Property(hourly.16.$PARAM[type]graphimagescale)]</property>
+            <property name="graphimagescale_17">$INFO[Window(weather).Property(hourly.17.$PARAM[type]graphimagescale)]</property>
+            <property name="graphimagescale_18">$INFO[Window(weather).Property(hourly.18.$PARAM[type]graphimagescale)]</property>
+            <property name="graphimagescale_19">$INFO[Window(weather).Property(hourly.19.$PARAM[type]graphimagescale)]</property>
+            <property name="graphimagescale_20">$INFO[Window(weather).Property(hourly.20.$PARAM[type]graphimagescale)]</property>
+            <property name="graphimagescale_21">$INFO[Window(weather).Property(hourly.21.$PARAM[type]graphimagescale)]</property>
+            <property name="graphimagescale_22">$INFO[Window(weather).Property(hourly.22.$PARAM[type]graphimagescale)]</property>
+            <property name="graphimagescale_23">$INFO[Window(weather).Property(hourly.23.$PARAM[type]graphimagescale)]</property>
+            <property name="graphimagescale_24">$INFO[Window(weather).Property(hourly.24.$PARAM[type]graphimagescale)]</property>
+
+            <property name="color_01">$INFO[Window(weather).Property(hourly.1.$PARAM[type]graphcolor)]</property>
+            <property name="color_02">$INFO[Window(weather).Property(hourly.2.$PARAM[type]graphcolor)]</property>
+            <property name="color_03">$INFO[Window(weather).Property(hourly.3.$PARAM[type]graphcolor)]</property>
+            <property name="color_04">$INFO[Window(weather).Property(hourly.4.$PARAM[type]graphcolor)]</property>
+            <property name="color_05">$INFO[Window(weather).Property(hourly.5.$PARAM[type]graphcolor)]</property>
+            <property name="color_06">$INFO[Window(weather).Property(hourly.6.$PARAM[type]graphcolor)]</property>
+            <property name="color_07">$INFO[Window(weather).Property(hourly.7.$PARAM[type]graphcolor)]</property>
+            <property name="color_08">$INFO[Window(weather).Property(hourly.8.$PARAM[type]graphcolor)]</property>
+            <property name="color_09">$INFO[Window(weather).Property(hourly.9.$PARAM[type]graphcolor)]</property>
+            <property name="color_10">$INFO[Window(weather).Property(hourly.10.$PARAM[type]graphcolor)]</property>
+            <property name="color_11">$INFO[Window(weather).Property(hourly.11.$PARAM[type]graphcolor)]</property>
+            <property name="color_12">$INFO[Window(weather).Property(hourly.12.$PARAM[type]graphcolor)]</property>
+            <property name="color_13">$INFO[Window(weather).Property(hourly.13.$PARAM[type]graphcolor)]</property>
+            <property name="color_14">$INFO[Window(weather).Property(hourly.14.$PARAM[type]graphcolor)]</property>
+            <property name="color_15">$INFO[Window(weather).Property(hourly.15.$PARAM[type]graphcolor)]</property>
+            <property name="color_16">$INFO[Window(weather).Property(hourly.16.$PARAM[type]graphcolor)]</property>
+            <property name="color_17">$INFO[Window(weather).Property(hourly.17.$PARAM[type]graphcolor)]</property>
+            <property name="color_18">$INFO[Window(weather).Property(hourly.18.$PARAM[type]graphcolor)]</property>
+            <property name="color_19">$INFO[Window(weather).Property(hourly.19.$PARAM[type]graphcolor)]</property>
+            <property name="color_20">$INFO[Window(weather).Property(hourly.20.$PARAM[type]graphcolor)]</property>
+            <property name="color_21">$INFO[Window(weather).Property(hourly.21.$PARAM[type]graphcolor)]</property>
+            <property name="color_22">$INFO[Window(weather).Property(hourly.22.$PARAM[type]graphcolor)]</property>
+            <property name="color_23">$INFO[Window(weather).Property(hourly.23.$PARAM[type]graphcolor)]</property>
+            <property name="color_24">$INFO[Window(weather).Property(hourly.24.$PARAM[type]graphcolor)]</property>
+
+            <visible>!String.IsEmpty(Window(weather).Property(hourly.1.$PARAM[type]graph))</visible>
+        </item>
+    </include>
+
+    <include name="Weather_Forecast_Graph_Items">
+        <include content="Weather_Forecast_Graph_Item">
+            <param name="name">$LOCALIZE[1375]</param>
+            <param name="type">temperature</param>
+            <param name="unit">temperature</param>
+        </include>
+        <include content="Weather_Forecast_Graph_Item">
+            <param name="name">$LOCALIZE[402]</param>
+            <param name="type">feelslike</param>
+            <param name="unit">temperature</param>
+        </include>
+        <include content="Weather_Forecast_Graph_Item">
+            <param name="name">$LOCALIZE[31465]</param>
+            <param name="type">precipitationprobability</param>
+            <param name="unit">percent</param>
+        </include>
+        <include content="Weather_Forecast_Graph_Item">
+            <param name="name">$LOCALIZE[383]</param>
+            <param name="type">windspeed</param>
+            <param name="unit">speed</param>
+        </include>
+        <include content="Weather_Forecast_Graph_Item">
+            <param name="name">$LOCALIZE[403]</param>
+            <param name="type">uvindex</param>
+            <param name="unit">na</param>
+        </include>
+
+        <include content="Weather_Forecast_Graph_Item">
+            <param name="name">$LOCALIZE[31525]</param>
+            <param name="type">visibility</param>
+            <param name="unit">distance</param>
+        </include>
+
+        <include content="Weather_Forecast_Graph_Item">
+            <param name="name">$LOCALIZE[31520]</param>
+            <param name="type">cloudiness</param>
+            <param name="unit">percent</param>
+        </include>
+
+        <include content="Weather_Forecast_Graph_Item">
+            <param name="name">$LOCALIZE[31528] 2.5</param>
+            <param name="type">pm25</param>
+            <param name="unit">particles</param>
+        </include>
+
+        <include content="Weather_Forecast_Graph_Item">
+            <param name="name">$LOCALIZE[31528] 10</param>
+            <param name="type">pm10</param>
+            <param name="unit">particles</param>
+        </include>
+
+        <include content="Weather_Forecast_Graph_Item">
+            <param name="name">$LOCALIZE[31470]</param>
+            <param name="type">windgust</param>
+            <param name="unit">speed</param>
+        </include>
+
+        <include content="Weather_Forecast_Graph_Item">
+            <param name="name">$LOCALIZE[1376]</param>
+            <param name="type">pressure</param>
+            <param name="unit">pressure</param>
+        </include>
+        <include content="Weather_Forecast_Graph_Item">
+            <param name="name">$LOCALIZE[31529]</param>
+            <param name="type">ozone</param>
+            <param name="unit">particles</param>
+        </include>
+        <include content="Weather_Forecast_Graph_Item">
+            <param name="name">$LOCALIZE[31530]</param>
+            <param name="type">solarradiation</param>
+            <param name="unit">radiation</param>
+        </include>
+        <include content="Weather_Forecast_Graph_Item">
+            <param name="name">$LOCALIZE[31531]</param>
+            <param name="type">co</param>
+            <param name="unit">particles</param>
+        </include>
+        <include content="Weather_Forecast_Graph_Item">
+            <param name="name">$LOCALIZE[406]</param>
+            <param name="type">humidity</param>
+            <param name="unit">percent</param>
+        </include>
+
+    </include>
+
+    <include name="Weather_Graph">
+        <include content="Weather_Forecast_List">
+            <param name="items">Weather_Forecast_Graph_Items</param>
+            <param name="itemlayout">Weather_Forecast_Graph_Itemlayout</param>
+            <param name="control">wraplist</param>
+            <param name="height">160</param>
+            <param name="id">9207</param>
+            <param name="visible">!String.IsEmpty(Window(weather).Property(hourly.1.temperaturegraph))</param>
+        </include>
+    </include>
+
+    <include name="Weather_Forecast">
+        <include content="Object_Hidden_List">
+            <param name="id">9204</param>
+            <content>
+                <item>
+                    <label>$LOCALIZE[20169]</label>
+                    <visible>!String.IsEmpty(Window(weather).Property(daily.2.outlook))</visible>
+                </item>
+                <item>
+                    <label>$LOCALIZE[31526]</label>
+                    <visible>!String.IsEmpty(Window(weather).Property(hourly.1.outlook))</visible>
+                </item>
+                <item>
+                    <label>$LOCALIZE[31527]</label>
+                    <visible>!String.IsEmpty(Window(weather).Property(hourly.23.outlook))</visible>
+                    <visible>!String.IsEqual(Weather.Plugin,weather.gismeteo)</visible>
+                </item>
+            </content>
+        </include>
+        <include content="Weather_Forecast_List">
+            <param name="visible">String.IsEqual(Container(9204).ListItem.Label,$LOCALIZE[20169])</param>
+            <param name="items">Weather_Forecast_Daily_Items</param>
+        </include>
+
+        <!-- Every two hours for hourly to cover full 24hours in 2 pages of 6 items -->
+        <include content="Weather_Forecast_List" condition="!String.IsEqual(Weather.Plugin,weather.gismeteo)">
+            <param name="visible">String.IsEqual(Container(9204).ListItem.Label,$LOCALIZE[31526])</param>
+            <param name="items">Weather_Forecast_TwoHour_Early_Items</param>
+        </include>
+        <include content="Weather_Forecast_List" condition="!String.IsEqual(Weather.Plugin,weather.gismeteo)">
+            <param name="visible">String.IsEqual(Container(9204).ListItem.Label,$LOCALIZE[31527])</param>
+            <param name="items">Weather_Forecast_TwoHour_Later_Items</param>
+        </include>
+
+        <!-- GisMeteo hourly is every 3 hours so dont artificially add in spacing -->
+        <include content="Weather_Forecast_List" condition="String.IsEqual(Weather.Plugin,weather.gismeteo)">
+            <param name="visible">String.IsEqual(Container(9204).ListItem.Label,$LOCALIZE[31526])</param>
+            <param name="items">Weather_Forecast_Hourly_Early_Items</param>
+        </include>
+    </include>
+
+    <include name="Weather_Forecast_List">
+        <param name="height">133.33</param>
+        <param name="itemlayout">Weather_Forecast_Itemlayout</param>
+        <param name="control">list</param>
+        <definition>
+            <control type="$PARAM[control]" id="$PARAM[id]">
+                <left>-20</left>
+                <top>-20</top>
+                <right>-20</right>
+                <scrolltime>0</scrolltime>
+                <orientation>vertical</orientation>
+                <itemlayout height="$PARAM[height]">
+                    <include>$PARAM[itemlayout]</include>
+                </itemlayout>
+                <focusedlayout height="$PARAM[height]">
+                    <include>$PARAM[itemlayout]</include>
+                </focusedlayout>
+                <content>
+                    <include>$PARAM[items]</include>
+                </content>
+                <visible>$PARAM[visible]</visible>
+            </control>
+        </definition>
+    </include>
+
+    <include name="Weather_Forecast_Itemlayout">
+        <control type="group">
+            <include content="Dimension_Padding">
+                <param name="pad">20</param>
+            </include>
+            <include content="Dialog_Outline_Box">
+                <control type="label">
+                    <left>100</left>
+                    <right>100</right>
+                    <label>$INFO[ListItem.Property(HighTemp)]$INFO[ListItem.Property(TempUnit)]</label>
+                    <align>right</align>
+                    <aligny>center</aligny>
+                    <font>font_head_bold</font>
+                    <textcolor>dialog_fg_90</textcolor>
+                </control>
+                <control type="label">
+                    <top>10</top>
+                    <left>30</left>
+                    <right>30</right>
+                    <height>45</height>
+                    <label>$INFO[ListItem.Property(DayName)]</label>
+                    <textcolor>dialog_fg_90</textcolor>
+                    <font>font_mini_bold</font>
+                    <aligny>center</aligny>
+                    <align>left</align>
+                </control>
+                <control type="textbox">
+                    <top>12</top>
+                    <bottom>12</bottom>
+                    <left>190</left>
+                    <right>240</right>
+                    <label>$INFO[ListItem.Property(Outlook)]</label>
+                    <textcolor>dialog_fg_90</textcolor>
+                    <font>font_mini</font>
+                    <aligny>center</aligny>
+                    <align>left</align>
+                </control>
+                <control type="image">
+                    <texture background="true" colordiffuse="dialog_fg_90">$INFO[ListItem.Icon]</texture>
+                    <left>30</left>
+                    <right>30</right>
+                    <top>30</top>
+                    <bottom>30</bottom>
+                    <bordersize>-15</bordersize>
+                    <aspectratio align="right">keep</aspectratio>
+                </control>
+                <control type="label">
+                    <bottom>10</bottom>
+                    <height>45</height>
+                    <left>30</left>
+                    <right>30</right>
+                    <label>$INFO[ListItem.Property(LowTempPrefix)]$INFO[ListItem.Property(LowTemp)]$INFO[ListItem.Property(TempUnit)]</label>
+                    <textcolor>dialog_fg_90</textcolor>
+                    <font>font_mini</font>
+                    <aligny>center</aligny>
+                    <align>left</align>
+                </control>
+            </include>
+        </control>
+    </include>
+
+    <include name="Weather_Forecast_GraphImageScale">
+        <control type="group">
+            <left>$PARAM[left]</left>
+            <width>16%</width>
+            <control type="group">
+                <width>50%</width>
+                <centerleft>50%</centerleft>
+                <bottom>45</bottom>
+                <top>30</top>
+                <control type="image">
+                    <left>0</left>
+                    <width>25%</width>
+                    <colordiffuse>$INFO[ListItem.Property(color_$PARAM[p_l])]</colordiffuse>
+                    <texture background="true">$INFO[ListItem.Property(graphimagescale_$PARAM[p_l])]</texture>
+                </control>
+                <control type="image">
+                    <centerleft>50%</centerleft>
+                    <width>25%</width>
+                    <colordiffuse>$INFO[ListItem.Property(color_$PARAM[pos])]</colordiffuse>
+                    <texture background="true">$INFO[ListItem.Property(graphimagescale_$PARAM[pos])]</texture>
+                </control>
+                <control type="image">
+                    <right>0</right>
+                    <width>25%</width>
+                    <colordiffuse>$INFO[ListItem.Property(color_$PARAM[p_r])]</colordiffuse>
+                    <texture background="true">$INFO[ListItem.Property(graphimagescale_$PARAM[p_r])]</texture>
+                </control>
+            </control>
+            <control type="label">
+                <label>$INFO[ListItem.Property(graph_$PARAM[pos])]$INFO[ListItem.Property(unit)]</label>
+                <height>20</height>
+                <bottom>20</bottom>
+                <font>font_hint</font>
+                <textcolor>dialog_fg_90</textcolor>
+                <align>center</align>
+            </control>
+            <control type="label">
+                <label>$INFO[ListItem.Property(hour_$PARAM[pos])]</label>
+                <height>20</height>
+                <bottom>0</bottom>
+                <font>font_hint</font>
+                <textcolor>dialog_fg_90</textcolor>
+                <align>center</align>
+            </control>
+        </control>
+    </include>
+
+    <include name="Weather_Forecast_Graph_Itemlayout">
+        <control type="group">
+            <include content="Dimension_Padding">
+                <param name="pad">20</param>
+            </include>
+            <include content="Dialog_Outline_Box">
+                <control type="group">
+                    <left>0</left>
+                    <right>20</right>
+                    <top>10</top>
+                    <bottom>10</bottom>
+                    <control type="label">
+                        <label>$INFO[ListItem.Label]</label>
+                        <height>20</height>
+                        <top>0</top>
+                        <left>20</left>
+                        <font>font_tiny_bold</font>
+                        <textcolor>dialog_fg_90</textcolor>
+                        <align>center</align>
+                    </control>
+                    <include content="Weather_Forecast_GraphImageScale">
+                        <param name="left">4%</param>
+                        <param name="p_l">01</param>
+                        <param name="pos">02</param>
+                        <param name="p_r">03</param>
+                    </include>
+                    <include content="Weather_Forecast_GraphImageScale">
+                        <param name="left">20%</param>
+                        <param name="p_l">04</param>
+                        <param name="pos">05</param>
+                        <param name="p_r">06</param>
+                    </include>
+                    <include content="Weather_Forecast_GraphImageScale">
+                        <param name="left">36%</param>
+                        <param name="p_l">07</param>
+                        <param name="pos">08</param>
+                        <param name="p_r">09</param>
+                    </include>
+                    <include content="Weather_Forecast_GraphImageScale">
+                        <param name="left">52%</param>
+                        <param name="p_l">10</param>
+                        <param name="pos">11</param>
+                        <param name="p_r">12</param>
+                    </include>
+                    <include content="Weather_Forecast_GraphImageScale">
+                        <param name="left">68%</param>
+                        <param name="p_l">13</param>
+                        <param name="pos">14</param>
+                        <param name="p_r">15</param>
+                    </include>
+                    <include content="Weather_Forecast_GraphImageScale">
+                        <param name="left">84%</param>
+                        <param name="p_l">16</param>
+                        <param name="pos">17</param>
+                        <param name="p_r">18</param>
+                    </include>
+                </control>
+            </include>
+        </control>
+    </include>
+</includes>

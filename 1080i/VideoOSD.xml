@@ -1,13 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <window>
     <defaultcontrol always="true">6001</defaultcontrol>
-    <animation effect="fade" start="0" end="100" time="300" delay="200" condition="Window.IsVisible(DialogSeekBar.xml)">WindowOpen</animation>
-    <animation effect="fade" start="0" end="100" time="300" delay="0" condition="!Window.IsVisible(DialogSeekBar.xml)">WindowOpen</animation>
-    <animation effect="fade" end="0" start="100" time="300" condition="Window.IsVisible(DialogSeekBar.xml) + ![$EXP[Exp_OSD_PVRChannelSwitch] | Window.IsVisible(fullscreeninfo) | $EXP[Exp_OSD_DelayInfo]]">WindowClose</animation>
+    <animation effect="fade" start="0" end="100" time="300" delay="200" condition="Window.IsActive(DialogSeekBar.xml) | Window.IsVisible(1152)">WindowOpen</animation>
+    <animation effect="fade" start="0" end="100" time="300" condition="![Window.IsActive(DialogSeekBar.xml) | Window.IsVisible(1152)]">WindowOpen</animation>
+    <animation effect="fade" end="0" start="100" time="300">WindowClose</animation>
     <onload>SetProperty(UID,$ESCINFO[Player.Title]$INFO[Player.Time(ss)],1146)</onload>
     <onload>SetProperty(UID,$ESCINFO[Player.Title]$INFO[Player.Time(ss)],1147)</onload>
     <onunload>CancelAlarm(osd_timeout,true)</onunload>
-    <onunload>ClearProperty(OSD_Focus,Home)</onunload>
     <controls>
 
         <control type="group">
@@ -52,11 +51,11 @@
                             <onclick condition="VideoPlayer.Content(livetv)">CancelAlarm(osd_timeout,true)</onclick>
                             <onclick condition="VideoPlayer.Content(livetv)">Close</onclick>
                             <onclick condition="VideoPlayer.Content(livetv)">ActivateWindow(TVGuide)</onclick>
-                            <onclick condition="!VideoPlayer.Content(livetv)">PlayerControl(Previous)</onclick>
+                            <onclick condition="!VideoPlayer.Content(livetv)">$VAR[Action_OSD_SkipPrev]</onclick>
                             <onup>8200</onup>
                         </control>
                         <include content="OSD_Button_Icon_Overlay" condition="!VideoPlayer.Content(livetv)">
-                            <param name="icon">special://skin/extras/icons/backward-step.png</param>
+                            <param name="icon">$VAR[Image_OSD_SkipPrev]</param>
                             <param name="id">6002</param>
                             <param name="groupid">6102</param>
                             <param name="itemgap">osd_itemgap</param>
@@ -72,19 +71,13 @@
                         <control type="button" id="6003">
                             <include>Defs_OSD_Button</include>
                             <onclick condition="VideoPlayer.Content(livetv)">PVR.ToggleRecordPlayingChannel</onclick>
-                            <onclick condition="!VideoPlayer.Content(livetv)">CancelAlarm(osd_timeout,true)</onclick>
-                            <onclick condition="!VideoPlayer.Content(livetv) + Integer.IsLess(VideoPlayer.PlaylistPosition,VideoPlayer.PlaylistLength)">PlayerControl(Next)</onclick>
-                            <onclick condition="!VideoPlayer.Content(livetv) + !Integer.IsLess(VideoPlayer.PlaylistPosition,VideoPlayer.PlaylistLength)">PlayMedia($ESCINFO[Container(513).ListItem.FileNameAndPath])</onclick>
                             <onup>8200</onup>
-
-                            <onfocus>SetProperty(OSD_Focus,6003,Home)</onfocus>
-                            <onunfocus>ClearProperty(OSD_Focus,Home)</onunfocus>
-
+                            <onfocus condition="!VideoPlayer.Content(livetv)">ActivateWindow(1143)</onfocus>
                             <enable>PVR.CanRecordPlayingChannel | !VideoPlayer.Content(livetv)</enable>
                             <label>$VAR[Label_OSD_PVR_Recording]</label>
                         </control>
                         <include content="OSD_Button_Icon_Overlay" condition="!VideoPlayer.Content(livetv)">
-                            <param name="icon">special://skin/extras/icons/forward-step.png</param>
+                            <param name="icon">$VAR[Image_OSD_SkipNext]</param>
                             <param name="id">6003</param>
                             <param name="groupid">6103</param>
                             <param name="itemgap">osd_itemgap</param>
@@ -143,6 +136,7 @@
                         <control type="button" id="6006">
                             <include>Defs_OSD_Button</include>
                             <label>$INFO[VideoPlayer.AudioLanguage,[UPPERCASE],[/UPPERCASE]]</label>
+                            <onup>ActivateWindow(1146)</onup>
                             <onfocus>ActivateWindow(1146)</onfocus>
                             <onclick>CancelAlarm(osd_timeout,true)</onclick>
                             <onclick>ActivateWindow(osdaudiosettings)</onclick>
@@ -159,6 +153,7 @@
                         <control type="button" id="6007">
                             <include>Defs_OSD_Button</include>
                             <label>$VAR[Label_OSD_SubtitlesLanguage]</label>
+                            <onup>ActivateWindow(1147)</onup>
                             <onfocus>ActivateWindow(1147)</onfocus>
                             <onclick>CancelAlarm(osd_timeout,true)</onclick>
                             <onclick>ActivateWindow(osdsubtitlesettings)</onclick>
@@ -176,6 +171,7 @@
                             <include>Defs_OSD_Button</include>
                             <onclick>CancelAlarm(osd_timeout,true)</onclick>
                             <onclick>ActivateWindow(osdvideosettings)</onclick>
+                            <onup>ActivateWindow(1148)</onup>
                             <onfocus>ActivateWindow(1148)</onfocus>
                         </control>
                         <include content="OSD_Button_Icon_Overlay">
@@ -186,6 +182,8 @@
                         </include>
                     </control>
                 </control>
+
+                <include>OSD_Progress_Details_Simple</include>
 
             </control>
 

@@ -1,0 +1,345 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<includes>
+    <include name="Weather_Radar">
+        <include condition="String.IsEqual(Weather.Plugin,weather.ozweather)">Weather_Radar_OzWeather</include>
+        <include condition="String.IsEqual(Weather.Plugin,weather.openmeteo)">Weather_Radar_OpenMeteo</include>
+    </include>
+
+    <include name="Weather_Radar_OpenMeteo_Item">
+        <item>
+            <icon>$INFO[window(weather).property(map.$PARAM[mapid].layer.$PARAM[pos])]</icon>
+            <label>$INFO[Window(weather).Property(map.$PARAM[mapid].heading)]</label>
+            <label2>$INFO[Window(weather).Property(map.$PARAM[mapid].time.$PARAM[pos])]</label2>
+            <visible>!String.IsEmpty(window(weather).property(map.$PARAM[mapid].layer.$PARAM[pos]))</visible>
+            <visible>String.IsEqual(Container(9205).ListItem.Property(mapid),$PARAM[mapid])</visible>
+        </item>
+    </include>
+
+    <include name="Weather_Radar_OpenMeteo_Content_Items">
+        <include content="Weather_Radar_OpenMeteo_Item">
+            <param name="mapid">$PARAM[mapid]</param>
+            <param name="pos">23</param>
+        </include>
+        <include content="Weather_Radar_OpenMeteo_Item">
+            <param name="mapid">$PARAM[mapid]</param>
+            <param name="pos">22</param>
+        </include>
+        <include content="Weather_Radar_OpenMeteo_Item">
+            <param name="mapid">$PARAM[mapid]</param>
+            <param name="pos">21</param>
+        </include>
+        <include content="Weather_Radar_OpenMeteo_Item">
+            <param name="mapid">$PARAM[mapid]</param>
+            <param name="pos">20</param>
+        </include>
+        <include content="Weather_Radar_OpenMeteo_Item">
+            <param name="mapid">$PARAM[mapid]</param>
+            <param name="pos">19</param>
+        </include>
+        <include content="Weather_Radar_OpenMeteo_Item">
+            <param name="mapid">$PARAM[mapid]</param>
+            <param name="pos">18</param>
+        </include>
+        <include content="Weather_Radar_OpenMeteo_Item">
+            <param name="mapid">$PARAM[mapid]</param>
+            <param name="pos">17</param>
+        </include>
+        <include content="Weather_Radar_OpenMeteo_Item">
+            <param name="mapid">$PARAM[mapid]</param>
+            <param name="pos">16</param>
+        </include>
+        <include content="Weather_Radar_OpenMeteo_Item">
+            <param name="mapid">$PARAM[mapid]</param>
+            <param name="pos">15</param>
+        </include>
+        <include content="Weather_Radar_OpenMeteo_Item">
+            <param name="mapid">$PARAM[mapid]</param>
+            <param name="pos">14</param>
+        </include>
+        <include content="Weather_Radar_OpenMeteo_Item">
+            <param name="mapid">$PARAM[mapid]</param>
+            <param name="pos">13</param>
+        </include>
+        <include content="Weather_Radar_OpenMeteo_Item">
+            <param name="mapid">$PARAM[mapid]</param>
+            <param name="pos">12</param>
+        </include>
+        <include content="Weather_Radar_OpenMeteo_Item">
+            <param name="mapid">$PARAM[mapid]</param>
+            <param name="pos">11</param>
+        </include>
+        <include content="Weather_Radar_OpenMeteo_Item">
+            <param name="mapid">$PARAM[mapid]</param>
+            <param name="pos">10</param>
+        </include>
+        <include content="Weather_Radar_OpenMeteo_Item">
+            <param name="mapid">$PARAM[mapid]</param>
+            <param name="pos">9</param>
+        </include>
+        <include content="Weather_Radar_OpenMeteo_Item">
+            <param name="mapid">$PARAM[mapid]</param>
+            <param name="pos">8</param>
+        </include>
+        <include content="Weather_Radar_OpenMeteo_Item">
+            <param name="mapid">$PARAM[mapid]</param>
+            <param name="pos">7</param>
+        </include>
+        <include content="Weather_Radar_OpenMeteo_Item">
+            <param name="mapid">$PARAM[mapid]</param>
+            <param name="pos">6</param>
+        </include>
+        <include content="Weather_Radar_OpenMeteo_Item">
+            <param name="mapid">$PARAM[mapid]</param>
+            <param name="pos">5</param>
+        </include>
+        <include content="Weather_Radar_OpenMeteo_Item">
+            <param name="mapid">$PARAM[mapid]</param>
+            <param name="pos">4</param>
+        </include>
+        <include content="Weather_Radar_OpenMeteo_Item">
+            <param name="mapid">$PARAM[mapid]</param>
+            <param name="pos">3</param>
+        </include>
+        <include content="Weather_Radar_OpenMeteo_Item">
+            <param name="mapid">$PARAM[mapid]</param>
+            <param name="pos">2</param>
+        </include>
+        <include content="Weather_Radar_OpenMeteo_Item">
+            <param name="mapid">$PARAM[mapid]</param>
+            <param name="pos">1</param>
+        </include>
+        <include content="Weather_Radar_OpenMeteo_Item">
+            <param name="mapid">$PARAM[mapid]</param>
+            <param name="pos">0</param>
+        </include>
+    </include>
+
+    <include name="Weather_Radar_OpenMeteo_List_Item">
+        <item>
+            <property name="mapid">$NUMBER[$PARAM[mapid]]</property>
+            <visible>!String.IsEmpty(Window(weather).Property(map.$PARAM[mapid].heading))</visible>
+        </item>
+    </include>
+
+
+    <include name="Weather_Radar_OpenMeteo">
+        <definition>
+            <include content="Object_Hidden_List">
+                <param name="id">9205</param>
+                <content>
+                    <include content="Weather_Radar_OpenMeteo_List_Item">
+                        <param name="mapid">1</param>
+                    </include>
+                    <include content="Weather_Radar_OpenMeteo_List_Item">
+                        <param name="mapid">2</param>
+                    </include>
+                    <include content="Weather_Radar_OpenMeteo_List_Item">
+                        <param name="mapid">3</param>
+                    </include>
+                    <include content="Weather_Radar_OpenMeteo_List_Item">
+                        <param name="mapid">4</param>
+                    </include>
+                    <include content="Weather_Radar_OpenMeteo_List_Item">
+                        <param name="mapid">5</param>
+                    </include>
+                    <include content="Weather_Radar_OpenMeteo_List_Item">
+                        <param name="mapid">6</param>
+                    </include>
+                    <include content="Weather_Radar_OpenMeteo_List_Item">
+                        <param name="mapid">7</param>
+                    </include>
+                    <include content="Weather_Radar_OpenMeteo_List_Item">
+                        <param name="mapid">8</param>
+                    </include>
+                    <include content="Weather_Radar_OpenMeteo_List_Item">
+                        <param name="mapid">9</param>
+                    </include>
+                </content>
+            </include>
+
+            <include content="Dialog_Outline_Box">
+                <height>600</height>
+                <control type="image">
+                    <aspectratio scalediffuse="false" align="left" aligny="top">keep</aspectratio>
+                    <texture background="true" diffuse="diffuse/square_w600_h600.png">$INFO[window(weather).property(map.1.area)]</texture>
+                </control>
+                <control type="list" id="9305">
+                    <orientation>horizontal</orientation>
+                    <scrolltime>0</scrolltime>
+                    <preloaditems>0</preloaditems>
+                    <autoscroll time="800">true</autoscroll>
+                    <itemlayout width="600" height="600" />
+                    <focusedlayout width="600" height="600" />
+                    <content>
+                        <include content="Weather_Radar_OpenMeteo_Content_Items">
+                            <param name="mapid">1</param>
+                        </include>
+                        <include content="Weather_Radar_OpenMeteo_Content_Items">
+                            <param name="mapid">2</param>
+                        </include>
+                        <include content="Weather_Radar_OpenMeteo_Content_Items">
+                            <param name="mapid">3</param>
+                        </include>
+                        <include content="Weather_Radar_OpenMeteo_Content_Items">
+                            <param name="mapid">4</param>
+                        </include>
+                        <include content="Weather_Radar_OpenMeteo_Content_Items">
+                            <param name="mapid">5</param>
+                        </include>
+                        <include content="Weather_Radar_OpenMeteo_Content_Items">
+                            <param name="mapid">6</param>
+                        </include>
+                        <include content="Weather_Radar_OpenMeteo_Content_Items">
+                            <param name="mapid">7</param>
+                        </include>
+                        <include content="Weather_Radar_OpenMeteo_Content_Items">
+                            <param name="mapid">8</param>
+                        </include>
+                        <include content="Weather_Radar_OpenMeteo_Content_Items">
+                            <param name="mapid">9</param>
+                        </include>
+                    </content>
+                </control>
+                <control type="image">
+                    <aspectratio scalediffuse="false" align="left" aligny="top">keep</aspectratio>
+                    <texture diffuse="diffuse/square_w600_h600.png" colordiffuse="7fffffff">$INFO[Container(9305).ListItem.Icon]</texture>
+                </control>
+            </include>
+
+            <control type="group">
+                <top>600</top>
+
+                <control type="group">
+                    <top>20</top>
+                    <control type="label">
+                        <height>20</height>
+                        <font>font_tiny_bold</font>
+                        <textcolor>dialog_fg_90</textcolor>
+                        <label fallback="$LOCALIZE[1446]">$INFO[Container(9305).ListItem.Label]</label>
+                        <align>left</align>
+                    </control>
+                    <control type="label">
+                        <height>20</height>
+                        <font>font_debug</font>
+                        <textcolor>dialog_fg_90</textcolor>
+                        <label fallback="$LOCALIZE[1446]">$INFO[Container(9305).ListItem.Label2]</label>
+                        <align>right</align>
+                    </control>
+                </control>
+
+                <include content="Weather_Radar_Footer">
+                    <param name="label_01">$INFO[Window(weather).Property(current.humidity),$LOCALIZE[406]: ,]</param>
+                    <param name="label_02">$INFO[Window(weather).Property(current.cloudiness),$LOCALIZE[31520]: ,]</param>
+                    <param name="label_03">$INFO[Window(weather).Property(current.precipitationprobability),$LOCALIZE[31465]: , ]$INFO[Window(weather).Property(current.precipitation),$LOCALIZE[376]: ,]</param>
+                    <param name="label_04">$INFO[Window(weather).Property(current.windgust),$LOCALIZE[31470]: , ]$INFO[Window(weather).Property(unit.speed)]</param>
+                    <param name="label_05">$INFO[Window(weather).Property(current.visibility),$LOCALIZE[31525]: , ]$INFO[Window(weather).Property(unit.distance)]</param>
+                    <param name="label_06">PM:$INFO[Window(weather).Property(current.pm10), ,]$INFO[Window(weather).Property(current.pm25), | ,] $INFO[Window(weather).Property(unit.particles)]</param>
+
+                </include>
+
+            </control>
+        </definition>
+    </include>
+
+    <include name="Weather_Radar_OzWeather">
+        <include content="Dialog_Outline_Box">
+            <bottom>107</bottom>
+            <control type="image">
+                <aspectratio scalediffuse="false" align="left" aligny="top">keep</aspectratio>
+                <texture background="true" diffuse="diffuse/square_w600_h600.png">special://profile/addon_data/weather.ozweather/radarbackgrounds/$INFO[Window(weather).Property(Radar)]/legend.png</texture>
+            </control>
+            <control type="image">
+                <aspectratio scalediffuse="false" align="left" aligny="top">keep</aspectratio>
+                <texture background="true" diffuse="diffuse/square_w600_h600.png">special://profile/addon_data/weather.ozweather/radarbackgrounds/$INFO[Window(weather).Property(Radar)]/background.png</texture>
+            </control>
+            <control type="image">
+                <aspectratio scalediffuse="false" align="left" aligny="top">keep</aspectratio>
+                <texture background="true" diffuse="diffuse/square_w600_h600.png">special://profile/addon_data/weather.ozweather/radarbackgrounds/$INFO[Window(weather).Property(Radar)]/topography.png</texture>
+            </control>
+            <control type="image">
+                <aspectratio scalediffuse="false" align="left" aligny="top">keep</aspectratio>
+                <texture background="true" diffuse="diffuse/square_w600_h600.png">special://profile/addon_data/weather.ozweather/radarbackgrounds/$INFO[Window(weather).Property(Radar)]/catchments.png</texture>
+            </control>
+            <control type="image">
+                <aspectratio scalediffuse="false" align="left" aligny="top">keep</aspectratio>
+                <texture background="true" diffuse="diffuse/square_w600_h600.png">special://profile/addon_data/weather.ozweather/radarbackgrounds/$INFO[Window(weather).Property(Radar)]/range.png</texture>
+            </control>
+            <control type="image">
+                <aspectratio scalediffuse="false" align="left" aligny="top">keep</aspectratio>
+                <texture background="true" diffuse="diffuse/square_w600_h600.png">special://profile/addon_data/weather.ozweather/radarbackgrounds/$INFO[Window(weather).Property(Radar)]/locations.png</texture>
+            </control>
+            <control type="multiimage">
+                <description>Radar Loop</description>
+                <aspectratio scalediffuse="false" align="left" aligny="top">keep</aspectratio>
+                <imagepath diffuse="diffuse/square_w600_h600.png">special://profile/addon_data/weather.ozweather/currentloop/$INFO[Window(weather).Property(Radar)]/</imagepath>
+                <timeperimage>300</timeperimage>
+                <pauseatend>800</pauseatend>
+                <fadetime>0</fadetime>
+                <randomize>false</randomize>
+                <loop>yes</loop>
+            </control>
+        </include>
+        <include>Weather_Radar_Footer</include>
+    </include>
+
+    <include name="Weather_Radar_Footer">
+        <param name="label_01">$INFO[Window(weather).Property(Current.LaterLabel),,: ]$INFO[Window(weather).Property(Current.LaterValue),,&#176;]</param>
+        <param name="label_02">$INFO[Window(weather).Property(Current.NowLabel),,: ]$INFO[Window(weather).Property(Current.NowValue),,&#176;]</param>
+        <param name="label_03">$INFO[Window(weather).Property(Daily.1.RainChance),$LOCALIZE[31465]: , ]$INFO[Window(weather).Property(Daily.1.RainAmount)]</param>
+        <param name="label_04">$INFO[Window(weather).Property(Current.WindGust),$LOCALIZE[31470]: ,km/h]</param>
+        <param name="label_05">$INFO[Window(weather).Property(Current.FireDanger),$LOCALIZE[31471]: ,]</param>
+        <param name="label_06">$INFO[Window(weather).Property(Current.RainSince9),$LOCALIZE[31472]: ,mm]</param>
+        <definition>
+            <control type="grouplist">
+                <orientation>vertical</orientation>
+                <align>bottom</align>
+                <width>49%</width>
+                <control type="textbox">
+                    <height>auto</height>
+                    <font>font_tiny</font>
+                    <textcolor>dialog_fg_90</textcolor>
+                    <label>$PARAM[label_01]</label>
+                </control>
+                <control type="textbox">
+                    <height>auto</height>
+                    <font>font_tiny</font>
+                    <textcolor>dialog_fg_90</textcolor>
+                    <label>$PARAM[label_02]</label>
+                </control>
+                <control type="textbox">
+                    <height>auto</height>
+                    <font>font_tiny</font>
+                    <textcolor>dialog_fg_90</textcolor>
+                    <label>$PARAM[label_03]</label>
+                </control>
+            </control>
+            <control type="grouplist">
+                <orientation>vertical</orientation>
+                <align>bottom</align>
+                <width>49%</width>
+                <right>0</right>
+                <control type="textbox">
+                    <align>right</align>
+                    <height>auto</height>
+                    <font>font_tiny</font>
+                    <textcolor>dialog_fg_90</textcolor>
+                    <label>$PARAM[label_04]</label>
+                </control>
+                <control type="textbox">
+                    <align>right</align>
+                    <height>auto</height>
+                    <font>font_tiny</font>
+                    <textcolor>dialog_fg_90</textcolor>
+                    <label>$PARAM[label_05]</label>
+                </control>
+                <control type="textbox">
+                    <align>right</align>
+                    <height>auto</height>
+                    <font>font_tiny</font>
+                    <textcolor>dialog_fg_90</textcolor>
+                    <label>$PARAM[label_06]</label>
+                </control>
+            </control>
+        </definition>
+    </include>
+</includes>
