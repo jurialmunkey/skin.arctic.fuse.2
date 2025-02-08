@@ -43,7 +43,6 @@
         <include condition="String.IsEqual(Window(Home).Property(CustomDialogSettingsItems),Items_Settings_RatingsMovies)">Items_Settings_RatingsMovies</include>
         <include condition="String.IsEqual(Window(Home).Property(CustomDialogSettingsItems),Items_Settings_RatingsTVShows)">Items_Settings_RatingsTVShows</include>
         <include condition="String.IsEqual(Window(Home).Property(CustomDialogSettingsItems),Items_Settings_HomeMenuStyle)">Items_Settings_HomeMenuStyle</include>
-        <include condition="String.IsEqual(Window(Home).Property(CustomDialogSettingsItems),Items_Settings_HubCategoriesStyle)">Items_Settings_HubCategoriesStyle</include>
         <include condition="String.IsEqual(Window(Home).Property(CustomDialogSettingsItems),Items_Settings_WidgetStyle)">Items_Settings_WidgetStyle</include>
     </include>
 
@@ -85,30 +84,11 @@
         </include>
     </include>
 
-    <include name="Items_Settings_HubCategoriesStyle">
-        <include content="Settings_Button" description="Categories Icon">
-            <param name="dialog">true</param>
-            <param name="id">8001</param>
-            <param name="control">button</param>
-            <label>$LOCALIZE[736]</label>
-            <label2>$VAR[Label_Setting_HubsMenuStyle]</label2>
-            <onclick>Skin.ToggleSetting(Hubs.DisableTextCategories)</onclick>
-        </include>
-        <include content="Settings_Button" description="Spotlight button">
-            <param name="dialog">true</param>
-            <param name="id">8002</param>
-            <param name="control">button</param>
-            <label>$LOCALIZE[31105] [LOWERCASE]$LOCALIZE[31416][/LOWERCASE]</label>
-            <label2>$VAR[Label_Setting_Spotlight_UseMenuButton]</label2>
-            <onclick>Skin.ToggleSetting(Spotlight.UseMenuButton)</onclick>
-        </include>
-    </include>
-
     <include name="Items_Settings_HomeMenuStyle">
         <include content="Settings_Button" description="Expanded">
             <param name="dialog">true</param>
             <param name="id">8001</param>
-            <label>$LOCALIZE[736]</label>
+            <label>$LOCALIZE[10000] [LOWERCASE]$LOCALIZE[736][/LOWERCASE]</label>
             <label2>$VAR[Label_Setting_SideMenuStyle]</label2>
             <onclick>Skin.ToggleSetting(Home.ExpandedMenu)</onclick>
             <visible>String.IsEmpty(Skin.String(Hub.Home.ReplaceWindow))</visible>
@@ -183,6 +163,27 @@
             <visible>![Skin.HasSetting(SideMenu.DisableSearchAndOptions) + $EXP[Exp_HomeMenu_IsExpanded]]</visible>
             <visible>String.IsEmpty(Skin.String(Hub.Home.ReplaceWindow))</visible>
             <visible>Skin.HasSetting(Hub.Home.DisableSubmenu)</visible>
+        </include>
+        <include content="Settings_Label" description="Categories Icon">
+            <param name="dialog">true</param>
+            <param name="id">8008</param>
+            <label>$LOCALIZE[31114] $LOCALIZE[33063]</label>
+        </include>
+        <include content="Settings_Button" description="Categories Icon">
+            <param name="dialog">true</param>
+            <param name="id">8009</param>
+            <param name="control">button</param>
+            <label>$LOCALIZE[31150] [LOWERCASE]$LOCALIZE[736][/LOWERCASE]</label>
+            <label2>$VAR[Label_Setting_HubsMenuStyle]</label2>
+            <onclick>Skin.ToggleSetting(Hubs.DisableTextCategories)</onclick>
+        </include>
+        <include content="Settings_Button" description="Spotlight button">
+            <param name="dialog">true</param>
+            <param name="id">8010</param>
+            <param name="control">button</param>
+            <label>$LOCALIZE[31105] [LOWERCASE]$LOCALIZE[31416][/LOWERCASE]</label>
+            <label2>$VAR[Label_Setting_Spotlight_UseMenuButton]</label2>
+            <onclick>Skin.ToggleSetting(Spotlight.UseMenuButton)</onclick>
         </include>
     </include>
 
