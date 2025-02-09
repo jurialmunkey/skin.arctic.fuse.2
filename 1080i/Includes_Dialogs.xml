@@ -634,6 +634,82 @@
         </definition>
     </include>
 
+    <include name="Dialog_Wizard_WrapList">
+        <param name="items_include">Items_Wizard</param>
+        <param name="id">50</param>
+        <param name="onback">8001</param>
+        <definition>
+            <control type="group">
+                <top>-40</top>
+                <width>1500</width>
+                <centerleft>50%</centerleft>
+                <control type="wraplist" id="$PARAM[id]">
+                    <ondown>9000</ondown>
+                    <focusposition>1</focusposition>
+                    <preloaditems>2</preloaditems>
+                    <orientation>horizontal</orientation>
+                    <onback>$PARAM[onback]</onback>
+                    <itemlayout width="900" height="600">
+                        <include content="Layout_Wizard">
+                            <param name="id">$PARAM[id]</param>
+                            <param name="checkmark_condition">$PARAM[checkmark_condition]</param>
+                        </include>
+                    </itemlayout>
+                    <focusedlayout width="900" height="600">
+                        <include content="Layout_Wizard">
+                            <param name="id">$PARAM[id]</param>
+                            <param name="selected">true</param>
+                            <param name="checkmark_condition">$PARAM[checkmark_condition]</param>
+                        </include>
+                    </focusedlayout>
+                    <content>
+                        <include>$PARAM[items_include]</include>
+                    </content>
+                </control>
+
+                <control type="group">
+                    <bottom>200</bottom>
+                    <height>80</height>
+                    <left>40</left>
+                    <right>40</right>
+                    <control type="label">
+                        <aligny>center</aligny>
+                        <textcolor>dialog_fg_30</textcolor>
+                        <label>$INFO[Container($PARAM[id]).ListItem(-1).Label,&lt;&lt;  ,]</label>
+                        <align>left</align>
+                    </control>
+                    <control type="label">
+                        <aligny>center</aligny>
+                        <textcolor>dialog_fg_90</textcolor>
+                        <label>$INFO[Container($PARAM[id]).ListItem.Label]</label>
+                        <align>center</align>
+                        <font>font_main_bold</font>
+                    </control>
+                    <control type="label">
+                        <aligny>center</aligny>
+                        <textcolor>dialog_fg_30</textcolor>
+                        <label>$INFO[Container($PARAM[id]).ListItem(1).Label,,  &gt;&gt;]</label>
+                        <align>right</align>
+                    </control>
+                </control>
+                <control type="group">
+                    <bottom>80</bottom>
+                    <height>120</height>
+                    <left>310</left>
+                    <right>310</right>
+                    <control type="textbox">
+                        <left>120</left>
+                        <right>120</right>
+                        <font>font_mini_plot</font>
+                        <align>center</align>
+                        <aligny>top</aligny>
+                        <label>$INFO[Container($PARAM[id]).ListItem.Property(textbox)]</label>
+                    </control>
+                </control>
+            </control>
+        </definition>
+    </include>
+
     <include name="Dialog_Outline">
         <include content="Object_Control" condition="Skin.HasSetting(Glass.EnableBorders)">
             <param name="control">image</param>

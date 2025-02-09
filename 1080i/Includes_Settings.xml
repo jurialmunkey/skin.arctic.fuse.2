@@ -115,8 +115,10 @@
 
     <include name="Settings_Button_skinsettings">
         <param name="reload">false</param>
+        <param name="slevel">0</param>
         <definition>
             <visible>Container(10000).HasFocus($PARAM[baseid])</visible>
+            <include content="Settings_Visible_Level"><param name="slevel">$PARAM[slevel]</param></include>
             <onclick condition="$PARAM[reload]">ReloadSkin()</onclick>
             <onclick condition="$PARAM[reload]">AlarmClock(refocus1,SetFocus(10000,$PARAM[baseid]),00:00,silent)</onclick>
             <onclick condition="$PARAM[reload]">AlarmClock(refocus2,SetFocus($PARAM[baseid]$PARAM[id]),00:00,silent)</onclick>
@@ -127,11 +129,19 @@
         <description>None</description>
     </include>
 
+    <include name="Settings_Visible_Level">
+        <param name="slevel">0</param>
+        <definition>
+            <visible>!Integer.IsLess(Window(Home).Property(Skin.SettingsLevel),$PARAM[slevel])</visible>
+        </definition>
+    </include>
+
     <include name="Settings_Button">
         <param name="control">button</param>
         <param name="dialog">false</param>
         <param name="window" />
         <param name="reload">false</param>
+        <param name="slevel">0</param>
         <definition>
             <control type="$PARAM[control]" id="$PARAM[baseid]$PARAM[id]">
                 <nested />
@@ -146,6 +156,7 @@
                     <param name="id">$PARAM[id]</param>
                     <param name="baseid">$PARAM[baseid]</param>
                     <param name="reload">$PARAM[reload]</param>
+                    <param name="slevel">$PARAM[slevel]</param>
                 </include>
             </control>
         </definition>
@@ -155,6 +166,7 @@
         <param name="control">label</param>
         <param name="dialog">false</param>
         <param name="window" />
+        <param name="slevel">0</param>
         <definition>
             <control type="$PARAM[control]" id="$PARAM[baseid]$PARAM[id]">
                 <include content="Object_TextColor" condition="$PARAM[dialog]">
@@ -170,6 +182,7 @@
                 <include content="Settings_Button_$PARAM[window]">
                     <param name="id">$PARAM[id]</param>
                     <param name="baseid">$PARAM[baseid]</param>
+                    <param name="slevel">$PARAM[slevel]</param>
                 </include>
             </control>
         </definition>
