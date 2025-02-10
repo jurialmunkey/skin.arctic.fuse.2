@@ -8,6 +8,7 @@
     <onload>ClearProperty(guid)</onload>
     <onload>ClearProperty(list_id)</onload>
     <onload>ClearProperty(widgetonly_menu)</onload>
+    <onload>ClearProperty(show_all_hubs)</onload>
 
     <onload>SetProperty(TMDbHelper.WidgetContainer,50)</onload>
     <include>Action_Blur_Onload</include>
@@ -35,12 +36,14 @@
                             <right>40</right>
                             <onright>340</onright>
 
-                            <onclick>ClearProperty(Shortcuts.Position,Home)</onclick>
-                            <onclick condition="![$EXP[Shortcuts_Window_Exp_WidgetsOnly] + !String.IsEqual(Container(30000).ListItem.Property(categories_menu),menu=sidemenu)]">SetProperty(Shortcuts.EditMenu,$INFO[Container(30000).ListItem.Property(categories_menu)],Home)</onclick>
-                            <onclick condition="$EXP[Shortcuts_Window_Exp_WidgetsOnly] + !String.IsEqual(Container(30000).ListItem.Property(categories_menu),menu=sidemenu)">SetProperty(Shortcuts.EditMenu,$INFO[Container(30000).ListItem.Property(categories_menu),,-widgetsonly],Home)</onclick>
-                            <onclick>ClearProperty(Shortcuts.EditMode,Home)</onclick>
-                            <onclick>ClearProperty(Shortcuts.EditGUID,Home)</onclick>
-                            <onclick>AlarmClock(openwindow,ActivateWindow(1116),00:00,silent)</onclick>
+                            <onclick condition="!String.IsEmpty(Container(30000).ListItem.Property(is_showhubs))">SetProperty(show_all_hubs,True)</onclick>
+
+                            <onclick condition="String.IsEmpty(Container(30000).ListItem.Property(is_showhubs))">ClearProperty(Shortcuts.Position,Home)</onclick>
+                            <onclick condition="String.IsEmpty(Container(30000).ListItem.Property(is_showhubs)) + ![$EXP[Shortcuts_Window_Exp_WidgetsOnly] + !String.IsEqual(Container(30000).ListItem.Property(categories_menu),menu=sidemenu)]">SetProperty(Shortcuts.EditMenu,$INFO[Container(30000).ListItem.Property(categories_menu)],Home)</onclick>
+                            <onclick condition="String.IsEmpty(Container(30000).ListItem.Property(is_showhubs)) + $EXP[Shortcuts_Window_Exp_WidgetsOnly] + !String.IsEqual(Container(30000).ListItem.Property(categories_menu),menu=sidemenu)">SetProperty(Shortcuts.EditMenu,$INFO[Container(30000).ListItem.Property(categories_menu),,-widgetsonly],Home)</onclick>
+                            <onclick condition="String.IsEmpty(Container(30000).ListItem.Property(is_showhubs))">ClearProperty(Shortcuts.EditMode,Home)</onclick>
+                            <onclick condition="String.IsEmpty(Container(30000).ListItem.Property(is_showhubs))">ClearProperty(Shortcuts.EditGUID,Home)</onclick>
+                            <onclick condition="String.IsEmpty(Container(30000).ListItem.Property(is_showhubs))">AlarmClock(openwindow,ActivateWindow(1116),00:00,silent)</onclick>
 
                             <onfocus>SetProperty(HelpHead,$LOCALIZE[31002],1115)</onfocus>
                             <onfocus>SetProperty(HelpText,$LOCALIZE[31012],1115)</onfocus>
@@ -53,6 +56,16 @@
                                     <property name="hub_prefix">$VAR[Shortcuts_Window_Var_HomeItem_Property_Categories_Hub_Prefix]</property>
                                     <property name="is_homemenu">true</property>
                                 </item>
+                                <item id="0">
+                                    <label>$LOCALIZE[31574]...</label>
+                                    <property name="value">$VAR[Shortcuts_Window_Var_HomeItem_Property_Value]</property>
+                                    <property name="categories_menu">$VAR[Shortcuts_Window_Var_HomeItem_Property_Categories_Menu]</property>
+                                    <property name="hub_prefix">$VAR[Shortcuts_Window_Var_HomeItem_Property_Categories_Hub_Prefix]</property>
+                                    <property name="is_homemenu">true</property>
+                                    <property name="is_showhubs">true</property>
+                                    <visible>Integer.IsLess(Skin.String(Skin.SettingsLevel),2)</visible>
+                                    <visible>String.IsEmpty(Window.Property(show_all_hubs))</visible>
+                                </item>
                                 <item id="1">
                                     <label>$NUMBER[1101]$VAR[Label_Header_Main_1101, (,)]</label>
                                     <property name="value">Hub.1101</property>
@@ -61,7 +74,7 @@
                                     <visible>!Integer.IsEqual(Skin.String(Hub.Home.ReplaceWindow),1101)</visible>
                                     <include content="Settings_Visible_Level">
                                         <param name="slevel">2</param>
-                                        <param name="altvisible">Skin.HasSetting(Hubs.Settings.ShowAll)</param>
+                                        <param name="altvisible">!String.IsEmpty(Window.Property(show_all_hubs))</param>
                                     </include>
                                 </item>
                                 <item id="2">
@@ -72,7 +85,7 @@
                                     <visible>!Integer.IsEqual(Skin.String(Hub.Home.ReplaceWindow),1102)</visible>
                                     <include content="Settings_Visible_Level">
                                         <param name="slevel">2</param>
-                                        <param name="altvisible">Skin.HasSetting(Hubs.Settings.ShowAll)</param>
+                                        <param name="altvisible">!String.IsEmpty(Window.Property(show_all_hubs))</param>
                                     </include>
                                 </item>
                                 <item id="3">
@@ -83,7 +96,7 @@
                                     <visible>!Integer.IsEqual(Skin.String(Hub.Home.ReplaceWindow),1103)</visible>
                                     <include content="Settings_Visible_Level">
                                         <param name="slevel">2</param>
-                                        <param name="altvisible">Skin.HasSetting(Hubs.Settings.ShowAll)</param>
+                                        <param name="altvisible">!String.IsEmpty(Window.Property(show_all_hubs))</param>
                                     </include>
                                 </item>
                                 <item id="4">
@@ -94,7 +107,7 @@
                                     <visible>!Integer.IsEqual(Skin.String(Hub.Home.ReplaceWindow),1104)</visible>
                                     <include content="Settings_Visible_Level">
                                         <param name="slevel">2</param>
-                                        <param name="altvisible">Skin.HasSetting(Hubs.Settings.ShowAll)</param>
+                                        <param name="altvisible">!String.IsEmpty(Window.Property(show_all_hubs))</param>
                                     </include>
                                 </item>
                                 <item id="6">
@@ -105,7 +118,7 @@
                                     <visible>!Integer.IsEqual(Skin.String(Hub.Home.ReplaceWindow),1106)</visible>
                                     <include content="Settings_Visible_Level">
                                         <param name="slevel">2</param>
-                                        <param name="altvisible">Skin.HasSetting(Hubs.Settings.ShowAll)</param>
+                                        <param name="altvisible">!String.IsEmpty(Window.Property(show_all_hubs))</param>
                                     </include>
                                 </item>
                                 <item id="7">
@@ -116,7 +129,7 @@
                                     <visible>!Integer.IsEqual(Skin.String(Hub.Home.ReplaceWindow),1107)</visible>
                                     <include content="Settings_Visible_Level">
                                         <param name="slevel">2</param>
-                                        <param name="altvisible">Skin.HasSetting(Hubs.Settings.ShowAll)</param>
+                                        <param name="altvisible">!String.IsEmpty(Window.Property(show_all_hubs))</param>
                                     </include>
                                 </item>
                                 <item id="8">
@@ -127,7 +140,7 @@
                                     <visible>!Integer.IsEqual(Skin.String(Hub.Home.ReplaceWindow),1108)</visible>
                                     <include content="Settings_Visible_Level">
                                         <param name="slevel">2</param>
-                                        <param name="altvisible">Skin.HasSetting(Hubs.Settings.ShowAll)</param>
+                                        <param name="altvisible">!String.IsEmpty(Window.Property(show_all_hubs))</param>
                                     </include>
                                 </item>
                                 <item id="9">
@@ -138,7 +151,7 @@
                                     <visible>!Integer.IsEqual(Skin.String(Hub.Home.ReplaceWindow),1109)</visible>
                                     <include content="Settings_Visible_Level">
                                         <param name="slevel">2</param>
-                                        <param name="altvisible">Skin.HasSetting(Hubs.Settings.ShowAll)</param>
+                                        <param name="altvisible">!String.IsEmpty(Window.Property(show_all_hubs))</param>
                                     </include>
                                 </item>
                             </content>
@@ -187,7 +200,7 @@
 
                                     <include content="Settings_Visible_Level">
                                         <param name="slevel">2</param>
-                                        <param name="altvisible">Skin.HasSetting(Hubs.Settings.ShowAll)</param>
+                                        <param name="altvisible">!String.IsEmpty(Window.Property(show_all_hubs))</param>
                                     </include>
 
                                 </include>
@@ -421,23 +434,6 @@
                             <onclick>RunPlugin(plugin://script.skinvariables/?info=get_shortcuts_node&amp;skin=$VAR[Path_SkinVariables_SkinFolder]$INFO[Container(30000).ListItem.Property(categories_menu),&amp;,]&amp;func=do_refresh&amp;&amp;False&amp;&amp;ActivateWindow(1115))</onclick>
                             <onfocus>SetProperty(HelpHead,$LOCALIZE[31104],1115)</onfocus>
                             <onfocus>SetProperty(HelpText,$LOCALIZE[31080][CR][CR]$LOCALIZE[31081],1115)</onfocus>
-                            <onunfocus>ClearProperty(HelpText,1115)</onunfocus>
-                            <onunfocus>ClearProperty(HelpHead,1115)</onunfocus>
-                        </include>
-
-                        <include content="DialogInfo_Button">
-                            <param name="vertical">false</param>
-                            <param name="id">9003</param>
-                            <param name="groupid">9103</param>
-                            <param name="itemgap">-20</param>
-                            <param name="include_hintlabel">true</param>
-                            <param name="include_customwidth">true</param>
-                            <param name="label">$LOCALIZE[31114]</param>
-                            <param name="icon">$VAR[Shortcuts_HideHubs_Icon]</param>
-                            <param name="visible">Integer.IsLess(Window(Home).Property(Skin.SettingsLevel),2)</param>
-                            <onclick>Skin.ToggleSetting(Hubs.Settings.ShowAll)</onclick>
-                            <onfocus>SetProperty(HelpHead,$LOCALIZE[31574],1115)</onfocus>
-                            <onfocus>SetProperty(HelpText,$LOCALIZE[31575],1115)</onfocus>
                             <onunfocus>ClearProperty(HelpText,1115)</onunfocus>
                             <onunfocus>ClearProperty(HelpHead,1115)</onunfocus>
                         </include>
