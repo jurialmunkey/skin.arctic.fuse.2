@@ -40,6 +40,7 @@
 
     <include name="Layout_Wizard">
         <param name="selected">false</param>
+        <param name="checkmark_condition">!String.IsEmpty(ListItem.Property(selected))</param>
         <definition>
             <control type="group">
                 <top>40</top>
@@ -75,13 +76,13 @@
                             <control type="image">
                                 <texture colordiffuse="panel_fg_90">buttons/check-on.png</texture>
                             </control>
-                            <visible>!String.IsEmpty(ListItem.Property(selected))</visible>
+                            <visible>$PARAM[checkmark_condition]</visible>
                         </control>
                     </include>
                     <include content="Object_SelectBox" condition="$PARAM[selected]">
                         <param name="indicator">false</param>
                         <param name="focusbounce">true</param>
-                        <visible>Control.HasFocus(50)</visible>
+                        <visible>Control.HasFocus($PARAM[id])</visible>
                     </include>
                 </control>
             </control>
@@ -636,18 +637,27 @@
     </include>
 
     <include name="Layout_Shortcuts">
-        <param name="detailed">String.IsEqual(ListItem.Property(mode),widgets)</param>
+        <!-- <param name="detailed">String.IsEqual(ListItem.Property(mode),widgets)</param> -->
+        <param name="detailed">false</param>
         <param name="selected">false</param>
+        <param name="altfocus">false</param>
         <param name="textcolor">dialog_fg_90</param>
         <param name="misc">0</param>
         <definition>
             <include content="Object_Control" condition="$PARAM[selected]">
                 <param name="control">image</param>
                 <include>Texture_Menu_Highlight_H</include>
+                <animation effect="fade" start="100" end="30" condition="$PARAM[altfocus]">Conditional</animation>
+            </include>
+            <include content="Object_Control" condition="![$PARAM[selected]]">
+                <param name="control">image</param>
+                <texture border="40" colordiffuse="dialog_fg_12">common/menu.png</texture>
+                <animation effect="fade" start="100" end="0" condition="![$PARAM[altfocus]]">Conditional</animation>
             </include>
             <control type="group">
 
                 <right>$PARAM[misc]</right>
+                <height>$PARAM[item_h]</height>
 
                 <animation effect="fadediffuse" start="ffffffff" end="FFBF0000" condition="String.IsEqual(ListItem.Property(disabled),True)">Conditional</animation>
                 <animation effect="fadediffuse" start="ffffffff" end="ff333333" condition="!String.IsEqual(ListItem.Property(disabled),True) + $PARAM[selected] + !Skin.HasSetting(RevertSelectedText)">Conditional</animation>
@@ -793,7 +803,7 @@
 
                     <!-- Style -->
                     <control type="group">
-                        <right>120</right>
+                        <right>140</right>
                         <width>$PARAM[item_h]</width>
                         <centertop>50%</centertop>
                         <height>80</height>

@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<window type="dialog" id="1112">
+    <defaultcontrol always="true">8000</defaultcontrol>
+    <controls>
+        <include>Dialog_Dim_Overlay</include>
+        <control type="group">
+            <include>Dimension_DialogWizard</include>
+            <control type="group">
+                <include>Dialog_Background_Blur</include>
+                <include>Animation_Right_Delay</include>
+                <include content="Dialog_Head">
+                    <param name="top">40</param>
+                    <param name="left">40</param>
+                    <param name="label">$INFO[Window(Home).Property(CustomDialogPreviewTitle)]</param>
+                </include>
+                <control type="group">
+                    <include content="Dialog_Overlay_Mode_Glass">
+                        <param name="flipped">false</param>
+                    </include>
+                    <control type="image">
+                        <top>120</top>
+                        <height>1</height>
+                        <texture colordiffuse="$VAR[Color_DialogBorder]">common/white.png</texture>
+                        <left>40</left>
+                        <right>40</right>
+                    </control>
+                </control>
+                <control type="group">
+                    <include>Dimension_Dialog_Body</include>
+                    <include content="Dialog_Wizard_WrapList">
+                        <param name="items_include">Items_Preview_WidgetsMode</param>
+                        <param name="id">8000</param>
+                        <param name="onback">PreviousMenu</param>
+                        <param name="checkmark_condition">String.IsEqual(Window(Home).Property(CustomDialogPreviewSelected),ListItem.Label)</param>
+                    </include>
+                </control>
+                <control type="grouplist" id="9000">
+                    <right>40</right>
+                    <left>40</left>
+                    <height>80</height>
+                    <bottom>20</bottom>
+                    <align>center</align>
+                    <orientation>horizontal</orientation>
+                    <itemgap>20</itemgap>
+                    <onup>8000</onup>
+                    <control type="button" id="9002">
+                        <width>280</width>
+                        <label>$LOCALIZE[15067]</label>
+                        <include>defs_dialog_button</include>
+                        <onclick>PreviousMenu</onclick>
+                    </control>
+                </control>
+            </control>
+        </control>
+
+    </controls>
+</window>

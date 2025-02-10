@@ -6,7 +6,7 @@
 
     <!-- Set Some Profile Settings -->
     <onunload>runscript($VAR[Action_Var_BuildTextures])</onunload>
-
+    <onload condition="String.IsEmpty(Skin.String(Skin.SettingsLevel))">Skin.SetString(Skin.SettingsLevel,$NUMBER[1])</onload>
 
     <controls>
 
@@ -51,16 +51,35 @@
                                     <label>$LOCALIZE[29921]</label>
                                     <label2>$LOCALIZE[31448] [LOWERCASE]$LOCALIZE[14125], $LOCALIZE[12999], $LOCALIZE[31487] $LOCALIZE[13200][/LOWERCASE].</label2>
                                 </item>
-                                <item id="7" description="Expert">
-                                    <label>$LOCALIZE[10039]</label>
-                                    <label2>$LOCALIZE[31448] [LOWERCASE]$LOCALIZE[10039], $LOCALIZE[39024], $LOCALIZE[31487] $LOCALIZE[14260][/LOWERCASE].</label2>
+                                <item id="7" description="Dependencies">
+                                    <label>$LOCALIZE[39024]</label>
+                                    <label2>$LOCALIZE[31448] [LOWERCASE]$LOCALIZE[39024] $LOCALIZE[31487] $LOCALIZE[14260][/LOWERCASE].</label2>
                                 </item>
                                 <item id="8" description="Thanks">
-                                    <label>$LOCALIZE[31350]</label>
-                                    <label2>$LOCALIZE[31476]</label2>
+                                    <label>$VAR[Label_SkinSettings_Level]</label>
+                                    <label2>$LOCALIZE[31550]</label2>
+                                    <onclick condition="Integer.IsEqual(Skin.String(Skin.SettingsLevel),1)">Skin.SetString(Skin.SettingsLevel,$NUMBER[2])</onclick>
+                                    <onclick condition="Integer.IsEqual(Skin.String(Skin.SettingsLevel),2)">Skin.SetString(Skin.SettingsLevel,$NUMBER[3])</onclick>
+                                    <onclick condition="Integer.IsEqual(Skin.String(Skin.SettingsLevel),3)">Skin.SetString(Skin.SettingsLevel,$NUMBER[1])</onclick>
                                 </item>
                             </content>
                         </include>
+                        <control type="group">
+                            <height>80</height>
+                            <width>80</width>
+                            <right>50</right>
+                            <bottom>80</bottom>
+                            <control type="image">
+                                <texture colordiffuse="main_fg_70">$VAR[Image_SkinSettings_Level]</texture>
+                                <bordersize>10</bordersize>
+                                <visible>!Container(10000).HasFocus(8)</visible>
+                            </control>
+                            <control type="image">
+                                <texture colordiffuse="$VAR[ColorSelected]">$VAR[Image_SkinSettings_Level]</texture>
+                                <bordersize>10</bordersize>
+                                <visible>Container(10000).HasFocus(8)</visible>
+                            </control>
+                        </control>
                     </include>
                 </include>
                 <include content="Settings_Right_Group">
@@ -102,7 +121,7 @@
                         <include content="SkinSettings_Items_Other">
                             <param name="baseid">6</param>
                         </include>
-                        <include content="SkinSettings_Items_Expert">
+                        <include content="SkinSettings_Items_Dependecies">
                             <param name="baseid">7</param>
                         </include>
                         <include content="SkinSettings_Items_Thanks">
