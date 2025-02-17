@@ -4,6 +4,11 @@
     <onload>SetProperty(ColorPicker_Type,Highlight,Home)</onload>
     <controls>
 
+        <control type="list">
+            <include>Object_Hidden_List_Definition</include>
+            <content>$VAR[ColorPickerHex,plugin://script.skinvariables/?info=get_argb_colors&amp;colorhex=,&amp;slider_window_id=11111&amp;slider_alpha_id=8001&amp;slider_red_id=8002&amp;slider_green_id=8003&amp;slider_blue_id=8004]</content>
+        </control>
+
         <include>Dialog_Dim_Overlay</include>
 
         <control type="group">
@@ -39,18 +44,11 @@
                         </control>
                         <control type="panel" id="3000">
                             <onleft>9000</onleft>
-                            <onright>8000</onright>
-                            <onback>8000</onback>
-                            <onclick condition="String.IsEqual(Window(Home).Property(ColorPicker_Type),Highlight)">Skin.SetString(focuscolor.name,$INFO[ListItem.Label])</onclick>
-                            <onclick condition="String.IsEqual(Window(Home).Property(ColorPicker_Type),Gradient)">Skin.SetString(gradientcolor.name,$INFO[ListItem.Label])</onclick>
-                            <onclick condition="String.IsEqual(Window(Home).Property(ColorPicker_Type),Indicator)">Skin.SetString(watchedprogresscolor.name,$INFO[ListItem.Label])</onclick>
-                            <onclick condition="String.IsEqual(Window(Home).Property(ColorPicker_Type),series_premiere)">Skin.SetString(series_premiere_color.name,$INFO[ListItem.Label])</onclick>
-                            <onclick condition="String.IsEqual(Window(Home).Property(ColorPicker_Type),season_premiere)">Skin.SetString(season_premiere_color.name,$INFO[ListItem.Label])</onclick>
-                            <onclick condition="String.IsEqual(Window(Home).Property(ColorPicker_Type),mid_season_premiere)">Skin.SetString(mid_season_premiere_color.name,$INFO[ListItem.Label])</onclick>
-                            <onclick condition="String.IsEqual(Window(Home).Property(ColorPicker_Type),series_finale)">Skin.SetString(series_finale_color.name,$INFO[ListItem.Label])</onclick>
-                            <onclick condition="String.IsEqual(Window(Home).Property(ColorPicker_Type),season_finale)">Skin.SetString(season_finale_color.name,$INFO[ListItem.Label])</onclick>
-                            <onclick condition="String.IsEqual(Window(Home).Property(ColorPicker_Type),mid_season_finale)">Skin.SetString(mid_season_finale_color.name,$INFO[ListItem.Label])</onclick>
-                            <include>Action_BuildTextures_Onclick</include>
+                            <onright>9000</onright>
+                            <onback>9000</onback>
+                            <onclick>$VAR[Action_Update_Color]</onclick>
+                            <onclick>runscript($VAR[Action_Var_BuildTextures])</onclick>
+                            <onclick>SetFocus(9000)</onclick>
                             <itemlayout height="80" width="80">
                                 <include content="Object_Control">
                                     <param name="control">image</param>
@@ -127,6 +125,79 @@
                     <right>60</right>
                     <width>400</width>
                     <itemgap>0</itemgap>
+                    <visible allowhiddenfocus="true">ControlGroup(8000).HasFocus()</visible>
+
+                    <control type="group">
+                        <left>40</left>
+                        <right>40</right>
+                        <height>80</height>
+                        <control type="label">
+                            <font>font_hint_bold</font>
+                            <height>40</height>
+                            <label>$LOCALIZE[1000]</label>
+                            <textcolor>dialog_fg_30</textcolor>
+                        </control>
+                        <control type="group">
+                            <top>40</top>
+                            <control type="image">
+                                <texture colordiffuse="$VAR[Color_PC_to_Hex]" border="20">common/box.png</texture>
+                            </control>
+                        </control>
+                    </control>
+
+                    <!-- Alpha -->
+                    <include content="Object_ColorSlider">
+                        <param name="id">1</param>
+                        <param name="label">Alpha</param>
+                        <param name="color">Alpha</param>
+                        <param name="ondown">8002</param>
+                        <param name="onback">9000</param>
+                        <param name="onback_01">runscript($VAR[Action_Var_BuildTextures])</param>
+                    </include>
+                    <!-- Red -->
+                    <include content="Object_ColorSlider">
+                        <param name="id">2</param>
+                        <param name="label">Red</param>
+                        <param name="color">Red</param>
+                        <param name="onup">8001</param>
+                        <param name="ondown">8003</param>
+                        <param name="onback">9000</param>
+                        <param name="onback_01">runscript($VAR[Action_Var_BuildTextures])</param>
+                    </include>
+                    <!-- Green -->
+                    <include content="Object_ColorSlider">
+                        <param name="id">3</param>
+                        <param name="label">Green</param>
+                        <param name="color">Green</param>
+                        <param name="onup">8002</param>
+                        <param name="ondown">8004</param>
+                        <param name="onback">9000</param>
+                        <param name="onback_01">runscript($VAR[Action_Var_BuildTextures])</param>
+                    </include>
+                    <!-- Blue -->
+                    <include content="Object_ColorSlider">
+                        <param name="id">4</param>
+                        <param name="label">Blue</param>
+                        <param name="color">Blue</param>
+                        <param name="onup">8003</param>
+                        <param name="ondown">9000</param>
+                        <param name="ondown_01">runscript($VAR[Action_Var_BuildTextures])</param>
+                        <param name="onback">9000</param>
+                        <param name="onback_01">runscript($VAR[Action_Var_BuildTextures])</param>
+                    </include>
+
+                    <control type="group">
+                        <height>40</height>
+                    </control>
+                </control>
+
+
+                <control type="grouplist">
+                    <top>200</top>
+                    <right>60</right>
+                    <width>400</width>
+                    <itemgap>0</itemgap>
+                    <visible>!ControlGroup(8000).HasFocus()</visible>
                     <control type="group">
                         <left>40</left>
                         <right>40</right>
@@ -324,8 +395,18 @@
                             <param name="checkmark">false</param>
                         </include>
                     </control>
+                </control>
 
-                    <control type="label">
+                <control type="grouplist" id="9000">
+                    <onleft>3000</onleft>
+                    <top>600</top>
+                    <right>60</right>
+                    <width>400</width>
+                    <itemgap>0</itemgap>
+                    <onup>8004</onup>
+                    <ondown>noop</ondown>
+                    <onback>runscript($VAR[Action_Var_BuildTextures],reload=skinsettings)</onback>
+                    <control type="label" id="9001">
                         <left>40</left>
                         <right>40</right>
                         <top>40</top>
@@ -357,21 +438,22 @@
                     </include>
                     <include content="Settings_Button">
                         <param name="dialog">true</param>
+                        <param name="id">9004</param>
+                        <param name="control">button</param>
+                        <description>Default Setting Button</description>
+                        <label>$LOCALIZE[31032] [LOWERCASE]$LOCALIZE[14078][/LOWERCASE]</label>
+                        <onclick>runscript($VAR[Action_Var_BuildTextures],reload=1111)</onclick>
+                        <visible>Skin.HasSetting(DisableMonochromeHighlight)</visible>
+                    </include>
+                    <include content="Settings_Button">
+                        <param name="dialog">true</param>
                         <param name="id">9005</param>
                         <param name="control">button</param>
                         <description>Default Setting Button</description>
                         <label>AARRGGBB</label>
                         <label2>$VAR[ColorPickerHex]</label2>
-                        <onclick condition="String.IsEqual(Window(Home).Property(ColorPicker_Type),Highlight)">Skin.SetString(focuscolor.name)</onclick>
-                        <onclick condition="String.IsEqual(Window(Home).Property(ColorPicker_Type),Gradient)">Skin.SetString(gradientcolor.name)</onclick>
-                        <onclick condition="String.IsEqual(Window(Home).Property(ColorPicker_Type),Indicator)">Skin.SetString(watchedprogresscolor.name)</onclick>
-                        <onclick condition="String.IsEqual(Window(Home).Property(ColorPicker_Type),series_premiere)">Skin.SetString(series_premiere_color.name)</onclick>
-                        <onclick condition="String.IsEqual(Window(Home).Property(ColorPicker_Type),season_premiere)">Skin.SetString(season_premiere_color.name)</onclick>
-                        <onclick condition="String.IsEqual(Window(Home).Property(ColorPicker_Type),mid_season_premiere)">Skin.SetString(mid_season_premiere_color.name)</onclick>
-                        <onclick condition="String.IsEqual(Window(Home).Property(ColorPicker_Type),series_finale)">Skin.SetString(series_finale_color.name)</onclick>
-                        <onclick condition="String.IsEqual(Window(Home).Property(ColorPicker_Type),season_finale)">Skin.SetString(season_finale_color.name)</onclick>
-                        <onclick condition="String.IsEqual(Window(Home).Property(ColorPicker_Type),mid_season_finale)">Skin.SetString(mid_season_finale_color.name)</onclick>
-                        <include>Action_BuildTextures_Onclick</include>
+                        <onclick>SetFocus(8001)</onclick>
+                        <visible>!Skin.HasSetting(DisableMonochromeHighlight)</visible>
                     </include>
                     <include content="Settings_Button">
                         <param name="dialog">true</param>
@@ -381,8 +463,8 @@
                         <label>$LOCALIZE[31043]</label>
                         <selected>!Skin.HasSetting(DisableMonochromeHighlight)</selected>
                         <onclick>Skin.ToggleSetting(DisableMonochromeHighlight)</onclick>
-                        <onclick condition="String.IsEqual(Window(Home).Property(ColorPicker_Type),Gradient)">SetProperty(ColorPicker_Type,Highlight,Home)</onclick>
-                        <include>Action_BuildTextures_Onclick</include>
+                        <onclick condition="Skin.HasSetting(DisableMonochromeHighlight) + String.IsEqual(Window(Home).Property(ColorPicker_Type),Gradient)">SetProperty(ColorPicker_Type,Highlight,Home)</onclick>
+                        <onclick>runscript($VAR[Action_Var_BuildTextures],reload=1111)</onclick>
                     </include>
                     <include content="Settings_Button">
                         <param name="dialog">true</param>

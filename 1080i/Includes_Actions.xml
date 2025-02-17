@@ -1,6 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <includes>
 
+    <variable name="Action_Sync">
+        <value condition="[String.IsEqual(ListItem.DBType,movie) | String.IsEqual(ListItem.DBType,tvshow)] + !String.IsEmpty(ListItem.Property(tmdb_id))">RunScript(plugin.video.themoviedb.helper,sync_trakt,tmdb_id=$INFO[ListItem.Property(tmdb_id)],$VAR[Path_Param_Type],cache_refresh)</value>
+        <value condition="[String.IsEqual(ListItem.DBType,movie) | String.IsEqual(ListItem.DBType,tvshow)] + !String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.tmdb_id))">RunScript(plugin.video.themoviedb.helper,sync_trakt,tmdb_id=$INFO[Window(Home).Property(TMDbHelper.ListItem.tmdb_id)],$VAR[Path_Param_Type],cache_refresh)</value>
+
+        <value condition="[String.IsEqual(ListItem.DBType,season)] + !String.IsEmpty(ListItem.Property(tvshow.tmdb_id))">RunScript(plugin.video.themoviedb.helper,sync_trakt,tmdb_id=$INFO[ListItem.Property(tvshow.tmdb_id)],$VAR[Path_Param_Type],cache_refresh)</value>
+        <value condition="[String.IsEqual(ListItem.DBType,season)] + !String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.tvshow.tmdb_id))">RunScript(plugin.video.themoviedb.helper,sync_trakt,tmdb_id=$INFO[Window(Home).Property(TMDbHelper.ListItem.tvshow.tmdb_id)],$VAR[Path_Param_Type],cache_refresh)</value>
+
+        <value condition="[String.IsEqual(ListItem.DBType,episode)] + !String.IsEmpty(ListItem.Property(tvshow.tmdb_id))">RunScript(plugin.video.themoviedb.helper,sync_trakt,tmdb_id=$INFO[ListItem.Property(tvshow.tmdb_id)],$VAR[Path_Param_Type],season=$INFO[ListItem.Season],episode=$INFO[ListItem.Episode],cache_refresh)</value>
+        <value condition="[String.IsEqual(ListItem.DBType,episode)] + !String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.tvshow.tmdb_id))">RunScript(plugin.video.themoviedb.helper,sync_trakt,tmdb_id=$INFO[Window(Home).Property(TMDbHelper.ListItem.tvshow.tmdb_id)],$VAR[Path_Param_Type],season=$INFO[ListItem.Season],episode=$INFO[ListItem.Episode],cache_refresh)</value>
+    </variable>
+
     <variable name="Action_ActivateSearchDiscover">
         <value condition="Skin.HasSetting(SideMenu.SwapSearchForDiscover)">ActivateWindow(1105)</value>
         <value>ActivateWindow(1185)</value>
@@ -725,16 +736,36 @@
         <value>script.skinvariables,run_executebuiltin=special://skin/shortcuts/skinvariables-build-colortemplates.json,use_rules</value>
     </variable>
 
-    <include name="Action_BuildTextures_Onclick">
-        <onclick>runscript($VAR[Action_Var_BuildTextures],reload=1111)</onclick>
-    </include>
-
     <include name="Action_BuildTextures_Onclick_Preset">
         <param name="window_id">1118</param>
         <definition>
             <onclick>runscript($VAR[Action_Var_BuildTextures],reload=$PARAM[window_id])</onclick>
         </definition>
     </include>
+
+    <variable name="Action_Update_Color">
+        <value condition="String.IsEqual(Window(Home).Property(ColorPicker_Type),Highlight)">Skin.SetString(focuscolor.name,$VAR[Color_PC_to_Hex])</value>
+        <value condition="String.IsEqual(Window(Home).Property(ColorPicker_Type),Gradient)">Skin.SetString(gradientcolor.name,$INFO[ListItem.Label])</value>
+        <value condition="String.IsEqual(Window(Home).Property(ColorPicker_Type),Indicator)">Skin.SetString(watchedprogresscolor.name,$INFO[ListItem.Label])</value>
+        <value condition="String.IsEqual(Window(Home).Property(ColorPicker_Type),series_premiere)">Skin.SetString(series_premiere_color.name,$INFO[ListItem.Label])</value>
+        <value condition="String.IsEqual(Window(Home).Property(ColorPicker_Type),season_premiere)">Skin.SetString(season_premiere_color.name,$INFO[ListItem.Label])</value>
+        <value condition="String.IsEqual(Window(Home).Property(ColorPicker_Type),mid_season_premiere)">Skin.SetString(mid_season_premiere_color.name,$INFO[ListItem.Label])</value>
+        <value condition="String.IsEqual(Window(Home).Property(ColorPicker_Type),series_finale)">Skin.SetString(series_finale_color.name,$INFO[ListItem.Label])</value>
+        <value condition="String.IsEqual(Window(Home).Property(ColorPicker_Type),season_finale)">Skin.SetString(season_finale_color.name,$INFO[ListItem.Label])</value>
+        <value condition="String.IsEqual(Window(Home).Property(ColorPicker_Type),mid_season_finale)">Skin.SetString(mid_season_finale_color.name,$INFO[ListItem.Label])</value>
+    </variable>
+
+    <variable name="Action_Update_Color_From_Slider">
+        <value condition="String.IsEqual(Window(Home).Property(ColorPicker_Type),Highlight)">Skin.SetString(focuscolor.name,$VAR[Color_PC_to_Hex])</value>
+        <value condition="String.IsEqual(Window(Home).Property(ColorPicker_Type),Gradient)">Skin.SetString(gradientcolor.name,$VAR[Color_PC_to_Hex])</value>
+        <value condition="String.IsEqual(Window(Home).Property(ColorPicker_Type),Indicator)">Skin.SetString(watchedprogresscolor.name,$VAR[Color_PC_to_Hex])</value>
+        <value condition="String.IsEqual(Window(Home).Property(ColorPicker_Type),series_premiere)">Skin.SetString(series_premiere_color.name,$VAR[Color_PC_to_Hex])</value>
+        <value condition="String.IsEqual(Window(Home).Property(ColorPicker_Type),season_premiere)">Skin.SetString(season_premiere_color.name,$VAR[Color_PC_to_Hex])</value>
+        <value condition="String.IsEqual(Window(Home).Property(ColorPicker_Type),mid_season_premiere)">Skin.SetString(mid_season_premiere_color.name,$VAR[Color_PC_to_Hex])</value>
+        <value condition="String.IsEqual(Window(Home).Property(ColorPicker_Type),series_finale)">Skin.SetString(series_finale_color.name,$VAR[Color_PC_to_Hex])</value>
+        <value condition="String.IsEqual(Window(Home).Property(ColorPicker_Type),season_finale)">Skin.SetString(season_finale_color.name,$VAR[Color_PC_to_Hex])</value>
+        <value condition="String.IsEqual(Window(Home).Property(ColorPicker_Type),mid_season_finale)">Skin.SetString(mid_season_finale_color.name,$VAR[Color_PC_to_Hex])</value>
+    </variable>
 
     <variable name="Action_PlayTrailer_Trigger">
         <value condition="[Skin.HasSetting(Trailers.EnableAutoPlayback) + Integer.IsEqual(Window.Property(TMDBHelper.WidgetContainer),301) + String.IsEmpty(Window.Property(Slide.WidgetContainer))]">Spotlight</value>
