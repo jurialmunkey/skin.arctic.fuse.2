@@ -216,20 +216,26 @@
         <param name="selected">false</param>
         <param name="detailed">false</param>
         <param name="color">main_fg</param>
+        <param name="centertop">50%</param>
+        <param name="include_hintlabel">false</param>
         <definition>
             <control type="group">
                 <right>20</right>
-                <include content="Object_Control" condition="$PARAM[selected]">
-                    <param name="control">image</param>
-                    <include>Texture_Circle_Highlight_H</include>
-                </include>
-
                 <control type="group">
                     <width>40</width>
                     <height>40</height>
-                    <centertop>50%</centertop>
+                    <centertop>$PARAM[centertop]</centertop>
                     <centerleft>50%</centerleft>
+                    <include content="Object_Control" condition="$PARAM[selected]">
+                        <param name="control">image</param>
+                        <bordersize>-20</bordersize>
+                        <include>Texture_Circle_Highlight_H</include>
+                    </include>
                     <control type="image">
+                        <include content="Object_Top" condition="$PARAM[selected] + $PARAM[include_hintlabel]">
+                            <param name="top">-10</param>
+                        </include>
+                        <height>40</height>
                         <bordersize>icon_home_bordersize</bordersize>
                         <include content="Object_ColorDiffuse" condition="$PARAM[selected]">
                             <param name="colordiffuse">$VAR[ColorSelected]</param>
@@ -237,6 +243,18 @@
                         <colordiffuse>$PARAM[color_nf]</colordiffuse>
                         <texture diffuse="diffuse/circle/circle_120.png">$INFO[ListItem.Icon]</texture>
                     </control>
+                    <include content="Object_Control" condition="$PARAM[selected] + $PARAM[include_hintlabel]">
+                        <param name="control">label</param>
+                        <textcolor>$VAR[ColorSelected]</textcolor>
+                        <font>font_hint</font>
+                        <align>center</align>
+                        <aligny>top</aligny>
+                        <height>10</height>
+                        <centerbottom>11</centerbottom>
+                        <left>-8</left>
+                        <right>-8</right>
+                        <label>$INFO[ListItem.Label]</label>
+                    </include>
                 </control>
             </control>
         </definition>

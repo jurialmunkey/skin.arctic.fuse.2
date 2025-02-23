@@ -1151,7 +1151,7 @@
         <param name="back_size">160</param>
         <param name="icon_size">40</param>
         <param name="bordersize">-4</param>
-        <param name="itemgap">0</param>
+        <param name="itemgap">10</param>
         <param name="visible">true</param>
         <param name="vertical">true</param>
         <param name="textcolor">main_fg</param>
@@ -1377,6 +1377,95 @@
         </definition>
     </include>
 
+    <include name="DialogInfo_Button_Expansion">
+        <param name="width">280</param>
+        <param name="slice">100</param>
+        <param name="id">4001</param>
+        <param name="groupid">4101</param>
+        <param name="sliceid">4201</param>
+        <param name="label" />
+        <param name="icon" />
+        <param name="visible">true</param>
+        <param name="builtin">false</param>
+        <param name="backing">false</param>
+        <param name="colordiffuse">main_fg_90</param>
+        <definition>
+            <control type="button" id="$PARAM[id]">
+                <width>$PARAM[width]</width>
+                <height>80</height>
+                <centertop>50%</centertop>
+                <texturenofocus />
+                <visible>$PARAM[visible]</visible>
+                <nested />
+            </control>
+
+            <control type="group" id="$PARAM[groupid]">
+                <left>-$PARAM[width]</left>
+                <height>80</height>
+                <width>$PARAM[width]</width>
+                <centertop>50%</centertop>
+                <visible>$PARAM[visible]</visible>
+                <include content="DialogInfo_Button_GroupBuiltin" condition="$PARAM[builtin]">
+                    <param name="id">$PARAM[id]</param>
+                </include>
+                <control type="group">
+                    <left>-20</left>
+                    <control type="group">
+                        <visible>!Control.HasFocus($PARAM[id])</visible>
+                        <include content="Object_InfoCircle" condition="$PARAM[backing]">
+                            <param name="icon">$PARAM[icon]</param>
+                            <param name="shadow_colordiffuse">shadow_hard</param>
+                            <param name="include_labels">false</param>
+                        </include>
+                        <include content="Object_InfoCircle" condition="![$PARAM[backing]]">
+                            <param name="icon">$PARAM[icon]</param>
+                            <param name="include_labels">false</param>
+                            <param name="backing_visible">false</param>
+                            <param name="colordiffuse">$PARAM[colordiffuse]</param>
+                            <param name="bordersize">icon_item_bordersize</param>
+                        </include>
+                    </control>
+                    <control type="group">
+                        <right>40</right>
+                        <visible>Control.HasFocus($PARAM[id])</visible>
+                        <include content="Object_InfoCircle" condition="$PARAM[backing]">
+                            <param name="icon">$PARAM[icon]</param>
+                            <param name="colorbacking">$VAR[ColorSelected]</param>
+                            <param name="colordiffuse">$VAR[ColorSelectedInverted]</param>
+                            <param name="shadow_colordiffuse">00ffffff</param>
+                            <param name="include_labels">false</param>
+                        </include>
+                        <include content="Object_InfoCircle" condition="![$PARAM[backing]]">
+                            <param name="icon">$PARAM[icon]</param>
+                            <param name="include_labels">false</param>
+                            <param name="backing_visible">false</param>
+                            <param name="colordiffuse">$VAR[ColorSelected]</param>
+                            <param name="bordersize">icon_item_bordersize</param>
+                        </include>
+                        <control type="label">
+                            <font>font_mini_bold</font>
+                            <label>$PARAM[label]</label>
+                            <align>left</align>
+                            <left>120</left>
+                            <textcolor>$VAR[ColorSelected]</textcolor>
+                        </control>
+                    </control>
+                </control>
+            </control>
+
+            <control type="group" id="$PARAM[sliceid]">
+                <visible>!Control.HasFocus($PARAM[id])</visible>
+                <left>-$PARAM[width]</left>
+                <width>$PARAM[slice]</width>
+                <visible>$PARAM[visible]</visible>
+                <include content="DialogInfo_Button_GroupBuiltin" condition="$PARAM[builtin]">
+                    <param name="id">$PARAM[id]</param>
+                </include>
+            </control>
+        </definition>
+    </include>
+
+
     <!-- Additional Video Info Details not included in info line such as Director and Genres -->
     <include name="DialogInfo_VideoDetails">
         <definition>
@@ -1395,9 +1484,11 @@
                     <ondown>5000</ondown>
                     <onup>61</onup>
 
-                    <include content="DialogInfo_Button_PlayBrowse">
+                    <include content="DialogInfo_Button_Expansion">
+                        <param name="backing">true</param>
+                        <param name="label">$VAR[Label_DialogInfo_PlayButton]</param>
+                        <param name="icon">$VAR[Image_DialogInfo_PlayButton]</param>
                         <onfocus>ClearProperty(Background.DialogInfo.HideArtwork,Home)</onfocus>
-                        <!-- <onclick condition="ListItem.HasVideoVersions">SetFocus(8908)</onclick> -->
                         <onclick>SendClick(8)</onclick>
                         <onclick>RunScript(plugin.video.themoviedb.helper,close_dialog=1190)</onclick>
                         <onfocus>ClearProperty(DetailsView)</onfocus>
@@ -1581,7 +1672,10 @@
                     <ondown>5000</ondown>
                     <onup>61</onup>
 
-                    <include content="DialogInfo_Button_PlayBrowse">
+                    <include content="DialogInfo_Button_Expansion">
+                        <param name="backing">true</param>
+                        <param name="label">$VAR[Label_DialogInfo_PlayButton]</param>
+                        <param name="icon">$VAR[Image_DialogInfo_PlayButton]</param>
                         <onfocus>ClearProperty(Background.DialogInfo.HideArtwork,Home)</onfocus>
                         <!-- Addon Not Installed -->
                         <onclick condition="!String.IsEqual(ListItem.DBType,artist) + !System.AddonIsEnabled(script.playalbum) + System.HasAddon(script.playalbum)">EnableAddon(script.playalbum)</onclick>

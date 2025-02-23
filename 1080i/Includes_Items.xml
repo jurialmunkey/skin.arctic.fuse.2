@@ -1209,25 +1209,15 @@
     </include>
 
     <include name="Items_DialogVideoInfo_MenuBar">
-        <param name="include_customwidth">true</param>
-        <param name="include_hintlabel">true</param>
-        <param name="itemgap">-40</param>
-        <param name="textcolor">main_fg</param>
-        <param name="nf_opacity">90</param>
         <definition>
 
             <!-- Trailer -->
-            <include content="DialogInfo_Button" condition="!String.IsEqual(ListItem.Property(tmdb_type),person)">
+            <include content="DialogInfo_Button_Expansion" condition="!String.IsEqual(ListItem.Property(tmdb_type),person)">
                 <param name="id">4002</param>
                 <param name="groupid">4102</param>
-                <param name="vertical">false</param>
+                <param name="sliceid">4202</param>
                 <param name="label">$LOCALIZE[31393]</param>
                 <param name="icon">special://skin/extras/icons/videoplay.png</param>
-                <param name="itemgap">$PARAM[itemgap]</param>
-                <param name="include_hintlabel">$PARAM[include_hintlabel]</param>
-                <param name="textcolor">$PARAM[textcolor]</param>
-                <param name="nf_opacity">$PARAM[nf_opacity]</param>
-                <param name="include_customwidth">$PARAM[include_customwidth]</param>
                 <param name="visible">!String.IsEmpty(ListItem.Trailer) | !String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.Trailer))</param>
                 <include content="Action_PlayTrailer_OnClick">
                     <param name="trailer">ListItem.Trailer</param>
@@ -1239,48 +1229,33 @@
             </include>
 
             <!-- Versions -->
-            <include content="DialogInfo_Button" condition="String.IsEqual(ListItem.DBType,movie) + ListItem.HasVideoVersions">
+            <include content="DialogInfo_Button_Expansion" condition="String.IsEqual(ListItem.DBType,movie) + ListItem.HasVideoVersions">
                 <param name="id">4014</param>
                 <param name="groupid">4121</param>
-                <param name="vertical">false</param>
+                <param name="sliceid">4221</param>
                 <param name="label">$LOCALIZE[40000]</param>
                 <param name="icon">special://skin/extras/icons/bookmarks.png</param>
-                <param name="itemgap">$PARAM[itemgap]</param>
-                <param name="include_hintlabel">$PARAM[include_hintlabel]</param>
-                <param name="textcolor">$PARAM[textcolor]</param>
-                <param name="nf_opacity">$PARAM[nf_opacity]</param>
-                <param name="include_customwidth">$PARAM[include_customwidth]</param>
                 <onclick>SetFocus(8908)</onclick>
             </include>
 
             <!-- Extras -->
-            <include content="DialogInfo_Button" condition="String.IsEqual(ListItem.DBType,movie) + ListItem.HasVideoExtras">
+            <include content="DialogInfo_Button_Expansion" condition="String.IsEqual(ListItem.DBType,movie) + ListItem.HasVideoExtras">
                 <param name="id">15</param>
                 <param name="groupid">4122</param>
-                <param name="vertical">false</param>
+                <param name="sliceid">4222</param>
                 <param name="label">$LOCALIZE[40211]</param>
                 <param name="icon">special://skin/extras/icons/director.png</param>
-                <param name="itemgap">$PARAM[itemgap]</param>
-                <param name="include_hintlabel">$PARAM[include_hintlabel]</param>
-                <param name="textcolor">$PARAM[textcolor]</param>
-                <param name="nf_opacity">$PARAM[nf_opacity]</param>
-                <param name="include_customwidth">$PARAM[include_customwidth]</param>
             </include>
 
             <!-- Trakt -->
-            <include content="DialogInfo_Button" condition="!String.IsEqual(ListItem.Property(tmdb_type),person)">
+            <include content="DialogInfo_Button_Expansion" condition="!String.IsEqual(ListItem.Property(tmdb_type),person)">
                 <param name="id">4004</param>
                 <param name="groupid">4104</param>
-                <param name="vertical">false</param>
+                <param name="sliceid">4204</param>
                 <param name="label">Trakt</param>
                 <!-- MISC049: Use Trakt logo on Info dialog menubar --> 
                 <!-- param name="icon">special://skin/extras/icons/watchlist.png</param -->
                 <param name="icon">special://skin/extras/icons/trakttv.png</param>
-                <param name="itemgap">$PARAM[itemgap]</param>
-                <param name="include_hintlabel">$PARAM[include_hintlabel]</param>
-                <param name="textcolor">$PARAM[textcolor]</param>
-                <param name="nf_opacity">$PARAM[nf_opacity]</param>
-                <param name="include_customwidth">$PARAM[include_customwidth]</param>
                 <param name="visible">!String.IsEmpty(Window(Home).Property(TMDbHelper.TraktIsAuth)) + !String.IsEqual(ListItem.DBType,musicvideo)</param>
 
                 <onclick>$VAR[Action_Sync]</onclick>
@@ -1289,17 +1264,12 @@
             </include>
 
             <!-- Wiki -->
-            <include content="DialogInfo_Button">
+            <include content="DialogInfo_Button_Expansion">
                 <param name="id">4005</param>
                 <param name="groupid">4105</param>
-                <param name="vertical">false</param>
+                <param name="sliceid">4205</param>
                 <param name="label">Wiki</param>
                 <param name="icon">special://skin/extras/icons/globe.png</param>
-                <param name="itemgap">$PARAM[itemgap]</param>
-                <param name="include_hintlabel">$PARAM[include_hintlabel]</param>
-                <param name="textcolor">$PARAM[textcolor]</param>
-                <param name="nf_opacity">$PARAM[nf_opacity]</param>
-                <param name="include_customwidth">$PARAM[include_customwidth]</param>
 
                 <onclick>runscript(script.wikipedia,wikipedia=$VAR[Path_Wikipedia_Title],tmdb_type=$VAR[Path_Wikipedia_Type])</onclick>
                 <onfocus>SetProperty(DetailsView,Reviews)</onfocus>
@@ -1307,48 +1277,33 @@
             </include>
 
             <!-- Rating -->
-            <include content="DialogInfo_Button" condition="!String.IsEqual(ListItem.Property(tmdb_type),person)">
+            <include content="DialogInfo_Button_Expansion" condition="!String.IsEqual(ListItem.Property(tmdb_type),person)">
                 <param name="id">7</param>
                 <param name="groupid">4107</param>
-                <param name="vertical">false</param>
+                <param name="sliceid">4207</param>
                 <param name="label">$LOCALIZE[563]</param>
                 <param name="icon">special://skin/extras/icons/star.png</param>
-                <param name="itemgap">$PARAM[itemgap]</param>
-                <param name="include_hintlabel">$PARAM[include_hintlabel]</param>
-                <param name="textcolor">$PARAM[textcolor]</param>
-                <param name="nf_opacity">$PARAM[nf_opacity]</param>
-                <param name="include_customwidth">$PARAM[include_customwidth]</param>
                 <param name="visible">Control.IsEnabled(7)</param>
             </include>
 
             <!-- Artwork -->
-            <include content="DialogInfo_Button" condition="!String.IsEqual(ListItem.Property(tmdb_type),person)">
+            <include content="DialogInfo_Button_Expansion" condition="!String.IsEqual(ListItem.Property(tmdb_type),person)">
                 <param name="id">10</param>
                 <param name="groupid">4109</param>
-                <param name="vertical">false</param>
+                <param name="sliceid">4209</param>
                 <param name="label">$LOCALIZE[39123]</param>
                 <param name="icon">special://skin/extras/icons/image.png</param>
-                <param name="itemgap">$PARAM[itemgap]</param>
-                <param name="include_hintlabel">$PARAM[include_hintlabel]</param>
-                <param name="textcolor">$PARAM[textcolor]</param>
-                <param name="nf_opacity">$PARAM[nf_opacity]</param>
-                <param name="include_customwidth">$PARAM[include_customwidth]</param>
                 <param name="visible">Control.IsEnabled(10)</param>
                 <onfocus>SetProperty(DetailsView,Artwork)</onfocus>
             </include>
 
             <!-- Refresh -->
-            <include content="DialogInfo_Button" condition="!String.IsEqual(ListItem.Property(tmdb_type),person)">
+            <include content="DialogInfo_Button_Expansion" condition="!String.IsEqual(ListItem.Property(tmdb_type),person)">
                 <param name="id">6</param>
                 <param name="groupid">4108</param>
-                <param name="vertical">false</param>
+                <param name="sliceid">4208</param>
                 <param name="label">$LOCALIZE[184]</param>
                 <param name="icon">special://skin/extras/icons/update.png</param>
-                <param name="itemgap">$PARAM[itemgap]</param>
-                <param name="include_hintlabel">$PARAM[include_hintlabel]</param>
-                <param name="textcolor">$PARAM[textcolor]</param>
-                <param name="nf_opacity">$PARAM[nf_opacity]</param>
-                <param name="include_customwidth">$PARAM[include_customwidth]</param>
                 <param name="visible">Control.IsEnabled(6)</param>
             </include>
 
@@ -1356,23 +1311,13 @@
     </include>
 
     <include name="Items_DialogMusicInfo_MenuBar">
-        <param name="include_customwidth">true</param>
-        <param name="include_hintlabel">true</param>
-        <param name="itemgap">-40</param>
-        <param name="textcolor">main_fg</param>
-        <param name="nf_opacity">90</param>
         <definition>
-            <include content="DialogInfo_Button">
-                <param name="vertical">false</param>
+            <include content="DialogInfo_Button_Expansion">
                 <param name="id">4003</param>
                 <param name="groupid">4103</param>
+                <param name="sliceid">4203</param>
                 <param name="label">$LOCALIZE[134]</param>
                 <param name="icon">special://skin/extras/icons/songs.png</param>
-                <param name="itemgap">$PARAM[itemgap]</param>
-                <param name="include_hintlabel">$PARAM[include_hintlabel]</param>
-                <param name="include_customwidth">$PARAM[include_customwidth]</param>
-                <param name="textcolor">$PARAM[textcolor]</param>
-                <param name="nf_opacity">$PARAM[nf_opacity]</param>
                 <onclick>Dialog.Close(musicinformation)</onclick>
                 <onclick>Dialog.Close(songinformation)</onclick>
 
@@ -1381,17 +1326,12 @@
 
                 <onfocus>SetProperty(DetailsView,Songs)</onfocus>
             </include>
-            <include content="DialogInfo_Button">
-                <param name="vertical">false</param>
+            <include content="DialogInfo_Button_Expansion">
                 <param name="id">4002</param>
                 <param name="groupid">4102</param>
+                <param name="sliceid">4202</param>
                 <param name="label">$LOCALIZE[132]</param>
                 <param name="icon">special://skin/extras/icons/lines-leaning.png</param>
-                <param name="itemgap">$PARAM[itemgap]</param>
-                <param name="include_hintlabel">$PARAM[include_hintlabel]</param>
-                <param name="include_customwidth">$PARAM[include_customwidth]</param>
-                <param name="textcolor">$PARAM[textcolor]</param>
-                <param name="nf_opacity">$PARAM[nf_opacity]</param>
                 <onclick>Dialog.Close(musicinformation)</onclick>
                 <onclick>Dialog.Close(songinformation)</onclick>
 
@@ -1400,33 +1340,23 @@
 
                 <onfocus>SetProperty(DetailsView,Albums)</onfocus>
             </include>
-            <include content="DialogInfo_Button">
-                <param name="vertical">false</param>
+            <include content="DialogInfo_Button_Expansion">
                 <param name="id">4007</param>
                 <param name="groupid">4107</param>
+                <param name="sliceid">4207</param>
                 <param name="label">YouTube</param>
                 <param name="icon">special://skin/extras/icons/youtube.png</param>
-                <param name="itemgap">$PARAM[itemgap]</param>
-                <param name="include_hintlabel">$PARAM[include_hintlabel]</param>
-                <param name="include_customwidth">$PARAM[include_customwidth]</param>
-                <param name="textcolor">$PARAM[textcolor]</param>
-                <param name="nf_opacity">$PARAM[nf_opacity]</param>
                 <onclick>Dialog.Close(musicinformation)</onclick>
                 <onclick>Dialog.Close(songinformation)</onclick>
                 <onclick>ActivateWindow(videos,$VAR[Path_Youtube_Query,plugin://plugin.video.youtube/kodion/search/query/?q=,],return)</onclick>
                 <onfocus>SetProperty(DetailsView,Trailer)</onfocus>
             </include>
-            <include content="DialogInfo_Button">
-                <param name="vertical">false</param>
+            <include content="DialogInfo_Button_Expansion">
                 <param name="id">4005</param>
                 <param name="groupid">4105</param>
+                <param name="sliceid">4205</param>
                 <param name="label">$LOCALIZE[39123]</param>
                 <param name="icon">special://skin/extras/icons/image.png</param>
-                <param name="itemgap">$PARAM[itemgap]</param>
-                <param name="include_hintlabel">$PARAM[include_hintlabel]</param>
-                <param name="include_customwidth">$PARAM[include_customwidth]</param>
-                <param name="textcolor">$PARAM[textcolor]</param>
-                <param name="nf_opacity">$PARAM[nf_opacity]</param>
                 <onclick condition="Window.IsVisible(DialogVideoInfo.xml) | Window.IsVisible(DialogMusicInfo.xml)">SendClick(10)</onclick>
                 <onfocus>SetProperty(DetailsView,Artwork)</onfocus>
             </include>

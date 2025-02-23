@@ -3,12 +3,7 @@
 
     <include name="ButtonMenu_Tray_Movement">
         <onup condition="Window.IsVisible(1170)">SetFocus(8000,9999,absolute)</onup>
-        <onup condition="[Window.IsVisible(MyPVRGuide.xml) | Window.IsVisible(MyPVRChannels.xml)]">9004</onup>
-        <onup condition="!Window.IsVisible(1170) + ![Window.IsVisible(MyPVRGuide.xml) | Window.IsVisible(MyPVRChannels.xml)]">9009</onup>
         <ondown condition="Window.IsVisible(1170)">7010</ondown>
-        <ondown condition="[Window.IsVisible(MyPVRGuide.xml) | Window.IsVisible(MyPVRChannels.xml)]">9001</ondown>
-        <ondown condition="!Window.IsVisible(1170) + ![Window.IsVisible(MyPVRGuide.xml) | Window.IsVisible(MyPVRChannels.xml)]">9019</ondown>
-        <onback condition="!Window.IsVisible(1170)">68</onback>
         <oninfo>Close</oninfo>
     </include>
 
@@ -124,44 +119,30 @@
     </include>
 
     <include name="ButtonMenu_OptionsTray">
-        <control type="image">
-            <bottom>60</bottom>
-            <left>20</left>
-            <right>20</right>
-            <height>1</height>
-            <texture colordiffuse="$VAR[Color_DialogBorder]">common/white.png</texture>
-        </control>
-        <control type="button" id="6000">
-            <onfocus>SetFocus(6099)</onfocus>
-            <include>Object_Hidden_Button_Definition</include>
-        </control>
-        <control type="fixedlist" id="6099">
-            <animation effect="slide" start="0" end="-50" condition="Integer.IsEqual(Container(6099).NumItems,2) | Integer.IsEqual(Container(6099).NumItems,4)">Conditional</animation>
-            <focusposition>2</focusposition>
-            <movement>2</movement>
-            <orientation>horizontal</orientation>
-            <height>80</height>
-            <bottom>-40</bottom>
-            <left>20</left>
+        <control type="list" id="6099">
+            <orientation>vertical</orientation>
+            <width>100</width>
+            <top>140</top>
+            <centerright>70</centerright>
+            <onleft>7000</onleft>
             <scrolltime tween="quadratic">400</scrolltime>
 
-            <include>ButtonMenu_Tray_Movement</include>
-
-            <itemlayout width="100" height="80">
+            <itemlayout width="100" height="100">
                 <include content="Layout_OptionTray">
                     <param name="selected">false</param>
                     <param name="color_nf">dialog_fg_70</param>
-                    <param name="variation">true</param>
+                    <param name="centertop">40</param>
                 </include>
             </itemlayout>
 
-            <focusedlayout width="100" height="80">
+            <focusedlayout width="100" height="100">
                 <control type="group">
                     <visible>Control.HasFocus(6099)</visible>
                     <include content="Layout_OptionTray">
                         <param name="selected">true</param>
                         <param name="color_nf">dialog_fg_70</param>
-                        <param name="variation">true</param>
+                        <param name="centertop">40</param>
+                        <param name="include_hintlabel">true</param>
                     </include>
                 </control>
                 <control type="group">
@@ -169,7 +150,7 @@
                     <include content="Layout_OptionTray">
                         <param name="selected">false</param>
                         <param name="color_nf">dialog_fg_70</param>
-                        <param name="variation">true</param>
+                        <param name="centertop">40</param>
                     </include>
                 </control>
             </focusedlayout>
@@ -515,7 +496,7 @@
             <param name="onup">$PARAM[onup]</param>
             <param name="ondown">$PARAM[ondown]</param>
             <param name="onleft">Close</param>
-            <param name="onright">-</param>
+            <param name="onright">6099</param>
             <param name="onclick">$PARAM[button_one_onclick]</param>
             <param name="label">$PARAM[button_one_label]</param>
             <param name="icon">$PARAM[button_one_icon]</param>
@@ -548,7 +529,7 @@
                 <param name="onup">$PARAM[b_onup]</param>
                 <param name="ondown">$PARAM[b_ondown]</param>
                 <param name="onleft">70$PARAM[groupid]1</param>
-                <param name="onright">-</param>
+                <param name="onright">6099</param>
                 <param name="onclick">$PARAM[button_two_onclick]</param>
                 <param name="label">$PARAM[button_two_label]</param>
                 <param name="icon">$PARAM[button_two_icon]</param>
