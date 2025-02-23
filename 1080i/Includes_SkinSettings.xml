@@ -325,11 +325,20 @@
             <onclick>Skin.ToggleSetting(Furniture.EnableColourRatings)</onclick>
         </include>
 
-        <include content="Settings_Label" description="Header">
+        <!-- <include content="Settings_Label" description="Header">
             <param name="window">skinsettings</param>
             <param name="baseid">$PARAM[baseid]</param>
             <param name="id">005</param>
             <label>$LOCALIZE[31208]</label>
+        </include> -->
+
+
+
+        <include content="Settings_Label" description="Footer">
+            <param name="window">skinsettings</param>
+            <param name="baseid">$PARAM[baseid]</param>
+            <param name="id">009</param>
+            <label>$LOCALIZE[31239]</label>
         </include>
         <include content="Settings_Button" description="Clock">
             <param name="dialog">false</param>
@@ -342,7 +351,18 @@
             <selected>Skin.HasSetting(Furniture.EnableClock)</selected>
             <onclick>Skin.ToggleSetting(Furniture.EnableClock)</onclick>
         </include>
-        <include content="Settings_Button" description="Expand Clock">
+        <include content="Settings_Button" description="Studio">
+            <param name="dialog">false</param>
+            <param name="window">skinsettings</param>
+            <param name="baseid">$PARAM[baseid]</param>
+            <param name="id">010</param>
+            <param name="control">radiobutton</param>
+            <label>$LOCALIZE[572]</label>
+            <selected>!Skin.HasSetting(Furniture.DisableStudio)</selected>
+            <onclick>Skin.ToggleSetting(Furniture.DisableStudio)</onclick>
+            <visible>!Skin.HasSetting(Furniture.EnableClock)</visible>
+        </include>
+        <include content="Settings_Button" description="Date">
             <param name="dialog">false</param>
             <param name="window">skinsettings</param>
             <param name="baseid">$PARAM[baseid]</param>
@@ -364,24 +384,6 @@
             <label>$LOCALIZE[31244]</label>
             <onclick>Skin.ToggleSetting(Furniture.EnableNowPlaying)</onclick>
             <selected>Skin.HasSetting(Furniture.EnableNowPlaying)</selected>
-        </include>
-
-
-        <include content="Settings_Label" description="Footer">
-            <param name="window">skinsettings</param>
-            <param name="baseid">$PARAM[baseid]</param>
-            <param name="id">009</param>
-            <label>$LOCALIZE[31239]</label>
-        </include>
-        <include content="Settings_Button" description="Footer: Right">
-            <param name="dialog">false</param>
-            <param name="window">skinsettings</param>
-            <param name="baseid">$PARAM[baseid]</param>
-            <param name="id">010</param>
-            <param name="control">radiobutton</param>
-            <label>$LOCALIZE[572]</label>
-            <selected>!Skin.HasSetting(Furniture.BottomRight.Disable)</selected>
-            <onclick>Skin.ToggleSetting(Furniture.BottomRight.Disable)</onclick>
         </include>
     </include>
 
@@ -491,13 +493,26 @@
             <param name="control">button</param>
             <label>$LOCALIZE[31165]</label>
             <label2>$VAR[Label_Setting_SeekbarPauseBehaviour]</label2>
-            <onclick condition="Skin.HasSetting(OSD.AutoInfoOnPause)">Skin.SetBool(OSD.AutoHideOnPause)</onclick>
-            <onclick condition="Skin.HasSetting(OSD.AutoInfoOnPause)">Skin.Reset(OSD.AutoInfoOnPause)</onclick>
 
-            <onclick condition="Skin.HasSetting(OSD.AutoHideOnPause)">Skin.Reset(OSD.AutoHideOnPause)</onclick>
-            <onclick condition="Skin.HasSetting(OSD.AutoHideOnPause)">Skin.Reset(OSD.AutoInfoOnPause)</onclick>
+            <onclick condition="Skin.String(OSD.AutoOnPause,Info)">Skin.SetString(OSD.AutoOnPause,Hide)</onclick>
+            <onclick condition="Skin.String(OSD.AutoOnPause,Hide)">Skin.Reset(OSD.AutoOnPause)</onclick>
+            <onclick condition="![Skin.String(OSD.AutoOnPause,Info) | Skin.String(OSD.AutoOnPause,Hide)]">Skin.SetString(OSD.AutoOnPause,Info)</onclick>
+        </include>
+        <include content="Settings_Button" description="Autohide seekbar timing">
+            <param name="dialog">false</param>
+            <param name="window">skinsettings</param>
+            <param name="baseid">$PARAM[baseid]</param>
+            <param name="id">023</param>
+            <param name="control">button</param>
+            <label>$LOCALIZE[31576]</label>
+            <label2>$VAR[Label_Setting_SeekbarPauseDelay]</label2>
 
-            <onclick condition="!Skin.HasSetting(OSD.AutoHideOnPause) + !Skin.HasSetting(OSD.AutoInfoOnPause)">Skin.SetBool(OSD.AutoInfoOnPause)</onclick>
+            <onclick condition="Skin.String(OSD.AutoOnPause.Delay,0s)">Skin.SetString(OSD.AutoOnPause.Delay,1s)</onclick>
+            <onclick condition="Skin.String(OSD.AutoOnPause.Delay,1s)">Skin.SetString(OSD.AutoOnPause.Delay,2s)</onclick>
+            <onclick condition="Skin.String(OSD.AutoOnPause.Delay,2s)">Skin.SetString(OSD.AutoOnPause.Delay,3s)</onclick>
+            <onclick condition="![Skin.String(OSD.AutoOnPause.Delay,0s) | Skin.String(OSD.AutoOnPause.Delay,1s) | Skin.String(OSD.AutoOnPause.Delay,2s)]">Skin.SetString(OSD.AutoOnPause.Delay,0s)</onclick>
+
+            <visible>[Skin.String(OSD.AutoOnPause,Info) | Skin.String(OSD.AutoOnPause,Hide)]</visible>
         </include>
         <include content="Settings_Button" description="Seekbar times">
             <param name="dialog">false</param>

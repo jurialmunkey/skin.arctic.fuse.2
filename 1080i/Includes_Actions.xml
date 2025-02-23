@@ -699,6 +699,11 @@
         <onclick condition="!String.IsEmpty(Skin.String(OSD_Timeout)) + Window.IsVisible(musicosd)">AlarmClock(osd_timeout,RunScript(script.skinvariables,run_executebuiltin=special://skin/shortcuts/builtins/skinvariables-closeosd.json,use_rules=True),$INFO[Skin.String(OSD_Timeout),00:,],silent)</onclick>
     </include>
 
+    <variable name="Action_OSD_WikiInfo">
+        <value condition="VideoPlayer.Content(livetv)">runscript(script.wikipedia,wikipedia=$INFO[VideoPlayer.Title])</value>
+        <value>ActivateWindow(1193)</value>
+    </variable>
+
     <include name="_Action_Blur_Onload">
         <param name="sourceimage">Art(fanart)</param>
         <definition>

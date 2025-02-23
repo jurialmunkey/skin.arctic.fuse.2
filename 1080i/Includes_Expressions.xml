@@ -215,11 +215,15 @@
 
     <expression name="Exp_OSD_PVRChannelSwitch">[VideoPlayer.Content(livetv) + [!String.IsEmpty(PVR.ChannelNumberInput) | Player.ShowInfo]]</expression>
 
-    <expression name="Exp_OSD_DelayInfo">[System.IdleTime(3) + Skin.HasSetting(OSD.AutoInfoOnPause) + Player.Paused]</expression>
+    <expression name="Exp_OSD_DelayInfo_Timing">[[System.IdleTime(3)] | [System.IdleTime(2) + Skin.String(OSD.AutoOnPause.Delay,2s)] | [System.IdleTime(1) + Skin.String(OSD.AutoOnPause.Delay,1s)] | [System.IdleTime(0) + Skin.String(OSD.AutoOnPause.Delay,0s)]]</expression>
+
+    <expression name="Exp_OSD_DelayInfo">[$EXP[Exp_OSD_DelayInfo_Timing] + Skin.String(OSD.AutoOnPause,Info) + Player.Paused]</expression>
 
     <expression name="Exp_OSD_QuickInfo">[$EXP[Exp_OSD_PVRChannelSwitch] | Window.IsActive(fullscreeninfo) | $EXP[Exp_OSD_DelayInfo]]</expression>
 
-    <expression name="Exp_OSD_HideControls">[Window.IsActive(videobookmarks) | Window.IsActive(pvrchannelguide) | Window.IsActive(1140) | Window.IsActive(1141) | Window.IsActive(1142) | Window.IsActive(DialogPVRChannelsOSD.xml) | Window.IsActive(script-upnext-stillwatching.xml) | Window.IsActive(script-upnext-upnext.xml)]</expression>
+    <expression name="Exp_OSD_HideControls">[Window.IsActive(1140) | Window.IsActive(1141) | Window.IsActive(1142) | Window.IsActive(videobookmarks) | Window.IsActive(pvrosdguide) | Window.IsActive(pvrosdchannels) | Window.IsActive(script-upnext-stillwatching.xml) | Window.IsActive(script-upnext-upnext.xml)]</expression>
+
+    <expression name="Exp_OSD_ActiveSlides">[[Window.IsActive(VideoFullScreen.xml) | Window.IsActive(MusicVisualisation.xml)] + !$EXP[Exp_InfoDialogs] + !Window.IsActive(1193)]</expression>
 
 
     <!-- ==== -->
@@ -227,7 +231,7 @@
     <!-- ==== -->
     <expression name="Exp_AutoCompletion_IsEnabled">[System.HasAddon(plugin.program.autocompletion) + System.AddonIsEnabled(plugin.program.autocompletion) + !Skin.HasSetting(Keyboard.DisableAutoCompletion)]</expression>
 
-    <expression name="Exp_Video_IsNotPlaying">[!Player.HasVideo | Player.Paused | Skin.HasSetting(Background.DisableVideo) | Window.IsVisible(1123)]</expression>
+    <expression name="Exp_Video_IsNotPlaying">[![Player.HasVideo | [Player.HasAudio + !Skin.HasSetting(Background.Visualisation.Disabled) + Visualisation.Enabled]] | Player.Paused | Skin.HasSetting(Background.DisableVideo) | Window.IsVisible(1123)]</expression>
 
     <expression name="Exp_Furniture_PVR">[[Window.IsVisible(MyPVRGuide.xml) | Window.IsVisible(MyPVRChannels.xml)] + !Window.IsVisible(DialogPVRInfo.xml)]</expression>
 

@@ -523,9 +523,14 @@
     </variable>
 
     <variable name="Label_Setting_SeekbarPauseBehaviour">
-        <value condition="Skin.HasSetting(OSD.AutoHideOnPause)">$LOCALIZE[31162]</value>
-        <value condition="Skin.HasSetting(OSD.AutoInfoOnPause)">$LOCALIZE[29915]</value>
+        <value condition="Skin.String(OSD.AutoOnPause,Hide)">$LOCALIZE[31162]</value>
+        <value condition="Skin.String(OSD.AutoOnPause,Info)">$LOCALIZE[29915]</value>
         <value>$LOCALIZE[16018]</value>
+    </variable>
+
+    <variable name="Label_Setting_SeekbarPauseDelay">
+        <value condition="!String.IsEmpty(Skin.String(OSD.AutoOnPause.Delay))">$INFO[Skin.String(OSD.AutoOnPause.Delay)]</value>
+        <value>3s</value>
     </variable>
 
     <variable name="Label_Player_Plot">
@@ -572,11 +577,6 @@
     <variable name="Label_DiscoverWidgets_Sort">
         <value condition="!String.IsEmpty(Window.Property(SearchDiscover.SortLabel))">$INFO[Window.Property(SearchDiscover.SortLabel)]</value>
         <value>$LOCALIZE[31047]</value>
-    </variable>
-
-    <variable name="Label_Setting_RightFooter">
-        <value condition="Skin.HasSetting(Furniture.BottomRight.Disable)">$LOCALIZE[231]</value>
-        <value>$LOCALIZE[31279]</value>
     </variable>
 
     <variable name="Label_Setting_Item01_Action">
