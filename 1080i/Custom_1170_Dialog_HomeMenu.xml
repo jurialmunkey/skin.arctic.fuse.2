@@ -60,7 +60,10 @@
                             <param name="id">8000</param>
                             <param name="itemlayout_include">Layout_MenuList</param>
                             <top>320</top>
-                            <bottom>80</bottom>
+                            <include content="Object_Bottom" condition="Player.HasMedia">
+                                <param name="bottom">80</param>
+                            </include>
+                            <bottom>0</bottom>
                             <orientation>vertical</orientation>
                             <onup>7020</onup>
                             <ondown>SetFocus(6000,2)</ondown>
@@ -72,9 +75,16 @@
                             </content>
                         </include>
 
-                        <control type="group">
-                            <include>ButtonMenu_PlayerControls</include>
-                        </control>
+                        <include content="Object_Control" condition="!Player.HasMedia">
+                            <param name="control">image</param>
+                            <bottom>-20</bottom>
+                            <left>20</left>
+                            <right>20</right>
+                            <height>1</height>
+                            <texture colordiffuse="$VAR[Color_DialogBorder]">common/white.png</texture>
+                        </include>
+
+                        <include condition="Player.HasMedia">ButtonMenu_PlayerControls</include>
 
                     </control>
                 </control>

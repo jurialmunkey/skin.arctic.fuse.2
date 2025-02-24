@@ -4,13 +4,16 @@
     <visible>Window.IsActive(VideoFullScreen.xml)</visible>
     <visible>!Window.IsActive(videoosd)</visible>
     <visible>!Window.IsActive(DialogSubtitles.xml)</visible>
-    <animation effect="fade" start="0" end="100" time="300" delay="200" condition="Window.IsVisible(videoosd)">WindowOpen</animation>
+    <animation effect="fade" start="0" end="100" time="300" delay="400" condition="Window.IsVisible(videoosd)">WindowOpen</animation>
     <animation effect="fade" start="0" end="100" time="300" condition="!Window.IsVisible(videoosd)">WindowOpen</animation>
     <animation effect="fade" end="0" start="100" time="300">WindowClose</animation>
     <controls>
 
 
         <control type="group">
+            <include content="Animation_ConditionalFade">
+                <param name="condition">![Window.IsActive(VideoFullScreen.xml) | Window.IsActive(MusicVisualisation.xml)]</param>
+            </include>
             <include>OSD_Progress_Details_Extended</include>
         </control>
 
