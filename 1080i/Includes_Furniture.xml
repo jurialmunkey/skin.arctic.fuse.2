@@ -37,36 +37,6 @@
         </control>
     </include>
 
-    <include name="Furniture_Top_Right">
-        <param name="enabled">true</param>
-        <param name="id" />
-        <param name="label">[CAPITALIZE]$VAR[Label_Header_Main][/CAPITALIZE]</param>
-        <param name="textcolor">main_fg_100</param>
-        <param name="textcolor_sublabel">main_fg_70</param>
-        <param name="shadowcolor_sublabel">main_bg_30</param>
-        <definition>
-            <include content="_Furniture_Top_Right" condition="$PARAM[enabled]">
-                <param name="id">$PARAM[id]</param>
-                <param name="label">$PARAM[label]</param>
-                <param name="textcolor">$PARAM[textcolor]</param>
-                <param name="textcolor_sublabel">$PARAM[textcolor_sublabel]</param>
-                <param name="shadowcolor_sublabel">$PARAM[shadowcolor_sublabel]</param>
-                <param name="clock">$PARAM[clock]</param>
-            </include>
-        </definition>
-    </include>
-    <include name="_Furniture_Top_Right">
-        <control type="group">
-            <include>Dimension_Topbar</include>
-            <control type="group">
-                <include>Dimension_Furniture_Gutters</include>
-
-
-            </control>
-        </control>
-    </include>
-
-
     <include name="Furniture_Bottom_Right">
         <param name="enabled">!Skin.HasSetting(Furniture.DisableStudio)</param>
         <definition>
@@ -85,14 +55,7 @@
                     <include condition="!Skin.HasSetting(Furniture.EnableClock)">Info_Bottom_Right</include>
                 </control>
                 <control type="group">
-                    <include content="Furniture_Clock" condition="Skin.HasSetting(Furniture.EnableClock) + !Skin.HasSetting(Furniture.EnableExpandedClock)">
-                        <param name="textcolor">$PARAM[textcolor]</param>
-                        <param name="textcolor_sublabel">$PARAM[textcolor_sublabel]</param>
-                        <param name="shadowcolor">$PARAM[shadowcolor_sublabel]</param>
-                        <param name="shadowcolor_sublabel">$PARAM[shadowcolor_sublabel]</param>
-                    </include>
-
-                    <include content="Furniture_Clock_Expanded" condition="Skin.HasSetting(Furniture.EnableClock) + Skin.HasSetting(Furniture.EnableExpandedClock)">
+                    <include content="Furniture_Clock" condition="Skin.HasSetting(Furniture.EnableClock)">
                         <param name="textcolor">$PARAM[textcolor]</param>
                         <param name="textcolor_sublabel">$PARAM[textcolor_sublabel]</param>
                         <param name="shadowcolor">$PARAM[shadowcolor_sublabel]</param>
@@ -526,113 +489,6 @@
                         <height>40</height>
                         <centertop>50%</centertop>
                     </control>
-                </control>
-            </control>
-        </definition>
-    </include>
-
-
-    <include name="Furniture_Clock_Expanded">
-        <param name="flipx">true</param>
-        <param name="toplabel">$INFO[System.Time]</param>
-        <param name="bottomlabel">$INFO[System.Date]</param>
-        <param name="textcolor">main_fg_90</param>
-        <param name="textcolor_sublabel">main_fg_70</param>
-        <param name="topfont">font_mini_bold</param>
-        <param name="bottomfont">font_tiny</param>
-        <definition>
-            <control type="group">
-
-                <visible>!Player.HasMedia | !Skin.HasSetting(Furniture.EnableNowPlaying) | Window.IsActive(visualisation) | Window.IsActive(fullscreenvideo)</visible>
-                <visible>!Window.IsActive(DialogNotification.xml)</visible>
-                <visible>!Window.IsActive(DialogExtendedProgressBar.xml)</visible>
-
-                <include content="Animation_SlideIn_Dialog">
-                    <param name="visible_condition">!$EXP[Exp_Notification_IsActive]</param>
-                    <param name="windowopen_condition">false</param>
-                    <param name="posy">48</param>
-                </include>
-
-                <include content="Object_Left" condition="!$PARAM[flipx]">
-                    <!-- MISC039: parameter changed from -25 -->
-                    <param name="left">-105</param>
-                </include>
-                <include content="Object_Right" condition="$PARAM[flipx]">
-                    <!-- MISC039: parameter changed from -25 -->
-                    <param name="right">-105</param>
-                </include>
-                <!-- MISC039: remove analog clock -->
-                <!-- control type="group">
-                    <centertop>50%</centertop>
-                    <height>50</height>
-                    <width>50</width>
-                    <include content="Object_Left" condition="!$PARAM[flipx]">
-                        <param name="left">20</param>
-                    </include>
-                    <include content="Object_Right" condition="$PARAM[flipx]">
-                        <param name="right">20</param>
-                    </include>
-                    <include content="Info_FooterItemIcon">
-                        <param name="icon">special://skin/extras/icons/_none.png</param>
-                        <param name="bordersize">12</param>
-                        <param name="centered">true</param>
-                        <param name="size">50</param>
-                    </include>
-                    <control type="group">
-                        <centerleft>50%</centerleft>
-                        <centertop>50%</centertop>
-                        <width>40</width>
-                        <height>40</height>
-                        <control type="image">
-                            <texture diffuse="clock/minute_diffuse.png" colordiffuse="main_bg_100">$INFO[System.Time(mm),clock/minutes/,.png]</texture>
-                        </control>
-                        <control type="image">
-                            <texture diffuse="clock/hour_diffuse.png" colordiffuse="main_bg_100">$INFO[System.Time(h),clock/hours/,.png]</texture>
-                        </control>
-                        <control type="image">
-                            <centerleft>50%</centerleft>
-                            <centertop>50%</centertop>
-                            <width>8</width>
-                            <height>8</height>
-                            <texture colordiffuse="main_bg_100">common/circle.png</texture>
-                        </control>
-                    </control>
-
-                </control -->
-                <control type="group">
-                    <height>80</height>
-                    <centertop>50%</centertop>
-                    <include content="Object_Left" condition="!$PARAM[flipx]">
-                        <param name="left">100</param>
-                    </include>
-                    <include content="Object_Right" condition="$PARAM[flipx]">
-                        <param name="right">100</param>
-                    </include>
-                    <include content="Object_InfoCircle_Text_Top">
-                        <label>$PARAM[toplabel]</label>
-                        <include content="Object_Align" condition="!$PARAM[flipx]">
-                            <param name="align">left</param>
-                        </include>
-                        <include content="Object_Align" condition="$PARAM[flipx]">
-                            <param name="align">right</param>
-                        </include>
-                        <font>$PARAM[topfont]</font>
-                        <textcolor>$PARAM[textcolor]</textcolor>
-                        <shadowcolor>$PARAM[shadowcolor]</shadowcolor>
-                    </include>
-                    <include content="Object_InfoCircle_Text_Sub">
-                        <label>$PARAM[bottomlabel]</label>
-                        <include content="Object_Align" condition="!$PARAM[flipx]">
-                            <param name="align">left</param>
-                        </include>
-                        <include content="Object_Align" condition="$PARAM[flipx]">
-                            <param name="align">right</param>
-                        </include>
-                        <font>$PARAM[bottomfont]</font>
-                        <textcolor>$PARAM[textcolor_sublabel]</textcolor>
-                        <shadowcolor>$PARAM[shadowcolor_sublabel]</shadowcolor>
-                    </include>
-
                 </control>
             </control>
         </definition>
