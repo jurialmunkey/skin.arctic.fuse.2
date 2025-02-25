@@ -15,8 +15,8 @@
             </control>
 
             <control type="group">
-                <bottom>380</bottom>
-                <visible>!Window.IsActive(1153)</visible>
+                <top>view_pad</top>
+                <left>view_pad</left>
                 <visible>!Container(513).IsUpdating</visible>
                 <visible>!Integer.IsEqual(Container(513).NumItems,0)</visible>
                 <visible>![!String.IsEmpty(Player.Chapter) + !String.IsEqual(Player.Chapter,00) + !String.IsEmpty(Player.ChapterCount) + !String.IsEqual(Player.ChapterCount,00) + !String.IsEqual(Player.Chapter,Player.ChapterCount)]</visible>
@@ -29,14 +29,38 @@
                     <effect type="fade" start="0" end="100" time="300" delay="600"/>
                     <effect type="slide" start="0,-48" end="0" center="auto" tween="back" easing="out" time="400" delay="600"/>
                 </animation>
-                <include content="OSD_UpNext">
-                    <param name="is_addon">false</param>
-                    <param name="icon">$VAR[Image_OSD_UpNext_Playlist_Landscape]</param>
-                    <param name="label">$LOCALIZE[31196]</param>
-                    <param name="secondary_label"> </param>
-                    <param name="top_title">$VAR[Label_OSD_UpNext_Playlist_TopTitle]</param>
-                    <param name="sub_title">$VAR[Label_OSD_UpNext_Playlist_SubTitle]</param>
-                </include>
+                <control type="group">
+                    <height>view_landscape_item_h</height>
+                    <width>view_landscape_item_w</width>
+                    <control type="group">
+                        <include>Object_ItemBack</include>
+                        <control type="image">
+                            <texture background="true" diffuse="diffuse/landscape_w410_h231.png">$VAR[Image_OSD_UpNext_Playlist_Landscape]</texture>
+                            <aspectratio scalediffuse="false">keep</aspectratio>
+                        </control>
+                        <!-- <param name="top_title">$VAR[Label_OSD_UpNext_Playlist_TopTitle]</param>
+                        <param name="sub_title">$VAR[Label_OSD_UpNext_Playlist_SubTitle]</param> -->
+                    </control>
+                </control>
+                <control type="grouplist">
+                    <left>view_landscape_item_w</left>
+                    <height>view_landscape_item_h</height>
+                    <align>center</align>
+                    <orientation>vertical</orientation>
+                    <control type="label">
+                        <left>40</left>
+                        <textcolor>panel_fg_90</textcolor>
+                        <label>$LOCALIZE[31196]$VAR[Label_OSD_UpNext_Playlist_TopTitle, - ,]</label>
+                        <height>40</height>
+                        <font>font_main_bold</font>
+                    </control>
+                    <control type="label">
+                        <left>40</left>
+                        <textcolor>panel_fg_70</textcolor>
+                        <label>$VAR[Label_OSD_UpNext_Playlist_SubTitle]</label>
+                        <height>40</height>
+                    </control>
+                </control>
             </control>
 
             <control type="group">

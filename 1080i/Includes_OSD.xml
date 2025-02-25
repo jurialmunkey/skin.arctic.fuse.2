@@ -588,6 +588,7 @@
 
     <include name="OSD_Progress_Details_Extended">
         <param name="align">bottom</param>
+        <param name="landscape_visible">!Skin.HasSetting(OSD.DisableLandscapeOnInfo)</param>
         <definition>
             <control type="grouplist">
                 <bottom>44</bottom>
@@ -596,22 +597,28 @@
                 <control type="group">
                     <height>view_landscape_item_h</height>
                     <width>view_landscape_item_w</width>
-                    <include>Object_ItemBack</include>
-                    <control type="image">
-                        <texture background="true" diffuse="diffuse/landscape_w410_h231.png">$VAR[Image_OSD_Landscape]</texture>
-                        <aspectratio scalediffuse="false">keep</aspectratio>
-                    </control>
                     <control type="group">
-                        <visible>VideoPlayer.Content(livetv)</visible>
-                        <include content="Object_ProgressLine">
-                            <param name="progress">PVR.EpgEventProgress</param>
-                        </include>
-                    </control>
-                    <control type="group">
-                        <visible>!VideoPlayer.Content(livetv)</visible>
-                        <include content="Object_ProgressLine">
-                            <param name="progress">Player.Progress</param>
-                        </include>
+                        <visible>$PARAM[landscape_visible]</visible>
+                        <include>Object_ItemBack</include>
+                        <control type="image">
+                            <texture background="true" diffuse="diffuse/landscape_w410_h231.png">$VAR[Image_OSD_Landscape]</texture>
+                            <aspectratio scalediffuse="false">keep</aspectratio>
+                        </control>
+                        <control type="group">
+                            <visible>!Window.IsActive(DialogSeekBar.xml)</visible>
+                            <control type="group">
+                                <visible>VideoPlayer.Content(livetv)</visible>
+                                <include content="Object_ProgressLine">
+                                    <param name="progress">PVR.EpgEventProgress</param>
+                                </include>
+                            </control>
+                            <control type="group">
+                                <visible>!VideoPlayer.Content(livetv)</visible>
+                                <include content="Object_ProgressLine">
+                                    <param name="progress">Player.Progress</param>
+                                </include>
+                            </control>
+                        </control>
                     </control>
                 </control>
 
