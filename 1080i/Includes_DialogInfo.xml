@@ -18,29 +18,50 @@
             <top>view_pad</top>
             <include>Dimension_Info</include>
             <control type="group">
-                <width>infodialog_poster_w</width>
-                <height>infodialog_poster_h</height>
 
-                <include content="Animation_Slide_In">
+                <include content="Object_Right" condition="!Skin.HasSetting(Info.FlipSide)">
+                    <param name="right">0</param>
+                </include>
+                <include content="Animation_Slide_In" condition="!Skin.HasSetting(Info.FlipSide)">
+                    <param name="type">WindowOpen</param>
+                    <param name="posx">320</param>
+                    <param name="delay">400</param>
+                </include>
+                <include content="Animation_Slide_Out" condition="!Skin.HasSetting(Info.FlipSide)">
+                    <param name="type">WindowClose</param>
+                    <param name="posx">320</param>
+                </include>
+
+                <include content="Object_Left" condition="Skin.HasSetting(Info.FlipSide)">
+                    <param name="left">0</param>
+                </include>
+                <include content="Animation_Slide_In" condition="Skin.HasSetting(Info.FlipSide)">
                     <param name="type">WindowOpen</param>
                     <param name="posx">-320</param>
                     <param name="delay">400</param>
                 </include>
-                <include content="Animation_Slide_Out">
+                <include content="Animation_Slide_Out" condition="Skin.HasSetting(Info.FlipSide)">
                     <param name="type">WindowClose</param>
                     <param name="posx">-320</param>
                 </include>
 
-                <include content="Object_BigPoster" condition="Window.IsVisible(movieinformation) | Window.IsActive(fullscreenvideo)">
+                <width>infodialog_poster_w</width>
+                <height>infodialog_poster_h</height>
+
+                <include content="Object_BigPoster" condition="[Window.IsVisible(movieinformation) | Window.IsActive(fullscreenvideo)]">
                     <param name="icon">$PARAM[icon]</param>
                     <param name="diffuse">diffuse/poster_w560_h820.png</param>
                 </include>
-
                 <include content="Object_Control" condition="![Window.IsVisible(movieinformation) | Window.IsActive(fullscreenvideo)]">
                     <param name="control">image</param>
                     <width>infodialog_poster_w</width>
                     <height>infodialog_poster_w</height>
-                    <centertop>infodialog_poster_w</centertop>
+                    <include content="Object_CenterBottom" condition="!Skin.HasSetting(Info.FlipSide)">
+                        <param name="centerbottom">infodialog_poster_w</param>
+                    </include>
+                    <include content="Object_CenterTop" condition="Skin.HasSetting(Info.FlipSide)">
+                        <param name="centertop">infodialog_poster_w</param>
+                    </include>
                     <texture background="true">$VAR[Image_DiscArt]</texture>
                     <bordersize>20</bordersize>
                     <animation effect="rotate" condition="true" start="0" end="-360" loop="true" time="30000" center="auto" reversible="false">Conditional</animation>
@@ -49,6 +70,12 @@
                     <param name="icon">$PARAM[icon]</param>
                     <param name="diffuse">diffuse/square_w560_h560.png</param>
                     <height>infodialog_poster_w</height>
+                    <include content="Object_Bottom" condition="!Skin.HasSetting(Info.FlipSide)">
+                        <param name="bottom">0</param>
+                    </include>
+                    <include content="Object_Top" condition="Skin.HasSetting(Info.FlipSide)">
+                        <param name="top">0</param>
+                    </include>
                 </include>
 
             </control>
@@ -59,17 +86,34 @@
         <param name="titlelabel">$VAR[Label_Title]</param>
         <param name="plotlabel">$VAR[Label_Plot]</param>
         <definition>
-            <left>infodialog_left_w</left>
             <bottom>-40</bottom>
-            <include content="Animation_Slide_In">
+
+            <include content="Object_Right" condition="!Skin.HasSetting(Info.FlipSide)">
+                <param name="right">infodialog_left_w</param>
+            </include>
+            <include content="Animation_Slide_In" condition="!Skin.HasSetting(Info.FlipSide)">
+                <param name="type">WindowOpen</param>
+                <param name="posx">-320</param>
+                <param name="delay">400</param>
+            </include>
+            <include content="Animation_Slide_Out" condition="!Skin.HasSetting(Info.FlipSide)">
+                <param name="type">WindowClose</param>
+                <param name="posx">-320</param>
+            </include>
+
+            <include content="Object_Left" condition="Skin.HasSetting(Info.FlipSide)">
+                <param name="left">infodialog_left_w</param>
+            </include>
+            <include content="Animation_Slide_In" condition="Skin.HasSetting(Info.FlipSide)">
                 <param name="type">WindowOpen</param>
                 <param name="posx">320</param>
                 <param name="delay">400</param>
             </include>
-            <include content="Animation_Slide_Out">
+            <include content="Animation_Slide_Out" condition="Skin.HasSetting(Info.FlipSide)">
                 <param name="type">WindowClose</param>
                 <param name="posx">320</param>
             </include>
+
             <include content="Info_Panel" condition="!String.IsEqual(ListItem.Property(tmdb_type),person)">
                 <param name="titlelabel">$PARAM[titlelabel]</param>
                 <param name="plotlabel">$PARAM[plotlabel]</param>

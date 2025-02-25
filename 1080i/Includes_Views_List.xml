@@ -1,14 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <includes>
 
-    <!-- Media List -->
+    <!-- Details List -->
     <include name="View_550_MediaList">
-        <include content="View_MediaList_Include">
+        <include content="View_MediaList_Include" condition="!Skin.HasSetting(View.FlipSide)">
+            <param name="id">550</param>
+            <param name="viewtype_label">$LOCALIZE[31480]</param>
+            <param name="visible">$EXP[Exp_View_550]</param>
+            <param name="right">infodialog_left_w</param>
+            <param name="left">0</param>
+            <param name="top">320</param>
+            <param name="focusposition">1</param>
+            <param name="movement">3</param>
+            <param name="scrollbar_id">65</param>
+            <param name="overlay">true</param>
+        </include>
+        <include content="View_MediaList_Include" condition="Skin.HasSetting(View.FlipSide)">
             <param name="id">550</param>
             <param name="viewtype_label">$LOCALIZE[31480]</param>
             <param name="visible">$EXP[Exp_View_550]</param>
             <param name="left">infodialog_left_w</param>
-            <param name="right">20</param>
+            <param name="right">0</param>
             <param name="top">320</param>
             <param name="focusposition">1</param>
             <param name="movement">3</param>
@@ -16,6 +28,8 @@
             <param name="overlay">true</param>
         </include>
     </include>
+
+    <!-- FlixArt List -->
     <include name="View_551_Landscape_MediaList">
         <include content="View_MediaList_Include" condition="Window.IsVisible(videos) + !Skin.HasSetting(View.DisableFlixArtListPoster)">
             <param name="id">551</param>
@@ -61,34 +75,46 @@
         </include>
     </include>
 
+    <!-- Media List -->
     <include name="View_552_Information_MediaList">
-        <include content="View_MediaListOverview_Include">
+        <include content="View_MediaList_Include" condition="!Skin.HasSetting(View.FlipSide)">
+            <param name="id">552</param>
+            <param name="viewtype_label">$LOCALIZE[31559]</param>
+            <param name="visible">$EXP[Exp_View_552]</param>
+            <param name="left">0</param>
+            <param name="right">infodialog_left_w</param>
+            <param name="top">160</param>
+            <param name="focusposition">1</param>
+            <param name="movement">5</param>
+            <param name="scrollbar_id">66</param>
+            <param name="overlay">true</param>
+        </include>
+        <include content="View_MediaList_Include" condition="Skin.HasSetting(View.FlipSide)">
             <param name="id">552</param>
             <param name="viewtype_label">$LOCALIZE[31559]</param>
             <param name="visible">$EXP[Exp_View_552]</param>
             <param name="left">infodialog_left_w</param>
             <param name="right">20</param>
-            <param name="top">-40</param>
+            <param name="top">160</param>
             <param name="focusposition">1</param>
-            <param name="movement">6</param>
+            <param name="movement">5</param>
             <param name="scrollbar_id">66</param>
             <param name="overlay">true</param>
         </include>
     </include>
 
+    <!-- Basic List -->
     <include name="View_553_Basic_MediaList">
         <include content="View_MediaList_Include">
             <param name="id">553</param>
             <param name="viewtype_label">$LOCALIZE[31120]</param>
-            <param name="visible">$EXP[Exp_View_553] + [Container.Content(images) | Container.Content(movies) | Container.Content(tvshows) | Container.Content(sets) | Container.Content(seasons) | Container.Content(episodes) | Container.Content(musicvideos) | Container.Content(games) | Container.Content(videos)]</param>
+            <param name="visible">$EXP[Exp_View_553]</param>
             <param name="right">1120</param>
             <param name="top">160</param>
             <param name="focusposition">1</param>
             <param name="movement">5</param>
-            <param name="scrollbar_id">65</param>
+            <param name="scrollbar_id">66</param>
             <param name="overlay">true</param>
-            <!-- <param name="variation">true</param> -->
-
             <control type="group">
                 <height>585</height>
                 <width>1040</width>
@@ -105,40 +131,28 @@
                 </control>
             </control>
         </include>
+    </include>
 
-        <include content="View_MediaList_Include">
+    <!-- Combo List -->
+    <include name="View_554_ComboList">
+        <include content="View_ComboList_Include">
             <param name="id">554</param>
-            <param name="viewtype_label">$LOCALIZE[31120]</param>
-            <param name="visible">$EXP[Exp_View_553] + ![Container.Content(images) | Container.Content(movies) | Container.Content(tvshows) | Container.Content(sets) | Container.Content(seasons) | Container.Content(episodes) | Container.Content(musicvideos) | Container.Content(games) | Container.Content(videos)]</param>
-            <param name="right">665</param>
-            <param name="top">160</param>
-            <param name="focusposition">1</param>
-            <param name="movement">5</param>
-            <param name="scrollbar_id">65</param>
-            <param name="overlay">true</param>
-            <!-- <param name="variation">true</param> -->
-
-            <control type="group">
-                <height>585</height>
-                <width>585</width>
-                <bottom>0</bottom>
-                <right>0</right>
-                <control type="image">
-                    <include>Texture_Shadow_40</include>
-                    <texture colordiffuse="main_fg_12" border="20">common/box.png</texture>
-                </control>
-                <control type="image">
-                    <texture diffuse="diffuse/square_w585_h585.png" background="true">$VAR[Image_Poster]</texture>
-                    <fadetime>background_fadetime</fadetime>
-                    <aspectratio scalediffuse="false">keep</aspectratio>
-                </control>
-            </control>
+            <param name="comboid">556</param>
+            <param name="viewtype_label">$LOCALIZE[31580]</param>
+            <param name="visible">$EXP[Exp_View_554]</param>
         </include>
     </include>
 
     <include name="View_MediaListOverview_Artwork">
         <control type="group">
-            <left>0</left>
+
+            <include content="Object_Left" condition="Skin.HasSetting(View.FlipSide)">
+                <param name="left">0</param>
+            </include>
+            <include content="Object_Right" condition="!Skin.HasSetting(View.FlipSide)">
+                <param name="right">0</param>
+            </include>
+
             <top>-100</top>
             <width>infodialog_poster_w</width>
             <height>infodialog_poster_h</height>
@@ -156,7 +170,12 @@
                 <control type="image">
                     <width>infodialog_poster_w</width>
                     <height>infodialog_poster_w</height>
-                    <centertop>infodialog_poster_w</centertop>
+                    <include content="Object_CenterBottom" condition="!Skin.HasSetting(View.FlipSide)">
+                        <param name="centerbottom">infodialog_poster_w</param>
+                    </include>
+                    <include content="Object_CenterTop" condition="Skin.HasSetting(View.FlipSide)">
+                        <param name="centertop">infodialog_poster_w</param>
+                    </include>
                     <texture background="true">$VAR[Image_DiscArt]</texture>
                     <bordersize>20</bordersize>
                     <animation effect="rotate" condition="Player.Playing" start="0" end="-360" loop="true" time="30000" center="auto" reversible="false">Conditional</animation>
@@ -166,37 +185,17 @@
                     <param name="icon">$VAR[Image_Poster]</param>
                     <param name="diffuse">diffuse/square_w560_h560.png</param>
                     <height>infodialog_poster_w</height>
-                    <top>0</top>
+                    <include content="Object_Bottom" condition="!Skin.HasSetting(View.FlipSide)">
+                        <param name="bottom">0</param>
+                    </include>
+                    <include content="Object_Top" condition="Skin.HasSetting(View.FlipSide)">
+                        <param name="top">0</param>
+                    </include>
                 </include>
             </control>
 
         </control>
     </include>
-
-    <include name="View_MediaList_Square">
-        <definition>
-            <control type="group">
-                <bottom>0</bottom>
-                <width>viewlist_poster_w</width>
-                <height>viewlist_poster_w</height>
-                <right>0</right>
-                <control type="image">
-                    <width>viewlist_poster_w</width>
-                    <height>viewlist_poster_w</height>
-                    <centerbottom>viewlist_poster_w</centerbottom>
-                    <texture background="true">$VAR[Image_DiscArt]</texture>
-                    <bordersize>20</bordersize>
-                </control>
-                <include content="Layout_Poster">
-                    <param name="indicator">false</param>
-                    <param name="item_w">viewlist_poster_w</param>
-                    <param name="item_h">viewlist_poster_w</param>
-                    <param name="diffuse">diffuse/square_w480_h480.png</param>
-                </include>
-            </control>
-        </definition>
-    </include>
-
 
     <include name="View_MediaList_SquareLandscape">
         <param name="visible">!$EXP[Exp_InfoDialogs]</param>
@@ -318,31 +317,7 @@
         </definition>
     </include>
 
-    <include name="View_MediaList_Reposition">
-        <include content="Animation_Reposition">
-            <param name="slide_x">0</param>
-            <param name="slide_y">80</param>
-            <param name="numitems">8</param>
-        </include>
-        <include content="Animation_Reposition">
-            <param name="slide_x">0</param>
-            <param name="slide_y">80</param>
-            <param name="numitems">6</param>
-        </include>
-        <include content="Animation_Reposition">
-            <param name="slide_x">0</param>
-            <param name="slide_y">80</param>
-            <param name="numitems">4</param>
-        </include>
-        <include content="Animation_Reposition">
-            <param name="slide_x">0</param>
-            <param name="slide_y">80</param>
-            <param name="numitems">2</param>
-        </include>
-    </include>
-
     <include name="View_MediaList_Include">
-        <param name="include_reposition">Items_Null</param>
         <param name="scrollbar_id">64</param>
         <param name="overlay">false</param>
         <param name="control">fixedlist</param>
@@ -368,7 +343,6 @@
                         <param name="variation">$PARAM[variation]</param>
                         <param name="include_detailed_labels">$PARAM[include_detailed_labels]</param>
 
-                        <include>$PARAM[include_reposition]</include>
 
                         <left>-20</left>
                         <right>-60</right>
@@ -396,11 +370,13 @@
         </definition>
     </include>
 
+    <variable name="View_554_Content">
+        <value condition="String.IsEmpty(Window.Property(SpecialFolderPath)) + !String.IsEmpty(Container(554).ListItem.FolderPath) + Container(554).ListItem.IsFolder">$INFO[Container(554).ListItem.FolderPath]</value>
+        <value condition="!String.IsEmpty(Window.Property(SpecialFolderPath))">$INFO[Window.Property(SpecialFolderPath)]</value>
+    </variable>
 
-    <include name="View_MediaListOverview_Include">
-        <param name="include_reposition">Items_Null</param>
-        <param name="scrollbar_id">64</param>
-        <param name="overlay">false</param>
+    <include name="View_ComboList_Include">
+        <param name="width">info_title_w</param>
         <definition>
 
             <control type="group">
@@ -410,46 +386,81 @@
                 <nested />
 
                 <control type="group">
-                    <left>$PARAM[left]</left>
-                    <right>$PARAM[right]</right>
-                    <top>$PARAM[top]</top>
-                    <bottom>-2</bottom>
+                    <width>$PARAM[width]</width>
+                    <top>160</top>
 
-                    <include content="List_MediaListOverview">
+                    <include content="List_DialogSelect">
                         <param name="id">$PARAM[id]</param>
                         <param name="textcolor">main_fg</param>
-                        <param name="control">fixedlist</param>
-                        <param name="focusedlayout_h">$PARAM[focusedlayout_h]</param>
-                        <param name="variation">$PARAM[variation]</param>
-                        <param name="item_height">$PARAM[item_height]</param>
+                        <param name="control">list</param>
+                        <param name="itemlayout_include">Layout_MediaList</param>
+                        <param name="variation">true</param>
 
-                        <include>$PARAM[include_reposition]</include>
+                        <left>-20</left>
+                        <right>-60</right>
 
-                        <top>0</top>
-
-                        <left>-60</left>
-                        <right>-100</right>
-
-                        <onleft condition="!Window.IsVisible(MyPlaylist.xml)">600</onleft>
-
-                        <onright>$PARAM[scrollbar_id]</onright>
+                        <onleft>600</onleft>
+                        <onright>$PARAM[comboid]</onright>
 
                         <include content="Action_View_Movement_OnBack">
                             <param name="id">$PARAM[id]</param>
                             <param name="onback">True</param>
                         </include>
 
-                        <focusposition>$PARAM[focusposition]</focusposition>
-                        <movement>$PARAM[movement]</movement>
-                        <pagecontrol>$PARAM[scrollbar_id]</pagecontrol>
                         <visible>$PARAM[visible]</visible>
                         <viewtype label="$PARAM[viewtype_label]">list</viewtype>
                         <onfocus>ClearProperty(TMDbHelper.WidgetContainer)</onfocus>
-                        <onfocus condition="![$PARAM[overlay]]">ClearProperty(Background.ShowOverlay,Home)</onfocus>
-                        <onfocus condition="$PARAM[overlay]">SetProperty(Background.ShowOverlay,True,Home)</onfocus>
+                        <onfocus>SetProperty(Background.ShowOverlay,True,Home)</onfocus>
                     </include>
+                </control>
+
+                <control type="group">
+                    <left>$PARAM[width]</left>
+                    <control type="group">
+
+                        <include content="List_DialogSelect">
+                            <param name="id">$PARAM[comboid]</param>
+                            <param name="textcolor">main_fg</param>
+                            <param name="control">fixedlist</param>
+                            <param name="itemlayout_include">Layout_MediaList_Detailed</param>
+
+                            <param name="item_height">280</param>
+                            <param name="misc">391.11</param>
+
+                            <!-- <param name="item_height">205</param>
+                            <param name="misc">311</param> -->
+
+                            <include content="Action_View_Movement_OnBack">
+                                <param name="id">$PARAM[comboid]</param>
+                                <param name="onback">[Integer.IsEqual(Container($PARAM[comboid]).CurrentItem,1)]</param>
+                                <param name="backid">63</param>
+                                <param name="always">true</param>
+                            </include>
+
+                            <top>-110</top>
+                            <bottom>-10</bottom>
+
+                            <left>40</left>
+                            <right>-100</right>
+
+                            <content target="$VAR[Path_CollectionNode_Target]" sortby="$VAR[View_Combined_SortBy]" sortorder="ascending">$VAR[View_$PARAM[id]_Content]</content>
+
+                            <onleft>$PARAM[id]</onleft>
+                            <onright>66</onright>
+
+                            <focusposition>1</focusposition>
+                            <movement>1</movement>
+                            <pagecontrol>66</pagecontrol>
+
+                            <onfocus>ClearProperty(TMDbHelper.WidgetContainer)</onfocus>
+                            <onfocus>SetProperty(Background.ShowOverlay,True,Home)</onfocus>
+                        </include>
+                    </control>
                 </control>
             </control>
         </definition>
     </include>
+
+
+
 </includes>
