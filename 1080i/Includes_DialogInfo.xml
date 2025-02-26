@@ -938,6 +938,8 @@
             <onclick>SetProperty(clearlogo,$VAR[Image_Clearlogo_Container],1114)</onclick>
             <onclick>SetProperty(tmdb_id,$INFO[Container.ListItem.Property(tmdb_id)],1114)</onclick>
             <onclick>SetProperty(tmdb_type,$INFO[Container.ListItem.Property(tmdb_type)],1114)</onclick>
+            <onclick>SetProperty(origin_tmdb_id,$VAR[Path_InfoParams_TMDbID],1114)</onclick>
+            <onclick>SetProperty(origin_tmdb_type,$VAR[Path_InfoParams_TMDbType],1114)</onclick>
             <onclick>ActivateWindow(1114)</onclick>
         </definition>
     </include>
@@ -2086,7 +2088,7 @@
                                     <onclick>Dialog.Close(1140,true)</onclick>
                                     <onclick>Dialog.Close(1141,true)</onclick>
                                     <onclick>Dialog.Close(videobookmarks,true)</onclick>
-                                    <onclick>RunScript(plugin.video.themoviedb.helper,add_path=$INFO[Container(7001).ListItem.FolderPath],call_auto=1190,return)</onclick>
+                                    <onclick>RunScript(plugin.video.themoviedb.helper,add_path=$INFO[Container(7001).ListItem.FolderPath],call_auto=1190,origin_tmdb_type=$INFO[Window.Property(origin_tmdb_type)],origin_tmdb_id=$INFO[Window.Property(origin_tmdb_id)],return)</onclick>
 
                                     <content>$INFO[Window.Property(ModePath)]</content>
                                     <visible>!String.IsEmpty(Window.Property(ModePath))</visible>
@@ -2133,7 +2135,6 @@
                                 <param name="groupid">9101</param>
                                 <param name="label">$LOCALIZE[29915]</param>
                                 <param name="icon">special://skin/extras/icons/info2.png</param>
-                                <param name="visible">!String.IsEmpty(Window.Property(path))</param>
                                 <onfocus>ClearProperty(ModePath)</onfocus>
                                 <onfocus>ClearProperty(ModeName)</onfocus>
                                 <onclick>Dialog.Close(1114)</onclick>
@@ -2143,7 +2144,7 @@
                                 <onclick>Dialog.Close(1140,true)</onclick>
                                 <onclick>Dialog.Close(1141,true)</onclick>
                                 <onclick>Dialog.Close(videobookmarks,true)</onclick>
-                                <onclick>RunScript(plugin.video.themoviedb.helper,add_path=$INFO[Window.Property(path)],call_auto=1190,return)</onclick>
+                                <onclick condition="!String.IsEmpty(Window.Property(path))">RunScript(plugin.video.themoviedb.helper,add_path=$INFO[Window.Property(path)],call_auto=1190,origin_tmdb_type=$INFO[Window.Property(origin_tmdb_type)],origin_tmdb_id=$INFO[Window.Property(origin_tmdb_id)],return)</onclick>
                             </include>
                             <!-- Movies -->
                             <include content="DialogInfo_Button" condition="!String.IsEmpty(Window.Property(tmdb_id)) + String.IsEqual(Window.Property(tmdb_type),person)">

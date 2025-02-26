@@ -394,6 +394,20 @@
         <value condition="String.IsEqual(ListItem.DBType,movie)">movie</value>
     </variable>
 
+    <variable name="Path_InfoParams_TMDbType">
+        <value condition="String.IsEqual(Window(Home).Property(TMDbHelper.ListItem.DBType),movie)">movie</value>
+        <value condition="String.IsEqual(Window(Home).Property(TMDbHelper.ListItem.DBType),tvshow)">tv</value>
+        <value condition="String.IsEqual(Window(Home).Property(TMDbHelper.ListItem.DBType),season)">tv</value>
+        <value condition="String.IsEqual(Window(Home).Property(TMDbHelper.ListItem.DBType),episode)">tv</value>
+    </variable>
+
+    <variable name="Path_InfoParams_TMDbID">
+        <value condition="String.IsEqual(Window(Home).Property(TMDbHelper.ListItem.DBType),movie)">$INFO[Window(Home).Property(TMDbHelper.ListItem.tmdb_id)]</value>
+        <value condition="String.IsEqual(Window(Home).Property(TMDbHelper.ListItem.DBType),tvshow)">$INFO[Window(Home).Property(TMDbHelper.ListItem.tmdb_id)]</value>
+        <value condition="String.IsEqual(Window(Home).Property(TMDbHelper.ListItem.DBType),season)">$INFO[Window(Home).Property(TMDbHelper.ListItem.tvshow.tmdb_id)]</value>
+        <value condition="String.IsEqual(Window(Home).Property(TMDbHelper.ListItem.DBType),episode)">$INFO[Window(Home).Property(TMDbHelper.ListItem.tvshow.tmdb_id)]</value>
+    </variable>
+
     <variable name="Path_ContextParams_Query">
         <value condition="!String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.base_tvshowtitle))">$INFO[Window(Home).Property(TMDbHelper.ListItem.base_tvshowtitle)]</value>
         <value condition="!String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.base_Title))">$INFO[Window(Home).Property(TMDbHelper.ListItem.base_Title)]</value>

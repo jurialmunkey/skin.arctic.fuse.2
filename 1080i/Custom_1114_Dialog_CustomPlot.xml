@@ -11,10 +11,12 @@
     <onunload>ClearProperty(trailer,1114)</onunload>
     <onunload>ClearProperty(tmdb_id,1114)</onunload>
     <onunload>ClearProperty(tmdb_type,1114)</onunload>
+    <onunload>ClearProperty(origin_tmdb_id,1114)</onunload>
+    <onunload>ClearProperty(origin_tmdb_type,1114)</onunload>
     <onload>SetProperty(TMDbHelper.ContextMenu,True)</onload>
     <controls>
 
-        <include content="Object_Hidden_List" condition="!String.IsEmpty(Window.Property(tmdb_type)) + !String.IsEmpty(Window.Property(tmdb_id))">
+        <include content="Object_Hidden_List" condition="!String.IsEmpty(Window.Property(tmdb_type)) + !String.IsEmpty(Window.Property(tmdb_id)) + String.IsEmpty(Window.Property(textbox))">
             <param name="id">7000</param>
             <content limit="1">$INFO[Window.Property(tmdb_id),plugin://plugin.video.themoviedb.helper/?info=details&amp;tmdb_id=,]$INFO[Window.Property(tmdb_type),&amp;tmdb_type=,]</content>
         </include>
@@ -36,7 +38,7 @@
             <param name="include_artwork">true</param>
         </include>
 
-        <include content="Furniture_Busy" condition="!String.IsEmpty(Window.Property(tmdb_type)) + !String.IsEmpty(Window.Property(tmdb_id))">
+        <include content="Furniture_Busy" condition="!String.IsEmpty(Window.Property(tmdb_type)) + !String.IsEmpty(Window.Property(tmdb_id)) + String.IsEmpty(Window.Property(textbox))">
             <param name="hasspinner">true</param>
             <param name="spinspinner">true</param>
             <param name="icon">special://skin/extras/icons/kodi.png</param>

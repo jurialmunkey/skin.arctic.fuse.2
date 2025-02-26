@@ -556,29 +556,12 @@
         </control>
     </include>
 
-    <include name="OSD_Progress_Details_TitleInfoLine">
-        <include content="Info_Title">
-            <param name="colordiffuse">panel_fg</param>
-            <param name="container" />
-            <param name="label">$VAR[Label_OSD_Title]</param>
-            <param name="mainlogo_visible">[!String.IsEmpty(Window(Home).Property(TMDbHelper.Player.CropImage))]</param>
-            <param name="mainlogo_texture">$INFO[Window(Home).Property(TMDbHelper.Player.CropImage)]</param>
-            <param name="autoheight">true</param>
-        </include>
-
-        <control type="group">
-            <height>50</height>
-            <include>OSD_Info_Line</include>
-        </control>
-    </include>
-
     <include name="OSD_Progress_Details_Grouplist_Def">
         <align>bottom</align>
-        <left>view_pad</left>
+        <left>0</left>
         <width>info_panel_w</width>
         <top>-40</top>
         <bottom>227.5</bottom>
-        <!-- <bottom>307.5</bottom> -->
         <orientation>vertical</orientation>
 
         <control type="group" description="Avoid grouplist chop with spacer">
@@ -595,6 +578,7 @@
                 <align>$PARAM[align]</align>
                 <include>OSD_Progress_Details_Grouplist_Def</include>
                 <control type="group">
+                    <left>view_pad</left>
                     <height>view_landscape_item_h</height>
                     <width>view_landscape_item_w</width>
                     <control type="group">
@@ -626,7 +610,21 @@
                     <height>44</height>
                 </control>
 
-                <include>OSD_Progress_Details_TitleInfoLine</include>
+                <include content="Info_Title">
+                    <param name="colordiffuse">panel_fg</param>
+                    <param name="container" />
+                    <param name="label">$VAR[Label_OSD_Title]</param>
+                    <param name="mainlogo_visible">[!String.IsEmpty(Window(Home).Property(TMDbHelper.Player.CropImage))]</param>
+                    <param name="mainlogo_texture">$INFO[Window(Home).Property(TMDbHelper.Player.CropImage)]</param>
+                    <param name="autoheight">true</param>
+                    <param name="left">view_pad</param>
+                </include>
+
+                <control type="group">
+                    <left>view_pad</left>
+                    <height>50</height>
+                    <include>OSD_Info_Line</include>
+                </control>
 
                 <include content="Info_Panel_Textbox">
                     <param name="plotlabel">$VAR[Label_Player_Plot]</param>
@@ -634,6 +632,7 @@
                     <param name="plotheight">160</param>
                     <param name="check_ratings">false</param>
                     <param name="colordiffuse">panel_fg</param>
+                    <param name="left">view_pad</param>
                 </include>
 
                 <control type="group">
@@ -644,7 +643,7 @@
                 <include content="Info_RatingsLine">
                     <param name="is_player">true</param>
                     <top>0</top>
-                    <left>0</left>
+                    <left>view_pad</left>
                     <visible>!VideoPlayer.Content(livetv)</visible>
                 </include>
 

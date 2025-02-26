@@ -1156,12 +1156,13 @@
         <param name="detailed">false</param>
         <param name="selected">false</param>
         <param name="variation">false</param>
-        <param name="icon">$VAR[Image_MediaList_Thumb]</param>
+        <param name="icon">$VAR[Image_Landscape]</param>
         <param name="textcolor">main_fg</param>
         <param name="listitem">ListItem</param>
         <param name="progress">Progress</param>
         <param name="affix" />
         <param name="include_detailed_labels">Skin.HasSetting(View.UseDetailedListLabels)</param>
+        <param name="diffuse">diffuse/landscape_w391_h220.png</param>
         <definition>
             <control type="group">
                 <height>$PARAM[item_h]</height>
@@ -1182,37 +1183,22 @@
                         <top>20</top>
                         <bottom>20</bottom>
                         <left>20</left>
-                        <control type="group">
-                            <visible>![$EXP[Exp_IsGenre] | $EXP[Exp_IsStudio] | $EXP[Exp_IsCountry]]</visible>
-                            <control type="image">
-                                <aspectratio scalediffuse="false">scale</aspectratio>
-                                <include content="Object_ColorDiffuse" condition="$PARAM[selected]">
-                                    <param name="colordiffuse">$VAR[ColorSelected]</param>
-                                </include>
-                                <colordiffuse>main_fg_90</colordiffuse>
-                                <texture background="true" diffuse="diffuse/landscape_w410_h231.png">$VAR[Image_MediaList_Icon]</texture>
-                            </control>
-                            <control type="image">
-                                <aspectratio scalediffuse="false">scale</aspectratio>
-                                <texture colordiffuse="white" background="true" diffuse="diffuse/landscape_w410_h231.png">$VAR[Image_MediaList_Thumb]</texture>
-                            </control>
-                        </control>
-                        <control type="group">
-                            <visible>$EXP[Exp_IsGenre] | $EXP[Exp_IsStudio] | $EXP[Exp_IsCountry]</visible>
-                            <control type="image">
-                                <bordersize>32</bordersize>
-                                <aspectratio scalediffuse="false">keep</aspectratio>
-                                <include content="Object_ColorDiffuse" condition="$PARAM[selected]">
-                                    <param name="colordiffuse">$VAR[ColorSelected]</param>
-                                </include>
-                                <colordiffuse>main_fg_90</colordiffuse>
-                                <texture fallback="folder.png" background="true" diffuse="diffuse/landscape_w410_h231.png">$VAR[Image_ResourceIcon]</texture>
-                            </control>
-                        </control>
+                        <include content="Object_ItemBack">
+                            <param name="selected">$PARAM[selected]</param>
+                            <param name="shadow_colordiffuse">$PARAM[shadow_colordiffuse]</param>
+                        </include>
+                        <include content="Object_Layout_Image_Rectangle">
+                            <param name="diffuse">$PARAM[diffuse]</param>
+                            <param name="icon">$PARAM[icon]</param>
+                            <param name="listitem">$PARAM[listitem]</param>
+                            <param name="selected">$PARAM[selected]</param>
+                            <param name="aspectratio">scale</param>
+                        </include>
                     </control>
 
                     <control type="group">
-                        <bottom>20</bottom>
+                        <top>-5</top>
+                        <bottom>25</bottom>
                         <left>$PARAM[misc]</left>
 
                         <control type="group">
@@ -1283,7 +1269,7 @@
                             <font>font_mini_plot</font>
                             <textcolor>main_fg_70</textcolor>
                             <top>80</top>
-                            <bottom>10</bottom>
+                            <bottom>0</bottom>
                             <right>40</right>
                             <left>60</left>
                             <autoscroll>false</autoscroll>
