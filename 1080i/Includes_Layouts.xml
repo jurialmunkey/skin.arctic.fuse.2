@@ -1270,80 +1270,76 @@
                         <top>-5</top>
                         <bottom>25</bottom>
                         <left>$PARAM[misc]</left>
-
                         <control type="group">
-                            <left>60</left>
-                            <right>40</right>
-                            <top>10</top>
-                            <height>80</height>
-
-                            <control type="label">
-                                <label>$INFO[ListItem.Label]</label>
-                                <font>font_main_bold</font>
-                                <include condition="$PARAM[selected]">Color_SelectedText</include>
-                                <textcolor>main_fg_90</textcolor>
-                                <include content="Object_Right" condition="$PARAM[variation]">
-                                    <param name="right">40</param>
-                                </include>
-                                <right>280</right>
-                            </control>
-
+                            <top>$PARAM[variation]</top>
+                            <bottom>$PARAM[variation]</bottom>
                             <control type="group">
-                                <visible>![$EXP[Exp_IsGenre] | $EXP[Exp_IsStudio] | $EXP[Exp_IsCountry]]</visible>
-                                <control type="label">
-                                    <right>120</right>
-                                    <font>font_mini</font>
-                                    <include condition="$PARAM[selected]">Color_SelectedText</include>
-                                    <textcolor>main_fg_70</textcolor>
-                                    <label>$INFO[ListItem.Premiered]</label>
-                                    <align>right</align>
-                                    <visible>![$PARAM[detailed]]</visible>
-                                    <visible>![$PARAM[variation]]</visible>
-                                    <visible>String.IsEqual(ListItem.DBType,movie) | String.IsEqual(ListItem.DBType,set) | String.IsEqual(ListItem.DBType,season) | String.IsEqual(ListItem.DBType,artist) | String.IsEqual(ListItem.DBType,album) | String.IsEqual(ListItem.DBType,video) | String.IsEqual(ListItem.DBType,episode) | String.IsEqual(ListItem.DBType,tvshow) | String.IsEqual(ListItem.DBType,song) | String.IsEqual(ListItem.DBType,musicvideo)</visible>
-                                </control>
-                                <control type="label">
-                                    <left>80</left>
-                                    <right>0</right>
-                                    <font>font_mini</font>
-                                    <include condition="$PARAM[selected]">Color_SelectedText</include>
-                                    <textcolor>main_fg_70</textcolor>
-                                    <visible>![$PARAM[variation]]</visible>
-                                    <label>$VAR[Label_MediaList_Rating,            ,]</label>
-                                    <align>right</align>
-                                    <visible>String.IsEqual(ListItem.DBType,movie) | String.IsEqual(ListItem.DBType,set) | String.IsEqual(ListItem.DBType,season) | String.IsEqual(ListItem.DBType,artist) | String.IsEqual(ListItem.DBType,album) | String.IsEqual(ListItem.DBType,video) | String.IsEqual(ListItem.DBType,episode) | String.IsEqual(ListItem.DBType,tvshow) | String.IsEqual(ListItem.DBType,song) | String.IsEqual(ListItem.DBType,musicvideo)</visible>
-                                </control>
-                                <include content="Object_Indicator_List">
-                                    <param name="affix">$PARAM[affix]</param>
-                                    <param name="listitem">$PARAM[listitem]</param>
-                                    <param name="selected">$PARAM[selected]</param>
-                                    <centertop>50%</centertop>
-                                    <centerright>80</centerright>
-                                    <visible>![$PARAM[variation]]</visible>
-                                    <visible>String.IsEqual(ListItem.DBType,movie) | String.IsEqual(ListItem.DBType,set) | String.IsEqual(ListItem.DBType,season) | String.IsEqual(ListItem.DBType,artist) | String.IsEqual(ListItem.DBType,album) | String.IsEqual(ListItem.DBType,video) | String.IsEqual(ListItem.DBType,episode) | String.IsEqual(ListItem.DBType,tvshow) | String.IsEqual(ListItem.DBType,song) | String.IsEqual(ListItem.DBType,musicvideo)</visible>
-                                </include>
-                                <include content="Object_Indicator_List">
-                                    <param name="affix">$PARAM[affix]</param>
-                                    <param name="listitem">$PARAM[listitem]</param>
-                                    <param name="selected">$PARAM[selected]</param>
-                                    <centertop>50%</centertop>
-                                    <centerright>15</centerright>
-                                    <visible>![String.IsEqual(ListItem.DBType,movie) | String.IsEqual(ListItem.DBType,set) | String.IsEqual(ListItem.DBType,season) | String.IsEqual(ListItem.DBType,artist) | String.IsEqual(ListItem.DBType,album) | String.IsEqual(ListItem.DBType,video) | String.IsEqual(ListItem.DBType,episode) | String.IsEqual(ListItem.DBType,tvshow) | String.IsEqual(ListItem.DBType,song) | String.IsEqual(ListItem.DBType,musicvideo)]</visible>
-                                    <visible>![$PARAM[variation]]</visible>
-                                </include>
-                            </control>
-                        </control>
+                                <left>60</left>
+                                <right>40</right>
+                                <top>10</top>
+                                <height>80</height>
 
-                        <control type="textbox">
-                            <include condition="$PARAM[selected]">Color_SelectedText</include>
-                            <label fallback="19055">$VAR[Label_Landscape_Plot]</label>
-                            <font>font_mini_plot</font>
-                            <textcolor>main_fg_70</textcolor>
-                            <top>80</top>
-                            <bottom>0</bottom>
-                            <right>40</right>
-                            <left>60</left>
-                            <autoscroll>false</autoscroll>
-                            <visible>![$PARAM[variation]]</visible>
+                                <control type="label">
+                                    <label>$INFO[ListItem.Label]</label>
+                                    <font>font_main_bold</font>
+                                    <include condition="$PARAM[selected]">Color_SelectedText</include>
+                                    <textcolor>main_fg_90</textcolor>
+                                    <right>280</right>
+                                </control>
+
+                                <control type="group">
+                                    <visible>![$EXP[Exp_IsGenre] | $EXP[Exp_IsStudio] | $EXP[Exp_IsCountry]]</visible>
+                                    <control type="label">
+                                        <right>120</right>
+                                        <font>font_mini</font>
+                                        <include condition="$PARAM[selected]">Color_SelectedText</include>
+                                        <textcolor>main_fg_70</textcolor>
+                                        <label>$INFO[ListItem.Premiered]</label>
+                                        <align>right</align>
+                                        <visible>![$PARAM[detailed]]</visible>
+                                        <visible>String.IsEqual(ListItem.DBType,movie) | String.IsEqual(ListItem.DBType,set) | String.IsEqual(ListItem.DBType,season) | String.IsEqual(ListItem.DBType,artist) | String.IsEqual(ListItem.DBType,album) | String.IsEqual(ListItem.DBType,video) | String.IsEqual(ListItem.DBType,episode) | String.IsEqual(ListItem.DBType,tvshow) | String.IsEqual(ListItem.DBType,song) | String.IsEqual(ListItem.DBType,musicvideo)</visible>
+                                    </control>
+                                    <control type="label">
+                                        <left>80</left>
+                                        <right>0</right>
+                                        <font>font_mini</font>
+                                        <include condition="$PARAM[selected]">Color_SelectedText</include>
+                                        <textcolor>main_fg_70</textcolor>
+                                        <label>$VAR[Label_MediaList_Rating,            ,]</label>
+                                        <align>right</align>
+                                        <visible>String.IsEqual(ListItem.DBType,movie) | String.IsEqual(ListItem.DBType,set) | String.IsEqual(ListItem.DBType,season) | String.IsEqual(ListItem.DBType,artist) | String.IsEqual(ListItem.DBType,album) | String.IsEqual(ListItem.DBType,video) | String.IsEqual(ListItem.DBType,episode) | String.IsEqual(ListItem.DBType,tvshow) | String.IsEqual(ListItem.DBType,song) | String.IsEqual(ListItem.DBType,musicvideo)</visible>
+                                    </control>
+                                    <include content="Object_Indicator_List">
+                                        <param name="affix">$PARAM[affix]</param>
+                                        <param name="listitem">$PARAM[listitem]</param>
+                                        <param name="selected">$PARAM[selected]</param>
+                                        <centertop>50%</centertop>
+                                        <centerright>80</centerright>
+                                        <visible>String.IsEqual(ListItem.DBType,movie) | String.IsEqual(ListItem.DBType,set) | String.IsEqual(ListItem.DBType,season) | String.IsEqual(ListItem.DBType,artist) | String.IsEqual(ListItem.DBType,album) | String.IsEqual(ListItem.DBType,video) | String.IsEqual(ListItem.DBType,episode) | String.IsEqual(ListItem.DBType,tvshow) | String.IsEqual(ListItem.DBType,song) | String.IsEqual(ListItem.DBType,musicvideo)</visible>
+                                    </include>
+                                    <include content="Object_Indicator_List">
+                                        <param name="affix">$PARAM[affix]</param>
+                                        <param name="listitem">$PARAM[listitem]</param>
+                                        <param name="selected">$PARAM[selected]</param>
+                                        <centertop>50%</centertop>
+                                        <centerright>15</centerright>
+                                        <visible>![String.IsEqual(ListItem.DBType,movie) | String.IsEqual(ListItem.DBType,set) | String.IsEqual(ListItem.DBType,season) | String.IsEqual(ListItem.DBType,artist) | String.IsEqual(ListItem.DBType,album) | String.IsEqual(ListItem.DBType,video) | String.IsEqual(ListItem.DBType,episode) | String.IsEqual(ListItem.DBType,tvshow) | String.IsEqual(ListItem.DBType,song) | String.IsEqual(ListItem.DBType,musicvideo)]</visible>
+                                    </include>
+                                </control>
+                            </control>
+
+
+                            <control type="textbox">
+                                <include condition="$PARAM[selected]">Color_SelectedText</include>
+                                <label fallback="19055">$VAR[Label_Landscape_Plot]</label>
+                                <font>font_mini_plot</font>
+                                <textcolor>main_fg_70</textcolor>
+                                <top>80</top>
+                                <bottom>0</bottom>
+                                <right>40</right>
+                                <left>60</left>
+                                <autoscroll>false</autoscroll>
+                            </control>
                         </control>
                     </control>
                 </control>
