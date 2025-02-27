@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <includes>
     <include name="View_MediaWindows_ID">
-        <views>50,51,52,53,54,57,58,59,500,510,520,530,540,560,570,580,590,502,512,522,532,542,572,582,592,550,551,552,553,554,555,561,557</views>
+        <views>50,51,52,53,54,57,58,59,500,510,520,530,540,560,570,580,590,502,512,522,532,542,572,582,592,550,551,552,553,554,555,561,557,558</views>
     </include>
 
     <include name="View_Row_Header">
@@ -88,7 +88,34 @@
                 </control>
             </control>
 
-
+            <control type="group">
+                <visible>Control.IsVisible(558)</visible>
+                <control type="group">
+                    <top>660</top>
+                    <right>view_pad</right>
+                    <width>1040</width>
+                    <include content="Info_Panel">
+                        <param name="visible">String.IsEmpty(Window.Property(TMDBHelper.WidgetContainer))</param>
+                        <param name="grouplistid">99954</param>
+                        <param name="plotheight">120</param>
+                        <param name="plotwidth">1040</param>
+                        <param name="title">false</param>
+                    </include>
+                </control>
+                <control type="group">
+                    <right>view_pad</right>
+                    <top>view_pad</top>
+                    <!-- <bottom>180</bottom> -->
+                    <width>1040</width>
+                    <height>585</height>
+                    <control type="group">
+                        <include content="Object_BigPoster">
+                            <param name="icon">$VAR[Image_Landscape]</param>
+                            <param name="diffuse">diffuse/landscape_w1040_h585.png</param>
+                        </include>
+                    </control>
+                </control>
+            </control>
 
             <control type="group">
                 <visible>$EXP[Exp_View_HasIndent]</visible>
@@ -127,15 +154,16 @@
                     </control>
                 </control>
             </control>
+
             <control type="group">
                 <visible>!$EXP[Exp_View_HasHeader]</visible>
                 <visible>!$EXP[Exp_View_HasIndent]</visible>
                 <control type="group">
-                    <visible>![Control.IsVisible(553) | Control.IsVisible(554) | Control.IsVisible(557)]</visible>
+                    <visible>![Control.IsVisible(553) | Control.IsVisible(554) | Control.IsVisible(557) | Control.IsVisible(558)]</visible>
                     <include>Info_Viewline</include>
                 </control>
                 <control type="group">
-                    <visible>[Control.IsVisible(553) | Control.IsVisible(554) | Control.IsVisible(557)]</visible>
+                    <visible>[Control.IsVisible(553) | Control.IsVisible(554) | Control.IsVisible(557) | Control.IsVisible(558)]</visible>
                     <include content="Info_Viewline">
                         <param name="top">280</param>
                     </include>
@@ -144,7 +172,7 @@
                     <include>Info_Panel_Dimensions</include>
                     <include content="Info_Panel">
                         <param name="visible">String.IsEmpty(Window.Property(TMDBHelper.WidgetContainer))</param>
-                        <param name="details">![Control.IsVisible(553) | Control.IsVisible(554) | Control.IsVisible(557)]</param>
+                        <param name="details">![Control.IsVisible(553) | Control.IsVisible(554) | Control.IsVisible(557) | Control.IsVisible(558)]</param>
                     </include>
                     <include>View_Combined_Info_Panel</include>
                 </control>
@@ -178,6 +206,7 @@
         <include condition="$EXP[Exp_View_553_Include]">View_553_Basic_MediaList</include>
         <include condition="$EXP[Exp_View_554_Include]">View_554_Combo_MediaList</include>
         <include condition="$EXP[Exp_View_557_Include]">View_557_Broad_MediaList</include>
+        <include condition="$EXP[Exp_View_558_Include]">View_558_Info_MediaList</include>
         <include condition="$EXP[Exp_View_500_Include]">View_500_Square_Wall</include>
         <include condition="$EXP[Exp_View_510_Include]">View_510_Landscape_Wall</include>
         <include condition="$EXP[Exp_View_520_Include]">View_520_Poster_Wall</include>

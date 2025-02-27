@@ -9,25 +9,32 @@
         <include>Dialog_Dim_Overlay</include>
 
         <control type="group">
-            <!-- <include>Dimension_DialogMiniMenu</include> -->
-            <include>Dimension_DialogSideMenu</include>
             <include>Animation_Right_Delay</include>
 
-            <include content="Dialog_Foreground_Side">
-                <!-- <param name="dialog_size">Dimension_DialogMiniMenu</param> -->
+            <include condition="Skin.HasSetting(Options.EnableTray)">Dimension_DialogSideMenu</include>
+            <include content="Dialog_Foreground_Side" condition="Skin.HasSetting(Options.EnableTray)">
                 <param name="dialog_size">Dimension_DialogSideMenu</param>
                 <param name="lines_right">dialog_buttongroup_w</param>
                 <param name="topline">true</param>
                 <param name="subline">false</param>
             </include>
 
+            <include condition="!Skin.HasSetting(Options.EnableTray)">Dimension_DialogMiniMenu</include>
+            <include content="Dialog_Foreground_Side" condition="!Skin.HasSetting(Options.EnableTray)">
+                <param name="dialog_size">Dimension_DialogMiniMenu</param>
+                <param name="lines_right">0</param>
+                <param name="topline">true</param>
+                <param name="subline">false</param>
+            </include>
+
             <control type="group">
-                <right>dialog_buttongroup_w</right>
+                <include content="Object_Right" condition="Skin.HasSetting(Options.EnableTray)">
+                    <param name="right">dialog_buttongroup_w</param>
+                </include>
 
                 <!-- Header -->
                 <include content="Dialog_Head">
                     <param name="label">$LOCALIZE[33063][COLOR=dialog_fg_30] — [/COLOR]$INFO[System.Time]</param>
-                    <!-- <param name="label">$LOCALIZE[33063]</param> -->
                 </include>
                 <include>Dialog_Head_CloseButton</include>
 
@@ -66,7 +73,8 @@
                             <bottom>0</bottom>
                             <orientation>vertical</orientation>
                             <onup>7020</onup>
-                            <ondown>SetFocus(6000,2)</ondown>
+                            <ondown condition="Player.HasMedia">SetFocus(6000,2)</ondown>
+                            <ondown condition="!Player.HasMedia">7010</ondown>
                             <onright>6099</onright>
                             <onleft>Close</onleft>
                             <oninfo>Close</oninfo>
@@ -85,13 +93,20 @@
                         </include>
 
                         <include condition="Player.HasMedia">ButtonMenu_PlayerControls</include>
+                        <include content="Object_Hidden_Button" condition="!Player.HasMedia">
+                            <param name="id">6000</param>
+                            <onfocus>SetFocus(8000,9999,absolute)</onfocus>
+                            <onup>SetFocus(8000,9999,absolute)</onup>
+                            <ondown>SetFocus(8000,9999,absolute)</ondown>
+                        </include>
 
                     </control>
                 </control>
             </control>
 
             <!-- Side Buttons -->
-            <control type="group">
+            <include content="Object_Control" condition="Skin.HasSetting(Options.EnableTray)">
+                <param name="control">group</param>
                 <include content="Dialog_Side_Panel_Group_Def">
                     <param name="width">dialog_buttongroup_w</param>
                 </include>
@@ -102,7 +117,7 @@
                         <include>ButtonMenu_OptionsTray</include>
                     </control>
                 </control>
-            </control>
+            </include>
 
         </control>
 
