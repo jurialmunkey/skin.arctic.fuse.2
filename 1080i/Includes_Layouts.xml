@@ -260,6 +260,76 @@
         </definition>
     </include>
 
+    <include name="Layout_IconMenu">
+        <param name="selected">false</param>
+        <param name="detailed">false</param>
+        <param name="color">main_fg</param>
+        <param name="centertop">50%</param>
+        <definition>
+            <control type="group">
+                <right>20</right>
+                <control type="group">
+                    <width>40</width>
+                    <height>40</height>
+                    <centertop>$PARAM[centertop]</centertop>
+                    <centerleft>50%</centerleft>
+                    <include content="Object_Control" condition="$PARAM[selected]">
+                        <param name="control">image</param>
+                        <bordersize>-20</bordersize>
+                        <include>Texture_Circle_Highlight_H</include>
+                    </include>
+                    <control type="image">
+                        <height>40</height>
+                        <bordersize>icon_home_bordersize</bordersize>
+                        <include content="Object_ColorDiffuse" condition="$PARAM[selected]">
+                            <param name="colordiffuse">$VAR[ColorSelected]</param>
+                        </include>
+                        <colordiffuse>$PARAM[color_nf]</colordiffuse>
+                        <texture diffuse="diffuse/circle/circle_120.png">$INFO[ListItem.Icon]</texture>
+                    </control>
+                </control>
+            </control>
+        </definition>
+    </include>
+
+    <include name="Layout_IconMenu_Expanded">
+        <param name="selected">false</param>
+        <param name="detailed">false</param>
+        <param name="color">main_fg</param>
+        <param name="centertop">50%</param>
+        <definition>
+            <control type="group">
+                <right>20</right>
+                <control type="group">
+                    <left>20</left>
+                    <right>20</right>
+                    <height>40</height>
+                    <centertop>$PARAM[centertop]</centertop>
+                    <include content="Object_Control" condition="$PARAM[selected]">
+                        <param name="control">image</param>
+                        <bordersize>-20</bordersize>
+                        <include>Texture_Menu_Highlight_H</include>
+                    </include>
+                    <control type="image">
+                        <width>40</width>
+                        <bordersize>icon_home_bordersize</bordersize>
+                        <include content="Object_ColorDiffuse" condition="$PARAM[selected]">
+                            <param name="colordiffuse">$VAR[ColorSelected]</param>
+                        </include>
+                        <colordiffuse>$PARAM[color_nf]</colordiffuse>
+                        <texture diffuse="diffuse/circle/circle_120.png">$INFO[ListItem.Icon]</texture>
+                    </control>
+                    <control type="label">
+                        <left>80</left>
+                        <label>$INFO[ListITem.Label]</label>
+                        <font>font_mini_bold</font>
+                        <textcolor>$VAR[ColorSelected]</textcolor>
+                    </control>
+                </control>
+            </control>
+        </definition>
+    </include>
+
     <include name="Layout_GameFilter">
         <param name="selected">false</param>
         <param name="detailed">false</param>

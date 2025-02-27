@@ -38,13 +38,6 @@
     </include>
 
     <include name="Furniture_Bottom_Right">
-        <param name="enabled">!Skin.HasSetting(Furniture.DisableStudio)</param>
-        <definition>
-            <include content="_Furniture_Bottom_Right" condition="$PARAM[enabled]">
-            </include>
-        </definition>
-    </include>
-    <include name="_Furniture_Bottom_Right">
         <control type="group">
             <include>Dimension_Bottombar</include>
             <control type="group">
@@ -52,7 +45,7 @@
                 <control type="group">
                     <include>Furniture_Right_Visible</include>
                     <include>Furniture_Right_Sliding</include>
-                    <include condition="!Skin.HasSetting(Furniture.EnableClock)">Info_Bottom_Right</include>
+                    <include condition="!Skin.HasSetting(Furniture.EnableClock) + !Skin.HasSetting(Furniture.DisableStudio)">Info_Bottom_Right</include>
                 </control>
                 <control type="group">
                     <include content="Furniture_Clock" condition="Skin.HasSetting(Furniture.EnableClock)">
