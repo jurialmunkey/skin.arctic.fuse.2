@@ -1067,7 +1067,7 @@
                 <scrolltime tween="quadratic">400</scrolltime>
 
                 <itemlayout width="100" height="80">
-                    <include content="Layout_OptionTray">
+                    <include content="Layout_IconMenu">
                         <param name="selected">false</param>
                         <param name="color_nf">$PARAM[color_nf]</param>
                     </include>
@@ -1082,18 +1082,64 @@
 
                     <control type="group">
                         <visible>Control.HasFocus($PARAM[id])</visible>
-                        <include content="Layout_OptionTray">
+                        <include content="Layout_IconMenu">
                             <param name="selected">true</param>
                             <param name="color_nf">$PARAM[color_nf]</param>
                         </include>
                     </control>
                     <control type="group">
                         <visible>!Control.HasFocus($PARAM[id])</visible>
-                        <include content="Layout_OptionTray">
+                        <include content="Layout_IconMenu">
                             <param name="selected">false</param>
                             <param name="color_nf">$PARAM[color_nf]</param>
                         </include>
                     </control>
+                </focusedlayout>
+
+            </control>
+        </definition>
+    </include>
+
+    <include name="List_IconText_Row">
+        <param name="color_nf">main_fg_30</param>
+        <param name="hidden_button">List_ButtonMenu_Row_HiddenButton_View</param>
+        <definition>
+            <control type="list" id="$PARAM[id]">
+                <nested />
+                <include content="$PARAM[hidden_button]_OnFocus">
+                    <param name="id">$PARAM[id]</param>
+                    <param name="container">Container($PARAM[id]).</param>
+                    <param name="prefix">$PARAM[hidden_button_prefix]</param>
+                </include>
+
+                <orientation>horizontal</orientation>
+                <scrolltime tween="quadratic">400</scrolltime>
+
+                <itemlayout width="100" height="80">
+                    <include content="Layout_IconMenu">
+                        <param name="selected">false</param>
+                        <param name="color_nf">$PARAM[color_nf]</param>
+                    </include>
+                </itemlayout>
+
+                <focusedlayout width="100" height="80" condition="![Control.HasFocus($PARAM[id]) + !Window.IsActive(1163)]">
+                    <include content="Layout_IconMenu">
+                        <param name="selected">false</param>
+                        <param name="color_nf">$PARAM[color_nf]</param>
+                    </include>
+                </focusedlayout>
+
+                <focusedlayout width="300" height="80" condition="[Control.HasFocus($PARAM[id]) + !Window.IsActive(1163)]">
+
+                    <include content="$PARAM[hidden_button]">
+                        <param name="id">$PARAM[id]</param>
+                        <param name="prefix">$PARAM[hidden_button_prefix]</param>
+                    </include>
+
+                    <include content="Layout_IconMenu_Expanded">
+                        <param name="selected">true</param>
+                        <param name="color_nf">$PARAM[color_nf]</param>
+                    </include>
                 </focusedlayout>
 
             </control>

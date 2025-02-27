@@ -253,7 +253,23 @@
         <param name="color_nf">main_fg_30</param>
         <param name="hidden_button">List_ButtonMenu_Row_HiddenButton_Home</param>
         <definition>
-            <include content="List_IconMenu_Row">
+            <include content="List_IconText_Row" condition="Skin.String(Hubs.MenuStyle,Both)">
+                <param name="id">$PARAM[id]</param>
+                <param name="color_fo">$PARAM[color_fo]</param>
+                <param name="color_nf">$PARAM[color_nf]</param>
+                <param name="hidden_button">$PARAM[hidden_button]</param>
+                <param name="hidden_button_prefix">$PARAM[hidden_button_prefix]</param>
+                <top>view_line_top</top>
+                <height>120</height>
+                <hitrect x="0" y="0" w="0" h="0" />
+
+                <nested />
+
+                <width>600</width>
+                <onfocus condition="$PARAM[slide]">SetProperty(Slide.WidgetContainer,$PARAM[slide_id],$PARAM[property_window_id])</onfocus>
+                <onfocus condition="![$PARAM[slide]]">ClearProperty(Slide.WidgetContainer,$PARAM[property_window_id])</onfocus>
+            </include>
+            <include content="List_IconMenu_Row" condition="!Skin.String(Hubs.MenuStyle,Both)">
                 <param name="id">$PARAM[id]</param>
                 <param name="color_fo">$PARAM[color_fo]</param>
                 <param name="color_nf">$PARAM[color_nf]</param>

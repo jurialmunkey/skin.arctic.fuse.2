@@ -176,7 +176,7 @@
             <param name="control">button</param>
             <label>$LOCALIZE[31150] [LOWERCASE]$LOCALIZE[736][/LOWERCASE]</label>
             <label2>$VAR[Label_Setting_HubsMenuStyle]</label2>
-            <onclick>RunScript(script.skinvariables,run_dialog=select,preselect=$VAR[Label_Setting_HubsMenuStyle],heading=$LOCALIZE[31150] $LOCALIZE[736],separator=||,list=$LOCALIZE[31274]||$LOCALIZE[31329],"executebuiltin_0=Skin.Reset(Hubs.MenuStyle)","executebuiltin_1=Skin.SetString(Hubs.MenuStyle,Text)")</onclick>
+            <onclick>RunScript(script.skinvariables,run_dialog=select,preselect=$VAR[Label_Setting_HubsMenuStyle],heading=$LOCALIZE[31150] $LOCALIZE[736],separator=||,list=$LOCALIZE[31274]||$LOCALIZE[31329]||$LOCALIZE[21475],"executebuiltin_0=Skin.Reset(Hubs.MenuStyle)","executebuiltin_1=Skin.SetString(Hubs.MenuStyle,Text)","executebuiltin_2=Skin.SetString(Hubs.MenuStyle,Both)")</onclick>
         </include>
         <include content="Settings_Button" description="Spotlight button">
             <param name="dialog">true</param>
@@ -289,6 +289,83 @@
     <include name="Items_Settings_InfoStyle">
         <include content="Settings_Button">
             <param name="id">8001</param>
+            <param name="control">radiobutton</param>
+            <param name="dialog">true</param>
+            <label>$LOCALIZE[20410]</label>
+            <onclick>Skin.ToggleSetting(Info.Button.DisableTrailer)</onclick>
+            <selected>!Skin.HasSetting(Info.Button.DisableTrailer)</selected>
+        </include>
+        <include content="Settings_Button">
+            <param name="id">8002</param>
+            <param name="control">radiobutton</param>
+            <param name="dialog">true</param>
+            <label>$LOCALIZE[40000]</label>
+            <onclick>Skin.ToggleSetting(Info.Button.DisableVersions)</onclick>
+            <selected>!Skin.HasSetting(Info.Button.DisableVersions)</selected>
+        </include>
+        <include content="Settings_Button">
+            <param name="id">8003</param>
+            <param name="control">radiobutton</param>
+            <param name="dialog">true</param>
+            <label>$LOCALIZE[40211]</label>
+            <onclick>Skin.ToggleSetting(Info.Button.DisableExtras)</onclick>
+            <selected>!Skin.HasSetting(Info.Button.DisableExtras)</selected>
+        </include>
+        <include content="Settings_Button">
+            <param name="id">8004</param>
+            <param name="control">radiobutton</param>
+            <param name="dialog">true</param>
+            <label>Trakt</label>
+            <onclick>Skin.ToggleSetting(Info.Button.DisableTrakt)</onclick>
+            <selected>!Skin.HasSetting(Info.Button.DisableTrakt)</selected>
+        </include>
+        <include content="Settings_Button">
+            <param name="id">8005</param>
+            <param name="control">radiobutton</param>
+            <param name="dialog">true</param>
+            <label>Wiki</label>
+            <onclick>Skin.ToggleSetting(Info.Button.DisableWiki)</onclick>
+            <selected>!Skin.HasSetting(Info.Button.DisableWiki)</selected>
+        </include>
+        <include content="Settings_Button">
+            <param name="id">8006</param>
+            <param name="control">radiobutton</param>
+            <param name="dialog">true</param>
+            <label>$LOCALIZE[563]</label>
+            <onclick>Skin.ToggleSetting(Info.Button.DisableRating)</onclick>
+            <selected>!Skin.HasSetting(Info.Button.DisableRating)</selected>
+        </include>
+        <include content="Settings_Button">
+            <param name="id">8007</param>
+            <param name="control">radiobutton</param>
+            <param name="dialog">true</param>
+            <label>Youtube</label>
+            <onclick>Skin.ToggleSetting(Info.Button.DisableYoutube)</onclick>
+            <selected>!Skin.HasSetting(Info.Button.DisableYoutube)</selected>
+        </include>
+        <include content="Settings_Button">
+            <param name="id">8008</param>
+            <param name="control">radiobutton</param>
+            <param name="dialog">true</param>
+            <label>$LOCALIZE[39123]</label>
+            <onclick>Skin.ToggleSetting(Info.Button.DisableArtwork)</onclick>
+            <selected>!Skin.HasSetting(Info.Button.DisableArtwork)</selected>
+        </include>
+        <include content="Settings_Button">
+            <param name="id">8009</param>
+            <param name="control">radiobutton</param>
+            <param name="dialog">true</param>
+            <label>$LOCALIZE[184]</label>
+            <onclick>Skin.ToggleSetting(Info.Button.DisableRefresh)</onclick>
+            <selected>!Skin.HasSetting(Info.Button.DisableRefresh)</selected>
+        </include>
+        <include content="Settings_Label">
+            <param name="id">8020</param>
+            <param name="dialog">true</param>
+            <label>$LOCALIZE[33063]</label>
+        </include>
+        <include content="Settings_Button">
+            <param name="id">8021</param>
             <param name="control">radiobutton</param>
             <param name="dialog">true</param>
             <onclick>Skin.ToggleSetting(Info.FlipSide)</onclick>
@@ -1224,7 +1301,7 @@
         <definition>
 
             <!-- Trailer -->
-            <include content="DialogInfo_Button_Expansion" condition="!String.IsEqual(ListItem.Property(tmdb_type),person)">
+            <include content="DialogInfo_Button_Expansion" condition="!String.IsEqual(ListItem.Property(tmdb_type),person) + !Skin.HasSetting(Info.Button.DisableTrailer)">
                 <param name="id">4002</param>
                 <param name="groupid">4102</param>
                 <param name="sliceid">4202</param>
@@ -1241,7 +1318,7 @@
             </include>
 
             <!-- Versions -->
-            <include content="DialogInfo_Button_Expansion" condition="String.IsEqual(ListItem.DBType,movie) + ListItem.HasVideoVersions">
+            <include content="DialogInfo_Button_Expansion" condition="String.IsEqual(ListItem.DBType,movie) + ListItem.HasVideoVersions + !Skin.HasSetting(Info.Button.DisableVersions)">
                 <param name="id">4014</param>
                 <param name="groupid">4121</param>
                 <param name="sliceid">4221</param>
@@ -1251,7 +1328,7 @@
             </include>
 
             <!-- Extras -->
-            <include content="DialogInfo_Button_Expansion" condition="String.IsEqual(ListItem.DBType,movie) + ListItem.HasVideoExtras">
+            <include content="DialogInfo_Button_Expansion" condition="String.IsEqual(ListItem.DBType,movie) + ListItem.HasVideoExtras + !Skin.HasSetting(Info.Button.DisableExtras)">
                 <param name="id">15</param>
                 <param name="groupid">4122</param>
                 <param name="sliceid">4222</param>
@@ -1260,7 +1337,7 @@
             </include>
 
             <!-- Trakt -->
-            <include content="DialogInfo_Button_Expansion" condition="!String.IsEqual(ListItem.Property(tmdb_type),person)">
+            <include content="DialogInfo_Button_Expansion" condition="!String.IsEqual(ListItem.Property(tmdb_type),person) + !Skin.HasSetting(Info.Button.DisableTrakt)">
                 <param name="id">4004</param>
                 <param name="groupid">4104</param>
                 <param name="sliceid">4204</param>
@@ -1276,7 +1353,7 @@
             </include>
 
             <!-- Wiki -->
-            <include content="DialogInfo_Button_Expansion">
+            <include content="DialogInfo_Button_Expansion" condition="!Skin.HasSetting(Info.Button.DisableWiki)">
                 <param name="id">4005</param>
                 <param name="groupid">4105</param>
                 <param name="sliceid">4205</param>
@@ -1289,7 +1366,7 @@
             </include>
 
             <!-- Rating -->
-            <include content="DialogInfo_Button_Expansion" condition="!String.IsEqual(ListItem.Property(tmdb_type),person)">
+            <include content="DialogInfo_Button_Expansion" condition="!String.IsEqual(ListItem.Property(tmdb_type),person) + !Skin.HasSetting(Info.Button.DisableRating)">
                 <param name="id">7</param>
                 <param name="groupid">4107</param>
                 <param name="sliceid">4207</param>
@@ -1299,7 +1376,7 @@
             </include>
 
             <!-- Artwork -->
-            <include content="DialogInfo_Button_Expansion" condition="!String.IsEqual(ListItem.Property(tmdb_type),person)">
+            <include content="DialogInfo_Button_Expansion" condition="!String.IsEqual(ListItem.Property(tmdb_type),person) + !Skin.HasSetting(Info.Button.DisableArtwork)">
                 <param name="id">10</param>
                 <param name="groupid">4109</param>
                 <param name="sliceid">4209</param>
@@ -1310,7 +1387,7 @@
             </include>
 
             <!-- Refresh -->
-            <include content="DialogInfo_Button_Expansion" condition="!String.IsEqual(ListItem.Property(tmdb_type),person)">
+            <include content="DialogInfo_Button_Expansion" condition="!String.IsEqual(ListItem.Property(tmdb_type),person) + !Skin.HasSetting(Info.Button.DisableRefresh)">
                 <param name="id">6</param>
                 <param name="groupid">4108</param>
                 <param name="sliceid">4208</param>
@@ -1352,7 +1429,7 @@
 
                 <onfocus>SetProperty(DetailsView,Albums)</onfocus>
             </include>
-            <include content="DialogInfo_Button_Expansion">
+            <include content="DialogInfo_Button_Expansion" condition="!Skin.HasSetting(Info.Button.DisableYoutube)">
                 <param name="id">4007</param>
                 <param name="groupid">4107</param>
                 <param name="sliceid">4207</param>
@@ -1363,7 +1440,7 @@
                 <onclick>ActivateWindow(videos,$VAR[Path_Youtube_Query,plugin://plugin.video.youtube/kodion/search/query/?q=,],return)</onclick>
                 <onfocus>SetProperty(DetailsView,Trailer)</onfocus>
             </include>
-            <include content="DialogInfo_Button_Expansion">
+            <include content="DialogInfo_Button_Expansion" condition="!Skin.HasSetting(Info.Button.DisableArtwork)">
                 <param name="id">4005</param>
                 <param name="groupid">4105</param>
                 <param name="sliceid">4205</param>
