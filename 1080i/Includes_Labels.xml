@@ -1047,8 +1047,16 @@
         <value condition="$EXP[Live_Football_FHNatho]">$INFO[ListItem.ChannelName]</value>
         <!-- value condition="$EXP[Live_Football_Anova_SkySportsPlus]">$INFO[ListItem.Label]</value -->
         <!-- PVR002: END Custom PVR Program Information -->
-        <value condition="!String.IsEmpty(ListItem.Title)">$INFO[ListItem.Title]</value>
-        <value condition="!String.IsEmpty(ListItem.Label)">$INFO[ListItem.Label]</value>
+        
+        <!-- PVR002A: START Temporary Catch Up Flag -->
+        <!--value condition="!String.IsEmpty(ListItem.Title)">$INFO[ListItem.Title]</value -->
+        <value condition="!String.IsEmpty(ListItem.Title) + !ListItem.IsPlayable">$INFO[ListItem.Title]</value>
+        <value condition="!String.IsEmpty(ListItem.Title) + ListItem.IsPlayable">$INFO[ListItem.Title] ©</value>
+        <!-- value condition="!String.IsEmpty(ListItem.Label)">$INFO[ListItem.Label]</value -->
+        <value condition="!String.IsEmpty(ListItem.Label) + !ListItem.IsPlayable">$INFO[ListItem.Label]</value>
+        <value condition="!String.IsEmpty(ListItem.Label) + ListItem.IsPlayable">$INFO[ListItem.Label] ©</value>
+        <!-- PVR002A: END Temporary Catch Up Flag -->
+        
         <value condition="!String.IsEmpty(ListItem.ChannelName)">$INFO[ListItem.ChannelName]</value>
         <value condition="!String.IsEmpty(ListItem.ChannelNumberLabel)">$INFO[ListItem.ChannelNumberLabel,$LOCALIZE[19029] ,]</value>
     </variable>
