@@ -626,7 +626,7 @@
                     <include>OSD_Info_Line</include>
                 </control>
 
-                <include content="Info_Panel_Textbox">
+                <include content="Info_Panel_Textbox" condition="!Skin.HasSetting(OSD.DisablePlotRatingsOnInfo)">
                     <param name="plotlabel">$VAR[Label_Player_Plot]</param>
                     <param name="plotwidth">90%</param>
                     <param name="plotheight">160</param>
@@ -637,10 +637,11 @@
 
                 <control type="group">
                     <top>12</top>
+                    <visible>!Skin.HasSetting(OSD.DisablePlotRatingsOnInfo)</visible>
                     <visible>!String.IsEmpty(VideoPlayer.Plot) | !VideoPlayer.Content(livetv)</visible>
                 </control>
 
-                <include content="Info_RatingsLine">
+                <include content="Info_RatingsLine" condition="!Skin.HasSetting(OSD.DisablePlotRatingsOnInfo)">
                     <param name="is_player">true</param>
                     <top>0</top>
                     <left>view_pad</left>

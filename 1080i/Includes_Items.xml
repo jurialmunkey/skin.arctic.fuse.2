@@ -45,6 +45,7 @@
         <include condition="String.IsEqual(Window(Home).Property(CustomDialogSettingsItems),Items_Settings_RatingsTVShows)">Items_Settings_RatingsTVShows</include>
         <include condition="String.IsEqual(Window(Home).Property(CustomDialogSettingsItems),Items_Settings_HomeMenuStyle)">Items_Settings_HomeMenuStyle</include>
         <include condition="String.IsEqual(Window(Home).Property(CustomDialogSettingsItems),Items_Settings_WidgetStyle)">Items_Settings_WidgetStyle</include>
+        <include condition="String.IsEqual(Window(Home).Property(CustomDialogSettingsItems),Items_Settings_OSDStyle)">Items_Settings_OSDStyle</include>
     </include>
 
     <include name="Items_Settings_WidgetStyle">
@@ -685,6 +686,39 @@
             <selected>Skin.HasSetting(CustomRating.EnablePremiereStatusDates)</selected>
             <onclick>Skin.ToggleSetting(CustomRating.EnablePremiereStatusDates)</onclick>
             <visible>!Skin.HasSetting(CustomRating.TVShows.DisablePremiereStatus)</visible>
+        </include>
+    </include>
+
+    <include name="Items_Settings_OSDStyle">
+        <include content="Settings_Button" description="Expanded info on OSD">
+            <param name="dialog">true</param>
+            <param name="id">8001</param>
+            <param name="control">radiobutton</param>
+            <label>$LOCALIZE[19033]</label>
+            <selected>Skin.HasSetting(OSD.DisplayInfoOnControls)</selected>
+            <onclick>Skin.ToggleSetting(OSD.DisplayInfoOnControls)</onclick>
+        </include>
+
+        <include content="Settings_Button" description="Expanded info landscape art">
+            <param name="dialog">true</param>
+            <param name="id">8002</param>
+            <param name="control">radiobutton</param>
+            <param name="slevel">2</param>
+            <label>$LOCALIZE[31045] [LOWERCASE]$LOCALIZE[39123][/LOWERCASE]</label>
+            <selected>!Skin.HasSetting(OSD.DisableLandscapeOnInfo)</selected>
+            <onclick>Skin.ToggleSetting(OSD.DisableLandscapeOnInfo)</onclick>
+            <visible>Skin.HasSetting(OSD.DisplayInfoOnControls)</visible>
+        </include>
+
+        <include content="Settings_Button" description="Expanded info plot and ratings">
+            <param name="dialog">true</param>
+            <param name="id">8003</param>
+            <param name="control">radiobutton</param>
+            <param name="slevel">2</param>
+            <label>$LOCALIZE[207] + $LOCALIZE[31202]</label>
+            <selected>!Skin.HasSetting(OSD.DisablePlotRatingsOnInfo)</selected>
+            <onclick>Skin.ToggleSetting(OSD.DisablePlotRatingsOnInfo)</onclick>
+            <visible>Skin.HasSetting(OSD.DisplayInfoOnControls)</visible>
         </include>
     </include>
 

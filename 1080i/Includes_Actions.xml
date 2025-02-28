@@ -1,6 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <includes>
 
+    <variable name="Action_DialogInfo_PlayMedia">
+        <value condition="!String.IsEmpty(ListItem.FileNameAndPath) + [!ListItem.IsFolder | ListItem.HasVideoVersions]">RunScript(plugin.video.themoviedb.helper,close_dialog=1190,"playmedia=$INFO[ListItem.FileNameAndPath]")</value>
+
+        <value condition="ListItem.IsFolder + Window.IsVisible(videos)">RunScript(plugin.video.themoviedb.helper,close_dialog=1190,"call_update=$INFO[ListItem.FolderPath]")</value>
+        <value condition="ListItem.IsFolder">RunScript(plugin.video.themoviedb.helper,close_dialog=1190,"call_path=$INFO[ListItem.FolderPath]")</value>
+
+        <value>RunScript(plugin.video.themoviedb.helper,close_dialog=1190,"playmedia=$INFO[ListItem.FolderPath]")</value>
+    </variable>
+
     <variable name="Action_Sync">
         <value condition="[String.IsEqual(ListItem.DBType,movie) | String.IsEqual(ListItem.DBType,tvshow)] + !String.IsEmpty(ListItem.Property(tmdb_id))">RunScript(plugin.video.themoviedb.helper,sync_trakt,tmdb_id=$INFO[ListItem.Property(tmdb_id)],$VAR[Path_Param_Type],cache_refresh)</value>
         <value condition="[String.IsEqual(ListItem.DBType,movie) | String.IsEqual(ListItem.DBType,tvshow)] + !String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.tmdb_id))">RunScript(plugin.video.themoviedb.helper,sync_trakt,tmdb_id=$INFO[Window(Home).Property(TMDbHelper.ListItem.tmdb_id)],$VAR[Path_Param_Type],cache_refresh)</value>
