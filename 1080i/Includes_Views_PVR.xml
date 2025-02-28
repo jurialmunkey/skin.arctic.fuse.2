@@ -12,7 +12,6 @@
             <height>80</height>
             <left>view_pad</left>
             <centerbottom>100</centerbottom>
-            <width>settings_category_w</width>
             <control type="button" id="28">
                 <left>-20</left>
                 <right>40</right>
@@ -24,23 +23,17 @@
                 <onright>SetFocus(28)</onright>
                 <ondown>50</ondown>
                 <onup>50</onup>
+                <texturefocus />
                 <texturenofocus />
                 <font />
             </control>
-            <!-- PVR005: remove original group name -->
-            <!-- control type="group">
+            <control type="group">
                 <animation effect="fade" start="100" end="30" condition="true">Conditional</animation>
                 <include content="Info_Viewline">
                     <param name="label">$INFO[Control.GetLabel(28)]$INFO[Container.NumItems, (,)]</param>
                     <param name="top">20</param>
                     <param name="left">0</param>
                 </include>
-            </control -->
-            <!-- PVR005: alternative group name -->
-            <control type="label">
-                <label fallback="19055">$INFO[Control.GetLabel(28)]</label>
-                <font>font_epg_group_switcher</font>
-                <textcolor>$VAR[ColorGradient]</textcolor>
             </control>
         </control>
     </include>
@@ -253,8 +246,7 @@
             </control>
             <include>View_PVR_InformationPanel</include>
         </control>
-        <!-- PVR014: disable additional EPG views --> 
-        <!-- control type="group">
+        <control type="group">
             <visible>Control.IsVisible(502)</visible>
             <control type="group">
                 <include>Dimension_PVR_HalfGuide</include>
@@ -315,7 +307,7 @@
                 </include>
             </control>
             <include>View_PVR_InformationPanel</include>
-        </control -->
+        </control>
     </include>
 
     <include name="View_PVR_Full">
@@ -324,51 +316,6 @@
             <control type="group">
                 <include>Animation_View_WindowChange</include>
                 <include>$PARAM[include]</include>
-            </control>
-            <control type="group">
-                <visible>!Control.IsVisible(52)</visible>
-                <visible allowhiddenfocus="true">!$EXP[Exp_View_SortModeButtons_HasFocus]</visible>
-                <!-- PVR010: Remove original program details -->
-                <!-- include content="Settings_InfoText">
-                    <param name="id">8899</param>
-                    <param name="dialog">false</param>
-                    <param name="left">500</param>
-                    <param name="bottom">80</param>
-                    <param name="override">true</param>
-                    <param name="label">$INFO[ListITem.StartTime]$INFO[ListITem.EndTime, - ,]$INFO[ListITem.Title,  •  ,]</param>
-                    <param name="label"></param>
-                </include -->
-                <!-- PVR010: START custom header for EPG plotbox -->                    
-                <control type="label">
-                    <height>15</height>                         
-                    <left>463</left>
-                    <bottom>120</bottom>
-                    <width>auto</width>
-                    <aligny>center</aligny>
-                    <align>left</align>                         
-                    <font>font_tiny_bold</font>                         
-                    <textcolor>main_fg_90</textcolor>
-                    <shadowcolor>main_bg_12</shadowcolor>
-                    <label>$VAR[TextPVRPlotboxHeader]</label>
-                    <visible>!String.IsEqual(ListItem.Title,ListITem.ChannelName)</visible>
-                    <visible>!Skin.HasSetting(Views.UseHalfPVRGuide)</visible>
-                </control>
-                <!-- PVR010: END custom header for EPG plotbox -->                    
-                <!-- PVR010: START custom textbox for EPG plotbox -->                      
-                <control type="textbox">
-                    <left>463</left>
-                    <bottom>25</bottom>
-                    <width>950</width>
-                    <height>90</height>
-                    <textcolor>main_fg_70</textcolor>
-                    <align>left</align>
-                    <font>font_tiny_24</font>
-                    <aligny>top</aligny>
-                    <label>$VAR[TextPVREPGProgramPlot]</label>
-                    <visible>!Skin.HasSetting(Views.UseHalfPVRGuide)</visible>
-                    <autoscroll delay="3500" time="3500" repeat="3500">Window.IsVisible(10702)</autoscroll>
-                </control>
-                <!-- PVR010: END custom plotbox for EPG -->
             </control>
             <include>View_PVR_GroupSwitcher</include>
             <control type="group">
