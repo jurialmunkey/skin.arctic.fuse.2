@@ -17,30 +17,31 @@
         <definition>
             <top>view_pad</top>
             <include>Dimension_Info</include>
-            <control type="group">
+            <include content="Object_Control" condition="!Skin.String(Info.Layout,Flix)">
+                <param name="control">group</param>
 
-                <include content="Object_Right" condition="!Skin.HasSetting(Info.FlipSide)">
+                <include content="Object_Right" condition="!Skin.String(Info.Layout,Flip)">
                     <param name="right">0</param>
                 </include>
-                <include content="Animation_Slide_In" condition="!Skin.HasSetting(Info.FlipSide)">
+                <include content="Animation_Slide_In" condition="!Skin.String(Info.Layout,Flip)">
                     <param name="type">WindowOpen</param>
                     <param name="posx">320</param>
                     <param name="delay">400</param>
                 </include>
-                <include content="Animation_Slide_Out" condition="!Skin.HasSetting(Info.FlipSide)">
+                <include content="Animation_Slide_Out" condition="!Skin.String(Info.Layout,Flip)">
                     <param name="type">WindowClose</param>
                     <param name="posx">320</param>
                 </include>
 
-                <include content="Object_Left" condition="Skin.HasSetting(Info.FlipSide)">
+                <include content="Object_Left" condition="Skin.String(Info.Layout,Flip)">
                     <param name="left">0</param>
                 </include>
-                <include content="Animation_Slide_In" condition="Skin.HasSetting(Info.FlipSide)">
+                <include content="Animation_Slide_In" condition="Skin.String(Info.Layout,Flip)">
                     <param name="type">WindowOpen</param>
                     <param name="posx">-320</param>
                     <param name="delay">400</param>
                 </include>
-                <include content="Animation_Slide_Out" condition="Skin.HasSetting(Info.FlipSide)">
+                <include content="Animation_Slide_Out" condition="Skin.String(Info.Layout,Flip)">
                     <param name="type">WindowClose</param>
                     <param name="posx">-320</param>
                 </include>
@@ -56,10 +57,10 @@
                     <param name="control">image</param>
                     <width>infodialog_poster_w</width>
                     <height>infodialog_poster_w</height>
-                    <include content="Object_CenterBottom" condition="!Skin.HasSetting(Info.FlipSide)">
+                    <include content="Object_CenterBottom" condition="!Skin.String(Info.Layout,Flip)">
                         <param name="centerbottom">infodialog_poster_w</param>
                     </include>
-                    <include content="Object_CenterTop" condition="Skin.HasSetting(Info.FlipSide)">
+                    <include content="Object_CenterTop" condition="Skin.String(Info.Layout,Flip)">
                         <param name="centertop">infodialog_poster_w</param>
                     </include>
                     <texture background="true">$VAR[Image_DiscArt]</texture>
@@ -70,15 +71,41 @@
                     <param name="icon">$PARAM[icon]</param>
                     <param name="diffuse">diffuse/square_w560_h560.png</param>
                     <height>infodialog_poster_w</height>
-                    <include content="Object_Bottom" condition="!Skin.HasSetting(Info.FlipSide)">
+                    <include content="Object_Bottom" condition="!Skin.String(Info.Layout,Flip)">
                         <param name="bottom">0</param>
                     </include>
-                    <include content="Object_Top" condition="Skin.HasSetting(Info.FlipSide)">
+                    <include content="Object_Top" condition="Skin.String(Info.Layout,Flip)">
                         <param name="top">0</param>
                     </include>
                 </include>
 
-            </control>
+            </include>
+
+
+            <include content="Object_Control" condition="Skin.String(Info.Layout,Flix)">
+                <param name="control">group</param>
+
+                <include content="Animation_Slide_In">
+                    <param name="type">WindowOpen</param>
+                    <param name="posx">320</param>
+                    <param name="delay">400</param>
+                </include>
+                <include content="Animation_Slide_Out">
+                    <param name="type">WindowClose</param>
+                    <param name="posx">320</param>
+                </include>
+
+                <include content="View_MediaList_PosterLandscape" condition="Window.Isvisible(DialogVideoInfo.xml)">
+                    <param name="flipx">false</param>
+                    <param name="visible">true</param>
+                </include>
+
+                <include content="View_MediaList_SquareLandscape" condition="!Window.Isvisible(DialogVideoInfo.xml)">
+                    <param name="flipx">false</param>
+                    <param name="visible">true</param>
+                </include>
+
+            </include>
         </definition>
     </include>
 
@@ -88,28 +115,28 @@
         <definition>
             <bottom>-40</bottom>
 
-            <include content="Object_Right" condition="!Skin.HasSetting(Info.FlipSide)">
+            <include content="Object_Right" condition="!Skin.String(Info.Layout,Flip)">
                 <param name="right">infodialog_left_w</param>
             </include>
-            <include content="Animation_Slide_In" condition="!Skin.HasSetting(Info.FlipSide)">
+            <include content="Animation_Slide_In" condition="!Skin.String(Info.Layout,Flip)">
                 <param name="type">WindowOpen</param>
                 <param name="posx">-320</param>
                 <param name="delay">400</param>
             </include>
-            <include content="Animation_Slide_Out" condition="!Skin.HasSetting(Info.FlipSide)">
+            <include content="Animation_Slide_Out" condition="!Skin.String(Info.Layout,Flip)">
                 <param name="type">WindowClose</param>
                 <param name="posx">-320</param>
             </include>
 
-            <include content="Object_Left" condition="Skin.HasSetting(Info.FlipSide)">
+            <include content="Object_Left" condition="Skin.String(Info.Layout,Flip)">
                 <param name="left">infodialog_left_w</param>
             </include>
-            <include content="Animation_Slide_In" condition="Skin.HasSetting(Info.FlipSide)">
+            <include content="Animation_Slide_In" condition="Skin.String(Info.Layout,Flip)">
                 <param name="type">WindowOpen</param>
                 <param name="posx">320</param>
                 <param name="delay">400</param>
             </include>
-            <include content="Animation_Slide_Out" condition="Skin.HasSetting(Info.FlipSide)">
+            <include content="Animation_Slide_Out" condition="Skin.String(Info.Layout,Flip)">
                 <param name="type">WindowClose</param>
                 <param name="posx">320</param>
             </include>
@@ -118,7 +145,7 @@
                 <param name="titlelabel">$PARAM[titlelabel]</param>
                 <param name="plotlabel">$PARAM[plotlabel]</param>
                 <param name="plotheight">160</param>
-                <param name="plotwidth">90%</param>
+                <param name="plotwidth">$PARAM[plotwidth]</param>
                 <param name="mainlogo_visible">$PARAM[mainlogo_visible]</param>
                 <param name="mainlogo_texture">$PARAM[mainlogo_texture]</param>
                 <param name="is_player">$PARAM[is_player]</param>
@@ -128,7 +155,7 @@
                 <param name="titlelabel">$PARAM[titlelabel]</param>
                 <param name="plotlabel">$VAR[Label_DialogInfo_Biography]</param>
                 <param name="plotheight">560</param>
-                <param name="plotwidth">90%</param>
+                <param name="plotwidth">$PARAM[plotwidth]</param>
                 <param name="mainlogo_visible">$PARAM[mainlogo_visible]</param>
                 <param name="mainlogo_texture">$PARAM[mainlogo_texture]</param>
                 <param name="is_player">$PARAM[is_player]</param>
@@ -1513,6 +1540,20 @@
 
     <!-- Additional Video Info Details not included in info line such as Director and Genres -->
     <include name="DialogInfo_VideoDetails">
+        <include content="_DialogInfo_VideoDetails">
+            <param name="left_group_width">480</param>
+            <param name="right">80</param>
+        </include>
+    </include>
+    <include name="DialogInfo_VideoDetails_Flix">
+        <include content="_DialogInfo_VideoDetails">
+            <param name="left_group_width">380</param>
+            <param name="right">240</param>
+        </include>
+    </include>
+    <include name="_DialogInfo_VideoDetails">
+        <param name="left_group_width">480</param>
+        <param name="right">80</param>
         <definition>
 
             <control type="group">
@@ -1544,13 +1585,13 @@
 
             <control type="group">
                 <left>0</left>
-                <right>80</right>
+                <right>$PARAM[right]</right>
                 <height>320</height>
 
                 <control type="grouplist">
                     <orientation>vertical</orientation>
                     <itemgap>0</itemgap>
-                    <width>480</width>
+                    <width>$PARAM[left_group_width]</width>
                     <height>320</height>
 
                     <!-- Director -->
@@ -1651,7 +1692,7 @@
                     <orientation>vertical</orientation>
                     <itemgap>0</itemgap>
                     <height>320</height>
-                    <left>480</left>
+                    <left>$PARAM[left_group_width]</left>
 
                     <!-- Genre -->
                     <include content="Object_InfoCircle">
@@ -1701,6 +1742,18 @@
     </include>
 
     <include name="DialogInfo_MusicDetails">
+        <include content="_DialogInfo_MusicDetails">
+            <param name="left_group_width">480</param>
+            <param name="right">80</param>
+        </include>
+    </include>
+    <include name="DialogInfo_MusicDetails_Flix">
+        <include content="_DialogInfo_MusicDetails">
+            <param name="left_group_width">380</param>
+            <param name="right">320</param>
+        </include>
+    </include>
+    <include name="_DialogInfo_MusicDetails">
         <definition>
             <control type="group">
                 <top>15</top>
@@ -1746,14 +1799,14 @@
 
             <control type="group">
                 <left>0</left>
-                <right>80</right>
+                <right>$PARAM[right]</right>
                 <height>320</height>
 
                 <!-- Left Details -->
                 <control type="grouplist">
                     <orientation>vertical</orientation>
                     <itemgap>0</itemgap>
-                    <width>480</width>
+                    <width>$PARAM[left_group_width]</width>
                     <height>320</height>
                     <include content="Object_InfoCircle">
                         <param name="icon">special://skin/extras/icons/genre.png</param>
@@ -1789,7 +1842,7 @@
                     <orientation>vertical</orientation>
                     <itemgap>0</itemgap>
                     <height>320</height>
-                    <left>480</left>
+                    <left>$PARAM[left_group_width]</left>
                     <!-- <include content="Object_InfoCircle">
                         <param name="icon">special://skin/extras/icons/cake-candles.png</param>
                         <param name="role">$LOCALIZE[21893]</param>
