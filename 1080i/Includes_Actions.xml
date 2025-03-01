@@ -2,10 +2,10 @@
 <includes>
 
     <variable name="Action_DialogInfo_PlayMedia">
-        <value condition="!String.IsEmpty(ListItem.FileNameAndPath) + [!ListItem.IsFolder | ListItem.HasVideoVersions]">RunScript(plugin.video.themoviedb.helper,close_dialog=1190,"playmedia=$INFO[ListItem.FileNameAndPath]")</value>
+        <value condition="!String.IsEmpty(ListItem.FileNameAndPath) + !$EXP[Exp_IsFolder]">RunScript(plugin.video.themoviedb.helper,close_dialog=1190,"playmedia=$INFO[ListItem.FileNameAndPath]")</value>
 
-        <value condition="ListItem.IsFolder + Window.IsVisible(videos)">RunScript(plugin.video.themoviedb.helper,close_dialog=1190,"call_update=$INFO[ListItem.FolderPath]")</value>
-        <value condition="ListItem.IsFolder">RunScript(plugin.video.themoviedb.helper,close_dialog=1190,"call_path=$INFO[ListItem.FolderPath]")</value>
+        <value condition="$EXP[Exp_IsFolder] + Window.IsVisible(videos)">RunScript(plugin.video.themoviedb.helper,close_dialog=1190,"call_update=$INFO[ListItem.FolderPath]")</value>
+        <value condition="$EXP[Exp_IsFolder]">RunScript(plugin.video.themoviedb.helper,close_dialog=1190,"call_path=$INFO[ListItem.FolderPath]")</value>
 
         <value>RunScript(plugin.video.themoviedb.helper,close_dialog=1190,"playmedia=$INFO[ListItem.FolderPath]")</value>
     </variable>
@@ -337,11 +337,6 @@
             <ondown condition="$PARAM[condition]">SetProperty(List.ViewContainer,$INFO[System.CurrentControlId])</ondown>
             <ondown condition="$PARAM[condition]">SetFocus(330)</ondown>
         </definition>
-    </include>
-
-    <include name="Action_Recommendations_OnClick">
-        <oninfo>Action(Select)</oninfo>
-        <onclick>RunScript(plugin.video.themoviedb.helper,add_path=$INFO[Container($PARAM[id]).ListItem.FolderPath],call_auto=1190,return)</onclick>
     </include>
 
     <variable name="Action_Recommendations_SetFocusID">

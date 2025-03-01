@@ -413,9 +413,7 @@
             <param name="altvisible">!String.IsEqual(Window.Property(CurrentID),Window.Property(BaseID))</param>
             <onfocus>SetProperty(CurrentID,$INFO[Window.Property(BaseID)])</onfocus>
             <content>$VAR[Path_VideoInfo_LocalSets]</content>
-            <include content="DialogInfo_Widgets_Action">
-                <param name="set_path">false</param>
-            </include>
+            <include>DialogInfo_Widgets_Action</include>
         </include>
 
         <!-- Studio -->
@@ -949,13 +947,22 @@
         </include>
     </include>
 
+    <variable name="Path_DialogInfo_Widgets">
+        <value condition="!String.IsEmpty(Container.ListItem.DBID) + String.IsEqual(Container.ListItem.DBType,movie)">plugin://script.skinvariables/?info=get_dbitem_movie_details&amp;dbid=$INFO[Container.ListItem.DBID]</value>
+        <value condition="!String.IsEmpty(Container.ListItem.DBID) + String.IsEqual(Container.ListItem.DBType,tvshow)">plugin://script.skinvariables/?info=get_dbitem_tvshow_details&amp;dbid=$INFO[Container.ListItem.DBID]</value>
+        <value condition="!String.IsEmpty(Container.ListItem.DBID) + String.IsEqual(Container.ListItem.DBType,season)">plugin://script.skinvariables/?info=get_dbitem_season_details&amp;dbid=$INFO[Container.ListItem.DBID]</value>
+        <value condition="!String.IsEmpty(Container.ListItem.DBID) + String.IsEqual(Container.ListItem.DBType,episode)">plugin://script.skinvariables/?info=get_dbitem_episode_details&amp;dbid=$INFO[Container.ListItem.DBID]</value>
+        <value condition="!String.IsEmpty(Container.ListItem.FolderPath)">$INFO[Container.ListItem.FolderPath]</value>
+        <value>$INFO[Container.ListItem.Property(folderpath)]</value>
+    </variable>
+
     <include name="DialogInfo_Widgets_Action">
         <param name="set_path">true</param>
         <definition>
             <onclick>SetProperty(trailer,$INFO[Container.ListItem.Trailer],1114)</onclick>
 
-            <onclick condition="$PARAM[set_path] + !String.IsEmpty(Container.ListItem.FolderPath)">SetProperty(path,$INFO[Container.ListItem.FolderPath],1114)</onclick>
-            <onclick condition="$PARAM[set_path] + String.IsEmpty(Container.ListItem.FolderPath)">SetProperty(path,$INFO[Container.ListItem.Property(folderpath)],1114)</onclick>
+
+            <onclick condition="$PARAM[set_path]">SetProperty(path,$VAR[Path_DialogInfo_Widgets],1114)</onclick>
             <onclick condition="![$PARAM[set_path]]">ClearProperty(path,1114)</onclick>
 
             <onclick>SetProperty(header,$INFO[Container.ListItem.Label]$INFO[Container.ListItem.Year, (,)],1114)</onclick>
@@ -2189,14 +2196,12 @@
                                 <param name="icon">special://skin/extras/icons/info2.png</param>
                                 <onfocus>ClearProperty(ModePath)</onfocus>
                                 <onfocus>ClearProperty(ModeName)</onfocus>
-                                <onclick>Dialog.Close(1114)</onclick>
-                                <onclick>Dialog.Close(movieinformation)</onclick>
-                                <onclick>Dialog.Close(musicinformation)</onclick>
+                                <onclick condition="!String.IsEmpty(Window.Property(path))">RunScript(plugin.video.themoviedb.helper,add_path=$INFO[Window.Property(path)],call_auto=1190,origin_tmdb_type=$INFO[Window.Property(origin_tmdb_type)],origin_tmdb_id=$INFO[Window.Property(origin_tmdb_id)],return)</onclick>
+                                <onclick>Dialog.Close(1114,true)</onclick>
                                 <onclick>Dialog.Close(videoosd,true)</onclick>
                                 <onclick>Dialog.Close(1140,true)</onclick>
                                 <onclick>Dialog.Close(1141,true)</onclick>
                                 <onclick>Dialog.Close(videobookmarks,true)</onclick>
-                                <onclick condition="!String.IsEmpty(Window.Property(path))">RunScript(plugin.video.themoviedb.helper,add_path=$INFO[Window.Property(path)],call_auto=1190,origin_tmdb_type=$INFO[Window.Property(origin_tmdb_type)],origin_tmdb_id=$INFO[Window.Property(origin_tmdb_id)],return)</onclick>
                             </include>
                             <!-- Movies -->
                             <include content="DialogInfo_Button" condition="!String.IsEmpty(Window.Property(tmdb_id)) + String.IsEqual(Window.Property(tmdb_type),person)">
