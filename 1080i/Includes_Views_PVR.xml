@@ -335,7 +335,7 @@
                 <!-- PVR010: START custom header for EPG plotbox -->                    
                 <control type="label">
                     <height>15</height>                         
-                    <left>463</left>
+                    <left>488</left> <!-- was 463 -->
                     <bottom>120</bottom>
                     <width>auto</width>
                     <aligny>center</aligny>
@@ -350,8 +350,8 @@
                 <!-- PVR010: END custom header for EPG plotbox -->                    
                 <!-- PVR010: START custom textbox for EPG plotbox -->                      
                 <control type="textbox">
-                    <left>463</left>
-                    <bottom>25</bottom>
+                    <left>488</left> <!-- was 463 -->
+                    <bottom>27</bottom>
                     <width>950</width>
                     <height>90</height>
                     <textcolor>main_fg_70</textcolor>
@@ -400,11 +400,26 @@
         <param name="include_customwidth">true</param>
         <param name="include_hintlabel">true</param>
         <definition>
-
             <control type="group">
                 <include>Dimension_Bottombar</include>
                 <control type="group">
                     <include>Dimension_Furniture_Gutters</include>
+                    
+                    <!-- PVR010: START add background to hide plot when PVR menu open -->
+                    <control type="image">
+                        <texture>diffuse/dialog_w960_h200.png</texture>
+                        <colordiffuse>$VAR[ColorBackground]</colordiffuse>
+                        <height>120</height>
+                        <left>380</left>
+                        <right>400</right>
+                        <top>-15</top>
+                        <!--centertop>25%</centertop -->
+                        <align>center</align>
+                        <aspectratio></aspectratio>
+                        <visible>String.IsEqual(System.CurrentControlID,9001)</visible>
+                    </control>
+                    <!-- PVR010: END add background to hide plot when PVR menu open -->
+
                     <include content="Object_Hidden_Button">
                         <param name="id">610</param>
                         <onup>50</onup>
@@ -415,7 +430,8 @@
                     <control type="grouplist" id="8000">
                         <orientation>horizontal</orientation>
                         <height>160</height>
-                        <centertop>50%</centertop>
+                        <!--PVR010: centertop changed from 50% -->
+                        <centertop>75%</centertop>
                         <align>center</align>
                         <left>40</left>
                         <right>60</right>
