@@ -642,6 +642,7 @@
         <param name="border_genre">40,0,40,0</param>
         <param name="left">0</param>
         <param name="left_text">40</param>
+        <param name="left_text_slide">70</param>
         <definition>
             <include content="Object_Control" condition="$PARAM[selected]">
                 <param name="control">image</param>
@@ -676,7 +677,7 @@
                 <left>$PARAM[left]</left>
             </include>
 
-
+            <!-- No Indicator Text -->
             <include content="Object_InfoCircle_Text_Top" condition="$PARAM[include_detailed_labels]">
                 <param name="id">1</param>
                 <include condition="$PARAM[selected] + false">Color_SelectedText</include>
@@ -685,8 +686,8 @@
                 <selectedcolor>main_fg_90</selectedcolor>
                 <left>$PARAM[left_text]</left>
                 <right>40</right>
+                <visible>![ListItem.IsRecording | ListItem.HasTimer | [ListItem.IsPlayable + !Skin.HasSetting(Indicator.DisablePVRGuideCatchUp)]]</visible>
             </include>
-
             <include content="Object_InfoCircle_Text_Sub" condition="$PARAM[include_detailed_labels]">
                 <param name="id">1</param>
                 <include condition="$PARAM[selected] + false">Color_SelectedText</include>
@@ -695,8 +696,8 @@
                 <selectedcolor>main_fg_70</selectedcolor>
                 <left>$PARAM[left_text]</left>
                 <right>40</right>
+                <visible>![ListItem.IsRecording | ListItem.HasTimer | [ListItem.IsPlayable + !Skin.HasSetting(Indicator.DisablePVRGuideCatchUp)]]</visible>
             </include>
-
             <control type="label" id="1">
                 <font>font_mini</font>
                 <label>$INFO[ListItem.Label]</label>
@@ -706,19 +707,56 @@
                 <include condition="$PARAM[selected] + false">Color_SelectedText</include>
                 <textcolor>main_fg_70</textcolor>
                 <visible>![$PARAM[include_detailed_labels]]</visible>
+                <visible>![ListItem.IsRecording | ListItem.HasTimer | [ListItem.IsPlayable + !Skin.HasSetting(Indicator.DisablePVRGuideCatchUp)]]</visible>
             </control>
 
-            <control type="image" id="1">
-                <right>30</right>
-                <centertop>50%</centertop>
-                <aspectratio align="right" aligny="bottom">keep</aspectratio>
-                <width>32</width>
-                <height>32</height>
-                <include content="Object_ColorDiffuse" condition="$PARAM[selected] + false">
-                    <param name="colordiffuse">$VAR[ColorSelected]</param>
-                </include>
-                <colordiffuse>main_fg_70</colordiffuse>
-                <texture>$VAR[Image_PVRGuide_Indicator]</texture>
+            <!-- Indicator Text -->
+            <include content="Object_InfoCircle_Text_Top" condition="$PARAM[include_detailed_labels]">
+                <param name="id">1</param>
+                <include condition="$PARAM[selected] + false">Color_SelectedText</include>
+                <label>$VAR[Label_PVRPrograms]</label>
+                <textcolor>main_fg_90</textcolor>
+                <selectedcolor>main_fg_90</selectedcolor>
+                <left>$PARAM[left_text_slide]</left>
+                <right>40</right>
+                <visible>[ListItem.IsRecording | ListItem.HasTimer | [ListItem.IsPlayable + !Skin.HasSetting(Indicator.DisablePVRGuideCatchUp)]]</visible>
+            </include>
+            <include content="Object_InfoCircle_Text_Sub" condition="$PARAM[include_detailed_labels]">
+                <param name="id">1</param>
+                <include condition="$PARAM[selected] + false">Color_SelectedText</include>
+                <label>$INFO[ListItem.Genre]</label>
+                <textcolor>main_fg_70</textcolor>
+                <selectedcolor>main_fg_70</selectedcolor>
+                <left>$PARAM[left_text_slide]</left>
+                <right>40</right>
+                <visible>[ListItem.IsRecording | ListItem.HasTimer | [ListItem.IsPlayable + !Skin.HasSetting(Indicator.DisablePVRGuideCatchUp)]]</visible>
+            </include>
+            <control type="label" id="1">
+                <font>font_mini</font>
+                <label>$INFO[ListItem.Label]</label>
+                <align>left</align>
+                <left>$PARAM[left_text_slide]</left>
+                <right>40</right>
+                <include condition="$PARAM[selected] + false">Color_SelectedText</include>
+                <textcolor>main_fg_70</textcolor>
+                <visible>![$PARAM[include_detailed_labels]]</visible>
+                <visible>[ListItem.IsRecording | ListItem.HasTimer | [ListItem.IsPlayable + !Skin.HasSetting(Indicator.DisablePVRGuideCatchUp)]]</visible>
+            </control>
+
+            <control type="group">
+                <left>$PARAM[left_text]</left>
+                <control type="image">
+                    <centerleft>0</centerleft>
+                    <centertop>40</centertop>
+                    <aspectratio align="center" aligny="center">keep</aspectratio>
+                    <width>24</width>
+                    <height>24</height>
+                    <include content="Object_ColorDiffuse" condition="$PARAM[selected] + false">
+                        <param name="colordiffuse">$VAR[ColorSelected]</param>
+                    </include>
+                    <colordiffuse>main_fg_70</colordiffuse>
+                    <texture>$VAR[Image_PVRGuide_Indicator]</texture>
+                </control>
             </control>
 
         </definition>
