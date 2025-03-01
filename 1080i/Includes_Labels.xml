@@ -1342,9 +1342,15 @@
         <value>——</value>
     </variable>
 
-    <variable name="Label_MediaList_Duration">
-        <value condition="!String.IsEmpty(ListItem.Duration)">$INFO[ListItem.Duration(h),,h ]$INFO[ListItem.Duration(mm),,m]</value>
-        <value>— ——</value>
+    <variable name="Label_MediaList_Details_LeftLabel">
+        <value condition="String.IsEqual(ListItem.DBType,tvshow) | String.IsEqual(ListItem.DBType,season)">$INFO[ListItem.Episode,, $LOCALIZE[20453]]</value>
+        <value>$INFO[ListItem.Premiered]</value>
+    </variable>
+
+    <variable name="Label_MediaList_Details_RightLabel">
+        <value condition="String.IsEqual(ListItem.DBType,tvshow) | String.IsEqual(ListItem.DBType,season)">$INFO[ListItem.Year]</value>
+        <value condition="!Integer.IsEqual(ListItem.Duration(h),0)">$INFO[ListItem.Duration(h),,h ]$INFO[ListItem.Duration(m),,m]</value>
+        <value>$INFO[ListItem.Duration(m),,m]</value>
     </variable>
 
     <variable name="Label_MediaList_Year_DetailedLabels">
