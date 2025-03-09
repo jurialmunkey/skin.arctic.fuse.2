@@ -1,12 +1,33 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <includes>
 
+    <variable name="Action_Spotlight_PlayMedia">
+        <value condition="!$EXP[Exp_Hubs_Spotlight_HasItems] + Weather.IsFetched">ActivateWindow(weather)</value>
+        <value condition="!$EXP[Exp_Hubs_Spotlight_HasItems]">SlideShow($VAR[Path_Spotlight_SlideShow_Content],beginslide=$ESCINFO[Container(99971).ListItem.PicturePath])</value>
+
+        <!-- Play FileNameAndPath -->
+        <value condition="!String.IsEmpty(Container(301).ListItem.FileNameAndPath) + !$EXP[Exp_IsFolder_C301] + !Container(301).ListItem.IsFolder + Integer.IsEqual(Window(Home).Property(KodiSetting.DefaultPlayAction.Value),2)">PlayMedia($ESCINFO[Container(301).ListItem.FileNameAndPath],resume)</value>
+        <value condition="!String.IsEmpty(Container(301).ListItem.FileNameAndPath) + !$EXP[Exp_IsFolder_C301] + !Container(301).ListItem.IsFolder">PlayMedia($ESCINFO[Container(301).ListItem.FileNameAndPath])</value>
+
+        <!-- Browse -->
+        <value condition="Container(301).ListItem.IsFolder | $EXP[Exp_IsFolder_C301]">ActivateWindow($VAR[Path_Spotlight_Target],$INFO[Container(301).ListItem.FolderPath],return)</value>
+
+        <!-- Play FolderPath -->
+        <value condition="Integer.IsEqual(Window(Home).Property(KodiSetting.DefaultPlayAction.Value),2)">PlayMedia($ESCINFO[Container(301).ListItem.FolderPath],resume)</value>
+        <value>PlayMedia($ESCINFO[Container(301).ListItem.FolderPath])</value>
+    </variable>
+
     <variable name="Action_DialogInfo_PlayMedia">
+        <!-- Play FileNameAndPath -->
+        <value condition="!String.IsEmpty(ListItem.FileNameAndPath) + !$EXP[Exp_IsFolder] + Integer.IsEqual(Window(Home).Property(KodiSetting.DefaultPlayAction.Value),2)">RunScript(plugin.video.themoviedb.helper,close_dialog=1190,"playmedia=$INFO[ListItem.FileNameAndPath]",resume)</value>
         <value condition="!String.IsEmpty(ListItem.FileNameAndPath) + !$EXP[Exp_IsFolder]">RunScript(plugin.video.themoviedb.helper,close_dialog=1190,"playmedia=$INFO[ListItem.FileNameAndPath]")</value>
 
+        <!-- Browse Folder -->
         <value condition="$EXP[Exp_IsFolder] + Window.IsVisible(videos)">RunScript(plugin.video.themoviedb.helper,close_dialog=1190,"call_update=$INFO[ListItem.FolderPath]")</value>
         <value condition="$EXP[Exp_IsFolder]">RunScript(plugin.video.themoviedb.helper,close_dialog=1190,"call_path=$INFO[ListItem.FolderPath]")</value>
 
+        <!-- Play FolderPath -->
+        <value condition="Integer.IsEqual(Window(Home).Property(KodiSetting.DefaultPlayAction.Value),2)">RunScript(plugin.video.themoviedb.helper,close_dialog=1190,"playmedia=$INFO[ListItem.FolderPath]",resume)</value>
         <value>RunScript(plugin.video.themoviedb.helper,close_dialog=1190,"playmedia=$INFO[ListItem.FolderPath]")</value>
     </variable>
 
@@ -134,6 +155,7 @@
     </variable>
 
     <include name="Action_Media_Onload">
+        <onload>RunPlugin(plugin://script.skinvariables/?info=get_jsonrpc&amp;method=Settings.GetSettingValue&amp;setting=myvideos.playaction&amp;window_prop=KodiSetting.DefaultPlayAction&amp;window_id=Home)</onload>
         <onload>RunScript(script.skinvariables,action=buildviews)</onload>
         <onload>AlarmClock(refocus_window,SetFocus(50),00:00,silent)</onload>
     </include>
@@ -197,6 +219,7 @@
         <param name="is_homemenu">false</param>
         <definition>
 
+            <onload>RunPlugin(plugin://script.skinvariables/?info=get_jsonrpc&amp;method=Settings.GetSettingValue&amp;setting=myvideos.playaction&amp;window_prop=KodiSetting.DefaultPlayAction&amp;window_id=Home)</onload>
             <onload>RunScript(script.skinvariables,action=buildviews,no_reload)</onload>
 
             <onload condition="$EXP[Exp_Window_IsHub_Prev]">ClearProperty(TMDbHelper.WidgetContainer.UpdateLock,1198)</onload>
