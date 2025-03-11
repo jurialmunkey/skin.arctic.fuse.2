@@ -1350,22 +1350,24 @@
             </include>
 
             <!-- Versions -->
-            <include content="DialogInfo_Button_Expansion" condition="String.IsEqual(ListItem.DBType,movie) + ListItem.HasVideoVersions + !Skin.HasSetting(Info.Button.DisableVersions)">
+            <include content="DialogInfo_Button_Expansion" condition="!String.IsEqual(ListItem.Property(tmdb_type),person) + !Skin.HasSetting(Info.Button.DisableVersions)">
                 <param name="id">4014</param>
                 <param name="groupid">4121</param>
                 <param name="sliceid">4221</param>
                 <param name="label">$LOCALIZE[40000]</param>
                 <param name="icon">special://skin/extras/icons/bookmarks.png</param>
+                <param name="visible">[ListItem.HasVideoVersions]</param>
                 <onclick>SetFocus(8908)</onclick>
             </include>
 
             <!-- Extras -->
-            <include content="DialogInfo_Button_Expansion" condition="String.IsEqual(ListItem.DBType,movie) + ListItem.HasVideoExtras + !Skin.HasSetting(Info.Button.DisableExtras)">
-                <param name="id">15</param>
-                <param name="groupid">4122</param>
-                <param name="sliceid">4222</param>
+            <include content="DialogInfo_Button_Expansion" condition="!String.IsEqual(ListItem.Property(tmdb_type),person) + !Skin.HasSetting(Info.Button.DisableExtras)">
+                <param name="id">4015</param>
+                <param name="groupid">4115</param>
+                <param name="sliceid">4215</param>
                 <param name="label">$LOCALIZE[40211]</param>
                 <param name="icon">special://skin/extras/icons/director.png</param>
+                <param name="visible">[ListItem.HasVideoExtras + Control.IsEnabled(15)]</param>
             </include>
 
             <!-- Trakt -->
@@ -1376,10 +1378,8 @@
                 <param name="label">Trakt</param>
                 <param name="icon">special://skin/extras/icons/watchlist.png</param>
                 <param name="visible">!String.IsEmpty(Window(Home).Property(TMDbHelper.TraktIsAuth)) + !String.IsEqual(ListItem.DBType,musicvideo)</param>
-
                 <onclick>$VAR[Action_Sync]</onclick>
                 <onfocus>SetProperty(DetailsView,Reviews)</onfocus>
-
             </include>
 
             <!-- Wiki -->
@@ -1389,41 +1389,41 @@
                 <param name="sliceid">4205</param>
                 <param name="label">Wiki</param>
                 <param name="icon">special://skin/extras/icons/globe.png</param>
-
                 <onclick>runscript(script.wikipedia,wikipedia=$VAR[Path_Wikipedia_Title],tmdb_type=$VAR[Path_Wikipedia_Type])</onclick>
                 <onfocus>SetProperty(DetailsView,Reviews)</onfocus>
-
             </include>
 
             <!-- Rating -->
             <include content="DialogInfo_Button_Expansion" condition="!String.IsEqual(ListItem.Property(tmdb_type),person) + !Skin.HasSetting(Info.Button.DisableRating)">
-                <param name="id">7</param>
+                <param name="id">4007</param>
                 <param name="groupid">4107</param>
                 <param name="sliceid">4207</param>
                 <param name="label">$LOCALIZE[563]</param>
                 <param name="icon">special://skin/extras/icons/star.png</param>
                 <param name="visible">Control.IsEnabled(7)</param>
+                <onclick>SendClick(7)</onclick>
             </include>
 
             <!-- Artwork -->
             <include content="DialogInfo_Button_Expansion" condition="!String.IsEqual(ListItem.Property(tmdb_type),person) + !Skin.HasSetting(Info.Button.DisableArtwork)">
-                <param name="id">10</param>
-                <param name="groupid">4109</param>
-                <param name="sliceid">4209</param>
+                <param name="id">4010</param>
+                <param name="groupid">4110</param>
+                <param name="sliceid">4210</param>
                 <param name="label">$LOCALIZE[39123]</param>
                 <param name="icon">special://skin/extras/icons/image.png</param>
                 <param name="visible">Control.IsEnabled(10)</param>
-                <onfocus>SetProperty(DetailsView,Artwork)</onfocus>
+                <onclick>SendClick(10)</onclick>
             </include>
 
             <!-- Refresh -->
             <include content="DialogInfo_Button_Expansion" condition="!String.IsEqual(ListItem.Property(tmdb_type),person) + !Skin.HasSetting(Info.Button.DisableRefresh)">
-                <param name="id">6</param>
-                <param name="groupid">4108</param>
-                <param name="sliceid">4208</param>
+                <param name="id">4006</param>
+                <param name="groupid">4106</param>
+                <param name="sliceid">4206</param>
                 <param name="label">$LOCALIZE[184]</param>
                 <param name="icon">special://skin/extras/icons/update.png</param>
                 <param name="visible">Control.IsEnabled(6)</param>
+                <onclick>SendClick(6)</onclick>
             </include>
 
         </definition>
@@ -1431,6 +1431,8 @@
 
     <include name="Items_DialogMusicInfo_MenuBar">
         <definition>
+
+            <!-- Songs -->
             <include content="DialogInfo_Button_Expansion">
                 <param name="id">4003</param>
                 <param name="groupid">4103</param>
@@ -1445,6 +1447,8 @@
 
                 <onfocus>SetProperty(DetailsView,Songs)</onfocus>
             </include>
+
+            <!-- Albums -->
             <include content="DialogInfo_Button_Expansion">
                 <param name="id">4002</param>
                 <param name="groupid">4102</param>
@@ -1459,10 +1463,12 @@
 
                 <onfocus>SetProperty(DetailsView,Albums)</onfocus>
             </include>
+
+            <!-- Youtube -->
             <include content="DialogInfo_Button_Expansion" condition="!Skin.HasSetting(Info.Button.DisableYoutube)">
-                <param name="id">4007</param>
-                <param name="groupid">4107</param>
-                <param name="sliceid">4207</param>
+                <param name="id">4004</param>
+                <param name="groupid">4104</param>
+                <param name="sliceid">4204</param>
                 <param name="label">YouTube</param>
                 <param name="icon">special://skin/extras/icons/youtube.png</param>
                 <onclick>Dialog.Close(musicinformation)</onclick>
@@ -1470,14 +1476,38 @@
                 <onclick>ActivateWindow(videos,$VAR[Path_Youtube_Query,plugin://plugin.video.youtube/kodion/search/query/?q=,],return)</onclick>
                 <onfocus>SetProperty(DetailsView,Trailer)</onfocus>
             </include>
+
+            <!-- Rating -->
+            <include content="DialogInfo_Button_Expansion" condition="!Skin.HasSetting(Info.Button.DisableRating)">
+                <param name="id">4007</param>
+                <param name="groupid">4107</param>
+                <param name="sliceid">4207</param>
+                <param name="label">$LOCALIZE[563]</param>
+                <param name="icon">special://skin/extras/icons/star.png</param>
+                <param name="visible">Control.IsEnabled(7)</param>
+                <onclick>SendClick(7)</onclick>
+            </include>
+
+            <!-- Artwork -->
             <include content="DialogInfo_Button_Expansion" condition="!Skin.HasSetting(Info.Button.DisableArtwork)">
-                <param name="id">4005</param>
-                <param name="groupid">4105</param>
-                <param name="sliceid">4205</param>
+                <param name="id">4010</param>
+                <param name="groupid">4110</param>
+                <param name="sliceid">4210</param>
                 <param name="label">$LOCALIZE[39123]</param>
                 <param name="icon">special://skin/extras/icons/image.png</param>
-                <onclick condition="Window.IsVisible(DialogVideoInfo.xml) | Window.IsVisible(DialogMusicInfo.xml)">SendClick(10)</onclick>
-                <onfocus>SetProperty(DetailsView,Artwork)</onfocus>
+                <param name="visible">Control.IsEnabled(10)</param>
+                <onclick>SendClick(10)</onclick>
+            </include>
+
+            <!-- Refresh -->
+            <include content="DialogInfo_Button_Expansion" condition="!Skin.HasSetting(Info.Button.DisableRefresh)">
+                <param name="id">4006</param>
+                <param name="groupid">4106</param>
+                <param name="sliceid">4206</param>
+                <param name="label">$LOCALIZE[184]</param>
+                <param name="icon">special://skin/extras/icons/update.png</param>
+                <param name="visible">Control.IsEnabled(6)</param>
+                <onclick>SendClick(6)</onclick>
             </include>
         </definition>
     </include>
