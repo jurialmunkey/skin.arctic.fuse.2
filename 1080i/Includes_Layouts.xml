@@ -1780,7 +1780,7 @@
                     <control type="image">
                         <texture background="true" diffuse="diffuse/square_w190_h190.png">$INFO[ListItem.Icon]</texture>
                         <aspectratio scalediffuse="false">keep</aspectratio>
-                        <visible>![String.StartsWith(ListItem.Icon,Default) | String.StartsWith(ListItem.Icon,special://skin/extras/icons/) | String.StartsWith(ListItem.Icon,image://special)]</visible>
+                        <visible>![String.StartsWith(ListItem.Icon,Default) | String.StartsWith(ListItem.Icon,special://skin/extras/icons/) | String.StartsWith(ListItem.Icon,image://special%3a%2f%2fskin%2fextras%2ficons%2f)]</visible>
                     </control>
                     <control type="image">
                         <include content="Object_ColorDiffuse" condition="$PARAM[selected]">
@@ -1789,7 +1789,7 @@
                         <colordiffuse>dialog_fg_70</colordiffuse>
                         <texture background="true" diffuse="diffuse/square_w190_h190.png">$INFO[ListItem.Icon]</texture>
                         <aspectratio scalediffuse="false">keep</aspectratio>
-                        <visible>[String.StartsWith(ListItem.Icon,Default) | String.StartsWith(ListItem.Icon,special://skin/extras/icons/) | String.StartsWith(ListItem.Icon,image://special)]</visible>
+                        <visible>[String.StartsWith(ListItem.Icon,Default) | String.StartsWith(ListItem.Icon,special://skin/extras/icons/) | String.StartsWith(ListItem.Icon,image://special%3a%2f%2fskin%2fextras%2ficons%2f)]</visible>
                     </control>
                 </control>
                 <control type="group">
@@ -1943,6 +1943,7 @@
                         <param name="textcolor">panel_fg</param>
                         <param name="fade">true</param>
                         <param name="use_label">true</param>
+                        <param name="use_label2">$PARAM[use_label2]</param>
                     </include>
 
                     <include content="Object_ClearLogo_WithShadow" condition="![$PARAM[variation]]">
@@ -2178,6 +2179,7 @@
                         <param name="textcolor">panel_fg</param>
                         <param name="fade">true</param>
                         <param name="include_detailed_labels">true</param>
+                        <param name="use_label2">$PARAM[use_label2]</param>
                     </include>
                 </control>
                 <control type="group">
@@ -2581,6 +2583,7 @@
                     <param name="affix">$PARAM[affix]</param>
                     <param name="listitem">$PARAM[listitem]</param>
                     <param name="textcolor">$PARAM[textcolor]</param>
+                    <param name="use_label2">$PARAM[use_label2]</param>
                 </include>
             </control>
         </definition>
@@ -2724,6 +2727,7 @@
                             <param name="textcolor">$PARAM[textcolor]</param>
                             <param name="include_detailed_labels">$PARAM[include_detailed_labels]</param>
                             <param name="aligny">center</param>
+                            <param name="use_label2">$PARAM[use_label2]</param>
                         </include>
 
                     </control>
@@ -2794,6 +2798,7 @@
                     <param name="affix">$PARAM[affix]</param>
                     <param name="listitem">$PARAM[listitem]</param>
                     <param name="textcolor">$PARAM[textcolor]</param>
+                    <param name="use_label2">$PARAM[use_label2]</param>
                 </include>
 
             </control>
@@ -2805,6 +2810,7 @@
         <param name="selected">false</param>
         <param name="include_detailed_labels">Skin.HasSetting(View.UseDetailedListLabels)</param>
         <param name="use_label">false</param>
+        <param name="use_label2">false</param>
         <param name="aligny">top</param>
         <definition>
             <control type="image">
@@ -2827,6 +2833,9 @@
                         <height>67</height>
                         <aligny>$PARAM[aligny]</aligny>
                         <font>font_mini</font>
+                        <include content="Object_Label" condition="$PARAM[use_label2]">
+                            <param name="label">$INFO[$PARAM[listitem].Label]$INFO[$PARAM[listitem].Label2, - ,]</param>
+                        </include>
                         <label>$INFO[$PARAM[listitem].Label]</label>
                         <align>left</align>
                         <include condition="$PARAM[selected]">Color_SelectedText</include>
@@ -2838,6 +2847,9 @@
                         <height>67</height>
                         <aligny>$PARAM[aligny]</aligny>
                         <font>font_mini</font>
+                        <include content="Object_Label" condition="$PARAM[use_label2]">
+                            <param name="label">$INFO[$PARAM[listitem].Label]$INFO[$PARAM[listitem].Label2, - ,]</param>
+                        </include>
                         <label>$INFO[$PARAM[listitem].Label]</label>
                         <align>left</align>
                         <include condition="$PARAM[selected]">Color_SelectedText</include>
@@ -2967,6 +2979,7 @@
                         <param name="textcolor">$PARAM[textcolor]</param>
                         <param name="fade">false</param>
                         <param name="right">40</param>
+                        <param name="use_label2">$PARAM[use_label2]</param>
                     </include>
                 </control>
             </control>
@@ -3059,6 +3072,7 @@
                     <param name="textcolor">$PARAM[textcolor]</param>
                     <param name="fade">false</param>
                     <param name="right">40</param>
+                    <param name="use_label2">$PARAM[use_label2]</param>
                 </include>
 
             </control>
@@ -3123,6 +3137,7 @@
                     <param name="textcolor">panel_fg</param>
                     <param name="fade">true</param>
                     <param name="use_label">true</param>
+                    <param name="use_label2">$PARAM[use_label2]</param>
                 </include>
 
                 <include content="Object_ProgressLine">
@@ -3153,6 +3168,7 @@
                     <param name="affix">$PARAM[affix]</param>
                     <param name="listitem">$PARAM[listitem]</param>
                     <param name="textcolor">$PARAM[textcolor]</param>
+                    <param name="use_label2">$PARAM[use_label2]</param>
                 </include>
 
                 <include content="Object_SelectBox" condition="$PARAM[selected]">

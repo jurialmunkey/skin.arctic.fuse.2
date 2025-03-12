@@ -207,7 +207,6 @@
         <value condition="!String.IsEmpty(Container.ListItem.Art(tvshow.landscape)) + !Skin.HasSetting(DisableLandscapeArt)">$INFO[Container.ListItem.Art(tvshow.landscape)]</value>
         <value condition="!String.IsEmpty(Container.ListItem.Art(fanart))">$INFO[Container.ListItem.Art(fanart)]</value>
         <value condition="!String.IsEmpty(Container.ListItem.Art(tvshow.fanart))">$INFO[Container.ListItem.Art(tvshow.fanart)]</value>
-        <value condition="!String.IsEmpty(Container.ListItem.Property(fanart))">$INFO[Container.ListItem.Property(fanart)]</value>
     </variable>
 
     <variable name="Image_SettingsWindow">
@@ -409,6 +408,7 @@
     </variable>
 
     <variable name="Image_ArtistFanartVis">
+        <value condition="[Window.IsVisible(script-cu-lrclyrics-main.xml) | [!String.IsEmpty(Window(Home).Property(OSDArtistDetails)) + !Window.IsVisible(1142)]] + !String.ISEmpty(Window(Home).Property(TMDbHelper.Player.Fanart.BlurImage))">$INFO[Window(Home).Property(TMDbHelper.Player.Fanart.BlurImage)]</value>
         <value condition="System.HasAddon(script.artistslideshow) + !Skin.HasSetting(ArtistSlideShow.Disabled) + !String.IsEmpty(Window(Visualisation).Property(ArtistSlideshow.Image))">$INFO[Window(Visualisation).Property(ArtistSlideshow.Image)]</value>
         <value condition="[!System.HasAddon(script.artistslideshow) | Skin.HasSetting(ArtistSlideShow.Disabled) | String.IsEmpty(Window(Visualisation).Property(ArtistSlideshow.Image))] + !String.IsEmpty(Player.Art(fanart))">$INFO[Player.Art(fanart)]</value>
         <value>common/_none.png</value>
@@ -543,6 +543,7 @@
     </variable>
 
     <variable name="Image_OSD_Clearlogo">
+        <value condition="!String.IsEmpty(Window(Home).Property(TMDbHelper.Player.CropImage))">$INFO[Window(Home).Property(TMDbHelper.Player.CropImage)]</value>
         <value condition="!String.IsEmpty(Player.Art(clearlogo))">$INFO[Player.Art(clearlogo)]</value>
         <value condition="!String.IsEmpty(Player.Art(tvshow.clearlogo))">$INFO[Player.Art(tvshow.clearlogo)]</value>
         <value condition="!String.IsEmpty(Player.Art(artist.clearlogo))">$INFO[Player.Art(artist.clearlogo)]</value>

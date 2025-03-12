@@ -35,13 +35,9 @@
                         <height>40</height>
                         <right>20</right>
                         <bottom>-60</bottom>
-                        <control type="label">
-                            <aligny>center</aligny>
-                            <align>right</align>
-                            <font>font_hint_bold</font>
-                            <textcolor>main_fg_30</textcolor>
-                            <label>$INFO[Container(3).NumItems,, $LOCALIZE[31022]]</label>
-                        </control>
+                        <include content="Dialog_ItemPage">
+                            <param name="id">3</param>
+                        </include>
                     </control>
                 </control>
 
@@ -179,22 +175,12 @@
                             <height>40</height>
                             <right>20</right>
                             <bottom>-60</bottom>
-                            <control type="label">
-                                <aligny>center</aligny>
-                                <align>right</align>
-                                <font>font_hint_bold</font>
-                                <textcolor>main_fg_30</textcolor>
-                                <label>$INFO[Container(3).NumItems,, $LOCALIZE[31022]]</label>
-                                <visible>Control.IsVisible(3)</visible>
-                            </control>
-                            <control type="label">
-                                <aligny>center</aligny>
-                                <align>right</align>
-                                <font>font_hint_bold</font>
-                                <textcolor>main_fg_30</textcolor>
-                                <label>$INFO[Container(6).NumItems,, $LOCALIZE[31022]]</label>
-                                <visible>Control.IsVisible(6)</visible>
-                            </control>
+                            <include content="Dialog_ItemPage">
+                                <param name="id">3</param>
+                            </include>
+                            <include content="Dialog_ItemPage">
+                                <param name="id">6</param>
+                            </include>
                         </control>
                     </control>
                     <control type="group">
@@ -374,13 +360,9 @@
                                             <label>$INFO[Container($PARAM[id]).ListItem.FileName]</label>
                                             <haspath>true</haspath>
                                         </control>
-                                        <control type="label">
-                                            <aligny>center</aligny>
-                                            <align>right</align>
-                                            <font>font_hint_bold</font>
-                                            <textcolor>main_fg_30</textcolor>
-                                            <label>$INFO[Container($PARAM[id]).NumItems,, $LOCALIZE[31022]]</label>
-                                        </control>
+                                        <include content="Dialog_ItemPage">
+                                            <param name="id">$PARAM[id]</param>
+                                        </include>
                                     </control>
                                 </control>
                             </include>
@@ -510,6 +492,8 @@
                                 <include content="Info_Line_VideoQuality_Resolution">
                                     <param name="visible">true</param>
                                     <param name="colordiffuse">main_fg_90</param>
+                                    <param name="is_web">[false]</param>
+                                    <param name="is_8k">[Integer.IsGreater(Container($PARAM[id]).ListItem.VideoResolution,2160) | String.IsEqual(Container($PARAM[id]).ListItem.VideoResolution,8K)]</param>
                                     <param name="is_4k">[Integer.IsGreater(Container($PARAM[id]).ListItem.VideoResolution,1080) | String.IsEqual(Container($PARAM[id]).ListItem.VideoResolution,4K)]</param>
                                     <param name="is_fhd">[Integer.IsGreater(Container($PARAM[id]).ListItem.VideoResolution,720)]</param>
                                     <param name="is_hd">[Integer.IsEqual(Container($PARAM[id]).ListItem.VideoResolution,720)]</param>

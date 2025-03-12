@@ -1,165 +1,158 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <includes>
 
-    <include name="ButtonMenu_Tray_Movement">
-        <onup condition="Window.IsVisible(1170)">SetFocus(8000,9999,absolute)</onup>
-        <ondown condition="Window.IsVisible(1170)">7010</ondown>
-        <oninfo>Close</oninfo>
+
+    <include name="ButtonMenu_MediaControls">
+        <item>
+            <label>$VAR[Label_OSD_PausePlay]</label>
+            <icon>$VAR[Image_OSD_PausePlay]</icon>
+            <onclick condition="Player.HasMedia">PlayerControl(Play)</onclick>
+            <onclick condition="!Player.HasMedia">Close</onclick>
+            <onclick condition="!Player.HasMedia + Integer.IsGreater(Playlist.Length(music),0)">PlayMedia(playlistmusic://,isdir,playlist_type_hint=0)</onclick>
+            <onclick condition="!Player.HasMedia + !Integer.IsGreater(Playlist.Length(music),0)">PlayMedia(playlistvideo://,isdir,playlist_type_hint=1)</onclick>
+            <visible>Player.HasMedia | Integer.IsGreater(Playlist.Length(video),0) | Integer.IsGreater(Playlist.Length(music),0)</visible>
+        </item>
+
+        <item>
+            <label>$LOCALIZE[31579]</label>
+            <icon>special://skin/extras/icons/backward-step.png</icon>
+            <onclick>PlayerControl(Previous)</onclick>
+            <visible>Player.HasAudio</visible>
+        </item>
+
+        <item>
+            <label>$LOCALIZE[209]</label>
+            <icon>special://skin/extras/icons/forward-step.png</icon>
+            <onclick>PlayerControl(Next)</onclick>
+            <visible>Player.HasAudio</visible>
+        </item>
+
+        <item>
+            <label>$LOCALIZE[31485]</label>
+            <icon>special://skin/extras/icons/stop.png</icon>
+            <onclick>PlayerControl(Stop)</onclick>
+            <visible>Player.HasMedia</visible>
+        </item>
+
+        <item>
+            <label>$LOCALIZE[559]</label>
+            <icon>special://skin/extras/icons/playlist.png</icon>
+            <onclick>Close</onclick>
+            <onclick condition="Integer.IsGreater(Playlist.Length(video),0) + [Player.HasVideo | Integer.IsEqual(Playlist.Length(music),0)]">ActivateWindow(videoplaylist)</onclick>
+            <onclick condition="Integer.IsGreater(Playlist.Length(music),0) + !Player.HasVideo">ActivateWindow(musicplaylist)</onclick>
+            <visible>[Integer.IsGreater(Playlist.Length(video),0) + [Player.HasVideo | Integer.IsEqual(Playlist.Length(music),0)]] | [Integer.IsGreater(Playlist.Length(music),0) + !Player.HasVideo]</visible>
+        </item>
+
+        <item>
+            <label>$LOCALIZE[21483]</label>
+            <icon>special://skin/extras/icons/fullscreen.png</icon>
+            <onclick>Dialog.Close(all,true)</onclick>
+            <onclick>Fullscreen</onclick>
+            <visible>Player.HasMedia</visible>
+        </item>
     </include>
 
-    <include name="ButtonMenu_PlayerControls">
-        <control type="image">
-            <bottom>60</bottom>
-            <left>20</left>
-            <right>20</right>
-            <height>1</height>
-            <texture colordiffuse="$VAR[Color_DialogBorder]">common/white.png</texture>
-        </control>
-        <control type="grouplist" id="6000">
-            <orientation>horizontal</orientation>
-            <height>80</height>
-            <bottom>-40</bottom>
-            <itemgap>20</itemgap>
-            <align>center</align>
-            <include>ButtonMenu_Tray_Movement</include>
-            <!-- Button 1 -->
-            <control type="button" id="6001">
-                <include>Defs_OSD_Button</include>
-                <onclick>Close</onclick>
-                <onclick condition="Integer.IsGreater(Playlist.Length(video),0) + [Player.HasVideo | Integer.IsEqual(Playlist.Length(music),0)]">ActivateWindow(videoplaylist)</onclick>
-                <onclick condition="Integer.IsGreater(Playlist.Length(music),0) + !Player.HasVideo">ActivateWindow(musicplaylist)</onclick>
-                <enable>[Integer.IsGreater(Playlist.Length(video),0) + [Player.HasVideo | Integer.IsEqual(Playlist.Length(music),0)]] | [Integer.IsGreater(Playlist.Length(music),0) + !Player.HasVideo]</enable>
-            </control>
-            <include content="OSD_Button_Icon_Overlay">
-                <param name="icon">special://skin/extras/icons/playlist.png</param>
-                <param name="id">6001</param>
-                <param name="groupid">6101</param>
-                <param name="icon_colordiffuse">dialog_fg_70</param>
-                <param name="itemgap">20</param>
-                <param name="bordersize">12</param>
-            </include>
+    <include name="ButtonMenu_SideTray">
+        <param name="include">ButtonMenu_MediaControls</param>
+        <definition>
+            <control type="list" id="6099">
+                <orientation>vertical</orientation>
+                <width>100</width>
+                <top>140</top>
+                <centerright>70</centerright>
+                <onleft>7000</onleft>
+                <scrolltime tween="quadratic">400</scrolltime>
 
-            <!-- Button 2 -->
-            <control type="button" id="6002">
-                <include>Defs_OSD_Button</include>
-                <onclick condition="Player.HasMedia">PlayerControl(Play)</onclick>
-                <onclick condition="!Player.HasMedia">Close</onclick>
-                <onclick condition="!Player.HasMedia + Integer.IsGreater(Playlist.Length(music),0)">PlayMedia(playlistmusic://,isdir,playlist_type_hint=0)</onclick>
-                <onclick condition="!Player.HasMedia + !Integer.IsGreater(Playlist.Length(music),0)">PlayMedia(playlistvideo://,isdir,playlist_type_hint=1)</onclick>
-                <enable>Player.HasMedia | Integer.IsGreater(Playlist.Length(video),0) | Integer.IsGreater(Playlist.Length(music),0)</enable>
-            </control>
-            <include content="OSD_Button_Icon_Overlay">
-                <param name="icon">$VAR[Image_OSD_PausePlay]</param>
-                <param name="id">6002</param>
-                <param name="groupid">6102</param>
-                <param name="icon_colordiffuse">dialog_fg_70</param>
-                <param name="itemgap">20</param>
-                <param name="bordersize">12</param>
-            </include>
-
-            <!-- Button 3 -->
-            <control type="button" id="6003">
-                <include>Defs_OSD_Button</include>
-                <onclick condition="!Player.HasVideo">PlayerControl(Previous)</onclick>
-                <onclick condition="Player.HasVideo">PlayerControl(Stop)</onclick>
-                <enable>Player.HasMedia</enable>
-            </control>
-            <include content="OSD_Button_Icon_Overlay">
-                <param name="visible">[!Player.HasVideo]</param>
-                <param name="icon">special://skin/extras/icons/forward-step.png</param>
-                <param name="flipx">true</param>
-                <param name="id">6003</param>
-                <param name="groupid">6103</param>
-                <param name="icon_colordiffuse">dialog_fg_70</param>
-                <param name="itemgap">20</param>
-                <param name="bordersize">12</param>
-            </include>
-            <include content="OSD_Button_Icon_Overlay">
-                <param name="visible">[Player.HasVideo]</param>
-                <param name="icon">special://skin/extras/icons/stop.png</param>
-                <param name="id">6003</param>
-                <param name="groupid">6203</param>
-                <param name="icon_colordiffuse">dialog_fg_70</param>
-                <param name="itemgap">20</param>
-                <param name="bordersize">12</param>
-            </include>
-
-            <!-- Button 4 -->
-            <control type="button" id="6004">
-                <include>Defs_OSD_Button</include>
-                <onclick>PlayerControl(Next)</onclick>
-                <enable>Player.HasMedia</enable>
-            </control>
-            <include content="OSD_Button_Icon_Overlay">
-                <param name="icon">special://skin/extras/icons/forward-step.png</param>
-                <param name="id">6004</param>
-                <param name="groupid">6104</param>
-                <param name="icon_colordiffuse">dialog_fg_70</param>
-                <param name="itemgap">20</param>
-                <param name="bordersize">12</param>
-            </include>
-
-            <!-- Button 5 -->
-            <control type="button" id="6005">
-                <include>Defs_OSD_Button</include>
-                <onclick>Dialog.Close(all,true)</onclick>
-                <onclick>Fullscreen</onclick>
-                <enable>Player.HasMedia</enable>
-            </control>
-            <include content="OSD_Button_Icon_Overlay">
-                <param name="icon">special://skin/extras/icons/fullscreen.png</param>
-                <param name="flipx">false</param>
-                <param name="id">6005</param>
-                <param name="groupid">6105</param>
-                <param name="icon_colordiffuse">dialog_fg_70</param>
-                <param name="itemgap">20</param>
-                <param name="bordersize">12</param>
-            </include>
-        </control>
-    </include>
-
-    <include name="ButtonMenu_OptionsTray">
-        <control type="list" id="6099">
-            <orientation>vertical</orientation>
-            <width>100</width>
-            <top>140</top>
-            <centerright>70</centerright>
-            <onleft>7000</onleft>
-            <scrolltime tween="quadratic">400</scrolltime>
-
-            <itemlayout width="100" height="100">
-                <include content="Layout_OptionTray">
-                    <param name="selected">false</param>
-                    <param name="color_nf">dialog_fg_70</param>
-                    <param name="centertop">40</param>
-                </include>
-            </itemlayout>
-
-            <focusedlayout width="100" height="100">
-                <control type="group">
-                    <visible>Control.HasFocus(6099)</visible>
-                    <include content="Layout_OptionTray">
-                        <param name="selected">true</param>
-                        <param name="color_nf">dialog_fg_70</param>
-                        <param name="centertop">40</param>
-                        <param name="include_hintlabel">true</param>
-                    </include>
-                </control>
-                <control type="group">
-                    <visible>!Control.HasFocus(6099)</visible>
+                <itemlayout width="100" height="100">
                     <include content="Layout_OptionTray">
                         <param name="selected">false</param>
                         <param name="color_nf">dialog_fg_70</param>
                         <param name="centertop">40</param>
                     </include>
-                </control>
-            </focusedlayout>
+                </itemlayout>
 
-            <content>
-                <include>skinvariables-options-tray-staticitems</include>
-            </content>
+                <focusedlayout width="100" height="100">
+                    <control type="group">
+                        <visible>Control.HasFocus(6099)</visible>
+                        <include content="Layout_OptionTray">
+                            <param name="selected">true</param>
+                            <param name="color_nf">dialog_fg_70</param>
+                            <param name="centertop">40</param>
+                            <param name="include_hintlabel">true</param>
+                        </include>
+                    </control>
+                    <control type="group">
+                        <visible>!Control.HasFocus(6099)</visible>
+                        <include content="Layout_OptionTray">
+                            <param name="selected">false</param>
+                            <param name="color_nf">dialog_fg_70</param>
+                            <param name="centertop">40</param>
+                        </include>
+                    </control>
+                </focusedlayout>
 
-        </control>
+                <content>
+                    <include>$PARAM[include]</include>
+                </content>
+
+            </control>
+        </definition>
+    </include>
+
+    <include name="ButtonMenu_BottomTray">
+        <param name="include">skinvariables-options-tray-staticitems</param>
+        <definition>
+            <control type="fixedlist" id="6000">
+
+                <animation effect="slide" start="0" end="-50" condition="Integer.IsEqual(Container(6000).NumItems,2) | Integer.IsEqual(Container(6000).NumItems,4)">Conditional</animation>
+
+                <orientation>horizontal</orientation>
+                <height>100</height>
+                <centerbottom>-10</centerbottom>
+                <focusposition>2</focusposition>
+                <movement>2</movement>
+                <left>20</left>
+                <right>0</right>
+                <scrolltime tween="quadratic">400</scrolltime>
+
+                <onup>SetFocus(8000,9999,absolute)</onup>
+                <ondown>7010</ondown>
+                <oninfo>Close</oninfo>
+
+                <itemlayout width="100" height="100">
+                    <include content="Layout_OptionTray">
+                        <param name="selected">false</param>
+                        <param name="color_nf">dialog_fg_70</param>
+                        <param name="centertop">40</param>
+                    </include>
+                </itemlayout>
+
+                <focusedlayout width="100" height="100">
+                    <control type="group">
+                        <visible>Control.HasFocus(6000)</visible>
+                        <include content="Layout_OptionTray">
+                            <param name="selected">true</param>
+                            <param name="color_nf">dialog_fg_70</param>
+                            <param name="centertop">40</param>
+                            <param name="include_hintlabel">true</param>
+                        </include>
+                    </control>
+                    <control type="group">
+                        <visible>!Control.HasFocus(6000)</visible>
+                        <include content="Layout_OptionTray">
+                            <param name="selected">false</param>
+                            <param name="color_nf">dialog_fg_70</param>
+                            <param name="centertop">40</param>
+                        </include>
+                    </control>
+                </focusedlayout>
+
+                <content>
+                    <include>$PARAM[include]</include>
+                </content>
+
+            </control>
+        </definition>
     </include>
 
     <include name="ButtonMenu_NowPlayingClock">
@@ -496,7 +489,7 @@
             <param name="onup">$PARAM[onup]</param>
             <param name="ondown">$PARAM[ondown]</param>
             <param name="onleft">Close</param>
-            <param name="onright">6099</param>
+            <param name="onright">SetFocus(6099,0,absolute)</param>
             <param name="onclick">$PARAM[button_one_onclick]</param>
             <param name="label">$PARAM[button_one_label]</param>
             <param name="icon">$PARAM[button_one_icon]</param>
@@ -529,7 +522,7 @@
                 <param name="onup">$PARAM[b_onup]</param>
                 <param name="ondown">$PARAM[b_ondown]</param>
                 <param name="onleft">70$PARAM[groupid]1</param>
-                <param name="onright">6099</param>
+                <param name="onright">SetFocus(6099,0,absolute)</param>
                 <param name="onclick">$PARAM[button_two_onclick]</param>
                 <param name="label">$PARAM[button_two_label]</param>
                 <param name="icon">$PARAM[button_two_icon]</param>
