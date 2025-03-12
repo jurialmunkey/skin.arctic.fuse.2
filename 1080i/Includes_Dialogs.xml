@@ -778,18 +778,26 @@
             <control type="scrollbar" id="$PARAM[id]">
                 <nested />
                 <include condition="$PARAM[inset]">Dialog_Scrollbar_Inset_Def</include>
-                <include content="Animation_ConditionalFade" condition="![$PARAM[inset]]">
-                    <param name="condition">!Control.HasFocus($PARAM[id])</param>
-                </include>
                 <top>20</top>
                 <bottom>20</bottom>
                 <centerright>0</centerright>
                 <width>scrollbar_w</width>
                 <showonepage>$PARAM[showonepage]</showonepage>
                 <texturesliderbackground />
-                <texturesliderbar colordiffuse="main_logo" border="4">scrollbar/scrollv.png</texturesliderbar>
+                <texturesliderbar colordiffuse="dialog_fg_70" border="4">scrollbar/scrollv_line.png</texturesliderbar>
                 <include>Texture_Scrollbar_V</include>
             </control>
         </definition>
+    </include>
+
+    <include name="Dialog_ItemPage">
+        <control type="label">
+            <aligny>center</aligny>
+            <align>right</align>
+            <font>font_hint_bold</font>
+            <textcolor>dialog_fg_30</textcolor>
+            <label>$INFO[Container($PARAM[id]).NumItems,, $LOCALIZE[31022]]$INFO[Container($PARAM[id]).CurrentPage,  •  $LOCALIZE[31135] ,]$INFO[Container($PARAM[id]).NumPages, $LOCALIZE[20163] ,]</label>
+            <visible>Control.IsVisible($PARAM[id])</visible>
+        </control>
     </include>
 </includes>

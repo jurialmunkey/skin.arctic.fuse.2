@@ -572,9 +572,10 @@
     <include name="OSD_Progress_Details_Extended">
         <param name="align">bottom</param>
         <param name="landscape_visible">!Skin.HasSetting(OSD.DisableLandscapeOnInfo)</param>
+        <param name="plot_visible">!Skin.HasSetting(OSD.DisablePlotRatingsOnInfo)</param>
         <definition>
             <control type="grouplist">
-                <bottom>44</bottom>
+                <bottom>52</bottom>
                 <align>$PARAM[align]</align>
                 <include>OSD_Progress_Details_Grouplist_Def</include>
                 <control type="group">
@@ -607,7 +608,7 @@
                 </control>
 
                 <control type="group" description="Avoid grouplist chop with spacer">
-                    <height>44</height>
+                    <height>40</height>
                 </control>
 
                 <include content="Info_Title">
@@ -626,35 +627,31 @@
                     <include>OSD_Info_Line</include>
                 </control>
 
-                <include content="Info_Panel_Textbox" condition="!Skin.HasSetting(OSD.DisablePlotRatingsOnInfo)">
+                <include content="Info_Panel_Textbox" condition="$PARAM[plot_visible]">
                     <param name="plotlabel">$VAR[Label_Player_Plot]</param>
                     <param name="plotwidth">90%</param>
                     <param name="plotheight">160</param>
                     <param name="check_ratings">false</param>
                     <param name="colordiffuse">panel_fg</param>
                     <param name="left">view_pad</param>
+                    <param name="visible">!String.IsEmpty(VideoPlayer.Plot)</param>
                 </include>
 
                 <control type="group">
-                    <top>12</top>
-                    <visible>!Skin.HasSetting(OSD.DisablePlotRatingsOnInfo)</visible>
-                    <visible>!String.IsEmpty(VideoPlayer.Plot) | !VideoPlayer.Content(livetv)</visible>
+                    <height>8</height>
+                    <visible>![$PARAM[plot_visible] + !String.IsEmpty(VideoPlayer.Plot)]</visible>
                 </control>
 
-                <include content="Info_RatingsLine" condition="!Skin.HasSetting(OSD.DisablePlotRatingsOnInfo)">
+                <include content="Info_RatingsLine" condition="$PARAM[plot_visible]">
                     <param name="is_player">true</param>
                     <top>0</top>
                     <left>view_pad</left>
                     <visible>!VideoPlayer.Content(livetv)</visible>
+                    <visible>!String.IsEmpty(VideoPlayer.Plot)</visible>
                 </include>
 
                 <control type="group" description="Avoid grouplist chop with spacer">
-                    <visible>!VideoPlayer.Content(livetv)</visible>
-                    <height>18</height>
-                </control>
-
-                <control type="group" description="Avoid grouplist chop with spacer">
-                    <height>20</height>
+                    <height>28</height>
                 </control>
             </control>
         </definition>
