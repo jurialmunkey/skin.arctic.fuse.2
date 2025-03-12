@@ -350,7 +350,7 @@
                                         <param name="dialog">true</param>
                                         <param name="id">23097</param>
                                         <label>$LOCALIZE[31511] $LOCALIZE[33063]</label>
-                                        <visible>$EXP[Shortcuts_Dialog_Exp_HasCustomSubmenu] | $EXP[Shortcuts_Dialog_Exp_HasShortcutPath]</visible>
+                                        <visible>$EXP[Shortcuts_Dialog_Exp_HasShortcutPath]</visible>
                                         <visible>$EXP[Shortcuts_Dialog_Exp_IsEnabled]</visible>
                                         <onback>29999</onback>
                                     </include>
@@ -395,30 +395,16 @@
                                         <onback>29999</onback>
                                     </include>
 
-                                    <!-- Edit custom submenu widget item -->
-                                    <include content="Settings_Button">
-                                        <param name="dialog">true</param>
-                                        <param name="id">23042</param>
-                                        <label>$LOCALIZE[31516]</label>
-                                        <visible>$EXP[Shortcuts_Dialog_Exp_HasCustomSubmenu]</visible>
-                                        <visible>$EXP[Shortcuts_Dialog_Exp_IsEnabled]</visible>
-                                        <onclick>SetProperty(Shortcuts.EditMenu.Previous,$INFO[Window(Home).Property(Shortcuts.EditMenu)],Home)</onclick>
-                                        <onclick>SetProperty(Shortcuts.EditMode.Previous,$INFO[Window(Home).Property(Shortcuts.EditMode)],Home)</onclick>
-                                        <onclick>SetProperty(Shortcuts.EditGUID.Previous,$INFO[Window(Home).Property(Shortcuts.EditGUID)],Home)</onclick>
-                                        <onclick>SetProperty(Shortcuts.EditGUID,guid=$INFO[Container(22001).ListItem.Property(guid)],Home)</onclick>
-                                        <onclick>SetProperty(Shortcuts.EditMenu,menu=$INFO[Container(22001).ListItem.Property(menu)],Home)</onclick>
-                                        <onclick>SetProperty(Shortcuts.EditMode,mode=submenu,Home)</onclick>
-                                        <onback>29999</onback>
-                                    </include>
 
-                                    <!-- =================== -->
-                                    <!-- Custom Menu Options -->
-                                    <!-- =================== -->
+
+                                    <!-- =============== -->
+                                    <!-- Submenu Options -->
+                                    <!-- =============== -->
                                     <include content="Settings_Label">
                                         <param name="dialog">true</param>
                                         <param name="id">23098</param>
-                                        <label>$LOCALIZE[33061] $LOCALIZE[33063]</label>
-                                        <visible>$EXP[Shortcuts_Dialog_Exp_HasSideMenuEdit]</visible>
+                                        <label>$LOCALIZE[1034] $LOCALIZE[33063]</label>
+                                        <visible>$EXP[Shortcuts_Dialog_Exp_HasSideMenuEdit] | $EXP[Shortcuts_Dialog_Exp_HasCustomSubmenu]</visible>
                                         <visible>$EXP[Shortcuts_Dialog_Exp_IsEnabled]</visible>
                                         <onback>29999</onback>
                                     </include>
@@ -436,6 +422,22 @@
                                         <onclick>ClearProperty(Shortcuts.EditGUID,Home)</onclick>
                                         <onclick>SetProperty(Shortcuts.EditMenu,menu=$INFO[Container(22001).ListItem.Property(menu)]-customnode-$INFO[Container(22001).ListItem.Property(guid)],Home)</onclick>
                                         <onclick>ClearProperty(Shortcuts.EditMode,Home)</onclick>
+                                        <onback>29999</onback>
+                                    </include>
+
+                                    <!-- Edit custom submenu widget item -->
+                                    <include content="Settings_Button">
+                                        <param name="dialog">true</param>
+                                        <param name="id">23042</param>
+                                        <label>$LOCALIZE[31516]</label>
+                                        <visible>$EXP[Shortcuts_Dialog_Exp_HasCustomSubmenu]</visible>
+                                        <visible>$EXP[Shortcuts_Dialog_Exp_IsEnabled]</visible>
+                                        <onclick>SetProperty(Shortcuts.EditMenu.Previous,$INFO[Window(Home).Property(Shortcuts.EditMenu)],Home)</onclick>
+                                        <onclick>SetProperty(Shortcuts.EditMode.Previous,$INFO[Window(Home).Property(Shortcuts.EditMode)],Home)</onclick>
+                                        <onclick>SetProperty(Shortcuts.EditGUID.Previous,$INFO[Window(Home).Property(Shortcuts.EditGUID)],Home)</onclick>
+                                        <onclick>SetProperty(Shortcuts.EditGUID,guid=$INFO[Container(22001).ListItem.Property(guid)],Home)</onclick>
+                                        <onclick>SetProperty(Shortcuts.EditMenu,menu=$INFO[Container(22001).ListItem.Property(menu)],Home)</onclick>
+                                        <onclick>SetProperty(Shortcuts.EditMode,mode=submenu,Home)</onclick>
                                         <onback>29999</onback>
                                     </include>
 
