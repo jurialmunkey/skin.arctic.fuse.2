@@ -68,7 +68,12 @@
     <!-- Build includes for textures / views / menus -->
     <onload condition="String.IsEmpty(Window.Property(ReloadDone))">RunScript(plugin.video.themoviedb.helper,blur_image=$VAR[Image_SimpleBackground],prefix=SimpleBackground)</onload>
     <onload condition="String.IsEmpty(Window.Property(ReloadDone)) + ![Skin.HasSetting(SkinUserLogin.StartupLoginScreen) + !Skin.HasSetting(SkinUserLogin.Disabled) + String.IsEmpty(Window(Home).Property(StartupReplaceWindow))]">RunScript($VAR[Action_Var_BuildTextures],get_values=true)</onload>
-    <onload condition="String.IsEmpty(Window.Property(ReloadDone))">RunScript(script.skinvariables,action=buildviews,no_reload)</onload>
+
+    <include content="Generator_BuildViewTypes_Onload">
+        <param name="condition">String.IsEmpty(Window.Property(ReloadDone))</param>
+        <param name="params">,no_reload</param>
+    </include>
+
     <onload condition="String.IsEmpty(Window.Property(ReloadDone))">Skin.SetString(SkinVariables.SkinUser.ExecuteBuiltIn,"RunScript($VAR[Action_Var_BuildTextures],get_values=true,reload=Home)")</onload>
     <onload condition="!String.IsEmpty(Window.Property(ReloadDone))">SetProperty(InitStatus,$LOCALIZE[31248])</onload>
     <onload>SetProperty(ReloadDone,1)</onload>
