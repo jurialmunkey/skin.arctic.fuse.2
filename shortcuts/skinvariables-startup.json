@@ -133,6 +133,7 @@
                 }],
 
                 "SetProperty(InitStatus,Generating Textures)",
+                "Skin.Reset(TextureMaker.Built)",
                 "RunScript(plugin.video.themoviedb.helper,blur_image={var_image_simplebackground},prefix=SimpleBackground)",
                 "Skin.SetString(SkinVariables.SkinUser.ExecuteBuiltIn,\"RunScript(script.skinvariables,special://skin/shortcuts/skinvariables-build-colortemplates.json,use_rules=True,get_values=true,reload=Home)\")",
                 "route=run_executebuiltin=special://skin/shortcuts/skinvariables-build-colortemplates.json&use_rules=True&get_values=true"
@@ -142,6 +143,12 @@
         "SetProperty(ReloadDone,1)",
         "SetProperty(ReloadDone,1,Home)",
 
+        "sleep=0.5",
+
+        {
+            "rules": ["!Skin.HasSetting(TextureMaker.Built)"],
+            "value": "route=run_executebuiltin=special://skin/shortcuts/skinvariables-startup.json&use_rules=True&var_image_simplebackground={var_image_simplebackground}"
+        },
         {
             "rules": [
                 "Skin.HasSetting(Startup.WaitForLoad)",
@@ -151,8 +158,7 @@
                 "!PVR.HasRadioChannels"
             ],
             "value": [
-                "SetProperty(InitStatus,PVR)",
-                "sleep=1.0",
+                "SetProperty(InitStatus,Waiting for PVR)",
                 "route=run_executebuiltin=special://skin/shortcuts/skinvariables-startup.json&use_rules=True&var_image_simplebackground={var_image_simplebackground}"
             ]
         },
