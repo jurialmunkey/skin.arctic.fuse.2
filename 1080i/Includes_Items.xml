@@ -36,16 +36,14 @@
         <include condition="String.IsEqual(Window(Home).Property(CustomDialogSettingsItems),Items_Settings_CustomStartup)">Items_Settings_CustomStartup</include>
         <include condition="String.IsEqual(Window(Home).Property(CustomDialogSettingsItems),Items_Settings_Autoscroll)">Items_Settings_Autoscroll</include>
         <include condition="String.IsEqual(Window(Home).Property(CustomDialogSettingsItems),Items_Settings_MPAACountries)">Items_Settings_MPAACountries</include>
-        <include condition="String.IsEqual(Window(Home).Property(CustomDialogSettingsItems),Items_Settings_VideoOSDWidgets)">Items_Settings_VideoOSDWidgets</include>
-        <include condition="String.IsEqual(Window(Home).Property(CustomDialogSettingsItems),Items_Settings_InfoStyle)">Items_Settings_InfoStyle</include>
-        <include condition="String.IsEqual(Window(Home).Property(CustomDialogSettingsItems),Items_Settings_VideoInfoWidgets)">Items_Settings_VideoInfoWidgets</include>
+        <include condition="String.IsEqual(Window(Home).Property(CustomDialogSettingsItems),Items_Settings_VideoOSD)">Items_Settings_VideoOSD</include>
+        <include condition="String.IsEqual(Window(Home).Property(CustomDialogSettingsItems),Items_Settings_VideoInfo)">Items_Settings_VideoInfo</include>
         <include condition="String.IsEqual(Window(Home).Property(CustomDialogSettingsItems),Items_Settings_InfolineAdditionalTags)">Items_Settings_InfolineAdditionalTags</include>
         <include condition="String.IsEqual(Window(Home).Property(CustomDialogSettingsItems),Items_Settings_Viewmodes)">Items_Settings_Viewmodes</include>
         <include condition="String.IsEqual(Window(Home).Property(CustomDialogSettingsItems),Items_Settings_RatingsMovies)">Items_Settings_RatingsMovies</include>
         <include condition="String.IsEqual(Window(Home).Property(CustomDialogSettingsItems),Items_Settings_RatingsTVShows)">Items_Settings_RatingsTVShows</include>
         <include condition="String.IsEqual(Window(Home).Property(CustomDialogSettingsItems),Items_Settings_HomeMenuStyle)">Items_Settings_HomeMenuStyle</include>
         <include condition="String.IsEqual(Window(Home).Property(CustomDialogSettingsItems),Items_Settings_WidgetStyle)">Items_Settings_WidgetStyle</include>
-        <include condition="String.IsEqual(Window(Home).Property(CustomDialogSettingsItems),Items_Settings_OSDStyle)">Items_Settings_OSDStyle</include>
     </include>
 
     <include name="Items_Settings_WidgetStyle">
@@ -244,9 +242,73 @@
         </include>
     </include>
 
-    <include name="Items_Settings_VideoOSDWidgets">
-        <include content="Settings_Button">
+    <include name="Items_Settings_VideoOSD">
+
+        <include content="Settings_Button" description="Expanded info on OSD">
+            <param name="dialog">true</param>
             <param name="id">8001</param>
+            <param name="control">radiobutton</param>
+            <label>$LOCALIZE[33029]</label>
+            <selected>Skin.HasSetting(OSD.DisplayInfoOnControls)</selected>
+            <onclick>Skin.ToggleSetting(OSD.DisplayInfoOnControls)</onclick>
+        </include>
+
+        <!-- <include content="Settings_Button" description="Expanded info landscape art">
+            <param name="dialog">true</param>
+            <param name="id">8002</param>
+            <param name="control">radiobutton</param>
+            <param name="slevel">2</param>
+            <label>$LOCALIZE[31045] [LOWERCASE]$LOCALIZE[39123][/LOWERCASE]</label>
+            <selected>!Skin.HasSetting(OSD.DisableLandscapeOnInfo)</selected>
+            <onclick>Skin.ToggleSetting(OSD.DisableLandscapeOnInfo)</onclick>
+            <visible>Skin.HasSetting(OSD.DisplayInfoOnControls)</visible>
+        </include> -->
+
+        <include content="Settings_Button" description="Expanded info plot and ratings">
+            <param name="dialog">true</param>
+            <param name="id">8003</param>
+            <param name="control">radiobutton</param>
+            <param name="slevel">2</param>
+            <label>$LOCALIZE[207] + $LOCALIZE[31202]</label>
+            <selected>!Skin.HasSetting(OSD.DisablePlotRatingsOnInfo)</selected>
+            <onclick>Skin.ToggleSetting(OSD.DisablePlotRatingsOnInfo)</onclick>
+            <visible>Skin.HasSetting(OSD.DisplayInfoOnControls)</visible>
+        </include>
+
+        <include content="Settings_Label">
+            <param name="id">8004</param>
+            <param name="dialog">true</param>
+            <param name="slevel">2</param>
+            <label>$LOCALIZE[31585]</label>
+        </include>
+
+        <include content="Settings_Button" description="Expanded info landscape art">
+            <param name="dialog">true</param>
+            <param name="id">8005</param>
+            <param name="control">radiobutton</param>
+            <param name="slevel">2</param>
+            <label>$LOCALIZE[31045]</label>
+            <selected>!Skin.HasSetting(OSD.InfoOverlay.DisableLandscapeOnInfo)</selected>
+            <onclick>Skin.ToggleSetting(OSD.InfoOverlay.DisableLandscapeOnInfo)</onclick>
+        </include>
+
+        <include content="Settings_Button" description="Expanded info plot and ratings">
+            <param name="dialog">true</param>
+            <param name="id">8006</param>
+            <param name="control">radiobutton</param>
+            <param name="slevel">2</param>
+            <label>$LOCALIZE[207] + $LOCALIZE[31202]</label>
+            <selected>!Skin.HasSetting(OSD.InfoOverlay.DisablePlotRatingsOnInfo)</selected>
+            <onclick>Skin.ToggleSetting(OSD.InfoOverlay.DisablePlotRatingsOnInfo)</onclick>
+        </include>
+
+        <include content="Settings_Label">
+            <param name="id">8020</param>
+            <param name="dialog">true</param>
+            <label>$LOCALIZE[31103]</label>
+        </include>
+        <include content="Settings_Button">
+            <param name="id">8021</param>
             <param name="control">radiobutton</param>
             <param name="dialog">true</param>
             <onclick>Skin.ToggleSetting(OSD.OnDown.DisablePVROSDGuide)</onclick>
@@ -254,7 +316,7 @@
             <label>$LOCALIZE[19069]</label>
         </include>
         <include content="Settings_Button">
-            <param name="id">8004</param>
+            <param name="id">8022</param>
             <param name="control">radiobutton</param>
             <param name="dialog">true</param>
             <onclick>Skin.ToggleSetting(OSD.OnDown.DisablePVROSDChannels)</onclick>
@@ -262,23 +324,23 @@
             <label>$LOCALIZE[19019]</label>
         </include>
         <include content="Settings_Button">
-            <param name="id">8002</param>
+            <param name="id">8023</param>
             <param name="control">radiobutton</param>
             <param name="dialog">true</param>
             <onclick>Skin.ToggleSetting(OSD.OnDown.Disable1140)</onclick>
             <selected>!Skin.HasSetting(OSD.OnDown.Disable1140)</selected>
-            <label>$LOCALIZE[559] / $LOCALIZE[20360]</label>
+            <label>$LOCALIZE[559] + $LOCALIZE[20360]</label>
         </include>
         <include content="Settings_Button">
-            <param name="id">8003</param>
+            <param name="id">8024</param>
             <param name="control">radiobutton</param>
             <param name="dialog">true</param>
             <onclick>Skin.ToggleSetting(OSD.OnDown.DisableVideoBookmarks)</onclick>
             <selected>!Skin.HasSetting(OSD.OnDown.DisableVideoBookmarks)</selected>
-            <label>$LOCALIZE[298] / $LOCALIZE[31429]</label>
+            <label>$LOCALIZE[298] + $LOCALIZE[31429]</label>
         </include>
         <include content="Settings_Button">
-            <param name="id">8005</param>
+            <param name="id">8025</param>
             <param name="control">radiobutton</param>
             <param name="dialog">true</param>
             <onclick>Skin.ToggleSetting(OSD.OnDown.Disable1141)</onclick>
@@ -287,9 +349,24 @@
         </include>
     </include>
 
-    <include name="Items_Settings_InfoStyle">
+    <include name="Items_Settings_VideoInfo">
+
         <include content="Settings_Button">
             <param name="id">8001</param>
+            <param name="control">button</param>
+            <param name="dialog">true</param>
+            <label>$LOCALIZE[31158]</label>
+            <label2>$VAR[Label_Settings_InfoLayout]</label2>
+            <onclick>RunScript(script.skinvariables,run_dialog=select,heading=$LOCALIZE[19033] $LOCALIZE[31158],preselect=$VAR[Label_Settings_InfoLayout],separator=||,list=$LOCALIZE[571]||FlixArt||$LOCALIZE[31583]||$LOCALIZE[39173],"executebuiltin_0=Skin.Reset(Info.Layout)","executebuiltin_1=Skin.SetString(Info.Layout,Flix)","executebuiltin_2=Skin.SetString(Info.Layout,Flip)","executebuiltin_3=Skin.SetString(Info.Layout,Blur)")</onclick>
+        </include>
+
+        <include content="Settings_Label">
+            <param name="id">8010</param>
+            <param name="dialog">true</param>
+            <label>Buttons</label>
+        </include>
+        <include content="Settings_Button">
+            <param name="id">8011</param>
             <param name="control">radiobutton</param>
             <param name="dialog">true</param>
             <label>$LOCALIZE[20410]</label>
@@ -297,7 +374,7 @@
             <selected>!Skin.HasSetting(Info.Button.DisableTrailer)</selected>
         </include>
         <include content="Settings_Button">
-            <param name="id">8002</param>
+            <param name="id">8012</param>
             <param name="control">radiobutton</param>
             <param name="dialog">true</param>
             <label>$LOCALIZE[40000]</label>
@@ -305,7 +382,7 @@
             <selected>!Skin.HasSetting(Info.Button.DisableVersions)</selected>
         </include>
         <include content="Settings_Button">
-            <param name="id">8003</param>
+            <param name="id">8013</param>
             <param name="control">radiobutton</param>
             <param name="dialog">true</param>
             <label>$LOCALIZE[40211]</label>
@@ -313,7 +390,7 @@
             <selected>!Skin.HasSetting(Info.Button.DisableExtras)</selected>
         </include>
         <include content="Settings_Button">
-            <param name="id">8004</param>
+            <param name="id">8014</param>
             <param name="control">radiobutton</param>
             <param name="dialog">true</param>
             <label>Trakt</label>
@@ -321,7 +398,7 @@
             <selected>!Skin.HasSetting(Info.Button.DisableTrakt)</selected>
         </include>
         <include content="Settings_Button">
-            <param name="id">8005</param>
+            <param name="id">8015</param>
             <param name="control">radiobutton</param>
             <param name="dialog">true</param>
             <label>Wiki</label>
@@ -329,7 +406,7 @@
             <selected>!Skin.HasSetting(Info.Button.DisableWiki)</selected>
         </include>
         <include content="Settings_Button">
-            <param name="id">8006</param>
+            <param name="id">8016</param>
             <param name="control">radiobutton</param>
             <param name="dialog">true</param>
             <label>$LOCALIZE[563]</label>
@@ -337,7 +414,7 @@
             <selected>!Skin.HasSetting(Info.Button.DisableRating)</selected>
         </include>
         <include content="Settings_Button">
-            <param name="id">8007</param>
+            <param name="id">8017</param>
             <param name="control">radiobutton</param>
             <param name="dialog">true</param>
             <label>Youtube</label>
@@ -345,7 +422,7 @@
             <selected>!Skin.HasSetting(Info.Button.DisableYoutube)</selected>
         </include>
         <include content="Settings_Button">
-            <param name="id">8008</param>
+            <param name="id">8018</param>
             <param name="control">radiobutton</param>
             <param name="dialog">true</param>
             <label>$LOCALIZE[39123]</label>
@@ -353,31 +430,21 @@
             <selected>!Skin.HasSetting(Info.Button.DisableArtwork)</selected>
         </include>
         <include content="Settings_Button">
-            <param name="id">8009</param>
+            <param name="id">8019</param>
             <param name="control">radiobutton</param>
             <param name="dialog">true</param>
             <label>$LOCALIZE[184]</label>
             <onclick>Skin.ToggleSetting(Info.Button.DisableRefresh)</onclick>
             <selected>!Skin.HasSetting(Info.Button.DisableRefresh)</selected>
         </include>
-        <include content="Settings_Label">
-            <param name="id">8020</param>
-            <param name="dialog">true</param>
-            <label>$LOCALIZE[33063]</label>
-        </include>
-        <include content="Settings_Button">
-            <param name="id">8021</param>
-            <param name="control">button</param>
-            <param name="dialog">true</param>
-            <label>$LOCALIZE[31158]</label>
-            <label2>$VAR[Label_Settings_InfoLayout]</label2>
-            <onclick>RunScript(script.skinvariables,run_dialog=select,heading=$LOCALIZE[19033] $LOCALIZE[31158],preselect=$VAR[Label_Settings_InfoLayout],separator=||,list=$LOCALIZE[571]||FlixArt||$LOCALIZE[31583]||$LOCALIZE[39173],"executebuiltin_0=Skin.Reset(Info.Layout)","executebuiltin_1=Skin.SetString(Info.Layout,Flix)","executebuiltin_2=Skin.SetString(Info.Layout,Flip)","executebuiltin_3=Skin.SetString(Info.Layout,Blur)")</onclick>
-        </include>
-    </include>
 
-    <include name="Items_Settings_VideoInfoWidgets">
+        <include content="Settings_Label">
+            <param name="id">8030</param>
+            <param name="dialog">true</param>
+            <label>$LOCALIZE[31103]</label>
+        </include>
         <include content="Settings_Button">
-            <param name="id">8001</param>
+            <param name="id">8031</param>
             <param name="control">radiobutton</param>
             <param name="dialog">true</param>
             <onclick>Skin.ToggleSetting(VideoInfo.Widgets.DisableDirector)</onclick>
@@ -385,7 +452,7 @@
             <label>$LOCALIZE[20339]</label>
         </include>
         <include content="Settings_Button">
-            <param name="id">8002</param>
+            <param name="id">8032</param>
             <param name="control">radiobutton</param>
             <param name="dialog">true</param>
             <onclick>Skin.ToggleSetting(VideoInfo.Widgets.DisableWriter)</onclick>
@@ -393,7 +460,7 @@
             <label>$LOCALIZE[20417]</label>
         </include>
         <include content="Settings_Button">
-            <param name="id">8003</param>
+            <param name="id">8033</param>
             <param name="control">radiobutton</param>
             <param name="dialog">true</param>
             <onclick>Skin.ToggleSetting(VideoInfo.Widgets.DisableCreator)</onclick>
@@ -401,7 +468,7 @@
             <label>$LOCALIZE[31065]</label>
         </include>
         <include content="Settings_Button">
-            <param name="id">8004</param>
+            <param name="id">8034</param>
             <param name="control">radiobutton</param>
             <param name="dialog">true</param>
             <onclick>Skin.ToggleSetting(VideoInfo.Widgets.DisableStarring)</onclick>
@@ -409,7 +476,7 @@
             <label>$LOCALIZE[31076]</label>
         </include>
         <include content="Settings_Button">
-            <param name="id">8005</param>
+            <param name="id">8035</param>
             <param name="control">radiobutton</param>
             <param name="dialog">true</param>
             <onclick>Skin.ToggleSetting(VideoInfo.Widgets.DisableCollection)</onclick>
@@ -417,7 +484,7 @@
             <label>$LOCALIZE[31236]</label>
         </include>
         <include content="Settings_Button">
-            <param name="id">8006</param>
+            <param name="id">8036</param>
             <param name="control">radiobutton</param>
             <param name="dialog">true</param>
             <onclick>Skin.ToggleSetting(VideoInfo.Widgets.DisableSeasons)</onclick>
@@ -425,7 +492,7 @@
             <label>$LOCALIZE[33054]</label>
         </include>
         <include content="Settings_Button">
-            <param name="id">8007</param>
+            <param name="id">8037</param>
             <param name="control">radiobutton</param>
             <param name="dialog">true</param>
             <onclick>Skin.ToggleSetting(VideoInfo.Widgets.DisableEpisodes)</onclick>
@@ -433,7 +500,7 @@
             <label>$LOCALIZE[20360]</label>
         </include>
         <include content="Settings_Button">
-            <param name="id">8008</param>
+            <param name="id">8038</param>
             <param name="control">radiobutton</param>
             <param name="dialog">true</param>
             <onclick>Skin.ToggleSetting(VideoInfo.Widgets.DisableStudio)</onclick>
@@ -441,7 +508,7 @@
             <label>$LOCALIZE[572]</label>
         </include>
         <include content="Settings_Button">
-            <param name="id">8009</param>
+            <param name="id">8039</param>
             <param name="control">radiobutton</param>
             <param name="dialog">true</param>
             <onclick>Skin.ToggleSetting(VideoInfo.Widgets.DisableYear)</onclick>
@@ -449,7 +516,7 @@
             <label>$LOCALIZE[345]</label>
         </include>
         <include content="Settings_Button">
-            <param name="id">8010</param>
+            <param name="id">8040</param>
             <param name="control">radiobutton</param>
             <param name="dialog">true</param>
             <onclick>Skin.ToggleSetting(VideoInfo.Widgets.DisableCrew)</onclick>
@@ -457,7 +524,7 @@
             <label>$LOCALIZE[31050]</label>
         </include>
         <include content="Settings_Button">
-            <param name="id">8011</param>
+            <param name="id">8041</param>
             <param name="control">radiobutton</param>
             <param name="dialog">true</param>
             <onclick>Skin.ToggleSetting(VideoInfo.Widgets.DisableVideos)</onclick>
@@ -465,7 +532,7 @@
             <label>$LOCALIZE[10025]</label>
         </include>
         <include content="Settings_Button">
-            <param name="id">8012</param>
+            <param name="id">8042</param>
             <param name="control">radiobutton</param>
             <param name="dialog">true</param>
             <onclick>Skin.ToggleSetting(VideoInfo.Widgets.DisableComments)</onclick>
@@ -473,7 +540,7 @@
             <label>$LOCALIZE[31334]</label>
         </include>
         <include content="Settings_Button">
-            <param name="id">8013</param>
+            <param name="id">8043</param>
             <param name="control">radiobutton</param>
             <param name="dialog">true</param>
             <onclick>Skin.ToggleSetting(VideoInfo.Widgets.DisableRecommendations)</onclick>
@@ -481,7 +548,7 @@
             <label>$LOCALIZE[31018]</label>
         </include>
         <include content="Settings_Button">
-            <param name="id">8014</param>
+            <param name="id">8044</param>
             <param name="control">radiobutton</param>
             <param name="dialog">true</param>
             <onclick>Skin.ToggleSetting(VideoInfo.Widgets.DisableGallery)</onclick>
@@ -489,12 +556,12 @@
             <label>$LOCALIZE[31098]</label>
         </include>
         <include content="Settings_Label">
-            <param name="id">8015</param>
+            <param name="id">8050</param>
             <param name="dialog">true</param>
             <label>$LOCALIZE[33063]</label>
         </include>
         <include content="Settings_Button">
-            <param name="id">8016</param>
+            <param name="id">8051</param>
             <param name="control">radiobutton</param>
             <param name="dialog">true</param>
             <label>$LOCALIZE[31356]</label>
@@ -502,7 +569,7 @@
             <selected>!Skin.HasSetting(Info.UseLocalCast)</selected>
         </include>
         <include content="Settings_Button">
-            <param name="id">8017</param>
+            <param name="id">8052</param>
             <param name="control">radiobutton</param>
             <param name="dialog">true</param>
             <label>$LOCALIZE[31540]</label>
@@ -511,7 +578,7 @@
             <visible>!Skin.HasSetting(VideoInfo.Widgets.DisableCollection)</visible>
         </include>
         <include content="Settings_Button">
-            <param name="id">8018</param>
+            <param name="id">8053</param>
             <param name="control">radiobutton</param>
             <param name="dialog">true</param>
             <label>$LOCALIZE[31539]</label>
@@ -686,39 +753,6 @@
             <selected>Skin.HasSetting(CustomRating.EnablePremiereStatusDates)</selected>
             <onclick>Skin.ToggleSetting(CustomRating.EnablePremiereStatusDates)</onclick>
             <visible>!Skin.HasSetting(CustomRating.TVShows.DisablePremiereStatus)</visible>
-        </include>
-    </include>
-
-    <include name="Items_Settings_OSDStyle">
-        <include content="Settings_Button" description="Expanded info on OSD">
-            <param name="dialog">true</param>
-            <param name="id">8001</param>
-            <param name="control">radiobutton</param>
-            <label>$LOCALIZE[19033]</label>
-            <selected>Skin.HasSetting(OSD.DisplayInfoOnControls)</selected>
-            <onclick>Skin.ToggleSetting(OSD.DisplayInfoOnControls)</onclick>
-        </include>
-
-        <include content="Settings_Button" description="Expanded info landscape art">
-            <param name="dialog">true</param>
-            <param name="id">8002</param>
-            <param name="control">radiobutton</param>
-            <param name="slevel">2</param>
-            <label>$LOCALIZE[31045] [LOWERCASE]$LOCALIZE[39123][/LOWERCASE]</label>
-            <selected>!Skin.HasSetting(OSD.DisableLandscapeOnInfo)</selected>
-            <onclick>Skin.ToggleSetting(OSD.DisableLandscapeOnInfo)</onclick>
-            <visible>Skin.HasSetting(OSD.DisplayInfoOnControls)</visible>
-        </include>
-
-        <include content="Settings_Button" description="Expanded info plot and ratings">
-            <param name="dialog">true</param>
-            <param name="id">8003</param>
-            <param name="control">radiobutton</param>
-            <param name="slevel">2</param>
-            <label>$LOCALIZE[207] + $LOCALIZE[31202]</label>
-            <selected>!Skin.HasSetting(OSD.DisablePlotRatingsOnInfo)</selected>
-            <onclick>Skin.ToggleSetting(OSD.DisablePlotRatingsOnInfo)</onclick>
-            <visible>Skin.HasSetting(OSD.DisplayInfoOnControls)</visible>
         </include>
     </include>
 

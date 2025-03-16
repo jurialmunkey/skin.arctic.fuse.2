@@ -3,6 +3,15 @@
 
     <include name="DialogInfo_Main_Group">
         <visible>!ControlGroup(5000).HasFocus()</visible>
+        <include content="Animation_Slide_In">
+            <param name="type">WindowOpen</param>
+            <param name="posy">160</param>
+            <param name="delay">400</param>
+        </include>
+        <include content="Animation_Slide_Out">
+            <param name="type">WindowClose</param>
+            <param name="posy">160</param>
+        </include>
         <include content="Animation_Zoom_Out">
             <param name="type">Hidden</param>
         </include>
@@ -10,6 +19,18 @@
             <param name="type">Visible</param>
             <param name="delay">200</param>
         </include>
+        <!-- <include content="Animation_Slide_In">
+            <param name="type">Visible</param>
+            <param name="posy">-880</param>
+            <param name="slide_tween">quadratic</param>
+            <param name="slide_easing">none</param>
+        </include>
+        <include content="Animation_Slide_Out">
+            <param name="type">Hidden</param>
+            <param name="posy">-880</param>
+            <param name="slide_tween">quadratic</param>
+            <param name="slide_easing">none</param>
+        </include> -->
     </include>
 
     <include name="DialogInfo_Body_Group">
@@ -23,29 +44,9 @@
                 <include content="Object_Right" condition="!Skin.String(Info.Layout,Flip)">
                     <param name="right">0</param>
                 </include>
-                <include content="Animation_Slide_In" condition="!Skin.String(Info.Layout,Flip)">
-                    <param name="type">WindowOpen</param>
-                    <param name="posx">320</param>
-                    <param name="delay">400</param>
-                </include>
-                <include content="Animation_Slide_Out" condition="!Skin.String(Info.Layout,Flip)">
-                    <param name="type">WindowClose</param>
-                    <param name="posx">320</param>
-                </include>
-
                 <include content="Object_Left" condition="Skin.String(Info.Layout,Flip)">
                     <param name="left">0</param>
                 </include>
-                <include content="Animation_Slide_In" condition="Skin.String(Info.Layout,Flip)">
-                    <param name="type">WindowOpen</param>
-                    <param name="posx">-320</param>
-                    <param name="delay">400</param>
-                </include>
-                <include content="Animation_Slide_Out" condition="Skin.String(Info.Layout,Flip)">
-                    <param name="type">WindowClose</param>
-                    <param name="posx">-320</param>
-                </include>
-
                 <width>infodialog_poster_w</width>
                 <height>infodialog_poster_h</height>
 
@@ -82,18 +83,8 @@
             </include>
 
 
-            <include content="Object_Control" condition="Skin.String(Info.Layout,Flix)">
+            <!-- <include content="Object_Control" condition="Skin.String(Info.Layout,Flix)">
                 <param name="control">group</param>
-
-                <include content="Animation_Slide_In">
-                    <param name="type">WindowOpen</param>
-                    <param name="posx">320</param>
-                    <param name="delay">400</param>
-                </include>
-                <include content="Animation_Slide_Out">
-                    <param name="type">WindowClose</param>
-                    <param name="posx">320</param>
-                </include>
 
                 <include content="View_MediaList_PosterLandscape" condition="Window.Isvisible(DialogVideoInfo.xml)">
                     <param name="flipx">false</param>
@@ -105,42 +96,23 @@
                     <param name="visible">true</param>
                 </include>
 
-            </include>
+            </include> -->
         </definition>
     </include>
 
     <include name="DialogInfo_Info_Group">
         <param name="titlelabel">$VAR[Label_Title]</param>
         <param name="plotlabel">$VAR[Label_Plot]</param>
+        <param name="indent">infodialog_left_w</param>
         <definition>
             <bottom>-40</bottom>
 
             <include content="Object_Right" condition="!Skin.String(Info.Layout,Flip)">
-                <param name="right">infodialog_left_w</param>
+                <param name="right">$PARAM[indent]</param>
             </include>
-            <include content="Animation_Slide_In" condition="!Skin.String(Info.Layout,Flip)">
-                <param name="type">WindowOpen</param>
-                <param name="posx">-320</param>
-                <param name="delay">400</param>
-            </include>
-            <include content="Animation_Slide_Out" condition="!Skin.String(Info.Layout,Flip)">
-                <param name="type">WindowClose</param>
-                <param name="posx">-320</param>
-            </include>
-
             <include content="Object_Left" condition="Skin.String(Info.Layout,Flip)">
-                <param name="left">infodialog_left_w</param>
+                <param name="left">$PARAM[indent]</param>
             </include>
-            <include content="Animation_Slide_In" condition="Skin.String(Info.Layout,Flip)">
-                <param name="type">WindowOpen</param>
-                <param name="posx">320</param>
-                <param name="delay">400</param>
-            </include>
-            <include content="Animation_Slide_Out" condition="Skin.String(Info.Layout,Flip)">
-                <param name="type">WindowClose</param>
-                <param name="posx">320</param>
-            </include>
-
             <include content="Info_Panel" condition="!String.IsEqual(ListItem.Property(tmdb_type),person)">
                 <param name="titlelabel">$PARAM[titlelabel]</param>
                 <param name="plotlabel">$PARAM[plotlabel]</param>
@@ -319,6 +291,7 @@
             <param name="detailed">true</param>
             <param name="widget_hideartwork">!Skin.HasSetting(Widgets.DontHideArtworkOnClassic)</param>
             <param name="widget_showoverlay">true</param>
+            <param name="visible">$EXP[Exp_InfoDialogs_WidgetsGroup_HasFocus]</param>
             <param name="altvisible">!String.IsEqual(Window.Property(CurrentID),Window.Property(BaseID))</param>
             <onfocus>SetProperty(CurrentID,$INFO[Window.Property(BaseID)])</onfocus>
             <content>$INFO[Window(Home).Property(TMDbHelper.ListItem.TMDB_ID),plugin://plugin.video.themoviedb.helper/?info=stars_in_tvshows&amp;tmdb_type=person&amp;tmdb_id=,&amp;limit=250&amp;sort_key=first_air_date]$VAR[Path_Param_Widget]</content>
@@ -336,6 +309,7 @@
             <param name="detailed">true</param>
             <param name="widget_hideartwork">!Skin.HasSetting(Widgets.DontHideArtworkOnClassic)</param>
             <param name="widget_showoverlay">true</param>
+            <param name="visible">$EXP[Exp_InfoDialogs_WidgetsGroup_HasFocus]</param>
             <param name="altvisible">!String.IsEqual(Window.Property(CurrentID),Window.Property(BaseID))</param>
             <onfocus>SetProperty(CurrentID,$INFO[Window.Property(BaseID)])</onfocus>
             <content>$INFO[Window(Home).Property(TMDbHelper.ListItem.TMDB_ID),plugin://plugin.video.themoviedb.helper/?info=crew_in_both&amp;tmdb_type=person&amp;tmdb_id=,&amp;limit=250&amp;sort_key=year]$VAR[Path_Param_Widget]</content>
