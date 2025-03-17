@@ -7,10 +7,45 @@
 
         <include content="DialogVideoManager_Main">
             <param name="id">50</param>
-            <param name="include_sidegrouplist_items">Items_DialogVideoManager</param>
             <param name="label_header">[CAPITALIZE]$LOCALIZE[40000][/CAPITALIZE]$INFO[ListItem.Title,: ,]$INFO[ListItem.Year, (,)]</param>
             <param name="poster_icon">$VAR[Image_VideoVersion_Poster]</param>
             <param name="landscape_icon">$VAR[Image_VideoVersion_Fanart]</param>
         </include>
+
+        <include content="Dialog_Dim_Overlay">
+            <param name="visible">ControlGroup(9000).HasFocus()</param>
+        </include>
+
+        <control type="group">
+            <include>Dimension_DialogMiniMenu</include>
+            <visible allowhiddenfocus="true">ControlGroup(9000).HasFocus()</visible>
+            <include>Animation_Right_Delay</include>
+
+            <include content="Dialog_Foreground_Side">
+                <param name="dialog_size">Dimension_DialogMiniMenu</param>
+                <param name="topline">true</param>
+                <param name="subline">true</param>
+            </include>
+
+            <!-- Header -->
+            <include content="Dialog_Head">
+                <param name="id">0</param>
+                <param name="label">$LOCALIZE[33063]</param>
+            </include>
+
+            <!-- Content -->
+            <control type="group">
+                <include>Dimension_Dialog_Body</include>
+                <control type="group">
+                    <include>Dimension_Dialog_Body_Group</include>
+                    <control type="grouplist" id="9000">
+                        <onback>50</onback>
+                        <onleft>50</onleft>
+                        <include>Items_DialogVideoManager</include>
+                    </control>
+                </control>
+            </control>
+
+        </control>
     </controls>
 </window>

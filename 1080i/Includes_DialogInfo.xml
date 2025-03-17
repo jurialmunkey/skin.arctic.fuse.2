@@ -38,7 +38,7 @@
         <definition>
             <top>view_pad</top>
             <include>Dimension_Info</include>
-            <include content="Object_Control" condition="!Skin.String(Info.Layout,Flix)">
+            <include content="Object_Control" condition="![Skin.String(Info.Layout,Flix) + !String.IsEqual(ListItem.Property(tmdb_type),person)]">
                 <param name="control">group</param>
 
                 <include content="Object_Right" condition="!Skin.String(Info.Layout,Flip)">
@@ -81,22 +81,6 @@
                 </include>
 
             </include>
-
-
-            <!-- <include content="Object_Control" condition="Skin.String(Info.Layout,Flix)">
-                <param name="control">group</param>
-
-                <include content="View_MediaList_PosterLandscape" condition="Window.Isvisible(DialogVideoInfo.xml)">
-                    <param name="flipx">false</param>
-                    <param name="visible">true</param>
-                </include>
-
-                <include content="View_MediaList_SquareLandscape" condition="!Window.Isvisible(DialogVideoInfo.xml)">
-                    <param name="flipx">false</param>
-                    <param name="visible">true</param>
-                </include>
-
-            </include> -->
         </definition>
     </include>
 
@@ -1097,46 +1081,32 @@
         <param name="radiocross">false</param>
         <param name="radiocheck">false</param>
         <param name="radioround">false</param>
+        <param name="width">320</param>
         <definition>
             <control type="$PARAM[control]" id="$PARAM[id]">
                 <height>80</height>
+                <include content="Object_Width" condition="![$PARAM[vertical]]">
+                    <param name="width">$PARAM[width]</param>
+                </include>
                 <visible>$PARAM[visible]</visible>
 
                 <font />
                 <label />
 
                 <radiowidth>64</radiowidth>
-
-                <!-- <textcolor>$PARAM[textcolor]_$PARAM[nf_opacity]</textcolor>
-                <selectedcolor>$PARAM[textcolor]_$PARAM[nf_opacity]</selectedcolor>
-                <label>$PARAM[label]</label>
-                <align>left</align>
-                <font>font_mini</font> -->
-
-                <!-- <radiowidth>36</radiowidth>
-                <radioheight>16</radioheight>
-                <radioposy>50</radioposy> -->
-
-                <!-- <include content="DialogInfo_Button_RadioCheck" condition="$PARAM[radiocheck]">
-                    <param name="color_nofocus">$PARAM[textcolor]_$PARAM[nf_opacity]</param>
-                    <param name="color_disabled">$PARAM[textcolor]_$PARAM[db_opacity]</param>
-                </include>
-
-                <include content="DialogInfo_Button_RadioCross" condition="$PARAM[radiocross]">
-                    <param name="color_nofocus">$PARAM[textcolor]_$PARAM[nf_opacity]</param>
-                    <param name="color_disabled">$PARAM[textcolor]_$PARAM[db_opacity]</param>
-                </include>
-
-                <include content="DialogInfo_Button_RadioRound" condition="$PARAM[radioround]">
-                    <param name="color_nofocus">$PARAM[textcolor]_$PARAM[nf_opacity]</param>
-                    <param name="color_disabled">$PARAM[textcolor]_$PARAM[db_opacity]</param>
-                </include> -->
-
                 <texturenofocus />
                 <nested />
             </control>
             <control type="group" id="$PARAM[groupid]">
-                <top>-80</top>
+                <include content="Object_Top" condition="$PARAM[vertical]">
+                    <param name="top">-80</param>
+                </include>
+                <include content="Object_Left" condition="![$PARAM[vertical]]">
+                    <param name="left">-$PARAM[width]</param>
+                </include>
+                <include content="Object_Width" condition="![$PARAM[vertical]]">
+                    <param name="width">$PARAM[width]</param>
+                </include>
                 <height>80</height>
                 <visible>$PARAM[visible]</visible>
                 <visible>Control.IsVisible($PARAM[id])</visible>
@@ -1442,14 +1412,48 @@
         <param name="builtin">false</param>
         <param name="backing">false</param>
         <param name="colordiffuse">main_fg_90</param>
+        <param name="label_pad">0</param>
+        <param name="control">button</param>
+        <param name="radiocross">false</param>
+        <param name="radiocheck">false</param>
+        <param name="radioround">false</param>
         <definition>
-            <control type="button" id="$PARAM[id]">
+            <control type="$PARAM[control]" id="$PARAM[id]">
                 <width>$PARAM[width]</width>
                 <height>80</height>
                 <centertop>50%</centertop>
                 <texturenofocus />
                 <visible>$PARAM[visible]</visible>
                 <font />
+
+                <radiowidth>16</radiowidth>
+                <radioheight>16</radioheight>
+                <radioposx>54</radioposx>
+                <radioposy>46</radioposy>
+
+                <include content="DialogInfo_Button_RadioCheck" condition="$PARAM[radiocheck]">
+                    <param name="color_nofocus">$PARAM[colordiffuse]</param>
+                    <param name="color_disabled">$PARAM[colordiffuse]</param>
+                </include>
+
+                <include content="DialogInfo_Button_RadioCross" condition="$PARAM[radiocross]">
+                    <param name="color_nofocus">$PARAM[colordiffuse]</param>
+                    <param name="color_disabled">$PARAM[colordiffuse]</param>
+                </include>
+
+                <include content="DialogInfo_Button_RadioRound" condition="$PARAM[radioround]">
+                    <param name="color_nofocus">$PARAM[colordiffuse]</param>
+                    <param name="color_disabled">$PARAM[colordiffuse]</param>
+                </include>
+
+                <textureradioondisabled colordiffuse="00ffffff">buttons/check-on.png</textureradioondisabled>
+                <textureradioonfocus colordiffuse="00ffffff">buttons/check-on.png</textureradioonfocus>
+                <textureradioonnofocus colordiffuse="00ffffff">buttons/check-on.png</textureradioonnofocus>
+
+                <textureradiooffdisabled colordiffuse="00ffffff">buttons/check-off.png</textureradiooffdisabled>
+                <textureradioofffocus colordiffuse="00ffffff">buttons/check-off.png</textureradioofffocus>
+                <textureradiooffnofocus colordiffuse="00ffffff">buttons/check-off.png</textureradiooffnofocus>
+
                 <textcolor>00ffffff</textcolor>
                 <selectedcolor>00ffffff</selectedcolor>
                 <focusedcolor>00ffffff</focusedcolor>
@@ -1499,12 +1503,16 @@
                             <param name="colordiffuse">$VAR[ColorSelected]</param>
                             <param name="bordersize">icon_item_bordersize</param>
                         </include>
-                        <control type="label">
-                            <font>font_mini_bold</font>
-                            <label>$PARAM[label]</label>
-                            <align>left</align>
-                            <left>120</left>
-                            <textcolor>$VAR[ColorSelected]</textcolor>
+                        <control type="group">
+                            <left>$PARAM[label_pad]</left>
+                            <right>$PARAM[label_pad]</right>
+                            <control type="label">
+                                <font>font_mini_bold</font>
+                                <label>$PARAM[label]</label>
+                                <align>left</align>
+                                <left>120</left>
+                                <textcolor>$VAR[ColorSelected]</textcolor>
+                            </control>
                         </control>
                     </control>
                 </control>
@@ -1528,12 +1536,6 @@
         <include content="_DialogInfo_VideoDetails">
             <param name="left_group_width">480</param>
             <param name="right">80</param>
-        </include>
-    </include>
-    <include name="DialogInfo_VideoDetails_Flix">
-        <include content="_DialogInfo_VideoDetails">
-            <param name="left_group_width">380</param>
-            <param name="right">240</param>
         </include>
     </include>
     <include name="_DialogInfo_VideoDetails">
@@ -1729,12 +1731,6 @@
         <include content="_DialogInfo_MusicDetails">
             <param name="left_group_width">480</param>
             <param name="right">80</param>
-        </include>
-    </include>
-    <include name="DialogInfo_MusicDetails_Flix">
-        <include content="_DialogInfo_MusicDetails">
-            <param name="left_group_width">380</param>
-            <param name="right">320</param>
         </include>
     </include>
     <include name="_DialogInfo_MusicDetails">

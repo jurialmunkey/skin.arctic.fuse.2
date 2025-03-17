@@ -1,10 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <window>
     <zorder>2</zorder>
+    <defaultcontrol always="true">9001</defaultcontrol>
     <include content="Action_OSD_SuspendAutoClose">
         <param name="window">DialogSubtitles.xml</param>
     </include>
     <controls>
+
+        <control type="label" id="140" description="Textbox">
+            <visible>false</visible>
+        </control>
 
         <include>Dialog_Dim_Overlay</include>
 
@@ -12,14 +17,20 @@
             <include>Dimension_DialogMainMenu</include>
             <include>Animation_Right_Delay</include>
 
-            <include content="Dialog_Foreground_Side">
+            <include content="Dialog_Background_Group">
                 <param name="dialog_size">Dimension_DialogMainMenu</param>
-                <param name="topline">false</param>
-                <param name="subline">false</param>
             </include>
 
             <control type="group">
-                <right>dialog_panelgroup_w</right>
+                <include content="Dimension_Padding">
+                    <param name="pad">40</param>
+                </include>
+                <include content="Dialog_Overlay_Mode_Glass">
+                    <param name="flipped">false</param>
+                </include>
+            </control>
+
+            <control type="group">
                 <!-- Header -->
                 <include content="Dialog_Head">
                     <param name="id">100</param>
@@ -27,7 +38,8 @@
                 <include>Dialog_Head_CloseButton</include>
 
                 <!-- Content -->
-                <control type="group">
+                <control type="group" id="8000">
+                    <bottom>240</bottom>
                     <include>Dimension_Dialog_Body</include>
                     <control type="group">
                         <left>settings_category_w</left>
@@ -39,11 +51,14 @@
                                 <include content="List_DialogSelect">
                                     <param name="id">120</param>
                                     <param name="itemlayout_include">Layout_DialogSubtitles</param>
-                                    <param name="item_height">100</param>
+                                    <param name="item_height">128</param>
                                     <param name="textcolor">dialog_fg</param>
                                     <onleft>150</onleft>
                                     <onright>61</onright>
                                     <pagecontrol>61</pagecontrol>
+                                    <onup>-</onup>
+                                    <onback>9000</onback>
+                                    <ondown>9000</ondown>
                                 </include>
                             </control>
                         </include>
@@ -78,6 +93,9 @@
                                 <param name="id">150</param>
                                 <param name="textcolor">dialog_fg</param>
                                 <onright>120</onright>
+                                <onup>-</onup>
+                                <onback>9000</onback>
+                                <ondown>9000</ondown>
                             </include>
 
                             <control type="image" id="110" description="Service Logo">
@@ -96,54 +114,56 @@
                         </control>
                     </control>
 
-                    <control type="group">
-
-                        <height>40</height>
-                        <bottom>-40</bottom>
-                        <left>40</left>
-                        <right>40</right>
-
-                        <control type="label" id="140" description="Textbox">
-                            <font>font_tiny</font>
-                            <align>right</align>
-                            <textcolor>dialog_fg_70</textcolor>
-                        </control>
-
-                        <control type="label" description="Filename">
-                            <font>font_tiny</font>
-                            <align>left</align>
-                            <label>$INFO[Player.FileName]</label>
-                            <textcolor>dialog_fg_70</textcolor>
-                        </control>
-                    </control>
-
                     <include content="Dialog_Scrollbar">
                         <param name="id">61</param>
                         <param name="inset">true</param>
-                        <onright>9000</onright>
                         <onleft>120</onleft>
+                        <onback>9000</onback>
+                    </include>
+
+                    <include content="Dialog_InfoText">
+                        <param name="label">$INFO[Player.FileName]$INFO[Control.GetLabel(140),[CR],]</param>
                     </include>
 
 
                 </control>
-            </control>
 
-            <!-- Side Buttons -->
-            <control type="group">
-                <include>Dialog_Side_Panel_Group_Def</include>
-                <control type="group">
-                    <include>Dimension_Dialog_Body</include>
-                    <control type="grouplist" id="9000">
-                        <include>Dialog_Side_Expanded_Grouplist_Def</include>
-                        <onleft>61</onleft>
-                        <include content="DialogInfo_ExpandedButton">
-                            <param name="id">160</param>
-                            <param name="groupid">9102</param>
-                            <param name="label">$LOCALIZE[413]</param>
-                            <param name="icon">special://skin/extras/icons/circle-plus.png</param>
-                            <param name="textcolor">dialog_fg</param>
-                        </include>
-                    </control>
+                <control type="grouplist" id="9000">
+                    <height>160</height>
+                    <bottom>20</bottom>
+                    <left>50</left>
+                    <right>40</right>
+                    <align>center</align>
+                    <onup>8000</onup>
+                    <orientation>horizontal</orientation>
+
+                    <include content="DialogInfo_Button_Expansion">
+                        <param name="vertical">false</param>
+                        <param name="width">300</param>
+                        <param name="slice">100</param>
+                        <param name="label_pad">-15</param>
+                        <param name="id">9001</param>
+                        <param name="groupid">9101</param>
+                        <param name="sliceid">9201</param>
+                        <param name="label">$LOCALIZE[186]</param>
+                        <param name="icon">special://skin/extras/icons/circle-check.png</param>
+                        <param name="textcolor">dialog_fg</param>
+                        <onclick>Close</onclick>
+                    </include>
+
+                    <include content="DialogInfo_Button_Expansion">
+                        <param name="vertical">false</param>
+                        <param name="width">300</param>
+                        <param name="slice">100</param>
+                        <param name="label_pad">-15</param>
+                        <param name="id">160</param>
+                        <param name="groupid">9102</param>
+                        <param name="sliceid">9202</param>
+                        <param name="label">$LOCALIZE[413]</param>
+                        <param name="icon">special://skin/extras/icons/circle-plus.png</param>
+                        <param name="textcolor">dialog_fg</param>
+                    </include>
+
                 </control>
             </control>
 

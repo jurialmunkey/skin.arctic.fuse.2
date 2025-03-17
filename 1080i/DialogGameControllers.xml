@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <window>
     <zorder>2</zorder>
-    <defaultcontrol>3</defaultcontrol>
+    <defaultcontrol always="true">18</defaultcontrol>
+    <onload>AlarmClock(refocus,SetFocus(18),00:00,silent)</onload>
 
     <controls>
 
@@ -11,7 +12,7 @@
             <param name="control">button</param>
             <textoffsetx>20</textoffsetx>
             <align>center</align>
-            <width>240</width>
+            <width>340</width>
         </include>
 
         <!-- Button Template -->
@@ -23,6 +24,11 @@
 
         <!-- Separator Template -->
         <control type="image" id="9">
+            <visible>false</visible>
+        </control>
+
+        <!-- Textbox Template -->
+        <control type="textbox" id="32">
             <visible>false</visible>
         </control>
 
@@ -40,16 +46,20 @@
 
 
 
-            <include content="Dialog_Foreground_Side">
-                <param name="slide_condition">true</param>
+            <include content="Dialog_Background_Group">
                 <param name="dialog_size">Dimension_DialogMainMenu</param>
-                <param name="lines_right">0</param>
-                <param name="topline">false</param>
-                <param name="subline">false</param>
             </include>
 
             <control type="group">
-                <right>dialog_panelgroup_w</right>
+                <include content="Dimension_Padding">
+                    <param name="pad">40</param>
+                </include>
+                <include content="Dialog_Overlay_Mode_Glass">
+                    <param name="flipped">false</param>
+                </include>
+            </control>
+
+            <control type="group">
                 <!-- Header -->
                 <include content="Dialog_Head">
                     <param name="label">$LOCALIZE[35058]</param>
@@ -58,8 +68,9 @@
 
                 <!-- Content -->
                 <control type="group">
+                    <bottom>240</bottom>
                     <include>Dimension_Dialog_Body</include>
-                    <control type="group">
+                    <control type="group" id="8000">
                         <include>Dimension_Dialog_Body_Group</include>
                         <control type="group">
                             <width>400</width>
@@ -79,11 +90,14 @@
                             </control>
                             <control type="grouplist" id="3">
                                 <onright>5</onright>
+                                <onup>-</onup>
+                                <ondown>9000</ondown>
+                                <onback>18</onback>
                             </control>
                         </control>
                         <control type="group">
                             <left>420</left>
-                            <right>320</right>
+                            <right>420</right>
                             <include content="Dialog_Outline_InnerBox">
                                 <top>-20</top>
                                 <bottom>-20</bottom>
@@ -94,20 +108,22 @@
                                 <right>40</right>
                                 <control type="gamecontroller" id="31">
                                     <centerleft>50%</centerleft>
-                                    <width>480</width>
-                                    <height>480</height>
+                                    <width>640</width>
+                                    <height>640</height>
+                                    <!-- <width>480</width>
+                                    <height>480</height> -->
                                 </control>
-                                <control type="textbox" id="32">
+                                <!-- <control type="textbox" id="32">
                                     <top>480</top>
                                     <font>font_main_plot</font>
                                     <aligny>center</aligny>
                                     <align>center</align>
-                                </control>
+                                </control> -->
                             </control>
 
                         </control>
                         <control type="group">
-                            <width>300</width>
+                            <width>400</width>
                             <right>20</right>
                             <include content="Dialog_Outline_InnerBox">
                                 <top>-20</top>
@@ -118,65 +134,109 @@
                             <control type="grouplist" id="5">
                                 <onleft>3</onleft>
                                 <pagecontrol>61</pagecontrol>
-                                <onright>9000</onright>
+                                <ondown>9000</ondown>
+                                <onback>18</onback>
+                                <onup>-</onup>
+                                <onright>61</onright>
                                 <left>40</left>
                                 <right>20</right>
                             </control>
                         </control>
                     </control>
 
-                </control>
-
-            </control>
-
-            <control type="group">
-                <include>Dialog_Side_Panel_Group_Def</include>
-                <!-- Side Buttons -->
-                <control type="group">
-                    <include>Dimension_Dialog_Body</include>
-                    <control type="grouplist" id="9000">
-                        <include>Dialog_Side_Expanded_Grouplist_Def</include>
-                        <onright>61</onright>
+                    <include content="Dialog_Scrollbar">
+                        <param name="id">61</param>
+                        <param name="inset">true</param>
                         <onleft>5</onleft>
-                        <include content="DialogInfo_ExpandedButton">
-                            <param name="id">18</param>
-                            <param name="groupid">9101</param>
-                            <param name="label">$LOCALIZE[186]</param>
-                            <param name="icon">special://skin/extras/icons/circle-check.png</param>
-                        </include>
-                        <include content="DialogInfo_ExpandedButton">
-                            <param name="id">17</param>
-                            <param name="groupid">9102</param>
-                            <param name="label">$LOCALIZE[10043]</param>
-                            <param name="icon">special://skin/extras/icons/circle-question.png</param>
-                        </include>
-                        <include content="DialogInfo_ExpandedButton">
-                            <param name="id">19</param>
-                            <param name="groupid">9103</param>
-                            <param name="label">$LOCALIZE[13007]</param>
-                            <param name="icon">special://skin/extras/icons/triangle-exclamation.png</param>
-                        </include>
-                        <include content="DialogInfo_ExpandedButton">
-                            <param name="id">20</param>
-                            <param name="groupid">9104</param>
-                            <param name="label">$LOCALIZE[21452]</param>
-                            <param name="icon">special://skin/extras/icons/circle-plus.png</param>
-                        </include>
-                        <include content="DialogInfo_ExpandedButton">
-                            <param name="id">21</param>
-                            <param name="groupid">9105</param>
-                            <param name="label">$LOCALIZE[35019]</param>
-                            <param name="icon">special://skin/extras/icons/not-equal.png</param>
-                        </include>
-                        <include content="DialogInfo_ExpandedButton">
-                            <param name="id">22</param>
-                            <param name="groupid">9106</param>
-                            <param name="label">$LOCALIZE[35021]</param>
-                            <param name="icon">special://skin/extras/icons/download.png</param>
-                        </include>
-                    </control>
+                        <onback>18</onback>
+                        <ondown>9000</ondown>
+                    </include>
+
+                    <include content="Dialog_InfoText">
+                        <param name="label">$INFO[Control.GetLabel(32)]</param>
+                    </include>
+
                 </control>
+
+                <control type="grouplist" id="9000">
+                    <height>160</height>
+                    <bottom>20</bottom>
+                    <left>50</left>
+                    <right>40</right>
+                    <align>center</align>
+                    <onup>8000</onup>
+                    <orientation>horizontal</orientation>
+                    <include content="DialogInfo_Button_Expansion">
+                        <param name="vertical">false</param>
+                        <param name="width">300</param>
+                        <param name="slice">100</param>
+                        <param name="label_pad">-15</param>
+                        <param name="id">18</param>
+                        <param name="groupid">9101</param>
+                        <param name="sliceid">9201</param>
+                        <param name="label">$LOCALIZE[186]</param>
+                        <param name="icon">special://skin/extras/icons/circle-check.png</param>
+                    </include>
+                    <include content="DialogInfo_Button_Expansion">
+                        <param name="vertical">false</param>
+                        <param name="width">300</param>
+                        <param name="slice">100</param>
+                        <param name="label_pad">-15</param>
+                        <param name="id">17</param>
+                        <param name="groupid">9102</param>
+                        <param name="sliceid">9202</param>
+                        <param name="label">$LOCALIZE[10043]</param>
+                        <param name="icon">special://skin/extras/icons/circle-question.png</param>
+                    </include>
+                    <include content="DialogInfo_Button_Expansion">
+                        <param name="vertical">false</param>
+                        <param name="width">300</param>
+                        <param name="slice">100</param>
+                        <param name="label_pad">-15</param>
+                        <param name="id">19</param>
+                        <param name="groupid">9103</param>
+                        <param name="sliceid">9203</param>
+                        <param name="label">$LOCALIZE[13007]</param>
+                        <param name="icon">special://skin/extras/icons/triangle-exclamation.png</param>
+                    </include>
+                    <include content="DialogInfo_Button_Expansion">
+                        <param name="vertical">false</param>
+                        <param name="width">300</param>
+                        <param name="slice">100</param>
+                        <param name="label_pad">-15</param>
+                        <param name="id">20</param>
+                        <param name="groupid">9104</param>
+                        <param name="sliceid">9204</param>
+                        <param name="label">$LOCALIZE[21452]</param>
+                        <param name="icon">special://skin/extras/icons/circle-plus.png</param>
+                    </include>
+                    <include content="DialogInfo_Button_Expansion">
+                        <param name="vertical">false</param>
+                        <param name="width">300</param>
+                        <param name="slice">100</param>
+                        <param name="label_pad">-15</param>
+                        <param name="id">21</param>
+                        <param name="groupid">9105</param>
+                        <param name="sliceid">9205</param>
+                        <param name="label">$LOCALIZE[35019]</param>
+                        <param name="icon">special://skin/extras/icons/not-equal.png</param>
+                    </include>
+                    <include content="DialogInfo_Button_Expansion">
+                        <param name="vertical">false</param>
+                        <param name="width">300</param>
+                        <param name="slice">100</param>
+                        <param name="label_pad">-15</param>
+                        <param name="id">22</param>
+                        <param name="groupid">9106</param>
+                        <param name="sliceid">9206</param>
+                        <param name="label">$LOCALIZE[35021]</param>
+                        <param name="icon">special://skin/extras/icons/download.png</param>
+                    </include>
+                </control>
+
             </control>
+
+
 
         </control>
 

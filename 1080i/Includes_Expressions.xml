@@ -158,7 +158,7 @@
 
     <expression name="Exp_BackgroundArtwork_IsHidden">[[!$EXP[Exp_InfoDialogs] + [Window.IsVisible(favouritesbrowser) | Window.IsVisible(weather) | !String.IsEmpty(Window.Property(Background.HideArtwork))]] | [$EXP[Exp_InfoDialogs] + [!String.IsEmpty(Window(Home).Property(Background.DialogInfo.HideArtwork)) | Skin.String(Info.Layout,Blur)]]]</expression>
 
-    <expression name="Exp_BackgroundArtwork_IsOverlay">[$EXP[Exp_BackgroundArtwork_IsHidden] | [!$EXP[Exp_InfoDialogs] + !String.IsEmpty(Window(Home).Property(Background.ShowOverlay))] | [$EXP[Exp_InfoDialogs] + !Skin.String(Info.Layout,Flix)]]</expression>
+    <expression name="Exp_BackgroundArtwork_IsOverlay">[$EXP[Exp_BackgroundArtwork_IsHidden] | [!$EXP[Exp_InfoDialogs] + !String.IsEmpty(Window(Home).Property(Background.ShowOverlay))] | [$EXP[Exp_InfoDialogs] + ![Skin.String(Info.Layout,Flix) + !String.IsEqual(ListItem.Property(tmdb_type),person)]]]</expression>
 
     <expression name="Exp_BackgroundArtwork_IsSimple">[$EXP[Exp_PlainBackgroundWindows] | [Window.IsMedia + [[Window.IsVisible(DialogBusy.xml) + Integer.IsEqual(Container.NumItems,0)] | [Container.Content() + !$EXP[Exp_PVRWindows]]]]]</expression>
 

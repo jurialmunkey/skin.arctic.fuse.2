@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <window>
     <zorder>2</zorder>
+    <defaultcontrol always="true">9001</defaultcontrol>
     <controls>
 
         <include content="Settings_Button">
@@ -15,7 +16,7 @@
             <param name="control">radiobutton</param>
             <param name="dialog">true</param>
             <description>Default Setting Button</description>
-            <textwidth>settings_radiobutton_text_w</textwidth>
+            <!-- <textwidth>settings_radiobutton_text_w</textwidth> -->
         </include>
 
         <include content="Settings_Button">
@@ -27,16 +28,20 @@
 
         <include content="Settings_Button">
             <param name="id">10</param>
-            <param name="control">togglebutton</param>
+            <param name="control">button</param>
             <param name="dialog">true</param>
-            <include>Texture_Highlight_ToggleButton_Settings</include>
+            <!-- <include>Texture_Highlight_ToggleButton_Settings</include>
             <focusedcolor>$VAR[ColorSettingsToggleButtonText]</focusedcolor>
-            <altfocusedcolor>$VAR[ColorSettingsToggleButtonText]</altfocusedcolor>
+            <altfocusedcolor>$VAR[ColorSettingsToggleButtonText]</altfocusedcolor> -->
             <width>settings_category_w</width>
             <description>Default Category Button</description>
         </include>
 
         <control type="image" id="11">
+            <visible>false</visible>
+        </control>
+
+        <control type="label" id="6">
             <visible>false</visible>
         </control>
 
@@ -88,14 +93,20 @@
             <include>Dimension_DialogMainMenu</include>
             <include>Animation_Right_Delay</include>
 
-            <include content="Dialog_Foreground_Side">
+            <include content="Dialog_Background_Group">
                 <param name="dialog_size">Dimension_DialogMainMenu</param>
-                <param name="topline">false</param>
-                <param name="subline">false</param>
             </include>
 
             <control type="group">
-                <right>dialog_panelgroup_w</right>
+                <include content="Dimension_Padding">
+                    <param name="pad">40</param>
+                </include>
+                <include content="Dialog_Overlay_Mode_Glass">
+                    <param name="flipped">false</param>
+                </include>
+            </control>
+
+            <control type="group">
                 <!-- Header -->
                 <include content="Dialog_Head">
                     <param name="id">2</param>
@@ -103,7 +114,8 @@
                 <include>Dialog_Head_CloseButton</include>
 
                 <!-- Content -->
-                <control type="group">
+                <control type="group" id="8000">
+                    <bottom>240</bottom>
                     <include>Dimension_Dialog_Body</include>
                     <control type="group">
                         <right>-80</right>
@@ -113,7 +125,7 @@
                         <control type="group">
                             <left>-20</left>
                             <top>-20</top>
-                            <bottom>60</bottom>
+                            <bottom>-20</bottom>
                             <width>settings_category_w</width>
 
                             <control type="image">
@@ -134,6 +146,9 @@
 
                             <control type="grouplist" id="3">
                                 <onright>5</onright>
+                                <onup>-</onup>
+                                <ondown>9000</ondown>
+                                <onback>9001</onback>
                             </control>
                         </control>
 
@@ -141,40 +156,47 @@
                             <left>settings_category_w</left>
                             <right>120</right>
                             <top>-40</top>
-                            <bottom>40</bottom>
+                            <bottom>-40</bottom>
                             <control type="grouplist" id="5">
                                 <left>20</left>
                                 <right>20</right>
                                 <top>20</top>
                                 <bottom>20</bottom>
                                 <onleft>3</onleft>
-                                <onright>9000</onright>
+                                <onright>61</onright>
+                                <ondown>9000</ondown>
+                                <onup>-</onup>
+                                <onback>9001</onback>
+                                <pagecontrol>61</pagecontrol>
                             </control>
                         </include>
                     </control>
-
-                    <include content="Settings_InfoText">
-                        <param name="id">6</param>
-                        <param name="dialog">true</param>
-                        <param name="override">true</param>
-                        <param name="left">480</param>
-                        <param name="bottom">0</param>
+                    <include content="Dialog_Scrollbar">
+                        <param name="id">61</param>
+                        <param name="inset">true</param>
+                        <onleft>5</onleft>
+                        <ondown>9000</ondown>
+                        <onback>9001</onback>
+                    </include>
+                    <include content="Dialog_InfoText">
+                        <param name="label">$INFO[Control.GetLabel(6)]</param>
                     </include>
                 </control>
-            </control>
 
-            <control type="group">
-                <include>Dialog_Side_Panel_Group_Def</include>
-                <control type="group">
-                    <include>Dimension_Dialog_Body</include>
-                    <control type="grouplist" id="9000">
-                        <include>Dialog_Side_Expanded_Grouplist_Def</include>
-                        <onright>61</onright>
-                        <onleft>5</onleft>
-                        <include>Items_DialogAddonSettings_MenuBar</include>
-                    </control>
+                <!-- Buttons -->
+                <control type="grouplist" id="9000">
+                    <height>160</height>
+                    <bottom>20</bottom>
+                    <left>50</left>
+                    <right>40</right>
+                    <align>center</align>
+                    <onup>8000</onup>
+                    <orientation>horizontal</orientation>
+                    <include>Items_DialogAddonSettings_MenuBar</include>
                 </control>
             </control>
+
+
 
         </control>
     </controls>
