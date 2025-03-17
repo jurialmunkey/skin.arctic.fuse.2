@@ -36,16 +36,14 @@
         <include condition="String.IsEqual(Window(Home).Property(CustomDialogSettingsItems),Items_Settings_CustomStartup)">Items_Settings_CustomStartup</include>
         <include condition="String.IsEqual(Window(Home).Property(CustomDialogSettingsItems),Items_Settings_Autoscroll)">Items_Settings_Autoscroll</include>
         <include condition="String.IsEqual(Window(Home).Property(CustomDialogSettingsItems),Items_Settings_MPAACountries)">Items_Settings_MPAACountries</include>
-        <include condition="String.IsEqual(Window(Home).Property(CustomDialogSettingsItems),Items_Settings_VideoOSDWidgets)">Items_Settings_VideoOSDWidgets</include>
-        <include condition="String.IsEqual(Window(Home).Property(CustomDialogSettingsItems),Items_Settings_InfoStyle)">Items_Settings_InfoStyle</include>
-        <include condition="String.IsEqual(Window(Home).Property(CustomDialogSettingsItems),Items_Settings_VideoInfoWidgets)">Items_Settings_VideoInfoWidgets</include>
+        <include condition="String.IsEqual(Window(Home).Property(CustomDialogSettingsItems),Items_Settings_VideoOSD)">Items_Settings_VideoOSD</include>
+        <include condition="String.IsEqual(Window(Home).Property(CustomDialogSettingsItems),Items_Settings_VideoInfo)">Items_Settings_VideoInfo</include>
         <include condition="String.IsEqual(Window(Home).Property(CustomDialogSettingsItems),Items_Settings_InfolineAdditionalTags)">Items_Settings_InfolineAdditionalTags</include>
         <include condition="String.IsEqual(Window(Home).Property(CustomDialogSettingsItems),Items_Settings_Viewmodes)">Items_Settings_Viewmodes</include>
         <include condition="String.IsEqual(Window(Home).Property(CustomDialogSettingsItems),Items_Settings_RatingsMovies)">Items_Settings_RatingsMovies</include>
         <include condition="String.IsEqual(Window(Home).Property(CustomDialogSettingsItems),Items_Settings_RatingsTVShows)">Items_Settings_RatingsTVShows</include>
         <include condition="String.IsEqual(Window(Home).Property(CustomDialogSettingsItems),Items_Settings_HomeMenuStyle)">Items_Settings_HomeMenuStyle</include>
         <include condition="String.IsEqual(Window(Home).Property(CustomDialogSettingsItems),Items_Settings_WidgetStyle)">Items_Settings_WidgetStyle</include>
-        <include condition="String.IsEqual(Window(Home).Property(CustomDialogSettingsItems),Items_Settings_OSDStyle)">Items_Settings_OSDStyle</include>
     </include>
 
     <include name="Items_Settings_WidgetStyle">
@@ -244,9 +242,73 @@
         </include>
     </include>
 
-    <include name="Items_Settings_VideoOSDWidgets">
-        <include content="Settings_Button">
+    <include name="Items_Settings_VideoOSD">
+
+        <include content="Settings_Button" description="Expanded info on OSD">
+            <param name="dialog">true</param>
             <param name="id">8001</param>
+            <param name="control">radiobutton</param>
+            <label>$LOCALIZE[33029]</label>
+            <selected>Skin.HasSetting(OSD.DisplayInfoOnControls)</selected>
+            <onclick>Skin.ToggleSetting(OSD.DisplayInfoOnControls)</onclick>
+        </include>
+
+        <!-- <include content="Settings_Button" description="Expanded info landscape art">
+            <param name="dialog">true</param>
+            <param name="id">8002</param>
+            <param name="control">radiobutton</param>
+            <param name="slevel">2</param>
+            <label>$LOCALIZE[31045] [LOWERCASE]$LOCALIZE[39123][/LOWERCASE]</label>
+            <selected>!Skin.HasSetting(OSD.DisableLandscapeOnInfo)</selected>
+            <onclick>Skin.ToggleSetting(OSD.DisableLandscapeOnInfo)</onclick>
+            <visible>Skin.HasSetting(OSD.DisplayInfoOnControls)</visible>
+        </include> -->
+
+        <include content="Settings_Button" description="Expanded info plot and ratings">
+            <param name="dialog">true</param>
+            <param name="id">8003</param>
+            <param name="control">radiobutton</param>
+            <param name="slevel">2</param>
+            <label>$LOCALIZE[207] + $LOCALIZE[31202]</label>
+            <selected>!Skin.HasSetting(OSD.DisablePlotRatingsOnInfo)</selected>
+            <onclick>Skin.ToggleSetting(OSD.DisablePlotRatingsOnInfo)</onclick>
+            <visible>Skin.HasSetting(OSD.DisplayInfoOnControls)</visible>
+        </include>
+
+        <include content="Settings_Label">
+            <param name="id">8004</param>
+            <param name="dialog">true</param>
+            <param name="slevel">2</param>
+            <label>$LOCALIZE[31585]</label>
+        </include>
+
+        <include content="Settings_Button" description="Expanded info landscape art">
+            <param name="dialog">true</param>
+            <param name="id">8005</param>
+            <param name="control">radiobutton</param>
+            <param name="slevel">2</param>
+            <label>$LOCALIZE[31045]</label>
+            <selected>!Skin.HasSetting(OSD.InfoOverlay.DisableLandscapeOnInfo)</selected>
+            <onclick>Skin.ToggleSetting(OSD.InfoOverlay.DisableLandscapeOnInfo)</onclick>
+        </include>
+
+        <include content="Settings_Button" description="Expanded info plot and ratings">
+            <param name="dialog">true</param>
+            <param name="id">8006</param>
+            <param name="control">radiobutton</param>
+            <param name="slevel">2</param>
+            <label>$LOCALIZE[207] + $LOCALIZE[31202]</label>
+            <selected>!Skin.HasSetting(OSD.InfoOverlay.DisablePlotRatingsOnInfo)</selected>
+            <onclick>Skin.ToggleSetting(OSD.InfoOverlay.DisablePlotRatingsOnInfo)</onclick>
+        </include>
+
+        <include content="Settings_Label">
+            <param name="id">8020</param>
+            <param name="dialog">true</param>
+            <label>$LOCALIZE[31103]</label>
+        </include>
+        <include content="Settings_Button">
+            <param name="id">8021</param>
             <param name="control">radiobutton</param>
             <param name="dialog">true</param>
             <onclick>Skin.ToggleSetting(OSD.OnDown.DisablePVROSDGuide)</onclick>
@@ -254,7 +316,7 @@
             <label>$LOCALIZE[19069]</label>
         </include>
         <include content="Settings_Button">
-            <param name="id">8004</param>
+            <param name="id">8022</param>
             <param name="control">radiobutton</param>
             <param name="dialog">true</param>
             <onclick>Skin.ToggleSetting(OSD.OnDown.DisablePVROSDChannels)</onclick>
@@ -262,23 +324,23 @@
             <label>$LOCALIZE[19019]</label>
         </include>
         <include content="Settings_Button">
-            <param name="id">8002</param>
+            <param name="id">8023</param>
             <param name="control">radiobutton</param>
             <param name="dialog">true</param>
             <onclick>Skin.ToggleSetting(OSD.OnDown.Disable1140)</onclick>
             <selected>!Skin.HasSetting(OSD.OnDown.Disable1140)</selected>
-            <label>$LOCALIZE[559] / $LOCALIZE[20360]</label>
+            <label>$LOCALIZE[559] + $LOCALIZE[20360]</label>
         </include>
         <include content="Settings_Button">
-            <param name="id">8003</param>
+            <param name="id">8024</param>
             <param name="control">radiobutton</param>
             <param name="dialog">true</param>
             <onclick>Skin.ToggleSetting(OSD.OnDown.DisableVideoBookmarks)</onclick>
             <selected>!Skin.HasSetting(OSD.OnDown.DisableVideoBookmarks)</selected>
-            <label>$LOCALIZE[298] / $LOCALIZE[31429]</label>
+            <label>$LOCALIZE[298] + $LOCALIZE[31429]</label>
         </include>
         <include content="Settings_Button">
-            <param name="id">8005</param>
+            <param name="id">8025</param>
             <param name="control">radiobutton</param>
             <param name="dialog">true</param>
             <onclick>Skin.ToggleSetting(OSD.OnDown.Disable1141)</onclick>
@@ -287,9 +349,24 @@
         </include>
     </include>
 
-    <include name="Items_Settings_InfoStyle">
+    <include name="Items_Settings_VideoInfo">
+
         <include content="Settings_Button">
             <param name="id">8001</param>
+            <param name="control">button</param>
+            <param name="dialog">true</param>
+            <label>$LOCALIZE[31158]</label>
+            <label2>$VAR[Label_Settings_InfoLayout]</label2>
+            <onclick>RunScript(script.skinvariables,run_dialog=select,heading=$LOCALIZE[19033] $LOCALIZE[31158],preselect=$VAR[Label_Settings_InfoLayout],separator=||,list=$LOCALIZE[571]||Flix||$LOCALIZE[31587]||$LOCALIZE[39173],"executebuiltin_0=Skin.Reset(Info.Layout)","executebuiltin_1=Skin.SetString(Info.Layout,Flix)","executebuiltin_2=Skin.SetString(Info.Layout,Flip)","executebuiltin_3=Skin.SetString(Info.Layout,Blur)")</onclick>
+        </include>
+
+        <include content="Settings_Label">
+            <param name="id">8010</param>
+            <param name="dialog">true</param>
+            <label>Buttons</label>
+        </include>
+        <include content="Settings_Button">
+            <param name="id">8011</param>
             <param name="control">radiobutton</param>
             <param name="dialog">true</param>
             <label>$LOCALIZE[20410]</label>
@@ -297,7 +374,7 @@
             <selected>!Skin.HasSetting(Info.Button.DisableTrailer)</selected>
         </include>
         <include content="Settings_Button">
-            <param name="id">8002</param>
+            <param name="id">8012</param>
             <param name="control">radiobutton</param>
             <param name="dialog">true</param>
             <label>$LOCALIZE[40000]</label>
@@ -305,7 +382,7 @@
             <selected>!Skin.HasSetting(Info.Button.DisableVersions)</selected>
         </include>
         <include content="Settings_Button">
-            <param name="id">8003</param>
+            <param name="id">8013</param>
             <param name="control">radiobutton</param>
             <param name="dialog">true</param>
             <label>$LOCALIZE[40211]</label>
@@ -313,7 +390,7 @@
             <selected>!Skin.HasSetting(Info.Button.DisableExtras)</selected>
         </include>
         <include content="Settings_Button">
-            <param name="id">8004</param>
+            <param name="id">8014</param>
             <param name="control">radiobutton</param>
             <param name="dialog">true</param>
             <label>Trakt</label>
@@ -321,7 +398,7 @@
             <selected>!Skin.HasSetting(Info.Button.DisableTrakt)</selected>
         </include>
         <include content="Settings_Button">
-            <param name="id">8005</param>
+            <param name="id">8015</param>
             <param name="control">radiobutton</param>
             <param name="dialog">true</param>
             <label>Wiki</label>
@@ -329,7 +406,7 @@
             <selected>!Skin.HasSetting(Info.Button.DisableWiki)</selected>
         </include>
         <include content="Settings_Button">
-            <param name="id">8006</param>
+            <param name="id">8016</param>
             <param name="control">radiobutton</param>
             <param name="dialog">true</param>
             <label>$LOCALIZE[563]</label>
@@ -337,7 +414,7 @@
             <selected>!Skin.HasSetting(Info.Button.DisableRating)</selected>
         </include>
         <include content="Settings_Button">
-            <param name="id">8007</param>
+            <param name="id">8017</param>
             <param name="control">radiobutton</param>
             <param name="dialog">true</param>
             <label>Youtube</label>
@@ -345,7 +422,7 @@
             <selected>!Skin.HasSetting(Info.Button.DisableYoutube)</selected>
         </include>
         <include content="Settings_Button">
-            <param name="id">8008</param>
+            <param name="id">8018</param>
             <param name="control">radiobutton</param>
             <param name="dialog">true</param>
             <label>$LOCALIZE[39123]</label>
@@ -353,31 +430,21 @@
             <selected>!Skin.HasSetting(Info.Button.DisableArtwork)</selected>
         </include>
         <include content="Settings_Button">
-            <param name="id">8009</param>
+            <param name="id">8019</param>
             <param name="control">radiobutton</param>
             <param name="dialog">true</param>
             <label>$LOCALIZE[184]</label>
             <onclick>Skin.ToggleSetting(Info.Button.DisableRefresh)</onclick>
             <selected>!Skin.HasSetting(Info.Button.DisableRefresh)</selected>
         </include>
-        <include content="Settings_Label">
-            <param name="id">8020</param>
-            <param name="dialog">true</param>
-            <label>$LOCALIZE[33063]</label>
-        </include>
-        <include content="Settings_Button">
-            <param name="id">8021</param>
-            <param name="control">button</param>
-            <param name="dialog">true</param>
-            <label>$LOCALIZE[31158]</label>
-            <label2>$VAR[Label_Settings_InfoLayout]</label2>
-            <onclick>RunScript(script.skinvariables,run_dialog=select,heading=$LOCALIZE[19033] $LOCALIZE[31158],preselect=$VAR[Label_Settings_InfoLayout],separator=||,list=$LOCALIZE[571]||FlixArt||$LOCALIZE[31583]||$LOCALIZE[39173],"executebuiltin_0=Skin.Reset(Info.Layout)","executebuiltin_1=Skin.SetString(Info.Layout,Flix)","executebuiltin_2=Skin.SetString(Info.Layout,Flip)","executebuiltin_3=Skin.SetString(Info.Layout,Blur)")</onclick>
-        </include>
-    </include>
 
-    <include name="Items_Settings_VideoInfoWidgets">
+        <include content="Settings_Label">
+            <param name="id">8030</param>
+            <param name="dialog">true</param>
+            <label>$LOCALIZE[31103]</label>
+        </include>
         <include content="Settings_Button">
-            <param name="id">8001</param>
+            <param name="id">8031</param>
             <param name="control">radiobutton</param>
             <param name="dialog">true</param>
             <onclick>Skin.ToggleSetting(VideoInfo.Widgets.DisableDirector)</onclick>
@@ -385,7 +452,7 @@
             <label>$LOCALIZE[20339]</label>
         </include>
         <include content="Settings_Button">
-            <param name="id">8002</param>
+            <param name="id">8032</param>
             <param name="control">radiobutton</param>
             <param name="dialog">true</param>
             <onclick>Skin.ToggleSetting(VideoInfo.Widgets.DisableWriter)</onclick>
@@ -393,7 +460,7 @@
             <label>$LOCALIZE[20417]</label>
         </include>
         <include content="Settings_Button">
-            <param name="id">8003</param>
+            <param name="id">8033</param>
             <param name="control">radiobutton</param>
             <param name="dialog">true</param>
             <onclick>Skin.ToggleSetting(VideoInfo.Widgets.DisableCreator)</onclick>
@@ -401,7 +468,7 @@
             <label>$LOCALIZE[31065]</label>
         </include>
         <include content="Settings_Button">
-            <param name="id">8004</param>
+            <param name="id">8034</param>
             <param name="control">radiobutton</param>
             <param name="dialog">true</param>
             <onclick>Skin.ToggleSetting(VideoInfo.Widgets.DisableStarring)</onclick>
@@ -409,7 +476,7 @@
             <label>$LOCALIZE[31076]</label>
         </include>
         <include content="Settings_Button">
-            <param name="id">8005</param>
+            <param name="id">8035</param>
             <param name="control">radiobutton</param>
             <param name="dialog">true</param>
             <onclick>Skin.ToggleSetting(VideoInfo.Widgets.DisableCollection)</onclick>
@@ -417,7 +484,7 @@
             <label>$LOCALIZE[31236]</label>
         </include>
         <include content="Settings_Button">
-            <param name="id">8006</param>
+            <param name="id">8036</param>
             <param name="control">radiobutton</param>
             <param name="dialog">true</param>
             <onclick>Skin.ToggleSetting(VideoInfo.Widgets.DisableSeasons)</onclick>
@@ -425,7 +492,7 @@
             <label>$LOCALIZE[33054]</label>
         </include>
         <include content="Settings_Button">
-            <param name="id">8007</param>
+            <param name="id">8037</param>
             <param name="control">radiobutton</param>
             <param name="dialog">true</param>
             <onclick>Skin.ToggleSetting(VideoInfo.Widgets.DisableEpisodes)</onclick>
@@ -433,7 +500,7 @@
             <label>$LOCALIZE[20360]</label>
         </include>
         <include content="Settings_Button">
-            <param name="id">8008</param>
+            <param name="id">8038</param>
             <param name="control">radiobutton</param>
             <param name="dialog">true</param>
             <onclick>Skin.ToggleSetting(VideoInfo.Widgets.DisableStudio)</onclick>
@@ -441,7 +508,7 @@
             <label>$LOCALIZE[572]</label>
         </include>
         <include content="Settings_Button">
-            <param name="id">8009</param>
+            <param name="id">8039</param>
             <param name="control">radiobutton</param>
             <param name="dialog">true</param>
             <onclick>Skin.ToggleSetting(VideoInfo.Widgets.DisableYear)</onclick>
@@ -449,7 +516,7 @@
             <label>$LOCALIZE[345]</label>
         </include>
         <include content="Settings_Button">
-            <param name="id">8010</param>
+            <param name="id">8040</param>
             <param name="control">radiobutton</param>
             <param name="dialog">true</param>
             <onclick>Skin.ToggleSetting(VideoInfo.Widgets.DisableCrew)</onclick>
@@ -457,7 +524,7 @@
             <label>$LOCALIZE[31050]</label>
         </include>
         <include content="Settings_Button">
-            <param name="id">8011</param>
+            <param name="id">8041</param>
             <param name="control">radiobutton</param>
             <param name="dialog">true</param>
             <onclick>Skin.ToggleSetting(VideoInfo.Widgets.DisableVideos)</onclick>
@@ -465,7 +532,7 @@
             <label>$LOCALIZE[10025]</label>
         </include>
         <include content="Settings_Button">
-            <param name="id">8012</param>
+            <param name="id">8042</param>
             <param name="control">radiobutton</param>
             <param name="dialog">true</param>
             <onclick>Skin.ToggleSetting(VideoInfo.Widgets.DisableComments)</onclick>
@@ -473,7 +540,7 @@
             <label>$LOCALIZE[31334]</label>
         </include>
         <include content="Settings_Button">
-            <param name="id">8013</param>
+            <param name="id">8043</param>
             <param name="control">radiobutton</param>
             <param name="dialog">true</param>
             <onclick>Skin.ToggleSetting(VideoInfo.Widgets.DisableRecommendations)</onclick>
@@ -481,7 +548,7 @@
             <label>$LOCALIZE[31018]</label>
         </include>
         <include content="Settings_Button">
-            <param name="id">8014</param>
+            <param name="id">8044</param>
             <param name="control">radiobutton</param>
             <param name="dialog">true</param>
             <onclick>Skin.ToggleSetting(VideoInfo.Widgets.DisableGallery)</onclick>
@@ -489,12 +556,12 @@
             <label>$LOCALIZE[31098]</label>
         </include>
         <include content="Settings_Label">
-            <param name="id">8015</param>
+            <param name="id">8050</param>
             <param name="dialog">true</param>
             <label>$LOCALIZE[33063]</label>
         </include>
         <include content="Settings_Button">
-            <param name="id">8016</param>
+            <param name="id">8051</param>
             <param name="control">radiobutton</param>
             <param name="dialog">true</param>
             <label>$LOCALIZE[31356]</label>
@@ -502,7 +569,7 @@
             <selected>!Skin.HasSetting(Info.UseLocalCast)</selected>
         </include>
         <include content="Settings_Button">
-            <param name="id">8017</param>
+            <param name="id">8052</param>
             <param name="control">radiobutton</param>
             <param name="dialog">true</param>
             <label>$LOCALIZE[31540]</label>
@@ -511,7 +578,7 @@
             <visible>!Skin.HasSetting(VideoInfo.Widgets.DisableCollection)</visible>
         </include>
         <include content="Settings_Button">
-            <param name="id">8018</param>
+            <param name="id">8053</param>
             <param name="control">radiobutton</param>
             <param name="dialog">true</param>
             <label>$LOCALIZE[31539]</label>
@@ -686,39 +753,6 @@
             <selected>Skin.HasSetting(CustomRating.EnablePremiereStatusDates)</selected>
             <onclick>Skin.ToggleSetting(CustomRating.EnablePremiereStatusDates)</onclick>
             <visible>!Skin.HasSetting(CustomRating.TVShows.DisablePremiereStatus)</visible>
-        </include>
-    </include>
-
-    <include name="Items_Settings_OSDStyle">
-        <include content="Settings_Button" description="Expanded info on OSD">
-            <param name="dialog">true</param>
-            <param name="id">8001</param>
-            <param name="control">radiobutton</param>
-            <label>$LOCALIZE[19033]</label>
-            <selected>Skin.HasSetting(OSD.DisplayInfoOnControls)</selected>
-            <onclick>Skin.ToggleSetting(OSD.DisplayInfoOnControls)</onclick>
-        </include>
-
-        <include content="Settings_Button" description="Expanded info landscape art">
-            <param name="dialog">true</param>
-            <param name="id">8002</param>
-            <param name="control">radiobutton</param>
-            <param name="slevel">2</param>
-            <label>$LOCALIZE[31045] [LOWERCASE]$LOCALIZE[39123][/LOWERCASE]</label>
-            <selected>!Skin.HasSetting(OSD.DisableLandscapeOnInfo)</selected>
-            <onclick>Skin.ToggleSetting(OSD.DisableLandscapeOnInfo)</onclick>
-            <visible>Skin.HasSetting(OSD.DisplayInfoOnControls)</visible>
-        </include>
-
-        <include content="Settings_Button" description="Expanded info plot and ratings">
-            <param name="dialog">true</param>
-            <param name="id">8003</param>
-            <param name="control">radiobutton</param>
-            <param name="slevel">2</param>
-            <label>$LOCALIZE[207] + $LOCALIZE[31202]</label>
-            <selected>!Skin.HasSetting(OSD.DisablePlotRatingsOnInfo)</selected>
-            <onclick>Skin.ToggleSetting(OSD.DisablePlotRatingsOnInfo)</onclick>
-            <visible>Skin.HasSetting(OSD.DisplayInfoOnControls)</visible>
         </include>
     </include>
 
@@ -936,55 +970,64 @@
     </include>
 
     <include name="Items_DialogVideoManager">
-        <include content="DialogInfo_ExpandedButton">
-            <param name="id">21</param>
-            <param name="groupid">9021</param>
-            <param name="icon">special://skin/extras/icons/play3.png</param>
-            <param name="label">$LOCALIZE[208]</param>
-            <param name="visible">Control.IsEnabled(21)</param>
-        </include>
-        <include content="DialogInfo_ExpandedButton">
-            <param name="id">22</param>
-            <param name="groupid">9022</param>
-            <param name="icon">special://skin/extras/icons/file-circle-plus.png</param>
-            <param name="label">$LOCALIZE[15019]</param>
-            <param name="visible">Control.IsEnabled(22) + Window.IsVisible(managevideoversions)</param>
-        </include>
-        <include content="DialogInfo_ExpandedButton">
-            <param name="id">23</param>
-            <param name="groupid">9023</param>
-            <param name="icon">special://skin/extras/icons/file-circle-plus.png</param>
-            <param name="label">$LOCALIZE[15019]</param>
-            <param name="visible">Control.IsEnabled(23) + Window.IsVisible(managevideoextras)</param>
-        </include>
-        <include content="DialogInfo_ExpandedButton">
-            <param name="id">24</param>
-            <param name="groupid">9024</param>
-            <param name="icon">special://skin/extras/icons/i-cursor.png</param>
-            <param name="label">$LOCALIZE[118]</param>
-            <param name="visible">Control.IsEnabled(24)</param>
-        </include>
-        <include content="DialogInfo_ExpandedButton">
-            <param name="id">25</param>
-            <param name="groupid">9025</param>
-            <param name="icon">special://skin/extras/icons/heart-circle-plus.png</param>
-            <param name="label">$LOCALIZE[571]</param>
-            <param name="visible">Control.IsEnabled(25) + Window.IsVisible(managevideoversions)</param>
-        </include>
-        <include content="DialogInfo_ExpandedButton">
-            <param name="id">26</param>
-            <param name="groupid">9026</param>
-            <param name="icon">special://skin/extras/icons/trash-can.png</param>
-            <param name="label">$LOCALIZE[1210]</param>
-            <param name="visible">Control.IsEnabled(26)</param>
-        </include>
-        <include content="DialogInfo_ExpandedButton">
-            <param name="id">27</param>
-            <param name="groupid">9027</param>
-            <param name="icon">special://skin/extras/icons/images.png</param>
-            <param name="label">$LOCALIZE[39123]</param>
-            <param name="visible">Control.IsEnabled(27)</param>
-        </include>
+        <definition>
+            <include content="Settings_Button">
+                <param name="id">21</param>
+                <param name="control">button</param>
+                <param name="dialog">true</param>
+                <param name="icon">special://skin/extras/icons/play3.png</param>
+                <label>$LOCALIZE[208]</label>
+                <visible>Control.IsEnabled(21)</visible>
+            </include>
+            <include content="Settings_Button">
+                <param name="id">22</param>
+                <param name="control">button</param>
+                <param name="dialog">true</param>
+                <param name="icon">special://skin/extras/icons/file-circle-plus.png</param>
+                <label>$LOCALIZE[15019]</label>
+                <visible>Control.IsEnabled(22) + Window.IsVisible(managevideoversions)</visible>
+            </include>
+            <include content="Settings_Button">
+                <param name="id">23</param>
+                <param name="control">button</param>
+                <param name="dialog">true</param>
+                <param name="icon">special://skin/extras/icons/file-circle-plus.png</param>
+                <label>$LOCALIZE[15019]</label>
+                <visible>Control.IsEnabled(23) + Window.IsVisible(managevideoextras)</visible>
+            </include>
+            <include content="Settings_Button">
+                <param name="id">24</param>
+                <param name="control">button</param>
+                <param name="dialog">true</param>
+                <param name="icon">special://skin/extras/icons/i-cursor.png</param>
+                <label>$LOCALIZE[118]</label>
+                <visible>Control.IsEnabled(24)</visible>
+            </include>
+            <include content="Settings_Button">
+                <param name="id">25</param>
+                <param name="control">button</param>
+                <param name="dialog">true</param>
+                <param name="icon">special://skin/extras/icons/heart-circle-plus.png</param>
+                <label>$LOCALIZE[571]</label>
+                <visible>Control.IsEnabled(25) + Window.IsVisible(managevideoversions)</visible>
+            </include>
+            <include content="Settings_Button">
+                <param name="id">26</param>
+                <param name="control">button</param>
+                <param name="dialog">true</param>
+                <param name="icon">special://skin/extras/icons/trash-can.png</param>
+                <label>$LOCALIZE[1210]</label>
+                <visible>Control.IsEnabled(26)</visible>
+            </include>
+            <include content="Settings_Button">
+                <param name="id">27</param>
+                <param name="control">button</param>
+                <param name="dialog">true</param>
+                <param name="icon">special://skin/extras/icons/images.png</param>
+                <label>$LOCALIZE[39123]</label>
+                <visible>Control.IsEnabled(27)</visible>
+            </include>
+        </definition>
     </include>
 
     <include name="Items_Dialog_RatingType_Template">
@@ -1154,171 +1197,285 @@
     </include>
 
     <include name="Items_DialogAddonSettings_MenuBar">
-        <include content="DialogInfo_ExpandedButton">
-            <param name="id">9001</param>
-            <param name="groupid">9101</param>
-            <param name="label">$INFO[Control.GetLabel(28)]</param>
-            <param name="icon">special://skin/extras/icons/circle-check.png</param>
-            <param name="visible">Control.IsEnabled(28)</param>
-            <onclick>SendClick(28)</onclick>
-        </include>
-        <include content="DialogInfo_ExpandedButton">
-            <param name="id">9002</param>
-            <param name="groupid">9102</param>
-            <param name="label">$INFO[Control.GetLabel(29)]</param>
-            <param name="icon">special://skin/extras/icons/circle-xmark.png</param>
-            <param name="visible">Control.IsEnabled(29)</param>
-            <onclick>SendClick(29)</onclick>
-        </include>
-        <include content="DialogInfo_ExpandedButton">
-            <param name="id">9003</param>
-            <param name="groupid">9103</param>
-            <param name="label">$INFO[Control.GetLabel(30)]</param>
-            <param name="icon">special://skin/extras/icons/triangle-exclamation.png</param>
-            <param name="visible">Control.IsEnabled(30)</param>
-            <onclick>SendClick(30)</onclick>
-        </include>
-        <include content="DialogInfo_ExpandedButton">
-            <param name="id">9004</param>
-            <param name="groupid">9104</param>
-            <param name="label">$INFO[Control.GetLabel(20)]</param>
-            <param name="icon">$VAR[Image_Settings_Level]</param>
-            <param name="visible">Control.IsEnabled(20)</param>
-            <onclick>settingslevelchange</onclick>
-        </include>
+        <param name="width">300</param>
+        <param name="slice">100</param>
+        <definition>
+            <include content="DialogInfo_Button_Expansion">
+                <param name="vertical">false</param>
+                <param name="width">$PARAM[width]</param>
+                <param name="slice">$PARAM[slice]</param>
+                <param name="label_pad">-15</param>
+                <param name="id">9001</param>
+                <param name="groupid">9101</param>
+                <param name="sliceid">9201</param>
+                <param name="label">$INFO[Control.GetLabel(28)]</param>
+                <param name="icon">special://skin/extras/icons/circle-check.png</param>
+                <param name="visible">Control.IsEnabled(28)</param>
+                <onclick>SendClick(28)</onclick>
+            </include>
+            <include content="DialogInfo_Button_Expansion">
+                <param name="vertical">false</param>
+                <param name="width">$PARAM[width]</param>
+                <param name="slice">$PARAM[slice]</param>
+                <param name="label_pad">-15</param>
+                <param name="id">9002</param>
+                <param name="groupid">9102</param>
+                <param name="sliceid">9202</param>
+                <param name="label">$INFO[Control.GetLabel(29)]</param>
+                <param name="icon">special://skin/extras/icons/circle-xmark.png</param>
+                <param name="visible">Control.IsEnabled(29)</param>
+                <onclick>SendClick(29)</onclick>
+            </include>
+            <include content="DialogInfo_Button_Expansion">
+                <param name="vertical">false</param>
+                <param name="width">$PARAM[width]</param>
+                <param name="slice">$PARAM[slice]</param>
+                <param name="label_pad">-15</param>
+                <param name="id">9003</param>
+                <param name="groupid">9103</param>
+                <param name="sliceid">9203</param>
+                <param name="label">$INFO[Control.GetLabel(30)]</param>
+                <param name="icon">special://skin/extras/icons/triangle-exclamation.png</param>
+                <param name="visible">Control.IsEnabled(30)</param>
+                <onclick>SendClick(30)</onclick>
+            </include>
+            <include content="DialogInfo_Button_Expansion">
+                <param name="vertical">false</param>
+                <param name="width">$PARAM[width]</param>
+                <param name="slice">$PARAM[slice]</param>
+                <param name="label_pad">-15</param>
+                <param name="id">9004</param>
+                <param name="groupid">9104</param>
+                <param name="sliceid">9204</param>
+                <param name="label">$INFO[Control.GetLabel(20)]</param>
+                <param name="icon">$VAR[Image_Settings_Level]</param>
+                <param name="visible">Control.IsEnabled(20)</param>
+                <onclick>settingslevelchange</onclick>
+            </include>
+        </definition>
     </include>
 
     <include name="Items_DialogAddonInfo_MenuBar">
-        <include content="DialogInfo_ExpandedButton">
-            <param name="builtin">true</param>
-            <param name="id">12</param>
-            <param name="groupid">9012</param>
-            <param name="icon">special://skin/extras/icons/play3.png</param>
-            <param name="visible">Control.IsEnabled(12)</param>
-            <param name="label">$INFO[Control.GetLabel(12)]</param>
-        </include>
-        <include content="DialogInfo_ExpandedButton" description="Enable">
-            <param name="builtin">true</param>
-            <param name="id">7</param>
-            <param name="groupid">9007</param>
-            <param name="icon">$VAR[Image_AddonInfo_Enable]</param>
-            <param name="visible">Control.IsEnabled(7)</param>
-            <param name="label">$INFO[Control.GetLabel(7)]</param>
-        </include>
-        <include content="DialogInfo_ExpandedButton" description="Install">
-            <param name="builtin">true</param>
-            <param name="id">6</param>
-            <param name="groupid">9006</param>
-            <param name="icon">$VAR[Image_AddonInfo_Install]</param>
-            <param name="visible">Control.IsEnabled(6)</param>
-            <param name="label">$INFO[Control.GetLabel(6)]</param>
-        </include>
-        <include content="DialogInfo_ExpandedButton" description="Update">
-            <param name="builtin">true</param>
-            <param name="id">8</param>
-            <param name="groupid">9008</param>
-            <param name="icon">special://skin/extras/icons/update.png</param>
-            <param name="label">$LOCALIZE[24138]</param>
-        </include>
-        <include content="DialogInfo_ExpandedButton" description="Auto-Update">
-            <param name="builtin">true</param>
-            <param name="id">13</param>
-            <param name="groupid">9013</param>
-            <param name="control">radiobutton</param>
-            <param name="radiocross">true</param>
-            <param name="icon">special://skin/extras/icons/update.png</param>
-            <param name="label">$LOCALIZE[21340]</param>
-        </include>
-        <include content="DialogInfo_ExpandedButton" description="Versions">
-            <param name="builtin">true</param>
-            <param name="id">14</param>
-            <param name="groupid">9014</param>
-            <param name="icon">special://skin/extras/icons/network.png</param>
-            <param name="label">$LOCALIZE[24069]</param>
-        </include>
-        <include content="DialogInfo_ExpandedButton" description="Dependencies">
-            <param name="builtin">true</param>
-            <param name="id">10</param>
-            <param name="groupid">9010</param>
-            <param name="icon">special://skin/extras/icons/dependencies.png</param>
-            <param name="label">$LOCALIZE[39024]</param>
-        </include>
-        <include content="DialogInfo_ExpandedButton" description="Settings">
-            <param name="builtin">true</param>
-            <param name="id">9</param>
-            <param name="groupid">9009</param>
-            <param name="icon">special://skin/extras/icons/settings.png</param>
-            <param name="label">$LOCALIZE[5]</param>
-        </include>
+        <param name="width">300</param>
+        <param name="slice">100</param>
+        <definition>
+            <include content="DialogInfo_Button_Expansion">
+                <param name="vertical">false</param>
+                <param name="width">$PARAM[width]</param>
+                <param name="slice">$PARAM[slice]</param>
+                <param name="label_pad">-15</param>
+                <param name="builtin">true</param>
+                <param name="id">12</param>
+                <param name="groupid">9012</param>
+                <param name="sliceid">9112</param>
+                <param name="icon">special://skin/extras/icons/play3.png</param>
+                <param name="visible">Control.IsEnabled(12)</param>
+                <param name="label">$INFO[Control.GetLabel(12)]</param>
+            </include>
+            <include content="DialogInfo_Button_Expansion" description="Enable">
+                <param name="vertical">false</param>
+                <param name="width">$PARAM[width]</param>
+                <param name="slice">$PARAM[slice]</param>
+                <param name="label_pad">-15</param>
+                <param name="builtin">true</param>
+                <param name="id">7</param>
+                <param name="groupid">9007</param>
+                <param name="sliceid">9107</param>
+                <param name="icon">$VAR[Image_AddonInfo_Enable]</param>
+                <param name="visible">Control.IsEnabled(7)</param>
+                <param name="label">$INFO[Control.GetLabel(7)]</param>
+            </include>
+            <include content="DialogInfo_Button_Expansion" description="Install">
+                <param name="vertical">false</param>
+                <param name="width">$PARAM[width]</param>
+                <param name="slice">$PARAM[slice]</param>
+                <param name="label_pad">-15</param>
+                <param name="builtin">true</param>
+                <param name="id">6</param>
+                <param name="groupid">9006</param>
+                <param name="sliceid">9106</param>
+                <param name="icon">$VAR[Image_AddonInfo_Install]</param>
+                <param name="visible">Control.IsEnabled(6)</param>
+                <param name="label">$INFO[Control.GetLabel(6)]</param>
+            </include>
+            <include content="DialogInfo_Button_Expansion" description="Update">
+                <param name="vertical">false</param>
+                <param name="control">radiobutton</param>
+                <param name="radiocheck">true</param>
+                <param name="width">$PARAM[width]</param>
+                <param name="slice">$PARAM[slice]</param>
+                <param name="label_pad">-15</param>
+                <param name="builtin">true</param>
+                <param name="id">8</param>
+                <param name="groupid">9008</param>
+                <param name="sliceid">9108</param>
+                <param name="icon">special://skin/extras/icons/update.png</param>
+                <param name="label">$LOCALIZE[24138]</param>
+            </include>
+            <include content="DialogInfo_Button_Expansion" description="Auto-Update">
+                <param name="vertical">false</param>
+                <param name="width">$PARAM[width]</param>
+                <param name="slice">$PARAM[slice]</param>
+                <param name="label_pad">-15</param>
+                <param name="builtin">true</param>
+                <param name="id">13</param>
+                <param name="groupid">9013</param>
+                <param name="sliceid">9113</param>
+                <param name="control">radiobutton</param>
+                <param name="radiocheck">true</param>
+                <param name="radiocross">true</param>
+                <param name="icon">special://skin/extras/icons/update.png</param>
+                <param name="label">$LOCALIZE[21340]</param>
+            </include>
+            <include content="DialogInfo_Button_Expansion" description="Versions">
+                <param name="vertical">false</param>
+                <param name="width">$PARAM[width]</param>
+                <param name="slice">$PARAM[slice]</param>
+                <param name="label_pad">-15</param>
+                <param name="builtin">true</param>
+                <param name="id">14</param>
+                <param name="groupid">9014</param>
+                <param name="sliceid">9114</param>
+                <param name="icon">special://skin/extras/icons/network.png</param>
+                <param name="label">$LOCALIZE[24069]</param>
+            </include>
+            <include content="DialogInfo_Button_Expansion" description="Dependencies">
+                <param name="vertical">false</param>
+                <param name="width">$PARAM[width]</param>
+                <param name="slice">$PARAM[slice]</param>
+                <param name="label_pad">-15</param>
+                <param name="builtin">true</param>
+                <param name="id">10</param>
+                <param name="groupid">9010</param>
+                <param name="sliceid">9110</param>
+                <param name="icon">special://skin/extras/icons/dependencies.png</param>
+                <param name="label">$LOCALIZE[39024]</param>
+            </include>
+            <include content="DialogInfo_Button_Expansion" description="Settings">
+                <param name="vertical">false</param>
+                <param name="width">$PARAM[width]</param>
+                <param name="slice">$PARAM[slice]</param>
+                <param name="label_pad">-15</param>
+                <param name="builtin">true</param>
+                <param name="id">9</param>
+                <param name="groupid">9009</param>
+                <param name="sliceid">9109</param>
+                <param name="icon">special://skin/extras/icons/settings.png</param>
+                <param name="label">$LOCALIZE[5]</param>
+            </include>
+        </definition>
     </include>
 
     <include name="Items_DialogPVRInfo_MenuBar">
+        <param name="width">300</param>
+        <param name="slice">100</param>
+        <definition>
+            <include content="DialogInfo_Button_Expansion" description="Switch">
+                <param name="vertical">false</param>
+                <param name="width">$PARAM[width]</param>
+                <param name="slice">$PARAM[slice]</param>
+                <param name="label_pad">-15</param>
+                <param name="id">5</param>
+                <param name="groupid">4105</param>
+                <param name="sliceid">4205</param>
+                <param name="icon">special://skin/extras/icons/play2.png</param>
+                <param name="label">$LOCALIZE[19165]</param>
+                <param name="visible">Window.IsActive(PVRGuideInfo) + Control.IsEnabled(5) + Control.IsVisible(5)</param>
+            </include>
 
-        <include content="DialogInfo_ExpandedButton" description="Switch">
-            <param name="id">5</param>
-            <param name="groupid">4105</param>
-            <param name="icon">special://skin/extras/icons/play2.png</param>
-            <param name="label">$LOCALIZE[19165]</param>
-            <param name="visible">Window.IsActive(PVRGuideInfo) + Control.IsEnabled(5) + Control.IsVisible(5)</param>
-        </include>
+            <include content="DialogInfo_Button_Expansion" description="Play Programme">
+                <param name="vertical">false</param>
+                <param name="width">$PARAM[width]</param>
+                <param name="slice">$PARAM[slice]</param>
+                <param name="label_pad">-15</param>
+                <param name="id">10</param>
+                <param name="groupid">4110</param>
+                <param name="sliceid">4210</param>
+                <param name="icon">special://skin/extras/icons/play3.png</param>
+                <param name="label">$LOCALIZE[208]</param>
+                <param name="visible">Window.IsActive(PVRGuideInfo) + Control.IsEnabled(10) + Control.IsVisible(10)</param>
+            </include>
 
-        <include content="DialogInfo_ExpandedButton" description="Play Programme">
-            <param name="id">10</param>
-            <param name="groupid">4110</param>
-            <param name="icon">special://skin/extras/icons/play3.png</param>
-            <param name="label">$LOCALIZE[208]</param>
-            <param name="visible">Window.IsActive(PVRGuideInfo) + Control.IsEnabled(10) + Control.IsVisible(10)</param>
-        </include>
+            <include content="DialogInfo_Button_Expansion" description="Play Recording">
+                <param name="vertical">false</param>
+                <param name="width">$PARAM[width]</param>
+                <param name="slice">$PARAM[slice]</param>
+                <param name="label_pad">-15</param>
+                <param name="id">8</param>
+                <param name="groupid">4108</param>
+                <param name="sliceid">4208</param>
+                <param name="icon">special://skin/extras/icons/play3.png</param>
+                <param name="label">$LOCALIZE[208]</param>
+                <param name="visible">[Window.IsActive(PVRGuideInfo) | Window.IsActive(PVRRecordingInfo)] + Control.IsEnabled(8) + Control.IsVisible(8)</param>
+            </include>
 
-        <include content="DialogInfo_ExpandedButton" description="Play Recording">
-            <param name="id">8</param>
-            <param name="groupid">4108</param>
-            <param name="icon">special://skin/extras/icons/play3.png</param>
-            <param name="label">$LOCALIZE[208]</param>
-            <param name="visible">[Window.IsActive(PVRGuideInfo) | Window.IsActive(PVRRecordingInfo)] + Control.IsEnabled(8) + Control.IsVisible(8)</param>
-        </include>
+            <include content="DialogInfo_Button_Expansion" description="Record">
+                <param name="vertical">false</param>
+                <param name="width">$PARAM[width]</param>
+                <param name="slice">$PARAM[slice]</param>
+                <param name="label_pad">-15</param>
+                <param name="id">6</param>
+                <param name="groupid">4106</param>
+                <param name="sliceid">4206</param>
+                <param name="icon">special://skin/extras/icons/record-vinyl.png</param>
+                <param name="label">$LOCALIZE[264]</param>
+                <param name="visible">Window.IsActive(PVRGuideInfo) + Control.IsEnabled(6) + Control.IsVisible(6)</param>
+                <onclick>SendClick(6)</onclick>
+            </include>
 
-        <include content="DialogInfo_ExpandedButton" description="Record">
-            <param name="id">6</param>
-            <param name="groupid">4106</param>
-            <param name="icon">special://skin/extras/icons/record-vinyl.png</param>
-            <param name="label">$LOCALIZE[264]</param>
-            <param name="visible">Window.IsActive(PVRGuideInfo) + Control.IsEnabled(6) + Control.IsVisible(6)</param>
-            <onclick>SendClick(6)</onclick>
-        </include>
+            <include content="DialogInfo_Button_Expansion" description="Add Timer">
+                <param name="vertical">false</param>
+                <param name="width">$PARAM[width]</param>
+                <param name="slice">$PARAM[slice]</param>
+                <param name="label_pad">-15</param>
+                <param name="id">9</param>
+                <param name="groupid">4109</param>
+                <param name="sliceid">4209</param>
+                <param name="icon">special://skin/extras/icons/clock.png</param>
+                <param name="label">$LOCALIZE[19061]</param>
+                <param name="visible">Window.IsActive(PVRGuideInfo) + Control.IsEnabled(9) + Control.IsVisible(9)</param>
+            </include>
 
-        <include content="DialogInfo_ExpandedButton" description="Add Timer">
-            <param name="id">9</param>
-            <param name="groupid">4109</param>
-            <param name="icon">special://skin/extras/icons/clock.png</param>
-            <param name="label">$LOCALIZE[19061]</param>
-            <param name="visible">Window.IsActive(PVRGuideInfo) + Control.IsEnabled(9) + Control.IsVisible(9)</param>
-        </include>
+            <include content="DialogInfo_Button_Expansion" description="Set Reminder">
+                <param name="vertical">false</param>
+                <param name="width">$PARAM[width]</param>
+                <param name="slice">$PARAM[slice]</param>
+                <param name="label_pad">-15</param>
+                <param name="id">11</param>
+                <param name="groupid">4111</param>
+                <param name="sliceid">4211</param>
+                <param name="icon">special://skin/extras/icons/clock.png</param>
+                <param name="label">$LOCALIZE[826]</param>
+                <param name="visible">Window.IsActive(PVRGuideInfo) + Control.IsEnabled(11) + Control.IsVisible(11)</param>
+            </include>
 
-        <include content="DialogInfo_ExpandedButton" description="Set Reminder">
-            <param name="id">11</param>
-            <param name="groupid">4111</param>
-            <param name="icon">special://skin/extras/icons/clock.png</param>
-            <param name="label">$LOCALIZE[826]</param>
-            <param name="visible">Window.IsActive(PVRGuideInfo) + Control.IsEnabled(11) + Control.IsVisible(11)</param>
-        </include>
+            <include content="DialogInfo_Button_Expansion" description="Similar">
+                <param name="vertical">false</param>
+                <param name="width">$PARAM[width]</param>
+                <param name="slice">$PARAM[slice]</param>
+                <param name="label_pad">-15</param>
+                <param name="id">4</param>
+                <param name="groupid">4107</param>
+                <param name="sliceid">4207</param>
+                <param name="icon">special://skin/extras/icons/binoculars.png</param>
+                <param name="label">$LOCALIZE[31041]</param>
+                <param name="visible">[Window.IsActive(PVRGuideInfo) | Window.IsActive(PVRRecordingInfo)] + Control.IsEnabled(4) + Control.IsVisible(4)</param>
+            </include>
 
-        <include content="DialogInfo_ExpandedButton" description="Similar">
-            <param name="id">4</param>
-            <param name="groupid">4107</param>
-            <param name="icon">special://skin/extras/icons/binoculars.png</param>
-            <param name="label">$LOCALIZE[31041]</param>
-            <param name="visible">[Window.IsActive(PVRGuideInfo) | Window.IsActive(PVRRecordingInfo)] + Control.IsEnabled(4) + Control.IsVisible(4)</param>
-        </include>
-
-        <include content="DialogInfo_ExpandedButton">
-            <param name="id">4082</param>
-            <param name="groupid">4182</param>
-            <param name="label">Wiki</param>
-            <param name="icon">special://skin/extras/icons/globe.png</param>
-            <onclick>Close</onclick>
-            <onclick>runscript(script.wikipedia,wikipedia=$VAR[Path_Wikipedia_Title],tmdb_type=$VAR[Path_Wikipedia_Type])</onclick>
-        </include>
+            <include content="DialogInfo_Button_Expansion">
+                <param name="vertical">false</param>
+                <param name="width">$PARAM[width]</param>
+                <param name="slice">$PARAM[slice]</param>
+                <param name="label_pad">-15</param>
+                <param name="id">4082</param>
+                <param name="groupid">4182</param>
+                <param name="sliceid">4282</param>
+                <param name="label">Wiki</param>
+                <param name="icon">special://skin/extras/icons/globe.png</param>
+                <onclick>Close</onclick>
+                <onclick>runscript(script.wikipedia,wikipedia=$VAR[Path_Wikipedia_Title],tmdb_type=$VAR[Path_Wikipedia_Type])</onclick>
+            </include>
+        </definition>
     </include>
 
     <include name="Items_DialogVideoInfo_MenuBar">

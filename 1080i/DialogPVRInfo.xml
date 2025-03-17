@@ -15,14 +15,20 @@
             <include>Dimension_DialogMainMenu</include>
             <include>Animation_Right_Delay</include>
 
-            <include content="Dialog_Foreground_Side">
+            <include content="Dialog_Background_Group">
                 <param name="dialog_size">Dimension_DialogMainMenu</param>
-                <param name="topline">false</param>
-                <param name="subline">false</param>
             </include>
 
             <control type="group">
-                <right>dialog_panelgroup_w</right>
+                <include content="Dimension_Padding">
+                    <param name="pad">40</param>
+                </include>
+                <include content="Dialog_Overlay_Mode_Glass">
+                    <param name="flipped">false</param>
+                </include>
+            </control>
+
+            <control type="group">
                 <!-- Header -->
                 <include content="Dialog_Head">
                     <param name="label">$VAR[Label_Title]</param>
@@ -31,6 +37,7 @@
 
                 <!-- Content -->
                 <control type="group">
+                    <bottom>240</bottom>
                     <include>Dimension_Dialog_Body</include>
                     <control type="group">
                         <include>Dimension_Dialog_Body_Group</include>
@@ -44,6 +51,8 @@
                             <bottom>-20</bottom>
                             <right>20</right>
                             <control type="textbox">
+                                <top>50</top>
+                                <bottom>50</bottom>
                                 <font>font_midi_plot</font>
                                 <textcolor>main_fg_70</textcolor>
                                 <label>[B][COLOR=main_fg_90]$LOCALIZE[31181][/COLOR][/B][CR]$INFO[ListItem.StartDate,,[CR]]$INFO[ListItem.StartTime]$INFO[ListItem.EndTime, - ,]$INFO[ListItem.Genre,[CR][CR][B][COLOR=main_fg_90]$LOCALIZE[515][/COLOR][/B][CR],]$VAR[Label_PVR_Episode,[CR][CR][B][COLOR=main_fg_90]$LOCALIZE[20359][/COLOR][/B][CR],][CR][CR]$INFO[ListItem.Plot,[B][COLOR=main_fg_90]$LOCALIZE[31028][/COLOR][/B][CR],]</label>
@@ -55,27 +64,33 @@
                         </include>
                     </control>
 
+                    <include content="Dialog_InfoText">
+                        <param name="label">$INFO[PVR.BackendName]$INFO[PVR.BackendVersion, • v,]</param>
+                    </include>
                     <include content="Dialog_Scrollbar">
                         <param name="id">61</param>
                         <param name="inset">true</param>
-                        <onright>9000</onright>
+                        <onback>9000</onback>
+                        <ondown>9000</ondown>
                     </include>
 
                 </control>
-            </control>
 
-            <!-- Side Buttons -->
-            <control type="group">
-                <include>Dialog_Side_Panel_Group_Def</include>
-                <control type="group">
-                    <include>Dimension_Dialog_Body</include>
-                    <control type="grouplist" id="9000">
-                        <include>Dialog_Side_Expanded_Grouplist_Def</include>
-                        <onleft>61</onleft>
-                        <include>Items_DialogPVRInfo_MenuBar</include>
-                    </control>
+
+                <!-- Buttons -->
+                <control type="grouplist" id="9000">
+                    <height>160</height>
+                    <bottom>20</bottom>
+                    <left>50</left>
+                    <right>40</right>
+                    <align>center</align>
+                    <onup>61</onup>
+                    <orientation>horizontal</orientation>
+                    <include>Items_DialogPVRInfo_MenuBar</include>
                 </control>
             </control>
+
+
 
         </control>
     </controls>

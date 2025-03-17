@@ -575,7 +575,7 @@
         <param name="plot_visible">!Skin.HasSetting(OSD.DisablePlotRatingsOnInfo)</param>
         <definition>
             <control type="grouplist">
-                <bottom>52</bottom>
+                <bottom>40</bottom>
                 <align>$PARAM[align]</align>
                 <include>OSD_Progress_Details_Grouplist_Def</include>
                 <control type="group">
@@ -637,21 +637,28 @@
                     <param name="visible">!String.IsEmpty(VideoPlayer.Plot)</param>
                 </include>
 
+                <include content="Object_Control" condition="$PARAM[plot_visible]">
+                    <param name="control">group</param>
+                    <top>12</top>
+                    <height>40</height>
+                    <visible allowhiddenfocus="true">!Integer.IsEqual(Container(99981).NumItems,0)</visible>
+                    <!-- <visible>!VideoPlayer.Content(livetv)</visible> -->
+                    <visible>!String.IsEmpty(VideoPlayer.Plot)</visible>
+                    <include content="Info_RatingsLine">
+                        <param name="id">99981</param>
+                        <param name="is_player">true</param>
+                        <top>0</top>
+                        <left>view_pad</left>
+                    </include>
+                </include>
+
                 <control type="group">
                     <height>8</height>
                     <visible>![$PARAM[plot_visible] + !String.IsEmpty(VideoPlayer.Plot)]</visible>
                 </control>
 
-                <include content="Info_RatingsLine" condition="$PARAM[plot_visible]">
-                    <param name="is_player">true</param>
-                    <top>0</top>
-                    <left>view_pad</left>
-                    <visible>!VideoPlayer.Content(livetv)</visible>
-                    <visible>!String.IsEmpty(VideoPlayer.Plot)</visible>
-                </include>
-
                 <control type="group" description="Avoid grouplist chop with spacer">
-                    <height>28</height>
+                    <height>40</height>
                 </control>
             </control>
         </definition>
