@@ -38,7 +38,7 @@
         <definition>
             <top>view_pad</top>
             <include>Dimension_Info</include>
-            <include content="Object_Control" condition="!Skin.String(Info.Layout,Flix)">
+            <include content="Object_Control" condition="![Skin.String(Info.Layout,Flix) + !String.IsEqual(ListItem.Property(tmdb_type),person)]">
                 <param name="control">group</param>
 
                 <include content="Object_Right" condition="!Skin.String(Info.Layout,Flip)">
@@ -81,22 +81,6 @@
                 </include>
 
             </include>
-
-
-            <!-- <include content="Object_Control" condition="Skin.String(Info.Layout,Flix)">
-                <param name="control">group</param>
-
-                <include content="View_MediaList_PosterLandscape" condition="Window.Isvisible(DialogVideoInfo.xml)">
-                    <param name="flipx">false</param>
-                    <param name="visible">true</param>
-                </include>
-
-                <include content="View_MediaList_SquareLandscape" condition="!Window.Isvisible(DialogVideoInfo.xml)">
-                    <param name="flipx">false</param>
-                    <param name="visible">true</param>
-                </include>
-
-            </include> -->
         </definition>
     </include>
 
@@ -1530,12 +1514,6 @@
             <param name="right">80</param>
         </include>
     </include>
-    <include name="DialogInfo_VideoDetails_Flix">
-        <include content="_DialogInfo_VideoDetails">
-            <param name="left_group_width">380</param>
-            <param name="right">240</param>
-        </include>
-    </include>
     <include name="_DialogInfo_VideoDetails">
         <param name="left_group_width">480</param>
         <param name="right">80</param>
@@ -1729,12 +1707,6 @@
         <include content="_DialogInfo_MusicDetails">
             <param name="left_group_width">480</param>
             <param name="right">80</param>
-        </include>
-    </include>
-    <include name="DialogInfo_MusicDetails_Flix">
-        <include content="_DialogInfo_MusicDetails">
-            <param name="left_group_width">380</param>
-            <param name="right">320</param>
         </include>
     </include>
     <include name="_DialogInfo_MusicDetails">
