@@ -22,26 +22,32 @@
         <control type="group">
             <include>Dimension_DialogMainMenu</include>
             <include>Animation_Right_Delay</include>
-            <include content="Dialog_Foreground_Side">
-                <param name="slide_condition">true</param>
+            <include content="Dialog_Background_Group">
                 <param name="dialog_size">Dimension_DialogMainMenu</param>
-                <param name="topline">false</param>
-                <param name="subline">false</param>
             </include>
 
             <control type="group">
-                <right>dialog_panelgroup_w</right>
+                <include content="Dimension_Padding">
+                    <param name="pad">40</param>
+                </include>
+                <include content="Dialog_Overlay_Mode_Glass">
+                    <param name="flipped">false</param>
+                </include>
+            </control>
+
+            <control type="group">
                 <!-- Header -->
                 <include content="Dialog_Head">
                     <param name="id">1</param>
-                    <param name="label">$LOCALIZE[19048] - $VAR[Label_PVRChannelMgrHeader]$INFO[Container(13).NumItems, (,)]</param>
+                    <param name="label">$LOCALIZE[19048]</param>
                 </include>
                 <include>Dialog_Head_CloseButton</include>
 
                 <!-- Content -->
                 <control type="group">
+                    <bottom>240</bottom>
                     <include>Dimension_Dialog_Body</include>
-                    <control type="group">
+                    <control type="group" id="8000">
                         <include>Dimension_Dialog_Body_Group</include>
 
                         <!-- Left Group -->
@@ -79,6 +85,10 @@
                                     <param name="detailed">false</param>
                                     <param name="misc">String.IsEqual(Container(13).CurrentItem,ListItem.CurrentItem)</param>
                                     <onright>11</onright>
+                                    <ondown>9000</ondown>
+                                    <onup>-</onup>
+                                    <onback>29</onback>
+                                    <onclick>9000</onclick>
                                 </include>
                             </control>
                         </control>
@@ -115,6 +125,9 @@
                                         <pagecontrol>62</pagecontrol>
                                         <onright>62</onright>
                                         <onleft>13</onleft>
+                                        <ondown>9000</ondown>
+                                        <onup>-</onup>
+                                        <onback>29</onback>
                                     </include>
 
                                 </control>
@@ -122,6 +135,7 @@
                                     <param name="id">62</param>
                                     <onleft>11</onleft>
                                     <onright>12</onright>
+                                    <onback>29</onback>
                                     <top>0</top>
                                     <bottom>0</bottom>
                                     <centerright>0</centerright>
@@ -160,13 +174,16 @@
                                         <pagecontrol>63</pagecontrol>
                                         <onright>63</onright>
                                         <onleft>62</onleft>
+                                        <ondown>9000</ondown>
+                                        <onup>-</onup>
+                                        <onback>29</onback>
                                     </include>
 
                                 </control>
                                 <include content="Dialog_Scrollbar">
                                     <param name="id">63</param>
                                     <onleft>12</onleft>
-                                    <onright>9000</onright>
+                                    <onback>29</onback>
                                     <top>0</top>
                                     <bottom>0</bottom>
                                     <centerright>0</centerright>
@@ -175,80 +192,116 @@
                             </control>
                         </control>
                     </control>
+                    <include content="Dialog_InfoText">
+                        <param name="label">$VAR[Label_PVRChannelMgrHeader]$INFO[Container(13).NumItems, (,)]</param>
+                    </include>
+                </control>
+
+                <control type="grouplist" id="9000">
+                    <height>160</height>
+                    <bottom>20</bottom>
+                    <left>50</left>
+                    <right>40</right>
+                    <align>center</align>
+                    <onup>8000</onup>
+                    <orientation>horizontal</orientation>
+                    <include content="DialogInfo_Button_Expansion">
+                        <param name="vertical">false</param>
+                        <param name="width">300</param>
+                        <param name="slice">100</param>
+                        <param name="label_pad">-15</param>
+                        <param name="builtin">true</param>
+                        <param name="id">29</param>
+                        <param name="groupid">9101</param>
+                        <param name="sliceid">9201</param>
+                        <param name="label">$LOCALIZE[186]</param>
+                        <param name="icon">special://skin/extras/icons/circle-check.png</param>
+                        <param name="include_hintlabel">true</param>
+                    </include>
+                    <include content="DialogInfo_Button_Expansion">
+                        <param name="vertical">false</param>
+                        <param name="width">300</param>
+                        <param name="slice">100</param>
+                        <param name="label_pad">-15</param>
+                        <param name="builtin">true</param>
+                        <param name="id">26</param>
+                        <param name="groupid">9102</param>
+                        <param name="sliceid">9202</param>
+                        <param name="label">$LOCALIZE[15019]</param>
+                        <param name="icon">special://skin/extras/icons/circle-plus.png</param>
+                        <param name="include_hintlabel">true</param>
+                    </include>
+                    <include content="DialogInfo_Button_Expansion">
+                        <param name="vertical">false</param>
+                        <param name="width">300</param>
+                        <param name="slice">100</param>
+                        <param name="label_pad">-15</param>
+                        <param name="builtin">true</param>
+                        <param name="id">27</param>
+                        <param name="groupid">9103</param>
+                        <param name="sliceid">9203</param>
+                        <param name="label">$LOCALIZE[118]</param>
+                        <param name="icon">special://skin/extras/icons/i-cursor.png</param>
+                        <param name="include_hintlabel">true</param>
+                    </include>
+                    <include content="DialogInfo_Button_Expansion">
+                        <param name="vertical">false</param>
+                        <param name="width">300</param>
+                        <param name="slice">100</param>
+                        <param name="label_pad">-15</param>
+                        <param name="builtin">true</param>
+                        <param name="id">9004</param>
+                        <param name="groupid">9104</param>
+                        <param name="sliceid">9204</param>
+                        <param name="label">$VAR[Label_PVRGrpMgr_HideGroup]</param>
+                        <param name="icon">$VAR[Image_PVRGrpMgr_HideGroup]</param>
+                        <param name="include_hintlabel">true</param>
+                        <onclick>SetFocus(25)</onclick>
+                        <onclick>Action(Select)</onclick>
+                        <onclick>SetFocus(9004)</onclick>
+                    </include>
+                    <include content="DialogInfo_Button_Expansion">
+                        <param name="vertical">false</param>
+                        <param name="width">300</param>
+                        <param name="slice">100</param>
+                        <param name="label_pad">-15</param>
+                        <param name="builtin">true</param>
+                        <param name="id">28</param>
+                        <param name="groupid">9105</param>
+                        <param name="sliceid">9205</param>
+                        <param name="label">$LOCALIZE[117]</param>
+                        <param name="icon">special://skin/extras/icons/delete-left.png</param>
+                        <param name="include_hintlabel">true</param>
+                    </include>
+                    <include content="DialogInfo_Button_Expansion">
+                        <param name="vertical">false</param>
+                        <param name="width">300</param>
+                        <param name="slice">100</param>
+                        <param name="label_pad">-15</param>
+                        <param name="builtin">true</param>
+                        <param name="id">35</param>
+                        <param name="groupid">9106</param>
+                        <param name="sliceid">9206</param>
+                        <param name="label">$LOCALIZE[184]</param>
+                        <param name="icon">special://skin/extras/icons/image.png</param>
+                        <param name="include_hintlabel">true</param>
+                    </include>
+                    <include content="DialogInfo_Button_Expansion">
+                        <param name="vertical">false</param>
+                        <param name="width">300</param>
+                        <param name="slice">100</param>
+                        <param name="label_pad">-15</param>
+                        <param name="builtin">true</param>
+                        <param name="id">34</param>
+                        <param name="groupid">9107</param>
+                        <param name="sliceid">9207</param>
+                        <param name="label">$VAR[Label_PVRChannelMgrToggle]</param>
+                        <param name="icon">special://skin/extras/icons/right-left.png</param>
+                        <param name="include_hintlabel">true</param>
+                    </include>
                 </control>
             </control>
 
-
-            <!-- Side Buttons -->
-            <control type="group">
-                <include>Dialog_Side_Panel_Group_Def</include>
-                <control type="group">
-                    <include>Dimension_Dialog_Body</include>
-                    <control type="grouplist" id="9000">
-                        <include>Dialog_Side_Expanded_Grouplist_Def</include>
-                        <onleft>63</onleft>
-                        <include content="DialogInfo_ExpandedButton">
-                            <param name="builtin">true</param>
-                            <param name="id">29</param>
-                            <param name="groupid">9101</param>
-                            <param name="label">$LOCALIZE[186]</param>
-                            <param name="icon">special://skin/extras/icons/circle-check.png</param>
-                            <param name="include_hintlabel">true</param>
-                        </include>
-                        <include content="DialogInfo_ExpandedButton">
-                            <param name="builtin">true</param>
-                            <param name="id">26</param>
-                            <param name="groupid">9102</param>
-                            <param name="label">$LOCALIZE[15019]</param>
-                            <param name="icon">special://skin/extras/icons/circle-plus.png</param>
-                            <param name="include_hintlabel">true</param>
-                        </include>
-                        <include content="DialogInfo_ExpandedButton">
-                            <param name="builtin">true</param>
-                            <param name="id">27</param>
-                            <param name="groupid">9103</param>
-                            <param name="label">$LOCALIZE[118]</param>
-                            <param name="icon">special://skin/extras/icons/i-cursor.png</param>
-                            <param name="include_hintlabel">true</param>
-                        </include>
-                        <include content="DialogInfo_ExpandedButton">
-                            <param name="builtin">true</param>
-                            <param name="id">9004</param>
-                            <param name="groupid">9104</param>
-                            <param name="label">$VAR[Label_PVRGrpMgr_HideGroup]</param>
-                            <param name="icon">$VAR[Image_PVRGrpMgr_HideGroup]</param>
-                            <param name="include_hintlabel">true</param>
-                            <onclick>SetFocus(25)</onclick>
-                            <onclick>Action(Select)</onclick>
-                            <onclick>SetFocus(9004)</onclick>
-                        </include>
-                        <include content="DialogInfo_ExpandedButton">
-                            <param name="builtin">true</param>
-                            <param name="id">28</param>
-                            <param name="groupid">9105</param>
-                            <param name="label">$LOCALIZE[117]</param>
-                            <param name="icon">special://skin/extras/icons/delete-left.png</param>
-                            <param name="include_hintlabel">true</param>
-                        </include>
-                        <include content="DialogInfo_ExpandedButton">
-                            <param name="builtin">true</param>
-                            <param name="id">35</param>
-                            <param name="groupid">9106</param>
-                            <param name="label">$LOCALIZE[184]</param>
-                            <param name="icon">special://skin/extras/icons/image.png</param>
-                            <param name="include_hintlabel">true</param>
-                        </include>
-                        <include content="DialogInfo_ExpandedButton">
-                            <param name="builtin">true</param>
-                            <param name="id">34</param>
-                            <param name="groupid">9107</param>
-                            <param name="label">$VAR[Label_PVRChannelMgrToggle]</param>
-                            <param name="icon">special://skin/extras/icons/right-left.png</param>
-                            <param name="include_hintlabel">true</param>
-                        </include>
-                    </control>
-                </control>
-            </control>
 
         </control>
     </controls>

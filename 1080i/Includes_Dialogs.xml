@@ -163,6 +163,30 @@
                 </include>
                 <texture colordiffuse="$VAR[Color_DialogBorder]" border="20,6,20,6" flipy="$PARAM[flipped]">common/dialog-edge-outline-v.png</texture>
             </control>
+            <!-- <control type="image">
+                <include content="Object_Top" condition="$PARAM[flipped]">
+                    <param name="top">120</param>
+                </include>
+                <include content="Object_Bottom" condition="![$PARAM[flipped]]">
+                    <param name="bottom">120</param>
+                </include>
+                <include content="Object_Texture" condition="$PARAM[flipped]">
+                    <param name="texture">common/dialog_overlay_v.png</param>
+                    <param name="colordiffuse">dialog_fg_12</param>
+                    <param name="border">16,16,16,0</param>
+                </include>
+                <texture colordiffuse="dialog_fg_12" border="16,16,16,0" flipy="true">common/dialog_overlay_v.png</texture>
+            </control>
+            <control type="image">
+                <height>1</height>
+                <include content="Object_Top" condition="$PARAM[flipped]">
+                    <param name="top">120</param>
+                </include>
+                <include content="Object_Bottom" condition="![$PARAM[flipped]]">
+                    <param name="bottom">120</param>
+                </include>
+                <texture colordiffuse="$VAR[Color_DialogBorder]">common/white.png</texture>
+            </control> -->
         </definition>
     </include>
 
@@ -799,5 +823,33 @@
             <label>$INFO[Container($PARAM[id]).NumItems,, $LOCALIZE[31022]]$INFO[Container($PARAM[id]).CurrentPage,  •  $LOCALIZE[31135] ,]$INFO[Container($PARAM[id]).NumPages, $LOCALIZE[20163] ,]</label>
             <visible>Control.IsVisible($PARAM[id])</visible>
         </control>
+    </include>
+
+    <include name="Dialog_InfoText">
+        <param name="fallback">19055</param>
+        <param name="left">60</param>
+        <definition>
+            <control type="group">
+                <height>40</height>
+                <centerbottom>-40</centerbottom>
+                <left>$PARAM[left]</left>
+                <right>60</right>
+                <control type="image">
+                    <left>-20</left>
+                    <width>40</width>
+                    <bordersize>-12</bordersize>
+                    <texture colordiffuse="dialog_fg_70">special://skin/extras/icons/info2.png</texture>
+                </control>
+                <control type="textbox">
+                    <font>font_tiny</font>
+                    <left>40</left>
+                    <height>55</height>
+                    <centertop>50%</centertop>
+                    <aligny>center</aligny>
+                    <textcolor>dialog_fg_70</textcolor>
+                    <label fallback="$PARAM[fallback]">$PARAM[label]</label>
+                </control>
+            </control>
+        </definition>
     </include>
 </includes>

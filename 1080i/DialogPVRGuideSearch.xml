@@ -10,13 +10,20 @@
             <include>Dimension_DialogMainMenu</include>
             <include>Animation_Right_Delay</include>
 
-            <include content="Dialog_Foreground_Side">
-                <param name="lines_right">dialog_panelgroup_w</param>
+            <include content="Dialog_Background_Group">
                 <param name="dialog_size">Dimension_DialogMainMenu</param>
             </include>
 
             <control type="group">
-                <right>dialog_panelgroup_w</right>
+                <include content="Dimension_Padding">
+                    <param name="pad">40</param>
+                </include>
+                <include content="Dialog_Overlay_Mode_Glass">
+                    <param name="flipped">false</param>
+                </include>
+            </control>
+
+            <control type="group">
                 <!-- Header -->
                 <include content="Dialog_Head">
                     <param name="id">9901</param>
@@ -26,6 +33,7 @@
 
                 <!-- Content -->
                 <control type="group">
+                    <bottom>240</bottom>
                     <include>Dimension_Dialog_Body</include>
                     <control type="group" id="8000">
                         <include>Dimension_Dialog_Body_Group</include>
@@ -39,12 +47,13 @@
                             <align>left</align>
                             <onright>9000</onright>
                             <ondown>8300</ondown>
+                            <top>-40</top>
                         </include>
 
                         <control type="textbox" id="8001">
                             <label>$LOCALIZE[19001] $LOCALIZE[19002]</label>
-                            <top>80</top>
-                            <height>80</height>
+                            <top>40</top>
+                            <height>40</height>
                             <align>center</align>
                             <aligny>center</aligny>
                             <font>font_tiny</font>
@@ -52,13 +61,14 @@
 
                         <control type="image">
                             <centerleft>50%</centerleft>
-                            <top>160</top>
+                            <top>80</top>
+                            <bottom>-80</bottom>
                             <width>1</width>
                             <texture colordiffuse="$VAR[Color_DialogBorder]">common/white.png</texture>
                         </control>
 
                         <control type="group" id="8300">
-                            <top>160</top>
+                            <top>80</top>
 
                             <control type="group">
                                 <width>50%</width>
@@ -67,7 +77,8 @@
                                     <height>640</height>
                                     <right>20</right>
                                     <onup>9</onup>
-                                    <ondown>noop</ondown>
+                                    <ondown>9000</ondown>
+                                    <onback>9002</onback>
                                     <include content="Settings_Button">
                                         <param name="control">radiobutton</param>
                                         <param name="id">10</param>
@@ -134,8 +145,8 @@
                                     <height>640</height>
                                     <left>20</left>
                                     <onup>9</onup>
-                                    <ondown>noop</ondown>
-                                    <onright>9000</onright>
+                                    <ondown>9000</ondown>
+                                    <onback>9002</onback>
                                     <include content="Settings_Button">
                                         <param name="control">spincontrolex</param>
                                         <param name="id">12</param>
@@ -197,47 +208,64 @@
                         </control>
                     </control>
                 </control>
-            </control>
 
+                <control type="grouplist" id="9000">
+                    <height>160</height>
+                    <bottom>20</bottom>
+                    <left>50</left>
+                    <right>40</right>
+                    <align>center</align>
+                    <onup>8000</onup>
+                    <orientation>horizontal</orientation>
+                    <include content="DialogInfo_Button_Expansion">
+                        <param name="vertical">false</param>
+                        <param name="width">300</param>
+                        <param name="slice">100</param>
+                        <param name="label_pad">-15</param>
+                        <param name="id">9002</param>
+                        <param name="groupid">9102</param>
+                        <param name="sliceid">9202</param>
+                        <param name="label">$LOCALIZE[137]</param>
+                        <param name="icon">special://skin/extras/icons/search.png</param>
+                        <onclick>SendClick(26)</onclick>
+                    </include>
+                    <include content="DialogInfo_Button_Expansion">
+                        <param name="vertical">false</param>
+                        <param name="width">300</param>
+                        <param name="slice">100</param>
+                        <param name="label_pad">-15</param>
+                        <param name="id">9003</param>
+                        <param name="groupid">9103</param>
+                        <param name="sliceid">9203</param>
+                        <param name="label">$LOCALIZE[190]</param>
+                        <param name="icon">special://skin/extras/icons/floppy-disk.png</param>
+                        <onclick>SendClick(29)</onclick>
+                    </include>
+                    <include content="DialogInfo_Button_Expansion">
+                        <param name="vertical">false</param>
+                        <param name="width">300</param>
+                        <param name="slice">100</param>
+                        <param name="label_pad">-15</param>
+                        <param name="id">9004</param>
+                        <param name="groupid">9104</param>
+                        <param name="sliceid">9204</param>
+                        <param name="label">$LOCALIZE[13007]</param>
+                        <param name="icon">special://skin/extras/icons/triangle-exclamation.png</param>
+                        <onclick>SendClick(28)</onclick>
+                    </include>
+                    <include content="DialogInfo_Button_Expansion">
+                        <param name="vertical">false</param>
+                        <param name="width">300</param>
+                        <param name="slice">100</param>
+                        <param name="label_pad">-15</param>
+                        <param name="id">9005</param>
+                        <param name="groupid">9105</param>
+                        <param name="sliceid">9205</param>
+                        <param name="label">$LOCALIZE[222]</param>
+                        <param name="icon">special://skin/extras/icons/circle-xmark.png</param>
+                        <onclick>SendClick(25)</onclick>
+                    </include>
 
-            <!-- Side Buttons -->
-            <control type="group">
-                <include>Dialog_Side_Panel_Group_Def</include>
-                <control type="group">
-                    <include>Dimension_Dialog_Body</include>
-                    <control type="grouplist" id="9000">
-                        <include>Dialog_Side_Expanded_Grouplist_Def</include>
-                        <onleft>8000</onleft>
-                        <include content="DialogInfo_ExpandedButton">
-                            <param name="id">9002</param>
-                            <param name="groupid">9102</param>
-                            <param name="label">$LOCALIZE[137]</param>
-                            <param name="icon">special://skin/extras/icons/search.png</param>
-                            <onclick>SendClick(26)</onclick>
-                        </include>
-                        <include content="DialogInfo_ExpandedButton">
-                            <param name="id">9003</param>
-                            <param name="groupid">9103</param>
-                            <param name="label">$LOCALIZE[190]</param>
-                            <param name="icon">special://skin/extras/icons/floppy-disk.png</param>
-                            <onclick>SendClick(29)</onclick>
-                        </include>
-                        <include content="DialogInfo_ExpandedButton">
-                            <param name="id">9004</param>
-                            <param name="groupid">9104</param>
-                            <param name="label">$LOCALIZE[13007]</param>
-                            <param name="icon">special://skin/extras/icons/triangle-exclamation.png</param>
-                            <onclick>SendClick(28)</onclick>
-                        </include>
-                        <include content="DialogInfo_ExpandedButton">
-                            <param name="id">9005</param>
-                            <param name="groupid">9105</param>
-                            <param name="label">$LOCALIZE[222]</param>
-                            <param name="icon">special://skin/extras/icons/circle-xmark.png</param>
-                            <onclick>SendClick(25)</onclick>
-                        </include>
-
-                    </control>
                 </control>
             </control>
 
