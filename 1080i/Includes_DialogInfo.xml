@@ -1413,10 +1413,12 @@
         <param name="backing">false</param>
         <param name="colordiffuse">main_fg_90</param>
         <param name="label_pad">0</param>
+        <param name="icon_left">-20</param>
         <param name="control">button</param>
         <param name="radiocross">false</param>
         <param name="radiocheck">false</param>
         <param name="radioround">false</param>
+        <param name="expanded">false</param>
         <definition>
             <control type="$PARAM[control]" id="$PARAM[id]">
                 <width>$PARAM[width]</width>
@@ -1470,7 +1472,7 @@
                     <param name="id">$PARAM[id]</param>
                 </include>
                 <control type="group">
-                    <left>-20</left>
+                    <left>$PARAM[icon_left]</left>
                     <control type="group">
                         <visible>!Control.HasFocus($PARAM[id])</visible>
                         <include content="Object_InfoCircle" condition="$PARAM[backing]">
@@ -1485,9 +1487,21 @@
                             <param name="colordiffuse">$PARAM[colordiffuse]</param>
                             <param name="bordersize">icon_item_bordersize</param>
                         </include>
+                        <control type="group">
+                            <visible>$PARAM[expanded]</visible>
+                            <left>$PARAM[label_pad]</left>
+                            <right>$PARAM[label_pad]</right>
+                            <control type="label">
+                                <font>font_mini_bold</font>
+                                <label>$PARAM[label]</label>
+                                <align>left</align>
+                                <left>120</left>
+                                <right>40</right>
+                                <textcolor>$PARAM[colordiffuse]</textcolor>
+                            </control>
+                        </control>
                     </control>
                     <control type="group">
-                        <right>40</right>
                         <visible>Control.HasFocus($PARAM[id])</visible>
                         <include content="Object_InfoCircle" condition="$PARAM[backing]">
                             <param name="icon">$PARAM[icon]</param>
@@ -1511,6 +1525,7 @@
                                 <label>$PARAM[label]</label>
                                 <align>left</align>
                                 <left>120</left>
+                                <right>40</right>
                                 <textcolor>$VAR[ColorSelected]</textcolor>
                             </control>
                         </control>
@@ -1523,6 +1538,7 @@
                 <left>-$PARAM[width]</left>
                 <width>$PARAM[slice]</width>
                 <visible>$PARAM[visible]</visible>
+                <visible>![$PARAM[expanded]]</visible>
                 <include content="DialogInfo_Button_GroupBuiltin" condition="$PARAM[builtin]">
                     <param name="id">$PARAM[id]</param>
                 </include>
@@ -1967,7 +1983,6 @@
         <param name="scrollbar_fakefocus">false</param>
         <definition>
             <include content="Dialog_Foreground_Side">
-                <param name="slide_condition">true</param>
                 <param name="dialog_size">$PARAM[dialog_size]</param>
                 <param name="topline">false</param>
                 <param name="subline">false</param>
@@ -2037,7 +2052,6 @@
                 <include>Animation_Right_Delay</include>
 
                 <include content="Dialog_Foreground_Side">
-                    <param name="slide_condition">true</param>
                     <param name="dialog_size">$PARAM[size]</param>
                     <param name="topline">false</param>
                     <param name="subline">false</param>

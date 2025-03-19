@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <window>
     <zorder>2</zorder>
-    <defaultcontrol always="true">9001</defaultcontrol>
+    <defaultcontrol always="true">28</defaultcontrol>
     <controls>
 
         <include content="Settings_Button">
@@ -75,12 +75,6 @@
         </include>
 
         <include content="Object_Hidden_Button">
-            <param name="id">28</param>
-        </include>
-        <include content="Object_Hidden_Button">
-            <param name="id">29</param>
-        </include>
-        <include content="Object_Hidden_Button">
             <param name="id">30</param>
         </include>
         <include content="Object_Hidden_Button">
@@ -146,9 +140,7 @@
 
                             <control type="grouplist" id="3">
                                 <onright>5</onright>
-                                <onup>-</onup>
-                                <ondown>9000</ondown>
-                                <onback>9001</onback>
+                                <onback>28</onback>
                             </control>
                         </control>
 
@@ -164,9 +156,7 @@
                                 <bottom>20</bottom>
                                 <onleft>3</onleft>
                                 <onright>61</onright>
-                                <ondown>9000</ondown>
-                                <onup>-</onup>
-                                <onback>9001</onback>
+                                <onback>28</onback>
                                 <pagecontrol>61</pagecontrol>
                             </control>
                         </include>
@@ -175,8 +165,7 @@
                         <param name="id">61</param>
                         <param name="inset">true</param>
                         <onleft>5</onleft>
-                        <ondown>9000</ondown>
-                        <onback>9001</onback>
+                        <onback>28</onback>
                     </include>
                     <include content="Dialog_InfoText">
                         <param name="label">$INFO[Control.GetLabel(6)]</param>
@@ -184,16 +173,36 @@
                 </control>
 
                 <!-- Buttons -->
-                <control type="grouplist" id="9000">
-                    <height>160</height>
-                    <bottom>20</bottom>
-                    <left>50</left>
-                    <right>40</right>
-                    <align>center</align>
-                    <onup>8000</onup>
-                    <orientation>horizontal</orientation>
-                    <include>Items_DialogAddonSettings_MenuBar</include>
-                </control>
+                <include content="Dialog_Tray_Grouplist_Left">
+                    <include content="Dialog_Button_Expanded">
+                        <param name="id">28</param>
+                        <param name="builtin">true</param>
+                        <param name="label">$LOCALIZE[186]</param>
+                        <param name="icon">special://skin/extras/icons/circle-check.png</param>
+                    </include>
+                    <include content="Dialog_Button_Expanded">
+                        <param name="id">29</param>
+                        <param name="builtin">true</param>
+                        <param name="label">$LOCALIZE[222]</param>
+                        <param name="icon">special://skin/extras/icons/circle-xmark.png</param>
+                    </include>
+                </include>
+                <include content="Dialog_Tray_Grouplist_Right">
+                    <include content="Dialog_Button_Expansion">
+                        <param name="id">03</param>
+                        <param name="label">$INFO[Control.GetLabel(30)]</param>
+                        <param name="icon">special://skin/extras/icons/triangle-exclamation.png</param>
+                        <param name="visible">Control.IsEnabled(30)</param>
+                        <onclick>SendClick(30)</onclick>
+                    </include>
+                    <include content="Dialog_Button_Expansion">
+                        <param name="id">04</param>
+                        <param name="label">$INFO[Control.GetLabel(20)]</param>
+                        <param name="icon">$VAR[Image_Settings_Level]</param>
+                        <param name="visible">Control.IsEnabled(20)</param>
+                        <onclick>settingslevelchange</onclick>
+                    </include>
+                </include>
             </control>
 
 

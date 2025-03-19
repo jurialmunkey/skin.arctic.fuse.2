@@ -332,97 +332,16 @@
     </include>
 
     <include name="Settings_InfoText">
-        <param name="visible">true</param>
-        <param name="font">font_mini_plot</param>
-        <param name="icon">buttons/info.png</param>
-        <param name="dialog">false</param>
-        <param name="override">false</param>
-        <param name="heading">$VAR[Label_Settings_InfoText_Top]</param>
-        <param name="align">left</param>
-        <param name="left">0</param>
-        <param name="bottom">-20</param>
-        <param name="right">480</param>
         <definition>
-            <control type="group">
-                <bottom>$PARAM[bottom]</bottom>
-                <left>$PARAM[left]</left>
-                <right>$PARAM[right]</right>
-                <height>40</height>
-                <animation effect="fade" start="0" end="100" time="400" delay="200">Visible</animation>
-                <animation effect="fade" start="100" end="0" time="400">Hidden</animation>
-                <visible>$PARAM[visible]</visible>
-
-
-                <control type="group">
-                    <include content="Object_Control" condition="![$PARAM[override]]">
-                        <param name="control">label</param>
-                        <label fallback="19033">$VAR[Label_Settings_InfoText_Top]</label>
-                        <align>$PARAM[align]</align>
-                        <top>0</top>
-                        <height>10</height>
-                        <font>font_hint_bold</font>
-                        <include content="Object_TextColor" condition="$PARAM[dialog]">
-                            <param name="textcolor">dialog_fg_30</param>
-                        </include>
-                        <textcolor>main_fg_30</textcolor>
-                    </include>
-                    <include content="Object_Control" condition="$PARAM[override]">
-                        <param name="control">label</param>
-                        <label fallback="19033">$PARAM[heading]</label>
-                        <top>0</top>
-                        <height>10</height>
-                        <font>font_hint_bold</font>
-                        <align>$PARAM[align]</align>
-                        <include content="Object_TextColor" condition="$PARAM[dialog]">
-                            <param name="textcolor">dialog_fg_30</param>
-                        </include>
-                        <textcolor>main_fg_30</textcolor>
-                    </include>
-                </control>
-
-                <control type="group">
-                    <include content="Object_Hidden_Button" condition="![$PARAM[override]]">
-                        <param name="id">$PARAM[id]</param>
-                        <param name="control">label</param>
-                    </include>
-
-                    <include content="Object_Control" condition="![$PARAM[override]]">
-                        <param name="control">label</param>
-                        <label fallback="19055">$VAR[Label_Settings_InfoText_Sub]</label>
-                        <include content="Object_TextColor" condition="$PARAM[dialog]">
-                            <param name="textcolor">dialog_fg_70</param>
-                        </include>
-                        <include>Defs_Label_FooterItem</include>
-                        <wrapmultiline>false</wrapmultiline>
-                        <scroll>true</scroll>
-                        <align>$PARAM[align]</align>
-                    </include>
-                    <include content="Object_Control" condition="$PARAM[override]">
-                        <param name="control">label</param>
-                        <param name="id">$PARAM[id]</param>
-                        <label fallback="19055">$PARAM[label]</label>
-                        <include content="Object_TextColor" condition="$PARAM[dialog]">
-                            <param name="textcolor">dialog_fg_70</param>
-                        </include>
-                        <include>Defs_Label_FooterItem</include>
-                        <wrapmultiline>false</wrapmultiline>
-                        <scroll>true</scroll>
-                        <align>$PARAM[align]</align>
-                    </include>
-                    <include content="Object_Control" condition="$PARAM[override]">
-                        <param name="control">label</param>
-                        <label>$LOCALIZE[19055]</label>
-                        <scroll>true</scroll>
-                        <include content="Object_TextColor" condition="$PARAM[dialog]">
-                            <param name="textcolor">dialog_fg_70</param>
-                        </include>
-                        <include>Defs_Label_FooterItem</include>
-                        <wrapmultiline>false</wrapmultiline>
-                        <visible>String.IsEmpty(Control.GetLabel($PARAM[id]))</visible>
-                        <align>$PARAM[align]</align>
-                    </include>
-                </control>
-            </control>
+            <include content="Dialog_InfoText">
+                <param name="label">$VAR[Label_Settings_InfoText]</param>
+                <param name="fallback">$INFO[System.BuildVersion,Kodi ,]$INFO[System.AddonVersion(skin.arctic.fuse.2), • AF2 v,]</param>
+                <param name="colordiffuse">main_fg_70</param>
+                <param name="centerbottom">100</param>
+                <param name="left">500</param>
+                <param name="right">440</param>
+                <param name="id">$PARAM[id]</param>
+            </include>
         </definition>
     </include>
 
