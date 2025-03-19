@@ -398,6 +398,236 @@
         </definition>
     </include>
 
+    <include name="Dialog_Tray_Grouplist_Left">
+        <control type="grouplist" id="9000">
+            <height>160</height>
+            <bottom>20</bottom>
+            <left>60</left>
+            <right>60</right>
+            <align>left</align>
+            <onup>8000</onup>
+            <onleft>-</onleft>
+            <onright>9900</onright>
+            <orientation>horizontal</orientation>
+            <nested />
+        </control>
+    </include>
+
+    <include name="Dialog_Tray_Grouplist_Right">
+        <control type="grouplist" id="9900">
+            <height>160</height>
+            <bottom>20</bottom>
+            <left>60</left>
+            <right>60</right>
+            <align>right</align>
+            <onup>8000</onup>
+            <onleft>9000</onleft>
+            <onback>9000</onback>
+            <onright>-</onright>
+            <orientation>horizontal</orientation>
+            <nested />
+        </control>
+    </include>
+
+    <include name="_DialogInfo_Button_Expanded">
+        <param name="width">200</param>
+        <param name="id">4001</param>
+        <param name="groupid">4101</param>
+        <param name="label" />
+        <param name="icon" />
+        <param name="visible">true</param>
+        <param name="builtin">false</param>
+        <param name="colordiffuse">dialog_fg_70</param>
+        <param name="control">button</param>
+        <param name="radiocross">false</param>
+        <param name="radiocheck">false</param>
+        <param name="radioround">false</param>
+        <definition>
+            <control type="$PARAM[control]" id="$PARAM[id]">
+                <width>$PARAM[width]</width>
+                <height>80</height>
+                <centertop>50%</centertop>
+                <texturenofocus />
+                <visible>$PARAM[visible]</visible>
+                <font />
+
+                <radiowidth>16</radiowidth>
+                <radioheight>16</radioheight>
+                <radioposx>54</radioposx>
+                <radioposy>46</radioposy>
+
+                <include content="DialogInfo_Button_RadioCheck" condition="$PARAM[radiocheck]">
+                    <param name="color_nofocus">$PARAM[colordiffuse]</param>
+                    <param name="color_disabled">$PARAM[colordiffuse]</param>
+                </include>
+
+                <include content="DialogInfo_Button_RadioCross" condition="$PARAM[radiocross]">
+                    <param name="color_nofocus">$PARAM[colordiffuse]</param>
+                    <param name="color_disabled">$PARAM[colordiffuse]</param>
+                </include>
+
+                <include content="DialogInfo_Button_RadioRound" condition="$PARAM[radioround]">
+                    <param name="color_nofocus">$PARAM[colordiffuse]</param>
+                    <param name="color_disabled">$PARAM[colordiffuse]</param>
+                </include>
+
+                <textureradioondisabled colordiffuse="00ffffff">buttons/check-on.png</textureradioondisabled>
+                <textureradioonfocus colordiffuse="00ffffff">buttons/check-on.png</textureradioonfocus>
+                <textureradioonnofocus colordiffuse="00ffffff">buttons/check-on.png</textureradioonnofocus>
+
+                <textureradiooffdisabled colordiffuse="00ffffff">buttons/check-off.png</textureradiooffdisabled>
+                <textureradioofffocus colordiffuse="00ffffff">buttons/check-off.png</textureradioofffocus>
+                <textureradiooffnofocus colordiffuse="00ffffff">buttons/check-off.png</textureradiooffnofocus>
+
+                <textcolor>00ffffff</textcolor>
+                <selectedcolor>00ffffff</selectedcolor>
+                <focusedcolor>00ffffff</focusedcolor>
+                <nested />
+            </control>
+
+            <control type="group" id="$PARAM[groupid]">
+                <left>-$PARAM[width]</left>
+                <height>80</height>
+                <width>$PARAM[width]</width>
+                <centertop>50%</centertop>
+                <visible>$PARAM[visible]</visible>
+                <include content="DialogInfo_Button_GroupBuiltin" condition="$PARAM[builtin]">
+                    <param name="id">$PARAM[id]</param>
+                </include>
+                <control type="group">
+                    <control type="group">
+                        <visible>!Control.HasFocus($PARAM[id])</visible>
+                        <include content="Dialog_Button_Expanded_IconLabel">
+                            <param name="icon">$PARAM[icon]</param>
+                            <param name="label">$PARAM[label]</param>
+                            <param name="colordiffuse">$PARAM[colordiffuse]</param>
+                        </include>
+                    </control>
+                    <control type="group">
+                        <visible>Control.HasFocus($PARAM[id])</visible>
+                        <include content="Dialog_Button_Expanded_IconLabel">
+                            <param name="icon">$PARAM[icon]</param>
+                            <param name="label">$PARAM[label]</param>
+                            <param name="colordiffuse">$VAR[ColorSelected]</param>
+                        </include>
+                    </control>
+                </control>
+            </control>
+        </definition>
+    </include>
+
+    <include name="Dialog_Button_Expanded_IconLabel">
+        <definition>
+            <control type="image">
+                <texture background="true" colordiffuse="$PARAM[colordiffuse]">$PARAM[icon]</texture>
+                <bordersize>icon_item_bordersize</bordersize>
+                <width>50</width>
+                <height>50</height>
+                <centertop>50%</centertop>
+                <centerleft>40</centerleft>
+            </control>
+            <control type="label">
+                <font>font_mini_bold</font>
+                <label>$PARAM[label]</label>
+                <align>left</align>
+                <left>80</left>
+                <right>30</right>
+                <textcolor>$PARAM[colordiffuse]</textcolor>
+            </control>
+        </definition>
+    </include>
+
+    <include name="Dialog_Button_Expanded">
+        <param name="baseid">9</param>
+        <param name="vertical">false</param>
+        <param name="builtin">false</param>
+        <definition>
+            <include content="_DialogInfo_Button_Expanded" condition="![$PARAM[builtin]]">
+                <param name="vertical">$PARAM[vertical]</param>
+                <param name="width">$PARAM[width]</param>
+                <param name="id">$PARAM[baseid]0$PARAM[id]</param>
+                <param name="groupid">$PARAM[baseid]1$PARAM[id]</param>
+                <param name="colordiffuse">$PARAM[colordiffuse]</param>
+                <param name="label">$PARAM[label]</param>
+                <param name="icon">$PARAM[icon]</param>
+                <param name="builtin">$PARAM[builtin]</param>
+                <param name="control">$PARAM[control]</param>
+                <param name="radiocross">$PARAM[radiocross]</param>
+                <param name="radiocheck">$PARAM[radiocheck]</param>
+                <param name="radioround">$PARAM[radioround]</param>
+                <nested />
+            </include>
+            <include content="_DialogInfo_Button_Expanded" condition="$PARAM[builtin]">
+                <param name="vertical">$PARAM[vertical]</param>
+                <param name="width">$PARAM[width]</param>
+                <param name="id">$PARAM[id]</param>
+                <param name="groupid">$PARAM[baseid]1$PARAM[id]</param>
+                <param name="colordiffuse">$PARAM[colordiffuse]</param>
+                <param name="label">$PARAM[label]</param>
+                <param name="icon">$PARAM[icon]</param>
+                <param name="builtin">$PARAM[builtin]</param>
+                <param name="control">$PARAM[control]</param>
+                <param name="radiocross">$PARAM[radiocross]</param>
+                <param name="radiocheck">$PARAM[radiocheck]</param>
+                <param name="radioround">$PARAM[radioround]</param>
+                <nested />
+            </include>
+        </definition>
+    </include>
+
+    <include name="Dialog_Button_Expansion">
+        <param name="baseid">9</param>
+        <param name="width">300</param>
+        <param name="slice">100</param>
+        <param name="label_pad">-15</param>
+        <param name="icon_left">-25</param>
+        <param name="vertical">false</param>
+        <param name="builtin">false</param>
+        <param name="colordiffuse">dialog_fg_70</param>
+        <definition>
+            <include content="DialogInfo_Button_Expansion" condition="![$PARAM[builtin]]">
+                <param name="vertical">$PARAM[vertical]</param>
+                <param name="width">$PARAM[width]</param>
+                <param name="slice">$PARAM[slice]</param>
+                <param name="label_pad">$PARAM[label_pad]</param>
+                <param name="icon_left">$PARAM[icon_left]</param>
+                <param name="id">$PARAM[baseid]0$PARAM[id]</param>
+                <param name="groupid">$PARAM[baseid]1$PARAM[id]</param>
+                <param name="sliceid">$PARAM[baseid]2$PARAM[id]</param>
+                <param name="colordiffuse">$PARAM[colordiffuse]</param>
+                <param name="label">$PARAM[label]</param>
+                <param name="icon">$PARAM[icon]</param>
+                <param name="builtin">$PARAM[builtin]</param>
+                <param name="expanded">$PARAM[expanded]</param>
+                <param name="control">$PARAM[control]</param>
+                <param name="radiocross">$PARAM[radiocross]</param>
+                <param name="radiocheck">$PARAM[radiocheck]</param>
+                <param name="radioround">$PARAM[radioround]</param>
+                <nested />
+            </include>
+            <include content="DialogInfo_Button_Expansion" condition="$PARAM[builtin]">
+                <param name="vertical">$PARAM[vertical]</param>
+                <param name="width">$PARAM[width]</param>
+                <param name="slice">$PARAM[slice]</param>
+                <param name="label_pad">$PARAM[label_pad]</param>
+                <param name="icon_left">$PARAM[icon_left]</param>
+                <param name="id">$PARAM[id]</param>
+                <param name="groupid">$PARAM[baseid]1$PARAM[id]</param>
+                <param name="sliceid">$PARAM[baseid]2$PARAM[id]</param>
+                <param name="colordiffuse">$PARAM[colordiffuse]</param>
+                <param name="label">$PARAM[label]</param>
+                <param name="icon">$PARAM[icon]</param>
+                <param name="builtin">$PARAM[builtin]</param>
+                <param name="expanded">$PARAM[expanded]</param>
+                <param name="control">$PARAM[control]</param>
+                <param name="radiocross">$PARAM[radiocross]</param>
+                <param name="radiocheck">$PARAM[radiocheck]</param>
+                <param name="radioround">$PARAM[radioround]</param>
+                <nested />
+            </include>
+        </definition>
+    </include>
+
     <include name="Dialog_Side_Expanded_Grouplist_Def">
         <param name="header">$LOCALIZE[33063]</param>
         <definition>
@@ -830,14 +1060,14 @@
         <param name="left">60</param>
         <definition>
             <control type="group">
-                <height>40</height>
+                <height>50</height>
                 <centerbottom>-40</centerbottom>
                 <left>$PARAM[left]</left>
                 <right>60</right>
                 <control type="image">
-                    <left>-20</left>
-                    <width>40</width>
-                    <bordersize>-12</bordersize>
+                    <left>-25</left>
+                    <width>50</width>
+                    <bordersize>icon_item_bordersize</bordersize>
                     <texture colordiffuse="dialog_fg_70">special://skin/extras/icons/info2.png</texture>
                 </control>
                 <control type="textbox">

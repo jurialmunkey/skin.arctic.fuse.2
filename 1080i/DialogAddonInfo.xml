@@ -2,7 +2,8 @@
 <window type="dialog">
     <zorder>2</zorder>
     <menucontrol>9000</menucontrol>
-    <defaultcontrol>9000</defaultcontrol>
+    <defaultcontrol always="true">9000</defaultcontrol>
+    <onload>AlarmClock(refocus,SetFocus(9000),00:00,silent)</onload>
 
     <controls>
 
@@ -33,7 +34,7 @@
                 <include>Dialog_Head_CloseButton</include>
 
                 <!-- Content -->
-                <control type="group">
+                <control type="group" id="8000">
                     <bottom>240</bottom>
                     <include>Dimension_Dialog_Body</include>
                     <control type="group">
@@ -146,22 +147,76 @@
                     <include content="Dialog_Scrollbar">
                         <param name="id">61</param>
                         <param name="inset">true</param>
-                        <ondown>9000</ondown>
-                        <onback>9</onback>
+                        <onback>9000</onback>
                     </include>
                 </control>
 
                 <!-- Buttons -->
-                <control type="grouplist" id="9000">
-                    <height>160</height>
-                    <bottom>20</bottom>
-                    <left>50</left>
-                    <right>40</right>
-                    <align>center</align>
-                    <onup>61</onup>
-                    <orientation>horizontal</orientation>
-                    <include>Items_DialogAddonInfo_MenuBar</include>
-                </control>
+                <include content="Dialog_Tray_Grouplist_Left">
+                    <include content="Dialog_Button_Expanded">
+                        <param name="id">12</param>
+                        <param name="builtin">true</param>
+                        <param name="label">$INFO[Control.GetLabel(12)]</param>
+                        <param name="icon">special://skin/extras/icons/play3.png</param>
+                    </include>
+                    <include content="Dialog_Button_Expanded">
+                        <param name="id">99</param>
+                        <param name="label">$LOCALIZE[222]</param>
+                        <param name="icon">special://skin/extras/icons/circle-xmark.png</param>
+                        <onclick>Close</onclick>
+                    </include>
+                </include>
+                <include content="Dialog_Tray_Grouplist_Right">
+                    <include content="Dialog_Button_Expansion" description="Enable">
+                        <param name="builtin">true</param>
+                        <param name="id">07</param>
+                        <param name="icon">$VAR[Image_AddonInfo_Enable]</param>
+                        <param name="visible">Control.IsEnabled(7)</param>
+                        <param name="label">$INFO[Control.GetLabel(7)]</param>
+                    </include>
+                    <include content="Dialog_Button_Expansion" description="Install">
+                        <param name="builtin">true</param>
+                        <param name="id">06</param>
+                        <param name="icon">$VAR[Image_AddonInfo_Install]</param>
+                        <param name="visible">Control.IsEnabled(6)</param>
+                        <param name="label">$INFO[Control.GetLabel(6)]</param>
+                    </include>
+                    <include content="Dialog_Button_Expansion" description="Update">
+                        <param name="control">radiobutton</param>
+                        <param name="radiocheck">true</param>
+                        <param name="builtin">true</param>
+                        <param name="id">8</param>
+                        <param name="icon">special://skin/extras/icons/update.png</param>
+                        <param name="label">$LOCALIZE[24138]</param>
+                    </include>
+                    <include content="Dialog_Button_Expansion" description="Auto-Update">
+                        <param name="builtin">true</param>
+                        <param name="id">13</param>
+                        <param name="control">radiobutton</param>
+                        <param name="radiocheck">true</param>
+                        <param name="radiocross">true</param>
+                        <param name="icon">special://skin/extras/icons/update.png</param>
+                        <param name="label">$LOCALIZE[21340]</param>
+                    </include>
+                    <include content="Dialog_Button_Expansion" description="Versions">
+                        <param name="builtin">true</param>
+                        <param name="id">14</param>
+                        <param name="icon">special://skin/extras/icons/network.png</param>
+                        <param name="label">$LOCALIZE[24069]</param>
+                    </include>
+                    <include content="Dialog_Button_Expansion" description="Dependencies">
+                        <param name="builtin">true</param>
+                        <param name="id">10</param>
+                        <param name="icon">special://skin/extras/icons/dependencies.png</param>
+                        <param name="label">$LOCALIZE[39024]</param>
+                    </include>
+                    <include content="Dialog_Button_Expansion" description="Settings">
+                        <param name="builtin">true</param>
+                        <param name="id">09</param>
+                        <param name="icon">special://skin/extras/icons/settings.png</param>
+                        <param name="label">$LOCALIZE[5]</param>
+                    </include>
+                </include>
             </control>
 
 

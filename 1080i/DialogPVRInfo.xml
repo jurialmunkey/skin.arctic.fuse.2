@@ -36,7 +36,7 @@
                 <include>Dialog_Head_CloseButton</include>
 
                 <!-- Content -->
-                <control type="group">
+                <control type="group" id="8000">
                     <bottom>240</bottom>
                     <include>Dimension_Dialog_Body</include>
                     <control type="group">
@@ -71,23 +71,85 @@
                         <param name="id">61</param>
                         <param name="inset">true</param>
                         <onback>9000</onback>
-                        <ondown>9000</ondown>
                     </include>
 
                 </control>
 
 
                 <!-- Buttons -->
-                <control type="grouplist" id="9000">
-                    <height>160</height>
-                    <bottom>20</bottom>
-                    <left>50</left>
-                    <right>40</right>
-                    <align>center</align>
-                    <onup>61</onup>
-                    <orientation>horizontal</orientation>
-                    <include>Items_DialogPVRInfo_MenuBar</include>
-                </control>
+                <include content="Dialog_Tray_Grouplist_Left">
+                    <include content="Dialog_Button_Expanded">
+                        <param name="id">05</param>
+                        <param name="builtin">true</param>
+                        <param name="label">$LOCALIZE[19165]</param>
+                        <param name="icon">special://skin/extras/icons/play2.png</param>
+                        <!-- <param name="visible">Window.IsActive(PVRGuideInfo) + Control.IsEnabled(5) + Control.IsVisible(5)</param> -->
+                    </include>
+                    <include content="Dialog_Button_Expanded">
+                        <param name="id">99</param>
+                        <param name="label">$LOCALIZE[222]</param>
+                        <param name="icon">special://skin/extras/icons/circle-xmark.png</param>
+                        <onclick>Close</onclick>
+                    </include>
+                </include>
+                <include content="Dialog_Tray_Grouplist_Right">
+
+                    <include content="Dialog_Button_Expansion" description="Play Programme">
+                        <param name="id">10</param>
+                        <param name="builtin">true</param>
+                        <param name="icon">special://skin/extras/icons/play3.png</param>
+                        <param name="label">$LOCALIZE[208]</param>
+                        <param name="visible">Window.IsActive(PVRGuideInfo) + Control.IsEnabled(10) + Control.IsVisible(10)</param>
+                    </include>
+
+                    <include content="Dialog_Button_Expansion" description="Play Recording">
+                        <param name="id">08</param>
+                        <param name="builtin">true</param>
+                        <param name="icon">special://skin/extras/icons/play3.png</param>
+                        <param name="label">$LOCALIZE[208]</param>
+                        <param name="visible">[Window.IsActive(PVRGuideInfo) | Window.IsActive(PVRRecordingInfo)] + Control.IsEnabled(8) + Control.IsVisible(8)</param>
+                    </include>
+
+                    <include content="Dialog_Button_Expansion" description="Record">
+                        <param name="id">06</param>
+                        <param name="builtin">true</param>
+                        <param name="icon">special://skin/extras/icons/record-vinyl.png</param>
+                        <param name="label">$LOCALIZE[264]</param>
+                        <param name="visible">Window.IsActive(PVRGuideInfo) + Control.IsEnabled(6) + Control.IsVisible(6)</param>
+                    </include>
+
+                    <include content="Dialog_Button_Expansion" description="Add Timer">
+                        <param name="id">09</param>
+                        <param name="builtin">true</param>
+                        <param name="icon">special://skin/extras/icons/clock.png</param>
+                        <param name="label">$LOCALIZE[19061]</param>
+                        <param name="visible">Window.IsActive(PVRGuideInfo) + Control.IsEnabled(9) + Control.IsVisible(9)</param>
+                    </include>
+
+                    <include content="Dialog_Button_Expansion" description="Set Reminder">
+                        <param name="id">11</param>
+                        <param name="builtin">true</param>
+                        <param name="icon">special://skin/extras/icons/clock.png</param>
+                        <param name="label">$LOCALIZE[826]</param>
+                        <param name="visible">Window.IsActive(PVRGuideInfo) + Control.IsEnabled(11) + Control.IsVisible(11)</param>
+                    </include>
+
+                    <include content="Dialog_Button_Expansion" description="Similar">
+                        <param name="id">04</param>
+                        <param name="builtin">true</param>
+                        <param name="icon">special://skin/extras/icons/binoculars.png</param>
+                        <param name="label">$LOCALIZE[31041]</param>
+                        <param name="visible">[Window.IsActive(PVRGuideInfo) | Window.IsActive(PVRRecordingInfo)] + Control.IsEnabled(4) + Control.IsVisible(4)</param>
+                    </include>
+
+                    <include content="Dialog_Button_Expansion">
+                        <param name="id">4082</param>
+                        <param name="label">Wiki</param>
+                        <param name="icon">special://skin/extras/icons/globe.png</param>
+                        <onclick>Close</onclick>
+                        <onclick>runscript(script.wikipedia,wikipedia=$VAR[Path_Wikipedia_Title],tmdb_type=$VAR[Path_Wikipedia_Type])</onclick>
+                    </include>
+                </include>
             </control>
 
 
