@@ -49,40 +49,57 @@
                         <param name="id">50</param>
                     </include>
                 </control>
+                <!-- Buttons -->
                 <control type="grouplist" id="9000">
-                    <right>40</right>
-                    <left>40</left>
-                    <height>80</height>
-                    <bottom>20</bottom>
-                    <align>center</align>
-                    <orientation>horizontal</orientation>
-                    <itemgap>20</itemgap>
+                    <height>160</height>
+                    <bottom>-20</bottom>
+                    <left>20</left>
+                    <right>20</right>
+                    <align>left</align>
                     <onup>50</onup>
-                    <control type="button" id="9001">
-                        <width>280</width>
-                        <label>  &lt;&lt;  $LOCALIZE[210]      </label>
-                        <include>defs_dialog_button</include>
-                        <visible>!String.IsEqual(Window(Home).Property(WizardStep),Themes)</visible>
+                    <onright>9099</onright>
+                    <onleft>-</onleft>
+                    <orientation>horizontal</orientation>
+                    <include content="Dialog_Button_Expanded">
+                        <param name="id">01</param>
+                        <param name="label">$LOCALIZE[186]</param>
+                        <param name="icon">special://skin/extras/icons/circle-check.png</param>
+                        <param name="width">220</param>
+                        <onclick>ClearProperty(WizardStep,Home)</onclick>
+                        <onclick>PreviousMenu</onclick>
+                    </include>
+                </control>
+                <control type="grouplist" id="9900">
+                    <height>160</height>
+                    <bottom>-20</bottom>
+                    <left>20</left>
+                    <right>20</right>
+                    <align>right</align>
+                    <onup>50</onup>
+                    <onleft>9001</onleft>
+                    <onright>-</onright>
+                    <orientation>horizontal</orientation>
+                    <include content="Dialog_Button_Expanded">
+                        <param name="id">99</param>
+                        <param name="label">$LOCALIZE[31579]</param>
+                        <param name="icon">special://skin/extras/icons/circle-left.png</param>
+                        <param name="width">220</param>
+                        <param name="visible">!String.IsEqual(Window(Home).Property(WizardStep),Themes)</param>
                         <onclick condition="String.IsEqual(Window(Home).Property(WizardStep),Dialog)">SetProperty(WizardStep,Themes,Home)</onclick>
                         <onclick condition="String.IsEqual(Window(Home).Property(WizardStep),Layout)">SetProperty(WizardStep,Dialog,Home)</onclick>
                         <onclick>SetFocus(50)</onclick>
-                    </control>
-                    <control type="button" id="9002">
-                        <width>280</width>
-                        <label>$LOCALIZE[15067]</label>
-                        <include>defs_dialog_button</include>
-                        <onclick>ClearProperty(WizardStep,Home)</onclick>
-                        <onclick>PreviousMenu</onclick>
-                    </control>
-                    <control type="button" id="9003">
-                        <width>280</width>
-                        <label>      $LOCALIZE[209]  &gt;&gt;  </label>
-                        <include>defs_dialog_button</include>
+                    </include>
+                    <include content="Dialog_Button_Expanded">
+                        <param name="id">98</param>
+                        <param name="label">$LOCALIZE[209]</param>
+                        <param name="icon">special://skin/extras/icons/circle-right.png</param>
+                        <param name="width">220</param>
+                        <param name="visible">!String.IsEqual(Window(Home).Property(WizardStep),Layout)</param>
                         <onclick condition="String.IsEqual(Window(Home).Property(WizardStep),Themes)">SetProperty(WizardStep,Dialog,Home)</onclick>
                         <onclick condition="String.IsEqual(Window(Home).Property(WizardStep),Dialog)">SetProperty(WizardStep,Layout,Home)</onclick>
                         <onclick>SetFocus(50)</onclick>
-                        <visible>!String.IsEqual(Window(Home).Property(WizardStep),Layout)</visible>
-                    </control>
+                    </include>
+
                 </control>
             </control>
         </control>
