@@ -969,58 +969,263 @@
         <include>DialogSelect_SideButtons_Artwork</include>
     </include>
 
+    <include name="Items_DialogPVRInfo">
+        <definition>
+            <include content="Settings_ButtonImage" description="Play Programme">
+                <param name="groupid">9220</param>
+                <param name="id">10</param>
+                <param name="icon">special://skin/extras/icons/play3.png</param>
+                <label>$LOCALIZE[208]</label>
+                <param name="visible">Window.IsActive(PVRGuideInfo) + Control.IsEnabled(10) + Control.IsVisible(10)</param>
+            </include>
+
+            <include content="Settings_ButtonImage" description="Play Recording">
+                <param name="groupid">9221</param>
+                <param name="id">08</param>
+                <param name="icon">special://skin/extras/icons/play3.png</param>
+                <label>$LOCALIZE[208]</label>
+                <param name="visible">[Window.IsActive(PVRGuideInfo) | Window.IsActive(PVRRecordingInfo)] + Control.IsEnabled(8) + Control.IsVisible(8)</param>
+            </include>
+
+            <include content="Settings_ButtonImage" description="Record">
+                <param name="groupid">9222</param>
+                <param name="id">06</param>
+                <param name="icon">special://skin/extras/icons/record-vinyl.png</param>
+                <label>$LOCALIZE[264]</label>
+                <param name="visible">Window.IsActive(PVRGuideInfo) + Control.IsEnabled(6) + Control.IsVisible(6)</param>
+            </include>
+
+            <include content="Settings_ButtonImage" description="Add Timer">
+                <param name="groupid">9223</param>
+                <param name="id">09</param>
+                <param name="icon">special://skin/extras/icons/clock.png</param>
+                <label>$LOCALIZE[19061]</label>
+                <param name="visible">Window.IsActive(PVRGuideInfo) + Control.IsEnabled(9) + Control.IsVisible(9)</param>
+            </include>
+
+            <include content="Settings_ButtonImage" description="Set Reminder">
+                <param name="groupid">9224</param>
+                <param name="id">11</param>
+                <param name="icon">special://skin/extras/icons/clock.png</param>
+                <label>$LOCALIZE[826]</label>
+                <param name="visible">Window.IsActive(PVRGuideInfo) + Control.IsEnabled(11) + Control.IsVisible(11)</param>
+            </include>
+
+            <include content="Settings_ButtonImage" description="Similar">
+                <param name="groupid">9225</param>
+                <param name="id">04</param>
+                <param name="icon">special://skin/extras/icons/binoculars.png</param>
+                <label>$LOCALIZE[31041]</label>
+                <param name="visible">[Window.IsActive(PVRGuideInfo) | Window.IsActive(PVRRecordingInfo)] + Control.IsEnabled(4) + Control.IsVisible(4)</param>
+            </include>
+
+            <include content="Settings_ButtonImage">
+                <param name="groupid">9226</param>
+                <param name="id">4082</param>
+                <param name="icon">special://skin/extras/icons/globe.png</param>
+                <label>Wiki</label>
+                <onclick>Close</onclick>
+                <onclick>runscript(script.wikipedia,wikipedia=$VAR[Path_Wikipedia_Title],tmdb_type=$VAR[Path_Wikipedia_Type])</onclick>
+            </include>
+
+        </definition>
+    </include>
+
+    <include name="Items_DialogPVRGroupManager">
+        <definition>
+            <include content="Settings_ButtonImage">
+                <param name="id">26</param>
+                <param name="groupid">9326</param>
+                <label>$LOCALIZE[15019]</label>
+                <param name="icon">special://skin/extras/icons/circle-plus.png</param>
+            </include>
+            <include content="Settings_ButtonImage">
+                <param name="id">27</param>
+                <param name="groupid">9327</param>
+                <label>$LOCALIZE[118]</label>
+                <param name="icon">special://skin/extras/icons/i-cursor.png</param>
+            </include>
+            <include content="Settings_ButtonImage">
+                <param name="id">9004</param>
+                <param name="groupid">9304</param>
+                <label>$VAR[Label_PVRGrpMgr_HideGroup]</label>
+                <param name="icon">$VAR[Image_PVRGrpMgr_HideGroup]</param>
+                <onclick>SetFocus(25)</onclick>
+                <onclick>Action(Select)</onclick>
+                <onclick>SetFocus(9004)</onclick>
+            </include>
+            <include content="Settings_ButtonImage">
+                <param name="id">28</param>
+                <param name="groupid">9328</param>
+                <label>$LOCALIZE[117]</label>
+                <param name="icon">special://skin/extras/icons/delete-left.png</param>
+            </include>
+            <include content="Settings_ButtonImage">
+                <param name="id">35</param>
+                <param name="groupid">9335</param>
+                <label>$LOCALIZE[184]</label>
+                <param name="icon">special://skin/extras/icons/image.png</param>
+            </include>
+        </definition>
+    </include>
+
+    <include name="Items_DialogAddonInfo">
+        <definition>
+            <include content="Settings_ButtonImage" description="Enable">
+                <param name="id">07</param>
+                <param name="groupid">9307</param>
+                <param name="icon">$VAR[Image_AddonInfo_Enable]</param>
+                <visible>Control.IsEnabled(7)</visible>
+            </include>
+            <include content="Settings_Button" description="Auto-Update">
+                <param name="id">13</param>
+                <param name="groupid">9313</param>
+                <param name="control">radiobutton</param>
+                <param name="icon">special://skin/extras/icons/update.png</param>
+                <param name="visible">Control.IsEnabled(13)</param>
+                <label>$LOCALIZE[21340]</label>
+                <radioposx>416</radioposx>
+                <radioheight>28</radioheight>
+            </include>
+            <include content="Settings_ButtonImage" description="Update">
+                <param name="id">08</param>
+                <param name="groupid">9308</param>
+                <param name="icon">special://skin/extras/icons/update.png</param>
+                <visible>Control.IsEnabled(8)</visible>
+                <label>$LOCALIZE[24138]</label>
+            </include>
+            <include content="Settings_ButtonImage" description="Versions">
+                <param name="id">14</param>
+                <param name="groupid">9314</param>
+                <param name="icon">special://skin/extras/icons/network.png</param>
+                <label>$LOCALIZE[24069]</label>
+                <visible>Control.IsEnabled(14)</visible>
+            </include>
+            <include content="Settings_ButtonImage" description="Dependencies">
+                <param name="id">10</param>
+                <param name="groupid">9310</param>
+                <param name="icon">special://skin/extras/icons/dependencies.png</param>
+                <label>$LOCALIZE[39024]</label>
+                <visible>Control.IsEnabled(10)</visible>
+            </include>
+            <!-- <include content="Settings_ButtonImage" description="Settings">
+                <param name="id">09</param>
+                <param name="groupid">9309</param>
+                <param name="icon">special://skin/extras/icons/settings.png</param>
+                <visible>Control.IsEnabled(9)</visible>
+                <label>$LOCALIZE[5]</label>
+            </include> -->
+
+        </definition>
+    </include>
+
+    <include name="Items_DialogGameControllers">
+        <definition>
+            <include content="Settings_ButtonImage">
+                <param name="id">20</param>
+                <param name="groupid">9320</param>
+                <param name="control">button</param>
+                <param name="dialog">true</param>
+                <param name="icon">special://skin/extras/icons/circle-plus.png</param>
+                <label>$LOCALIZE[21452]</label>
+                <visible>Control.IsEnabled(20)</visible>
+            </include>
+            <include content="Settings_ButtonImage">
+                <param name="id">21</param>
+                <param name="groupid">9321</param>
+                <param name="control">button</param>
+                <param name="dialog">true</param>
+                <param name="icon">special://skin/extras/icons/not-equal.png</param>
+                <label>$LOCALIZE[35019]</label>
+                <visible>Control.IsEnabled(21)</visible>
+            </include>
+            <include content="Settings_ButtonImage">
+                <param name="id">22</param>
+                <param name="groupid">9322</param>
+                <param name="control">button</param>
+                <param name="dialog">true</param>
+                <param name="icon">special://skin/extras/icons/download.png</param>
+                <label>$LOCALIZE[35021]</label>
+                <visible>Control.IsEnabled(22)</visible>
+            </include>
+            <include content="Settings_ButtonImage">
+                <param name="id">19</param>
+                <param name="groupid">9319</param>
+                <param name="control">button</param>
+                <param name="dialog">true</param>
+                <param name="icon">special://skin/extras/icons/triangle-exclamation.png</param>
+                <label>$LOCALIZE[13007]</label>
+                <visible>Control.IsEnabled(19)</visible>
+            </include>
+            <include content="Settings_ButtonImage">
+                <param name="id">17</param>
+                <param name="groupid">9317</param>
+                <param name="builtin">true</param>
+                <label>$LOCALIZE[10043]</label>
+                <param name="icon">special://skin/extras/icons/circle-question.png</param>
+            </include>
+        </definition>
+    </include>
+
     <include name="Items_DialogVideoManager">
         <definition>
-            <include content="Settings_Button">
+            <include content="Settings_ButtonImage">
                 <param name="id">21</param>
+                <param name="groupid">9321</param>
                 <param name="control">button</param>
                 <param name="dialog">true</param>
                 <param name="icon">special://skin/extras/icons/play3.png</param>
                 <label>$LOCALIZE[208]</label>
                 <visible>Control.IsEnabled(21)</visible>
             </include>
-            <include content="Settings_Button">
+            <include content="Settings_ButtonImage">
                 <param name="id">22</param>
+                <param name="groupid">9322</param>
                 <param name="control">button</param>
                 <param name="dialog">true</param>
                 <param name="icon">special://skin/extras/icons/file-circle-plus.png</param>
                 <label>$LOCALIZE[15019]</label>
                 <visible>Control.IsEnabled(22) + Window.IsVisible(managevideoversions)</visible>
             </include>
-            <include content="Settings_Button">
+            <include content="Settings_ButtonImage">
                 <param name="id">23</param>
+                <param name="groupid">9323</param>
                 <param name="control">button</param>
                 <param name="dialog">true</param>
                 <param name="icon">special://skin/extras/icons/file-circle-plus.png</param>
                 <label>$LOCALIZE[15019]</label>
                 <visible>Control.IsEnabled(23) + Window.IsVisible(managevideoextras)</visible>
             </include>
-            <include content="Settings_Button">
+            <include content="Settings_ButtonImage">
                 <param name="id">24</param>
+                <param name="groupid">9324</param>
                 <param name="control">button</param>
                 <param name="dialog">true</param>
                 <param name="icon">special://skin/extras/icons/i-cursor.png</param>
                 <label>$LOCALIZE[118]</label>
                 <visible>Control.IsEnabled(24)</visible>
             </include>
-            <include content="Settings_Button">
+            <include content="Settings_ButtonImage">
                 <param name="id">25</param>
+                <param name="groupid">9325</param>
                 <param name="control">button</param>
                 <param name="dialog">true</param>
                 <param name="icon">special://skin/extras/icons/heart-circle-plus.png</param>
                 <label>$LOCALIZE[571]</label>
                 <visible>Control.IsEnabled(25) + Window.IsVisible(managevideoversions)</visible>
             </include>
-            <include content="Settings_Button">
+            <include content="Settings_ButtonImage">
                 <param name="id">26</param>
+                <param name="groupid">9326</param>
                 <param name="control">button</param>
                 <param name="dialog">true</param>
                 <param name="icon">special://skin/extras/icons/trash-can.png</param>
                 <label>$LOCALIZE[1210]</label>
                 <visible>Control.IsEnabled(26)</visible>
             </include>
-            <include content="Settings_Button">
+            <include content="Settings_ButtonImage">
                 <param name="id">27</param>
+                <param name="groupid">9327</param>
                 <param name="control">button</param>
                 <param name="dialog">true</param>
                 <param name="icon">special://skin/extras/icons/images.png</param>
