@@ -431,8 +431,6 @@
 
     <include name="_DialogInfo_Button_Expanded">
         <param name="width">200</param>
-        <param name="id">4001</param>
-        <param name="groupid">4101</param>
         <param name="label" />
         <param name="icon" />
         <param name="visible">true</param>
@@ -443,17 +441,58 @@
         <param name="radiocheck">false</param>
         <param name="radioround">false</param>
         <definition>
+
+            <control type="group" id="$PARAM[groupid]">
+                <width>80</width>
+                <height>80</height>
+                <centertop>50%</centertop>
+                <visible>$PARAM[visible]</visible>
+                <!-- <control type="image">
+                    <visible>!Control.HasFocus($PARAM[id])</visible>
+                    <texture border="60,0,0,0" colordiffuse="main_fg_12">common/menu_h_x.png</texture>
+                </control> -->
+                <control type="image">
+                    <visible>Control.HasFocus($PARAM[id])</visible>
+                    <include>Texture_Button_X</include>
+                </control>
+
+                <control type="group">
+                    <width>50</width>
+                    <height>50</height>
+                    <centertop>50%</centertop>
+                    <centerleft>40</centerleft>
+                    <control type="image">
+                        <visible>!Control.HasFocus($PARAM[id])</visible>
+                        <texture background="true" colordiffuse="$PARAM[colordiffuse]">$PARAM[icon]</texture>
+                        <bordersize>icon_item_bordersize</bordersize>
+                        <animation effect="fade" start="100" end="43" condition="!Control.IsEnabled($PARAM[id])">Conditional</animation>
+                    </control>
+                    <control type="image">
+                        <visible>Control.HasFocus($PARAM[id])</visible>
+                        <texture background="true" colordiffuse="$VAR[ColorSelected]">$PARAM[icon]</texture>
+                        <bordersize>icon_item_bordersize</bordersize>
+                    </control>
+                </control>
+            </control>
+
             <control type="$PARAM[control]" id="$PARAM[id]">
-                <width>$PARAM[width]</width>
+                <width max="$PARAM[width]">auto</width>
                 <height>80</height>
                 <centertop>50%</centertop>
                 <texturenofocus />
+                <include>Texture_Button_Y</include>
+
+                <textoffsetx>0</textoffsetx>
+
+                <label>$PARAM[label]</label>
+                <align>left</align>
+
                 <visible>$PARAM[visible]</visible>
-                <font />
+                <font>font_mini_bold</font>
 
                 <radiowidth>16</radiowidth>
                 <radioheight>16</radioheight>
-                <radioposx>54</radioposx>
+                <radioposx>0</radioposx>
                 <radioposy>46</radioposy>
 
                 <include content="DialogInfo_Button_RadioCheck" condition="$PARAM[radiocheck]">
@@ -479,61 +518,29 @@
                 <textureradioofffocus colordiffuse="00ffffff">buttons/check-off.png</textureradioofffocus>
                 <textureradiooffnofocus colordiffuse="00ffffff">buttons/check-off.png</textureradiooffnofocus>
 
-                <textcolor>00ffffff</textcolor>
-                <selectedcolor>00ffffff</selectedcolor>
-                <focusedcolor>00ffffff</focusedcolor>
+                <textcolor>$PARAM[colordiffuse]</textcolor>
+                <selectedcolor>$PARAM[colordiffuse]</selectedcolor>
+                <focusedcolor>$VAR[ColorSelected]</focusedcolor>
+
                 <nested />
             </control>
 
-            <control type="group" id="$PARAM[groupid]">
-                <left>-$PARAM[width]</left>
+            <control type="group" id="$PARAM[sliceid]">
+                <width>40</width>
                 <height>80</height>
-                <width>$PARAM[width]</width>
                 <centertop>50%</centertop>
                 <visible>$PARAM[visible]</visible>
-                <include content="DialogInfo_Button_GroupBuiltin" condition="$PARAM[builtin]">
-                    <param name="id">$PARAM[id]</param>
-                </include>
-                <control type="group">
-                    <control type="group">
-                        <visible>!Control.HasFocus($PARAM[id])</visible>
-                        <include content="Dialog_Button_Expanded_IconLabel">
-                            <param name="icon">$PARAM[icon]</param>
-                            <param name="label">$PARAM[label]</param>
-                            <param name="colordiffuse">$PARAM[colordiffuse]</param>
-                        </include>
-                    </control>
-                    <control type="group">
-                        <visible>Control.HasFocus($PARAM[id])</visible>
-                        <include content="Dialog_Button_Expanded_IconLabel">
-                            <param name="icon">$PARAM[icon]</param>
-                            <param name="label">$PARAM[label]</param>
-                            <param name="colordiffuse">$VAR[ColorSelected]</param>
-                        </include>
-                    </control>
+                <!-- <control type="image">
+                    <visible>!Control.HasFocus($PARAM[id])</visible>
+                    <texture border="0,0,40,0" colordiffuse="main_fg_12">common/menu_h_z.png</texture>
+                </control> -->
+                <control type="image">
+                    <visible>Control.HasFocus($PARAM[id])</visible>
+                    <include>Texture_Button_Z</include>
                 </control>
             </control>
-        </definition>
-    </include>
 
-    <include name="Dialog_Button_Expanded_IconLabel">
-        <definition>
-            <control type="image">
-                <texture background="true" colordiffuse="$PARAM[colordiffuse]">$PARAM[icon]</texture>
-                <bordersize>icon_item_bordersize</bordersize>
-                <width>50</width>
-                <height>50</height>
-                <centertop>50%</centertop>
-                <centerleft>40</centerleft>
-            </control>
-            <control type="label">
-                <font>font_mini_bold</font>
-                <label>$PARAM[label]</label>
-                <align>left</align>
-                <left>80</left>
-                <right>30</right>
-                <textcolor>$PARAM[colordiffuse]</textcolor>
-            </control>
+
         </definition>
     </include>
 
@@ -547,6 +554,7 @@
                 <param name="width">$PARAM[width]</param>
                 <param name="id">$PARAM[baseid]0$PARAM[id]</param>
                 <param name="groupid">$PARAM[baseid]1$PARAM[id]</param>
+                <param name="sliceid">$PARAM[baseid]2$PARAM[id]</param>
                 <param name="colordiffuse">$PARAM[colordiffuse]</param>
                 <param name="label">$PARAM[label]</param>
                 <param name="icon">$PARAM[icon]</param>
@@ -555,6 +563,7 @@
                 <param name="radiocross">$PARAM[radiocross]</param>
                 <param name="radiocheck">$PARAM[radiocheck]</param>
                 <param name="radioround">$PARAM[radioround]</param>
+                <param name="visible">$PARAM[visible]</param>
                 <nested />
             </include>
             <include content="_DialogInfo_Button_Expanded" condition="$PARAM[builtin]">
@@ -562,6 +571,7 @@
                 <param name="width">$PARAM[width]</param>
                 <param name="id">$PARAM[id]</param>
                 <param name="groupid">$PARAM[baseid]1$PARAM[id]</param>
+                <param name="sliceid">$PARAM[baseid]2$PARAM[id]</param>
                 <param name="colordiffuse">$PARAM[colordiffuse]</param>
                 <param name="label">$PARAM[label]</param>
                 <param name="icon">$PARAM[icon]</param>
@@ -570,6 +580,7 @@
                 <param name="radiocross">$PARAM[radiocross]</param>
                 <param name="radiocheck">$PARAM[radiocheck]</param>
                 <param name="radioround">$PARAM[radioround]</param>
+                <param name="visible">$PARAM[visible]</param>
                 <nested />
             </include>
         </definition>
@@ -1085,4 +1096,74 @@
             </control>
         </definition>
     </include>
+
+
+    <include name="Dialog_Manage">
+        <control type="image">
+            <visible>ControlGroup($PARAM[id]).HasFocus()</visible>
+            <include content="Animation_Fade_In">
+                <param name="type">Visible</param>
+                <param name="reversible">true</param>
+            </include>
+            <include content="Animation_Fade_Out">
+                <param name="type">Hidden</param>
+                <param name="reversible">true</param>
+            </include>
+            <include content="Animation_Fade_Out">
+                <param name="type">Hidden</param>
+                <param name="reversible">true</param>
+                <param name="condition">ControlGroup($PARAM[id]).HasFocus()</param>
+            </include>
+            <texture colordiffuse="shadow_back">common/white.png</texture>
+        </control>
+        <control type="group">
+            <include>Dimension_DialogMiniMenu</include>
+            <visible allowhiddenfocus="true">ControlGroup($PARAM[id]).HasFocus()</visible>
+
+            <include content="Animation_Slide_In">
+                <param name="type">Visible</param>
+                <param name="delay">400</param>
+                <param name="posx">320</param>
+                <param name="reversible">true</param>
+            </include>
+            <include content="Animation_Slide_Out">
+                <param name="type">Hidden</param>
+                <param name="posx">320</param>
+                <param name="reversible">true</param>
+            </include>
+            <include content="Animation_Slide_Out">
+                <param name="type">WindowClose</param>
+                <param name="posx">320</param>
+                <param name="reversible">true</param>
+                <param name="condition">ControlGroup($PARAM[id]).HasFocus()</param>
+            </include>
+
+            <include content="Dialog_Foreground_Side">
+                <param name="dialog_size">Dimension_DialogMiniMenu</param>
+                <param name="topline">true</param>
+                <param name="subline">true</param>
+            </include>
+
+            <!-- Header -->
+            <include content="Dialog_Head">
+                <param name="id">0</param>
+                <param name="label">$LOCALIZE[33063]</param>
+            </include>
+
+            <!-- Content -->
+            <control type="group">
+                <include>Dimension_Dialog_Body</include>
+                <control type="group">
+                    <include>Dimension_Dialog_Body_Group</include>
+                    <control type="grouplist" id="$PARAM[id]">
+                        <onback>$PARAM[onback]</onback>
+                        <onleft>$PARAM[onback]</onleft>
+                        <include>$PARAM[include]</include>
+                    </control>
+                </control>
+            </control>
+
+        </control>
+    </include>
+
 </includes>
