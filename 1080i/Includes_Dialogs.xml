@@ -166,20 +166,20 @@
         </include>
     </include>
 
-    <include name="Dialog_Overlay_Mode_Curved">
+    <include name="Dialog_Overlay_Tray">
         <control type="group">
             <height>120</height>
             <bottom>40</bottom>
             <left>40</left>
             <right>40</right>
-            <control type="image">
+            <!-- <control type="image">
                 <bordersize>1</bordersize>
                 <texture border="20" colordiffuse="panel_bg_12">common/dialog_overlay_v.png</texture>
-            </control>
+            </control> -->
             <control type="image">
                 <height>1</height>
-                <left>1</left>
-                <right>1</right>
+                <left>40</left>
+                <right>40</right>
                 <texture colordiffuse="$VAR[Color_DialogBorder]">common/white.png</texture>
             </control>
         </control>
@@ -407,35 +407,21 @@
         </definition>
     </include>
 
-    <include name="Dialog_Tray_Grouplist_Left">
-        <control type="grouplist" id="9000">
-            <height>160</height>
-            <bottom>20</bottom>
-            <left>60</left>
-            <right>60</right>
-            <align>left</align>
-            <onup>8000</onup>
-            <onleft>-</onleft>
-            <onright>9900</onright>
-            <orientation>horizontal</orientation>
-            <nested />
-        </control>
-    </include>
-
-    <include name="Dialog_Tray_Grouplist_Right">
-        <control type="grouplist" id="9900">
-            <height>160</height>
-            <bottom>20</bottom>
-            <left>60</left>
-            <right>60</right>
-            <align>right</align>
-            <onup>8000</onup>
-            <onleft>9000</onleft>
-            <onback>9000</onback>
-            <onright>-</onright>
-            <orientation>horizontal</orientation>
-            <nested />
-        </control>
+    <include name="Dialog_Tray_Grouplist">
+        <param name="id">9000</param>
+        <param name="onup">8000</param>
+        <definition>
+            <control type="grouplist" id="$PARAM[id]">
+                <height>160</height>
+                <bottom>20</bottom>
+                <left>60</left>
+                <right>60</right>
+                <align>right</align>
+                <onup>$PARAM[onup]</onup>
+                <orientation>horizontal</orientation>
+                <nested />
+            </control>
+        </definition>
     </include>
 
     <include name="_DialogInfo_Button_Expanded">
@@ -988,7 +974,7 @@
     </include>
 
     <include name="Dialog_Box">
-        <param name="colordiffuse">dialog_fg_12</param>
+        <param name="colordiffuse">$VAR[Color_DialogBorder]</param>
         <definition>
             <include content="Object_Shadow_40" condition="Skin.HasSetting(Glass.EnableBorders)">
                 <param name="colordiffuse">shadow_soft</param>
@@ -1122,31 +1108,67 @@
             <texture colordiffuse="shadow_back">common/white.png</texture>
         </control>
         <control type="group">
-            <include>Dimension_DialogMiniMenu</include>
+            <include>Dimension_DialogPopUpMenu</include>
             <visible allowhiddenfocus="true">ControlGroup($PARAM[id]).HasFocus()</visible>
 
-            <include content="Animation_Slide_In">
-                <param name="type">Visible</param>
-                <param name="delay">400</param>
-                <param name="posx">320</param>
-                <param name="reversible">true</param>
-            </include>
-            <include content="Animation_Slide_Out">
-                <param name="type">Hidden</param>
-                <param name="posx">320</param>
-                <param name="reversible">true</param>
-            </include>
-            <include content="Animation_Slide_Out">
-                <param name="type">WindowClose</param>
-                <param name="posx">320</param>
-                <param name="reversible">true</param>
-                <param name="condition">ControlGroup($PARAM[id]).HasFocus()</param>
-            </include>
+            <animation effect="slide" start="0" end="0,80" condition="Integer.IsEqual(Container($PARAM[id]).NumItems,5)">Conditional</animation>
+            <animation effect="slide" start="0" end="0,160" condition="Integer.IsEqual(Container($PARAM[id]).NumItems,4)">Conditional</animation>
+            <animation effect="slide" start="0" end="0,240" condition="Integer.IsEqual(Container($PARAM[id]).NumItems,3)">Conditional</animation>
+            <animation effect="slide" start="0" end="0,320" condition="Integer.IsEqual(Container($PARAM[id]).NumItems,2)">Conditional</animation>
+            <animation effect="slide" start="0" end="0,400" condition="Integer.IsEqual(Container($PARAM[id]).NumItems,1)">Conditional</animation>
 
-            <include content="Dialog_Foreground_Side">
-                <param name="dialog_size">Dimension_DialogMiniMenu</param>
-                <param name="topline">true</param>
-                <param name="subline">true</param>
+            <control type="group">
+                <visible>Integer.IsGreater(Container($PARAM[id]).NumItems,5)</visible>
+                <include content="Dialog_Foreground_Side">
+                    <param name="topline">true</param>
+                    <param name="subline">true</param>
+                </include>
+            </control>
+            <control type="group">
+                <visible>Integer.IsEqual(Container($PARAM[id]).NumItems,5)</visible>
+                <bottom>80</bottom>
+                <include content="Dialog_Foreground_Side">
+                    <param name="topline">true</param>
+                    <param name="subline">true</param>
+                </include>
+            </control>
+            <control type="group">
+                <visible>Integer.IsEqual(Container($PARAM[id]).NumItems,4)</visible>
+                <bottom>160</bottom>
+                <include content="Dialog_Foreground_Side">
+                    <param name="topline">true</param>
+                    <param name="subline">true</param>
+                </include>
+            </control>
+            <control type="group">
+                <visible>Integer.IsEqual(Container($PARAM[id]).NumItems,3)</visible>
+                <bottom>240</bottom>
+                <include content="Dialog_Foreground_Side">
+                    <param name="topline">true</param>
+                    <param name="subline">true</param>
+                </include>
+            </control>
+            <control type="group">
+                <visible>Integer.IsEqual(Container($PARAM[id]).NumItems,2)</visible>
+                <bottom>320</bottom>
+                <include content="Dialog_Foreground_Side">
+                    <param name="topline">true</param>
+                    <param name="subline">true</param>
+                </include>
+            </control>
+            <control type="group">
+                <visible>Integer.IsEqual(Container($PARAM[id]).NumItems,1)</visible>
+                <bottom>400</bottom>
+                <include content="Dialog_Foreground_Side">
+                    <param name="topline">true</param>
+                    <param name="subline">true</param>
+                </include>
+            </control>
+
+            <animation effect="fade" start="100" end="0" time="1" condition="ControlGroup($PARAM[id]).HasFocus()">WindowClose</animation>
+
+            <include content="Animation_SlideIn_Dialog">
+                <param name="windowopen_condition">false</param>
             </include>
 
             <!-- Header -->
@@ -1163,6 +1185,7 @@
                     <control type="grouplist" id="$PARAM[id]">
                         <onback>$PARAM[onback]</onback>
                         <onleft>$PARAM[onback]</onleft>
+                        <onright>$PARAM[onback]</onright>
                         <include>$PARAM[include]</include>
                     </control>
                 </control>
