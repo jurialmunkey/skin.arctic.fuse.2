@@ -396,29 +396,22 @@
                 <include>Animation_SlideIn_Dialog</include>
                 <control type="group">
                     <include>Dimension_DialogVersionSelect</include>
+                    <include content="Dialog_Background_Group">
+                        <param name="include_glass">true</param>
+                        <param name="dialog_size">Dimension_DialogVersionSelect</param>
+                    </include>
+                    <include>Dialog_Overlay_Tray</include>
                     <control type="group">
-                        <include content="Dialog_Background_Blur">
-                            <param name="diffuse">diffuse/dialog_w1120_h400.png</param>
-                        </include>
+                        <include>Dialog_Group</include>
                         <include content="Dialog_Head">
                             <param name="top">40</param>
                             <param name="left">40</param>
                             <param name="label">$PARAM[label]</param>
                         </include>
                         <control type="group">
-                            <include content="Dialog_Overlay_Mode_Glass">
-                                <param name="flipped">false</param>
-                            </include>
                             <bottom>-40</bottom>
                             <control type="image">
                                 <top>120</top>
-                                <height>1</height>
-                                <texture colordiffuse="$VAR[Color_DialogBorder]">common/white.png</texture>
-                                <left>40</left>
-                                <right>40</right>
-                            </control>
-                            <control type="image">
-                                <bottom>160</bottom>
                                 <height>1</height>
                                 <texture colordiffuse="$VAR[Color_DialogBorder]">common/white.png</texture>
                                 <left>40</left>
@@ -469,7 +462,7 @@
                             </control>
                             <control type="grouplist">
                                 <height>80</height>
-                                <centerbottom>80</centerbottom>
+                                <centerbottom>120</centerbottom>
                                 <orientation>horizontal</orientation>
                                 <align>center</align>
                                 <itemgap>10</itemgap>
@@ -510,6 +503,13 @@
                                     <param name="label">$INFO[Container($PARAM[id]).ListItem.AudioCodec]</param>
                                     <param name="visible">!String.IsEmpty(Container($PARAM[id]).ListItem.AudioCodec)</param>
                                 </include>
+                            </control>
+                            <control type="grouplist">
+                                <height>80</height>
+                                <centerbottom>80</centerbottom>
+                                <orientation>horizontal</orientation>
+                                <align>center</align>
+                                <itemgap>10</itemgap>
                                 <include content="Info_Line_VideoQuality_Object">
                                     <param name="colordiffuse">main_fg_90</param>
                                     <param name="label">$LOCALIZE[248]: $INFO[Container($PARAM[id]).ListItem.Property(AudioLanguage.1)]$INFO[Container($PARAM[id]).ListItem.Property(AudioLanguage.2), | ,]$INFO[Container($PARAM[id]).ListItem.Property(AudioLanguage.3), | ,]</param>

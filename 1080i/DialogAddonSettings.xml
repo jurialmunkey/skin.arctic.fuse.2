@@ -35,6 +35,7 @@
             <altfocusedcolor>$VAR[ColorSettingsToggleButtonText]</altfocusedcolor> -->
             <width>settings_category_w</width>
             <description>Default Category Button</description>
+            <onclick>SendClick(30)</onclick>
         </include>
 
         <control type="image" id="11">
@@ -88,17 +89,10 @@
             <include>Animation_Right_Delay</include>
 
             <include content="Dialog_Background_Group">
+                <param name="include_glass">true</param>
                 <param name="dialog_size">Dimension_DialogMainMenu</param>
             </include>
-
-            <control type="group">
-                <include content="Dimension_Padding">
-                    <param name="pad">40</param>
-                </include>
-                <include content="Dialog_Overlay_Mode_Glass">
-                    <param name="flipped">false</param>
-                </include>
-            </control>
+            <include>Dialog_Overlay_Tray</include>
 
             <control type="group">
                 <!-- Header -->
@@ -173,7 +167,14 @@
                 </control>
 
                 <!-- Buttons -->
-                <include content="Dialog_Tray_Grouplist_Left">
+                <include content="Dialog_Tray_Grouplist">
+                    <include content="Dialog_Button_Expanded">
+                        <param name="id">04</param>
+                        <param name="label">$INFO[Control.GetLabel(20)]</param>
+                        <param name="icon">$VAR[Image_Settings_Level]</param>
+                        <param name="visible">Control.IsEnabled(20)</param>
+                        <onclick>settingslevelchange</onclick>
+                    </include>
                     <include content="Dialog_Button_Expanded">
                         <param name="id">28</param>
                         <param name="builtin">true</param>
@@ -186,22 +187,7 @@
                         <param name="label">$LOCALIZE[222]</param>
                         <param name="icon">special://skin/extras/icons/circle-xmark.png</param>
                     </include>
-                </include>
-                <include content="Dialog_Tray_Grouplist_Right">
-                    <include content="Dialog_Button_Expanded">
-                        <param name="id">04</param>
-                        <param name="label">$INFO[Control.GetLabel(20)]</param>
-                        <param name="icon">$VAR[Image_Settings_Level]</param>
-                        <param name="visible">Control.IsEnabled(20)</param>
-                        <onclick>settingslevelchange</onclick>
-                    </include>
-                    <include content="Dialog_Button_Expanded">
-                        <param name="id">03</param>
-                        <param name="label">$INFO[Control.GetLabel(30)]</param>
-                        <param name="icon">special://skin/extras/icons/triangle-exclamation.png</param>
-                        <param name="visible">Control.IsEnabled(30)</param>
-                        <onclick>SendClick(30)</onclick>
-                    </include>
+
 
                 </include>
             </control>

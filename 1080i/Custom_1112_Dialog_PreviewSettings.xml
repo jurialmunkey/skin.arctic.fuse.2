@@ -6,18 +6,19 @@
         <include>Dialog_Dim_Overlay</include>
         <control type="group">
             <include>Dimension_DialogWizard</include>
+            <include content="Dialog_Background_Group">
+                <param name="include_glass">true</param>
+            </include>
+            <include>Dialog_Overlay_Tray</include>
+            <include>Animation_Right_Delay</include>
             <control type="group">
-                <include>Dialog_Background_Blur</include>
-                <include>Animation_Right_Delay</include>
+                <include>Dialog_Group</include>
                 <include content="Dialog_Head">
                     <param name="top">40</param>
                     <param name="left">40</param>
                     <param name="label">$INFO[Window(Home).Property(CustomDialogPreviewTitle)]</param>
                 </include>
                 <control type="group">
-                    <include content="Dialog_Overlay_Mode_Glass">
-                        <param name="flipped">false</param>
-                    </include>
                     <control type="image">
                         <top>120</top>
                         <height>1</height>
@@ -35,23 +36,16 @@
                         <param name="checkmark_condition">String.IsEqual(Window(Home).Property(CustomDialogPreviewSelected),ListItem.Label)</param>
                     </include>
                 </control>
-                <control type="grouplist" id="9000">
-                    <right>40</right>
-                    <left>40</left>
-                    <height>80</height>
-                    <bottom>20</bottom>
-                    <align>center</align>
-                    <orientation>horizontal</orientation>
-                    <itemgap>20</itemgap>
-                    <onup>8000</onup>
-                    <control type="button" id="9002">
-                        <width>280</width>
-                        <label>$LOCALIZE[15067]</label>
-                        <include>defs_dialog_button</include>
-                        <onclick>PreviousMenu</onclick>
-                    </control>
-                </control>
+
             </control>
+            <include content="Dialog_Tray_Grouplist">
+                <include content="Dialog_Button_Expanded">
+                    <param name="id">02</param>
+                    <param name="label">$LOCALIZE[15067]</param>
+                    <param name="icon">special://skin/extras/icons/circle-xmark.png</param>
+                    <onclick>PreviousMenu</onclick>
+                </include>
+            </include>
         </control>
 
     </controls>

@@ -142,52 +142,61 @@
         </include>
     </include>
 
-    <include name="Dialog_Overlay_Mode_Glass">
-        <definition>
-            <control type="image">
-                <include content="Object_Top" condition="$PARAM[flipped]">
-                    <param name="top">120</param>
-                </include>
-                <include content="Object_Bottom" condition="![$PARAM[flipped]]">
-                    <param name="bottom">120</param>
-                </include>
-                <texture colordiffuse="dialog_fg_12" border="20" flipy="$PARAM[flipped]">common/dialog.png</texture>
-            </control>
-            <control type="image">
-                <height>12</height>
-                <include content="Object_Top" condition="$PARAM[flipped]">
-                    <param name="top">120</param>
-                </include>
-                <include content="Object_Bottom" condition="![$PARAM[flipped]]">
-                    <param name="bottom">120</param>
-                </include>
-                <texture colordiffuse="$VAR[Color_DialogBorder]" border="20,6,20,6" flipy="$PARAM[flipped]">common/dialog-edge-outline-v.png</texture>
-            </control>
+    <include name="Dialog_Background_BlurDimension_DialogConfirm">
+        <include content="Dialog_Background_Blur">
+            <param name="shadow">$PARAM[shadow]</param>
+            <param name="transparency">$PARAM[transparency]</param>
+            <param name="diffuse">diffuse/dialog_w1120_h400.png</param>
+        </include>
+    </include>
+
+    <include name="Dialog_Background_BlurDimension_DialogNumeric">
+        <include content="Dialog_Background_Blur">
+            <param name="shadow">$PARAM[shadow]</param>
+            <param name="transparency">$PARAM[transparency]</param>
+            <param name="diffuse">diffuse/dialog_w680_h1000.png</param>
+        </include>
+    </include>
+
+    <include name="Dialog_Background_BlurDimension_DialogVersionSelect">
+        <include content="Dialog_Background_Blur">
+            <param name="shadow">$PARAM[shadow]</param>
+            <param name="transparency">$PARAM[transparency]</param>
+            <param name="diffuse">diffuse/dialog_w1120_h400.png</param>
+        </include>
+    </include>
+
+    <include name="Dialog_Overlay_Tray">
+        <control type="group">
+            <height>120</height>
+            <bottom>40</bottom>
+            <left>40</left>
+            <right>40</right>
             <!-- <control type="image">
-                <include content="Object_Top" condition="$PARAM[flipped]">
-                    <param name="top">120</param>
-                </include>
-                <include content="Object_Bottom" condition="![$PARAM[flipped]]">
-                    <param name="bottom">120</param>
-                </include>
-                <include content="Object_Texture" condition="$PARAM[flipped]">
-                    <param name="texture">common/dialog_overlay_v.png</param>
-                    <param name="colordiffuse">dialog_fg_12</param>
-                    <param name="border">16,16,16,0</param>
-                </include>
-                <texture colordiffuse="dialog_fg_12" border="16,16,16,0" flipy="true">common/dialog_overlay_v.png</texture>
-            </control>
+                <bordersize>1</bordersize>
+                <texture border="20" colordiffuse="panel_bg_12">common/dialog_overlay_v.png</texture>
+            </control> -->
             <control type="image">
                 <height>1</height>
-                <include content="Object_Top" condition="$PARAM[flipped]">
-                    <param name="top">120</param>
-                </include>
-                <include content="Object_Bottom" condition="![$PARAM[flipped]]">
-                    <param name="bottom">120</param>
-                </include>
+                <left>40</left>
+                <right>40</right>
                 <texture colordiffuse="$VAR[Color_DialogBorder]">common/white.png</texture>
-            </control> -->
-        </definition>
+            </control>
+        </control>
+        <!-- <control type="group">
+            <height>140</height>
+            <bottom>40</bottom>
+            <left>40</left>
+            <right>40</right>
+            <control type="image">
+                <bordersize>1</bordersize>
+                <texture border="20" colordiffuse="panel_bg_12">common/dialog_overlay_curved_v.png</texture>
+            </control>
+            <control type="image">
+                <height>20</height>
+                <texture colordiffuse="$VAR[Color_DialogBorder]" border="20,1,20,1">common/dialog_outline_curved_v.png</texture>
+            </control>
+        </control> -->
     </include>
 
     <include name="Dialog_Background_Resizer">
@@ -398,35 +407,21 @@
         </definition>
     </include>
 
-    <include name="Dialog_Tray_Grouplist_Left">
-        <control type="grouplist" id="9000">
-            <height>160</height>
-            <bottom>20</bottom>
-            <left>60</left>
-            <right>60</right>
-            <align>left</align>
-            <onup>8000</onup>
-            <onleft>-</onleft>
-            <onright>9900</onright>
-            <orientation>horizontal</orientation>
-            <nested />
-        </control>
-    </include>
-
-    <include name="Dialog_Tray_Grouplist_Right">
-        <control type="grouplist" id="9900">
-            <height>160</height>
-            <bottom>20</bottom>
-            <left>60</left>
-            <right>60</right>
-            <align>right</align>
-            <onup>8000</onup>
-            <onleft>9000</onleft>
-            <onback>9000</onback>
-            <onright>-</onright>
-            <orientation>horizontal</orientation>
-            <nested />
-        </control>
+    <include name="Dialog_Tray_Grouplist">
+        <param name="id">9000</param>
+        <param name="onup">8000</param>
+        <definition>
+            <control type="grouplist" id="$PARAM[id]">
+                <height>160</height>
+                <bottom>20</bottom>
+                <left>60</left>
+                <right>60</right>
+                <align>right</align>
+                <onup>$PARAM[onup]</onup>
+                <orientation>horizontal</orientation>
+                <nested />
+            </control>
+        </definition>
     </include>
 
     <include name="_DialogInfo_Button_Expanded">
@@ -447,10 +442,9 @@
                 <height>80</height>
                 <centertop>50%</centertop>
                 <visible>$PARAM[visible]</visible>
-                <!-- <control type="image">
-                    <visible>!Control.HasFocus($PARAM[id])</visible>
-                    <texture border="60,0,0,0" colordiffuse="main_fg_12">common/menu_h_x.png</texture>
-                </control> -->
+                <include content="DialogInfo_Button_GroupBuiltin" condition="$PARAM[builtin]">
+                    <param name="id">$PARAM[id]</param>
+                </include>
                 <control type="image">
                     <visible>Control.HasFocus($PARAM[id])</visible>
                     <include>Texture_Button_X</include>
@@ -530,17 +524,14 @@
                 <height>80</height>
                 <centertop>50%</centertop>
                 <visible>$PARAM[visible]</visible>
-                <!-- <control type="image">
-                    <visible>!Control.HasFocus($PARAM[id])</visible>
-                    <texture border="0,0,40,0" colordiffuse="main_fg_12">common/menu_h_z.png</texture>
-                </control> -->
+                <include content="DialogInfo_Button_GroupBuiltin" condition="$PARAM[builtin]">
+                    <param name="id">$PARAM[id]</param>
+                </include>
                 <control type="image">
                     <visible>Control.HasFocus($PARAM[id])</visible>
                     <include>Texture_Button_Z</include>
                 </control>
             </control>
-
-
         </definition>
     </include>
 
@@ -983,7 +974,7 @@
     </include>
 
     <include name="Dialog_Box">
-        <param name="colordiffuse">dialog_fg_12</param>
+        <param name="colordiffuse">$VAR[Color_DialogBorder]</param>
         <definition>
             <include content="Object_Shadow_40" condition="Skin.HasSetting(Glass.EnableBorders)">
                 <param name="colordiffuse">shadow_soft</param>
@@ -1110,38 +1101,74 @@
                 <param name="reversible">true</param>
             </include>
             <include content="Animation_Fade_Out">
-                <param name="type">Hidden</param>
+                <param name="type">WindowClose</param>
                 <param name="reversible">true</param>
                 <param name="condition">ControlGroup($PARAM[id]).HasFocus()</param>
             </include>
             <texture colordiffuse="shadow_back">common/white.png</texture>
         </control>
         <control type="group">
-            <include>Dimension_DialogMiniMenu</include>
+            <include>Dimension_DialogPopUpMenu</include>
             <visible allowhiddenfocus="true">ControlGroup($PARAM[id]).HasFocus()</visible>
 
-            <include content="Animation_Slide_In">
-                <param name="type">Visible</param>
-                <param name="delay">400</param>
-                <param name="posx">320</param>
-                <param name="reversible">true</param>
-            </include>
-            <include content="Animation_Slide_Out">
-                <param name="type">Hidden</param>
-                <param name="posx">320</param>
-                <param name="reversible">true</param>
-            </include>
-            <include content="Animation_Slide_Out">
-                <param name="type">WindowClose</param>
-                <param name="posx">320</param>
-                <param name="reversible">true</param>
-                <param name="condition">ControlGroup($PARAM[id]).HasFocus()</param>
-            </include>
+            <animation effect="slide" start="0" end="0,80" condition="Integer.IsEqual(Container($PARAM[id]).NumItems,5)">Conditional</animation>
+            <animation effect="slide" start="0" end="0,160" condition="Integer.IsEqual(Container($PARAM[id]).NumItems,4)">Conditional</animation>
+            <animation effect="slide" start="0" end="0,240" condition="Integer.IsEqual(Container($PARAM[id]).NumItems,3)">Conditional</animation>
+            <animation effect="slide" start="0" end="0,320" condition="Integer.IsEqual(Container($PARAM[id]).NumItems,2)">Conditional</animation>
+            <animation effect="slide" start="0" end="0,400" condition="Integer.IsEqual(Container($PARAM[id]).NumItems,1)">Conditional</animation>
 
-            <include content="Dialog_Foreground_Side">
-                <param name="dialog_size">Dimension_DialogMiniMenu</param>
-                <param name="topline">true</param>
-                <param name="subline">true</param>
+            <control type="group">
+                <visible>Integer.IsGreater(Container($PARAM[id]).NumItems,5)</visible>
+                <include content="Dialog_Foreground_Side">
+                    <param name="topline">true</param>
+                    <param name="subline">true</param>
+                </include>
+            </control>
+            <control type="group">
+                <visible>Integer.IsEqual(Container($PARAM[id]).NumItems,5)</visible>
+                <bottom>80</bottom>
+                <include content="Dialog_Foreground_Side">
+                    <param name="topline">true</param>
+                    <param name="subline">true</param>
+                </include>
+            </control>
+            <control type="group">
+                <visible>Integer.IsEqual(Container($PARAM[id]).NumItems,4)</visible>
+                <bottom>160</bottom>
+                <include content="Dialog_Foreground_Side">
+                    <param name="topline">true</param>
+                    <param name="subline">true</param>
+                </include>
+            </control>
+            <control type="group">
+                <visible>Integer.IsEqual(Container($PARAM[id]).NumItems,3)</visible>
+                <bottom>240</bottom>
+                <include content="Dialog_Foreground_Side">
+                    <param name="topline">true</param>
+                    <param name="subline">true</param>
+                </include>
+            </control>
+            <control type="group">
+                <visible>Integer.IsEqual(Container($PARAM[id]).NumItems,2)</visible>
+                <bottom>320</bottom>
+                <include content="Dialog_Foreground_Side">
+                    <param name="topline">true</param>
+                    <param name="subline">true</param>
+                </include>
+            </control>
+            <control type="group">
+                <visible>Integer.IsEqual(Container($PARAM[id]).NumItems,1)</visible>
+                <bottom>400</bottom>
+                <include content="Dialog_Foreground_Side">
+                    <param name="topline">true</param>
+                    <param name="subline">true</param>
+                </include>
+            </control>
+
+            <animation effect="fade" start="100" end="0" time="1" condition="ControlGroup($PARAM[id]).HasFocus()">WindowClose</animation>
+
+            <include content="Animation_SlideIn_Dialog">
+                <param name="windowopen_condition">false</param>
             </include>
 
             <!-- Header -->
@@ -1158,12 +1185,103 @@
                     <control type="grouplist" id="$PARAM[id]">
                         <onback>$PARAM[onback]</onback>
                         <onleft>$PARAM[onback]</onleft>
+                        <onright>$PARAM[onback]</onright>
                         <include>$PARAM[include]</include>
                     </control>
                 </control>
             </control>
 
         </control>
+    </include>
+
+    <include name="Dialog_Options">
+        <param name="scrollbar_id">62</param>
+        <param name="fade_id">63</param>
+        <param name="allowhiddenfocus">true</param>
+        <definition>
+            <control type="button" id="$PARAM[fade_id]">
+                <visible>[ControlGroup($PARAM[id]).HasFocus() | Control.HasFocus($PARAM[scrollbar_id]) | Control.HasFocus($PARAM[fade_id])]</visible>
+                <include content="Animation_Fade_In">
+                    <param name="type">Visible</param>
+                    <param name="reversible">true</param>
+                </include>
+                <include content="Animation_Fade_Out">
+                    <param name="type">Hidden</param>
+                    <param name="reversible">true</param>
+                </include>
+                <include content="Animation_Fade_Out">
+                    <param name="type">WindowClose</param>
+                    <param name="reversible">true</param>
+                    <param name="condition">[ControlGroup($PARAM[id]).HasFocus() | Control.HasFocus($PARAM[scrollbar_id]) | Control.HasFocus($PARAM[fade_id])]</param>
+                </include>
+                <texturefocus colordiffuse="shadow_back">common/white.png</texturefocus>
+                <texturenofocus colordiffuse="shadow_back">common/white.png</texturenofocus>
+                <onclick>SetFocus($PARAM[onback])</onclick>
+                <onback>$PARAM[onback]</onback>
+            </control>
+            <control type="group">
+                <include>Dimension_DialogMiniMenu</include>
+                <visible allowhiddenfocus="$PARAM[allowhiddenfocus]">[ControlGroup($PARAM[id]).HasFocus() | Control.HasFocus($PARAM[scrollbar_id]) | Control.HasFocus($PARAM[fade_id])]</visible>
+
+                <include content="Dialog_Foreground_Side">
+                    <param name="topline">true</param>
+                    <param name="subline">true</param>
+                    <param name="dialog_size">Dimension_DialogMiniMenu</param>
+                </include>
+
+                <include content="Animation_Slide_In">
+                    <param name="type">Visible</param>
+                    <param name="reversible">true</param>
+                    <param name="posx">320</param>
+                </include>
+                <include content="Animation_Slide_Out">
+                    <param name="type">Hidden</param>
+                    <param name="reversible">true</param>
+                    <param name="posx">320</param>
+                </include>
+
+                <animation effect="fade" start="100" end="0" time="1" condition="[ControlGroup($PARAM[id]).HasFocus() | Control.HasFocus($PARAM[scrollbar_id]) | Control.HasFocus($PARAM[fade_id])]">WindowClose</animation>
+
+                <include content="Animation_SlideIn_Dialog">
+                    <param name="windowopen_condition">false</param>
+                </include>
+
+                <!-- Header -->
+                <include content="Dialog_Head">
+                    <param name="id">0</param>
+                    <param name="label">$LOCALIZE[33063]</param>
+                </include>
+
+                <!-- Content -->
+                <control type="group">
+                    <include>Dimension_Dialog_Body</include>
+                    <control type="group">
+                        <include>Dimension_Dialog_Body_Group</include>
+                        <control type="grouplist" id="$PARAM[id]">
+                            <onback>$PARAM[onback]</onback>
+                            <onleft>$PARAM[onback]</onleft>
+                            <onright>$PARAM[scrollbar_id]</onright>
+                            <include>$PARAM[include]</include>
+                            <pagecontrol>$PARAM[scrollbar_id]</pagecontrol>
+                        </control>
+                        <control type="group">
+                            <height>40</height>
+                            <right>20</right>
+                            <bottom>-60</bottom>
+                            <include content="Dialog_ItemPage">
+                                <param name="id">$PARAM[id]</param>
+                            </include>
+                        </control>
+                    </control>
+                    <include content="Dialog_Scrollbar">
+                        <param name="id">$PARAM[scrollbar_id]</param>
+                        <onleft>$PARAM[id]</onleft>
+                        <onback>$PARAM[id]</onback>
+                    </include>
+                </control>
+
+            </control>
+        </definition>
     </include>
 
 </includes>

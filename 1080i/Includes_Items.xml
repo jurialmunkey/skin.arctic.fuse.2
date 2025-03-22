@@ -357,7 +357,7 @@
             <param name="dialog">true</param>
             <label>$LOCALIZE[31158]</label>
             <label2>$VAR[Label_Settings_InfoLayout]</label2>
-            <onclick>RunScript(script.skinvariables,run_dialog=select,heading=$LOCALIZE[19033] $LOCALIZE[31158],preselect=$VAR[Label_Settings_InfoLayout],separator=||,list=$LOCALIZE[571]||Flix||$LOCALIZE[31587]||$LOCALIZE[39173],"executebuiltin_0=Skin.Reset(Info.Layout)","executebuiltin_1=Skin.SetString(Info.Layout,Flix)","executebuiltin_2=Skin.SetString(Info.Layout,Flip)","executebuiltin_3=Skin.SetString(Info.Layout,Blur)")</onclick>
+            <onclick>RunScript(script.skinvariables,run_dialog=select,heading=$LOCALIZE[19033] $LOCALIZE[31158],preselect=$VAR[Label_Settings_InfoLayout],separator=||,list=$LOCALIZE[39173]||Flix||$LOCALIZE[31587],"executebuiltin_0=Skin.Reset(Info.Layout)","executebuiltin_1=Skin.SetString(Info.Layout,Flix)","executebuiltin_2=Skin.SetString(Info.Layout,Flip)")</onclick>
         </include>
 
         <include content="Settings_Label">
@@ -1031,6 +1031,25 @@
         </definition>
     </include>
 
+    <include name="Items_DialogPVRChannelManager">
+        <definition>
+            <include content="Settings_ButtonImage">
+                <param name="id">30</param>
+                <param name="groupid">9330</param>
+                <param name="control">button</param>
+                <label>$LOCALIZE[19205]</label>
+                <description>Group Manager</description>
+            </include>
+            <include content="Settings_ButtonImage">
+                <param name="id">34</param>
+                <param name="groupid">9334</param>
+                <label>$VAR[Label_PVRChannelMgrToggle]</label>
+                <param name="icon">special://skin/extras/icons/right-left.png</param>
+                <visible>Control.IsEnabled(34)</visible>
+            </include>
+        </definition>
+    </include>
+
     <include name="Items_DialogPVRGroupManager">
         <definition>
             <include content="Settings_ButtonImage">
@@ -1038,12 +1057,14 @@
                 <param name="groupid">9326</param>
                 <label>$LOCALIZE[15019]</label>
                 <param name="icon">special://skin/extras/icons/circle-plus.png</param>
+                <visible>Control.IsEnabled(26)</visible>
             </include>
             <include content="Settings_ButtonImage">
                 <param name="id">27</param>
                 <param name="groupid">9327</param>
                 <label>$LOCALIZE[118]</label>
                 <param name="icon">special://skin/extras/icons/i-cursor.png</param>
+                <visible>Control.IsEnabled(27)</visible>
             </include>
             <include content="Settings_ButtonImage">
                 <param name="id">9004</param>
@@ -1059,12 +1080,40 @@
                 <param name="groupid">9328</param>
                 <label>$LOCALIZE[117]</label>
                 <param name="icon">special://skin/extras/icons/delete-left.png</param>
+                <visible>Control.IsEnabled(28)</visible>
             </include>
             <include content="Settings_ButtonImage">
                 <param name="id">35</param>
                 <param name="groupid">9335</param>
                 <label>$LOCALIZE[184]</label>
                 <param name="icon">special://skin/extras/icons/image.png</param>
+                <visible>Control.IsEnabled(35)</visible>
+            </include>
+            <include content="Settings_ButtonImage">
+                <param name="id">34</param>
+                <param name="groupid">9334</param>
+                <label>$VAR[Label_PVRChannelMgrToggle]</label>
+                <param name="icon">special://skin/extras/icons/right-left.png</param>
+                <visible>Control.IsEnabled(34)</visible>
+            </include>
+        </definition>
+    </include>
+
+    <include name="Items_DialogPVRGuideSearch">
+        <definition>
+            <include content="Settings_ButtonImage">
+                <param name="id">28</param>
+                <param name="groupid">9328</param>
+                <param name="icon">special://skin/extras/icons/triangle-exclamation.png</param>
+                <label>$LOCALIZE[13007]</label>
+                <visible>Control.IsEnabled(28)</visible>
+            </include>
+            <include content="Settings_ButtonImage">
+                <param name="id">29</param>
+                <param name="groupid">9329</param>
+                <param name="icon">special://skin/extras/icons/floppy-disk.png</param>
+                <label>$LOCALIZE[190]</label>
+                <visible>Control.IsEnabled(29)</visible>
             </include>
         </definition>
     </include>
@@ -1084,7 +1133,7 @@
                 <param name="icon">special://skin/extras/icons/update.png</param>
                 <param name="visible">Control.IsEnabled(13)</param>
                 <label>$LOCALIZE[21340]</label>
-                <radioposx>416</radioposx>
+                <radioposx>536</radioposx>
                 <radioheight>28</radioheight>
             </include>
             <include content="Settings_ButtonImage" description="Update">
@@ -1108,13 +1157,19 @@
                 <label>$LOCALIZE[39024]</label>
                 <visible>Control.IsEnabled(10)</visible>
             </include>
-            <!-- <include content="Settings_ButtonImage" description="Settings">
+            <include content="Settings_ButtonImage" description="Install">
+                <param name="id">06</param>
+                <param name="groupid">9306</param>
+                <param name="icon">$VAR[Image_AddonInfo_Install]</param>
+                <visible>Control.IsEnabled(6)</visible>
+            </include>
+            <include content="Settings_ButtonImage" description="Settings">
                 <param name="id">09</param>
                 <param name="groupid">9309</param>
                 <param name="icon">special://skin/extras/icons/settings.png</param>
                 <visible>Control.IsEnabled(9)</visible>
                 <label>$LOCALIZE[5]</label>
-            </include> -->
+            </include>
 
         </definition>
     </include>

@@ -15,6 +15,10 @@
                         <param name="shadow">false</param>
                         <param name="diffuse">diffuse/dialog_w1120_h400.png</param>
                     </include>
+                    <include>Dialog_Background_Glass</include>
+                    <control type="image">
+                        <texture colordiffuse="panel_bg_12" border="20">common/dialog.png</texture>
+                    </control>
                     <animation effect="slide" start="0" end="0,-80" time="400" condition="$EXP[Exp_AutoCompletion_IsEnabled] + !Integer.IsEqual(Container(8000).NumItems,0)" tween="cubic" easing="out" reversible="false">Conditional</animation>
                     <animation effect="slide" start="0,-80" end="0" time="400" condition="![$EXP[Exp_AutoCompletion_IsEnabled] + !Integer.IsEqual(Container(8000).NumItems,0)]" tween="cubic" easing="out" reversible="false">Conditional</animation>
                     <control type="fixedlist" id="8000">
@@ -66,9 +70,7 @@
                         <param name="shadow">false</param>
                         <param name="diffuse">diffuse/dialog_w1120_h400.png</param>
                     </include>
-                    <control type="image">
-                        <texture colordiffuse="dialog_fg_12" border="20">common/dialog.png</texture>
-                    </control>
+                    <include>Dialog_Background_Glass</include>
                     <control type="group">
                         <top>-120</top>
                         <height>120</height>
@@ -114,7 +116,7 @@
                                 <textoffsetx>40</textoffsetx>
                                 <width>keyboard_edit_w</width>
                                 <control type="image">
-                                    <texture colordiffuse="dialog_fg_12" border="40">common/menu.png</texture>
+                                    <texture colordiffuse="$VAR[Color_DialogBorder]" border="40">common/menu.png</texture>
                                     <visible>!Control.HasFocus(312)</visible>
                                 </control>
                                 <control type="image">
@@ -610,17 +612,18 @@
             <include>Animation_SlideIn_Dialog</include>
             <control type="group">
                 <include>Dimension_DialogNumeric</include>
+                <include content="Dialog_Background_Group">
+                    <param name="include_glass">true</param>
+                    <param name="dialog_size">Dimension_DialogNumeric</param>
+                </include>
+                <include>Dialog_Overlay_Tray</include>
                 <control type="group">
-                    <include content="Dialog_Background_Blur">
-                    </include>
+                    <include>Dialog_Group</include>
                     <include content="Dialog_Head">
                         <param name="textcolor">main_fg_100</param>
                         <param name="top">40</param>
                         <param name="left">40</param>
                         <param name="right">40</param>
-                    </include>
-                    <include content="Dialog_Overlay_Mode_Glass">
-                        <param name="flipped">false</param>
                     </include>
                     <control type="group">
                         <bottom>120</bottom>
@@ -638,7 +641,7 @@
                             <control type="group">
                                 <height>80</height>
                                 <control type="image">
-                                    <texture colordiffuse="dialog_fg_12" border="40">common/menu.png</texture>
+                                    <texture colordiffuse="$VAR[Color_DialogBorder]" border="40">common/menu.png</texture>
                                 </control>
                                 <include content="Object_Keyboard_Button" description="Display">
                                     <param name="id">4</param>
