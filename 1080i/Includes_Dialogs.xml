@@ -1101,7 +1101,7 @@
                 <param name="reversible">true</param>
             </include>
             <include content="Animation_Fade_Out">
-                <param name="type">Hidden</param>
+                <param name="type">WindowClose</param>
                 <param name="reversible">true</param>
                 <param name="condition">ControlGroup($PARAM[id]).HasFocus()</param>
             </include>
@@ -1192,6 +1192,97 @@
             </control>
 
         </control>
+    </include>
+
+    <include name="Dialog_Options">
+        <param name="scrollbar_id">62</param>
+        <param name="fade_id">63</param>
+        <param name="allowhiddenfocus">true</param>
+        <param name="visible">false</param>
+        <definition>
+            <control type="button" id="$PARAM[fade_id]">
+                <visible>[ControlGroup($PARAM[id]).HasFocus() | Control.HasFocus($PARAM[scrollbar_id]) | Control.HasFocus($PARAM[fade_id]) | $PARAM[visible]]</visible>
+                <include content="Animation_Fade_In">
+                    <param name="type">Visible</param>
+                    <param name="reversible">true</param>
+                </include>
+                <include content="Animation_Fade_Out">
+                    <param name="type">Hidden</param>
+                    <param name="reversible">true</param>
+                </include>
+                <include content="Animation_Fade_Out">
+                    <param name="type">WindowClose</param>
+                    <param name="reversible">true</param>
+                    <param name="condition">[ControlGroup($PARAM[id]).HasFocus() | Control.HasFocus($PARAM[scrollbar_id]) | Control.HasFocus($PARAM[fade_id]) | $PARAM[visible]]</param>
+                </include>
+                <texturefocus colordiffuse="shadow_back">common/white.png</texturefocus>
+                <texturenofocus colordiffuse="shadow_back">common/white.png</texturenofocus>
+                <onclick>SetFocus($PARAM[onback])</onclick>
+                <onback>$PARAM[onback]</onback>
+            </control>
+            <control type="group">
+                <include>Dimension_DialogMiniMenu</include>
+                <visible allowhiddenfocus="$PARAM[allowhiddenfocus]">[ControlGroup($PARAM[id]).HasFocus() | Control.HasFocus($PARAM[scrollbar_id]) | Control.HasFocus($PARAM[fade_id]) | $PARAM[visible]]</visible>
+
+                <include content="Dialog_Foreground_Side">
+                    <param name="topline">true</param>
+                    <param name="subline">true</param>
+                    <param name="dialog_size">Dimension_DialogMiniMenu</param>
+                </include>
+
+                <include content="Animation_Slide_In">
+                    <param name="type">Visible</param>
+                    <param name="reversible">true</param>
+                    <param name="posx">320</param>
+                </include>
+                <include content="Animation_Slide_Out">
+                    <param name="type">Hidden</param>
+                    <param name="reversible">true</param>
+                    <param name="posx">320</param>
+                </include>
+
+                <animation effect="fade" start="100" end="0" time="1" condition="[ControlGroup($PARAM[id]).HasFocus() | Control.HasFocus($PARAM[scrollbar_id]) | Control.HasFocus($PARAM[fade_id]) | $PARAM[visible]]">WindowClose</animation>
+
+                <include content="Animation_SlideIn_Dialog">
+                    <param name="windowopen_condition">false</param>
+                </include>
+
+                <!-- Header -->
+                <include content="Dialog_Head">
+                    <param name="id">0</param>
+                    <param name="label">$LOCALIZE[33063]</param>
+                </include>
+
+                <!-- Content -->
+                <control type="group">
+                    <include>Dimension_Dialog_Body</include>
+                    <control type="group">
+                        <include>Dimension_Dialog_Body_Group</include>
+                        <control type="grouplist" id="$PARAM[id]">
+                            <onback>$PARAM[onback]</onback>
+                            <onleft>$PARAM[onback]</onleft>
+                            <onright>$PARAM[scrollbar_id]</onright>
+                            <include>$PARAM[include]</include>
+                            <pagecontrol>$PARAM[scrollbar_id]</pagecontrol>
+                        </control>
+                        <control type="group">
+                            <height>40</height>
+                            <right>20</right>
+                            <bottom>-60</bottom>
+                            <include content="Dialog_ItemPage">
+                                <param name="id">$PARAM[id]</param>
+                            </include>
+                        </control>
+                    </control>
+                    <include content="Dialog_Scrollbar">
+                        <param name="id">$PARAM[scrollbar_id]</param>
+                        <onleft>$PARAM[id]</onleft>
+                        <onback>$PARAM[id]</onback>
+                    </include>
+                </control>
+
+            </control>
+        </definition>
     </include>
 
 </includes>
