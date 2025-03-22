@@ -732,6 +732,21 @@
                                         <visible>$EXP[Shortcuts_Dialog_Exp_IsEnabled]</visible>
                                     </include>
 
+                                    <!-- Widgets: Prevent Reload -->
+                                    <include content="Settings_Button">
+                                        <param name="dialog">true</param>
+                                        <param name="id">23070</param>
+                                        <param name="control">radiobutton</param>
+                                        <label>$LOCALIZE[31583]</label>
+                                        <selected>String.IsEqual(Container(22001).ListItem.Property(widget_sortby),userpreference)</selected>
+                                        <onclick condition="!String.IsEqual(Container(22001).ListItem.Property(widget_sortby),userpreference)">RunPlugin($INFO[Container(22001).ListItem.Property(url),,&amp;func=do_edit&amp;&amp;widget_sortby&amp;&amp;userpreference])</onclick>
+                                        <onclick condition="String.IsEqual(Container(22001).ListItem.Property(widget_sortby),userpreference)">RunPlugin($INFO[Container(22001).ListItem.Property(url),,&amp;func=do_edit&amp;&amp;widget_sortby&amp;&amp;default])</onclick>
+                                        <visible>String.IsEqual(Container(22001).ListItem.Property(widget_sortby),userpreference) | String.IsEqual(Container(22001).ListItem.Property(widget_sortby),default) | String.IsEmpty(Container(22001).ListItem.Property(widget_sortby))</visible>
+                                        <visible>$EXP[Shortcuts_Dialog_Exp_IsWidgetMode]</visible>
+                                        <onback>29999</onback>
+                                        <visible>$EXP[Shortcuts_Dialog_Exp_IsEnabled]</visible>
+                                    </include>
+
                                     <!-- Submenu: Widget Style -->
                                     <include content="Settings_Button">
                                         <param name="dialog">true</param>
@@ -794,8 +809,6 @@
                                         <onclick>RunPlugin($INFO[Container(22001).ListItem.Property(url),,&amp;func=do_toggle&amp;&amp;widget_autoscroll])</onclick>
                                         <onback>29999</onback>
                                     </include>
-
-
 
                                     <!-- ================ -->
                                     <!-- Dummy Nav Button -->
