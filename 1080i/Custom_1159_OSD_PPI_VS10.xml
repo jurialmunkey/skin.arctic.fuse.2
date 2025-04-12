@@ -1,0 +1,271 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<window type="dialog" id="1159">
+    <defaultcontrol always="true">6009</defaultcontrol>
+    <controls>
+        <control type="group">
+            <include>OSD_HideControls</include>
+            <left>view_pad</left>
+            <right>view_pad</right>
+            <visible>!Window.IsActive(DialogPlayerProcessInfo.xml)</visible>
+            <visible>!Window.IsVisible(DialogSlider.xml)</visible>
+			
+            <!-- Group for Original, SDR, HDR10 & Dolby Vision (Large layout) -->
+            <control type="group">
+                <visible>Control.IsVisible(8490) | Control.IsVisible(8491)</visible>
+				
+                <include content="OSD_Dialog_Background_Blur">
+                    <param name="diffuse">diffuse/dialog_w520_h480.png</param>
+                </include>
+				
+                <include content="Animation_SlideIn_Dialog">
+                    <param name="posy">48</param>
+                </include>
+				
+                <include>OSD_Stream_Selector_Divider</include>
+                <right>-40</right>
+                <bottom>220</bottom>
+                <width>450</width>
+                <height>520</height>
+				
+                <include content="Object_MenuHeader">
+                    <param name="label">$LOCALIZE[32065]</param>
+                    <param name="icon">special://skin/extras/icons/vs10.png</param>
+                </include>
+				
+                <control type="group">
+                    <top>120</top>
+                    <bottom>40</bottom>
+                    <control type="grouplist" id="6210">
+                        <top>20</top>
+                        <bottom>20</bottom>
+                        <left>20</left>
+                        <right>20</right>
+                        <ondown>6009</ondown>
+                        <onleft>6009</onleft>
+                        <onright>6009</onright>
+                        <onup>6211</onup>
+                        <orientation>vertical</orientation>
+						
+                        <!-- VS10 Dolby Vision -->
+                        <include content="Settings_Button">
+                            <param name="id">8490</param>
+                            <param name="control">button</param>
+                            <visible>String.Contains(Player.Process(video.hdr.type),SDR) | String.Contains(Player.Process(video.hdr.type),HDR)</visible>
+                            <selected>[Integer.IsEqual(Player.Process(amlogic.vs10.mode.raw),0) | Integer.IsEqual(Player.Process(amlogic.vs10.mode.raw),1)] + !String.Contains(Player.Process(video.hdr.type),Dolby)</selected>
+                            <onclick>Action(vs10.dv)</onclick>
+                            <onclick>Dialog.Close(all)</onclick>
+                        </include>
+                        <control type="group" id="6894">
+                            <height>80</height>
+                            <top>-80</top>
+                            <left>-20</left>
+                            <visible>Control.IsEnabled(8490) + Control.IsVisible(8490)</visible>
+                            <control type="group">
+                                <visible>!Control.HasFocus(8490)</visible>
+                                <include content="OSD_VS10_DV">
+                                    <param name="textcolor_top">dialog_fg_90</param>
+                                    <param name="textcolor_sub">dialog_fg_70</param>
+                                </include>
+                            </control>
+                            <control type="group">
+                                <visible>Control.HasFocus(8490)</visible>
+                                <include content="OSD_VS10_DV">
+                                    <param name="textcolor_top">$VAR[ColorSelected]</param>
+                                    <param name="textcolor_sub">$VAR[ColorSelected]</param>
+                                </include>
+                            </control>
+                        </control>
+						
+                        <!-- VS10 HDR10 -->
+                        <include content="Settings_Button">
+                            <param name="id">8491</param>
+                            <param name="control">button</param>
+                            <visible>[String.Contains(Player.Process(video.hdr.type),SDR) | String.Contains(Player.Process(video.hdr.type),HLG)]</visible>
+                            <selected>Integer.IsEqual(Player.Process(amlogic.vs10.mode.raw),2)</selected>
+                            <onclick>Action(vs10.hdr10)</onclick>
+                            <onclick>Dialog.Close(all)</onclick>
+                        </include>
+                        <control type="group" id="6895">
+                            <height>80</height>
+                            <top>-80</top>
+                            <left>-20</left>
+                            <visible>Control.IsEnabled(8491) + Control.IsVisible(8491)</visible>
+                            <control type="group">
+                                <visible>!Control.HasFocus(8491)</visible>
+                                <include content="OSD_VS10_HDR">
+                                    <param name="textcolor_top">dialog_fg_90</param>
+                                    <param name="textcolor_sub">dialog_fg_70</param>
+                                </include>
+                            </control>
+                            <control type="group">
+                                <visible>Control.HasFocus(8491)</visible>
+                                <include content="OSD_VS10_HDR">
+                                    <param name="textcolor_top">$VAR[ColorSelected]</param>
+                                    <param name="textcolor_sub">$VAR[ColorSelected]</param>
+                                </include>
+                            </control>
+                        </control>
+						
+                        <!-- VS10 SDR -->
+                        <include content="Settings_Button">
+                            <param name="id">8492</param>
+                            <param name="control">button</param>
+                            <selected>Integer.IsEqual(Player.Process(amlogic.vs10.mode.raw),3)</selected>
+                            <onclick>Action(vs10.sdr)</onclick>
+                            <onclick>Dialog.Close(all)</onclick>
+                        </include>
+                        <control type="group" id="6896">
+                            <height>80</height>
+                            <top>-80</top>
+                            <left>-20</left>
+                            <visible>Control.IsEnabled(8492) + Control.IsVisible(8492)</visible>
+                            <control type="group">
+                                <visible>!Control.HasFocus(8492)</visible>
+                                <include content="OSD_VS10_SDR">
+                                    <param name="textcolor_top">dialog_fg_90</param>
+                                    <param name="textcolor_sub">dialog_fg_70</param>
+                                </include>
+                            </control>
+                            <control type="group">
+                                <visible>Control.HasFocus(8492)</visible>
+                                <include content="OSD_VS10_SDR">
+                                    <param name="textcolor_top">$VAR[ColorSelected]</param>
+                                    <param name="textcolor_sub">$VAR[ColorSelected]</param>
+                                </include>
+                            </control>
+                        </control>
+						
+                        <!-- VS10 Original -->
+                        <include content="Settings_Button">
+                            <param name="id">8493</param>
+                            <param name="control">button</param>
+                            <selected>Integer.IsEqual(Player.Process(amlogic.vs10.mode.raw),5) | [[Integer.IsEqual(Player.Process(amlogic.vs10.mode.raw),0) | Integer.IsEqual(Player.Process(amlogic.vs10.mode.raw),1)] + String.Contains(Player.Process(video.hdr.type),Dolby)]</selected>
+                            <onclick>Action(vs10.original)</onclick>
+                            <onclick>Dialog.Close(all)</onclick>
+                        </include>
+                        <control type="group" id="6897">
+                            <height>80</height>
+                            <top>-80</top>
+                            <left>-20</left>
+                            <visible>Control.IsEnabled(8493) + Control.IsVisible(8493)</visible>
+                            <control type="group">
+                                <visible>!Control.HasFocus(8493)</visible>
+                                <include content="OSD_VS10_Original">
+                                    <param name="textcolor">dialog_fg_90</param>
+                                </include>
+                            </control>
+                            <control type="group">
+                                <visible>Control.HasFocus(8493)</visible>
+                                <include content="OSD_VS10_Original">
+                                    <param name="textcolor">$VAR[ColorSelected]</param>
+                                </include>
+                            </control>
+                        </control>
+                    </control>
+                </control>
+            </control>
+
+            <!-- Group for Original & SDR (Small layout) -->
+            <control type="group">
+                <visible>!Control.IsVisible(8490) + !Control.IsVisible(8491)</visible>
+				
+                <include content="OSD_Dialog_Background_Blur">
+                    <param name="diffuse">diffuse/dialog_w520_h480.png</param>
+                </include>
+				
+                <include content="Animation_SlideIn_Dialog">
+                    <param name="posy">48</param>
+                </include>
+				
+                <include>OSD_Stream_Selector_Divider</include>
+                <right>-40</right>
+                <bottom>220</bottom>
+                <width>450</width>
+                <height>360</height>
+				
+                <include content="Object_MenuHeader">
+                    <param name="label">$LOCALIZE[32065]</param>
+                    <param name="icon">special://skin/extras/icons/vs10.png</param>
+                </include>
+				
+                <control type="group">
+                    <top>120</top>
+                    <bottom>40</bottom>
+					
+                    <control type="grouplist" id="6211">
+                        <top>20</top>
+                        <bottom>20</bottom>
+                        <left>20</left>
+                        <right>20</right>
+                        <ondown>6009</ondown>
+                        <onleft>6009</onleft>
+                        <onright>6009</onright>
+                        <onup>6210</onup>
+                        <orientation>vertical</orientation>
+						
+                        <!-- VS10 SDR -->
+                        <include content="Settings_Button">
+                            <param name="id">8492</param>
+                            <param name="control">button</param>
+                            <selected>Integer.IsEqual(Player.Process(amlogic.vs10.mode.raw),3)</selected>
+                            <onclick>Action(vs10.sdr)</onclick>
+                            <onclick>Dialog.Close(all)</onclick>
+                        </include>
+                        <control type="group" id="6898">
+                            <height>80</height>
+                            <top>-80</top>
+                            <left>-20</left>
+                            <visible>Control.IsEnabled(8492) + Control.IsVisible(8492)</visible>
+                            <control type="group">
+                                <visible>!Control.HasFocus(8492)</visible>
+                                <include content="OSD_VS10_SDR">
+                                    <param name="textcolor">dialog_fg_90</param>
+                                </include>
+                            </control>
+                            <control type="group">
+                                <visible>Control.HasFocus(8492)</visible>
+                                <include content="OSD_VS10_SDR">
+                                    <param name="textcolor">$VAR[ColorSelected]</param>
+                                </include>
+                            </control>
+                        </control>
+						
+                        <!-- VS10 Original -->
+                        <include content="Settings_Button">
+                            <param name="id">8493</param>
+                            <param name="control">button</param>
+                            <selected>Integer.IsEqual(Player.Process(amlogic.vs10.mode.raw),5) | [[Integer.IsEqual(Player.Process(amlogic.vs10.mode.raw),0) | Integer.IsEqual(Player.Process(amlogic.vs10.mode.raw),1)] + String.Contains(Player.Process(video.hdr.type),Dolby)]</selected>
+                            <onclick>Action(vs10.original)</onclick>
+                            <onclick>Dialog.Close(all)</onclick>
+                        </include>
+                        <control type="group" id="6899">
+                            <height>80</height>
+                            <top>-80</top>
+                            <left>-20</left>
+                            <visible>Control.IsEnabled(8493) + Control.IsVisible(8493)</visible>
+                            <control type="group">
+                                <visible>!Control.HasFocus(8493)</visible>
+                                <include content="OSD_VS10_Original">
+                                    <param name="textcolor">dialog_fg_90</param>
+                                </include>
+                            </control>
+                            <control type="group">
+                                <visible>Control.HasFocus(8493)</visible>
+                                <include content="OSD_VS10_Original">
+                                    <param name="textcolor">$VAR[ColorSelected]</param>
+                                </include>
+                            </control>
+                        </control>
+                    </control>
+                </control>
+            </control>
+
+            <include content="OSD_CustomDialog_GroupList">
+                <param name="onclick">ActivateWindow(playerprocessinfo)</param>
+                <param name="onup">SetFocus(8493)</param>
+                <param name="icon">special://skin/extras/icons/ppi.png</param>
+                <param name="button_9">true</param>
+            </include>
+        </control>
+    </controls>
+</window>

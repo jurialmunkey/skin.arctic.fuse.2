@@ -481,6 +481,7 @@
             <include content="Info_Line_VideoQuality">
                 <param name="textcolor">panel_fg_90</param>
                 <param name="listitem_videoresolution">VideoPlayer.VideoResolution</param>
+                <param name="listitem_audiocodec">VideoPlayer.AudioCodec</param>
                 <param name="listitem_audiochannels">VideoPlayer.AudioChannels</param>
                 <param name="listitem_hdrtype">VideoPlayer.HdrType</param>
                 <param name="visible">$PARAM[visible]</param>
@@ -830,10 +831,85 @@
                 <centertop>50%</centertop>
                 <height>80</height>
                 <include content="Object_InfoCircle">
-                    <param name="name">[UPPERCASE]$INFO[VideoPlayer.VideoResolution]$INFO[VideoPlayer.VideoCodec, • ,]$INFO[VideoPlayer.VideoAspect, • ,:1]$INFO[VideoPlayer.AudioCodec, • ,]$VAR[Label_VideoPlayer_AudioChannels, • ,][/UPPERCASE]</param>
+                    <param name="name">[UPPERCASE]$INFO[VideoPlayer.VideoResolution]$VAR[Label_OSD_VideoHDRCodec, • ,]$VAR[Label_VideoPlayer_AudioCodec, • ,]$VAR[Label_VideoPlayer_AudioChannels, • ,][/UPPERCASE]</param>
                     <param name="role">$INFO[VideoPlayer.VideoVersionName]</param>
                     <param name="icon">special://skin/extras/icons/photo-film.png</param>
                     <param name="fallback_role">$LOCALIZE[31207]</param>
+                    <param name="textcolor_top">$PARAM[textcolor_top]</param>
+                    <param name="textcolor_sub">$PARAM[textcolor_sub]</param>
+                </include>
+            </control>
+        </definition>
+    </include>
+	
+    <include name="OSD_VS10_Original">
+        <control type="group">
+            <centertop>50%</centertop>
+            <height>80</height>
+            <include content="Object_InfoCircle_VS10">
+                <param name="label">$LOCALIZE[32064]</param>
+                <param name="icon">special://skin/extras/icons/o.png</param>
+                <param name="font">font_mini_bold</param>
+            </include>
+        </control>
+    </include>
+	
+    <include name="OSD_VS10_SDR">
+        <param name="anchor">true</param>
+        <param name="include_fps">true</param>
+        <param name="textcolor_sub">panel_fg_70</param>
+        <param name="textcolor_top">panel_fg_90</param>
+        <definition>
+            <control type="group">
+                <centertop>50%</centertop>
+                <height>80</height>
+                <include content="Object_InfoCircle">
+                    <param name="name">$VAR[VideoHDRCodec] -> SDR</param>
+                    <param name="role">SDR</param>
+                    <param name="icon">special://skin/extras/icons/convert.png</param>
+                    <param name="fallback_role">SDR</param>
+                    <param name="textcolor_top">$PARAM[textcolor_top]</param>
+                    <param name="textcolor_sub">$PARAM[textcolor_sub]</param>
+                </include>
+            </control>
+        </definition>
+    </include>
+	
+    <include name="OSD_VS10_HDR">
+        <param name="anchor">true</param>
+        <param name="include_fps">true</param>
+        <param name="textcolor_sub">panel_fg_70</param>
+        <param name="textcolor_top">panel_fg_90</param>
+        <definition>
+            <control type="group">
+                <centertop>50%</centertop>
+                <height>80</height>
+                <include content="Object_InfoCircle">
+                    <param name="name">$VAR[VideoHDRCodec] -> HDR10</param>
+                    <param name="role">HDR10</param>
+                    <param name="icon">special://skin/extras/icons/convert.png</param>
+                    <param name="fallback_role">HDR10</param>
+                    <param name="textcolor_top">$PARAM[textcolor_top]</param>
+                    <param name="textcolor_sub">$PARAM[textcolor_sub]</param>
+                </include>
+            </control>
+        </definition>
+    </include>
+	
+    <include name="OSD_VS10_DV">
+        <param name="anchor">true</param>
+        <param name="include_fps">true</param>
+        <param name="textcolor_sub">panel_fg_70</param>
+        <param name="textcolor_top">panel_fg_90</param>
+        <definition>
+            <control type="group">
+                <centertop>50%</centertop>
+                <height>80</height>
+                <include content="Object_InfoCircle">
+                    <param name="name">$VAR[VideoHDRCodec] -> Dolby Vision</param>
+                    <param name="role">Dolby Vision</param>
+                    <param name="icon">special://skin/extras/icons/convert.png</param>
+                    <param name="fallback_role">Dolby Vision</param>
                     <param name="textcolor_top">$PARAM[textcolor_top]</param>
                     <param name="textcolor_sub">$PARAM[textcolor_sub]</param>
                 </include>
@@ -1117,14 +1193,14 @@
             <texture colordiffuse="panel_bg_70" border="4,0,4,0">common/gradient-v.png</texture>
             <include>Animation_OSD_Fullscreen_Change</include>
             <visible>Window.IsActive(DialogSeekBar.xml) | Window.IsVisible(1152)</visible>
-            <visible>![Window.IsActive(videoosd) | Window.IsActive(musicosd) | Window.IsActive(1140) | Window.IsActive(1141) | Window.IsActive(1142) | Window.IsActive(1143) | Window.IsActive(1144) | Window.IsActive(1145) | Window.IsActive(1146) | Window.IsActive(1147) | Window.IsActive(1148) | Window.IsActive(1149) | Window.IsVisible(videobookmarks) | Window.IsVisible(pvrosdguide) | Window.IsVisible(pvrosdchannels) | Window.IsVisible(1152) | Window.IsActive(script-upnext-stillwatching.xml) | Window.IsActive(script-upnext-upnext.xml)]</visible>
+            <visible>![Window.IsActive(videoosd) | Window.IsActive(musicosd) | Window.IsActive(1140) | Window.IsActive(1141) | Window.IsActive(1142) | Window.IsActive(1143) | Window.IsActive(1144) | Window.IsActive(1145) | Window.IsActive(1146) | Window.IsActive(1147) | Window.IsActive(1148) | Window.IsActive(1149) | Window.IsActive(1159) | Window.IsVisible(videobookmarks) | Window.IsVisible(pvrosdguide) | Window.IsVisible(pvrosdchannels) | Window.IsVisible(1152) | Window.IsActive(script-upnext-stillwatching.xml) | Window.IsActive(script-upnext-upnext.xml)]</visible>
         </control>
 
         <control type="image" id="1">
             <texture colordiffuse="panel_bg_70">background/combined_flixart.png</texture>
             <include>Animation_OSD_Fullscreen_Change</include>
             <visible>Window.IsActive(DialogSeekBar.xml) | Window.IsVisible(1152)</visible>
-            <visible>Window.IsActive(videoosd) | Window.IsActive(musicosd) | Window.IsActive(1140) | Window.IsActive(1141) | Window.IsActive(1142) | Window.IsActive(1143) | Window.IsActive(1144) | Window.IsActive(1145) | Window.IsActive(1146) | Window.IsActive(1147) | Window.IsActive(1148) | Window.IsActive(1149) | Window.IsVisible(videobookmarks) | Window.IsVisible(pvrosdguide) | Window.IsVisible(pvrosdchannels) | Window.IsVisible(1152) | Window.IsActive(script-upnext-stillwatching.xml) | Window.IsActive(script-upnext-upnext.xml)</visible>
+            <visible>Window.IsActive(videoosd) | Window.IsActive(musicosd) | Window.IsActive(1140) | Window.IsActive(1141) | Window.IsActive(1142) | Window.IsActive(1143) | Window.IsActive(1144) | Window.IsActive(1145) | Window.IsActive(1146) | Window.IsActive(1147) | Window.IsActive(1148) | Window.IsActive(1149) | Window.IsActive(1159) | Window.IsVisible(videobookmarks) | Window.IsVisible(pvrosdguide) | Window.IsVisible(pvrosdchannels) | Window.IsVisible(1152) | Window.IsActive(script-upnext-stillwatching.xml) | Window.IsActive(script-upnext-upnext.xml)</visible>
         </control>
     </include>
 
@@ -1171,6 +1247,7 @@
         <param name="button_6">false</param>
         <param name="button_7">false</param>
         <param name="button_8">false</param>
+        <param name="button_9">false</param>
         <param name="iconoffset_condition">false</param>
         <definition>
 
@@ -1183,7 +1260,7 @@
                 <align>left</align>
 
                 <onleft>6005</onleft>
-                <onright>6008</onright>
+                <onright>6009</onright>
 
                 <include content="OSD_CustomDialog_FakeButton" condition="![$PARAM[button_1]]">
                     <param name="id">1</param>
@@ -1310,6 +1387,20 @@
                     <param name="iconoffset_condition">$PARAM[iconoffset_condition]</param>
                 </include>
 
+                <include content="OSD_CustomDialog_FakeButton" condition="![$PARAM[button_9]]">
+                    <param name="id">9</param>
+                </include>
+                <include content="OSD_CustomDialog_RealButton" condition="$PARAM[button_9]">
+                    <param name="id">9</param>
+                    <param name="onclick">$PARAM[onclick]</param>
+                    <param name="onclick_condition">$PARAM[onclick_condition]</param>
+                    <param name="onup">$PARAM[onup]</param>
+                    <param name="onup_02">$PARAM[onup_02]</param>
+                    <param name="icon">$PARAM[icon]</param>
+                    <param name="label">$PARAM[label]</param>
+                    <param name="iconoffset_condition">$PARAM[iconoffset_condition]</param>
+                </include>
+				
             </control>
         </definition>
     </include>

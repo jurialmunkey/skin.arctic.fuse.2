@@ -3,7 +3,7 @@
     <zorder>0</zorder>
     <visible>Window.IsActive(VideoFullScreen.xml) | Window.IsActive(MusicVisualisation.xml)</visible>
 
-    <visible>[Player.Paused + [!$EXP[Exp_OSD_DelayInfo_Timing] | !Skin.String(OSD.AutoOnPause,Hide)]] | Player.Caching | Player.Seeking | Player.HasPerformedSeek(2) | Player.Forwarding | Player.Rewinding | !String.IsEmpty(Player.SeekNumeric) | !String.IsEmpty(PVR.ChannelNumberInput) | Window.IsActive(script-upnext-stillwatching.xml) | Window.IsActive(script-upnext-upnext.xml) | Window.IsActive(videoosd) | Window.IsActive(musicosd) | Window.IsActive(1140) | Window.IsActive(1141) | Window.IsActive(1142) | Window.IsActive(1143) | Window.IsActive(1144) | Window.IsActive(1145) | Window.IsActive(1146) | Window.IsActive(1147) | Window.IsActive(1148) | Window.IsActive(1149) | Window.IsVisible(videobookmarks) | Window.IsVisible(pvrosdguide) | Window.IsVisible(pvrosdchannels) | [Window.IsVisible(script-cu-lrclyrics-main.xml) + Player.ShowInfo]</visible>
+    <visible>[Player.Paused + [!$EXP[Exp_OSD_DelayInfo_Timing] | !Skin.String(OSD.AutoOnPause,Hide)]] | Player.Caching | Player.Seeking | Player.HasPerformedSeek(2) | Player.Forwarding | Player.Rewinding | !String.IsEmpty(Player.SeekNumeric) | !String.IsEmpty(PVR.ChannelNumberInput) | Window.IsActive(script-upnext-stillwatching.xml) | Window.IsActive(script-upnext-upnext.xml) | Window.IsActive(videoosd) | Window.IsActive(musicosd) | Window.IsActive(1140) | Window.IsActive(1141) | Window.IsActive(1142) | Window.IsActive(1143) | Window.IsActive(1144) | Window.IsActive(1145) | Window.IsActive(1146) | Window.IsActive(1147) | Window.IsActive(1148) | Window.IsActive(1149) | Window.IsActive(1159) | Window.IsVisible(videobookmarks) | Window.IsVisible(pvrosdguide) | Window.IsVisible(pvrosdchannels) | [Window.IsVisible(script-cu-lrclyrics-main.xml) + Player.ShowInfo]</visible>
 
     <visible>!Window.IsActive(DialogSlider.xml)</visible>
     <visible>!Player.HasGame</visible>
@@ -16,6 +16,9 @@
     <controls>
 
         <control type="group">
+            <include condition="Skin.HasSetting(osd.useleftCodecLogos)">CodecLogosLeftOSD</include>
+            <include condition="Skin.HasSetting(osd.usecenterCodecLogos)">CodecLogosCenterOSD</include>
+            <include condition="Skin.HasSetting(osd.userightCodecLogos)">CodecLogosRightOSD</include>
 
             <include content="Animation_ConditionalFade">
                 <param name="condition">![Window.IsActive(VideoFullScreen.xml) | Window.IsActive(MusicVisualisation.xml)]</param>
