@@ -1475,9 +1475,8 @@
                     </include>
                     <param name="items_01">true</param>
                     <param name="label_01">$VAR[Info_Line_Episode_Banner_Text]</param>
-                    <!--param name="visible_01">$EXP[Info_Line_Episode_Banner_Exists] + ![Window.IsVisible(Home) + System.AddonIsEnabled(script.trakt)]</param -->
-                    <param name="visible_01">$EXP[Info_Line_Episode_Banner_Exists]</param>
-
+                    <!-- CurrentControlID of 102601 is Trakt Next Up widget; 300 is Home Menu; 450 is TV Shows Menu -->
+                    <param name="visible_01">$EXP[Info_Line_Episode_Banner_Exists] + ![Window.IsVisible(Home) + [String.IsEqual(System.CurrentControlID,102601) | String.IsEqual(System.CurrentControlID,300) | String.IsEqual(System.CurrentControlID,450)]]</param>
                     <param name="Pillbox_Colour">$VAR[Info_Line_Episode_Banner_Color]</param>
                 </include>
                 <!-- MISC019: END Custom Infoline Episode Banners -->
