@@ -334,7 +334,7 @@
             <param name="widget_showoverlay">true</param>
             <param name="altvisible">true</param>
             <onfocus>SetProperty(CurrentID,$INFO[Window.Property(BaseID)])</onfocus>
-            <content target="videos">$VAR[Path_VideoInfo_Generic,,&amp;info=cast&amp;aggregate=true]</content>
+            <content target="videos">$VAR[Path_VideoInfo_Generic,,&amp;info=cast&amp;aggregate=true]$VAR[Path_Param_Widget]</content>
             <include>DialogInfo_Widgets_Action</include>
         </include>
 
@@ -408,7 +408,7 @@
             <param name="widget_showoverlay">true</param>
             <param name="altvisible">!String.IsEqual(Window.Property(CurrentID),Window.Property(BaseID))</param>
             <onfocus>SetProperty(CurrentID,$INFO[Window.Property(BaseID)])</onfocus>
-            <content>$INFO[Window(Home).Property(TMDbHelper.ListItem.Year),plugin://plugin.video.themoviedb.helper/?info=discover&amp;first_air_date_year=,&amp;vote_count.gte=10]$INFO[Window(Home).Property(TMDbHelper.ListItem.Year),&amp;primary_release_year=,]$VAR[Path_Param_Type,&amp;,]$VAR[Path_Param_Widget]</content>
+            <content>$VAR[Path_FromYear,plugin://plugin.video.themoviedb.helper/?info=discover]$VAR[Path_Param_Widget]</content>
             <include>DialogInfo_Widgets_Action</include>
         </include>
 
@@ -567,7 +567,7 @@
             <param name="id">51</param>
             <param name="baseid">50</param>
             <param name="basegroupid">51</param>
-            <param name="label">$INFO[Container(5050).ListItemAbsolute(0).Label,$LOCALIZE[31076] (,)]</param>
+            <param name="label">$INFO[Window(Home).Property(TMDbHelper.ListItem.Cast.1.Name),$LOCALIZE[31076] (,)]</param>
             <param name="include">List_Poster_Row</param>
             <param name="visible">$EXP[Exp_InfoDialogs_WidgetsGroup_HasFocus]</param>
             <param name="widgetfade_include">true</param>
@@ -580,17 +580,18 @@
             <onfocus>SetProperty(CurrentID,$INFO[Window.Property(BaseID)])</onfocus>
             <content>
                 <item>
-                    <label>$INFO[Container(5050).ListItemAbsolute(0).Label]</label>
-                    <label2>$INFO[Container(5050).ListItemAbsolute(0).Label2]</label2>
-                    <icon>$INFO[Container(5050).ListItemAbsolute(0).Icon]</icon>
+                    <label>$INFO[Window(Home).Property(TMDbHelper.ListItem.Cast.1.Name)]</label>
+                    <label2>$INFO[Window(Home).Property(TMDbHelper.ListItem.Cast.1.Role)]</label2>
+                    <icon>$INFO[Window(Home).Property(TMDbHelper.ListItem.Cast.1.Thumb)]</icon>
                     <property name="tmdb_type">person</property>
-                    <property name="tmdb_id">$INFO[Container(5050).ListItemAbsolute(0).Property(TMDb_ID)]</property>
-                    <property name="folderpath">$INFO[$INFO[Container(5050).ListItemAbsolute(0).Property(TMDb_ID)],plugin://plugin.video.themoviedb.helper/?info=details&amp;tmdb_type=person&amp;tmdb_id=,]</property>
+                    <property name="tmdb_id">$INFO[Window(Home).Property(TMDbHelper.ListItem.Cast.1.TMDb_ID)]</property>
+                    <property name="folderpath">$INFO[$INFO[Window(Home).Property(TMDbHelper.ListItem.Cast.1.TMDb_ID)],plugin://plugin.video.themoviedb.helper/?info=details&amp;tmdb_type=person&amp;tmdb_id=,]</property>
                     <property name="is_static">true</property>
                     <visible>Integer.IsGreater(Container(5051).NumItems,1) | [Integer.IsEqual(Container(5051).NumItems,1) + String.IsEmpty(Container(5051).ListItemAbsolute(0).Property(is_static))]</visible>
+                    <visible>!String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.Cast.1.TMDB_ID))</visible>
                 </item>
             </content>
-            <content>$INFO[Container(5050).ListItemAbsolute(0).Property(TMDb_ID),plugin://plugin.video.themoviedb.helper/?info=stars_in_both&amp;type=person&amp;sort_key=year&amp;tmdb_id=]$VAR[Path_Param_Widget]</content>
+            <content>$INFO[Window(Home).Property(TMDbHelper.ListItem.Cast.1.TMDb_ID),plugin://plugin.video.themoviedb.helper/?info=stars_in_both&amp;type=person&amp;sort_key=year&amp;tmdb_id=]$VAR[Path_Param_Widget]</content>
             <include>DialogInfo_Widgets_Action</include>
         </include>
 
@@ -599,7 +600,7 @@
             <param name="id">52</param>
             <param name="baseid">50</param>
             <param name="basegroupid">51</param>
-            <param name="label">$INFO[Container(5050).ListItemAbsolute(1).Label,$LOCALIZE[31076] (,)]</param>
+            <param name="label">$INFO[Window(Home).Property(TMDbHelper.ListItem.Cast.2.Name),$LOCALIZE[31076] (,)]</param>
             <param name="include">List_Poster_Row</param>
             <param name="visible">$EXP[Exp_InfoDialogs_WidgetsGroup_HasFocus]</param>
             <param name="widgetfade_include">true</param>
@@ -612,17 +613,18 @@
             <onfocus>SetProperty(CurrentID,$INFO[Window.Property(BaseID)])</onfocus>
             <content>
                 <item>
-                    <label>$INFO[Container(5050).ListItemAbsolute(1).Label]</label>
-                    <label2>$INFO[Container(5050).ListItemAbsolute(1).Label2]</label2>
+                    <label>$INFO[Window(Home).Property(TMDbHelper.ListItem.Cast.2.Name)]</label>
+                    <label2>$INFO[Window(Home).Property(TMDbHelper.ListItem.Cast.2.Role)]</label2>
                     <icon>$INFO[Container(5050).ListItemAbsolute(1).Icon]</icon>
                     <property name="tmdb_type">person</property>
-                    <property name="tmdb_id">$INFO[Container(5050).ListItemAbsolute(1).Property(TMDb_ID)]</property>
-                    <property name="folderpath">$INFO[$INFO[Container(5050).ListItemAbsolute(1).Property(TMDb_ID)],plugin://plugin.video.themoviedb.helper/?info=details&amp;tmdb_type=person&amp;tmdb_id=,]</property>
+                    <property name="tmdb_id">$INFO[Window(Home).Property(TMDbHelper.ListItem.Cast.2.TMDB_ID)]</property>
+                    <property name="folderpath">$INFO[$INFO[Window(Home).Property(TMDbHelper.ListItem.Cast.2.TMDB_ID)],plugin://plugin.video.themoviedb.helper/?info=details&amp;tmdb_type=person&amp;tmdb_id=,]</property>
                     <property name="is_static">true</property>
+                    <visible>!String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.Cast.2.TMDB_ID))</visible>
                     <visible>Integer.IsGreater(Container(5052).NumItems,1) | [Integer.IsEqual(Container(5052).NumItems,1) + String.IsEmpty(Container(5052).ListItemAbsolute(1).Property(is_static))]</visible>
                 </item>
             </content>
-            <content>$INFO[Container(5050).ListItemAbsolute(1).Property(TMDb_ID),plugin://plugin.video.themoviedb.helper/?info=stars_in_both&amp;type=person&amp;sort_key=year&amp;tmdb_id=]$VAR[Path_Param_Widget]</content>
+            <content>$INFO[Window(Home).Property(TMDbHelper.ListItem.Cast.2.TMDB_ID),plugin://plugin.video.themoviedb.helper/?info=stars_in_both&amp;type=person&amp;sort_key=year&amp;tmdb_id=]$VAR[Path_Param_Widget]</content>
             <include>DialogInfo_Widgets_Action</include>
         </include>
 
@@ -715,7 +717,7 @@
                     <visible>!String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.Awards)) | !String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.rottentomatoes_consensus))</visible>
                 </item>
             </content>
-            <content>$VAR[Path_VideoInfo_Generic,,&amp;info=trakt_comments]</content>
+            <content>$VAR[Path_VideoInfo_Generic,,&amp;info=trakt_comments]$VAR[Path_Param_Widget]</content>
             <onclick>SetProperty(header,$INFO[ListItem.Label]$INFO[ListItem.Label2, - ,],1114)</onclick>
             <onclick>SetProperty(textbox,$ESCINFO[Container(5015).ListItem.Plot]$ESCINFO[Container(5015).ListItem.Property(plotlabel)],1114)</onclick>
             <onclick>ActivateWindow(1114)</onclick>
@@ -736,7 +738,7 @@
             <param name="widget_showoverlay">true</param>
             <param name="altvisible">!String.IsEqual(Window.Property(CurrentID),Window.Property(BaseID))</param>
             <onfocus>SetProperty(CurrentID,$INFO[Window.Property(BaseID)])</onfocus>
-            <content>$VAR[Path_VideoInfo_Generic,,&amp;info=recommendations]</content>
+            <content>$VAR[Path_VideoInfo_Generic,,&amp;info=recommendations]$VAR[Path_Param_Widget]</content>
             <include>DialogInfo_Widgets_Action</include>
         </include>
 
@@ -2318,7 +2320,7 @@
     </include>
 
     <include name="DialogInfo_VideoFanartContent">
-        <content target="images" limit="20" browse="never">$VAR[Path_VideoInfo_Generic,,&amp;info=fanart]</content>
+        <content target="images" limit="20" browse="never">$VAR[Path_VideoInfo_Generic,,&amp;info=fanart]$VAR[Path_Param_Widget]</content>
     </include>
 
     <include name="DialogInfo_PersonImageContent">
