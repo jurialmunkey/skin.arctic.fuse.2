@@ -265,21 +265,30 @@
                     <textcolor>dialog_fg_90</textcolor>
                 </control>
 				
-                <!-- DV metadata -->
+                <!-- Playback time -->
                 <control type="label">
                     <top>140</top>
                     <label>$LOCALIZE[32013]:</label>
                     <font>font_tiny</font>
                     <textcolor>dialog_fg_90</textcolor>
-                    <visible>String.Contains(Player.Process(video.hdr.type),dolby vision)</visible>
                 </control>
                 <control type="label">
                     <left>240</left>
                     <top>140</top>
-                    <label>$INFO[Player.Process(video.dovi.meta.version)]</label>
+                    <label>$INFO[Player.Time] $INFO[Player.Duration,/ ,] [COLOR dialog_fg_70]$INFO[Player.Progress, (,%)][/COLOR]</label>
                     <font>font_tiny</font>
                     <textcolor>dialog_fg_90</textcolor>
-                    <visible>String.Contains(Player.Process(video.hdr.type),dolby vision)</visible>
+                    <visible>!String.IsEmpty(Player.Duration)</visible>
+                    <visible>!PVR.IsPlayingTV</visible>
+                </control>
+                <!-- N/A -->
+                <control type="label">
+                    <left>240</left>
+                    <top>140</top>
+                    <label>$LOCALIZE[32033]</label>
+                    <font>font_tiny</font>
+                    <textcolor>dialog_fg_90</textcolor>
+                    <visible>String.IsEmpty(Player.Duration) | PVR.IsPlayingTV</visible>
                 </control>
             </control>
 
@@ -754,7 +763,7 @@
                     <textcolor>dialog_fg_100</textcolor>
                 </control>
 				
-                <!-- Version -->
+                <!-- Metadata -->
                 <control type="label">
                     <top>20</top>
                     <label>$LOCALIZE[32015]:</label>
@@ -764,9 +773,18 @@
                 <control type="label">
                     <left>340</left>
                     <top>20</top>
-                    <label>$INFO[Player.Process(video.dovi.version.major)]$INFO[Player.Process(video.dovi.version.minor),.]</label>
+                    <label>$INFO[Player.Process(video.dovi.meta.version)]</label>
                     <font>font_tiny</font>
                     <textcolor>dialog_fg_90</textcolor>
+                </control>
+                <!-- N/A -->
+                <control type="label">
+                    <left>340</left>
+                    <top>20</top>
+                    <label>$LOCALIZE[32033]</label>
+                    <font>font_tiny</font>
+                    <textcolor>dialog_fg_90</textcolor>
+                    <visible>!String.Contains(Player.Process(video.dovi.meta.version),CM)</visible>
                 </control>
 				
                 <!-- Profile -->
