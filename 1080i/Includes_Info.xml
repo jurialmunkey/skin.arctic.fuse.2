@@ -834,8 +834,13 @@
                     <param name="is_player">$PARAM[is_player]</param>
                 </include>
 
-                <include content="Info_LineSpinner">
+                <include content="Info_LineSpinner" condition="Skin.HasSetting(Furniture.EnableColourRatings)">
                     <param name="visible">[!String.IsEmpty(Window(Home).Property(TMDBHelper.IsUpdatingRatings)) | !String.IsEmpty(Window(Home).Property(TMDBHelper.IsUpdating))]</param>
+                    <param name="colordiffuse">main_fg_70</param>
+                </include>
+                <include content="Info_LineSpinner" condition="!Skin.HasSetting(Furniture.EnableColourRatings)">
+                    <param name="visible">[!String.IsEmpty(Window(Home).Property(TMDBHelper.IsUpdatingRatings)) | !String.IsEmpty(Window(Home).Property(TMDBHelper.IsUpdating))]</param>
+                    <param name="colordiffuse">main_fg_90</param>
                 </include>
 
                 <nested />
@@ -1051,6 +1056,8 @@
         <param name="visible">true</param>
         <param name="left">view_pad</param>
         <param name="right">view_pad</param>
+        <param name="use_spinner">false</param>
+        <param name="run_spinner">false</param>
         <definition>
 
             <control type="group">
@@ -1080,8 +1087,35 @@
                     </include>
                 </control>
 
+                <include content="Info_Viewline_Spinner" condition="$PARAM[use_spinner]">
+                    <param name="label">$PARAM[label]</param>
+                    <param name="align">$PARAM[align]</param>
+                    <param name="haspath">$PARAM[haspath]</param>
+                    <param name="textcolor">$PARAM[textcolor]</param>
+                    <param name="label_fallback">$PARAM[label_fallback]</param>
+                    <param name="visible">$PARAM[run_spinner]</param>
+                </include>
+
             </control>
         </definition>
+    </include>
+
+    <include name="Info_Viewline_Spinner">
+        <control type="grouplist">
+            <itemgap>20</itemgap>
+            <orientation>horizontal</orientation>
+            <include content="Info_Viewline_Label_Default">
+                <param name="label">$PARAM[label]</param>
+                <param name="align">$PARAM[align]</param>
+                <param name="haspath">$PARAM[haspath]</param>
+                <param name="textcolor">00ffffff</param>
+                <param name="label_fallback">$PARAM[label_fallback]</param>
+            </include>
+            <include content="Info_LineSpinner">
+                <param name="visible">[$PARAM[visible]]</param>
+                <param name="colordiffuse">$PARAM[textcolor]</param>
+            </include>
+        </control>
     </include>
 
     <include name="Info_Line_StarRating_Star">
