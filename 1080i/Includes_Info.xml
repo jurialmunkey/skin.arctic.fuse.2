@@ -1742,7 +1742,18 @@
         </control>
     </include>
 
+    <include name="Info_Panel_Textbox_Adaptive">
+        <height max="$PARAM[plotheight]">auto</height>
+        <aligny>top</aligny>
+    </include>
+
+    <include name="Info_Panel_Textbox_Standard">
+        <height>$PARAM[plotheight]</height>
+        <aligny>center</aligny>
+    </include>
+
     <include name="Info_Panel_Textbox">
+        <param name="adapative">false</param>
         <param name="colordiffuse">main_fg</param>
         <param name="details">true</param>
         <param name="details_include">Items_Null</param>
@@ -1752,10 +1763,16 @@
             <control type="textbox">
                 <top>17</top>
                 <left>$PARAM[left]</left>
-                <height max="$PARAM[plotheight]">auto</height>
+
+                <include content="Info_Panel_Textbox_Adaptive" condition="$PARAM[adapative]">
+                    <param name="plotheight">$PARAM[plotheight]</param>
+                </include>
+                <include content="Info_Panel_Textbox_Standard" condition="![$PARAM[adapative]]">
+                    <param name="plotheight">$PARAM[plotheight]</param>
+                </include>
+
                 <width>$PARAM[plotwidth]</width>
                 <label>$PARAM[plotlabel]</label>
-                <aligny>top</aligny>
                 <textcolor>$PARAM[colordiffuse]_70</textcolor>
                 <font>font_main_plot</font>
                 <visible>$PARAM[visible]</visible>
@@ -1783,6 +1800,7 @@
 
     <include name="Info_Panel">
         <param name="container" />
+        <param name="adapative">false</param>
         <param name="plotheight">160</param>
         <param name="plotwidth">info_plot_w</param>
         <param name="colordiffuse">main_fg</param>
@@ -1842,6 +1860,7 @@
 
                     <!-- Textbox -->
                     <include content="Info_Panel_Textbox">
+                        <param name="adapative">$PARAM[adapative]</param>
                         <param name="plotlabel">$PARAM[plotlabel]</param>
                         <param name="plotwidth">$PARAM[plotwidth]</param>
                         <param name="plotheight">$PARAM[plotheight]</param>
