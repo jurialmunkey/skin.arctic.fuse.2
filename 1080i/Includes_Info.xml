@@ -753,6 +753,25 @@
         </definition>
     </include>
 
+    <include name="Info_LineSpinner">
+        <param name="colordiffuse">main_fg_90</param>
+        <param name="visible">false</param>
+        <definition>
+            <control type="image">
+                <width>32</width>
+                <height>32</height>
+                <aspectratio>keep</aspectratio>
+                <centertop>50%</centertop>
+                <bordersize>-16</bordersize>
+                <texture colordiffuse="$PARAM[colordiffuse]">special://skin/extras/icons/update.png</texture>
+                <animation effect="rotate" start="0" end="-180" time="1200" delay="1200" loop="true" center="auto" tween="back" condition="true">Conditional</animation>
+                <visible>$PARAM[visible]</visible>
+                <animation effect="fade" start="0" end="100" delay="1600" time="1" reversible="true">Visible</animation>
+                <animation effect="fade" start="100" end="0" delay="400" time="1" reversible="true">Hidden</animation>
+            </control>
+        </definition>
+    </include>
+
     <include name="Info_RatingsLine">
         <param name="is_player">false</param>
         <definition>
@@ -813,6 +832,10 @@
                 <include content="Info_IconLine_Music">
                     <param name="container">$PARAM[container]</param>
                     <param name="is_player">$PARAM[is_player]</param>
+                </include>
+
+                <include content="Info_LineSpinner">
+                    <param name="visible">[!String.IsEmpty(Window(Home).Property(TMDBHelper.IsUpdatingRatings)) | !String.IsEmpty(Window(Home).Property(TMDBHelper.IsUpdating))]</param>
                 </include>
 
                 <nested />
