@@ -265,6 +265,7 @@
                 <height>40</height>
                 <top>12</top>
                 <right>12</right>
+                <visible>Skin.HasSetting(Indicator.RatingsCircle)</visible>
                 <visible>!String.IsEmpty($PARAM[listitem].Rating) | !String.IsEmpty($PARAM[listitem].UserRating)</visible>
                 <control type="image">
                     <texture colordiffuse="$VAR[ColorWatchedProgress]">common/circle.png</texture>
@@ -289,6 +290,32 @@
                     <label>$INFO[$PARAM[listitem].Rating]</label>
                     <visible>!String.IsEmpty($PARAM[listitem].Rating)</visible>
                     <visible>String.IsEmpty($PARAM[listitem].UserRating)</visible>
+                </control>
+            </control>
+            <control type="group">
+                <animation effect="slide" end="0,48" condition="[[!String.IsEmpty($PARAM[listitem].Rating) | !String.IsEmpty($PARAM[listitem].UserRating)] + Skin.HasSetting(Indicator.RatingsCircle)]">Conditional</animation>
+                <control type="group">
+                    <width>40</width>
+                    <height>40</height>
+                    <top>12</top>
+                    <right>12</right>
+                    <visible>Skin.HasSetting(Indicator.TraktWatchlist)</visible>
+                    <visible>!String.IsEmpty($PARAM[listitem].Property(watchlist_rank))</visible>
+                    <control type="image">
+                        <texture>flags/color/ratings/trakt.png</texture>
+                    </control>
+                </control>
+                <control type="group">
+                    <animation effect="slide" end="0,48" condition="!String.IsEmpty($PARAM[listitem].Property(watchlist_rank)) + Skin.HasSetting(Indicator.TraktWatchlist)">Conditional</animation>
+                    <width>40</width>
+                    <height>40</height>
+                    <top>12</top>
+                    <right>12</right>
+                    <visible>Skin.HasSetting(Indicator.TraktFavourites)</visible>
+                    <visible>!String.IsEmpty($PARAM[listitem].Property(favorites_rank))</visible>
+                    <control type="image">
+                        <texture>special://skin/extras/favorite.png</texture>
+                    </control>
                 </control>
             </control>
         </definition>
