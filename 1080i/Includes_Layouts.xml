@@ -1955,7 +1955,7 @@
                     <include content="Object_ContentBanner" condition="$PARAM[indicator]">
                         <param name="listitem">$PARAM[listitem]</param>
                     </include>
-                    <include content="Object_RatingCircle" condition="$PARAM[indicator] + [Skin.HasSetting(Indicator.RatingsCircle) | Skin.HasSetting(Indicator.TraktWatchlist) | Skin.HasSetting(Indicator.TraktFavourites)]">
+                    <include content="Object_RatingCircle" condition="$PARAM[indicator] + Skin.HasSetting(Indicator.RatingsCircle)">
                         <param name="listitem">$PARAM[listitem]</param>
                     </include>
                     <include content="Object_ProgressPercent" condition="$PARAM[indicator] + Skin.HasSetting(Indicator.ProgressPercent)">
@@ -2001,7 +2001,7 @@
                         <bordersize>20</bordersize>
                         <visible>String.IsEmpty($PARAM[listitem].Art(banner)) + String.IsEmpty($PARAM[listitem].Art(tvshow.banner)) + String.IsEmpty($PARAM[listitem].Art(season.banner))</visible>
                     </control>
-                    <include content="Object_RatingCircle" condition="$PARAM[indicator] + [Skin.HasSetting(Indicator.RatingsCircle) | Skin.HasSetting(Indicator.TraktWatchlist) | Skin.HasSetting(Indicator.TraktFavourites)]">
+                    <include content="Object_RatingCircle" condition="$PARAM[indicator] + Skin.HasSetting(Indicator.RatingsCircle)">
                         <param name="listitem">$PARAM[listitem]</param>
                     </include>
                     <include content="Object_ProgressPercent" condition="$PARAM[indicator] + Skin.HasSetting(Indicator.ProgressPercent)">
@@ -2132,6 +2132,7 @@
         <param name="diffuse">diffuse/poster_w217_h310.png</param>
         <param name="icon">$VAR[Image_Poster]</param>
         <param name="listitem">ListItem</param>
+	<param name="listitem_label">ListItem.Label</param>
         <definition>
             <control type="group">
                 <width>$PARAM[item_w]</width>
@@ -2146,6 +2147,21 @@
                         <param name="control">image</param>
                         <include>Texture_Box_Highlight_V</include>
                     </include>
+			
+		<!-- 海报墙标题 -->
+                <control type="label">
+                    <textcolor>ffdedede</textcolor>
+                    <label>$INFO[$PARAM[listitem_label]]</label>
+                    <left>10</left>
+                    <right>10</right>
+                    <align>center</align>
+                    <font>font_mini</font>
+                    <height>50</height>
+                    <top>310</top>
+                    <scroll>true</scroll>
+                    <scrollspeed>40</scrollspeed>
+                </control>
+			
                     <control type="textbox">
                         <textcolor>main_fg_70</textcolor>
                         <label>$INFO[$PARAM[listitem].$PARAM[listitem_label]]</label>
@@ -2186,7 +2202,7 @@
                     <include content="Object_ContentBanner" condition="$PARAM[indicator]">
                         <param name="listitem">$PARAM[listitem]</param>
                     </include>
-                    <include content="Object_RatingCircle" condition="$PARAM[indicator] + [Skin.HasSetting(Indicator.RatingsCircle) | Skin.HasSetting(Indicator.TraktWatchlist) | Skin.HasSetting(Indicator.TraktFavourites)]">
+                    <include content="Object_RatingCircle" condition="$PARAM[indicator] + Skin.HasSetting(Indicator.RatingsCircle)">
                         <param name="listitem">$PARAM[listitem]</param>
                     </include>
                     <include content="Object_ProgressPercent" condition="$PARAM[indicator] + Skin.HasSetting(Indicator.ProgressPercent)">
