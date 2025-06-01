@@ -48,6 +48,16 @@
         <value condition="Window.IsVisible(music)"> -music- $INFO[Window(music).Property(Widgets.ResetPosition), -reset: ,] $INFO[Window(music).Property(TMDBHelper.WidgetContainer), -tmdb: ]$INFO[Window(music).Property(Slide.WidgetContainer), -slide: ,]$INFO[Window(music).Property(List.ViewContainer), -list: ,]$INFO[Window(music).Property(Focus.ControlID), -focus.controlID: ,]</value>
     </variable>
 
+    <variable name="Overlay_IsUpdating">
+        <value condition="!String.IsEmpty(Window(Home).Property(TMDBHelper.IsUpdating)) | !String.IsEmpty(Window(Home).Property(TMDBHelper.IsUpdatingRatings)) | !String.IsEmpty(Window(Home).Property(TMDBHelper.IsUpdatingDetails))">$VAR[_Overlay_IsUpdating]</value>
+        <value>DONE</value>
+    </variable>
+    <variable name="_Overlay_IsUpdating">
+        <value condition="!String.IsEmpty(Window(Home).Property(TMDBHelper.IsUpdatingRatings)) + !String.IsEmpty(Window(Home).Property(TMDBHelper.IsUpdatingDetails))">Both</value>
+        <value condition="!String.IsEmpty(Window(Home).Property(TMDBHelper.IsUpdatingRatings))">Ratings</value>
+        <value condition="!String.IsEmpty(Window(Home).Property(TMDBHelper.IsUpdatingDetails))">Details</value>
+        <value condition="!String.IsEmpty(Window(Home).Property(TMDBHelper.IsUpdating))">Basic</value>
+    </variable>
 
     <include name="Overlay_InfoLabel">
         <definition>
@@ -275,7 +285,7 @@
                     <textcolor>yellowgreen</textcolor>
                 </include>
                 <include content="Overlay_InfoLabel">
-                    <label> -tmdbhelper.isupdating: $VAR[Overlay_InfoLabel_WidgetContainer,widget: , ]$INFO[Window(Home).Property(TMDBHelper.CurrentWindow),window: , ]$INFO[Window(Home).Property(TMDBHelper.IsUpdating),details: , ]$INFO[Window(Home).Property(TMDBHelper.IsUpdatingRatings),ratings: , ]</label>
+                    <label> -tmdbhelper.isupdating: $VAR[Overlay_InfoLabel_WidgetContainer,widget: , ]$INFO[Window(Home).Property(TMDBHelper.CurrentWindow),window: , ]$VAR[Overlay_IsUpdating,service: , ]</label>
                     <textcolor>yellowgreen</textcolor>
                 </include>
                 <include content="Overlay_InfoLabel" condition="Skin.HasSetting(debuginfo.timers)">
