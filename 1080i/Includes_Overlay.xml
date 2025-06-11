@@ -274,6 +274,34 @@
     <include name="Overlay_DebugInfo">
         <control type="group">
             <control type="grouplist">
+                <align>bottom</align>
+                <orientation>vertical</orientation>
+                <control type="grouplist">
+                    <height>40</height>
+                    <align>right</align>
+                    <orientation>horizontal</orientation>
+                    <include content="Overlay_InfoLabel">
+                        <label>$INFO[Window(Home).Property(TMDbHelper.ListItem.base_label), [,] ]</label>
+                        <textcolor>magenta</textcolor>
+                        <visible>!String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.base_isfolder))</visible>
+                    </include>
+                    <include content="Overlay_InfoLabel">
+                        <label>$INFO[Window(Home).Property(TMDbHelper.ListItem.base_label), , ]</label>
+                        <textcolor>magenta</textcolor>
+                        <visible>String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.base_isfolder))</visible>
+                    </include>
+                </control>
+                <control type="grouplist">
+                    <height>40</height>
+                    <align>right</align>
+                    <orientation>horizontal</orientation>
+                    <include content="Overlay_InfoLabel">
+                        <label>$INFO[System.CurrentControl, , ]</label>
+                        <textcolor>blueviolet</textcolor>
+                    </include>
+                </control>
+            </control>
+            <control type="grouplist">
                 <align>top</align>
                 <orientation>vertical</orientation>
                 <include content="Overlay_InfoLabel">
