@@ -797,9 +797,7 @@
                 <bordersize>-16</bordersize>
                 <texture colordiffuse="$PARAM[colordiffuse]">special://skin/extras/icons/update.png</texture>
                 <animation effect="rotate" start="0" end="-180" time="1200" delay="1200" loop="true" center="auto" tween="back" condition="true">Conditional</animation>
-                <visible>$PARAM[visible]</visible>
-                <animation effect="fade" start="0" end="100" delay="1600" time="1" reversible="true">Visible</animation>
-                <animation effect="fade" start="100" end="0" delay="400" time="1" reversible="true">Hidden</animation>
+                <nested />
             </control>
         </definition>
     </include>
@@ -807,7 +805,53 @@
     <include name="Info_RatingsLine">
         <param name="is_player">false</param>
         <definition>
+            <control type="grouplist">
+
+                <visible>[!String.IsEmpty(Window(Home).Property(TMDBHelper.IsUpdatingRatings)) | !String.IsEmpty(Window(Home).Property(TMDBHelper.IsUpdating))]</visible>
+
+                <animation effect="fade" start="0" end="100" delay="1200" time="1" reversible="true">Visible</animation>
+                <animation effect="fade" start="100" end="0" delay="400" time="1" reversible="true">Hidden</animation>
+
+                <include content="Info_LineSpinner" condition="Skin.HasSetting(Furniture.EnableColourRatings)">
+                    <param name="colordiffuse">main_fg_70</param>
+                </include>
+                <include content="Info_LineSpinner" condition="!Skin.HasSetting(Furniture.EnableColourRatings)">
+                    <param name="colordiffuse">main_fg_90</param>
+                </include>
+
+                <control type="label">
+                    <left>-12</left>
+                    <aligny>center</aligny>
+                    <label>$LOCALIZE[31588]</label>
+                    <textcolor>main_fg_70</textcolor>
+                    <font>font_main</font>
+                    <width>auto</width>
+                </control>
+
+                <control type="group">
+                    <left>-4</left>
+                    <width>0</width>
+                </control>
+
+                <include content="Info_RatingsLine_Object_Status" condition="!Skin.HasSetting(CustomRating.TVShows.DisablePremiereStatus) | Skin.HasSetting(CustomRating.Movies.EnablePremiereStatus)">
+                    <param name="container">$PARAM[container]</param>
+                    <param name="is_player">$PARAM[is_player]</param>
+                </include>
+
+                <nested />
+
+                <orientation>horizontal</orientation>
+                <top>520</top>
+                <height>40</height>
+                <left>view_pad</left>
+                <itemgap>12</itemgap>
+            </control>
             <control type="grouplist" id="$PARAM[id]">
+
+                <visible>![!String.IsEmpty(Window(Home).Property(TMDBHelper.IsUpdatingRatings)) | !String.IsEmpty(Window(Home).Property(TMDBHelper.IsUpdating))]</visible>
+
+                <animation effect="fade" start="0" end="100" delay="400" time="1" reversible="true">Visible</animation>
+                <animation effect="fade" start="100" end="0" delay="1200" time="1" reversible="true">Hidden</animation>
 
                 <include content="Info_RatingsLine_Item">
                     <param name="item">Item01</param>
@@ -864,15 +908,6 @@
                 <include content="Info_IconLine_Music">
                     <param name="container">$PARAM[container]</param>
                     <param name="is_player">$PARAM[is_player]</param>
-                </include>
-
-                <include content="Info_LineSpinner" condition="Skin.HasSetting(Furniture.EnableColourRatings)">
-                    <param name="visible">[!String.IsEmpty(Window(Home).Property(TMDBHelper.IsUpdatingRatings)) | !String.IsEmpty(Window(Home).Property(TMDBHelper.IsUpdating))]</param>
-                    <param name="colordiffuse">main_fg_70</param>
-                </include>
-                <include content="Info_LineSpinner" condition="!Skin.HasSetting(Furniture.EnableColourRatings)">
-                    <param name="visible">[!String.IsEmpty(Window(Home).Property(TMDBHelper.IsUpdatingRatings)) | !String.IsEmpty(Window(Home).Property(TMDBHelper.IsUpdating))]</param>
-                    <param name="colordiffuse">main_fg_90</param>
                 </include>
 
                 <nested />
@@ -1145,8 +1180,10 @@
                 <animation effect="fade" start="0" end="0" condition="true">Conditional</animation>
             </control>
             <include content="Info_LineSpinner">
-                <param name="visible">[$PARAM[visible]]</param>
                 <param name="colordiffuse">$PARAM[textcolor]</param>
+                <visible>$PARAM[visible]</visible>
+                <animation effect="fade" start="0" end="100" delay="1600" time="1" reversible="true">Visible</animation>
+                <animation effect="fade" start="100" end="0" delay="400" time="1" reversible="true">Hidden</animation>
             </include>
         </control>
     </include>
