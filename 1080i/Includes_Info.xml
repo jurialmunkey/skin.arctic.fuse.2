@@ -753,10 +753,73 @@
         </definition>
     </include>
 
+    <include name="Info_LineSpinner">
+        <param name="colordiffuse">main_fg_90</param>
+        <param name="visible">false</param>
+        <definition>
+            <control type="image">
+                <width>32</width>
+                <height>32</height>
+                <aspectratio>keep</aspectratio>
+                <centertop>50%</centertop>
+                <bordersize>-16</bordersize>
+                <texture colordiffuse="$PARAM[colordiffuse]">special://skin/extras/icons/update.png</texture>
+                <animation effect="rotate" start="0" end="-180" time="1200" delay="1200" loop="true" center="auto" tween="back" condition="true">Conditional</animation>
+                <nested />
+            </control>
+        </definition>
+    </include>
+
     <include name="Info_RatingsLine">
         <param name="is_player">false</param>
         <definition>
+            <control type="grouplist">
+
+                <visible>[!String.IsEmpty(Window(Home).Property(TMDBHelper.IsUpdatingRatings)) | !String.IsEmpty(Window(Home).Property(TMDBHelper.IsUpdating))]</visible>
+
+                <animation effect="fade" start="0" end="100" delay="1200" time="1" reversible="true">Visible</animation>
+                <animation effect="fade" start="100" end="0" delay="400" time="1" reversible="true">Hidden</animation>
+
+                <include content="Info_LineSpinner" condition="Skin.HasSetting(Furniture.EnableColourRatings)">
+                    <param name="colordiffuse">main_fg_70</param>
+                </include>
+                <include content="Info_LineSpinner" condition="!Skin.HasSetting(Furniture.EnableColourRatings)">
+                    <param name="colordiffuse">main_fg_90</param>
+                </include>
+
+                <control type="label">
+                    <left>-12</left>
+                    <aligny>center</aligny>
+                    <label>$LOCALIZE[31588]</label>
+                    <textcolor>main_fg_70</textcolor>
+                    <font>font_main</font>
+                    <width>auto</width>
+                </control>
+
+                <control type="group">
+                    <left>-4</left>
+                    <width>0</width>
+                </control>
+
+                <include content="Info_RatingsLine_Object_Status" condition="!Skin.HasSetting(CustomRating.TVShows.DisablePremiereStatus) | Skin.HasSetting(CustomRating.Movies.EnablePremiereStatus)">
+                    <param name="container">$PARAM[container]</param>
+                    <param name="is_player">$PARAM[is_player]</param>
+                </include>
+
+                <nested />
+
+                <orientation>horizontal</orientation>
+                <top>520</top>
+                <height>40</height>
+                <left>view_pad</left>
+                <itemgap>12</itemgap>
+            </control>
             <control type="grouplist" id="$PARAM[id]">
+
+                <visible>![!String.IsEmpty(Window(Home).Property(TMDBHelper.IsUpdatingRatings)) | !String.IsEmpty(Window(Home).Property(TMDBHelper.IsUpdating))]</visible>
+
+                <animation effect="fade" start="0" end="100" delay="400" time="1" reversible="true">Visible</animation>
+                <animation effect="fade" start="100" end="0" delay="1200" time="1" reversible="true">Hidden</animation>
 
                 <include content="Info_RatingsLine_Item">
                     <param name="item">Item01</param>
@@ -1028,6 +1091,8 @@
         <param name="visible">true</param>
         <param name="left">view_pad</param>
         <param name="right">view_pad</param>
+        <param name="use_spinner">false</param>
+        <param name="run_spinner">false</param>
         <definition>
 
             <control type="group">
@@ -1057,8 +1122,38 @@
                     </include>
                 </control>
 
+                <include content="Info_Viewline_Spinner" condition="$PARAM[use_spinner]">
+                    <param name="label">$PARAM[label]</param>
+                    <param name="align">$PARAM[align]</param>
+                    <param name="haspath">$PARAM[haspath]</param>
+                    <param name="textcolor">$PARAM[textcolor]</param>
+                    <param name="label_fallback">$PARAM[label_fallback]</param>
+                    <param name="visible">$PARAM[run_spinner]</param>
+                </include>
+
             </control>
         </definition>
+    </include>
+
+    <include name="Info_Viewline_Spinner">
+        <control type="grouplist">
+            <itemgap>20</itemgap>
+            <orientation>horizontal</orientation>
+            <control type="label">
+                <label fallback="$PARAM[label_fallback]">$PARAM[label]</label>
+                <align>$PARAM[align]</align>
+                <haspath>$PARAM[haspath]</haspath>
+                <textcolor>$PARAM[textcolor]</textcolor>
+                <include>Info_Viewline_Label_Def</include>
+                <animation effect="fade" start="0" end="0" condition="true">Conditional</animation>
+            </control>
+            <include content="Info_LineSpinner">
+                <param name="colordiffuse">$PARAM[textcolor]</param>
+                <visible>$PARAM[visible]</visible>
+                <animation effect="fade" start="0" end="100" delay="1600" time="1" reversible="true">Visible</animation>
+                <animation effect="fade" start="100" end="0" delay="400" time="1" reversible="true">Hidden</animation>
+            </include>
+        </control>
     </include>
 
     <include name="Info_Line_StarRating_Star">
@@ -1742,7 +1837,18 @@
         </control>
     </include>
 
+    <include name="Info_Panel_Textbox_Adaptive">
+        <height max="$PARAM[plotheight]">auto</height>
+        <aligny>top</aligny>
+    </include>
+
+    <include name="Info_Panel_Textbox_Standard">
+        <height>$PARAM[plotheight]</height>
+        <aligny>center</aligny>
+    </include>
+
     <include name="Info_Panel_Textbox">
+        <param name="adapative">false</param>
         <param name="colordiffuse">main_fg</param>
         <param name="details">true</param>
         <param name="details_include">Items_Null</param>
@@ -1752,10 +1858,16 @@
             <control type="textbox">
                 <top>17</top>
                 <left>$PARAM[left]</left>
-                <height max="$PARAM[plotheight]">auto</height>
+
+                <include content="Info_Panel_Textbox_Adaptive" condition="$PARAM[adapative]">
+                    <param name="plotheight">$PARAM[plotheight]</param>
+                </include>
+                <include content="Info_Panel_Textbox_Standard" condition="![$PARAM[adapative]]">
+                    <param name="plotheight">$PARAM[plotheight]</param>
+                </include>
+
                 <width>$PARAM[plotwidth]</width>
                 <label>$PARAM[plotlabel]</label>
-                <aligny>top</aligny>
                 <textcolor>$PARAM[colordiffuse]_70</textcolor>
                 <font>font_main_plot</font>
                 <visible>$PARAM[visible]</visible>
@@ -1783,6 +1895,7 @@
 
     <include name="Info_Panel">
         <param name="container" />
+        <param name="adapative">false</param>
         <param name="plotheight">160</param>
         <param name="plotwidth">info_plot_w</param>
         <param name="colordiffuse">main_fg</param>
@@ -1842,6 +1955,7 @@
 
                     <!-- Textbox -->
                     <include content="Info_Panel_Textbox">
+                        <param name="adapative">$PARAM[adapative]</param>
                         <param name="plotlabel">$PARAM[plotlabel]</param>
                         <param name="plotwidth">$PARAM[plotwidth]</param>
                         <param name="plotheight">$PARAM[plotheight]</param>

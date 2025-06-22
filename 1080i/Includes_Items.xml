@@ -15,6 +15,8 @@
         <value condition="Container.Content(tvshows) + String.IsEqual(Container.Property(param.info),episode_groups)">episode-groups-tvshows</value>
         <value condition="Container.Content(seasons) + String.IsEqual(Container.Property(param.info),episode_group_seasons)">episode-groups-seasons</value>
         <value condition="Container.Content() + String.IsEqual(Container.Property(param.info),watch_providers)">none-providers</value>
+        <value condition="Container.Content() + String.IsEqual(Container.Property(param.info),dir_calendar_library)">none-calendar</value>
+        <value condition="Container.Content() + String.IsEqual(Container.Property(param.info),dir_calendar_trakt)">none-calendar</value>
         <value condition="!String.IsEmpty(Container.Content)">$INFO[Container.Content]</value>
         <value condition="Window.IsVisible(MyGames.xml)">none-games</value>
         <value condition="Window.IsVisible(MyPVRRecordings.xml)">none-recordings</value>
@@ -1121,10 +1123,12 @@
     <include name="Items_DialogAddonInfo">
         <definition>
             <include content="Settings_ButtonImage" description="Enable">
-                <param name="id">07</param>
+                <param name="id">9107</param>
                 <param name="groupid">9307</param>
                 <param name="icon">$VAR[Image_AddonInfo_Enable]</param>
                 <visible>Control.IsEnabled(7)</visible>
+                <label>$VAR[Label_AddonInfo_Enable]</label>
+                <onclick>SendClick(7)</onclick>
             </include>
             <include content="Settings_Button" description="Auto-Update">
                 <param name="id">13</param>
@@ -1135,6 +1139,7 @@
                 <label>$LOCALIZE[21340]</label>
                 <radioposx>536</radioposx>
                 <radioheight>28</radioheight>
+                <visible>Control.IsEnabled(13)</visible>
             </include>
             <include content="Settings_ButtonImage" description="Update">
                 <param name="id">08</param>
@@ -2481,6 +2486,24 @@
             <onclick>Skin.ToggleSetting(Indicator.RatingsCircle)</onclick>
             <selected>Skin.HasSetting(Indicator.RatingsCircle)</selected>
             <label>$LOCALIZE[563]</label>
+        </include>
+
+        <include content="Settings_Button">
+            <param name="id">8013</param>
+            <param name="control">radiobutton</param>
+            <param name="dialog">true</param>
+            <onclick>Skin.ToggleSetting(Indicator.TraktWatchlist)</onclick>
+            <selected>Skin.HasSetting(Indicator.TraktWatchlist)</selected>
+            <label>Trakt $LOCALIZE[31122] (TMDbHelper $LOCALIZE[31022])</label>
+        </include>
+
+        <include content="Settings_Button">
+            <param name="id">8014</param>
+            <param name="control">radiobutton</param>
+            <param name="dialog">true</param>
+            <onclick>Skin.ToggleSetting(Indicator.TraktFavourites)</onclick>
+            <selected>Skin.HasSetting(Indicator.TraktFavourites)</selected>
+            <label>Trakt $LOCALIZE[1036] (TMDbHelper $LOCALIZE[31022])</label>
         </include>
 
         <include content="Settings_Button">
