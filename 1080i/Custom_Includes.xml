@@ -102,9 +102,9 @@
 	<expression name="Live_EFL2_FHNatho">$EXP[Live_Football_FHNatho] + String.Contains(ListItem.ChannelName,"LIVE EFL ") + String.Contains(ListItem.ChannelName,"(L2)")</expression>
 	<expression name="Live_FAC_FHNatho">$EXP[Live_Football_FHNatho] + String.Contains(ListItem.ChannelName,"LIVE EFL ") + String.Contains(ListItem.ChannelName,"(FA)")</expression>
 	<expression name="Live_EFLPJT_FHNatho">$EXP[Live_Football_FHNatho] + String.Contains(ListItem.ChannelName,"LIVE EFL ") + String.Contains(ListItem.ChannelName,"(ELT)")</expression>	
-	<expression name="Live_SPL_FHNatho">$EXP[Live_Football_FHNatho] + String.Contains(ListItem.ChannelName,"LIVE: SPFL ")</expression>
+	<expression name="Live_Football_FHNatho_SPL_Club">Integer.IsGreaterOrEqual(ListItem.ChannelNumberLabel,747) + Integer.IsLessOrEqual(ListItem.ChannelNumberLabel,758)</expression>
   
-    <expression name="Live_Football_Club_Channel">[$EXP[Live_Football_Anova_EPL_Club] | $EXP[Live_Football_Anova_EFLC_Club] | $EXP[Live_Football_Anova_EFL1_Club] | $EXP[Live_Football_Anova_EFL2_Club] | $EXP[Live_Football_Anova_SPL_Club]]</expression>
+    <expression name="Live_Football_Club_Channel">[$EXP[Live_Football_Anova_EPL_Club] | $EXP[Live_Football_Anova_EFLC_Club] | $EXP[Live_Football_Anova_EFL1_Club] | $EXP[Live_Football_Anova_EFL2_Club] | $EXP[Live_Football_Anova_SPL_Club] | $EXP[Live_Football_FHNatho_SPL_Club]]</expression>
 
 	<!-- PVR001: Variable for Channel Icon -->
 	<variable name="ImagePVREPGIcon">
@@ -119,7 +119,7 @@
         <value condition="$EXP[Live_EFL_Anova] | $EXP[Live_EFL_FHNatho]">special://userdata/customisations\PVR\PVR Logo Pack\LIVE EFL.png</value>
         <!-- value condition="$EXP[Live_NL_Anova]">special://userdata/customisations\PVR\PVR Logo Pack\LIVE NATIONAL LEAGUE.png</value -->
 		<value condition="$EXP[Live_UEFA_Anova]">special://userdata/customisations\PVR\PVR Logo Pack\LIVE UEFA.png</value>
-        <value condition="$EXP[Live_SPL_Anova] | $EXP[Live_SPL_FHNatho]">special://userdata/customisations\PVR\PVR Logo Pack\LIVE SPFL PREMIERSHIP.png</value>
+        <value condition="$EXP[Live_SPL_Anova] | $EXP[Live_Football_FHNatho_SPL_Club]">special://userdata/customisations\PVR\PVR Logo Pack\LIVE SPFL PREMIERSHIP.png</value>
 		<value condition="$EXP[Live_SPFLC_Anova]">special://userdata/customisations\PVR\PVR Logo Pack\LIVE SPFL CHAMPIONSHIP.png</value>
         <value condition="$EXP[Live_ScottishCup_Anova]">special://userdata/customisations\PVR\PVR Logo Pack\LIVE SCOTTISH LEAGUE CUP.png</value>
         
@@ -225,7 +225,7 @@
 		<value condition="[$EXP[Live_FAC_Anova] | $EXP[Live_FAC_FHNatho]]">special://userdata/customisations\PVR\EPG Artwork\FAC.jpg</value>			
 		<!-- value condition="$EXP[Live_NL_Anova]">special://userdata/customisations\PVR\EPG Artwork\NATIONAL LEAGUE.jpg</value -->
 		<value condition="$EXP[Live_EFLPJT_FHNatho]">special://userdata/customisations\PVR\EPG Artwork\EFL.jpg</value>
-		<value condition="[$EXP[Live_SPL_Anova] | $EXP[Live_SPL_FHNatho]]">special://userdata/customisations\PVR\EPG Artwork\SPFL.png</value>	
+		<value condition="[$EXP[Live_SPL_Anova] | $EXP[Live_Football_FHNatho_SPL_Club]">special://userdata/customisations\PVR\EPG Artwork\SPFL.png</value>	
 		<!--value condition="$EXP[Live_SPFLC_Anova]">special://userdata/customisations\PVR\EPG Artwork\SPFL.png</value -->
 		<!-- 3. ClearArt -->
 	    <value condition="!String.IsEmpty(Container(99950).ListItem.Property(base_clearart))">$INFO[Container(99950).ListItem.Property(base_clearart)]</value>
