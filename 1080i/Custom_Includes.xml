@@ -194,54 +194,62 @@
         <value>$INFO[ListItem.Label]</value>
     </variable>
 
-    <!-- MISC053: Variable for custom Image_Foreground -->
-    <variable name="Custom_Image_Foreground">
-        <!-- Football: Club Streams -->
-        <value condition="$EXP[Live_Football_Club_Channel]">$INFO[ListItem.Icon]</value>
-        <!-- Football: Fixture Streams -->
-        <value condition="$EXP[Live_Football_Anova_EPL_Fixture]">special://userdata/customisations\PVR\EPG Artwork\EPL.jpg</value>
-        <value condition="$EXP[Live_EPL_FHNatho]">special://userdata/customisations\PVR\EPG Artwork\EPL.jpg</value>
-        <value condition="$EXP[Live_Football_Anova_EFL_Fixture]">special://userdata/customisations\PVR\EPG Artwork\EFL.jpg</value>
-        <value condition="$EXP[Live_EFL_FHNatho]">special://userdata/customisations\PVR\EPG Artwork\EPL.jpg</value>
-        <value condition="$EXP[Live_Football_Anova_SPL_Fixture]">special://userdata/customisations\PVR\EPG Artwork\SPFL.png</value>
-        <value condition="$EXP[Live_Football_Anova_SPFLC_Fixture]">special://userdata/customisations\PVR\EPG Artwork\SPFL.png</value>
-        <value condition="$EXP[Live_Football_Anova_ScottishCup_Fixture]">special://userdata/customisations\PVR\EPG Artwork\SPFL.png</value>
-        <value condition="$EXP[Live_Football_Anova_UEFA_Fixture]">special://userdata/customisations\PVR\EPG Artwork\UEFA Nations League.png</value>
-        <!-- Sports Channel Listings (UK Football) -->
-        <value condition="String.Contains(ListItem.Title,EPL)">special://userdata/customisations\PVR\EPG Artwork\EPL.jpg</value>
-        <value condition="String.Contains(ListItem.Title,Premier League) + !String.Contains(ListItem.Title,Darts)">special://userdata/customisations\PVR\EPG Artwork\EPL.jpg</value>
-        <value condition="String.StartsWith(ListItem.Title,PL )">special://userdata/customisations\PVR\EPG Artwork\EPL.jpg</value>
-        <value condition="String.StartsWith(ListItem.Title,Prem )">special://userdata/customisations\PVR\EPG Artwork\EPL.jpg</value>
-        <value condition="String.Contains(ListItem.Title,EFL)">special://userdata/customisations\PVR\EPG Artwork\EFL v3.jpg</value>
-        <value condition="String.Contains(ListItem.Title,Scottish Premiership)">special://userdata/customisations\PVR\EPG Artwork\SPFL.png</value>
-        <value condition="String.Contains(ListItem.Title,SPFL )">special://userdata/customisations\PVR\EPG Artwork\SPFL.png</value>
-        <!-- Sports Channel Listings (Foreign Football) -->
-        <value condition="String.Contains(ListItem.Title,LaLiga)">special://userdata/customisations\PVR\EPG Artwork\LaLiga.jpg</value>
-        <value condition="String.Contains(ListItem.Title,La Liga)">special://userdata/customisations\PVR\EPG Artwork\LaLiga.jpg</value>
-        <value condition="String.Contains(ListItem.Title,Serie A)">special://userdata/customisations\PVR\EPG Artwork\Serie A.jpg</value>
-        <value condition="String.Contains(ListItem.Title,A-League)">special://userdata/customisations\PVR\EPG Artwork\A-League.png</value>
-        <value condition="String.Contains(ListItem.Title,Ligue 1)">special://userdata/customisations\PVR\EPG Artwork\Ligue1.jpg</value>
-        <value condition="String.Contains(ListItem.Title,Bundesliga)">special://userdata/customisations\PVR\EPG Artwork\Bundesliga.jpg</value>
-        <!-- Sports Channel Listings (Cricket) -->
-        <value condition="String.Contains(ListItem.Title,Indian Premier League)">special://userdata/customisations\PVR\EPG Artwork\Cricket.jpg</value>
-        <value condition="String.Contains(ListItem.Title,IPL )">special://userdata/customisations\PVR\EPG Artwork\Cricket.jpg</value>
-        <value condition="String.Contains(ListItem.Title,The Hundred)">special://userdata/customisations\PVR\EPG Artwork\Cricket.jpg</value>
-        <value condition="String.Contains(ListItem.Title,Cricket)">special://userdata/customisations\PVR\EPG Artwork\Cricket.jpg</value>
-        <!-- Sports Channel Listings (Other Sports) -->
-        <value condition="String.Contains(ListItem.Title, NRL)">special://userdata/customisations\PVR\EPG Artwork\NRL.jpg</value>
-        <value condition="String.Contains(ListItem.Title, Baseball)">special://userdata/customisations\PVR\EPG Artwork\MLB.jpg</value>
-        <!-- Miscellaneous (Use Channel Icon) -->
-        <value condition="$EXP[Live_Football_Anova_SkySportsPlus]">$INFO[ListItem.Icon]</value>
-        <value condition="$EXP[Live_Football_Anova_MLS]">$INFO[ListItem.Icon]</value>
-        <value condition="String.IsEqual(ListItem.Title,Stay tuned for the next broadcast)">$INFO[ListItem.Icon]</value>
-        <value condition="String.IsEqual(ListItem.Title,Channel Off Air)">$INFO[ListItem.Icon]</value>
-        <value condition="String.IsEqual(ListItem.Title,No information available)">$INFO[ListItem.Icon]</value>
-        <value condition="$EXP[247_Channel]">$INFO[ListItem.Icon]</value>
-        <!-- Default Image_Foreground values -->
-        <value condition="$EXP[Exp_BackgroundArtwork_IsSimple]">$INFO[Window(Home).Property(TMDbHelper.SimpleBackground.BlurImage.Original)]</value>
-        <value>$INFO[Window(Home).Property(TMDbHelper.ListItem.BlurImage.Original)]</value>
-    </variable>
-    </variable>
+	<!-- PVR006: Customised Variable Definition for EPG-->
+	<variable name="Custom_Image_Foreground_FlixArt">
+		<!-- 1. Special Artwork for Standard Channels -->
+		<value condition="System.Platform.Android + $EXP[Standard_Channel]" >$INFO[ListItem.Icon]</value>
+		<value condition="$EXP[Standard_Channel] + String.IsEqual(ListItem.Label,Stay tuned for next broadcast)">$INFO[ListItem.Icon]</value>
+		<value condition="$EXP[Standard_Channel] + String.IsEqual(ListItem.Label,Channel Off Air)">$INFO[ListItem.Icon]</value>
+		<value condition="$EXP[Standard_Channel] + String.IsEqual(ListItem.Label,No information available)">$INFO[ListItem.Icon]</value>
+		<value condition="$EXP[Standard_Channel] + String.Contains(ListItem.Label,Indian Premier League)">special://userdata/customisations\PVR\EPG Artwork\IPL2.jpg</value>
+		<value condition="$EXP[Standard_Channel] + String.Contains(ListItem.Label,IPL )">special://userdata/customisations\PVR\EPG Artwork\IPL2.jpg</value>
+		<value condition="$EXP[Standard_Channel] + String.Contains(ListItem.Label,EPL)">special://userdata/customisations\PVR\EPG Artwork\EPL.jpg</value>
+		<value condition="$EXP[Standard_Channel] + String.Contains(ListItem.Label,Premier League) + !String.Contains(ListItem.Label,Darts)">special://userdata/customisations\PVR\EPG Artwork\EPL.jpg</value>
+		<value condition="$EXP[Standard_Channel] + String.StartsWith(ListItem.Label,PL )">special://userdata/customisations\PVR\EPG Artwork\EPL.jpg</value>
+		<value condition="$EXP[Standard_Channel] + String.Contains(ListItem.Label,EFL)">special://userdata/customisations\PVR\EPG Artwork\EFL.jpg</value>
+		<value condition="$EXP[Standard_Channel] + String.Contains(ListItem.Label,National League)">special://userdata/customisations\PVR\EPG Artwork\NATIONAL LEAGUE.jpg</value>
+		<value condition="$EXP[Standard_Channel] + String.Contains(ListItem.Label,Scottish Premiership)">special://userdata/customisations\PVR\EPG Artwork\SPFL.png</value>
+		<value condition="$EXP[Standard_Channel] + String.Contains(ListItem.Label,SPFL )">special://userdata/customisations\PVR\EPG Artwork\SPFL.png</value>
+		<value condition="$EXP[Standard_Channel] + String.Contains(ListItem.Label,LaLiga)">special://userdata/customisations\PVR\EPG Artwork\LaLiga.jpg</value>
+		<value condition="$EXP[Standard_Channel] + String.Contains(ListItem.Label,La Liga)">special://userdata/customisations\PVR\EPG Artwork\LaLiga.jpg</value>
+		<value condition="$EXP[Standard_Channel] + String.Contains(ListItem.Label,Serie A)">special://userdata/customisations\PVR\EPG Artwork\Serie A.jpg</value>
+        <value condition="$EXP[Standard_Channel] + String.Contains(ListItem.Label,A-League)">special://userdata/customisations\PVR\EPG Artwork\A-League.png</value>
+		<value condition="$EXP[Standard_Channel] + String.Contains(ListItem.Label,Ligue 1)">special://userdata/customisations\PVR\EPG Artwork\Ligue1.jpg</value>
+		<value condition="$EXP[Standard_Channel] + String.Contains(ListItem.Label,Bundesliga)">special://userdata/customisations\PVR\EPG Artwork\Bundesliga.jpg</value>
+		<value condition="$EXP[Standard_Channel] + String.Contains(ListItem.Label, NRL)">special://userdata/customisations\PVR\EPG Artwork\NRL.jpg</value>
+		<value condition="$EXP[Standard_Channel] + String.Contains(ListItem.Label, Baseball)">special://userdata/customisations\PVR\EPG Artwork\MLB.jpg</value>
+		<value condition="$EXP[247_Channel]">$INFO[ListItem.Icon]</value>
+		<!-- 2. Special Artwork for Live Football -->			
+		<value condition="[$EXP[Live_EPL_Anova] | $EXP[Live_EPL_FHNatho]]">special://userdata/customisations\PVR\EPG Artwork\EPL.jpg</value>
+		<value condition="[$EXP[Live_EFL_Anova] | $EXP[Live_EFL_FHNatho]]">special://userdata/customisations\PVR\EPG Artwork\EFL.jpg</value>
+		<value condition="[$EXP[Live_FAC_Anova] | $EXP[Live_FAC_FHNatho]]">special://userdata/customisations\PVR\EPG Artwork\FAC.jpg</value>			
+		<!-- value condition="$EXP[Live_NL_Anova]">special://userdata/customisations\PVR\EPG Artwork\NATIONAL LEAGUE.jpg</value -->
+		<value condition="$EXP[Live_EFLPJT_FHNatho]">special://userdata/customisations\PVR\EPG Artwork\EFL.jpg</value>
+		<value condition="[$EXP[Live_SPL_Anova] | $EXP[Live_Football_FHNatho_SPL_Club]">special://userdata/customisations\PVR\EPG Artwork\SPFL.png</value>	
+		<!--value condition="$EXP[Live_SPFLC_Anova]">special://userdata/customisations\PVR\EPG Artwork\SPFL.png</value -->
+		<!-- 3. ClearArt -->
+	    <value condition="!String.IsEmpty(Container(99950).ListItem.Property(base_clearart))">$INFO[Container(99950).ListItem.Property(base_clearart)]</value>
+        <value condition="!String.IsEmpty(Container(99950).ListItem.Art(clearart))">$INFO[Container(99950).ListItem.Art(clearart)]</value>
+		<value condition="!String.IsEmpty(Window(Home).Property(SkinHelper.ListItem.Art.ClearArt))">$INFO[Window(Home).Property(SkinHelper.ListItem.Art.ClearArt)]</value>
+		<!-- 4. Landscape -->
+		<value condition="!String.IsEmpty(Container(99950).ListItem.Property(base_landscape))">$INFO[Container(99950).ListItem.Property(base_landscape)]</value>
+        <value condition="!String.IsEmpty(Container(99950).ListItem.Art(landscape))">$INFO[Container(99950).ListItem.Art(landscape)]</value>
+		<value condition="!String.IsEmpty(Window(Home).Property(SkinHelper.ListItem.Art.Landscape))">$INFO[Window(Home).Property(SkinHelper.ListItem.Art.Landscape)]</value>
+		<!-- 5. Fanart -->
+		<value condition="!String.IsEmpty(Container(99950).ListItem.Property(base_fanart))">$INFO[Container(99950).ListItem.Property(base_fanart)]</value>
+        <value condition="!String.IsEmpty(Container(99950).ListItem.Art(fanart))">$INFO[Container(99950).ListItem.Art(fanart)]</value>
+		<value condition="!String.IsEmpty(Window(Home).Property(SkinHelper.ListItem.Art.Fanart))">$INFO[Window(Home).Property(SkinHelper.ListItem.Art.Fanart)]</value>	
+		<!-- 6. ClearLogo -->
+        <value condition="!String.IsEmpty(Container(99950).ListItem.Property(base_clearlogo))">$INFO[Container(99950).ListItem.Property(base_clearlogo)]</value>
+        <value condition="!String.IsEmpty(Container(99950).ListItem.Art(clearlogo))">$INFO[Container(99950).ListItem.Art(clearlogo)]</value>		
+		<value condition="!String.IsEmpty(Window(Home).Property(SkinHelper.ListItem.Art.ClearLogo))">$INFO[Window(Home).Property(SkinHelper.ListItem.Art.ClearLogo)]</value>		
+		<!-- 7. Thumb -->
+		<value condition="!String.IsEmpty(Window(Home).Property(SkinHelper.ListItem.Art.Thumb))">$INFO[Window(Home).Property(SkinHelper.ListItem.Art.Thumb)]</value>
+		<value condition="!String.IsEmpty(Container(99950).ListItem.Thumb)">$INFO[Container(99950).ListItem.Thumb]</value>
+		<!-- 8. Fallback -->
+		<value condition="String.IsEqual(System.CurrentControlID,1604)">$INFO[ListItem.Icon]</value>
+		<!-- value>special://xbmc\media\splash.jpg</value -->			
+	</variable>
 	
 	<!-- PVR008:  variable for program start date (ImagePVRProviderIcon) -->
 	<variable name="LabelProgramStartDate">
