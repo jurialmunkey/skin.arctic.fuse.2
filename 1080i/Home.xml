@@ -118,3 +118,10 @@
         </include>
     </controls>
 </window>
+
+
+
+<!-- Targeted widget refresh after playback exit using TMDb ID -->
+<onload condition="!Player.HasMedia + !String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.tmdb_id))">
+    RunScript(plugin.video.themoviedb.helper,sync_trakt,tmdb_id=$INFO[Window(Home).Property(TMDbHelper.ListItem.tmdb_id)],cache_refresh)
+</onload>
