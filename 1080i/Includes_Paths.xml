@@ -235,7 +235,7 @@
 
         <value condition="VideoPlayer.Content(episodes)">$INFO[Window(Home).Property(TMDbHelper.Player.TVShow.TMDb_ID),&amp;tmdb_id=,]$INFO[VideoPlayer.TVShowTitle,&amp;query=,]$INFO[VideoPlayer.Season,&amp;season=,]$INFO[VideoPlayer.Episode,&amp;episode=,]$INFO[VideoPlayer.Year,&amp;episode_year=,]</value>
     </variable>
-
+  
     <variable name="Path_Param_Query">
         <value condition="[String.IsEqual(Window(Home).Property(TMDbHelper.ListItem.base_dbtype),movie) | String.IsEqual(Window(Home).Property(TMDbHelper.ListItem.base_dbtype),tvshow)] + !String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.tmdb_id))">&amp;tmdb_id=$INFO[Window(Home).Property(TMDbHelper.ListItem.tmdb_id)]</value>
         <value condition="[String.IsEqual(Window(Home).Property(TMDbHelper.ListItem.base_dbtype),season) | String.IsEqual(Window(Home).Property(TMDbHelper.ListItem.base_dbtype),episode)] + !String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.tvshow.tmdb_id))">&amp;tmdb_id=$INFO[Window(Home).Property(TMDbHelper.ListItem.tvshow.tmdb_id)]</value>
@@ -391,7 +391,7 @@
         <value condition="String.IsEqual(ListItem.DBType,tvshow) + !String.IsEmpty(ListItem.Title)">$VAR[Path_Encoded_Title]$INFO[ListItem.Year, ,]</value>
         <value condition="String.IsEqual(ListItem.DBType,season) + !String.IsEmpty(ListItem.TVShowTitle)">$VAR[Path_Encoded_TVShowTitle]$INFO[ListItem.Season, Season ,]</value>
         <value condition="String.IsEqual(ListItem.DBType,episode) + !String.IsEmpty(ListItem.Title)">$VAR[Path_Encoded_TVShowTitle,, ]$VAR[Path_Encoded_Title]</value>
-        <value condition="[String.IsEqual(ListItem.DBType,actor) | String.IsEqual(ListItem.Property(item.type),person)] + !String.IsEmpty(ListItem.Label)">$VAR[Path_Encoded_Label]</value>
+        <value condition="[String.IsEqual(ListItem.DBType,actor) | String.IsEqual(ListItem.Property(tmdb_type),person)] + !String.IsEmpty(ListItem.Label)">$VAR[Path_Encoded_Label]</value>
         <value condition="String.IsEqual(ListItem.DBType,artist) + !String.IsEmpty(ListItem.AlbumArtist)">$VAR[Path_Encoded_AlbumArtist] Music</value>
         <value condition="String.IsEqual(ListItem.DBType,artist) + !String.IsEmpty(ListItem.Artist)">$VAR[Path_Encoded_Artist] Music</value>
         <value condition="String.IsEqual(ListItem.DBType,album) + !String.IsEmpty(ListItem.Album)">$VAR[Path_Encoded_AlbumArtist,, ]$VAR[Path_Encoded_Album] Music</value>
