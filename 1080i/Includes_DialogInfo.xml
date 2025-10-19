@@ -2183,39 +2183,17 @@
                             <onleft condition="Control.IsVisible(61)">61</onleft>
                             <onleft condition="Control.IsVisible(62)">62</onleft>
                             <onleft condition="Control.IsVisible(7001) + !Control.IsVisible(62)">7001</onleft>
-                            <!-- Info -->
+                            <!-- Menu -->
                             <include content="DialogInfo_Button">
                                 <param name="include_hintlabel">$PARAM[include_hintlabel]</param>
                                 <param name="vertical">true</param>
                                 <param name="id">9001</param>
                                 <param name="groupid">9101</param>
-                                <param name="label">$LOCALIZE[29915]</param>
-                                <param name="icon">special://skin/extras/icons/info2.png</param>
+                                <param name="label">$LOCALIZE[31147]</param>
+                                <param name="icon">special://skin/extras/icons/bars.png</param>
                                 <onfocus>ClearProperty(ModePath)</onfocus>
                                 <onfocus>ClearProperty(ModeName)</onfocus>
-                                <onclick condition="!String.IsEmpty(Window.Property(path))">RunScript(plugin.video.themoviedb.helper,add_path=$INFO[Window.Property(path)],call_auto=1190,origin_tmdb_type=$INFO[Window.Property(origin_tmdb_type)],origin_tmdb_id=$INFO[Window.Property(origin_tmdb_id)],return)</onclick>
-                                <onclick>Dialog.Close(1114,true)</onclick>
-                                <onclick>Dialog.Close(videoosd,true)</onclick>
-                                <onclick>Dialog.Close(1140,true)</onclick>
-                                <onclick>Dialog.Close(1141,true)</onclick>
-                                <onclick>Dialog.Close(videobookmarks,true)</onclick>
-                            </include>
-                            <!-- Play -->
-                            <include content="DialogInfo_Button" condition="[!String.IsEmpty(Window.Property(filenameandpath)) | !String.IsEmpty(Window.Property(folderpath))] + [String.IsEqual(Window.Property(dbtype),movie) | String.IsEqual(Window.Property(dbtype),tvshow) | String.IsEqual(Window.Property(dbtype),season) | String.IsEqual(Window.Property(dbtype),episode)]">
-                                <param name="include_hintlabel">$PARAM[include_hintlabel]</param>
-                                <param name="vertical">true</param>
-                                <param name="id">9002</param>
-                                <param name="groupid">9102</param>
-                                <param name="label">$VAR[Label_WindowProperty_PlayButton]</param>
-                                <param name="icon">$VAR[Image_WindowProperty_PlayButton]</param>
-                                <onfocus>ClearProperty(ModePath)</onfocus>
-                                <onfocus>ClearProperty(ModeName)</onfocus>
-                                <onclick>$VAR[Action_DialogInfo_Panel_PlayMedia]</onclick>
-                                <onclick>Dialog.Close(1114,true)</onclick>
-                                <onclick>Dialog.Close(videoosd,true)</onclick>
-                                <onclick>Dialog.Close(1140,true)</onclick>
-                                <onclick>Dialog.Close(1141,true)</onclick>
-                                <onclick>Dialog.Close(videobookmarks,true)</onclick>
+                                <onclick>SetFocus(998000)</onclick>
                             </include>
                             <!-- Movies -->
                             <include content="DialogInfo_Button" condition="!String.IsEmpty(Window.Property(tmdb_id)) + String.IsEqual(Window.Property(tmdb_type),person)">
@@ -2272,21 +2250,112 @@
                                 <onfocus>SetProperty(ModePath,$INFO[Window.Property(TMDb_ID),plugin://plugin.video.themoviedb.helper/?info=crew&amp;tmdb_id=,&amp;limit=250]$INFO[Window.Property(tmdb_type),&amp;tmdb_type=,&amp;nextpage=false&amp;cacheonly=true&amp;length=1])</onfocus>
                                 <onclick condition="!Container(7001).IsUpdating + !Integer.IsEqual(Container(7001).NumItems,0)">SetFocus(7001)</onclick>
                             </include>
-                            <!-- Wiki -->
-                            <include content="DialogInfo_Button">
-                                <param name="include_hintlabel">$PARAM[include_hintlabel]</param>
-                                <param name="id">9005</param>
-                                <param name="groupid">9105</param>
-                                <param name="label">Wiki</param>
-                                <param name="icon">special://skin/extras/icons/globe.png</param>
-                                <onfocus>ClearProperty(ModePath)</onfocus>
-                                <onfocus>ClearProperty(ModeName)</onfocus>
-                                <onclick>runscript(script.wikipedia,wikipedia=$INFO[Window.Property(header)])</onclick>
-                            </include>
                         </control>
                     </control>
                 </include>
 
+            </control>
+        </definition>
+    </include>
+
+    <include name="DialogInfo_CustomMenu_Standard">
+        <!-- Information -->
+        <item>
+            <label>$LOCALIZE[19033]</label>
+            <icon>special://skin/extras/icons/info2.png</icon>
+            <onclick>RunScript(plugin.video.themoviedb.helper,add_path=$INFO[Window.Property(path)],call_auto=1190,origin_tmdb_type=$INFO[Window.Property(origin_tmdb_type)],origin_tmdb_id=$INFO[Window.Property(origin_tmdb_id)],return)</onclick>
+            <onclick>Dialog.Close(1114,true)</onclick>
+            <onclick>Dialog.Close(videoosd,true)</onclick>
+            <onclick>Dialog.Close(1140,true)</onclick>
+            <onclick>Dialog.Close(1141,true)</onclick>
+            <onclick>Dialog.Close(videobookmarks,true)</onclick>
+            <visible>!String.IsEmpty(Window.Property(path))</visible>
+        </item>
+        <!-- Wiki -->
+        <item>
+            <label>Wikipedia</label>
+            <icon>special://skin/extras/icons/globe.png</icon>
+            <onclick>runscript(script.wikipedia,wikipedia=$INFO[Window.Property(header)])</onclick>
+        </item>
+        <!-- Play / Browse -->
+        <item>
+            <label>$VAR[Label_WindowProperty_PlayButton]</label>
+            <icon>$VAR[Image_WindowProperty_PlayButton]</icon>
+            <onclick>$VAR[Action_DialogInfo_Panel_PlayMedia]</onclick>
+            <onclick>Dialog.Close(1114,true)</onclick>
+            <onclick>Dialog.Close(videoosd,true)</onclick>
+            <onclick>Dialog.Close(1140,true)</onclick>
+            <onclick>Dialog.Close(1141,true)</onclick>
+            <onclick>Dialog.Close(videobookmarks,true)</onclick>
+            <visible>[!String.IsEmpty(Window.Property(filenameandpath)) | !String.IsEmpty(Window.Property(folderpath))] + [String.IsEqual(Window.Property(dbtype),movie) | String.IsEqual(Window.Property(dbtype),tvshow) | String.IsEqual(Window.Property(dbtype),season) | String.IsEqual(Window.Property(dbtype),episode)]</visible>
+        </item>
+    </include>
+
+    <include name="DialogInfo_CustomMenu">
+        <param name="content_include">DialogInfo_CustomMenu_Standard</param>
+        <param name="onback">9000</param>
+        <definition>
+
+            <include content="Dialog_Dim_Overlay">
+                <param name="visible">Control.HasFocus(99980) | Control.HasFocus(99001) | Control.HasFocus(998000)</param>
+            </include>
+            <control type="button" id="99980">
+                <texturenofocus />
+                <texturefocus />
+                <onclick>Setfocus($PARAM[onback])</onclick>
+                <visible>Control.HasFocus(99980) | Control.HasFocus(99001) | Control.HasFocus(998000)</visible>
+            </control>
+
+            <control type="group">
+                <include>Animation_Right_Delay</include>
+                <visible>Control.HasFocus(99980) | Control.HasFocus(99001) | Control.HasFocus(998000)</visible>
+                <include>Dimension_DialogMiniMenu</include>
+                <include content="Dialog_Foreground_Side">
+                    <param name="dialog_size">Dimension_DialogMiniMenu</param>
+                    <param name="lines_right">0</param>
+                    <param name="topline">true</param>
+                    <param name="subline">false</param>
+                </include>
+
+                <control type="group">
+                    <!-- Header -->
+                    <include content="Dialog_Head">
+                        <param name="label">$LOCALIZE[33063]</param>
+                    </include>
+                    <include content="Dialog_Head_CloseButton">
+                        <param name="id">99001</param>
+                        <param name="groupid">99101</param>
+                        <param name="onclick">SetFocus($PARAM[onback])</param>
+                    </include>
+
+                    <!-- Content -->
+                    <control type="group">
+                        <include>Dimension_Dialog_Body</include>
+
+                        <control type="group" id="997000">
+                            <include>Dimension_Dialog_Body_Group</include>
+
+                            <include content="List_DialogSelect">
+                                <param name="id">998000</param>
+                                <param name="itemlayout_include">Layout_MenuList</param>
+                                <bottom>0</bottom>
+                                <orientation>vertical</orientation>
+                                <onback>$PARAM[onback]</onback>
+                                <content>
+                                    <include>$PARAM[content_include]</include>
+                                </content>
+                            </include>
+
+                            <control type="image">
+                                <bottom>-20</bottom>
+                                <left>20</left>
+                                <right>20</right>
+                                <height>1</height>
+                                <texture colordiffuse="$VAR[Color_DialogBorder]">common/white.png</texture>
+                            </control>
+                        </control>
+                    </control>
+                </control>
             </control>
         </definition>
     </include>
