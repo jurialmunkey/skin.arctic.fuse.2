@@ -921,6 +921,25 @@
         <value>$INFO[Container.ListItem.Property(folderpath)]</value>
     </variable>
 
+    <include name="DialogInfo_Details_Action">
+        <param name="set_path">true</param>
+        <definition>
+            <onclick condition="$PARAM[set_path]">SetProperty(path,$PARAM[path],1114)</onclick>
+            <onclick condition="![$PARAM[set_path]]">ClearProperty(path,1114)</onclick>
+
+            <onclick>SetProperty(header,$PARAM[header],1114)</onclick>
+            <onclick>SetProperty(poster,$PARAM[poster],1114)</onclick>
+            <onclick>SetProperty(tmdb_id,$PARAM[tmdb_id],1114)</onclick>
+            <onclick>SetProperty(tmdb_type,$PARAM[tmdb_type],1114)</onclick>
+            <onclick>SetProperty(dbtype,$PARAM[dbtype],1114)</onclick>
+            <onclick>SetProperty(origin_tmdb_id,$VAR[Path_InfoParams_TMDbID],1114)</onclick>
+            <onclick>SetProperty(origin_tmdb_type,$VAR[Path_InfoParams_TMDbType],1114)</onclick>
+            <onclick>SetProperty(origin_season,$VAR[Path_InfoParams_Season],1114)</onclick>
+            <onclick>SetProperty(origin_episode,$VAR[Path_InfoParams_Episode],1114)</onclick>
+            <onclick>ActivateWindow(1114)</onclick>
+        </definition>
+    </include>
+
     <include name="DialogInfo_Widgets_Action">
         <param name="set_path">true</param>
         <definition>
@@ -1584,7 +1603,8 @@
                     <orientation>horizontal</orientation>
                     <top>-40</top>
                     <height>160</height>
-                    <ondown>5000</ondown>
+                    <!-- <ondown>5000</ondown> -->
+                    <ondown>90001</ondown>
                     <onup>61</onup>
 
                     <include content="DialogInfo_Button_Expansion">
@@ -1604,114 +1624,110 @@
                 <right>$PARAM[right]</right>
                 <height>320</height>
 
-                <control type="grouplist">
+                <control type="grouplist" id="9100">
                     <orientation>vertical</orientation>
                     <itemgap>0</itemgap>
                     <width>$PARAM[left_group_width]</width>
                     <height>320</height>
 
+                    <onup>9000</onup>
+                    <ondown>SetFocus(90001)</ondown>
+                    <ondown>SetFocus(5000)</ondown>
+                    <!-- <onleft>61</onleft> -->
+                    <onright>61</onright>
+                    <!-- <onright>9200</onright> -->
+
                     <!-- Director -->
-                    <include content="Object_InfoCircle">
+                    <include content="Object_InfoCircle_Button">
+                        <param name="id">01</param>
                         <param name="name">$VAR[Label_FromDirector]</param>
                         <param name="role">$LOCALIZE[20339]</param>
                         <param name="icon">special://skin/extras/icons/video-addons.png</param>
-                        <include content="Object_InfoCircle_Image">
-                            <param name="colordiffuse">white</param>
-                            <param name="icon">$VAR[Image_DirectorIcon]</param>
-                        </include>
+                        <param name="shot">$VAR[Image_DirectorIcon]</param>
+                        <param name="tmdb_type">person</param>
+                        <param name="tmdb_id">$VAR[Path_FromDirector]</param>
+                        <onclick>SetFocus(5000)</onclick>
+                        <onclick>AlarmClock(resetfocus,SetFocus(5021),00:00,silent)</onclick>
                         <visible>!String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.Director)) | !String.IsEmpty(ListItem.Director)</visible>
                     </include>
 
                     <!-- Writer -->
-                    <include content="Object_InfoCircle">
+                    <include content="Object_InfoCircle_Button">
+                        <param name="id">02</param>
                         <param name="name">$VAR[Label_FromWriter]</param>
                         <param name="role">$LOCALIZE[20417]</param>
                         <param name="icon">special://skin/extras/icons/write.png</param>
-                        <include content="Object_InfoCircle_Image">
-                            <param name="colordiffuse">white</param>
-                            <param name="icon">$VAR[Image_WriterIcon]</param>
-                        </include>
+                        <param name="shot">$VAR[Image_WriterIcon]</param>
+                        <param name="tmdb_type">person</param>
+                        <param name="tmdb_id">$VAR[Path_FromWriter]</param>
+                        <onclick>SetFocus(5000)</onclick>
+                        <onclick>AlarmClock(resetfocus,SetFocus(5022),00:00,silent)</onclick>
                         <visible>!String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.Writer)) | !String.IsEmpty(ListItem.Writer)</visible>
                     </include>
 
-                    <!-- Creator -->
-                    <!-- <include content="Object_InfoCircle">
-                        <param name="name">$VAR[Label_Creator]</param>
-                        <param name="role">$LOCALIZE[31065]</param>
-                        <param name="icon">special://skin/extras/icons/person.png</param>
-                        <include content="Object_InfoCircle_Image">
-                            <param name="colordiffuse">white</param>
-                            <param name="icon">$VAR[Image_CreatorIcon]</param>
-                        </include>
-                        <visible>!String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.Creator)) | !String.IsEmpty(ListItem.Property(Creator))</visible>
-                    </include> -->
-
                     <!-- Studio -->
-                    <include content="Object_InfoCircle">
+                    <include content="Object_InfoCircle_Button">
+                        <param name="id">03</param>
                         <param name="name">$VAR[Label_Studio]</param>
                         <param name="role">$LOCALIZE[572]</param>
-                        <!-- <param name="icon">special://skin/extras/icons/director.png</param> -->
-                        <include content="Object_InfoCircle_Image">
-                            <param name="colordiffuse">main_bg_100</param>
-                            <param name="icon">common/white.png</param>
-                        </include>
-                        <include content="Object_InfoCircle_Image">
-                            <param name="colordiffuse">white</param>
-                            <param name="icon">$VAR[Image_CombinedStudio]</param>
-                            <param name="aspectratio">keep</param>
-                            <param name="fallback">special://skin/extras/icons/director.png</param>
-                        </include>
+                        <param name="icon">special://skin/extras/icons/director.png</param>
+                        <param name="shot">$VAR[Image_CombinedStudio]</param>
+                        <param name="alt1">true</param>
+                        <onclick>SetFocus(5000)</onclick>
+                        <onclick>AlarmClock(resetfocus,SetFocus(5012),00:00,silent)</onclick>
                         <visible>!String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.Studio)) | !String.IsEmpty(ListItem.Studio)</visible>
                     </include>
 
                     <!-- Episodes -->
-                    <include content="Object_InfoCircle">
+                    <include content="Object_InfoCircle_Button">
+                        <param name="id">04</param>
                         <param name="name">$INFO[ListItem.Property(watchedepisodes),$LOCALIZE[16102] , $LOCALIZE[1443] ]$INFO[ListItem.Property(totalepisodes)] $LOCALIZE[20453]</param>
                         <param name="role">$LOCALIZE[20360]</param>
                         <param name="icon">special://skin/extras/icons/photo-film.png</param>
-                        <include content="Object_InfoCircle_Image">
-                            <param name="colordiffuse">white</param>
-                            <param name="icon">$INFO[ListItem.Art(poster)]</param>
-                        </include>
+                        <param name="shot">$INFO[ListItem.Art(poster)]</param>
+                        <onclick>SetFocus(5000)</onclick>
+                        <onclick>AlarmClock(resetfocus,SetFocus(5018),00:00,silent)</onclick>
                         <visible>!String.IsEmpty(ListItem.Property(totalepisodes))</visible>
                     </include>
 
                     <!-- Codecs -->
-                    <include content="Object_InfoCircle">
+                    <include content="Object_InfoCircle_Detail">
+                        <param name="id">05</param>
                         <param name="name">[UPPERCASE]$INFO[ListItem.VideoResolution,, • ]$INFO[ListItem.VideoCodec]$INFO[ListItem.VideoAspect, • ,:1]$INFO[ListItem.AudioCodec, • ,]$VAR[Label_ListItem_AudioChannels, • ,][/UPPERCASE]</param>
                         <param name="role">$INFO[ListItem.VideoVersionName]</param>
                         <param name="icon">special://skin/extras/icons/photo-film.png</param>
-                        <param name="fallback_role">$LOCALIZE[31207]</param>
-                        <include content="Object_InfoCircle_Image">
-                            <param name="colordiffuse">white</param>
-                            <param name="icon">$INFO[ListItem.Art(poster)]</param>
-                        </include>
+                        <!-- <param name="fallback_role">$LOCALIZE[31207]</param> -->
+                        <param name="shot">$INFO[ListItem.Art(poster)]</param>
                         <visible>!String.IsEmpty(ListItem.VideoCodec)</visible>
                     </include>
 
                     <!-- Providers -->
-                    <include content="Object_InfoCircle">
+                    <include content="Object_InfoCircle_Detail">
+                        <param name="id">06</param>
                         <param name="name">$INFO[Window(Home).Property(TMDbHelper.ListItem.Provider.1.Name)]$INFO[Window(Home).Property(TMDbHelper.ListItem.Provider.2.Name), • ,]$INFO[Window(Home).Property(TMDbHelper.ListItem.Provider.3.Name), • ,]$INFO[Window(Home).Property(TMDbHelper.ListItem.Provider.4.Name), • ,]$INFO[Window(Home).Property(TMDbHelper.ListItem.Provider.5.Name), • ,]</param>
                         <param name="role">JustWatch</param>
                         <param name="icon">special://skin/extras/icons/photo-film.png</param>
-                        <include content="Object_InfoCircle_Image">
-                            <param name="colordiffuse">white</param>
-                            <param name="icon">$INFO[Window(Home).Property(TMDbHelper.ListItem.Provider.1.Icon)]</param>
-                        </include>
+                        <param name="shot">$INFO[Window(Home).Property(TMDbHelper.ListItem.Provider.1.Icon)]</param>
                         <visible>!String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.Provider.1.Icon))</visible>
                         <visible>String.IsEmpty(ListItem.VideoCodec)</visible>
                         <visible>String.IsEqual(ListItem.DBType,movie) | String.IsEqual(ListItem.DBType,episode) | String.IsEqual(ListItem.DBType,season) | String.IsEqual(ListItem.DBType,tvshow)</visible>
                     </include>
                 </control>
 
-                <control type="grouplist">
+                <control type="grouplist" id="9200">
                     <orientation>vertical</orientation>
                     <itemgap>0</itemgap>
                     <height>320</height>
                     <left>$PARAM[left_group_width]</left>
 
+                    <onup>9000</onup>
+                    <ondown>5000</ondown>
+                    <onleft>9100</onleft>
+                    <onright>9100</onright>
+
                     <!-- Genre -->
-                    <include content="Object_InfoCircle">
+                    <include content="Object_InfoCircle_Detail">
+                        <param name="id">21</param>
                         <param name="icon">special://skin/extras/icons/genre.png</param>
                         <param name="role">$LOCALIZE[515]</param>
                         <param name="name">$VAR[Label_Genre]</param>
@@ -1719,7 +1735,8 @@
                     </include>
 
                     <!-- Country -->
-                    <include content="Object_InfoCircle">
+                    <include content="Object_InfoCircle_Detail">
+                        <param name="id">22</param>
                         <param name="icon">special://skin/extras/icons/earth-americas.png</param>
                         <param name="role">$LOCALIZE[574]</param>
                         <param name="name">$VAR[Label_Country]</param>
@@ -1727,7 +1744,8 @@
                     </include>
 
                     <!-- Budget / Revenue -->
-                    <include content="Object_InfoCircle">
+                    <include content="Object_InfoCircle_Detail">
+                        <param name="id">23</param>
                         <param name="icon">special://skin/extras/icons/coins.png</param>
                         <param name="role">$LOCALIZE[31264] / $LOCALIZE[31265]</param>
                         <param name="name">$INFO[Window(Home).Property(TMDbHelper.ListItem.Revenue),, $LOCALIZE[31373] ]$INFO[Window(Home).Property(TMDbHelper.ListItem.Budget)]</param>
@@ -1736,15 +1754,19 @@
                     </include>
 
                     <!-- Awards -->
-                    <include content="Object_InfoCircle">
+                    <include content="Object_InfoCircle_Detail">
+                        <param name="id">24</param>
                         <param name="icon">special://skin/extras/icons/trophy.png</param>
                         <param name="role">$LOCALIZE[31064]</param>
                         <param name="name">$INFO[Window(Home).Property(TMDbHelper.ListItem.Awards)]</param>
+                        <!-- <onclick>SetFocus(5000)</onclick>
+                        <onclick>AlarmClock(resetfocus,SetFocus(5015),00:00,silent)</onclick> -->
                         <visible>!String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.Awards))</visible>
                     </include>
 
                     <!-- Tagline -->
-                    <include content="Object_InfoCircle">
+                    <include content="Object_InfoCircle_Detail">
+                        <param name="id">25</param>
                         <param name="icon">special://skin/extras/icons/tag.png</param>
                         <param name="role">$LOCALIZE[202]</param>
                         <param name="name">$INFO[Window(Home).Property(TMDbHelper.ListItem.Tagline)]</param>
