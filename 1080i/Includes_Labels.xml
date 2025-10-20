@@ -175,12 +175,12 @@
     </variable>
 
     <variable name="Label_Plot_Episode_Type_TMDBHelper">
-        <value condition="String.IsEqual(Window(Home).Property(TMDbHelper.ListItem.episode_type),series_premiere)">$LOCALIZE[31210]</value>
-        <value condition="String.IsEqual(Window(Home).Property(TMDbHelper.ListItem.episode_type),season_premiere)">$LOCALIZE[31211]</value>
-        <value condition="String.IsEqual(Window(Home).Property(TMDbHelper.ListItem.episode_type),mid_season_premiere)">$LOCALIZE[31212]</value>
-        <value condition="String.IsEqual(Window(Home).Property(TMDbHelper.ListItem.episode_type),series_finale)">$LOCALIZE[31214]</value>
-        <value condition="String.IsEqual(Window(Home).Property(TMDbHelper.ListItem.episode_type),season_finale)">$LOCALIZE[31215]</value>
-        <value condition="String.IsEqual(Window(Home).Property(TMDbHelper.ListItem.episode_type),mid_season_finale)">$LOCALIZE[31218]</value>
+        <value condition="String.IsEqual(Window(Home).Property(TMDbHelper.ListItem.Monitor.Episode_type),series_premiere)">$LOCALIZE[31210]</value>
+        <value condition="String.IsEqual(Window(Home).Property(TMDbHelper.ListItem.Monitor.Episode_type),season_premiere)">$LOCALIZE[31211]</value>
+        <value condition="String.IsEqual(Window(Home).Property(TMDbHelper.ListItem.Monitor.Episode_type),mid_season_premiere)">$LOCALIZE[31212]</value>
+        <value condition="String.IsEqual(Window(Home).Property(TMDbHelper.ListItem.Monitor.Episode_type),series_finale)">$LOCALIZE[31214]</value>
+        <value condition="String.IsEqual(Window(Home).Property(TMDbHelper.ListItem.Monitor.Episode_type),season_finale)">$LOCALIZE[31215]</value>
+        <value condition="String.IsEqual(Window(Home).Property(TMDbHelper.ListItem.Monitor.Episode_type),mid_season_finale)">$LOCALIZE[31218]</value>
     </variable>
 
     <variable name="Label_Shortcut_EnableDisable">
@@ -1657,8 +1657,8 @@
     </variable>
 
     <variable name="Label_Overlay_Premiered">
-        <value condition="!String.IsEqual(Window(Home).Property(TMDbHelper.ListItem.tmdb_type),person)">[B][COLOR=dialog_fg_90]$VAR[Label_ListItem_NextAired_Header][/B][/COLOR][CR]$VAR[Label_ListItem_NextAired]$VAR[Label_ListItem_Status, (,)]</value>
-        <value condition="String.IsEqual(Window(Home).Property(TMDbHelper.ListItem.tmdb_type),person)">$INFO[Window(Home).Property(TMDbHelper.ListItem.Birthday),[B][COLOR=dialog_fg_90]$LOCALIZE[31169][/B][/COLOR][CR],[CR][CR]]$INFO[Window(Home).Property(TMDbHelper.ListItem.Deathday),[B][COLOR=dialog_fg_90]$LOCALIZE[21897][/B][/COLOR][CR],[CR][CR]]$INFO[Window(Home).Property(TMDbHelper.ListItem.Age),[B][COLOR=dialog_fg_90]$LOCALIZE[31322][/B][/COLOR][CR],[CR][CR]]$INFO[Window(Home).Property(TMDbHelper.ListItem.Gender),[B][COLOR=dialog_fg_90]$LOCALIZE[39025][/B][/COLOR][CR],[CR][CR]]</value>
+        <value condition="!String.IsEqual(Window(Home).Property(TMDbHelper.ListItem.Monitor.TMDb_Type),person)">[B][COLOR=dialog_fg_90]$VAR[Label_ListItem_NextAired_Header][/B][/COLOR][CR]$VAR[Label_ListItem_NextAired]$VAR[Label_ListItem_Status, (,)]</value>
+        <value condition="String.IsEqual(Window(Home).Property(TMDbHelper.ListItem.Monitor.TMDb_Type),person)">$INFO[Window(Home).Property(TMDbHelper.ListItem.Birthday),[B][COLOR=dialog_fg_90]$LOCALIZE[31169][/B][/COLOR][CR],[CR][CR]]$INFO[Window(Home).Property(TMDbHelper.ListItem.Deathday),[B][COLOR=dialog_fg_90]$LOCALIZE[21897][/B][/COLOR][CR],[CR][CR]]$INFO[Window(Home).Property(TMDbHelper.ListItem.Age),[B][COLOR=dialog_fg_90]$LOCALIZE[31322][/B][/COLOR][CR],[CR][CR]]$INFO[Window(Home).Property(TMDbHelper.ListItem.Gender),[B][COLOR=dialog_fg_90]$LOCALIZE[39025][/B][/COLOR][CR],[CR][CR]]</value>
     </variable>
 
     <variable name="Label_Overlay_PlotBox">
@@ -1755,11 +1755,6 @@
         <value condition="!String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.Label))">$INFO[Window(Home).Property(TMDbHelper.ListItem.Label)]</value>
     </variable>
 
-    <variable name="Label_Plot_Episode_Number_TMDbHelper">
-        <value condition="!String.IsEqual(Window(Home).Property(TMDbHelper.ListItem.DBType),episode) | String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.Season)) | String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.Episode))"/>
-        <value condition="!Integer.IsLess(Window(Home).Property(TMDbHelper.ListItem.Episode),10)">$INFO[Window(Home).Property(TMDbHelper.ListItem.Season)]$INFO[Window(Home).Property(TMDbHelper.ListItem.Episode),x,]</value>
-        <value condition="True">$INFO[Window(Home).Property(TMDbHelper.ListItem.Season)]$INFO[Window(Home).Property(TMDbHelper.ListItem.Episode),x0,]</value>
-    </variable>
 
     <variable name="Label_Plot_TMDbHelper">
         <value condition="String.IsEqual(Window(Home).Property(TMDbHelper.ListItem.DBType),episode) + !String.IsEmpty(Window(Home).Property(TMDBHelper.ListItem.base_plot))">$VAR[Label_Plot_Episode_Type_TMDBHelper,,: ]$INFO[Window(Home).Property(TMDbHelper.ListItem.Title)]$INFO[Window(Home).Property(TMDBHelper.ListItem.base_plot), ~ ,]</value>
