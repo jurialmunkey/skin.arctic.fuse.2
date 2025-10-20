@@ -164,59 +164,95 @@
     </include>
 
     <include name="DialogInfo_CrewItem">
-        <item>
-            <label>$INFO[Window(Home).Property(TMDbHelper.ListItem.$PARAM[type].$PARAM[item].Name)]</label>
-            <label2>$INFO[Window(Home).Property(TMDbHelper.ListItem.$PARAM[type].$PARAM[item].Role)]</label2>
-            <icon>$INFO[Window(Home).Property(TMDbHelper.ListItem.$PARAM[type].$PARAM[item].Thumb)]</icon>
-            <property name="is_static">true</property>
-            <property name="fallback.icon">fallback/no-image-actor.png</property>
-            <property name="tmdb_type">person</property>
-            <property name="tmdb_id">$INFO[Window(Home).Property(TMDbHelper.ListItem.$PARAM[type].$PARAM[item].TMDb_ID)]</property>
-            <property name="folderpath">$INFO[Window(Home).Property(TMDbHelper.ListItem.$PARAM[type].$PARAM[item].TMDb_ID),plugin://plugin.video.themoviedb.helper/?info=details&amp;tmdb_type=person&amp;tmdb_id=,]</property>
-            <visible>!String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.$PARAM[type].$PARAM[item].TMDb_ID))</visible>
-        </item>
+        <param name="include_filter">false</param>
+        <definition>
+            <item>
+                <label>$INFO[Window(Home).Property(TMDbHelper.ListItem.$PARAM[type].$PARAM[item].Name)]</label>
+                <label2>$INFO[Window(Home).Property(TMDbHelper.ListItem.$PARAM[type].$PARAM[item].Role)]</label2>
+                <icon>$INFO[Window(Home).Property(TMDbHelper.ListItem.$PARAM[type].$PARAM[item].Thumb)]</icon>
+                <property name="is_static">true</property>
+                <property name="fallback.icon">fallback/no-image-actor.png</property>
+                <property name="tmdb_type">person</property>
+                <property name="tmdb_id">$INFO[Window(Home).Property(TMDbHelper.ListItem.$PARAM[type].$PARAM[item].TMDb_ID)]</property>
+                <property name="folderpath">$INFO[Window(Home).Property(TMDbHelper.ListItem.$PARAM[type].$PARAM[item].TMDb_ID),plugin://plugin.video.themoviedb.helper/?info=details&amp;tmdb_type=person&amp;tmdb_id=,]</property>
+                <visible>!String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.$PARAM[type].$PARAM[item].TMDb_ID))</visible>
+                <include content="Object_Visible" condition="$PARAM[include_filter]">
+                    <param name="visible">String.Contains(Window(Home).Property(TMDbHelper.ListItem.$PARAM[type].$PARAM[item].$PARAM[filter_key]),$PARAM[filter_value])</param>
+                </include>
+            </item>
+        </definition>
     </include>
 
     <include name="DialogInfo_CrewItems">
         <include content="DialogInfo_CrewItem">
             <param name="type">$PARAM[type]</param>
             <param name="item">1</param>
+            <param name="include_filter">$PARAM[include_filter]</param>
+            <param name="filter_value">$PARAM[filter_value]</param>
+            <param name="filter_key">$PARAM[filter_key]</param>
         </include>
         <include content="DialogInfo_CrewItem">
             <param name="type">$PARAM[type]</param>
             <param name="item">2</param>
+            <param name="include_filter">$PARAM[include_filter]</param>
+            <param name="filter_value">$PARAM[filter_value]</param>
+            <param name="filter_key">$PARAM[filter_key]</param>
         </include>
         <include content="DialogInfo_CrewItem">
             <param name="type">$PARAM[type]</param>
             <param name="item">3</param>
+            <param name="include_filter">$PARAM[include_filter]</param>
+            <param name="filter_value">$PARAM[filter_value]</param>
+            <param name="filter_key">$PARAM[filter_key]</param>
         </include>
         <include content="DialogInfo_CrewItem">
             <param name="type">$PARAM[type]</param>
             <param name="item">4</param>
+            <param name="include_filter">$PARAM[include_filter]</param>
+            <param name="filter_value">$PARAM[filter_value]</param>
+            <param name="filter_key">$PARAM[filter_key]</param>
         </include>
         <include content="DialogInfo_CrewItem">
             <param name="type">$PARAM[type]</param>
             <param name="item">5</param>
+            <param name="include_filter">$PARAM[include_filter]</param>
+            <param name="filter_value">$PARAM[filter_value]</param>
+            <param name="filter_key">$PARAM[filter_key]</param>
         </include>
         <include content="DialogInfo_CrewItem">
             <param name="type">$PARAM[type]</param>
             <param name="item">6</param>
+            <param name="include_filter">$PARAM[include_filter]</param>
+            <param name="filter_value">$PARAM[filter_value]</param>
+            <param name="filter_key">$PARAM[filter_key]</param>
         </include>
         <include content="DialogInfo_CrewItem">
             <param name="type">$PARAM[type]</param>
             <param name="item">7</param>
+            <param name="include_filter">$PARAM[include_filter]</param>
+            <param name="filter_value">$PARAM[filter_value]</param>
+            <param name="filter_key">$PARAM[filter_key]</param>
         </include>
         <include content="DialogInfo_CrewItem">
             <param name="type">$PARAM[type]</param>
             <param name="item">8</param>
+            <param name="include_filter">$PARAM[include_filter]</param>
+            <param name="filter_value">$PARAM[filter_value]</param>
+            <param name="filter_key">$PARAM[filter_key]</param>
         </include>
         <include content="DialogInfo_CrewItem">
             <param name="type">$PARAM[type]</param>
             <param name="item">9</param>
+            <param name="include_filter">$PARAM[include_filter]</param>
+            <param name="filter_value">$PARAM[filter_value]</param>
+            <param name="filter_key">$PARAM[filter_key]</param>
         </include>
         <include content="DialogInfo_CrewItem">
             <param name="type">$PARAM[type]</param>
             <param name="item">10</param>
+            <param name="include_filter">$PARAM[include_filter]</param>
+            <param name="filter_value">$PARAM[filter_value]</param>
+            <param name="filter_key">$PARAM[filter_key]</param>
         </include>
     </include>
 
@@ -1646,8 +1682,10 @@
                         <param name="shot">$VAR[Image_DirectorIcon]</param>
                         <param name="tmdb_type">person</param>
                         <param name="tmdb_id">$VAR[Path_FromDirector]</param>
-                        <onclick>SetFocus(5000)</onclick>
-                        <onclick>AlarmClock(resetfocus,SetFocus(5021),00:00,silent)</onclick>
+                        <onclick>SetProperty(type,Director,1120)</onclick>
+                        <onclick>ActivateWindow(1120)</onclick>
+                        <!-- <onclick>SetFocus(5000)</onclick>
+                        <onclick>AlarmClock(resetfocus,SetFocus(5021),00:00,silent)</onclick> -->
                         <visible>!String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.Director)) | !String.IsEmpty(ListItem.Director)</visible>
                     </include>
 
@@ -1660,33 +1698,35 @@
                         <param name="shot">$VAR[Image_WriterIcon]</param>
                         <param name="tmdb_type">person</param>
                         <param name="tmdb_id">$VAR[Path_FromWriter]</param>
-                        <onclick>SetFocus(5000)</onclick>
-                        <onclick>AlarmClock(resetfocus,SetFocus(5022),00:00,silent)</onclick>
+                        <onclick>SetProperty(type,Writer,1120)</onclick>
+                        <onclick>ActivateWindow(1120)</onclick>
+                        <!-- <onclick>SetFocus(5000)</onclick>
+                        <onclick>AlarmClock(resetfocus,SetFocus(5022),00:00,silent)</onclick> -->
                         <visible>!String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.Writer)) | !String.IsEmpty(ListItem.Writer)</visible>
                     </include>
 
                     <!-- Studio -->
-                    <include content="Object_InfoCircle_Button">
+                    <include content="Object_InfoCircle_Detail">
                         <param name="id">03</param>
                         <param name="name">$VAR[Label_Studio]</param>
                         <param name="role">$LOCALIZE[572]</param>
                         <param name="icon">special://skin/extras/icons/director.png</param>
                         <param name="shot">$VAR[Image_CombinedStudio]</param>
                         <param name="alt1">true</param>
-                        <onclick>SetFocus(5000)</onclick>
-                        <onclick>AlarmClock(resetfocus,SetFocus(5012),00:00,silent)</onclick>
+                        <!-- <onclick>SetFocus(5000)</onclick>
+                        <onclick>AlarmClock(resetfocus,SetFocus(5012),00:00,silent)</onclick> -->
                         <visible>!String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.Studio)) | !String.IsEmpty(ListItem.Studio)</visible>
                     </include>
 
                     <!-- Episodes -->
-                    <include content="Object_InfoCircle_Button">
+                    <include content="Object_InfoCircle_Detail">
                         <param name="id">04</param>
                         <param name="name">$INFO[ListItem.Property(watchedepisodes),$LOCALIZE[16102] , $LOCALIZE[1443] ]$INFO[ListItem.Property(totalepisodes)] $LOCALIZE[20453]</param>
                         <param name="role">$LOCALIZE[20360]</param>
                         <param name="icon">special://skin/extras/icons/photo-film.png</param>
                         <param name="shot">$INFO[ListItem.Art(poster)]</param>
-                        <onclick>SetFocus(5000)</onclick>
-                        <onclick>AlarmClock(resetfocus,SetFocus(5018),00:00,silent)</onclick>
+                        <!-- <onclick>SetFocus(5000)</onclick>
+                        <onclick>AlarmClock(resetfocus,SetFocus(5018),00:00,silent)</onclick> -->
                         <visible>!String.IsEmpty(ListItem.Property(totalepisodes))</visible>
                     </include>
 
@@ -1696,7 +1736,7 @@
                         <param name="name">[UPPERCASE]$INFO[ListItem.VideoResolution,, • ]$INFO[ListItem.VideoCodec]$INFO[ListItem.VideoAspect, • ,:1]$INFO[ListItem.AudioCodec, • ,]$VAR[Label_ListItem_AudioChannels, • ,][/UPPERCASE]</param>
                         <param name="role">$INFO[ListItem.VideoVersionName]</param>
                         <param name="icon">special://skin/extras/icons/photo-film.png</param>
-                        <!-- <param name="fallback_role">$LOCALIZE[31207]</param> -->
+                        <param name="fallback_role">$LOCALIZE[31207]</param>
                         <param name="shot">$INFO[ListItem.Art(poster)]</param>
                         <visible>!String.IsEmpty(ListItem.VideoCodec)</visible>
                     </include>
