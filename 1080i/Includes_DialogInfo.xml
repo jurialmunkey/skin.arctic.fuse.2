@@ -2248,17 +2248,23 @@
                             <onleft condition="Control.IsVisible(61)">61</onleft>
                             <onleft condition="Control.IsVisible(62)">62</onleft>
                             <onleft condition="Control.IsVisible(7001) + !Control.IsVisible(62)">7001</onleft>
-                            <!-- Menu -->
+                            <onright>SetFocus(998000)</onright>
+                            <!-- Info -->
                             <include content="DialogInfo_Button">
                                 <param name="include_hintlabel">$PARAM[include_hintlabel]</param>
                                 <param name="vertical">true</param>
                                 <param name="id">9001</param>
                                 <param name="groupid">9101</param>
-                                <param name="label">$LOCALIZE[31147]</param>
-                                <param name="icon">special://skin/extras/icons/bars.png</param>
+                                <param name="label">$LOCALIZE[29915]</param>
+                                <param name="icon">special://skin/extras/icons/info2.png</param>
                                 <onfocus>ClearProperty(ModePath)</onfocus>
                                 <onfocus>ClearProperty(ModeName)</onfocus>
-                                <onclick>SetFocus(998000)</onclick>
+                                <onclick>RunScript(plugin.video.themoviedb.helper,add_path=$INFO[Window.Property(path)],call_auto=1190,origin_tmdb_type=$INFO[Window.Property(origin_tmdb_type)],origin_tmdb_id=$INFO[Window.Property(origin_tmdb_id)],origin_season=$INFO[Window.Property(origin_season)],origin_episode=$INFO[Window.Property(origin_episode)],return)</onclick>
+                                <onclick>Dialog.Close(1114,true)</onclick>
+                                <onclick>Dialog.Close(videoosd,true)</onclick>
+                                <onclick>Dialog.Close(1140,true)</onclick>
+                                <onclick>Dialog.Close(1141,true)</onclick>
+                                <onclick>Dialog.Close(videobookmarks,true)</onclick>
                             </include>
                             <!-- Movies -->
                             <include content="DialogInfo_Button" condition="!String.IsEmpty(Window.Property(tmdb_id)) + String.IsEqual(Window.Property(tmdb_type),person)">
@@ -2406,6 +2412,7 @@
                                 <bottom>0</bottom>
                                 <orientation>vertical</orientation>
                                 <onback>$PARAM[onback]</onback>
+                                <onleft>$PARAM[onback]</onleft>
                                 <content>
                                     <include>$PARAM[content_include]</include>
                                 </content>
