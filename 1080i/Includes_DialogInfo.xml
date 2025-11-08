@@ -2217,10 +2217,16 @@
                                 </include>
                             </include>
                         </control>
+                        <include content="Object_Hidden_Button">
+                            <param name="id">63</param>
+                            <onfocus>SetFocus(9001)</onfocus>
+                            <onfocus condition="!String.IsEmpty(Window.Property(header))">runscript(script.wikipedia,wikipedia=$INFO[Window.Property(header)])</onfocus>
+                        </include>
                         <include content="Dialog_Scrollbar">
                             <param name="id">61</param>
                             <param name="inset">true</param>
-                            <onleft condition="!String.IsEmpty(Window.Property(header))">runscript(script.wikipedia,wikipedia=$INFO[Window.Property(header)])</onleft>
+                            <onleft>63</onleft>
+                            <onclick>63</onclick>
                             <onright>9001</onright>
                             <include condition="String.IsEmpty(Window.Property(path))">Texture_Scrollbar_SliderBar_V</include>
                             <visible>String.IsEmpty(Window.Property(ModePath)) | Integer.IsEqual(Container(7001).NumItems,0)</visible>
@@ -2249,6 +2255,7 @@
                             <onleft condition="Control.IsVisible(61)">61</onleft>
                             <onleft condition="Control.IsVisible(62)">62</onleft>
                             <onleft condition="Control.IsVisible(7001) + !Control.IsVisible(62)">7001</onleft>
+                            <onleft condition="!Control.IsVisible(7001) + !Control.IsVisible(61) + !Control.IsVisible(62)">63</onleft>
                             <onright>SetFocus(998000)</onright>
                             <!-- Info -->
                             <include content="DialogInfo_Button">
