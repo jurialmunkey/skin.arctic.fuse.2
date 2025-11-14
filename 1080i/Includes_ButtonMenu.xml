@@ -1,6 +1,57 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <includes>
 
+    <include name="ButtonMenu_ContextControls">
+
+        <item>
+            <label>$LOCALIZE[207]</label>
+            <icon>special://skin/extras/icons/quote.png</icon>
+            <onclick>Close</onclick>
+            <onclick>ActivateWindow(1113)</onclick>
+            <visible>[!String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.base_plot))]</visible>
+        </item>
+
+        <item>
+            <label>$LOCALIZE[31066]</label>
+            <icon>special://skin/extras/icons/binoculars.png</icon>
+            <visible>[!String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.base_title))]</visible>
+            <onclick>Dialog.Close(contextmenu,true)</onclick>
+            <onclick>SetProperty(CustomSearchTerm,$VAR[Dialog_ContextMenu_SideButtons_WikiTitle],Home)</onclick>
+            <onclick>SetProperty(ReplaceWindow,1105,Home)</onclick>
+            <onclick condition="!Window.IsActive(1105)">ActivateWindow(1105)</onclick>
+            <onclick condition="Window.IsActive(1105)">ReplaceWindow(1197)</onclick>
+        </item>
+        <item>
+            <label>Wiki</label>
+            <icon>special://skin/extras/icons/globe.png</icon>
+            <visible>[!String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.base_title))]</visible>
+            <onclick>Dialog.Close(contextmenu,true)</onclick>
+            <onclick>runscript(script.wikipedia,wikipedia=$VAR[Dialog_ContextMenu_SideButtons_WikiTitle]$VAR[Dialog_ContextMenu_SideButtons_WikiType])</onclick>
+        </item>
+        <item>
+            <label>$LOCALIZE[31041]</label>
+            <icon>special://skin/extras/icons/fire2.png</icon>
+            <visible>[String.IsEqual(Window(Home).Property(TMDbHelper.ListItem.base_dbtype),tvshow) | String.IsEqual(Window(Home).Property(TMDbHelper.ListItem.base_dbtype),season) | String.IsEqual(Window(Home).Property(TMDbHelper.ListItem.base_dbtype),episode) | String.IsEqual(Window(Home).Property(TMDbHelper.ListItem.base_dbtype),movie)]</visible>
+            <onclick>Dialog.Close(contextmenu,true)</onclick>
+            <onclick>RunScript(plugin.video.themoviedb.helper,related_lists,query=$VAR[Path_ContextParams_Query],tmdb_type=$VAR[Path_ContextParams_TMDbType])</onclick>
+        </item>
+        <item>
+            <label>$LOCALIZE[31393]</label>
+            <icon>special://skin/extras/icons/video.png</icon>
+            <visible>[!String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.Trailer))]</visible>
+            <onclick>Dialog.Close(contextmenu,true)</onclick>
+            <onclick>SetProperty(PlayTrailerItems,$VAR[Path_VideoInfo_Trailers],Home)</onclick>
+            <onclick>RunScript(script.skinvariables,run_executebuiltin=special://skin/shortcuts/builtins/skinvariables-playtrailer.json,use_rules)</onclick>
+        </item>
+        <item>
+            <label>$LOCALIZE[33061]</label>
+            <icon>special://skin/extras/icons/circle-plus.png</icon>
+            <visible>ListItem.IsFolder</visible>
+            <onclick>Dialog.Close(contextmenu,true)</onclick>
+            <onclick>RunScript(script.skinvariables,set_listitem_to_menunode=sidemenu||1101menu||1102menu||1103menu||1104menu||1106menu||1107menu||1108menu||1109menu||powermainmenu,skin=$VAR[Path_SkinVariables_SkinFolder])</onclick>
+        </item>
+    </include>
+
 
     <include name="ButtonMenu_MediaControls">
 
@@ -60,14 +111,18 @@
     <include name="ButtonMenu_MediaTray">
         <param name="include">ButtonMenu_MediaControls</param>
         <definition>
-            <control type="list" id="6099">
+            <control type="fixedlist" id="6099">
+
+                <animation effect="slide" start="0" end="-50" condition="Integer.IsEqual(Container(6099).NumItems,2) | Integer.IsEqual(Container(6099).NumItems,4)">Conditional</animation>
+
                 <orientation>horizontal</orientation>
+                <focusposition>2</focusposition>
+                <movement>2</movement>
                 <centertop>50%</centertop>
                 <width>500</width>
                 <centerleft>50%</centerleft>
                 <height>100</height>
-                <onup>7020</onup>
-                <ondown>8000</ondown>
+                <nested />
                 <scrolltime tween="quadratic">400</scrolltime>
 
                 <itemlayout width="100" height="100">
