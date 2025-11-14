@@ -3,36 +3,6 @@
 
 
     <include name="ButtonMenu_MediaControls">
-        <item>
-            <label>$VAR[Label_OSD_PausePlay]</label>
-            <icon>$VAR[Image_OSD_PausePlay]</icon>
-            <onclick condition="Player.HasMedia">PlayerControl(Play)</onclick>
-            <onclick condition="!Player.HasMedia">Close</onclick>
-            <onclick condition="!Player.HasMedia + Integer.IsGreater(Playlist.Length(music),0)">PlayMedia(playlistmusic://,isdir,playlist_type_hint=0)</onclick>
-            <onclick condition="!Player.HasMedia + !Integer.IsGreater(Playlist.Length(music),0)">PlayMedia(playlistvideo://,isdir,playlist_type_hint=1)</onclick>
-            <visible>Player.HasMedia | Integer.IsGreater(Playlist.Length(video),0) | Integer.IsGreater(Playlist.Length(music),0)</visible>
-        </item>
-
-        <item>
-            <label>$LOCALIZE[31579]</label>
-            <icon>special://skin/extras/icons/backward-step.png</icon>
-            <onclick>PlayerControl(Previous)</onclick>
-            <visible>Player.HasAudio</visible>
-        </item>
-
-        <item>
-            <label>$LOCALIZE[209]</label>
-            <icon>special://skin/extras/icons/forward-step.png</icon>
-            <onclick>PlayerControl(Next)</onclick>
-            <visible>Player.HasAudio</visible>
-        </item>
-
-        <item>
-            <label>$LOCALIZE[31485]</label>
-            <icon>special://skin/extras/icons/stop.png</icon>
-            <onclick>PlayerControl(Stop)</onclick>
-            <visible>Player.HasMedia</visible>
-        </item>
 
         <item>
             <label>$LOCALIZE[559]</label>
@@ -40,27 +10,64 @@
             <onclick>Close</onclick>
             <onclick condition="Integer.IsGreater(Playlist.Length(video),0) + [Player.HasVideo | Integer.IsEqual(Playlist.Length(music),0)]">ActivateWindow(videoplaylist)</onclick>
             <onclick condition="Integer.IsGreater(Playlist.Length(music),0) + !Player.HasVideo">ActivateWindow(musicplaylist)</onclick>
-            <visible>[Integer.IsGreater(Playlist.Length(video),0) + [Player.HasVideo | Integer.IsEqual(Playlist.Length(music),0)]] | [Integer.IsGreater(Playlist.Length(music),0) + !Player.HasVideo]</visible>
+            <!-- <visible>[Integer.IsGreater(Playlist.Length(video),0) + [Player.HasVideo | Integer.IsEqual(Playlist.Length(music),0)]] | [Integer.IsGreater(Playlist.Length(music),0) + !Player.HasVideo]</visible> -->
         </item>
+
+        <item>
+            <label>$LOCALIZE[31579]</label>
+            <icon>special://skin/extras/icons/backward-step.png</icon>
+            <onclick>PlayerControl(Previous)</onclick>
+            <!-- <visible>Player.HasAudio</visible> -->
+        </item>
+
+        <item>
+            <label>$VAR[Label_OSD_PausePlay]</label>
+            <icon>$VAR[Image_OSD_PausePlay]</icon>
+            <onclick condition="Player.HasMedia">PlayerControl(Play)</onclick>
+            <onclick condition="!Player.HasMedia">Close</onclick>
+            <onclick condition="!Player.HasMedia + Integer.IsGreater(Playlist.Length(music),0)">PlayMedia(playlistmusic://,isdir,playlist_type_hint=0)</onclick>
+            <onclick condition="!Player.HasMedia + !Integer.IsGreater(Playlist.Length(music),0)">PlayMedia(playlistvideo://,isdir,playlist_type_hint=1)</onclick>
+            <!-- <visible>Player.HasMedia | Integer.IsGreater(Playlist.Length(video),0) | Integer.IsGreater(Playlist.Length(music),0)</visible> -->
+        </item>
+
+
+
+        <item>
+            <label>$LOCALIZE[209]</label>
+            <icon>special://skin/extras/icons/forward-step.png</icon>
+            <onclick>PlayerControl(Next)</onclick>
+            <!-- <visible>Player.HasAudio</visible> -->
+        </item>
+
+        <!-- <item>
+            <label>$LOCALIZE[31485]</label>
+            <icon>special://skin/extras/icons/stop.png</icon>
+            <onclick>PlayerControl(Stop)</onclick>
+            <visible>Player.HasMedia</visible>
+        </item> -->
+
+
 
         <item>
             <label>$LOCALIZE[21483]</label>
             <icon>special://skin/extras/icons/fullscreen.png</icon>
             <onclick>Dialog.Close(all,true)</onclick>
             <onclick>Fullscreen</onclick>
-            <visible>Player.HasMedia</visible>
+            <!-- <visible>Player.HasMedia</visible> -->
         </item>
     </include>
 
-    <include name="ButtonMenu_SideTray">
+    <include name="ButtonMenu_MediaTray">
         <param name="include">ButtonMenu_MediaControls</param>
         <definition>
             <control type="list" id="6099">
-                <orientation>vertical</orientation>
-                <width>100</width>
-                <top>140</top>
-                <centerright>70</centerright>
-                <onleft>7000</onleft>
+                <orientation>horizontal</orientation>
+                <centertop>50%</centertop>
+                <width>500</width>
+                <centerleft>50%</centerleft>
+                <height>100</height>
+                <onup>7020</onup>
+                <ondown>8000</ondown>
                 <scrolltime tween="quadratic">400</scrolltime>
 
                 <itemlayout width="100" height="100">
@@ -488,8 +495,8 @@
             <param name="id">70$PARAM[groupid]1</param>
             <param name="onup">$PARAM[onup]</param>
             <param name="ondown">$PARAM[ondown]</param>
-            <param name="onleft">Close</param>
-            <param name="onright">SetFocus(6099,0,absolute)</param>
+            <param name="onleft">noop</param>
+            <param name="onright">noop</param>
             <param name="onclick">$PARAM[button_one_onclick]</param>
             <param name="label">$PARAM[button_one_label]</param>
             <param name="icon">$PARAM[button_one_icon]</param>
@@ -505,7 +512,7 @@
                 <param name="id">70$PARAM[groupid]1</param>
                 <param name="onup">$PARAM[a_onup]</param>
                 <param name="ondown">$PARAM[a_ondown]</param>
-                <param name="onleft">Close</param>
+                <param name="onleft">70$PARAM[groupid]2</param>
                 <param name="onright">70$PARAM[groupid]2</param>
                 <param name="onclick">$PARAM[button_one_onclick]</param>
                 <param name="label">$PARAM[button_one_label]</param>
@@ -522,7 +529,7 @@
                 <param name="onup">$PARAM[b_onup]</param>
                 <param name="ondown">$PARAM[b_ondown]</param>
                 <param name="onleft">70$PARAM[groupid]1</param>
-                <param name="onright">SetFocus(6099,0,absolute)</param>
+                <param name="onright">70$PARAM[groupid]1</param>
                 <param name="onclick">$PARAM[button_two_onclick]</param>
                 <param name="label">$PARAM[button_two_label]</param>
                 <param name="icon">$PARAM[button_two_icon]</param>
@@ -536,7 +543,7 @@
         <include content="ButtonMenu_LayoutGroup_Top">
             <include content="ButtonMenu_LayoutGroup_Single">
                 <param name="groupid">1</param>
-                <param name="onup">SetFocus(6000,2)</param>
+                <param name="onup">SetFocus(8000,99999,absolute)</param>
                 <param name="ondown">7020</param>
 
                 <param name="button_one_include">$PARAM[button_01_include]</param>
@@ -550,7 +557,7 @@
             <include content="ButtonMenu_LayoutGroup_Single">
                 <param name="groupid">2</param>
                 <param name="onup">7010</param>
-                <param name="ondown">SetFocus(8000,0,absolute)</param>
+                <param name="ondown">SetFocus(6099,2,absolute)</param>
 
                 <param name="button_one_include">$PARAM[button_02_include]</param>
                 <param name="button_one_label">$PARAM[button_02_label]</param>
@@ -565,7 +572,7 @@
         <include content="ButtonMenu_LayoutGroup_Top">
             <include content="ButtonMenu_LayoutGroup_Single">
                 <param name="groupid">1</param>
-                <param name="onup">SetFocus(6000,2)</param>
+                <param name="onup">SetFocus(8000,99999,absolute)</param>
                 <param name="ondown">7020</param>
 
                 <param name="button_one_include">$PARAM[button_01_include]</param>
@@ -580,8 +587,8 @@
                 <param name="groupid">2</param>
                 <param name="a_onup">7010</param>
                 <param name="b_onup">7010</param>
-                <param name="a_ondown">SetFocus(8000,0,absolute)</param>
-                <param name="b_ondown">SetFocus(8000,0,absolute)</param>
+                <param name="a_ondown">SetFocus(6099,2,absolute)</param>
+                <param name="b_ondown">SetFocus(6099,2,absolute)</param>
 
                 <param name="button_one_include">$PARAM[button_02_include]</param>
                 <param name="button_one_label">$PARAM[button_02_label]</param>
@@ -621,8 +628,8 @@
                 <param name="groupid">2</param>
                 <param name="a_onup">7011</param>
                 <param name="b_onup">7012</param>
-                <param name="a_ondown">SetFocus(8000,0,absolute)</param>
-                <param name="b_ondown">SetFocus(8000,0,absolute)</param>
+                <param name="a_ondown">SetFocus(6099,2,absolute)</param>
+                <param name="b_ondown">SetFocus(6099,2,absolute)</param>
 
                 <param name="button_one_include">$PARAM[button_03_include]</param>
                 <param name="button_one_label">$PARAM[button_03_label]</param>
