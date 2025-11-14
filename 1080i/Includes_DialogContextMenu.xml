@@ -114,19 +114,68 @@
             <control type="group">
                 <include>Dimension_Dialog_Body</include>
 
-                <control type="grouplist" id="996">
+                <control type="group">
                     <include>Dimension_Dialog_Body_Group</include>
-                    <right>$PARAM[lines_right]</right>
-                    <onright>9000</onright>
-                    <!-- <onright>61</onright>
-                    <pagecontrol>61</pagecontrol> -->
-                </control>
 
-                <!-- <include content="Dialog_Scrollbar">
-                    <param name="id">61</param>
-                    <onright>9000</onright>
-                    <onleft>996</onleft>
-                </include> -->
+                    <control type="group">
+                        <height>120</height>
+
+                        <control type="image">
+                            <texture colordiffuse="$VAR[Color_DialogBorder]" border="40">common/menu.png</texture>
+                        </control>
+
+                        <control type="group">
+
+                            <control type="group">
+                                <left>40</left>
+                                <height>80</height>
+                                <centertop>50%</centertop>
+                                <right>140</right>
+                                <control type="label">
+                                    <height>40</height>
+                                    <textcolor>dialog_fg_70</textcolor>
+                                    <label>$VAR[Label_ContextMenu_Name]</label>
+                                    <font>font_main_bold</font>
+                                </control>
+                                <control type="label">
+                                    <bottom>0</bottom>
+                                    <height>40</height>
+                                    <textcolor>dialog_fg_70</textcolor>
+                                    <label>$VAR[Label_ContextMenu_Type,[CAPITALIZE],[/CAPITALIZE]]</label>
+                                    <font>font_main</font>
+                                </control>
+                            </control>
+
+                            <control type="image">
+                                <texture diffuse="diffuse/button_w120_h120.png">$VAR[Image_ContextImage]</texture>
+                                <aspectratio scalediffuse="false">scale</aspectratio>
+                                <width>100</width>
+                                <height>100</height>
+                                <right>10</right>
+                                <top>10</top>
+                            </control>
+
+                        </control>
+
+                    </control>
+
+
+                    <control type="group">
+                        <top>160</top>
+
+                        <control type="image">
+                            <top>-20</top>
+                            <left>20</left>
+                            <right>20</right>
+                            <height>1</height>
+                            <texture colordiffuse="$VAR[Color_DialogBorder]">common/white.png</texture>
+                        </control>
+
+                        <control type="grouplist" id="996">
+                        </control>
+
+                    </control>
+                </control>
             </control>
         </definition>
     </include>
@@ -144,7 +193,7 @@
     </include>
 
     <include name="Dialog_ContextMenu">
-        <param name="dialog_size">Dimension_DialogSideMenu</param>
+        <param name="dialog_size">Dimension_DialogMiniMenu</param>
         <param name="header">$LOCALIZE[10106]</param>
         <param name="button_width">dialog_main_button_w</param>
         <definition>
@@ -157,11 +206,9 @@
                 <include>Animation_Right_Delay</include>
                 <include content="Dialog_Foreground_Side">
                     <param name="dialog_size">$PARAM[dialog_size]</param>
-                    <param name="lines_right">dialog_buttongroup_w</param>
                 </include>
 
                 <control type="group">
-                    <right>dialog_buttongroup_w</right>
                     <!-- Header -->
                     <include content="Dialog_Head">
                         <param name="label">$PARAM[header]</param>
@@ -174,9 +221,9 @@
 
                 </control>
 
-                <include content="Dialog_ContextMenu_SideButtons">
+                <!-- <include content="Dialog_ContextMenu_SideButtons">
                     <param name="dialog_size">$PARAM[dialog_size]</param>
-                </include>
+                </include> -->
 
 
             </control>
