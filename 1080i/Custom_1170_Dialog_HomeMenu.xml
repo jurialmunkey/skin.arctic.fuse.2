@@ -13,6 +13,13 @@
             <ondown>SetFocus(8000,0,absolute)</ondown>
         </include>
 
+        <include content="Object_Hidden_Button" condition="Skin.HasSetting(Options.DisableBottomTray)">
+            <param name="id">6000</param>
+            <onfocus>SetFocus(8000,9999,absolute)</onfocus>
+            <onup>SetFocus(8000,9999,absolute)</onup>
+            <ondown>SetFocus(8000,9999,absolute)</ondown>
+        </include>
+
         <include>Dialog_Dim_Overlay</include>
 
         <control type="group">
@@ -80,13 +87,16 @@
                                     <param name="id">8000</param>
                                     <param name="itemlayout_include">Layout_MenuList</param>
                                     <top>20</top>
-                                    <bottom>0</bottom>
+                                    <include content="Object_Bottom" condition="Skin.HasSetting(Options.DisableBottomTray)">
+                                        <param name="bottom">0</param>
+                                    </include>
+                                    <bottom>80</bottom>
                                     <orientation>vertical</orientation>
                                     <onup condition="Player.HasMedia">SetFocus(6099,2,absolute)</onup>
                                     <onup condition="!Player.HasMedia">7020</onup>
-                                    <ondown>SetFocus(8000,0,absolute)</ondown>
-                                    <ondown>7010</ondown>
-                                    <onleft>Close</onleft>
+                                    <ondown condition="Skin.HasSetting(Options.DisableBottomTray)">SetFocus(8000,0,absolute)</ondown>
+                                    <ondown condition="Skin.HasSetting(Options.DisableBottomTray)">7010</ondown>
+                                    <ondown condition="!Skin.HasSetting(Options.DisableBottomTray)">SetFocus(6000,2)</ondown>
                                     <oninfo>Close</oninfo>
                                     <content>
                                         <include>skinvariables-powermainmenu-staticitems</include>
@@ -99,7 +109,18 @@
                                     <right>20</right>
                                     <height>1</height>
                                     <texture colordiffuse="$VAR[Color_DialogBorder]">common/white.png</texture>
+                                    <visible>Skin.HasSetting(Options.DisableBottomTray)</visible>
                                 </control>
+                                <control type="image">
+                                    <bottom>60</bottom>
+                                    <left>20</left>
+                                    <right>20</right>
+                                    <height>1</height>
+                                    <texture colordiffuse="$VAR[Color_DialogBorder]">common/white.png</texture>
+                                    <visible>!Skin.HasSetting(Options.DisableBottomTray)</visible>
+                                </control>
+
+                                <include condition="!Skin.HasSetting(Options.DisableBottomTray)">ButtonMenu_BottomTray</include>
 
                             </control>
                         </control>
