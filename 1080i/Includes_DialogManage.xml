@@ -9,15 +9,22 @@
 
     <include name="Dialog_Manage">
         <param name="id">9800</param>
+        <param name="bounce_id">9897</param>
         <param name="hidden_id">9898</param>
-        <param name="dim_id">9897</param>
+        <param name="dim_id">9896</param>
         <param name="focus_id">9800</param>
 
         <definition>
 
             <include content="Object_Hidden_Button">
+                <param name="id">$PARAM[bounce_id]</param>
+                <animation effect="fade" start="0" end="0" time="500" reversible="false">Focus</animation>  <!-- Timing to allow double back close -->
+                <onfocus>SetFocus($PARAM[onback])</onfocus>
+            </include>
+
+            <include content="Object_Hidden_Button">
                 <param name="id">$PARAM[hidden_id]</param>
-                <animation effect="fade" start="0" end="0" time="600" reversible="false">Focus</animation>  <!-- Timing to allow double back close -->
+                <animation effect="fade" start="0" end="0" time="500" reversible="false">Focus</animation>  <!-- Timing to allow double back close -->
                 <onfocus>SetFocus($PARAM[focus_id])</onfocus>
             </include>
 
@@ -112,9 +119,9 @@
                     <control type="group">
                         <include>Dimension_Dialog_Body_Group</include>
                         <control type="grouplist" id="$PARAM[id]">
-                            <onback>$PARAM[onback]</onback>
-                            <onleft>$PARAM[onback]</onleft>
-                            <onright>$PARAM[onback]</onright>
+                            <onback>9897</onback>
+                            <onleft>9897</onleft>
+                            <onright>9897</onright>
                             <include>$PARAM[include]</include>
                         </control>
                     </control>
