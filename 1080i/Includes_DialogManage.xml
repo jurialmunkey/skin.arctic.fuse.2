@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<includes>
+
+    <!--
+
+    Options dialog top right popup for menu button
+
+    -->
+
+    <include name="Dialog_Manage">
+        <param name="id">9800</param>
+        <param name="hidden_id">9898</param>
+        <param name="dim_id">9897</param>
+        <param name="focus_id">9800</param>
+
+        <definition>
+
+            <include content="Object_Hidden_Button">
+                <param name="id">$PARAM[hidden_id]</param>
+                <animation effect="fade" start="0" end="0" time="600" reversible="false">Focus</animation>  <!-- Timing to allow double back close -->
+                <onfocus>SetFocus($PARAM[focus_id])</onfocus>
+            </include>
+
+
+            <control type="button" id="$PARAM[dim_id]">
+                <onclick>SetFocus($PARAM[onback])</onclick>
+                <visible>[ControlGroup($PARAM[id]).HasFocus() | Control.HasFocus($PARAM[dim_id]) | Control.HasFocus($PARAM[hidden_id])]</visible>
+                <include content="Animation_Fade_In">
+                    <param name="type">Visible</param>
+                    <param name="reversible">true</param>
+                </include>
+                <include content="Animation_Fade_Out">
+                    <param name="type">Hidden</param>
+                    <param name="reversible">true</param>
+                </include>
+                <include content="Animation_Fade_Out">
+                    <param name="type">WindowClose</param>
+                    <param name="reversible">true</param>
+                    <param name="condition">[ControlGroup($PARAM[id]).HasFocus() | Control.HasFocus($PARAM[dim_id]) | Control.HasFocus($PARAM[hidden_id])]</param>
+                </include>
+                <texturenofocus colordiffuse="shadow_back">common/white.png</texturenofocus>
+                <texturefocus colordiffuse="shadow_back">common/white.png</texturefocus>
+            </control>
+
+            <control type="group">
+                <include>Dimension_DialogPopUpMenu</include>
+                <visible>[ControlGroup($PARAM[id]).HasFocus() | Control.HasFocus($PARAM[dim_id]) | Control.HasFocus($PARAM[hidden_id])]</visible>
+
+                <control type="group">
+                    <visible>Integer.IsGreater(Container($PARAM[id]).NumItems,5)</visible>
+                    <include content="Dialog_Foreground_Side">
+                        <param name="topline">true</param>
+                        <param name="subline">true</param>
+                    </include>
+                </control>
+                <control type="group">
+                    <visible>Integer.IsEqual(Container($PARAM[id]).NumItems,5)</visible>
+                    <bottom>80</bottom>
+                    <include content="Dialog_Foreground_Side">
+                        <param name="topline">true</param>
+                        <param name="subline">true</param>
+                    </include>
+                </control>
+                <control type="group">
+                    <visible>Integer.IsEqual(Container($PARAM[id]).NumItems,4)</visible>
+                    <bottom>160</bottom>
+                    <include content="Dialog_Foreground_Side">
+                        <param name="topline">true</param>
+                        <param name="subline">true</param>
+                    </include>
+                </control>
+                <control type="group">
+                    <visible>Integer.IsEqual(Container($PARAM[id]).NumItems,3)</visible>
+                    <bottom>240</bottom>
+                    <include content="Dialog_Foreground_Side">
+                        <param name="topline">true</param>
+                        <param name="subline">true</param>
+                    </include>
+                </control>
+                <control type="group">
+                    <visible>Integer.IsEqual(Container($PARAM[id]).NumItems,2)</visible>
+                    <bottom>320</bottom>
+                    <include content="Dialog_Foreground_Side">
+                        <param name="topline">true</param>
+                        <param name="subline">true</param>
+                    </include>
+                </control>
+                <control type="group">
+                    <visible>Integer.IsEqual(Container($PARAM[id]).NumItems,1)</visible>
+                    <bottom>400</bottom>
+                    <include content="Dialog_Foreground_Side">
+                        <param name="topline">true</param>
+                        <param name="subline">true</param>
+                    </include>
+                </control>
+
+                <animation effect="fade" start="100" end="0" time="1" condition="[ControlGroup($PARAM[id]).HasFocus() | Control.HasFocus($PARAM[dim_id]) | Control.HasFocus($PARAM[hidden_id])]">WindowClose</animation>
+
+                <include content="Animation_SlideIn_Dialog">
+                    <param name="windowopen_condition">false</param>
+                </include>
+
+                <!-- Header -->
+                <include content="Dialog_Head">
+                    <param name="id">0</param>
+                    <param name="label">$LOCALIZE[33063]</param>
+                </include>
+
+                <!-- Content -->
+                <control type="group">
+                    <include>Dimension_Dialog_Body</include>
+                    <control type="group">
+                        <include>Dimension_Dialog_Body_Group</include>
+                        <control type="grouplist" id="$PARAM[id]">
+                            <onback>$PARAM[onback]</onback>
+                            <onleft>$PARAM[onback]</onleft>
+                            <onright>$PARAM[onback]</onright>
+                            <include>$PARAM[include]</include>
+                        </control>
+                    </control>
+                </control>
+
+            </control>
+
+            <control type="group">
+                <visible>[ControlGroup($PARAM[id]).HasFocus() | Control.HasFocus($PARAM[dim_id]) | Control.HasFocus($PARAM[hidden_id])]</visible>
+                <include content="Animation_Fade_In">
+                    <param name="type">Visible</param>
+                    <param name="reversible">true</param>
+                </include>
+                <animation effect="fade" start="100" end="0" time="1" condition="[ControlGroup($PARAM[id]).HasFocus() | Control.HasFocus($PARAM[dim_id]) | Control.HasFocus($PARAM[hidden_id])]">WindowClose</animation>
+                <control type="group">
+                    <right>60</right>
+                    <centertop>100</centertop>
+                    <height>80</height>
+                    <width>80</width>
+                    <control type="image">
+                        <visible>[ControlGroup($PARAM[id]).HasFocus() | Control.HasFocus($PARAM[dim_id]) | Control.HasFocus($PARAM[hidden_id])]</visible>
+                        <include>Texture_Circle_Highlight_V</include>
+                    </control>
+                    <control type="image">
+                        <bordersize>12</bordersize>
+                        <texture colordiffuse="$VAR[ColorSelected]">special://skin/extras/icons/sliders.png</texture>
+                    </control>
+                </control>
+            </control>
+        </definition>
+    </include>
+
+    <include name="Dialog_Manage_Head_Button">
+        <include content="Dialog_Head_CloseButton">
+            <param name="id">$PARAM[id]</param>
+            <param name="groupid">$PARAM[groupid]</param>
+            <param name="icon">special://skin/extras/icons/sliders.png</param>
+            <param name="onmove">$PARAM[onmove]</param>
+            <param name="onclick">$PARAM[onclick]</param>
+        </include>
+    </include>
+
+</includes>
