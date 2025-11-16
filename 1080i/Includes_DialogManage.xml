@@ -15,6 +15,8 @@
         <param name="exit_id">9894</param>
         <param name="focus_id">9800</param>
         <param name="confirm_exit">false</param>
+        <param name="confirm_exit_condition">true</param>
+        <param name="confirm_buttons">Dialog_Manage_Confirm_Buttons</param>
         <param name="confirm_id">909881</param>
         <param name="trigger_id">9893</param>
 
@@ -32,7 +34,8 @@
 
             <include content="Object_Hidden_Button">
                 <param name="id">$PARAM[trigger_id]</param>
-                <onfocus>SetFocus($PARAM[confirm_id])</onfocus>
+                <onfocus condition="[[$PARAM[confirm_exit]] + [$PARAM[confirm_exit_condition]]]">SetFocus($PARAM[confirm_id])</onfocus>
+                <onfocus condition="![[$PARAM[confirm_exit]] + [$PARAM[confirm_exit_condition]]]">PreviousMenu</onfocus>
             </include>
 
             <control type="button" id="$PARAM[dim_id]">
@@ -60,14 +63,14 @@
                 <visible>[ControlGroup($PARAM[id]).HasFocus() | Control.HasFocus($PARAM[dim_id]) | Control.HasFocus($PARAM[hidden_id])]</visible>
 
                 <control type="group">
-                    <visible>Integer.IsGreater(Container($PARAM[id]).NumItems,5)</visible>
+                    <visible>Integer.IsGreater(Container($PARAM[id]).NumItems,7)</visible>
                     <include content="Dialog_Foreground_Side">
                         <param name="topline">true</param>
                         <param name="subline">true</param>
                     </include>
                 </control>
                 <control type="group">
-                    <visible>Integer.IsEqual(Container($PARAM[id]).NumItems,5)</visible>
+                    <visible>Integer.IsEqual(Container($PARAM[id]).NumItems,7)</visible>
                     <bottom>80</bottom>
                     <include content="Dialog_Foreground_Side">
                         <param name="topline">true</param>
@@ -75,7 +78,7 @@
                     </include>
                 </control>
                 <control type="group">
-                    <visible>Integer.IsEqual(Container($PARAM[id]).NumItems,4)</visible>
+                    <visible>Integer.IsEqual(Container($PARAM[id]).NumItems,6)</visible>
                     <bottom>160</bottom>
                     <include content="Dialog_Foreground_Side">
                         <param name="topline">true</param>
@@ -83,7 +86,7 @@
                     </include>
                 </control>
                 <control type="group">
-                    <visible>Integer.IsEqual(Container($PARAM[id]).NumItems,3)</visible>
+                    <visible>Integer.IsEqual(Container($PARAM[id]).NumItems,5)</visible>
                     <bottom>240</bottom>
                     <include content="Dialog_Foreground_Side">
                         <param name="topline">true</param>
@@ -91,7 +94,7 @@
                     </include>
                 </control>
                 <control type="group">
-                    <visible>Integer.IsEqual(Container($PARAM[id]).NumItems,2)</visible>
+                    <visible>Integer.IsEqual(Container($PARAM[id]).NumItems,4)</visible>
                     <bottom>320</bottom>
                     <include content="Dialog_Foreground_Side">
                         <param name="topline">true</param>
@@ -99,8 +102,24 @@
                     </include>
                 </control>
                 <control type="group">
-                    <visible>Integer.IsEqual(Container($PARAM[id]).NumItems,1)</visible>
+                    <visible>Integer.IsEqual(Container($PARAM[id]).NumItems,3)</visible>
                     <bottom>400</bottom>
+                    <include content="Dialog_Foreground_Side">
+                        <param name="topline">true</param>
+                        <param name="subline">true</param>
+                    </include>
+                </control>
+                <control type="group">
+                    <visible>Integer.IsEqual(Container($PARAM[id]).NumItems,2)</visible>
+                    <bottom>480</bottom>
+                    <include content="Dialog_Foreground_Side">
+                        <param name="topline">true</param>
+                        <param name="subline">true</param>
+                    </include>
+                </control>
+                <control type="group">
+                    <visible>Integer.IsEqual(Container($PARAM[id]).NumItems,1)</visible>
+                    <bottom>560</bottom>
                     <include content="Dialog_Foreground_Side">
                         <param name="topline">true</param>
                         <param name="subline">true</param>
@@ -161,7 +180,7 @@
                 <param name="include_header">Dialog_Manage_Confirm_Header</param>
                 <param name="include_textbox">Dialog_Manage_Confirm_Textbox</param>
                 <param name="include_progress">Items_Null</param>
-                <param name="include_buttons">Dialog_Manage_Confirm_Buttons</param>
+                <param name="include_buttons">$PARAM[confirm_buttons]</param>
                 <param name="visible">ControlGroup(909880).HasFocus()</param>
             </include>
 
@@ -192,8 +211,6 @@
                 <param name="onup">909880</param>
                 <param name="id">909880</param>
 
-                <!-- <onback>$PARAM[onback]</onback> -->
-
                 <include content="Dialog_Button_Expanded">
                     <param name="id">9881</param>
                     <param name="icon">special://skin/extras/icons/circle-check.png</param>
@@ -208,25 +225,27 @@
                     <onclick>SetFocus($PARAM[onback])</onclick>
                 </include>
 
-                <!-- <include content="Dialog_Button_Expanded">
-                    <param name="id">9882</param>
-                    <param name="icon">special://skin/extras/icons/circle-xmark.png</param>
-                    <param name="label">$LOCALIZE[15067]</param>
-                    <onclick>PreviousMenu</onclick>
-                </include> -->
-
-                <!-- <include content="Dialog_Button_Expanded">
-                    <param name="id">9883</param>
-                    <param name="icon">special://skin/extras/icons/triangle-exclamation.png</param>
-                    <param name="label">$LOCALIZE[15067]</param>
-                    <onclick>PreviousMenu</onclick>
-                </include> -->
-
-
-
             </include>
         </definition>
 
+    </include>
+
+    <include name="Dialog_Manage_Confirm_Buttons_DialogSelect">
+        <include content="Dialog_Manage_Confirm_Buttons">
+            <param name="onclick">SendClick(5)</param>
+        </include>
+    </include>
+
+    <include name="Dialog_Manage_Confirm_Buttons_DialogChannelManager">
+        <include content="Dialog_Manage_Confirm_Buttons">
+            <param name="onclick">SendClick(4)</param>
+        </include>
+    </include>
+
+    <include name="Dialog_Manage_Confirm_Buttons_DialogGroupManager">
+        <include content="Dialog_Manage_Confirm_Buttons">
+            <param name="onclick">SendClick(29)</param>
+        </include>
     </include>
 
     <include name="Dialog_Manage_Head_Button">

@@ -1069,26 +1069,59 @@
         <param name="left">60</param>
         <param name="right">60</param>
         <param name="centerbottom">-60</param>
+        <param name="include_hintlabel">true</param>
         <definition>
             <control type="group">
                 <height>50</height>
                 <centerbottom>$PARAM[centerbottom]</centerbottom>
                 <left>$PARAM[left]</left>
                 <right>$PARAM[right]</right>
-                <control type="image">
-                    <left>-25</left>
-                    <width>50</width>
-                    <bordersize>icon_item_bordersize</bordersize>
-                    <texture colordiffuse="$PARAM[colordiffuse]">special://skin/extras/icons/info2.png</texture>
+
+                <control type="group">
+                    <include content="Object_Right" condition="$PARAM[include_hintlabel]">
+                        <param name="right">400</param>
+                    </include>
+                    <control type="image">
+                        <left>-25</left>
+                        <width>50</width>
+                        <bordersize>icon_item_bordersize</bordersize>
+                        <texture colordiffuse="$PARAM[colordiffuse]">special://skin/extras/icons/info2.png</texture>
+                    </control>
+                    <control type="textbox" id="$PARAM[id]">
+                        <font>font_tiny</font>
+                        <left>40</left>
+                        <height>55</height>
+                        <centertop>50%</centertop>
+                        <aligny>center</aligny>
+                        <textcolor>$PARAM[colordiffuse]</textcolor>
+                        <label fallback="$PARAM[fallback]">$PARAM[label]</label>
+                    </control>
                 </control>
-                <control type="textbox" id="$PARAM[id]">
-                    <font>font_tiny</font>
-                    <left>40</left>
-                    <height>55</height>
-                    <centertop>50%</centertop>
-                    <aligny>center</aligny>
-                    <textcolor>$PARAM[colordiffuse]</textcolor>
-                    <label fallback="$PARAM[fallback]">$PARAM[label]</label>
+
+                <control type="group">
+                    <right>0</right>
+                    <width>400</width>
+                    <visible>$PARAM[include_hintlabel]</visible>
+
+                    <control type="group">
+                        <left>0</left>
+                        <control type="image">
+                            <right>-25</right>
+                            <width>50</width>
+                            <bordersize>icon_item_bordersize</bordersize>
+                            <texture colordiffuse="$PARAM[colordiffuse]">special://skin/extras/icons/arrow-right-to-bracket.png</texture>
+                        </control>
+                        <control type="textbox">
+                            <font>font_tiny</font>
+                            <right>40</right>
+                            <height>55</height>
+                            <centertop>50%</centertop>
+                            <aligny>center</aligny>
+                            <align>right</align>
+                            <textcolor>$PARAM[colordiffuse]</textcolor>
+                            <label fallback="$PARAM[fallback]">$LOCALIZE[31592]</label>
+                        </control>
+                    </control>
                 </control>
             </control>
         </definition>
