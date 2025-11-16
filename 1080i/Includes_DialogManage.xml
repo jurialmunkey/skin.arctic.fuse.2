@@ -9,25 +9,31 @@
 
     <include name="Dialog_Manage">
         <param name="id">9800</param>
+        <param name="dim_id">9896</param>
         <param name="bounce_id">9897</param>
         <param name="hidden_id">9898</param>
-        <param name="dim_id">9896</param>
+        <param name="exit_id">9894</param>
         <param name="focus_id">9800</param>
+        <param name="confirm_exit">false</param>
+        <param name="confirm_id">909881</param>
+        <param name="trigger_id">9893</param>
 
         <definition>
 
             <include content="Object_Hidden_Button">
                 <param name="id">$PARAM[bounce_id]</param>
-                <animation effect="fade" start="0" end="0" time="500" reversible="false">Focus</animation>  <!-- Timing to allow double back close -->
                 <onfocus>SetFocus($PARAM[onback])</onfocus>
             </include>
 
             <include content="Object_Hidden_Button">
                 <param name="id">$PARAM[hidden_id]</param>
-                <animation effect="fade" start="0" end="0" time="500" reversible="false">Focus</animation>  <!-- Timing to allow double back close -->
                 <onfocus>SetFocus($PARAM[focus_id])</onfocus>
             </include>
 
+            <include content="Object_Hidden_Button">
+                <param name="id">$PARAM[trigger_id]</param>
+                <onfocus>SetFocus($PARAM[confirm_id])</onfocus>
+            </include>
 
             <control type="button" id="$PARAM[dim_id]">
                 <onclick>SetFocus($PARAM[onback])</onclick>
@@ -119,14 +125,13 @@
                     <control type="group">
                         <include>Dimension_Dialog_Body_Group</include>
                         <control type="grouplist" id="$PARAM[id]">
-                            <onback>9897</onback>
-                            <onleft>9897</onleft>
-                            <onright>9897</onright>
+                            <onback>$PARAM[bounce_id]</onback>
+                            <onleft>$PARAM[bounce_id]</onleft>
+                            <onright>$PARAM[bounce_id]</onright>
                             <include>$PARAM[include]</include>
                         </control>
                     </control>
                 </control>
-
             </control>
 
             <control type="group">
@@ -151,7 +156,77 @@
                     </control>
                 </control>
             </control>
+
+            <include content="Dialog_Confirm" condition="$PARAM[confirm_exit]">
+                <param name="include_header">Dialog_Manage_Confirm_Header</param>
+                <param name="include_textbox">Dialog_Manage_Confirm_Textbox</param>
+                <param name="include_progress">Items_Null</param>
+                <param name="include_buttons">Dialog_Manage_Confirm_Buttons</param>
+                <param name="visible">ControlGroup(909880).HasFocus()</param>
+            </include>
+
         </definition>
+    </include>
+
+    <include name="Dialog_Manage_Confirm_Header">
+        <include content="Dialog_Confirm_Header">
+            <param name="id">909883</param>
+            <param name="label">$LOCALIZE[31589]</param>
+        </include>
+    </include>
+
+    <include name="Dialog_Manage_Confirm_Textbox">
+        <include content="Dialog_Confirm_Textbox">
+            <param name="id">909884</param>
+            <param name="label">$LOCALIZE[31590][CR][CR][COLOR=red][B][UPPERCASE]$LOCALIZE[14117][/UPPERCASE][/B][/COLOR] $LOCALIZE[31591]</param>
+        </include>
+    </include>
+
+    <include name="Dialog_Manage_Confirm_Buttons">
+        <param name="onback">9897</param>
+        <param name="onclick">SendClick(28)</param>
+
+        <definition>
+
+            <include content="Dialog_Tray_Grouplist">
+                <param name="onup">909880</param>
+                <param name="id">909880</param>
+
+                <!-- <onback>$PARAM[onback]</onback> -->
+
+                <include content="Dialog_Button_Expanded">
+                    <param name="id">9881</param>
+                    <param name="icon">special://skin/extras/icons/circle-check.png</param>
+                    <param name="label">$LOCALIZE[31032]</param>
+                    <onclick>$PARAM[onclick]</onclick>
+                </include>
+
+                <include content="Dialog_Button_Expanded">
+                    <param name="id">9882</param>
+                    <param name="icon">special://skin/extras/icons/circle-xmark.png</param>
+                    <param name="label">$LOCALIZE[222]</param>
+                    <onclick>SetFocus($PARAM[onback])</onclick>
+                </include>
+
+                <!-- <include content="Dialog_Button_Expanded">
+                    <param name="id">9882</param>
+                    <param name="icon">special://skin/extras/icons/circle-xmark.png</param>
+                    <param name="label">$LOCALIZE[15067]</param>
+                    <onclick>PreviousMenu</onclick>
+                </include> -->
+
+                <!-- <include content="Dialog_Button_Expanded">
+                    <param name="id">9883</param>
+                    <param name="icon">special://skin/extras/icons/triangle-exclamation.png</param>
+                    <param name="label">$LOCALIZE[15067]</param>
+                    <onclick>PreviousMenu</onclick>
+                </include> -->
+
+
+
+            </include>
+        </definition>
+
     </include>
 
     <include name="Dialog_Manage_Head_Button">

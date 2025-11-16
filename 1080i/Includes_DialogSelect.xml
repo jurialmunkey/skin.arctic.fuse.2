@@ -131,7 +131,6 @@
             </include>
 
             <control type="group">
-                <right>dialog_buttongroup_w</right>
                 <!-- Header -->
                 <include content="Dialog_Head">
                     <param name="label">$VAR[Label_ProfileName]</param>
@@ -142,7 +141,9 @@
                     <param name="label">$INFO[Control.GetLabel(1)]</param>
                     <param name="visible">Control.IsVisible(6)</param>
                 </include>
-                <include>Dialog_Head_CloseButton</include>
+                <include content="Dialog_Manage_Head_Button">
+                    <param name="onclick">SetFocus(9898)</param>
+                </include>
 
                 <!-- Content -->
                 <control type="group">
@@ -154,12 +155,14 @@
                             <param name="textcolor">dialog_fg</param>
                             <pagecontrol>61</pagecontrol>
                             <onright>61</onright>
+                            <onback>9898</onback>
                         </include>
                         <include content="List_DialogSelect" condition="![[Window.IsActive(gamevideofilter) | Window.IsActive(gamestretchmode) | Window.IsActive(gamesaves) | Window.IsActive(gamevideorotation) | Window.IsActive(ingamesaves)]]">
                             <param name="id">6</param>
                             <param name="detailed">True</param>
                             <param name="item_height">100</param>
                             <param name="textcolor">dialog_fg</param>
+                            <onback>9898</onback>
                             <pagecontrol>62</pagecontrol>
                             <onright>62</onright>
                         </include>
@@ -168,6 +171,7 @@
                             <param name="itemlayout_include">Layout_GameFilter</param>
                             <param name="item_height">100</param>
                             <param name="textcolor">dialog_fg</param>
+                            <onback>9898</onback>
                             <pagecontrol>63</pagecontrol>
                             <onright>63</onright>
                         </include>
@@ -188,44 +192,36 @@
                             <param name="id">61</param>
                             <visible>Control.IsVisible(3)</visible>
                             <onleft>3</onleft>
-                            <onright condition="Control.IsVisible(9001)">9001</onright>
-                            <onright condition="!Control.IsVisible(9001)">9000</onright>
+                            <onback>9898</onback>
+                            <onright>9898</onright>
                         </include>
 
                         <include content="Dialog_Scrollbar">
                             <param name="id">62</param>
                             <visible>Control.IsVisible(6)</visible>
                             <onleft>6</onleft>
-                            <onright condition="Control.IsVisible(9001)">9001</onright>
-                            <onright condition="!Control.IsVisible(9001)">9000</onright>
+                            <onback>9898</onback>
+                            <onright>9898</onright>
                         </include>
 
                         <include content="Dialog_Scrollbar">
                             <param name="id">63</param>
                             <visible>Control.IsVisible(10811)</visible>
                             <onleft>10811</onleft>
-                            <onright condition="Control.IsVisible(9001)">9001</onright>
-                            <onright condition="!Control.IsVisible(9001)">9000</onright>
+                            <onback>9898</onback>
+                            <onright>9898</onright>
                         </include>
                     </control>
                 </control>
             </control>
-
-            <control type="group">
-                <include content="Dialog_Side_Panel_Group_Def">
-                    <param name="width">dialog_buttongroup_w</param>
-                </include>
-                <!-- Side Buttons -->
-                <control type="group">
-                    <include>Dimension_Dialog_Body</include>
-                    <include condition="[Window.IsActive(gamevideofilter) | Window.IsActive(gamestretchmode) | Window.IsActive(gamesaves) | Window.IsActive(gamevideorotation) | Window.IsActive(ingamesaves)]">DialogSelect_SideButtons_Games</include>
-                    <include condition="![Window.IsActive(gamevideofilter) | Window.IsActive(gamestretchmode) | Window.IsActive(gamesaves) | Window.IsActive(gamevideorotation) | Window.IsActive(ingamesaves)]">DialogSelect_SideButtons_Standard</include>
-                </control>
-            </control>
-
-
-
         </control>
+
+        <include content="Dialog_Manage">
+            <param name="onback">61</param>
+            <param name="focus_id">9003</param>
+            <param name="include">Items_DialogSelect_Standard</param>
+        </include>
+
     </include>
 
     <include name="DialogSelect_SideButtons_Games">
@@ -264,17 +260,6 @@
         <value condition="String.IsEqual(Control.GetLabel(8),$LOCALIZE[186])">special://skin/extras/icons/circle-check.png</value>
         <value>special://skin/extras/icons/circle-plus.png</value>
     </variable>
-
-
-    <include name="DialogSelect_SideButtons_Standard">
-        <control type="grouplist" id="9000">
-            <include>Dialog_Side_Grouplist_Def</include>
-            <onleft condition="Control.IsVisible(3)">61</onleft>
-            <onleft condition="Control.IsVisible(6)">62</onleft>
-            <onleft condition="Control.IsVisible(10811)">63</onleft>
-            <include>Items_DialogSelect_Standard</include>
-        </control>
-    </include>
 
     <include name="DialogSelect_SideButtons_Artwork">
         <include content="DialogInfo_Button">
