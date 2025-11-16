@@ -1251,6 +1251,45 @@
         </definition>
     </include>
 
+    <include name="Items_DialogCustomPlot">
+        <!-- Information -->
+        <include content="Settings_ButtonImage">
+            <param name="id">9501</param>
+            <param name="groupid">9601</param>
+            <label>$LOCALIZE[19033]</label>
+            <param name="icon">special://skin/extras/icons/info2.png</param>
+            <onclick>RunScript(plugin.video.themoviedb.helper,add_path=$INFO[Window.Property(path)],call_auto=1190,origin_tmdb_type=$INFO[Window.Property(origin_tmdb_type)],origin_tmdb_id=$INFO[Window.Property(origin_tmdb_id)],origin_season=$INFO[Window.Property(origin_season)],origin_episode=$INFO[Window.Property(origin_episode)],return)</onclick>
+            <onclick>Dialog.Close(1114,true)</onclick>
+            <onclick>Dialog.Close(videoosd,true)</onclick>
+            <onclick>Dialog.Close(1140,true)</onclick>
+            <onclick>Dialog.Close(1141,true)</onclick>
+            <onclick>Dialog.Close(videobookmarks,true)</onclick>
+            <visible>!String.IsEmpty(Window.Property(path))</visible>
+        </include>
+        <!-- Wiki -->
+        <include content="Settings_ButtonImage">
+            <param name="id">9502</param>
+            <param name="groupid">9602</param>
+            <label>Wikipedia</label>
+            <param name="icon">special://skin/extras/icons/globe.png</param>
+            <onclick>runscript(script.wikipedia,wikipedia=$INFO[Window.Property(header)])</onclick>
+        </include>
+        <!-- Play / Browse -->
+        <include content="Settings_ButtonImage">
+            <param name="id">9503</param>
+            <param name="groupid">9603</param>
+            <label>$VAR[Label_WindowProperty_PlayButton]</label>
+            <param name="icon">$VAR[Image_WindowProperty_PlayButton]</param>
+            <onclick>$VAR[Action_DialogInfo_Panel_PlayMedia]</onclick>
+            <onclick>Dialog.Close(1114,true)</onclick>
+            <onclick>Dialog.Close(videoosd,true)</onclick>
+            <onclick>Dialog.Close(1140,true)</onclick>
+            <onclick>Dialog.Close(1141,true)</onclick>
+            <onclick>Dialog.Close(videobookmarks,true)</onclick>
+            <visible>[!String.IsEmpty(Window.Property(filenameandpath)) | !String.IsEmpty(Window.Property(folderpath))] + [String.IsEqual(Window.Property(dbtype),movie) | String.IsEqual(Window.Property(dbtype),tvshow) | String.IsEqual(Window.Property(dbtype),season) | String.IsEqual(Window.Property(dbtype),episode)]</visible>
+        </include>
+    </include>
+
     <include name="Items_DialogTrailer">
         <include content="Settings_ButtonImage">
             <param name="id">9002</param>
