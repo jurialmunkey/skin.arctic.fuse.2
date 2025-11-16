@@ -935,6 +935,42 @@
 
     </include>
 
+    <include name="Items_FileBrowser">
+        <include content="Settings_ButtonImage">
+            <param name="id">9001</param>
+            <param name="groupid">9101</param>
+            <label>$LOCALIZE[186]</label>
+            <param name="icon">special://skin/extras/icons/circle-check.png</param>
+            <visible>Control.IsEnabled(413) + Control.IsVisible(413) + Control.IsVisible(450)</visible>
+            <onclick>SendClick(413)</onclick>
+        </include>
+        <include content="Settings_ButtonImage">
+            <param name="id">9002</param>
+            <param name="groupid">9102</param>
+            <label>$LOCALIZE[222]</label>
+            <param name="icon">special://skin/extras/icons/circle-xmark.png</param>
+            <visible>Control.IsEnabled(414) + Control.IsVisible(414)</visible>
+            <onclick>SendClick(414)</onclick>
+        </include>
+        <include content="Settings_ButtonImage">
+            <param name="id">9003</param>
+            <param name="groupid">9103</param>
+            <label>$LOCALIZE[119]</label>
+            <param name="icon">special://skin/extras/icons/circle-plus.png</param>
+            <visible>Control.IsEnabled(415) + Control.IsVisible(415)</visible>
+            <onclick>SendClick(415)</onclick>
+        </include>
+        <include content="Settings_ButtonRadio">
+            <param name="id">9004</param>
+            <param name="groupid">9104</param>
+            <label>$LOCALIZE[1000]</label>
+            <param name="icon">special://skin/extras/icons/image.png</param>
+            <visible>Control.IsVisible(451) + [String.IsEqual(Control.GetLabel(411),$LOCALIZE[13511]) | String.IsEqual(Control.GetLabel(411),$LOCALIZE[20437])]</visible>
+            <selected>!Skin.HasSetting(Dialog.DisableArtworkPreview)</selected>
+            <onclick>Skin.ToggleSetting(Dialog.DisableArtworkPreview)</onclick>
+        </include>
+    </include>
+
     <include name="Items_DialogSelect_Standard">
         <include content="Settings_ButtonImage">
             <param name="id">9001</param>
@@ -966,7 +1002,15 @@
             <onclick>Action(Select)</onclick>
         </include>
 
-        <!-- <include>DialogSelect_SideButtons_Artwork</include> -->
+        <include content="Settings_ButtonRadio">
+            <param name="id">9006</param>
+            <param name="groupid">9106</param>
+            <label>$LOCALIZE[1000]</label>
+            <param name="icon">special://skin/extras/icons/image.png</param>
+            <visible>[String.IsEqual(Control.GetLabel(1),$LOCALIZE[13511]) | String.IsEqual(Control.GetLabel(1),$LOCALIZE[20437]) | String.IsEqual(Control.GetLabel(1),$LOCALIZE[13521]) | String.IsEqual(Control.GetLabel(1),$LOCALIZE[736])]</visible>
+            <selected>!Skin.HasSetting(Dialog.DisableArtworkPreview)</selected>
+            <onclick>Skin.ToggleSetting(Dialog.DisableArtworkPreview)</onclick>
+        </include>
     </include>
 
     <include name="Items_DialogPVRInfo">
@@ -1223,15 +1267,11 @@
                 <label>$VAR[Label_AddonInfo_Enable]</label>
                 <onclick>SendClick(7)</onclick>
             </include>
-            <include content="Settings_Button" description="Auto-Update">
+            <include content="Settings_ButtonRadio" description="Auto-Update">
                 <param name="id">13</param>
                 <param name="groupid">9313</param>
-                <param name="control">radiobutton</param>
                 <param name="icon">special://skin/extras/icons/update.png</param>
-                <param name="visible">Control.IsEnabled(13)</param>
                 <label>$LOCALIZE[21340]</label>
-                <radioposx>536</radioposx>
-                <radioheight>28</radioheight>
                 <visible>Control.IsEnabled(13)</visible>
             </include>
             <include content="Settings_ButtonImage" description="Update">
