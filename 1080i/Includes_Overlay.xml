@@ -35,6 +35,11 @@
         <include>Horz_Red_Line</include>
     </include>
 
+    <variable name="Overlay_InfoLabel_HasModal">
+        <value condition="System.HasActiveModalDialog">True</value>
+        <value>False</value>
+    </variable>
+
     <variable name="Overlay_InfoLabel_WidgetContainer">
         <value condition="Window.IsVisible(musicinformation)"> -musicinformation- $INFO[Window(musicinformation).Property(Widgets.ResetPosition), -reset: ,] $INFO[Window(musicinformation).Property(TMDBHelper.WidgetContainer), -tmdb: ]$INFO[Window(musicinformation).Property(Slide.WidgetContainer), -slide: ,]$INFO[Window(musicinformation).Property(List.ViewContainer), -list: ,]$INFO[Window(musicinformation).Property(Focus.ControlID), -focus.controlID: ,]</value>
         <value condition="Window.IsVisible(movieinformation)"> -movieinformation- $INFO[Window(movieinformation).Property(Widgets.ResetPosition), -reset: ,] $INFO[Window(movieinformation).Property(TMDBHelper.WidgetContainer), -tmdb: ]$INFO[Window(movieinformation).Property(Slide.WidgetContainer), -slide: ,]$INFO[Window(movieinformation).Property(List.ViewContainer), -list: ,]$INFO[Window(movieinformation).Property(Focus.ControlID), -focus.controlID: ,]</value>
@@ -305,7 +310,7 @@
                 <align>top</align>
                 <orientation>vertical</orientation>
                 <include content="Overlay_InfoLabel">
-                    <label> -system.currentcontrolid: $INFO[System.CurrentControlID,, | ]$INFO[System.CurrentControl,, | ]$INFO[System.CurrentWindow]</label>
+                    <label> -system.currentcontrolid: $INFO[System.CurrentControlID,, | ]$INFO[System.CurrentControl,, | ]$INFO[System.CurrentWindow,, | ]$VAR[Overlay_InfoLabel_HasModal,has_modal: ,]</label>
                     <textcolor>yellowgreen</textcolor>
                 </include>
                 <include content="Overlay_InfoLabel">
