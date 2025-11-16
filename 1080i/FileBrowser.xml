@@ -40,7 +40,25 @@
 
                 <include content="Dialog_Foreground_Side">
                     <param name="dialog_size">Dimension_DialogWideMenu</param>
+                    <param name="subline">false</param>
                 </include>
+
+                <control type="image">
+                    <bottom>160</bottom>
+                    <height>1</height>
+                    <left>80</left>
+                    <right>80</right>
+                    <texture colordiffuse="$VAR[Color_DialogBorder]">common/white.png</texture>
+                    <visible>Control.IsVisible(450)</visible>
+                </control>
+                <control type="image">
+                    <bottom>40</bottom>
+                    <height>1</height>
+                    <left>80</left>
+                    <right>80</right>
+                    <texture colordiffuse="$VAR[Color_DialogBorder]">common/white.png</texture>
+                    <visible>!Control.IsVisible(450)</visible>
+                </control>
 
                 <control type="group">
 
@@ -65,10 +83,13 @@
                             <include content="List_DialogSelect">
                                 <param name="id">450</param>
                                 <param name="detailed">True</param>
-                                <param name="item_height">100</param>
+                                <param name="item_height">90</param>
                                 <param name="textcolor">dialog_fg</param>
                                 <pagecontrol>61</pagecontrol>
                                 <onright>61</onright>
+                                <bottom>80</bottom>
+                                <ondown>9000</ondown>
+                                <onup>9000</onup>
                             </include>
 
                             <include content="List_IconBrowser">
@@ -92,12 +113,35 @@
                             <visible>Control.IsVisible(450)</visible>
                             <onleft>450</onleft>
                             <onright>9898</onright>
+                            <bottom>100</bottom>
                         </include>
                         <include content="Dialog_Scrollbar">
                             <param name="id">62</param>
                             <visible>Control.IsVisible(451)</visible>
                             <onleft>451</onleft>
                             <onright>9898</onright>
+                        </include>
+                    </control>
+                    <control type="group">
+                        <visible>Control.IsVisible(450)</visible>
+                        <include content="Dialog_Tray_Grouplist">
+                            <param name="onup">noop</param>
+                            <onup>SetFocus(450,99999,absolute)</onup>
+                            <ondown>SetFocus(450,0,absolute)</ondown>
+                            <include content="Dialog_Button_Expanded">
+                                <param name="id">9001</param>
+                                <param name="icon">special://skin/extras/icons/circle-check.png</param>
+                                <param name="label">$LOCALIZE[31032]</param>
+                                <visible>Control.IsEnabled(413) + Control.IsVisible(413) + Control.IsVisible(450)</visible>
+                                <onclick>SendClick(413)</onclick>
+                            </include>
+                            <include content="Dialog_Button_Expanded">
+                                <param name="id">9002</param>
+                                <param name="icon">special://skin/extras/icons/circle-xmark.png</param>
+                                <param name="label">$LOCALIZE[222]</param>
+                                <visible>Control.IsEnabled(414) + Control.IsVisible(414)</visible>
+                                <onclick>SendClick(414)</onclick>
+                            </include>
                         </include>
                     </control>
                 </control>
