@@ -54,13 +54,6 @@
                         <param name="shadowcolor">$PARAM[shadowcolor_sublabel]</param>
                         <param name="shadowcolor_sublabel">$PARAM[shadowcolor_sublabel]</param>
                     </include>
-
-                    <include content="Furniture_NowPlaying" condition="Skin.HasSetting(Furniture.EnableNowPlaying)">
-                        <param name="textcolor">$PARAM[textcolor]</param>
-                        <param name="textcolor_sublabel">$PARAM[textcolor_sublabel]</param>
-                        <param name="shadowcolor">$PARAM[shadowcolor_sublabel]</param>
-                        <param name="shadowcolor_sublabel">$PARAM[shadowcolor_sublabel]</param>
-                    </include>
                 </control>
             </control>
         </control>
@@ -74,9 +67,9 @@
         <param name="textcolor_sublabel">main_fg_70</param>
         <definition>
             <control type="group">
-                <visible>Player.HasMedia</visible>
-                <visible>!Window.IsActive(DialogNotification.xml)</visible>
-                <visible>!Window.IsActive(DialogExtendedProgressBar.xml)</visible>
+                <include content="Furniture_Busy_Reposition">
+                    <param name="reposition">$PARAM[reposition]</param>
+                </include>
                 <include content="Animation_SlideIn_Dialog">
                     <param name="visible_condition">!$EXP[Exp_Notification_IsActive]</param>
                     <param name="windowopen_condition">false</param>
@@ -135,6 +128,9 @@
                     <control type="group">
                         <height>80</height>
                         <centertop>50%</centertop>
+                        <include content="Furniture_Busy_Reposition_Fade">
+                            <param name="reposition">$PARAM[reposition]</param>
+                        </include>
                         <control type="group">
                             <right>100</right>
                             <control type="grouplist">
@@ -471,7 +467,6 @@
         <visible>!Player.HasMedia | !Skin.HasSetting(Furniture.EnableNowPlaying) | Window.IsActive(visualisation) | Window.IsActive(fullscreenvideo)</visible>
         <visible>!Window.IsActive(DialogNotification.xml)</visible>
         <visible>!Window.IsActive(DialogExtendedProgressBar.xml)</visible>
-        <!-- <visible>!Window.IsActive(DialogBusy.xml)</visible> -->
         <include content="Furniture_Busy_Reposition_Fade">
             <param name="reposition">$EXP[Exp_HasActiveDialog]</param>
         </include>
