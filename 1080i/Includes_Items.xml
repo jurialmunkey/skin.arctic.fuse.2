@@ -1390,6 +1390,68 @@
         </definition>
     </include>
 
+    <include name="Items_DialogContextMenu">
+        <include content="Settings_ButtonImage">
+            <param name="id">9001</param>
+            <param name="groupid">9101</param>
+            <label>$LOCALIZE[207]</label>
+            <param name="icon">special://skin/extras/icons/quote.png</param>
+            <onclick>Close</onclick>
+            <onclick>ActivateWindow(1113)</onclick>
+            <visible>[!String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.base_plot))]</visible>
+        </include>
+
+        <include content="Settings_ButtonImage">
+            <param name="id">9002</param>
+            <param name="groupid">9102</param>
+            <label>$LOCALIZE[31066]</label>
+            <param name="icon">special://skin/extras/icons/binoculars.png</param>
+            <visible>[!String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.base_title))]</visible>
+            <onclick>Dialog.Close(contextmenu,true)</onclick>
+            <onclick>SetProperty(CustomSearchTerm,$VAR[Dialog_ContextMenu_SideButtons_WikiTitle],Home)</onclick>
+            <onclick>SetProperty(ReplaceWindow,1105,Home)</onclick>
+            <onclick condition="!Window.IsActive(1105)">ActivateWindow(1105)</onclick>
+            <onclick condition="Window.IsActive(1105)">ReplaceWindow(1197)</onclick>
+        </include>
+        <include content="Settings_ButtonImage">
+            <param name="id">9003</param>
+            <param name="groupid">9103</param>
+            <label>Wiki</label>
+            <param name="icon">special://skin/extras/icons/globe.png</param>
+            <visible>[!String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.base_title))]</visible>
+            <onclick>Dialog.Close(contextmenu,true)</onclick>
+            <onclick>runscript(script.wikipedia,wikipedia=$VAR[Dialog_ContextMenu_SideButtons_WikiTitle]$VAR[Dialog_ContextMenu_SideButtons_WikiType])</onclick>
+        </include>
+        <include content="Settings_ButtonImage">
+            <param name="id">9004</param>
+            <param name="groupid">9104</param>
+            <label>$LOCALIZE[31041]</label>
+            <param name="icon">special://skin/extras/icons/fire2.png</param>
+            <visible>[String.IsEqual(Window(Home).Property(TMDbHelper.ListItem.base_dbtype),tvshow) | String.IsEqual(Window(Home).Property(TMDbHelper.ListItem.base_dbtype),season) | String.IsEqual(Window(Home).Property(TMDbHelper.ListItem.base_dbtype),episode) | String.IsEqual(Window(Home).Property(TMDbHelper.ListItem.base_dbtype),movie)]</visible>
+            <onclick>Dialog.Close(contextmenu,true)</onclick>
+            <onclick>RunScript(plugin.video.themoviedb.helper,related_lists,query=$VAR[Path_ContextParams_Query],tmdb_type=$VAR[Path_ContextParams_TMDbType])</onclick>
+        </include>
+        <include content="Settings_ButtonImage">
+            <param name="id">9005</param>
+            <param name="groupid">9105</param>
+            <label>$LOCALIZE[31393]</label>
+            <param name="icon">special://skin/extras/icons/video.png</param>
+            <visible>[!String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.Trailer))]</visible>
+            <onclick>Dialog.Close(contextmenu,true)</onclick>
+            <onclick>SetProperty(PlayTrailerItems,$VAR[Path_VideoInfo_Trailers],Home)</onclick>
+            <onclick>RunScript(script.skinvariables,run_executebuiltin=special://skin/shortcuts/builtins/skinvariables-playtrailer.json,use_rules)</onclick>
+        </include>
+        <include content="Settings_ButtonImage">
+            <param name="id">9006</param>
+            <param name="groupid">9106</param>
+            <label>$LOCALIZE[33061]</label>
+            <param name="icon">special://skin/extras/icons/circle-plus.png</param>
+            <visible>ListItem.IsFolder</visible>
+            <onclick>Dialog.Close(contextmenu,true)</onclick>
+            <onclick>RunScript(script.skinvariables,set_listitem_to_menunode=sidemenu||1101menu||1102menu||1103menu||1104menu||1106menu||1107menu||1108menu||1109menu||powermainmenu,skin=$VAR[Path_SkinVariables_SkinFolder])</onclick>
+        </include>
+    </include>
+
     <include name="Items_DialogAddonInfo">
         <definition>
             <include content="Settings_ButtonImage" description="Enable">
