@@ -22,7 +22,7 @@
                 <control type="group">
                     <include>Dimension_Dialog_Body_Group</include>
 
-                    <include content="Dialog_Outline_InnerBox">
+                    <include content="Dialog_Outline_Box">
                         <height>120</height>
 
                         <!-- <control type="image">
@@ -35,25 +35,35 @@
                                 <aspectratio scalediffuse="false">scale</aspectratio>
                                 <visible>!String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.base_fanart))</visible>
                             </control>
-                            <control type="image">
-                                <texture>$INFO[Window(Home).Property(TMDbHelper.ListItem.base_clearlogo)]</texture>
-                                <aspectratio>keep</aspectratio>
-                                <include content="Dimension_Padding">
-                                    <param name="pad">10</param>
-                                </include>
-                                <visible>!String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.base_clearlogo))</visible>
+                            <control type="multiimage">
+                                <imagepath diffuse="diffuse/banner_w560_h100.png" colordiffuse="main_logo">$VAR[Image_StartUp]</imagepath>
+                                <aspectratio scalediffuse="false">scale</aspectratio>
+                                <randomize>true</randomize>
+                                <timeperimage>5000</timeperimage>
+                                <fadetime>2000</fadetime>
+                                <aspectratio>scale</aspectratio>
+                                <visible>String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.base_fanart))</visible>
                             </control>
-                            <control type="textbox">
-                                <textcolor>panel_fg_90</textcolor>
-                                <shadowcolor>panel_bg_70</shadowcolor>
-                                <label>$VAR[Label_ContextMenu_Name]</label>
-                                <font>font_midi_bold</font>
-                                <align>center</align>
-                                <aligny>center</aligny>
+                            <control type="group">
                                 <include content="Dimension_Padding">
-                                    <param name="pad">15</param>
+                                    <param name="pad">20</param>
                                 </include>
-                                <visible>String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.base_clearlogo))</visible>
+                                <control type="image">
+                                    <texture>$INFO[Window(Home).Property(TMDbHelper.ListItem.base_clearlogo)]</texture>
+                                    <aspectratio>keep</aspectratio>
+                                    <visible>!String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.base_clearlogo))</visible>
+                                    <left>20</left>
+                                    <right>20</right>
+                                </control>
+                                <control type="textbox">
+                                    <textcolor>panel_fg_90</textcolor>
+                                    <shadowcolor>panel_bg_70</shadowcolor>
+                                    <label>$INFO[Window(Home).Property(TMDbHelper.ListItem.base_label)]</label>
+                                    <font>font_main_bold</font>
+                                    <align>center</align>
+                                    <aligny>center</aligny>
+                                    <visible>String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.base_clearlogo))</visible>
+                                </control>
                             </control>
                         </control>
                         <control type="image">
