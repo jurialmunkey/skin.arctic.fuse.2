@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<includes>
+
+    <include name="Dialog_Confirm_Header">
+        <include content="Dialog_Head">
+            <param name="top">40</param>
+            <param name="left">40</param>
+            <param name="id">$PARAM[id]</param>
+            <param name="label">$PARAM[label]</param>
+        </include>
+    </include>
+
+    <include name="Dialog_Confirm_Textbox">
+        <param name="id">9</param>
+        <definition>
+            <control type="textbox" id="$PARAM[id]">
+                <top>0</top>
+                <bottom>0</bottom>
+                <font>font_main_plot</font>
+                <textcolor>dialog_fg_70</textcolor>
+                <label>$PARAM[label]</label>
+            </control>
+        </definition>
+    </include>
+
+    <include name="Dialog_Confirm_Progress">
+        <control type="group">
+            <bottom>-46</bottom>
+            <height>12</height>
+            <control type="progress" id="20">
+                <description>Progressbar</description>
+                <info>System.Progressbar</info>
+                <texturebg colordiffuse="00ffffff" border="12,0,12,0">progress/progress-nib.png</texturebg>
+            </control>
+            <control type="progress">
+                <description>Progressbar</description>
+                <info>System.Progressbar</info>
+                <texturebg colordiffuse="00ffffff" border="12,0,12,0">progress/progress-bg.png</texturebg>
+                <midtexture colordiffuse="$VAR[ColorGradient]" border="12,0,12,0" diffuse="progress/diffuse.png">progress/progress-bg.png</midtexture>
+                <include content="Defs_Progress_Colorfade">
+                    <param name="id">20</param>
+                </include>
+            </control>
+        </control>
+    </include>
+
+    <include name="Dialog_Confirm_Buttons">
+        <include content="Dialog_Tray_Grouplist">
+            <include content="Dialog_Button_Expanded">
+                <param name="id">11</param>
+                <param name="builtin">true</param>
+                <param name="icon">$VAR[Image_DialogConfirm_11]</param>
+            </include>
+            <include content="Dialog_Button_Expanded">
+                <param name="id">10</param>
+                <param name="builtin">true</param>
+                <param name="icon">$VAR[Image_DialogConfirm_10]</param>
+            </include>
+            <include content="Dialog_Button_Expanded">
+                <param name="id">12</param>
+                <param name="builtin">true</param>
+                <param name="icon">$VAR[Image_DialogConfirm_12]</param>
+            </include>
+        </include>
+    </include>
+
+    <include name="Dialog_Confirm">
+        <param name="include_header">Dialog_Confirm_Header</param>
+        <param name="include_textbox">Dialog_Confirm_Textbox</param>
+        <param name="include_progress">Dialog_Confirm_Progress</param>
+        <param name="include_buttons">Dialog_Confirm_Buttons</param>
+        <param name="visible">true</param>
+        <definition>
+            <include content="Dialog_Dim_Overlay">
+                <param name="visible">$PARAM[visible]</param>
+            </include>
+            <control type="group">
+                <visible>$PARAM[visible]</visible>
+                <include>Animation_SlideIn_Dialog</include>
+                <control type="group">
+                    <include>Dimension_DialogConfirm</include>
+                    <include content="Dialog_Background_Group">
+                        <param name="include_glass">true</param>
+                        <param name="dialog_size">Dimension_DialogConfirm</param>
+                    </include>
+                    <include>Dialog_Overlay_Tray</include>
+                    <control type="group">
+                        <include>Dialog_Group</include>
+                        <include>$PARAM[include_header]</include>
+                        <control type="group">
+                            <control type="image">
+                                <top>120</top>
+                                <height>1</height>
+                                <texture colordiffuse="$VAR[Color_DialogBorder]">common/white.png</texture>
+                                <left>40</left>
+                                <right>40</right>
+                            </control>
+                            <control type="group">
+                                <include content="Dialog_Group">
+                                    <param name="top">160</param>
+                                    <param name="bottom">160</param>
+                                </include>
+                                <include>$PARAM[include_textbox]</include>
+                                <include>$PARAM[include_progress]</include>
+                            </control>
+                        </control>
+
+
+                    </control>
+                    <include>$PARAM[include_buttons]</include>
+                </control>
+            </control>
+        </definition>
+    </include>
+</includes>

@@ -6,21 +6,27 @@
     <onload>SetProperty(TMDbHelper.ContextMenu,True)</onload>
     <controls>
 
+        <include content="Object_Hidden_Button" condition="!Player.HasMedia">
+            <param name="id">6099</param>
+            <onfocus>SetFocus(8000,0,absolute)</onfocus>
+            <onup>SetFocus(8000,0,absolute)</onup>
+            <ondown>SetFocus(8000,0,absolute)</ondown>
+        </include>
+
+        <include content="Object_Hidden_Button" condition="Skin.HasSetting(Options.DisableBottomTray)">
+            <param name="id">6000</param>
+            <onfocus>SetFocus(8000,9999,absolute)</onfocus>
+            <onup>SetFocus(8000,9999,absolute)</onup>
+            <ondown>SetFocus(8000,9999,absolute)</ondown>
+        </include>
+
         <include>Dialog_Dim_Overlay</include>
 
         <control type="group">
             <include>Animation_Right_Delay</include>
 
-            <include condition="Player.HasMedia">Dimension_DialogSideMenu</include>
-            <include content="Dialog_Foreground_Side" condition="Player.HasMedia">
-                <param name="dialog_size">Dimension_DialogSideMenu</param>
-                <param name="lines_right">dialog_buttongroup_w</param>
-                <param name="topline">true</param>
-                <param name="subline">false</param>
-            </include>
-
-            <include condition="!Player.HasMedia">Dimension_DialogMiniMenu</include>
-            <include content="Dialog_Foreground_Side" condition="!Player.HasMedia">
+            <include>Dimension_DialogMiniMenu</include>
+            <include content="Dialog_Foreground_Side">
                 <param name="dialog_size">Dimension_DialogMiniMenu</param>
                 <param name="lines_right">0</param>
                 <param name="topline">true</param>
@@ -28,10 +34,6 @@
             </include>
 
             <control type="group">
-                <include content="Object_Right" condition="Player.HasMedia">
-                    <param name="right">dialog_buttongroup_w</param>
-                </include>
-
                 <!-- Header -->
                 <include content="Dialog_Head">
                     <param name="label">$LOCALIZE[33063][COLOR=dialog_fg_30] — [/COLOR]$INFO[System.Time]</param>
@@ -55,60 +57,73 @@
                             <param name="layout_include">ButtonMenu_Layout_Four</param>
                         </include>
 
-                        <control type="image">
+                        <control type="group">
                             <top>300</top>
-                            <left>20</left>
-                            <right>20</right>
-                            <height>1</height>
-                            <texture colordiffuse="$VAR[Color_DialogBorder]">common/white.png</texture>
+
+                            <control type="group">
+                                <height>80</height>
+                                <left>20</left>
+                                <include condition="Player.HasMedia" content="ButtonMenu_MediaTray">
+                                    <onup>7020</onup>
+                                    <ondown>SetFocus(8000,0,absolute)</ondown>
+                                </include>
+                            </control>
+
+
+                            <control type="group">
+
+                                <include content="Object_Top" condition="Player.HasMedia">
+                                    <param name="top">80</param>
+                                </include>
+
+                                <control type="image">
+                                    <left>20</left>
+                                    <right>20</right>
+                                    <height>1</height>
+                                    <texture colordiffuse="$VAR[Color_DialogBorder]">common/white.png</texture>
+                                </control>
+
+                                <include content="List_DialogSelect">
+                                    <param name="id">8000</param>
+                                    <param name="itemlayout_include">Layout_MenuList</param>
+                                    <top>20</top>
+                                    <include content="Object_Bottom" condition="Skin.HasSetting(Options.DisableBottomTray)">
+                                        <param name="bottom">0</param>
+                                    </include>
+                                    <bottom>80</bottom>
+                                    <orientation>vertical</orientation>
+                                    <onup condition="Player.HasMedia">SetFocus(6099,2,absolute)</onup>
+                                    <onup condition="!Player.HasMedia">7020</onup>
+                                    <ondown condition="Skin.HasSetting(Options.DisableBottomTray)">SetFocus(8000,0,absolute)</ondown>
+                                    <ondown condition="Skin.HasSetting(Options.DisableBottomTray)">7010</ondown>
+                                    <ondown condition="!Skin.HasSetting(Options.DisableBottomTray)">SetFocus(6000,2)</ondown>
+                                    <oninfo>Close</oninfo>
+                                    <content>
+                                        <include>skinvariables-powermainmenu-staticitems</include>
+                                    </content>
+                                </include>
+
+                                <control type="image">
+                                    <bottom>-20</bottom>
+                                    <left>20</left>
+                                    <right>20</right>
+                                    <height>1</height>
+                                    <texture colordiffuse="$VAR[Color_DialogBorder]">common/white.png</texture>
+                                    <visible>Skin.HasSetting(Options.DisableBottomTray)</visible>
+                                </control>
+                                <control type="image">
+                                    <bottom>60</bottom>
+                                    <left>20</left>
+                                    <right>20</right>
+                                    <height>1</height>
+                                    <texture colordiffuse="$VAR[Color_DialogBorder]">common/white.png</texture>
+                                    <visible>!Skin.HasSetting(Options.DisableBottomTray)</visible>
+                                </control>
+
+                                <include condition="!Skin.HasSetting(Options.DisableBottomTray)">ButtonMenu_BottomTray</include>
+
+                            </control>
                         </control>
-
-                        <include content="List_DialogSelect">
-                            <param name="id">8000</param>
-                            <param name="itemlayout_include">Layout_MenuList</param>
-                            <top>320</top>
-                            <include content="Object_Bottom" condition="Skin.HasSetting(Options.DisableBottomTray)">
-                                <param name="bottom">0</param>
-                            </include>
-                            <bottom>80</bottom>
-                            <orientation>vertical</orientation>
-                            <onup>7020</onup>
-                            <ondown condition="!Skin.HasSetting(Options.DisableBottomTray)">SetFocus(6000,2)</ondown>
-                            <ondown condition="Skin.HasSetting(Options.DisableBottomTray)">7010</ondown>
-                            <onright>SetFocus(6099,0,absolute)</onright>
-                            <onleft>Close</onleft>
-                            <oninfo>Close</oninfo>
-                            <content>
-                                <include>skinvariables-powermainmenu-staticitems</include>
-                            </content>
-                        </include>
-
-                        <control type="image">
-                            <bottom>-20</bottom>
-                            <left>20</left>
-                            <right>20</right>
-                            <height>1</height>
-                            <texture colordiffuse="$VAR[Color_DialogBorder]">common/white.png</texture>
-                            <visible>Skin.HasSetting(Options.DisableBottomTray)</visible>
-                        </control>
-
-                        <control type="image">
-                            <bottom>60</bottom>
-                            <left>20</left>
-                            <right>20</right>
-                            <height>1</height>
-                            <texture colordiffuse="$VAR[Color_DialogBorder]">common/white.png</texture>
-                            <visible>!Skin.HasSetting(Options.DisableBottomTray)</visible>
-                        </control>
-
-                        <include condition="!Skin.HasSetting(Options.DisableBottomTray)">ButtonMenu_BottomTray</include>
-
-                        <include content="Object_Hidden_Button" condition="Skin.HasSetting(Options.DisableBottomTray)">
-                            <param name="id">6000</param>
-                            <onfocus>SetFocus(8000,9999,absolute)</onfocus>
-                            <onup>SetFocus(8000,9999,absolute)</onup>
-                            <ondown>SetFocus(8000,9999,absolute)</ondown>
-                        </include>
 
 
 
@@ -116,29 +131,9 @@
                 </control>
             </control>
 
-            <!-- Side Buttons -->
-            <include content="Object_Control" condition="Player.HasMedia">
-                <param name="control">group</param>
-                <include content="Dialog_Side_Panel_Group_Def">
-                    <param name="width">dialog_buttongroup_w</param>
-                </include>
-                <control type="group">
-                    <include>Dimension_Dialog_Body</include>
-                    <control type="group">
-                        <include>Dialog_Side_Grouplist_Def</include>
-                        <include>ButtonMenu_SideTray</include>
-                    </control>
-                </control>
-            </include>
-
-            <include content="Object_Hidden_Button" condition="!Player.HasMedia">
-                <param name="id">6099</param>
-                <onfocus>SetFocus(7000)</onfocus>
-                <onup>SetFocus(7000)</onup>
-                <ondown>SetFocus(7000)</ondown>
-            </include>
-
         </control>
+
+
 
 
     </controls>

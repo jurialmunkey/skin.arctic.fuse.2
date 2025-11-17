@@ -12,121 +12,105 @@
         <value condition="String.IsEqual(Window(Home).Property(TMDbHelper.ListItem.base_dbtype),movie)"> film</value>
     </variable>
 
-    <include name="Dialog_ContextMenu_SideButtons">
-        <param name="include_hintlabel">true</param>
-        <!-- <param name="include_customwidth">true</param>
-        <param name="icon_offset_x">20</param> -->
-        <definition>
-            <control type="group">
-                <include content="Dialog_Side_Panel_Group_Def">
-                    <param name="width">dialog_buttongroup_w</param>
-                </include>
-                <!-- Side Buttons -->
-                <control type="group">
-                    <include>Dimension_Dialog_Body</include>
-                    <control type="grouplist" id="9000">
-                        <include>Dialog_Side_Grouplist_Def</include>
-                        <!-- <onleft>61</onleft> -->
-                        <onleft>996</onleft>
-                        <include content="DialogInfo_Button" condition="!$EXP[Exp_InfoDialogs]">
-                            <param name="include_hintlabel">$PARAM[include_hintlabel]</param>
-                            <param name="include_customwidth">$PARAM[include_customwidth]</param>
-                            <param name="icon_offset_x">$PARAM[icon_offset_x]</param>
-                            <param name="id">9002</param>
-                            <param name="groupid">9102</param>
-                            <param name="label">$LOCALIZE[207]</param>
-                            <param name="icon">special://skin/extras/icons/quote.png</param>
-                            <param name="visible">[!String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.base_plot))]</param>
-                            <onclick>ActivateWindow(1113)</onclick>
-                        </include>
-                        <include content="DialogInfo_Button" condition="!$EXP[Exp_InfoDialogs]">
-                            <param name="include_hintlabel">$PARAM[include_hintlabel]</param>
-                            <param name="include_customwidth">$PARAM[include_customwidth]</param>
-                            <param name="icon_offset_x">$PARAM[icon_offset_x]</param>
-                            <param name="id">9003</param>
-                            <param name="groupid">9103</param>
-                            <param name="label">$LOCALIZE[31066]</param>
-                            <param name="icon">special://skin/extras/icons/binoculars.png</param>
-                            <param name="visible">[!String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.base_title))]</param>
-                            <onclick>Dialog.Close(contextmenu,true)</onclick>
-                            <onclick>SetProperty(CustomSearchTerm,$VAR[Dialog_ContextMenu_SideButtons_WikiTitle],Home)</onclick>
-                            <onclick>SetProperty(ReplaceWindow,1105,Home)</onclick>
-                            <onclick condition="!Window.IsActive(1105)">ActivateWindow(1105)</onclick>
-                            <onclick condition="Window.IsActive(1105)">ReplaceWindow(1197)</onclick>
-                        </include>
-                        <include content="DialogInfo_Button" condition="!$EXP[Exp_InfoDialogs]">
-                            <param name="include_hintlabel">$PARAM[include_hintlabel]</param>
-                            <param name="include_customwidth">$PARAM[include_customwidth]</param>
-                            <param name="icon_offset_x">$PARAM[icon_offset_x]</param>
-                            <param name="id">9004</param>
-                            <param name="groupid">9104</param>
-                            <param name="label">Wiki</param>
-                            <param name="icon">special://skin/extras/icons/globe.png</param>
-                            <param name="visible">[!String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.base_title))]</param>
-                            <onclick>Dialog.Close(contextmenu,true)</onclick>
-                            <onclick>runscript(script.wikipedia,wikipedia=$VAR[Dialog_ContextMenu_SideButtons_WikiTitle]$VAR[Dialog_ContextMenu_SideButtons_WikiType])</onclick>
-                        </include>
-                        <include content="DialogInfo_Button" condition="!$EXP[Exp_InfoDialogs]">
-                            <param name="include_hintlabel">$PARAM[include_hintlabel]</param>
-                            <param name="include_customwidth">$PARAM[include_customwidth]</param>
-                            <param name="icon_offset_x">$PARAM[icon_offset_x]</param>
-                            <param name="id">9005</param>
-                            <param name="groupid">9105</param>
-                            <param name="label">$LOCALIZE[31041]</param>
-                            <param name="icon">special://skin/extras/icons/fire2.png</param>
-                            <param name="visible">[String.IsEqual(Window(Home).Property(TMDbHelper.ListItem.base_dbtype),tvshow) | String.IsEqual(Window(Home).Property(TMDbHelper.ListItem.base_dbtype),season) | String.IsEqual(Window(Home).Property(TMDbHelper.ListItem.base_dbtype),episode) | String.IsEqual(Window(Home).Property(TMDbHelper.ListItem.base_dbtype),movie)]</param>
-                            <onclick>Dialog.Close(contextmenu,true)</onclick>
-                            <onclick>RunScript(plugin.video.themoviedb.helper,related_lists,query=$VAR[Path_ContextParams_Query],tmdb_type=$VAR[Path_ContextParams_TMDbType])</onclick>
-                        </include>
-                        <include content="DialogInfo_Button" condition="!$EXP[Exp_InfoDialogs]">
-                            <param name="include_hintlabel">$PARAM[include_hintlabel]</param>
-                            <param name="include_customwidth">$PARAM[include_customwidth]</param>
-                            <param name="icon_offset_x">$PARAM[icon_offset_x]</param>
-                            <param name="id">9006</param>
-                            <param name="groupid">9106</param>
-                            <param name="label">$LOCALIZE[31393]</param>
-                            <param name="icon">special://skin/extras/icons/video.png</param>
-                            <param name="visible">[!String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.Trailer))]</param>
-                            <onclick>Dialog.Close(contextmenu,true)</onclick>
-                            <onclick>SetProperty(PlayTrailerItems,$VAR[Path_VideoInfo_Trailers],Home)</onclick>
-                            <onclick>RunScript(script.skinvariables,run_executebuiltin=special://skin/shortcuts/builtins/skinvariables-playtrailer.json,use_rules)</onclick>
-                        </include>
-                        <include content="DialogInfo_Button" condition="!$EXP[Exp_InfoDialogs] + Window.IsMedia">
-                            <param name="include_hintlabel">$PARAM[include_hintlabel]</param>
-                            <param name="include_customwidth">$PARAM[include_customwidth]</param>
-                            <param name="icon_offset_x">$PARAM[icon_offset_x]</param>
-                            <param name="id">9007</param>
-                            <param name="groupid">9107</param>
-                            <param name="label">$LOCALIZE[33061]</param>
-                            <param name="icon">special://skin/extras/icons/circle-plus.png</param>
-                            <param name="visible">ListItem.IsFolder</param>
-                            <onclick>Dialog.Close(contextmenu,true)</onclick>
-                            <onclick>RunScript(script.skinvariables,set_listitem_to_menunode=sidemenu||1101menu||1102menu||1103menu||1104menu||1106menu||1107menu||1108menu||1109menu||powermainmenu,skin=$VAR[Path_SkinVariables_SkinFolder])</onclick>
-                        </include>
-                    </control>
-                </control>
-            </control>
-        </definition>
-    </include>
+
 
     <include name="Dialog_ContextMenu_BodyContent">
         <definition>
             <control type="group">
                 <include>Dimension_Dialog_Body</include>
 
-                <control type="grouplist" id="996">
+                <control type="group">
                     <include>Dimension_Dialog_Body_Group</include>
-                    <right>$PARAM[lines_right]</right>
-                    <onright>9000</onright>
-                    <!-- <onright>61</onright>
-                    <pagecontrol>61</pagecontrol> -->
-                </control>
 
-                <!-- <include content="Dialog_Scrollbar">
-                    <param name="id">61</param>
-                    <onright>9000</onright>
-                    <onleft>996</onleft>
-                </include> -->
+                    <control type="group">
+                        <height>120</height>
+
+                        <control type="image">
+                            <texture colordiffuse="$VAR[Color_DialogBorder]" border="40">common/menu.png</texture>
+                        </control>
+
+                        <control type="group">
+
+                            <control type="group">
+                                <left>40</left>
+                                <height>80</height>
+                                <centertop>50%</centertop>
+                                <right>140</right>
+                                <control type="label">
+                                    <height>40</height>
+                                    <textcolor>dialog_fg_70</textcolor>
+                                    <label>$VAR[Label_ContextMenu_Name]</label>
+                                    <font>font_main_bold</font>
+                                </control>
+                                <control type="label">
+                                    <bottom>0</bottom>
+                                    <height>40</height>
+                                    <textcolor>dialog_fg_70</textcolor>
+                                    <label>$VAR[Label_ContextMenu_Type,[CAPITALIZE],[/CAPITALIZE]]</label>
+                                    <font>font_main</font>
+                                </control>
+                            </control>
+
+                            <control type="image">
+                                <texture diffuse="diffuse/button_w120_h120.png">$VAR[Image_ContextImage]</texture>
+                                <aspectratio scalediffuse="false">scale</aspectratio>
+                                <width>100</width>
+                                <height>100</height>
+                                <right>10</right>
+                                <top>10</top>
+                            </control>
+
+                        </control>
+
+                    </control>
+
+
+                    <control type="group">
+                        <top>160</top>
+
+                        <control type="group">
+                            <top>-20</top>
+                            <height>80</height>
+                            <left>20</left>
+                            <include condition="$EXP[Exp_Context_Expanded]" content="ButtonMenu_MediaTray">
+                                <param name="include">ButtonMenu_ContextControls</param>
+                                <onup>SetFocus(996)</onup>
+                                <onup>PageDown</onup>
+                                <onup>PageDown</onup>
+                                <onup>PageDown</onup>
+                                <onup>PageDown</onup>
+                                <onup>PageDown</onup>
+                                <ondown>SetFocus(996)</ondown>
+                                <ondown>PageUp</ondown>
+                                <ondown>PageUp</ondown>
+                                <ondown>PageUp</ondown>
+                                <ondown>PageUp</ondown>
+                                <ondown>PageUp</ondown>
+                            </include>
+                        </control>
+
+                        <control type="group">
+
+                            <include content="Object_Top" condition="$EXP[Exp_Context_Expanded]">
+                                <param name="top">80</param>
+                            </include>
+
+                            <control type="image">
+                                <top>-20</top>
+                                <left>20</left>
+                                <right>20</right>
+                                <height>1</height>
+                                <texture colordiffuse="$VAR[Color_DialogBorder]">common/white.png</texture>
+                            </control>
+
+                            <control type="grouplist" id="996">
+                                <onup condition="$EXP[Exp_Context_Expanded]">6099</onup>
+                                <ondown condition="$EXP[Exp_Context_Expanded]">6099</ondown>
+                            </control>
+                        </control>
+
+                    </control>
+                </control>
             </control>
         </definition>
     </include>
@@ -144,7 +128,7 @@
     </include>
 
     <include name="Dialog_ContextMenu">
-        <param name="dialog_size">Dimension_DialogSideMenu</param>
+        <param name="dialog_size">Dimension_DialogMiniMenu</param>
         <param name="header">$LOCALIZE[10106]</param>
         <param name="button_width">dialog_main_button_w</param>
         <definition>
@@ -157,11 +141,9 @@
                 <include>Animation_Right_Delay</include>
                 <include content="Dialog_Foreground_Side">
                     <param name="dialog_size">$PARAM[dialog_size]</param>
-                    <param name="lines_right">dialog_buttongroup_w</param>
                 </include>
 
                 <control type="group">
-                    <right>dialog_buttongroup_w</right>
                     <!-- Header -->
                     <include content="Dialog_Head">
                         <param name="label">$PARAM[header]</param>
@@ -173,11 +155,6 @@
                     <include>Dialog_ContextMenu_BodyContent</include>
 
                 </control>
-
-                <include content="Dialog_ContextMenu_SideButtons">
-                    <param name="dialog_size">$PARAM[dialog_size]</param>
-                </include>
-
 
             </control>
 

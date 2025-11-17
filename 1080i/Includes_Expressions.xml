@@ -156,7 +156,7 @@
     <!-- Scrollbar -->
     <expression name="Exp_FurnitureFooter_Left_IsVisible">[![Control.IsVisible(502) | Control.IsVisible(512) | Control.IsVisible(522) | Control.IsVisible(532) | Control.IsVisible(542) | Control.IsVisible(572) | Control.IsVisible(582) | Control.IsVisible(592)] | $EXP[Exp_View_ScrollFilter_HasFocus]]</expression>
 
-    <expression name="Exp_BackgroundArtwork_IsHidden">[[![$EXP[Exp_InfoDialogs] | Window.ISVisible(1190)] + [Window.IsVisible(favouritesbrowser) | Window.IsVisible(weather) | !String.IsEmpty(Window.Property(Background.HideArtwork))]] | [[$EXP[Exp_InfoDialogs] | Window.ISVisible(1190)] + [!String.IsEmpty(Window(Home).Property(Background.DialogInfo.HideArtwork)) | ![Skin.String(Info.Layout,Flip) | Skin.String(Info.Layout,Flix)]]]]</expression>
+    <expression name="Exp_BackgroundArtwork_IsHidden">[[![$EXP[Exp_InfoDialogs] | Window.IsVisible(1190)] + [Window.IsVisible(favouritesbrowser) | Window.IsVisible(weather) | !String.IsEmpty(Window.Property(Background.HideArtwork))]] | [[$EXP[Exp_InfoDialogs] | Window.IsVisible(1190)] + [!String.IsEmpty(Window(Home).Property(Background.DialogInfo.HideArtwork)) | ![Skin.String(Info.Layout,Flip) | Skin.String(Info.Layout,Flix)]]]]</expression>
 
     <expression name="Exp_BackgroundArtwork_IsOverlay">[$EXP[Exp_BackgroundArtwork_IsHidden] | [!$EXP[Exp_InfoDialogs] + !String.IsEmpty(Window(Home).Property(Background.ShowOverlay))] | [$EXP[Exp_InfoDialogs] + ![Skin.String(Info.Layout,Flix) + !String.IsEqual(ListItem.Property(tmdb_type),person)]]]</expression>
 
@@ -190,6 +190,9 @@
     <expression name="Exp_NonePanelWindows_Next">[!$EXP[Exp_MiniPanelWindows_Next] + !$EXP[Exp_FullPanelWindows_Next]]</expression>
     <expression name="Exp_NonePanelWindows_Prev">[!$EXP[Exp_MiniPanelWindows_Prev] + !$EXP[Exp_FullPanelWindows_Prev]]</expression>
     <expression name="Exp_NonePanelWindows">[!$EXP[Exp_MiniPanelWindows] + !$EXP[Exp_FullPanelWindows]]</expression>
+
+
+    <expression name="Exp_WindowProperty_IsFolder">[String.IsEqual(Window.Property(dbtype),tvshow) | String.IsEqual(Window.Property(dbtype),season) | String.IsEqual(Window.Property(dbtype),set) | String.IsEqual(Window.Property(dbtype),artist)]</expression>
 
 
     <!-- =============== -->
@@ -236,5 +239,12 @@
     <expression name="Exp_Christmas_Theme">[System.Date(12-01,01-07) + Skin.HasSetting(EnableHolidayTheme) + [[!Window.IsVisible(visualisation) + !VideoPlayer.IsFullscreen] | Window.IsActive(fullscreeninfo)]]</expression>
 
     <expression name="Exp_Halloween_Theme">[System.Date(10-30,11-01) + Skin.HasSetting(EnableHolidayTheme) + [[!Window.IsVisible(visualisation) + !VideoPlayer.IsFullscreen] | Window.IsActive(fullscreeninfo)]]</expression>
+
+    <expression name="Exp_Context_Expanded">[[[!String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.base_title))]] | [[!String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.base_title))]] | [String.IsEqual(Window(Home).Property(TMDbHelper.ListItem.base_dbtype),tvshow) | String.IsEqual(Window(Home).Property(TMDbHelper.ListItem.base_dbtype),season) | [String.IsEqual(Window(Home).Property(TMDbHelper.ListItem.base_dbtype),episode) | String.IsEqual(Window(Home).Property(TMDbHelper.ListItem.base_dbtype),movie)]] | [[!String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.Trailer))]]]</expression>
+
+
+    <expression name="Exp_HasActiveDialog">[Window.IsActive(DialogAddonInfo.xml) | Window.IsActive(DialogAddonSettings.xml) | Window.IsActive(DialogButtonMenu.xml) | Window.IsActive(DialogColorPicker.xml) | Window.IsActive(DialogContextMenu.xml) | Window.IsActive(DialogGameControllers.xml) | Window.IsActive(DialogMediaSource.xml) | Window.IsActive(DialogPictureInfo.xml) | Window.IsActive(DialogPVRGroupManager.xml) | Window.IsActive(DialogChannelManager.xml) | Window.IsActive(DialogPVRGuideSearch.xml) | Window.IsActive(DialogSelect.xml) | Window.IsActive(DialogSettings.xml) | Window.IsActive(DialogSubtitles.xml) | Window.IsActive(DialogTextViewer.xml) | Window.IsActive(DialogVideoManager.xml) | Window.IsActive(FileBrowser.xml) | Window.IsActive(script-wikipedia.xml) | Window.IsActive(SmartPlaylistEditor.xml) | Window.IsActive(1111) | Window.IsActive(1112) | Window.IsActive(1113) | Window.IsActive(1114) | Window.IsActive(1116) | Window.IsActive(1117) | Window.IsActive(1118) | Window.IsActive(1119) | Window.IsActive(1120) | Window.IsActive(1122) | Window.IsActive(1123) | Window.IsActive(1124) | Window.IsActive(1160) | Window.IsActive(1161) | Window.IsActive(1162) | Window.IsActive(1163) | Window.IsActive(1170)]</expression>
+
+    <expression name="Exp_HasVisibleDialog">[Window.IsVisible(DialogAddonInfo.xml) | Window.IsVisible(DialogAddonSettings.xml) | Window.IsVisible(DialogButtonMenu.xml) | Window.IsVisible(DialogColorPicker.xml) | Window.IsVisible(DialogContextMenu.xml) | Window.IsVisible(DialogGameControllers.xml) | Window.IsVisible(DialogMediaSource.xml) | Window.IsVisible(DialogPictureInfo.xml) | Window.IsVisible(DialogPVRGroupManager.xml) | Window.IsVisible(DialogChannelManager.xml) | Window.IsVisible(DialogPVRGuideSearch.xml) | Window.IsVisible(DialogSelect.xml) | Window.IsVisible(DialogSettings.xml) | Window.IsVisible(DialogSubtitles.xml) | Window.IsVisible(DialogTextViewer.xml) | Window.IsVisible(DialogVideoManager.xml) | Window.IsVisible(FileBrowser.xml) | Window.IsVisible(script-wikipedia.xml) | Window.IsVisible(SmartPlaylistEditor.xml) | Window.IsVisible(1111) | Window.IsVisible(1112) | Window.IsVisible(1113) | Window.IsVisible(1114) | Window.IsVisible(1116) | Window.IsVisible(1117) | Window.IsVisible(1118) | Window.IsVisible(1119) | Window.IsVisible(1120) | Window.IsVisible(1122) | Window.IsVisible(1123) | Window.IsVisible(1124) | Window.IsVisible(1160) | Window.IsVisible(1161) | Window.IsVisible(1162) | Window.IsVisible(1163) | Window.IsVisible(1170)]</expression>
 
 </includes>

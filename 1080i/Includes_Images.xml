@@ -16,6 +16,7 @@
     </variable>
 
     <variable name="Image_1114_Poster">
+        <value condition="Control.HasFocus(7001) + String.IsEqual(Container(7001).ListITem.Property(tmdb_type),person)">$INFO[Container(7001).ListItem.Art(thumb)]</value>
         <value condition="Control.HasFocus(7001)">$INFO[Container(7001).ListItem.Art(poster)]</value>
         <value>$INFO[Window.Property(poster)]</value>
     </variable>
@@ -138,6 +139,11 @@
 
     <variable name="Image_ContextIcon">
         <value condition="!String.IsEmpty(ListItem.Art(icon))">$INFO[ListItem.Art(icon)]</value>
+        <value condition="!String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.base_icon))">$INFO[Window(Home).Property(TMDbHelper.ListItem.base_icon)]</value>
+    </variable>
+
+    <variable name="Image_ContextImage">
+        <!-- <value condition="!String.IsEmpty(ListItem.Icon)">$INFO[ListItem.Icon]</value> -->
         <value condition="!String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.base_icon))">$INFO[Window(Home).Property(TMDbHelper.ListItem.base_icon)]</value>
     </variable>
 
@@ -402,13 +408,18 @@
         <value>special://skin/extras/icons/play2.png</value>
     </variable>
 
+    <variable name="Image_WindowProperty_PlayButton">
+        <value condition="$EXP[Exp_WindowProperty_IsFolder]">special://skin/extras/icons/folder.png</value>
+        <value>special://skin/extras/icons/play2.png</value>
+    </variable>
+
     <variable name="Image_FullscreenWidget_InfoButton">
         <value condition="Skin.HasSetting(Spotlight.UseMenuButton) + $EXP[Exp_Hubs_Spotlight_HasItems]">special://skin/extras/icons/indent.png</value>
         <value>special://skin/extras/icons/info2.png</value>
     </variable>
 
     <variable name="Image_ArtistFanartVis">
-        <!-- <value condition="[Window.IsVisible(script-cu-lrclyrics-main.xml) | [!String.IsEmpty(Window(Home).Property(OSDArtistDetails)) + !Window.IsVisible(1142)]] + !String.ISEmpty(Window(Home).Property(TMDbHelper.Player.Fanart.BlurImage))">$INFO[Window(Home).Property(TMDbHelper.Player.Fanart.BlurImage)]</value> -->
+        <!-- <value condition="[Window.IsVisible(script-cu-lrclyrics-main.xml) | [!String.IsEmpty(Window(Home).Property(OSDArtistDetails)) + !Window.IsVisible(1142)]] + !String.IsEmpty(Window(Home).Property(TMDbHelper.Player.Fanart.BlurImage))">$INFO[Window(Home).Property(TMDbHelper.Player.Fanart.BlurImage)]</value> -->
         <value condition="System.HasAddon(script.artistslideshow) + !Skin.HasSetting(ArtistSlideShow.Disabled) + !String.IsEmpty(Window(Visualisation).Property(ArtistSlideshow.Image))">$INFO[Window(Visualisation).Property(ArtistSlideshow.Image)]</value>
         <value condition="[!System.HasAddon(script.artistslideshow) | Skin.HasSetting(ArtistSlideShow.Disabled) | String.IsEmpty(Window(Visualisation).Property(ArtistSlideshow.Image))] + !String.IsEmpty(Player.Art(fanart))">$INFO[Player.Art(fanart)]</value>
         <value>common/_none.png</value>
@@ -670,7 +681,7 @@
         <value condition="!String.IsEmpty(ListItem.Property(Item.Info)) + !String.IsEmpty(ListItem.DBID) + !Skin.HasSetting(Indicator.DisableLibrary)">indicator/library.png</value>
         <value condition="ListItem.IsCollection + !Skin.HasSetting(Indicator.DisableCollection)">indicator/movieset.png</value>
         <value condition="ListItem.IsFolder">indicator/folder.png</value>
-        <value condition="!String.ISEmpty(ListItem.DBID)">indicator/library.png</value>
+        <value condition="!String.IsEmpty(ListItem.DBID)">indicator/library.png</value>
         <value>indicator/dot.png</value>
     </variable>
 

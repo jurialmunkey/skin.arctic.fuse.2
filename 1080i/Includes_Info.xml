@@ -1480,7 +1480,7 @@
                     <param name="colordiffuse">$PARAM[colordiffuse]_90</param>
                     <param name="is_version">[$PARAM[container]ListItem.HasVideoVersions]</param>
                     <param name="is_collection">[$PARAM[container]ListItem.IsCollection | !String.IsEmpty($PARAM[container]ListItem.Set)]</param>
-                    <param name="is_web">[[String.IsEqual($PARAM[container]ListItem.DBType,movie) | String.IsEqual($PARAM[container]ListItem.DBType,episode) | String.IsEqual($PARAM[container]ListItem.DBType,video)] + !String.IsEqual($PARAM[container]ListItem.Property(item.type),person)]</param>
+                    <param name="is_web">[[String.IsEqual($PARAM[container]ListItem.DBType,movie) | String.IsEqual($PARAM[container]ListItem.DBType,episode) | String.IsEqual($PARAM[container]ListItem.DBType,video)] + !String.IsEqual($PARAM[container]ListItem.Property(tmdb_type),person)]</param>
                     <param name="listitem_videoresolution">$PARAM[container]ListItem.VideoResolution</param>
                     <param name="listitem_dbtype">$PARAM[container]ListItem.DBType</param>
                     <param name="listitem_hdrtype">$PARAM[container]ListItem.HdrType</param>
@@ -1491,7 +1491,7 @@
                     <param name="colordiffuse">$PARAM[colordiffuse]_90</param>
                     <param name="is_version">[!String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.base_hasvideoversions))]</param>
                     <param name="is_collection">[!String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.base_iscollection)) | !String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.base_set))]</param>
-                    <param name="is_web">[[String.IsEqual(Window(Home).Property(TMDbHelper.ListItem.base_dbtype),movie) | String.IsEqual(Window(Home).Property(TMDbHelper.ListItem.base_dbtype),episode) | String.IsEqual(Window(Home).Property(TMDbHelper.ListItem.base_dbtype),video)] + !String.IsEqual($PARAM[container]ListItem.Property(item.type),person)]</param>
+                    <param name="is_web">[[String.IsEqual(Window(Home).Property(TMDbHelper.ListItem.base_dbtype),movie) | String.IsEqual(Window(Home).Property(TMDbHelper.ListItem.base_dbtype),episode) | String.IsEqual(Window(Home).Property(TMDbHelper.ListItem.base_dbtype),video)] + !String.IsEqual($PARAM[container]ListItem.Property(tmdb_type),person)]</param>
                     <param name="listitem_videoresolution">Window(Home).Property(TMDbHelper.ListItem.base_videoresolution)</param>
                     <param name="listitem_dbtype">Window(Home).Property(TMDbHelper.ListItem.base_dbtype)</param>
                     <param name="listitem_hdrtype">Window(Home).Property(TMDbHelper.ListItem.base_hdrtype)</param>
@@ -1578,19 +1578,19 @@
                     <param name="items_06">true</param>
                     <param name="label_01">$INFO[$PARAM[container]ListItem.Season]$INFO[$PARAM[container]ListItem.Episode,x,]</param>
                     <param name="label_02">$INFO[Window(Home).Property(TMDbHelper.ListItem.base_season)]$INFO[Window(Home).Property(TMDbHelper.ListItem.base_episode),x,]</param>
-                    <param name="label_03">$INFO[Window(Home).Property(TMDbHelper.ListItem.Season)]$INFO[Window(Home).Property(TMDbHelper.ListItem.Episode),x,]</param>
+                    <param name="label_03">$INFO[Window(Home).Property(TMDbHelper.ListItem.Monitor.Season)]$INFO[Window(Home).Property(TMDbHelper.ListItem.Monitor.Episode),x,]</param>
 
                     <param name="label_04">$INFO[$PARAM[container]ListItem.Season]$INFO[$PARAM[container]ListItem.Episode,x0,]</param>
                     <param name="label_05">$INFO[Window(Home).Property(TMDbHelper.ListItem.base_season)]$INFO[Window(Home).Property(TMDbHelper.ListItem.base_episode),x0,]</param>
-                    <param name="label_06">$INFO[Window(Home).Property(TMDbHelper.ListItem.Season)]$INFO[Window(Home).Property(TMDbHelper.ListItem.Episode),x0,]</param>
+                    <param name="label_06">$INFO[Window(Home).Property(TMDbHelper.ListItem.Monitor.Season)]$INFO[Window(Home).Property(TMDbHelper.ListItem.Monitor.Episode),x0,]</param>
 
                     <param name="visible_01">!String.IsEmpty($PARAM[container]ListItem.Season) + !String.IsEmpty($PARAM[container]ListItem.Episode) + !Integer.IsLess($PARAM[container]ListItem.Episode,10)</param>
                     <param name="visible_02">!String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.base_season)) + !String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.base_episode)) + !Integer.IsLess(Window(Home).Property(TMDbHelper.ListItem.base_episode),10)</param>
-                    <param name="visible_03">!String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.Season)) + !String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.Episode)) + !Integer.IsLess(Window(Home).Property(TMDbHelper.ListItem.Episode),10)</param>
+                    <param name="visible_03">!String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.Monitor.Season)) + !String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.Monitor.Episode)) + !Integer.IsLess(Window(Home).Property(TMDbHelper.ListItem.Monitor.Episode),10)</param>
 
                     <param name="visible_04">!String.IsEmpty($PARAM[container]ListItem.Season) + !String.IsEmpty($PARAM[container]ListItem.Episode)</param>
                     <param name="visible_05">!String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.base_season)) + !String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.base_episode))</param>
-                    <param name="visible_06">!String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.Season)) + !String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.Episode))</param>
+                    <param name="visible_06">!String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.Monitor.Season)) + !String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.Monitor.Episode))</param>
 
                     <param name="textcolor">$PARAM[colordiffuse]_70</param>
                 </include>

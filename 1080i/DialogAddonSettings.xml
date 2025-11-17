@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <window>
 
-    <defaultcontrol always="true">28</defaultcontrol>
+    <defaultcontrol always="true">3</defaultcontrol>
     <controls>
 
         <include content="Settings_Button">
@@ -30,9 +30,6 @@
             <param name="id">10</param>
             <param name="control">button</param>
             <param name="dialog">true</param>
-            <!-- <include>Texture_Highlight_ToggleButton_Settings</include>
-            <focusedcolor>$VAR[ColorSettingsToggleButtonText]</focusedcolor>
-            <altfocusedcolor>$VAR[ColorSettingsToggleButtonText]</altfocusedcolor> -->
             <width>settings_category_w</width>
             <description>Default Category Button</description>
             <onclick>SendClick(30)</onclick>
@@ -92,18 +89,19 @@
                 <param name="include_glass">true</param>
                 <param name="dialog_size">Dimension_DialogMainMenu</param>
             </include>
-            <include>Dialog_Overlay_Tray</include>
 
             <control type="group">
                 <!-- Header -->
                 <include content="Dialog_Head">
                     <param name="id">2</param>
                 </include>
-                <include>Dialog_Head_CloseButton</include>
+                <include content="Dialog_Manage_Head_Button">
+                    <param name="onclick">SetFocus(9898)</param>
+                </include>
 
                 <!-- Content -->
                 <control type="group" id="8000">
-                    <bottom>240</bottom>
+                    <bottom>160</bottom>
                     <include>Dimension_Dialog_Body</include>
                     <control type="group">
                         <right>-80</right>
@@ -134,7 +132,7 @@
 
                             <control type="grouplist" id="3">
                                 <onright>5</onright>
-                                <onback>28</onback>
+                                <onback>9893</onback>
                             </control>
                         </control>
 
@@ -150,7 +148,7 @@
                                 <bottom>20</bottom>
                                 <onleft>3</onleft>
                                 <onright>61</onright>
-                                <onback>28</onback>
+                                <onback>9893</onback>
                                 <pagecontrol>61</pagecontrol>
                             </control>
                         </include>
@@ -159,40 +157,23 @@
                         <param name="id">61</param>
                         <param name="inset">true</param>
                         <onleft>5</onleft>
-                        <onback>28</onback>
+                        <onback>9893</onback>
+                        <onright>9898</onright>
                     </include>
                     <include content="Dialog_InfoText">
                         <param name="label">$INFO[Control.GetLabel(6)]</param>
                     </include>
                 </control>
 
-                <!-- Buttons -->
-                <include content="Dialog_Tray_Grouplist">
-                    <include content="Dialog_Button_Expanded">
-                        <param name="id">04</param>
-                        <param name="label">$INFO[Control.GetLabel(20)]</param>
-                        <param name="icon">$VAR[Image_Settings_Level]</param>
-                        <param name="visible">Control.IsEnabled(20)</param>
-                        <onclick>settingslevelchange</onclick>
-                    </include>
-                    <include content="Dialog_Button_Expanded">
-                        <param name="id">28</param>
-                        <param name="builtin">true</param>
-                        <param name="label">$LOCALIZE[186]</param>
-                        <param name="icon">special://skin/extras/icons/circle-check.png</param>
-                    </include>
-                    <include content="Dialog_Button_Expanded">
-                        <param name="id">29</param>
-                        <param name="builtin">true</param>
-                        <param name="label">$LOCALIZE[222]</param>
-                        <param name="icon">special://skin/extras/icons/circle-xmark.png</param>
-                    </include>
 
-
-                </include>
             </control>
 
-
+            <include content="Dialog_Manage">
+                <param name="onback">3</param>
+                <param name="focus_id">28</param>
+                <param name="include">Items_DialogAddonSettings</param>
+                <param name="confirm_exit">true</param>
+            </include>
 
         </control>
     </controls>

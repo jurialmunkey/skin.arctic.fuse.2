@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <window>
-    <zorder>0</zorder>
+    <zorder>1000</zorder>
     <controls>
 
         <control type="group">
@@ -16,6 +16,7 @@
                 <param name="visible">String.StartsWith(Control.GetLabel(400),Default)</param>
                 <param name="size">50</param>
             </include>
+
             <include content="Info_FooterItemIcon">
                 <param name="icon">$INFO[Control.GetLabel(400)]</param>
                 <param name="icon_colordiffuse">white</param>
@@ -31,7 +32,38 @@
                 <param name="minilabel_id">402</param>
                 <param name="visible_condition">!$EXP[Exp_Notification_IsActive]</param>
                 <param name="windowopen_condition">!$EXP[Exp_Notification_IsActive]</param>
+                <param name="reposition">[$EXP[Exp_HasActiveDialog] | $EXP[Exp_OSD_ActiveSlides]]</param>
+                <!-- <param name="reposition">[$EXP[Exp_HasActiveDialog]]</param> -->
             </include>
+
+            <include content="Furniture_Busy_Reposition">
+                <param name="reposition">[$EXP[Exp_HasActiveDialog] | $EXP[Exp_OSD_ActiveSlides]]</param>
+            </include>
+
+            <control type="grouplist">
+                <left>20</left>
+                <right>80</right>
+                <orientation>horizontal</orientation>
+                <align>right</align>
+                <!-- <visible>$EXP[Exp_OSD_ActiveSlides]</visible> -->
+                <include content="Furniture_Busy_Reposition_Fade">
+                    <param name="reposition">[![$EXP[Exp_HasActiveDialog] | $EXP[Exp_OSD_ActiveSlides]]]</param>
+                </include>
+                <control type="label">
+                    <font>font_tiny_bold</font>
+                    <width>auto</width>
+                    <label>$INFO[Control.GetLabel(401),,  ]</label>
+                    <textcolor>main_fg_100</textcolor>
+                    <shadowcolor>main_bg_30</shadowcolor>
+                </control>
+                <control type="label">
+                    <font>font_tiny</font>
+                    <width>auto</width>
+                    <label>$INFO[Control.GetLabel(402)]</label>
+                    <shadowcolor>main_bg_30</shadowcolor>
+                    <textcolor>main_fg_70</textcolor>
+                </control>
+            </control>
 
         </control>
 

@@ -54,13 +54,6 @@
                         <param name="shadowcolor">$PARAM[shadowcolor_sublabel]</param>
                         <param name="shadowcolor_sublabel">$PARAM[shadowcolor_sublabel]</param>
                     </include>
-
-                    <include content="Furniture_NowPlaying" condition="Skin.HasSetting(Furniture.EnableNowPlaying)">
-                        <param name="textcolor">$PARAM[textcolor]</param>
-                        <param name="textcolor_sublabel">$PARAM[textcolor_sublabel]</param>
-                        <param name="shadowcolor">$PARAM[shadowcolor_sublabel]</param>
-                        <param name="shadowcolor_sublabel">$PARAM[shadowcolor_sublabel]</param>
-                    </include>
                 </control>
             </control>
         </control>
@@ -74,9 +67,9 @@
         <param name="textcolor_sublabel">main_fg_70</param>
         <definition>
             <control type="group">
-                <visible>Player.HasMedia</visible>
-                <visible>!Window.IsActive(DialogNotification.xml)</visible>
-                <visible>!Window.IsActive(DialogExtendedProgressBar.xml)</visible>
+                <include content="Furniture_Busy_Reposition">
+                    <param name="reposition">$PARAM[reposition]</param>
+                </include>
                 <include content="Animation_SlideIn_Dialog">
                     <param name="visible_condition">!$EXP[Exp_Notification_IsActive]</param>
                     <param name="windowopen_condition">false</param>
@@ -135,6 +128,9 @@
                     <control type="group">
                         <height>80</height>
                         <centertop>50%</centertop>
+                        <include content="Furniture_Busy_Reposition_Fade">
+                            <param name="reposition">$PARAM[reposition]</param>
+                        </include>
                         <control type="group">
                             <right>100</right>
                             <control type="grouplist">
@@ -144,7 +140,7 @@
                                     <width max="$PARAM[title_w]">auto</width>
                                     <label>$VAR[Label_NowPlayingTitle]</label>
                                     <shadowcolor>$PARAM[shadowcolor]</shadowcolor>
-                                    <font>font_mini_bold</font>
+                                    <font>font_main_bold</font>
                                 </include>
                             </control>
                             <control type="grouplist">
@@ -307,11 +303,26 @@
         </definition>
     </include>
 
+    <include name="Furniture_Busy_Reposition_Fade">
+        <include content="Animation_Fade_In">
+            <param name="condition">![$PARAM[reposition]]</param>
+            <param name="delay">400</param>
+        </include>
+        <include content="Animation_Fade_Out">
+            <param name="condition">$PARAM[reposition]</param>
+        </include>
+    </include>
+
+
     <include name="Furniture_Busy_FloatingText">
+        <param name="reposition">false</param>
         <definition>
             <control type="group">
                 <left>20</left>
                 <right>100</right>
+                <include content="Furniture_Busy_Reposition_Fade">
+                    <param name="reposition">$PARAM[reposition]</param>
+                </include>
                 <control type="label" id="$PARAM[mainlabel_id]">
                     <include>Dimension_Object_InfoCircle_Text_Top</include>
                     <font>font_main_bold</font>
@@ -342,10 +353,6 @@
         <param name="progress" />
         <param name="progress_id" />
         <definition>
-
-            <animation effect="slide" start="0" end="0,-80" condition="$EXP[Exp_OSD_ActiveSlides]">Conditional</animation>
-            <animation effect="slide" start="0" end="0,-80" time="300" tween="sine" easing="inout" condition="$EXP[Exp_OSD_ActiveSlides] + Window.IsVisible(DialogSeekBar.xml)">Conditional</animation>
-            <include>Animation_OSD_Seekbar_Slide</include>
 
             <include content="Furniture_Busy_Icon">
                 <param name="hasspinner">$PARAM[hasspinner]</param>
@@ -391,9 +398,15 @@
                 <param name="mainlabel">$PARAM[mainlabel]</param>
                 <param name="minilabel_id">$PARAM[minilabel_id]</param>
                 <param name="minilabel">$PARAM[minilabel]</param>
+                <param name="reposition">$PARAM[reposition]</param>
             </include>
         </definition>
     </include>
+
+    <include name="Furniture_Busy_Reposition">
+        <animation effect="slide" condition="$PARAM[reposition]" start="0" end="60,60" time="800" tween="back" easing="inout">Conditional</animation>
+    </include>
+
 
     <include name="Furniture_Busy">
         <param name="mainlabel">$LOCALIZE[20186]</param>
@@ -405,9 +418,14 @@
         <param name="spinspinner">false</param>
         <param name="spinnervisible">true</param>
         <param name="visible">true</param>
+        <param name="reposition">false</param>
         <definition>
 
             <control type="group">
+
+                <include content="Furniture_Busy_Reposition">
+                    <param name="reposition">$PARAM[reposition]</param>
+                </include>
 
                 <include content="Furniture_Busy_Base">
                     <param name="hasspinner">$PARAM[hasspinner]</param>
@@ -433,6 +451,7 @@
                     <param name="windowopen_condition">$PARAM[windowopen_condition]</param>
                     <param name="mainlabel_id">$PARAM[mainlabel_id]</param>
                     <param name="minilabel_id">$PARAM[minilabel_id]</param>
+                    <param name="reposition">$PARAM[reposition]</param>
                 </include>
             </control>
 
@@ -440,7 +459,7 @@
     </include>
 
     <include name="Furniture_Right_Sliding">
-        <animation effect="slide" start="0" end="-80" tween="back" easing="out" time="400" reversible="false" condition="Window.IsVisible(volumebar) | Window.IsVisible(DialogBusy.xml) | Window.IsVisible(1193) | [Window.IsVisible(1190) + !$EXP[Exp_InfoDialogs]]">Conditional</animation>
+        <animation effect="slide" start="0" end="-80" tween="back" easing="out" time="400" reversible="false" condition="[Window.IsVisible(volumebar) | Window.IsVisible(DialogBusy.xml) | Window.IsVisible(1193) | [Window.IsVisible(1190) + !$EXP[Exp_InfoDialogs]]]">Conditional</animation>
         <animation effect="slide" start="-80" end="0" tween="back" easing="out" time="400" reversible="false" condition="![Window.IsVisible(volumebar) | Window.IsVisible(DialogBusy.xml) | Window.IsVisible(1193) | [Window.IsVisible(1190) + !$EXP[Exp_InfoDialogs]]]">Conditional</animation>
     </include>
 
@@ -448,7 +467,9 @@
         <visible>!Player.HasMedia | !Skin.HasSetting(Furniture.EnableNowPlaying) | Window.IsActive(visualisation) | Window.IsActive(fullscreenvideo)</visible>
         <visible>!Window.IsActive(DialogNotification.xml)</visible>
         <visible>!Window.IsActive(DialogExtendedProgressBar.xml)</visible>
-        <!-- <visible>!Window.IsActive(DialogBusy.xml)</visible> -->
+        <include content="Furniture_Busy_Reposition_Fade">
+            <param name="reposition">$EXP[Exp_HasActiveDialog]</param>
+        </include>
     </include>
 
     <include name="Furniture_Clock">

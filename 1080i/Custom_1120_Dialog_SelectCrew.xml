@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<window type="dialog" id="1120">
+
+    <defaultcontrol always="true">8000</defaultcontrol>
+    <onload>SetProperty(TMDbHelper.ContextMenu,True)</onload>
+    <onunload>ClearProperty(type)</onunload>
+    <controls>
+
+        <include>Dialog_Dim_Overlay</include>
+
+        <control type="group">
+            <include>Animation_Right_Delay</include>
+
+            <include>Dimension_DialogMiniMenu</include>
+            <include content="Dialog_Foreground_Side">
+                <param name="dialog_size">Dimension_DialogMiniMenu</param>
+                <param name="lines_right">0</param>
+                <param name="topline">true</param>
+                <param name="subline">true</param>
+            </include>
+
+            <control type="group">
+                <!-- Header -->
+                <include content="Dialog_Head" condition="String.IsEqual(Window.Property(type),Writer)">
+                    <param name="label">$LOCALIZE[20417]</param>
+                </include>
+                <include content="Dialog_Head" condition="String.IsEqual(Window.Property(type),Director)">
+                    <param name="label">$LOCALIZE[20339]</param>
+                </include>
+                <include>Dialog_Head_CloseButton</include>
+
+                <!-- Content -->
+                <control type="group">
+                    <include>Dimension_Dialog_Body</include>
+
+                    <control type="group" id="7000">
+                        <include>Dimension_Dialog_Body_Group</include>
+
+                        <include content="List_DialogSelect">
+                            <param name="id">8000</param>
+                            <param name="textcolor">dialog_fg</param>
+                            <param name="itemlayout_include">Layout_MediaList</param>
+                            <param name="control">list</param>
+                            <param name="include_detailed_labels">true</param>
+                            <orientation>vertical</orientation>
+                            <onleft>Close</onleft>
+                            <oninfo>Close</oninfo>
+                            <right>-20</right>
+                            <!-- <onclick>Dialog.Close(1120)</onclick> -->
+                            <include content="DialogInfo_Details_Action">
+                                <param name="header">$INFO[Container.ListItem.Label]</param>
+                                <param name="poster">$INFO[Container.ListItem.Icon]</param>
+                                <param name="path">plugin://plugin.video.themoviedb.helper/?info=details&amp;tmdb_type=$INFO[Container.ListItem.Property(tmdb_type)]&amp;tmdb_id=$INFO[Container.ListItem.Property(tmdb_id)]</param>
+                                <param name="tmdb_id">$INFO[Container.ListItem.Property(tmdb_id)]</param>
+                                <param name="tmdb_type">$INFO[Container.ListItem.Property(tmdb_type)]</param>
+                            </include>
+                            <content>
+                                <!-- Writer / Composer -->
+                                <include content="DialogInfo_CrewItems" condition="String.IsEqual(Window.Property(type),Writer)">
+                                    <param name="type">Writer</param>
+                                </include>
+                                <include content="DialogInfo_CrewItems" condition="String.IsEqual(Window.Property(type),Writer)">
+                                    <param name="type">Sound_Department</param>
+                                    <param name="include_filter">true</param>
+                                    <param name="filter_value">Composer</param>
+                                    <param name="filter_key">Role</param>
+                                </include>
+
+                                <!-- Director / Producer -->
+                                <include content="DialogInfo_CrewItems" condition="String.IsEqual(Window.Property(type),Director)">
+                                    <param name="type">Director</param>
+                                </include>
+                                <include content="DialogInfo_CrewItems" condition="String.IsEqual(Window.Property(type),Director)">
+                                    <param name="type">Photography</param>
+                                    <param name="include_filter">true</param>
+                                    <param name="filter_value">Director</param>
+                                    <param name="filter_key">Role</param>
+                                </include>
+                                <include content="DialogInfo_CrewItems" condition="String.IsEqual(Window.Property(type),Director)">
+                                    <param name="type">Producer</param>
+                                    <param name="include_filter">true</param>
+                                    <param name="filter_value">Producer</param>
+                                    <param name="filter_key">Role</param>
+                                </include>
+                            </content>
+                        </include>
+
+                    </control>
+                </control>
+            </control>
+
+        </control>
+
+    </controls>
+</window>

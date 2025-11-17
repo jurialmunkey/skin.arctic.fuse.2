@@ -33,129 +33,130 @@
         </control>
 
         <control type="group">
-            <include>Dimension_DialogWideMenu</include>
             <include>Animation_Right_Delay</include>
+            <control type="group">
+                <include>Dimension_DialogWideMenu</include>
 
-            <include content="Dialog_Foreground_Side">
-                <param name="dialog_size">Dimension_DialogWideMenu</param>
-                <param name="lines_right">dialog_buttongroup_w</param>
+
+                <include content="Dialog_Foreground_Side">
+                    <param name="dialog_size">Dimension_DialogWideMenu</param>
+                    <param name="subline">false</param>
+                </include>
+
+                <control type="image">
+                    <bottom>160</bottom>
+                    <height>1</height>
+                    <left>80</left>
+                    <right>80</right>
+                    <texture colordiffuse="$VAR[Color_DialogBorder]">common/white.png</texture>
+                    <visible>Control.IsVisible(450)</visible>
+                </control>
+                <control type="image">
+                    <bottom>40</bottom>
+                    <height>1</height>
+                    <left>80</left>
+                    <right>80</right>
+                    <texture colordiffuse="$VAR[Color_DialogBorder]">common/white.png</texture>
+                    <visible>!Control.IsVisible(450)</visible>
+                </control>
+
+                <control type="group">
+
+                    <!-- Header -->
+                    <include content="Dialog_Head">
+                        <param name="id">411</param>
+                    </include>
+                    <include content="Dialog_Head">
+                        <param name="id">9901</param>
+                        <param name="visible">String.IsEmpty(Control.GetLabel(411))</param>
+                        <param name="label">$LOCALIZE[424]</param>
+                    </include>
+                    <include content="Dialog_Manage_Head_Button">
+                        <param name="onclick">SetFocus(9898)</param>
+                    </include>
+
+                    <!-- Content -->
+                    <control type="group">
+                        <include>Dimension_Dialog_Body</include>
+                        <control type="group">
+                            <include>Dimension_Dialog_Body_Group</include>
+                            <include content="List_DialogSelect">
+                                <param name="id">450</param>
+                                <param name="detailed">True</param>
+                                <param name="item_height">90</param>
+                                <param name="textcolor">dialog_fg</param>
+                                <pagecontrol>61</pagecontrol>
+                                <onright>61</onright>
+                                <bottom>80</bottom>
+                                <ondown>9000</ondown>
+                                <onup>9000</onup>
+                            </include>
+
+                            <include content="List_IconBrowser">
+                                <param name="id">451</param>
+                                <param name="item_h">160</param>
+                                <param name="itemlayout_h">200</param>
+                                <param name="item_w">180</param>
+                                <param name="itemlayout_w">220</param>
+                                <param name="detailed">true</param>
+                                <param name="textcolor">dialog_fg</param>
+                                <top>-20</top>
+                                <bottom>-20</bottom>
+                                <left>-20</left>
+                                <right>-20</right>
+                                <onright>62</onright>
+                                <pagecontrol>62</pagecontrol>
+                            </include>
+                        </control>
+                        <include content="Dialog_Scrollbar">
+                            <param name="id">61</param>
+                            <visible>Control.IsVisible(450)</visible>
+                            <onleft>450</onleft>
+                            <onright>9898</onright>
+                            <bottom>100</bottom>
+                        </include>
+                        <include content="Dialog_Scrollbar">
+                            <param name="id">62</param>
+                            <visible>Control.IsVisible(451)</visible>
+                            <onleft>451</onleft>
+                            <onright>9898</onright>
+                        </include>
+                    </control>
+                    <control type="group">
+                        <visible>Control.IsVisible(450)</visible>
+                        <include content="Dialog_Tray_Grouplist">
+                            <param name="onup">noop</param>
+                            <onup>SetFocus(450,99999,absolute)</onup>
+                            <ondown>SetFocus(450,0,absolute)</ondown>
+                            <include content="Dialog_Button_Expanded">
+                                <param name="id">9001</param>
+                                <param name="icon">special://skin/extras/icons/circle-check.png</param>
+                                <param name="label">$LOCALIZE[31032]</param>
+                                <visible>Control.IsEnabled(413) + Control.IsVisible(413) + Control.IsVisible(450)</visible>
+                                <onclick>SendClick(413)</onclick>
+                            </include>
+                            <include content="Dialog_Button_Expanded">
+                                <param name="id">9002</param>
+                                <param name="icon">special://skin/extras/icons/circle-xmark.png</param>
+                                <param name="label">$LOCALIZE[222]</param>
+                                <visible>Control.IsEnabled(414) + Control.IsVisible(414)</visible>
+                                <onclick>SendClick(414)</onclick>
+                            </include>
+                        </include>
+                    </control>
+                </control>
+            </control>
+
+            <include content="Object_Hidden_Button">
+                <param name="id">64</param>
+                <onfocus condition="Control.IsVisible(450)">SetFocus(450)</onfocus>
+                <onfocus condition="Control.IsVisible(451)">SetFocus(451)</onfocus>
             </include>
 
-            <control type="group">
-                <right>dialog_buttongroup_w</right>
-
-                <!-- Header -->
-                <include content="Dialog_Head">
-                    <param name="id">411</param>
-                </include>
-                <include content="Dialog_Head">
-                    <param name="id">9901</param>
-                    <param name="visible">String.IsEmpty(Control.GetLabel(411))</param>
-                    <param name="label">$LOCALIZE[424]</param>
-                </include>
-                <include>Dialog_Head_CloseButton</include>
-
-                <!-- Content -->
-                <control type="group">
-                    <include>Dimension_Dialog_Body</include>
-                    <control type="group">
-                        <include>Dimension_Dialog_Body_Group</include>
-                        <include content="List_DialogSelect">
-                            <param name="id">450</param>
-                            <param name="detailed">True</param>
-                            <param name="item_height">100</param>
-                            <param name="textcolor">dialog_fg</param>
-                            <pagecontrol>61</pagecontrol>
-                            <onright>61</onright>
-                        </include>
-
-                        <include content="List_IconBrowser">
-                            <param name="id">451</param>
-                            <param name="item_h">160</param>
-                            <param name="itemlayout_h">200</param>
-                            <param name="item_w">150</param>
-                            <param name="itemlayout_w">190</param>
-                            <param name="detailed">true</param>
-                            <param name="textcolor">dialog_fg</param>
-                            <top>-20</top>
-                            <bottom>-20</bottom>
-                            <left>-20</left>
-                            <right>-20</right>
-                            <onright>62</onright>
-                            <pagecontrol>62</pagecontrol>
-                        </include>
-                    </control>
-                    <include content="Dialog_Scrollbar">
-                        <param name="id">61</param>
-                        <visible>Control.IsVisible(450)</visible>
-                        <onleft>450</onleft>
-                        <onright>9000</onright>
-                    </include>
-                    <include content="Dialog_Scrollbar">
-                        <param name="id">62</param>
-                        <visible>Control.IsVisible(451)</visible>
-                        <onleft>451</onleft>
-                        <onright>9000</onright>
-                    </include>
-
-
-                </control>
-            </control>
-
-            <!-- Side Buttons -->
-            <control type="group">
-                <include content="Dialog_Side_Panel_Group_Def">
-                    <param name="width">dialog_buttongroup_w</param>
-                </include>
-                <control type="group">
-                    <include>Dimension_Dialog_Body</include>
-                    <control type="grouplist" id="9000">
-                        <include>Dialog_Side_Grouplist_Def</include>
-                        <onleft condition="Control.IsVisible(450)">61</onleft>
-                        <onleft condition="Control.IsVisible(451)">62</onleft>
-                        <include content="DialogInfo_Button">
-                            <param name="include_hintlabel">true</param>
-                            <param name="id">9001</param>
-                            <param name="groupid">9101</param>
-                            <param name="label">$LOCALIZE[186]</param>
-                            <param name="icon">special://skin/extras/icons/circle-check.png</param>
-                            <param name="visible">Control.IsEnabled(413) + Control.IsVisible(413) + Control.IsVisible(450)</param>
-                            <onclick>SendClick(413)</onclick>
-                        </include>
-                        <include content="DialogInfo_Button">
-                            <param name="include_hintlabel">true</param>
-                            <param name="id">9002</param>
-                            <param name="groupid">9102</param>
-                            <param name="label">$LOCALIZE[222]</param>
-                            <param name="icon">special://skin/extras/icons/circle-xmark.png</param>
-                            <param name="visible">Control.IsEnabled(414) + Control.IsVisible(414)</param>
-                            <onclick>SendClick(414)</onclick>
-                        </include>
-                        <include content="DialogInfo_Button">
-                            <param name="include_hintlabel">true</param>
-                            <param name="id">9003</param>
-                            <param name="groupid">9103</param>
-                            <param name="label">$LOCALIZE[119]</param>
-                            <param name="icon">special://skin/extras/icons/circle-plus.png</param>
-                            <param name="visible">Control.IsEnabled(415) + Control.IsVisible(415)</param>
-                            <onclick>SendClick(415)</onclick>
-                        </include>
-                        <include content="DialogInfo_Button">
-                            <param name="include_hintlabel">true</param>
-                            <param name="id">9004</param>
-                            <param name="groupid">9104</param>
-                            <param name="label">$LOCALIZE[1000]</param>
-                            <param name="icon">special://skin/extras/icons/image.png</param>
-                            <param name="visible">Control.IsVisible(451) + [String.IsEqual(Control.GetLabel(411),$LOCALIZE[13511]) | String.IsEqual(Control.GetLabel(411),$LOCALIZE[20437])]</param>
-                            <param name="control">radiobutton</param>
-                            <param name="radiocross">true</param>
-                            <selected>!Skin.HasSetting(Dialog.DisableArtworkPreview)</selected>
-                            <onclick>Skin.ToggleSetting(Dialog.DisableArtworkPreview)</onclick>
-                        </include>
-                    </control>
-                </control>
-            </control>
-
+            <include content="Dialog_Manage">
+                <param name="onback">64</param>
+                <param name="include">Items_FileBrowser</param>
+            </include>
         </control>
     </controls>
 </window>
