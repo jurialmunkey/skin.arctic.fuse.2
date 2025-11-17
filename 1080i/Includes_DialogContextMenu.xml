@@ -22,47 +22,46 @@
                 <control type="group">
                     <include>Dimension_Dialog_Body_Group</include>
 
-                    <control type="group">
+                    <include content="Dialog_Outline_InnerBox">
                         <height>120</height>
 
-                        <control type="image">
+                        <!-- <control type="image">
                             <texture colordiffuse="$VAR[Color_DialogBorder]" border="40">common/menu.png</texture>
-                        </control>
-
+                        </control> -->
                         <control type="group">
-
-                            <control type="group">
-                                <left>40</left>
-                                <height>80</height>
-                                <centertop>50%</centertop>
-                                <right>140</right>
-                                <control type="label">
-                                    <height>40</height>
-                                    <textcolor>dialog_fg_70</textcolor>
-                                    <label>$VAR[Label_ContextMenu_Name]</label>
-                                    <font>font_main_bold</font>
-                                </control>
-                                <control type="label">
-                                    <bottom>0</bottom>
-                                    <height>40</height>
-                                    <textcolor>dialog_fg_70</textcolor>
-                                    <label>$VAR[Label_ContextMenu_Type]</label>
-                                    <font>font_main</font>
-                                </control>
-                            </control>
-
+                            <visible>String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.base_banner))</visible>
                             <control type="image">
-                                <texture diffuse="diffuse/button_w120_h120.png">$VAR[Image_ContextImage]</texture>
+                                <texture diffuse="diffuse/banner_w560_h100.png" colordiffuse="main_logo">$INFO[Window(Home).Property(TMDbHelper.ListItem.base_fanart)]</texture>
                                 <aspectratio scalediffuse="false">scale</aspectratio>
-                                <width>100</width>
-                                <height>100</height>
-                                <right>10</right>
-                                <top>10</top>
+                                <visible>!String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.base_fanart))</visible>
                             </control>
-
+                            <control type="image">
+                                <texture>$INFO[Window(Home).Property(TMDbHelper.ListItem.base_clearlogo)]</texture>
+                                <aspectratio>keep</aspectratio>
+                                <include content="Dimension_Padding">
+                                    <param name="pad">10</param>
+                                </include>
+                                <visible>!String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.base_clearlogo))</visible>
+                            </control>
+                            <control type="textbox">
+                                <textcolor>panel_fg_90</textcolor>
+                                <shadowcolor>panel_bg_70</shadowcolor>
+                                <label>$VAR[Label_ContextMenu_Name]</label>
+                                <font>font_midi_bold</font>
+                                <align>center</align>
+                                <aligny>center</aligny>
+                                <include content="Dimension_Padding">
+                                    <param name="pad">15</param>
+                                </include>
+                                <visible>String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.base_clearlogo))</visible>
+                            </control>
                         </control>
-
-                    </control>
+                        <control type="image">
+                            <texture diffuse="diffuse/banner_w560_h100.png">$INFO[Window(Home).Property(TMDbHelper.ListItem.base_banner)]</texture>
+                            <aspectratio scalediffuse="false">scale</aspectratio>
+                            <visible>!String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.base_banner))</visible>
+                        </control>
+                    </include>
 
 
                     <control type="group">
