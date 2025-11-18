@@ -62,11 +62,12 @@
                                     <param name="itemlayout_w">335</param>
                                     <param name="itemlayout_h">480</param>
                                     <param name="itemlayout_include">Layout_VersionPoster</param>
-                                    <param name="icon">$INFO[Window.Property(Poster)]</param>
+                                    <param name="icon">$VAR[Image_VideoVersion_Poster]</param>
                                     <movement>1</movement>
                                     <param name="offset_x">40</param>
                                     <focusposition>1</focusposition>
                                     <pagecontrol>$PARAM[scrollbar_id]</pagecontrol>
+                                    <onup>$PARAM[onup]</onup>
                                     <ondown>$PARAM[scrollbar_id]</ondown>
                                     <animation effect="slide" end="-167.5" condition="Integer.IsEqual(Container($PARAM[id]).NumItems,2)">Conditional</animation>
                                     <include>$PARAM[include_content]</include>
@@ -177,7 +178,17 @@
             <param name="id">50</param>
             <param name="include_closebutton">Dialog_Manage_Head_Button</param>
             <param name="label">$INFO[Control.GetLabel(2)]</param>
+            <param name="onup">9898</param>
         </include>
-        <!-- <include>Items_DialogVideoManager</include> -->
+
+
+        <control type="group">
+            <include>Dimension_DialogVersionSelect</include>
+            <include>Animation_SlideIn_Dialog</include>
+            <include content="Dialog_Manage">
+                <param name="onback">50</param>
+                <param name="include">Items_DialogVideoManager</param>
+            </include>
+        </control>
     </include>
 </includes>
