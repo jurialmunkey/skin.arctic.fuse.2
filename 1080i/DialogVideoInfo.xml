@@ -32,9 +32,8 @@
             <onup>61</onup>
             <onfocus>ClearProperty(Background.DialogInfo.HideArtwork,Home)</onfocus>
             <onclick condition="String.IsEqual(ListItem.Property(tmdb_type),person)">SetFocus(61)</onclick>
-            <onclick condition="!String.IsEqual(ListItem.Property(tmdb_type),person) + ListItem.HasVideoVersions">SetFocus(8908)</onclick>
-            <onclick condition="!String.IsEqual(ListItem.Property(tmdb_type),person) + !ListItem.HasVideoVersions">SendClick(8)</onclick>
-            <onclick condition="!String.IsEqual(ListItem.Property(tmdb_type),person) + !ListItem.HasVideoVersions">RunScript(plugin.video.themoviedb.helper,close_dialog=1190)</onclick>
+            <onclick condition="!String.IsEqual(ListItem.Property(tmdb_type),person)">SendClick(8)</onclick>
+            <onclick condition="!String.IsEqual(ListItem.Property(tmdb_type),person)">RunScript(plugin.video.themoviedb.helper,close_dialog=1190)</onclick>
         </control>
 
         <include>Defs_Background_Loader</include>
@@ -88,14 +87,6 @@
 
         <include>DialogInfo_Furniture</include>
         <include>DialogInfo_PlotBox</include>
-
-        <include content="DialogSelect_VideoVersions_Main" condition="ListItem.HasVideoVersions">
-            <param name="id">8908</param>
-            <param name="scrollbar_id">8961</param>
-            <param name="include_content">DialogInfo_VideoVersions_Content</param>
-            <param name="visible">[Control.HasFocus(8908) | Control.HasFocus(8961)]</param>
-            <param name="label">$LOCALIZE[40000]</param>
-        </include>
 
         <include content="Object_Hidden_Button">
             <param name="id">6</param>
