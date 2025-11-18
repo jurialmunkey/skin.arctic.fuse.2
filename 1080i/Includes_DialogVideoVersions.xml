@@ -2,10 +2,11 @@
 <includes>
 
 
-    <include name="DialogVideoVersions_Main">
+    <include name="DialogVideoVersions">
         <param name="id">6</param>
         <param name="scrollbar_id">61</param>
         <param name="include_content">Items_Null</param>
+        <param name="include_closebutton">Dialog_Head_CloseButton</param>
         <param name="visible">true</param>
         <definition>
             <include content="Dialog_Dim_Overlay">
@@ -21,6 +22,7 @@
                         <param name="dialog_size">Dimension_DialogVersionSelect</param>
                     </include>
                     <include>Dialog_Overlay_Tray</include>
+                    <include>$PARAM[include_closebutton]</include>
                     <control type="group">
                         <include>Dialog_Group</include>
                         <include content="Dialog_Head">
@@ -60,7 +62,7 @@
                                     <param name="itemlayout_w">335</param>
                                     <param name="itemlayout_h">480</param>
                                     <param name="itemlayout_include">Layout_VersionPoster</param>
-                                    <param name="icon">$INFO[ListITem.Art(poster)]</param>
+                                    <param name="icon">$INFO[Window.Property(Poster)]</param>
                                     <movement>1</movement>
                                     <param name="offset_x">40</param>
                                     <focusposition>1</focusposition>
@@ -161,15 +163,21 @@
     </include>
 
     <include name="DialogVideoVersions_DialogSelect">
-        <include>DialogVideoVersions_Main</include>
+        <include>DialogVideoVersions</include>
         <include content="Object_Hidden_List">
             <param name="id">3</param>
         </include>
     </include>
 
     <include name="DialogVideoVersions_DialogVideoManager">
-        <include content="DialogVideoVersions_Main">
-            <param name="id">50</param>
+        <include content="Object_Hidden_Button">
+            <param name="id">2</param>
         </include>
+        <include content="DialogVideoVersions">
+            <param name="id">50</param>
+            <param name="include_closebutton">Dialog_Manage_Head_Button</param>
+            <param name="label">$INFO[Control.GetLabel(2)]</param>
+        </include>
+        <!-- <include>Items_DialogVideoManager</include> -->
     </include>
 </includes>
