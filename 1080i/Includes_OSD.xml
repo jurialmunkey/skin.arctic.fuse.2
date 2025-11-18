@@ -55,36 +55,57 @@
     </include>
 
     <include name="OSD_CastInfo_HintText">
-        <param name="centerbottom">20</param>
-        <param name="left">view_pad</param>
+        <param name="centerbottom">40</param>
+        <param name="left">20</param>
         <param name="fade_in">true</param>
         <param name="fade_out">true</param>
         <param name="arrow_direction">down</param>
         <definition>
             <control type="group">
-                <visible>$PARAM[visible]</visible>
-                <include content="Animation_Fade_In" condition="$PARAM[fade_in]">
-                    <param name="type">Visible</param>
-                </include>
-                <include content="Animation_Fade_Out" condition="$PARAM[fade_out]">
-                    <param name="type">Hidden</param>
-                </include>
                 <left>$PARAM[left]</left>
                 <centerbottom>$PARAM[centerbottom]</centerbottom>
                 <height>40</height>
-                <control type="image">
-                    <centerleft>10</centerleft>
-                    <width>40</width>
-                    <height>40</height>
+                <visible>$PARAM[visible]</visible>
+                <include content="Animation_Fade_In" condition="$PARAM[fade_in]">
+                    <param name="type">Visible</param>
+                    <param name="reversible">true</param>
+                </include>
+                <include content="Animation_Fade_Out" condition="$PARAM[fade_out]">
+                    <param name="type">Hidden</param>
+                    <param name="reversible">true</param>
+                </include>
+                <control type="group">
+                    <description>Busy animation</description>
+                    <width>50</width>
+                    <height>50</height>
+                    <centerleft>20</centerleft>
                     <centertop>50%</centertop>
-                    <texture colordiffuse="main_fg_30">special://skin/extras/icons/arrow-$PARAM[arrow_direction].png</texture>
+                    <control type="group">
+                        <include content="Info_FooterItemIcon">
+                            <param name="icon">special://skin/extras/icons/arrow-$PARAM[arrow_direction].png</param>
+                            <param name="centered">true</param>
+                            <param name="size">50</param>
+                        </include>
+                    </control>
                 </control>
-                <control type="label">
-                    <textcolor>main_fg_30</textcolor>
-                    <left>40</left>
-                    <font>font_tiny</font>
-                    <align>left</align>
-                    <label>$PARAM[label]</label>
+                <control type="grouplist">
+                    <left>60</left>
+                    <orientation>horizontal</orientation>
+                    <itemgap>10</itemgap>
+                    <control type="label">
+                        <textcolor>main_fg_90</textcolor>
+                        <shadowcolor>main_bg_30</shadowcolor>
+                        <width>auto</width>
+                        <font>font_tiny_bold</font>
+                        <label>Press $PARAM[arrow_direction]</label>
+                    </control>
+                    <control type="label">
+                        <textcolor>main_fg_70</textcolor>
+                        <shadowcolor>main_bg_30</shadowcolor>
+                        <width>auto</width>
+                        <font>font_tiny</font>
+                        <label>$PARAM[label]</label>
+                    </control>
                 </control>
             </control>
         </definition>
