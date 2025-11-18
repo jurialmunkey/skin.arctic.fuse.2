@@ -64,37 +64,30 @@
                                     <ondown>9000</ondown>
                                     <textwidth>320</textwidth>
                                 </include>
-                                <control type="button" id="20">
+                                <control type="grouplist" id="9001">
+                                    <right>20</right>
+                                    <orientation>horizontal</orientation>
+                                    <align>right</align>
+                                    <usecontrolcoords>true</usecontrolcoords>
                                     <onleft>17</onleft>
+                                    <onright>9898</onright>
                                     <ondown>9000</ondown>
                                     <onup>16</onup>
-                                    <width>32</width>
-                                    <height>32</height>
-                                    <centertop>50%</centertop>
-                                    <right>40</right>
-                                    <hitrect x="-24" y="-24" w="80" h="80" />
-                                    <texturenofocus colordiffuse="$VAR[ColorSelected_30]">buttons/browse.png</texturenofocus>
-                                    <texturefocus colordiffuse="$VAR[ColorSelected]">buttons/browse.png</texturefocus>
-                                    <font />
-                                    <textcolor>00ffffff</textcolor>
-                                    <selectedcolor>00ffffff</selectedcolor>
-                                    <focusedcolor>00ffffff</focusedcolor>
-                                    <visible>Control.IsEnabled(20)</visible>
-                                </control>
-                                <control type="group" id="1000">
-                                    <animation effect="slide" end="60" condition="!Control.IsEnabled(20)">Conditional</animation>
-                                    <width>32</width>
-                                    <height>32</height>
-                                    <centertop>50%</centertop>
-                                    <right>100</right>
-                                    <control type="image">
-                                        <texture colordiffuse="$VAR[ColorSelected_30]">buttons/editname.png</texture>
-                                        <visible>!Control.HasFocus(17)</visible>
-                                    </control>
-                                    <control type="image">
-                                        <texture colordiffuse="$VAR[ColorSelected]">buttons/editname.png</texture>
-                                        <visible>Control.HasFocus(17)</visible>
-                                    </control>
+                                    <include content="Settings_EditButton">
+                                        <param name="id">17</param>
+                                        <param name="groupid">9017</param>
+                                        <param name="icon">special://skin/extras/icons/pencil.png</param>
+                                        <param name="hasfocus">[ControlGroup(9001).HasFocus() | Control.HasFocus(17)]</param>
+                                        <param name="hasbutton">false</param>
+                                    </include>
+
+                                    <include content="Settings_EditButton">
+                                        <param name="id">20</param>
+                                        <param name="groupid">9020</param>
+                                        <param name="icon">special://skin/extras/icons/search.png</param>
+                                        <param name="hasfocus">[ControlGroup(9001).HasFocus() | Control.HasFocus(17)]</param>
+                                    </include>
+
                                 </control>
                             </control>
                         </control>
@@ -102,7 +95,8 @@
                 </control>
                 <!-- Buttons -->
                 <include content="Dialog_Tray_Grouplist">
-                    <param name="onup">20</param>
+                    <param name="onup">noop</param>
+                    <onup>20</onup>
                     <include content="Dialog_Button_Expanded">
                         <param name="id">18</param>
                         <param name="builtin">true</param>

@@ -43,8 +43,6 @@
             <control type="group">
                 <include>Dimension_Furniture_Gutters</include>
                 <control type="group">
-                    <include>Furniture_Right_Visible</include>
-                    <include>Furniture_Right_Sliding</include>
                     <include condition="!Skin.HasSetting(Furniture.EnableClock) + !Skin.HasSetting(Furniture.DisableStudio)">Info_Bottom_Right</include>
                 </control>
                 <control type="group">
@@ -57,121 +55,6 @@
                 </control>
             </control>
         </control>
-    </include>
-
-    <include name="Furniture_NowPlaying">
-        <param name="title_w">360</param>
-        <param name="sublabel_music_w">235</param>
-        <param name="sublabel_video_w">182</param>
-        <param name="textcolor">main_fg_90</param>
-        <param name="textcolor_sublabel">main_fg_70</param>
-        <definition>
-            <control type="group">
-                <include content="Furniture_Busy_Reposition">
-                    <param name="reposition">$PARAM[reposition]</param>
-                </include>
-                <include content="Animation_SlideIn_Dialog">
-                    <param name="visible_condition">!$EXP[Exp_Notification_IsActive]</param>
-                    <param name="windowopen_condition">false</param>
-                    <param name="posy">48</param>
-                </include>
-                <control type="group">
-                    <visible>!Window.IsActive(visualisation)</visible>
-                    <visible>!Window.IsActive(fullscreenvideo)</visible>
-                    <right>-25</right>
-                    <height>80</height>
-                    <centertop>50%</centertop>
-                    <control type="group">
-                        <centertop>50%</centertop>
-                        <height>50</height>
-                        <width>50</width>
-                        <right>20</right>
-                        <include content="Info_FooterItemIcon">
-                            <param name="icon">$VAR[Image_NowPlaying_PlayPause]</param>
-                            <param name="centered">true</param>
-                            <param name="size">50</param>
-                        </include>
-                        <control type="group">
-                            <centerleft>50%</centerleft>
-                            <centertop>50%</centertop>
-                            <height>100</height>
-                            <width>100</width>
-                            <visible>!Window.IsVisible(DialogVolumeBar.xml)</visible>
-                            <visible>!Window.IsVisible(DialogBusy.xml)</visible>
-                            <control type="image">
-                                <bordersize>-4</bordersize>
-                                <texture colordiffuse="$VAR[ColorHighlight]" flipx="true" flipy="true">$INFO[Player.Progress,progress/circle/p,.png]</texture>
-                                <aspectratio align="center" aligny="center">keep</aspectratio>
-                            </control>
-                            <control type="image">
-                                <bordersize>-4</bordersize>
-                                <texture colordiffuse="$VAR[ColorGradient]" flipx="true" flipy="true">$INFO[Player.Progress,progress/circle/p,.png]</texture>
-                                <animation effect="fade" end="66" condition="true">Conditional</animation>
-                                <aspectratio align="center" aligny="center">keep</aspectratio>
-                                <include content="Defs_Progress_Colorfade">
-                                    <param name="id">933</param>
-                                </include>
-                            </control>
-                        </control>
-                        <control type="progress" id="933">
-                            <height>1</height>
-                            <width>1</width>
-                            <left>-1000</left>
-                            <texturebg />
-                            <lefttexture />
-                            <midtexture />
-                            <righttexture />
-                            <info>Player.Progress</info>
-                            <visible>false</visible>
-                        </control>
-                    </control>
-                    <control type="group">
-                        <height>80</height>
-                        <centertop>50%</centertop>
-                        <include content="Furniture_Busy_Reposition_Fade">
-                            <param name="reposition">$PARAM[reposition]</param>
-                        </include>
-                        <control type="group">
-                            <right>100</right>
-                            <control type="grouplist">
-                                <orientation>horizontal</orientation>
-                                <align>right</align>
-                                <include content="Object_InfoCircle_Text_Top">
-                                    <width max="$PARAM[title_w]">auto</width>
-                                    <label>$VAR[Label_NowPlayingTitle]</label>
-                                    <shadowcolor>$PARAM[shadowcolor]</shadowcolor>
-                                    <font>font_main_bold</font>
-                                </include>
-                            </control>
-                            <control type="grouplist">
-                                <orientation>horizontal</orientation>
-                                <align>right</align>
-                                <itemgap>7</itemgap>
-                                <visible>!Player.HasVideo</visible>
-                                <include content="Object_InfoCircle_Text_Sub">
-                                    <label>$VAR[Label_NowPlayingSubLabel]</label>
-                                    <width max="$PARAM[sublabel_music_w]">auto</width>
-                                    <textcolor>$PARAM[textcolor_sublabel]</textcolor>
-                                    <shadowcolor>$PARAM[shadowcolor_sublabel]</shadowcolor>
-                                </include>
-                            </control>
-                            <control type="grouplist">
-                                <orientation>horizontal</orientation>
-                                <align>right</align>
-                                <itemgap>7</itemgap>
-                                <visible>Player.HasVideo</visible>
-                                <include content="Object_InfoCircle_Text_Sub">
-                                    <label>$VAR[Label_NowPlayingSubLabel]</label>
-                                    <width max="$PARAM[sublabel_video_w]">auto</width>
-                                    <textcolor>$PARAM[textcolor_sublabel]</textcolor>
-                                    <shadowcolor>$PARAM[shadowcolor_sublabel]</shadowcolor>
-                                </include>
-                            </control>
-                        </control>
-                    </control>
-                </control>
-            </control>
-        </definition>
     </include>
 
     <include name="Furniture_Bottom_Left">
@@ -303,41 +186,38 @@
         </definition>
     </include>
 
-    <include name="Furniture_Busy_Reposition_Fade">
-        <include content="Animation_Fade_In">
-            <param name="condition">![$PARAM[reposition]]</param>
-            <param name="delay">400</param>
-        </include>
-        <include content="Animation_Fade_Out">
-            <param name="condition">$PARAM[reposition]</param>
-        </include>
-    </include>
-
-
     <include name="Furniture_Busy_FloatingText">
-        <param name="reposition">false</param>
+        <param name="max">320</param>
+        <param name="percentage_visible">false</param>
+        <param name="percentage_label" />
         <definition>
-            <control type="group">
+            <control type="grouplist">
                 <left>20</left>
-                <right>100</right>
-                <include content="Furniture_Busy_Reposition_Fade">
-                    <param name="reposition">$PARAM[reposition]</param>
-                </include>
+                <right>80</right>
+                <orientation>horizontal</orientation>
+                <align>right</align>
+                <itemgap>10</itemgap>
                 <control type="label" id="$PARAM[mainlabel_id]">
-                    <include>Dimension_Object_InfoCircle_Text_Top</include>
-                    <font>font_main_bold</font>
-                    <align>right</align>
+                    <font>font_tiny_bold</font>
+                    <width max="$PARAM[max]">auto</width>
                     <label>$PARAM[mainlabel]</label>
                     <textcolor>main_fg_100</textcolor>
                     <shadowcolor>main_bg_30</shadowcolor>
                 </control>
                 <control type="label" id="$PARAM[minilabel_id]">
-                    <include>Dimension_Object_InfoCircle_Text_Sub</include>
                     <font>font_tiny</font>
-                    <align>right</align>
+                    <width max="$PARAM[max]">auto</width>
                     <label>$PARAM[minilabel]</label>
                     <shadowcolor>main_bg_30</shadowcolor>
                     <textcolor>main_fg_70</textcolor>
+                </control>
+                <control type="label">
+                    <font>font_tiny</font>
+                    <width max="$PARAM[max]">auto</width>
+                    <label>$PARAM[percentage_label]</label>
+                    <shadowcolor>main_bg_30</shadowcolor>
+                    <textcolor>main_fg_70</textcolor>
+                    <visible>$PARAM[percentage_visible]</visible>
                 </control>
             </control>
         </definition>
@@ -398,15 +278,11 @@
                 <param name="mainlabel">$PARAM[mainlabel]</param>
                 <param name="minilabel_id">$PARAM[minilabel_id]</param>
                 <param name="minilabel">$PARAM[minilabel]</param>
-                <param name="reposition">$PARAM[reposition]</param>
+                <param name="percentage_label">$PARAM[percentage_label]</param>
+                <param name="percentage_visible">$PARAM[percentage_visible]</param>
             </include>
         </definition>
     </include>
-
-    <include name="Furniture_Busy_Reposition">
-        <animation effect="slide" condition="$PARAM[reposition]" start="0" end="60,60" time="800" tween="back" easing="inout">Conditional</animation>
-    </include>
-
 
     <include name="Furniture_Busy">
         <param name="mainlabel">$LOCALIZE[20186]</param>
@@ -418,14 +294,9 @@
         <param name="spinspinner">false</param>
         <param name="spinnervisible">true</param>
         <param name="visible">true</param>
-        <param name="reposition">false</param>
         <definition>
 
             <control type="group">
-
-                <include content="Furniture_Busy_Reposition">
-                    <param name="reposition">$PARAM[reposition]</param>
-                </include>
 
                 <include content="Furniture_Busy_Base">
                     <param name="hasspinner">$PARAM[hasspinner]</param>
@@ -451,26 +322,14 @@
                     <param name="windowopen_condition">$PARAM[windowopen_condition]</param>
                     <param name="mainlabel_id">$PARAM[mainlabel_id]</param>
                     <param name="minilabel_id">$PARAM[minilabel_id]</param>
-                    <param name="reposition">$PARAM[reposition]</param>
+                    <param name="percentage_label">$PARAM[percentage_label]</param>
+                    <param name="percentage_visible">$PARAM[percentage_visible]</param>
                 </include>
             </control>
 
         </definition>
     </include>
 
-    <include name="Furniture_Right_Sliding">
-        <animation effect="slide" start="0" end="-80" tween="back" easing="out" time="400" reversible="false" condition="[Window.IsVisible(volumebar) | Window.IsVisible(DialogBusy.xml) | Window.IsVisible(1193) | [Window.IsVisible(1190) + !$EXP[Exp_InfoDialogs]]]">Conditional</animation>
-        <animation effect="slide" start="-80" end="0" tween="back" easing="out" time="400" reversible="false" condition="![Window.IsVisible(volumebar) | Window.IsVisible(DialogBusy.xml) | Window.IsVisible(1193) | [Window.IsVisible(1190) + !$EXP[Exp_InfoDialogs]]]">Conditional</animation>
-    </include>
-
-    <include name="Furniture_Right_Visible">
-        <visible>!Player.HasMedia | !Skin.HasSetting(Furniture.EnableNowPlaying) | Window.IsActive(visualisation) | Window.IsActive(fullscreenvideo)</visible>
-        <visible>!Window.IsActive(DialogNotification.xml)</visible>
-        <visible>!Window.IsActive(DialogExtendedProgressBar.xml)</visible>
-        <include content="Furniture_Busy_Reposition_Fade">
-            <param name="reposition">$EXP[Exp_HasActiveDialog]</param>
-        </include>
-    </include>
 
     <include name="Furniture_Clock">
         <param name="toplabel">$INFO[System.Time]</param>
@@ -481,19 +340,9 @@
         <definition>
             <control type="group">
 
-                <include>Furniture_Right_Visible</include>
-
-                <include content="Animation_SlideIn_Dialog">
-                    <param name="visible_condition">!$EXP[Exp_Notification_IsActive]</param>
-                    <param name="windowopen_condition">false</param>
-                    <param name="posy">48</param>
-                </include>
-
                 <control type="group">
                     <height>80</height>
                     <centertop>50%</centertop>
-
-                    <include>Furniture_Right_Sliding</include>
 
                     <control type="label" id="$PARAM[id]">
                         <label>$PARAM[toplabel]</label>

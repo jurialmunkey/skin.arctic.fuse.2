@@ -7,14 +7,33 @@
     <visible>!Window.IsActive(DialogExtendedProgressBar.xml)</visible>
     <controls>
 
-        <control type="group">
-            <include>Dimension_Bottombar</include>
-            <control type="group">
-                <include>Dimension_Furniture_Gutters</include>
-                <include condition="Skin.HasSetting(Furniture.EnableNowPlaying)" content="Furniture_NowPlaying">
-                    <param name="reposition">$EXP[Exp_HasActiveDialog]</param>
-                </include>
-            </control>
+        <control type="progress" id="933">
+            <height>1</height>
+            <width>1</width>
+            <left>-1000</left>
+            <texturebg />
+            <lefttexture />
+            <midtexture />
+            <righttexture />
+            <info>Player.Progress</info>
+            <visible>false</visible>
         </control>
+
+
+        <include content="Furniture_Busy">
+            <param name="hasprogress">true</param>
+            <param name="spinspinner">Window.IsActive(DialogBusy.xml)</param>
+            <param name="spinnervisible">!Window.IsVisible(DialogVolumeBar.xml)</param>
+            <param name="icon">$VAR[Image_NowPlaying_PlayPause]</param>
+            <param name="progress">Player.Progress</param>
+            <param name="progress_id">933</param>
+            <param name="minilabel">$VAR[Label_NowPlayingSubLabel]</param>
+            <param name="mainlabel">$VAR[Label_NowPlayingTitle]</param>
+            <param name="visible">!Window.IsActive(DialogNotification.xml) + ![Window.IsActive(fullscreenvideo) | Window.IsActive(visualisation)]</param>
+            <param name="visible_condition">!$EXP[Exp_Notification_IsActive]</param>
+            <param name="windowopen_condition">!$EXP[Exp_Notification_IsActive]</param>
+        </include>
+
+
     </controls>
 </window>

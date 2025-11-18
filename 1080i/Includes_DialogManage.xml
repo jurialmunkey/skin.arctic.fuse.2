@@ -7,37 +7,11 @@
 
     -->
 
-    <include name="Dialog_Manage">
+    <include name="Dialog_Manage_Dim">
         <param name="id">9800</param>
         <param name="dim_id">9896</param>
-        <param name="bounce_id">9897</param>
         <param name="hidden_id">9898</param>
-        <param name="exit_id">9894</param>
-        <param name="focus_id">9800</param>
-        <param name="confirm_exit">false</param>
-        <param name="confirm_exit_condition">true</param>
-        <param name="confirm_buttons">Dialog_Manage_Confirm_Buttons</param>
-        <param name="confirm_id">909881</param>
-        <param name="trigger_id">9893</param>
-
         <definition>
-
-            <include content="Object_Hidden_Button">
-                <param name="id">$PARAM[bounce_id]</param>
-                <onfocus>SetFocus($PARAM[onback])</onfocus>
-            </include>
-
-            <include content="Object_Hidden_Button">
-                <param name="id">$PARAM[hidden_id]</param>
-                <onfocus>SetFocus($PARAM[focus_id])</onfocus>
-            </include>
-
-            <include content="Object_Hidden_Button">
-                <param name="id">$PARAM[trigger_id]</param>
-                <onfocus condition="[[$PARAM[confirm_exit]] + [$PARAM[confirm_exit_condition]]]">SetFocus($PARAM[confirm_id])</onfocus>
-                <onfocus condition="![[$PARAM[confirm_exit]] + [$PARAM[confirm_exit_condition]]]">PreviousMenu</onfocus>
-            </include>
-
             <control type="button" id="$PARAM[dim_id]">
                 <onclick>SetFocus($PARAM[onback])</onclick>
                 <visible>[ControlGroup($PARAM[id]).HasFocus() | Control.HasFocus($PARAM[dim_id]) | Control.HasFocus($PARAM[hidden_id])]</visible>
@@ -57,6 +31,48 @@
                 <texturenofocus colordiffuse="shadow_back">common/white.png</texturenofocus>
                 <texturefocus colordiffuse="shadow_back">common/white.png</texturefocus>
             </control>
+        </definition>
+    </include>
+
+    <include name="Dialog_Manage">
+        <param name="id">9800</param>
+        <param name="dim_id">9896</param>
+        <param name="bounce_id">9897</param>
+        <param name="hidden_id">9898</param>
+        <param name="exit_id">9894</param>
+        <param name="focus_id">9800</param>
+        <param name="confirm_exit">false</param>
+        <param name="confirm_exit_condition">true</param>
+        <param name="confirm_buttons">Dialog_Manage_Confirm_Buttons</param>
+        <param name="confirm_id">909881</param>
+        <param name="trigger_id">9893</param>
+
+        <param name="has_dim">true</param>
+
+        <definition>
+
+            <include content="Object_Hidden_Button">
+                <param name="id">$PARAM[bounce_id]</param>
+                <onfocus>SetFocus($PARAM[onback])</onfocus>
+            </include>
+
+            <include content="Object_Hidden_Button">
+                <param name="id">$PARAM[hidden_id]</param>
+                <onfocus>SetFocus($PARAM[focus_id])</onfocus>
+            </include>
+
+            <include content="Object_Hidden_Button">
+                <param name="id">$PARAM[trigger_id]</param>
+                <onfocus condition="[[$PARAM[confirm_exit]] + [$PARAM[confirm_exit_condition]]]">SetFocus($PARAM[confirm_id])</onfocus>
+                <onfocus condition="![[$PARAM[confirm_exit]] + [$PARAM[confirm_exit_condition]]]">PreviousMenu</onfocus>
+            </include>
+
+            <include content="Dialog_Manage_Dim" condition="$PARAM[has_dim]">
+                <param name="id">$PARAM[id]</param>
+                <param name="dim_id">$PARAM[dim_id]</param>
+                <param name="hidden_id">$PARAM[hidden_id]</param>
+                <param name="onback">$PARAM[onback]</param>
+            </include>
 
             <control type="group">
                 <include>Dimension_DialogPopUpMenu</include>
@@ -211,13 +227,20 @@
                 <param name="onup">909880</param>
                 <param name="id">909880</param>
 
-                <onback>$PARAM[onback]</onback>
+                <!-- <onback>$PARAM[onback]</onback> -->
 
                 <include content="Dialog_Button_Expanded">
                     <param name="id">9881</param>
                     <param name="icon">special://skin/extras/icons/circle-check.png</param>
                     <param name="label">$LOCALIZE[31032]</param>
                     <onclick>$PARAM[onclick]</onclick>
+                </include>
+
+                <include content="Dialog_Button_Expanded">
+                    <param name="id">9883</param>
+                    <param name="icon">special://skin/extras/icons/circle-xmark.png</param>
+                    <param name="label">$LOCALIZE[222]</param>
+                    <onclick>SetFocus($PARAM[onback])</onclick>
                 </include>
 
                 <!-- <include content="Dialog_Button_Expanded">
@@ -227,13 +250,7 @@
                     <onclick>PreviousMenu</onclick>
                 </include> -->
 
-                <include content="Dialog_Button_Expanded">
-                    <param name="id">9883</param>
-                    <param name="icon">special://skin/extras/icons/circle-xmark.png</param>
-                    <param name="label">$LOCALIZE[15067]</param>
-                    <!-- <onclick>SetFocus($PARAM[onback])</onclick> -->
-                    <onclick>PreviousMenu</onclick>
-                </include>
+
 
             </include>
         </definition>
@@ -264,14 +281,23 @@
         </include>
     </include>
 
-    <include name="Dialog_Manage_Head_Button">
-        <include content="Dialog_Head_CloseButton">
-            <param name="id">$PARAM[id]</param>
-            <param name="groupid">$PARAM[groupid]</param>
-            <param name="icon">special://skin/extras/icons/sliders.png</param>
-            <param name="onmove">$PARAM[onmove]</param>
-            <param name="onclick">$PARAM[onclick]</param>
+    <include name="Dialog_Manage_Confirm_Buttons_SmartPlaylistEditor">
+        <include content="Dialog_Manage_Confirm_Buttons">
+            <param name="onclick">SendClick(20)</param>
         </include>
+    </include>
+
+    <include name="Dialog_Manage_Head_Button">
+        <param name="onclick">SetFocus(9898)</param>
+        <definition>
+            <include content="Dialog_Head_CloseButton">
+                <param name="id">$PARAM[id]</param>
+                <param name="groupid">$PARAM[groupid]</param>
+                <param name="icon">special://skin/extras/icons/sliders.png</param>
+                <param name="onmove">$PARAM[onmove]</param>
+                <param name="onclick">$PARAM[onclick]</param>
+            </include>
+        </definition>
     </include>
 
 </includes>

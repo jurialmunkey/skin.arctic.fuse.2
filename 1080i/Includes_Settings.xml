@@ -163,6 +163,48 @@
         </definition>
     </include>
 
+    <include name="Settings_EditButton">
+        <param name="hasbutton">true</param>
+        <definition>
+            <include content="Object_Control" condition="$PARAM[hasbutton]">
+                <param name="control">button</param>
+                <param name="id">$PARAM[id]</param>
+                <width>64</width>
+                <height>64</height>
+                <centertop>50%</centertop>
+                <texturenofocus />
+                <texturefocus />
+                <font />
+                <textcolor>00ffffff</textcolor>
+                <selectedcolor>00ffffff</selectedcolor>
+                <focusedcolor>00ffffff</focusedcolor>
+                <nested />
+            </include>
+            <control type="group" id="$PARAM[groupid]">
+                <include content="Object_Left" condition="$PARAM[hasbutton]">
+                    <param name="left">-64</param>
+                </include>
+                <width>64</width>
+                <height>64</height>
+                <centertop>50%</centertop>
+                <control type="image">
+                    <texture colordiffuse="dialog_fg_70">$PARAM[icon]</texture>
+                    <visible>![$PARAM[hasfocus]]</visible>
+                    <visible>!Control.HasFocus($PARAM[id])</visible>
+                </control>
+                <control type="image">
+                    <texture colordiffuse="$VAR[ColorSelected_30]">$PARAM[icon]</texture>
+                    <visible>$PARAM[hasfocus]</visible>
+                    <visible>!Control.HasFocus($PARAM[id])</visible>
+                </control>
+                <control type="image">
+                    <texture colordiffuse="$VAR[ColorSelected]">$PARAM[icon]</texture>
+                    <visible>Control.HasFocus($PARAM[id])</visible>
+                </control>
+            </control>
+        </definition>
+    </include>
+
     <include name="Settings_Label">
         <param name="control">label</param>
         <param name="dialog">false</param>
@@ -354,7 +396,6 @@
                 <param name="colordiffuse">main_fg_70</param>
                 <param name="centerbottom">100</param>
                 <param name="left">500</param>
-                <param name="right">440</param>
                 <param name="id">$PARAM[id]</param>
                 <param name="include_hintlabel">false</param>
             </include>
