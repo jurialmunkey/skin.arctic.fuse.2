@@ -310,7 +310,7 @@
     </include>
 
     <include name="Furiture_Busy_Reposition">
-        <animation effect="slide" start="0" end="0,-880" condition="$EXP[Exp_OSD_VisibleSlides]">Conditional</animation>
+        <animation effect="slide" start="0" end="0,-880" condition="Window.IsVisible(DialogSeekBar.xml)">Conditional</animation>
     </include>
 
     <include name="Furniture_Busy_Main">
@@ -336,13 +336,23 @@
 
             <include content="Animation_SlideIn_Dialog_Conditional">
                 <param name="visible_delay">400</param>
-                <param name="visible_condition">$EXP[Exp_HasVisibleDialog]</param>
+                <param name="visible_condition">[$EXP[Exp_HasVisibleDialog] + !Window.IsVisible(DialogSeekBar.xml)]</param>
                 <param name="posy">48</param>
             </include>
             <include content="Animation_SlideIn_Dialog_Conditional">
                 <param name="visible_delay">0</param>
-                <param name="visible_condition">!$EXP[Exp_HasVisibleDialog]</param>
+                <param name="visible_condition">[!$EXP[Exp_HasVisibleDialog] + !Window.IsVisible(DialogSeekBar.xml)]</param>
                 <param name="posy">48</param>
+            </include>
+             <include content="Animation_SlideIn_Dialog_Conditional">
+                <param name="visible_delay">400</param>
+                <param name="visible_condition">[$EXP[Exp_HasVisibleDialog] + Window.IsVisible(DialogSeekBar.xml)]</param>
+                <param name="posy">-48</param>
+            </include>
+            <include content="Animation_SlideIn_Dialog_Conditional">
+                <param name="visible_delay">0</param>
+                <param name="visible_condition">[!$EXP[Exp_HasVisibleDialog] + Window.IsVisible(DialogSeekBar.xml)]</param>
+                <param name="posy">-48</param>
             </include>
 
             <include content="Furniture_Busy_FloatingText" condition="$PARAM[haslabel]">
