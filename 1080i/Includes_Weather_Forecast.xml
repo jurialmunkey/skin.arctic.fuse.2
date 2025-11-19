@@ -244,7 +244,7 @@
         </item>
     </include>
 
-    <include name="Weather_Forecast_Graph_Items">
+    <include name="Weather_Forecast_Graph_Items_01">
         <include content="Weather_Forecast_Graph_Item">
             <param name="name">$LOCALIZE[1375]</param>
             <param name="type">temperature</param>
@@ -270,6 +270,8 @@
             <param name="type">uvindex</param>
             <param name="unit">na</param>
         </include>
+    </include>
+    <include name="Weather_Forecast_Graph_Items_02">
 
         <include content="Weather_Forecast_Graph_Item">
             <param name="name">$LOCALIZE[31525]</param>
@@ -300,6 +302,8 @@
             <param name="type">windgust</param>
             <param name="unit">speed</param>
         </include>
+    </include>
+    <include name="Weather_Forecast_Graph_Items_03">
 
         <include content="Weather_Forecast_Graph_Item">
             <param name="name">$LOCALIZE[1376]</param>
@@ -329,56 +333,114 @@
 
     </include>
 
-    <include name="Weather_Graph">
-        <include content="Weather_Forecast_List">
-            <param name="items">Weather_Forecast_Graph_Items</param>
-            <param name="itemlayout">Weather_Forecast_Graph_Itemlayout</param>
-            <param name="control">wraplist</param>
-            <param name="height">160</param>
-            <param name="id">9207</param>
-            <param name="visible">!String.IsEmpty(Window(weather).Property(hourly.1.temperaturegraph))</param>
-        </include>
+    <include name="Weather_Details_Panel_Graph">
+        <control type="group">
+            <visible>!String.IsEmpty(Window(weather).Property(hourly.1.temperaturegraph))</visible>
+            <height>840</height>
+            <control type="group">
+                <include content="Dimension_Padding">
+                    <param name="pad">40</param>
+                </include>
+                <include content="Weather_Forecast_List">
+                    <param name="items">Weather_Forecast_Graph_Items_01</param>
+                    <param name="itemlayout">Weather_Forecast_Graph_Itemlayout</param>
+                    <param name="control">wraplist</param>
+                    <param name="height">160</param>
+                    <param name="visible">!String.IsEmpty(Window(weather).Property(hourly.1.temperaturegraph))</param>
+                </include>
+            </control>
+        </control>
+        <control type="group">
+            <visible>!String.IsEmpty(Window(weather).Property(hourly.1.temperaturegraph))</visible>
+            <height>840</height>
+            <control type="group">
+                <include content="Dimension_Padding">
+                    <param name="pad">40</param>
+                </include>
+                <include content="Weather_Forecast_List">
+                    <param name="items">Weather_Forecast_Graph_Items_02</param>
+                    <param name="itemlayout">Weather_Forecast_Graph_Itemlayout</param>
+                    <param name="control">wraplist</param>
+                    <param name="height">160</param>
+                    <param name="visible">!String.IsEmpty(Window(weather).Property(hourly.1.temperaturegraph))</param>
+                </include>
+            </control>
+        </control>
+        <control type="group">
+            <visible>!String.IsEmpty(Window(weather).Property(hourly.1.temperaturegraph))</visible>
+            <height>840</height>
+            <control type="group">
+                <include content="Dimension_Padding">
+                    <param name="pad">40</param>
+                </include>
+                <include content="Weather_Forecast_List">
+                    <param name="items">Weather_Forecast_Graph_Items_03</param>
+                    <param name="itemlayout">Weather_Forecast_Graph_Itemlayout</param>
+                    <param name="control">wraplist</param>
+                    <param name="height">160</param>
+                    <param name="visible">!String.IsEmpty(Window(weather).Property(hourly.1.temperaturegraph))</param>
+                </include>
+            </control>
+        </control>
     </include>
 
-    <include name="Weather_Forecast">
-        <include content="Object_Hidden_List">
-            <param name="id">9204</param>
-            <content>
-                <item>
-                    <label>$LOCALIZE[20169]</label>
-                    <visible>!String.IsEmpty(Window(weather).Property(daily.2.outlook))</visible>
-                </item>
-                <item>
-                    <label>$LOCALIZE[31526]</label>
-                    <visible>!String.IsEmpty(Window(weather).Property(hourly.1.outlook))</visible>
-                </item>
-                <item>
-                    <label>$LOCALIZE[31527]</label>
-                    <visible>!String.IsEmpty(Window(weather).Property(hourly.23.outlook))</visible>
-                    <visible>!String.IsEqual(Weather.Plugin,weather.gismeteo)</visible>
-                </item>
-            </content>
-        </include>
-        <include content="Weather_Forecast_List">
-            <param name="visible">String.IsEqual(Container(9204).ListItem.Label,$LOCALIZE[20169])</param>
-            <param name="items">Weather_Forecast_Daily_Items</param>
-        </include>
+    <include name="Weather_Details_Panel_Forecast">
+        <control type="group">
+            <height>840</height>
+            <control type="group">
+                <include content="Dimension_Padding">
+                    <param name="pad">40</param>
+                </include>
+                <include content="Weather_Forecast_List">
+                    <param name="visible">True</param>
+                    <param name="items">Weather_Forecast_Daily_Items</param>
+                </include>
+            </control>
+        </control>
 
-        <!-- Every two hours for hourly to cover full 24hours in 2 pages of 6 items -->
-        <include content="Weather_Forecast_List" condition="!String.IsEqual(Weather.Plugin,weather.gismeteo)">
-            <param name="visible">String.IsEqual(Container(9204).ListItem.Label,$LOCALIZE[31526])</param>
-            <param name="items">Weather_Forecast_TwoHour_Early_Items</param>
-        </include>
-        <include content="Weather_Forecast_List" condition="!String.IsEqual(Weather.Plugin,weather.gismeteo)">
-            <param name="visible">String.IsEqual(Container(9204).ListItem.Label,$LOCALIZE[31527])</param>
-            <param name="items">Weather_Forecast_TwoHour_Later_Items</param>
-        </include>
+        <control type="group">
+            <visible>!String.IsEqual(Weather.Plugin,weather.gismeteo)</visible>
+            <height>840</height>
+            <control type="group">
+                <include content="Dimension_Padding">
+                    <param name="pad">40</param>
+                </include>
+                <!-- Every two hours for hourly to cover full 24hours in 2 pages of 6 items -->
+                <include content="Weather_Forecast_List" condition="!String.IsEqual(Weather.Plugin,weather.gismeteo)">
+                    <param name="visible">True</param>
+                    <param name="items">Weather_Forecast_TwoHour_Early_Items</param>
+                </include>
+            </control>
+        </control>
 
-        <!-- GisMeteo hourly is every 3 hours so dont artificially add in spacing -->
-        <include content="Weather_Forecast_List" condition="String.IsEqual(Weather.Plugin,weather.gismeteo)">
-            <param name="visible">String.IsEqual(Container(9204).ListItem.Label,$LOCALIZE[31526])</param>
-            <param name="items">Weather_Forecast_Hourly_Early_Items</param>
-        </include>
+        <control type="group">
+            <visible>!String.IsEqual(Weather.Plugin,weather.gismeteo)</visible>
+            <height>840</height>
+            <control type="group">
+                <include content="Dimension_Padding">
+                    <param name="pad">40</param>
+                </include>
+                <include content="Weather_Forecast_List" condition="!String.IsEqual(Weather.Plugin,weather.gismeteo)">
+                    <param name="visible">True</param>
+                    <param name="items">Weather_Forecast_TwoHour_Later_Items</param>
+                </include>
+            </control>
+        </control>
+
+        <control type="group">
+            <visible>String.IsEqual(Weather.Plugin,weather.gismeteo)</visible>
+            <height>840</height>
+            <control type="group">
+                <include content="Dimension_Padding">
+                    <param name="pad">40</param>
+                </include>
+                <!-- GisMeteo hourly is every 3 hours so dont artificially add in spacing -->
+                <include content="Weather_Forecast_List" condition="String.IsEqual(Weather.Plugin,weather.gismeteo)">
+                    <param name="visible">True</param>
+                    <param name="items">Weather_Forecast_Hourly_Early_Items</param>
+                </include>
+            </control>
+        </control>
     </include>
 
     <include name="Weather_Forecast_List">

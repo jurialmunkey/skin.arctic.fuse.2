@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <window>
 
-    <defaultcontrol always="true">29</defaultcontrol>
+    <defaultcontrol always="true">13</defaultcontrol>
+    <onload>AlarmClock(refocus,SetFocus(13),00:00,silent)</onload>
     <controls>
 
         <control type="radiobutton" id="25">
@@ -34,11 +35,11 @@
                     <param name="id">1</param>
                     <param name="label">$LOCALIZE[19048]</param>
                 </include>
-                <include>Dialog_Head_CloseButton</include>
+                <include>Dialog_Manage_Head_Button</include>
 
                 <!-- Content -->
                 <control type="group">
-                    <bottom>240</bottom>
+                    <bottom>160</bottom>
                     <include>Dimension_Dialog_Body</include>
                     <control type="group" id="8000">
                         <include>Dimension_Dialog_Body_Group</include>
@@ -78,7 +79,7 @@
                                     <param name="detailed">false</param>
                                     <param name="misc">String.IsEqual(Container(13).CurrentItem,ListItem.CurrentItem)</param>
                                     <onright>11</onright>
-                                    <onback>29</onback>
+                                    <onback>9893</onback>
                                 </include>
                             </control>
                         </control>
@@ -115,7 +116,7 @@
                                         <pagecontrol>62</pagecontrol>
                                         <onright>62</onright>
                                         <onleft>13</onleft>
-                                        <onback>29</onback>
+                                        <onback>9893</onback>
                                     </include>
 
                                 </control>
@@ -123,7 +124,7 @@
                                     <param name="id">62</param>
                                     <onleft>11</onleft>
                                     <onright>12</onright>
-                                    <onback>29</onback>
+                                    <onback>9893</onback>
                                     <top>0</top>
                                     <bottom>0</bottom>
                                     <centerright>0</centerright>
@@ -162,14 +163,15 @@
                                         <pagecontrol>63</pagecontrol>
                                         <onright>63</onright>
                                         <onleft>62</onleft>
-                                        <onback>29</onback>
+                                        <onback>9893</onback>
                                     </include>
 
                                 </control>
                                 <include content="Dialog_Scrollbar">
                                     <param name="id">63</param>
                                     <onleft>12</onleft>
-                                    <onback>29</onback>
+                                    <onback>9893</onback>
+                                    <onright>9898</onright>
                                     <top>0</top>
                                     <bottom>0</bottom>
                                     <centerright>0</centerright>
@@ -183,30 +185,21 @@
                     </include>
                 </control>
 
-                <include content="Dialog_Tray_Grouplist">
-                    <include content="Dialog_Button_Expanded">
-                        <param name="id">98</param>
-                        <param name="label">$LOCALIZE[33063]</param>
-                        <param name="icon">special://skin/extras/icons/bars.png</param>
-                        <onclick>SetFocus(9800)</onclick>
-                    </include>
-                    <include content="Dialog_Button_Expanded">
-                        <param name="builtin">true</param>
-                        <param name="id">29</param>
-                        <param name="label">$LOCALIZE[186]</param>
-                        <param name="icon">special://skin/extras/icons/circle-check.png</param>
-                    </include>
 
-                </include>
             </control>
 
 
         </control>
 
-        <include content="Dialog_Manage">
-            <param name="id">9800</param>
-            <param name="onback">9098</param>
-            <param name="include">Items_DialogPVRGroupManager</param>
-        </include>
+        <control type="group">
+            <include>Animation_Right_Delay</include>
+            <include content="Dialog_Manage">
+                <param name="onback">8000</param>
+                <param name="include">Items_DialogPVRGroupManager</param>
+                <param name="focus_id">29</param>
+                <param name="confirm_exit">true</param>
+                <param name="confirm_buttons">Dialog_Manage_Confirm_Buttons_DialogGroupManager</param>
+            </include>
+        </control>
     </controls>
 </window>

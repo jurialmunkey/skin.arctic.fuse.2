@@ -683,6 +683,112 @@
         </control>
     </include>
 
+    <include name="Object_InfoCircle_Button">
+        <param name="baseid">90</param>
+        <param name="alt1">false</param>
+        <definition>
+            <control type="button" id="$PARAM[baseid]0$PARAM[id]">
+                <height>80</height>
+                <left>25</left>
+                <texturenofocus />
+                <nested />
+            </control>
+            <control type="group" id="$PARAM[baseid]1$PARAM[id]">
+                <top>-80</top>
+                <height>80</height>
+                <right>20</right>
+                <visible>Control.IsVisible($PARAM[baseid]0$PARAM[id])</visible>
+                <include content="Object_InfoCircle">
+                    <param name="name">$PARAM[name]</param>
+                    <param name="role">$PARAM[role]</param>
+                    <param name="icon">$PARAM[icon]</param>
+
+
+                    <include content="Object_InfoCircle_Image" condition="$PARAM[alt1]">
+                        <param name="colordiffuse">main_bg_100</param>
+                        <param name="icon">common/white.png</param>
+                    </include>
+                    <include content="Object_InfoCircle_Image" condition="$PARAM[alt1]">
+                        <param name="colordiffuse">white</param>
+                        <param name="icon">$PARAM[shot]</param>
+                        <param name="aspectratio">keep</param>
+                        <param name="fallback">$PARAM[icon]</param>
+                    </include>
+
+                    <include content="Object_InfoCircle_Image" condition="![$PARAM[alt1]]">
+                        <param name="colordiffuse">white</param>
+                        <param name="icon">$PARAM[shot]</param>
+                    </include>
+
+                    <visible>!Control.HasFocus($PARAM[baseid]0$PARAM[id])</visible>
+                </include>
+                <include content="Object_InfoCircle">
+                    <param name="name">$PARAM[name]</param>
+                    <param name="role">$PARAM[role]</param>
+                    <param name="icon">$PARAM[icon]</param>
+                    <param name="textcolor_top">$VAR[ColorSelected]</param>
+                    <param name="textcolor_sub">$VAR[ColorSelected]</param>
+
+                    <include content="Object_InfoCircle_Image" condition="$PARAM[alt1]">
+                        <param name="colordiffuse">main_bg_100</param>
+                        <param name="icon">common/white.png</param>
+                    </include>
+                    <include content="Object_InfoCircle_Image" condition="$PARAM[alt1]">
+                        <param name="colordiffuse">white</param>
+                        <param name="icon">$PARAM[shot]</param>
+                        <param name="aspectratio">keep</param>
+                        <param name="fallback">$PARAM[icon]</param>
+                    </include>
+
+                    <include content="Object_InfoCircle_Image" condition="![$PARAM[alt1]]">
+                        <param name="colordiffuse">white</param>
+                        <param name="icon">$PARAM[shot]</param>
+                    </include>
+
+                    <visible>Control.HasFocus($PARAM[baseid]0$PARAM[id])</visible>
+                </include>
+            </control>
+        </definition>
+    </include>
+
+    <include name="Object_InfoCircle_Detail">
+        <param name="baseid">90</param>
+        <param name="alt1">false</param>
+        <param name="onclick_details">false</param>
+        <definition>
+            <control type="group" id="$PARAM[baseid]1$PARAM[id]">
+                <height>80</height>
+                <right>20</right>
+                <nested />
+
+                <include content="Object_InfoCircle">
+                    <param name="name">$PARAM[name]</param>
+                    <param name="role">$PARAM[role]</param>
+                    <param name="icon">$PARAM[icon]</param>
+                    <param name="fallback_role">$PARAM[fallback_role]</param>
+
+
+                    <include content="Object_InfoCircle_Image" condition="$PARAM[alt1]">
+                        <param name="colordiffuse">main_bg_100</param>
+                        <param name="icon">common/white.png</param>
+                    </include>
+                    <include content="Object_InfoCircle_Image" condition="$PARAM[alt1]">
+                        <param name="colordiffuse">white</param>
+                        <param name="icon">$PARAM[shot]</param>
+                        <param name="aspectratio">keep</param>
+                        <param name="fallback">$PARAM[icon]</param>
+                    </include>
+
+                    <include content="Object_InfoCircle_Image" condition="![$PARAM[alt1]]">
+                        <param name="colordiffuse">white</param>
+                        <param name="icon">$PARAM[shot]</param>
+                    </include>
+
+                </include>
+            </control>
+        </definition>
+    </include>
+
     <include name="Object_InfoCircle">
         <param name="bordersize">1</param>
         <param name="aspectratio">scale</param>

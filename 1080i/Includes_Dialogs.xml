@@ -354,6 +354,7 @@
         <param name="id">90001</param>
         <param name="groupid">90101</param>
         <param name="onclick">Close</param>
+        <param name="icon">special://skin/extras/icons/xmark.png</param>
         <definition>
             <control type="group">
                 <right>60</right>
@@ -364,9 +365,13 @@
                     <include>Texture_Circle_Highlight_Focus_V</include>
                     <texturenofocus />
                     <onclick>$PARAM[onclick]</onclick>
+                    <onleft>$PARAM[onmove]</onleft>
+                    <onright>$PARAM[onmove]</onright>
+                    <onup>$PARAM[onmove]</onup>
+                    <ondown>$PARAM[onmove]</ondown>
                 </control>
                 <include content="OSD_Button_Icon_Overlay">
-                    <param name="icon">special://skin/extras/icons/xmark.png</param>
+                    <param name="icon">$PARAM[icon]</param>
                     <param name="id">$PARAM[id]</param>
                     <param name="groupid">$PARAM[groupid]</param>
                     <param name="itemgap">80</param>
@@ -378,6 +383,7 @@
     </include>
 
     <include name="Dialog_Side_Grouplist_Def">
+        <param name="include_image">true</param>
         <definition>
             <top>-120</top>
             <itemgap>0</itemgap>
@@ -396,6 +402,7 @@
                         <centertop>60</centertop>
                         <bordersize>-8</bordersize>
                         <texture colordiffuse="dialog_fg_70">special://skin/extras/icons/sliders.png</texture>
+                        <visible>$PARAM[include_image]</visible>
                     </control>
                     <control type="image">
                         <height>1</height>
@@ -1063,136 +1070,63 @@
         <param name="fallback">19055</param>
         <param name="left">60</param>
         <param name="right">60</param>
-        <param name="centerbottom">-40</param>
+        <param name="centerbottom">-60</param>
+        <param name="include_hintlabel">true</param>
         <definition>
             <control type="group">
                 <height>50</height>
                 <centerbottom>$PARAM[centerbottom]</centerbottom>
                 <left>$PARAM[left]</left>
                 <right>$PARAM[right]</right>
-                <control type="image">
-                    <left>-25</left>
-                    <width>50</width>
-                    <bordersize>icon_item_bordersize</bordersize>
-                    <texture colordiffuse="$PARAM[colordiffuse]">special://skin/extras/icons/info2.png</texture>
-                </control>
-                <control type="textbox" id="$PARAM[id]">
-                    <font>font_tiny</font>
-                    <left>40</left>
-                    <height>55</height>
-                    <centertop>50%</centertop>
-                    <aligny>center</aligny>
-                    <textcolor>$PARAM[colordiffuse]</textcolor>
-                    <label fallback="$PARAM[fallback]">$PARAM[label]</label>
-                </control>
-            </control>
-        </definition>
-    </include>
 
-
-    <include name="Dialog_Manage">
-        <control type="image">
-            <visible>ControlGroup($PARAM[id]).HasFocus()</visible>
-            <include content="Animation_Fade_In">
-                <param name="type">Visible</param>
-                <param name="reversible">true</param>
-            </include>
-            <include content="Animation_Fade_Out">
-                <param name="type">Hidden</param>
-                <param name="reversible">true</param>
-            </include>
-            <include content="Animation_Fade_Out">
-                <param name="type">WindowClose</param>
-                <param name="reversible">true</param>
-                <param name="condition">ControlGroup($PARAM[id]).HasFocus()</param>
-            </include>
-            <texture colordiffuse="shadow_back">common/white.png</texture>
-        </control>
-        <control type="group">
-            <include>Dimension_DialogPopUpMenu</include>
-            <visible allowhiddenfocus="true">ControlGroup($PARAM[id]).HasFocus()</visible>
-
-            <animation effect="slide" start="0" end="0,80" condition="Integer.IsEqual(Container($PARAM[id]).NumItems,5)">Conditional</animation>
-            <animation effect="slide" start="0" end="0,160" condition="Integer.IsEqual(Container($PARAM[id]).NumItems,4)">Conditional</animation>
-            <animation effect="slide" start="0" end="0,240" condition="Integer.IsEqual(Container($PARAM[id]).NumItems,3)">Conditional</animation>
-            <animation effect="slide" start="0" end="0,320" condition="Integer.IsEqual(Container($PARAM[id]).NumItems,2)">Conditional</animation>
-            <animation effect="slide" start="0" end="0,400" condition="Integer.IsEqual(Container($PARAM[id]).NumItems,1)">Conditional</animation>
-
-            <control type="group">
-                <visible>Integer.IsGreater(Container($PARAM[id]).NumItems,5)</visible>
-                <include content="Dialog_Foreground_Side">
-                    <param name="topline">true</param>
-                    <param name="subline">true</param>
-                </include>
-            </control>
-            <control type="group">
-                <visible>Integer.IsEqual(Container($PARAM[id]).NumItems,5)</visible>
-                <bottom>80</bottom>
-                <include content="Dialog_Foreground_Side">
-                    <param name="topline">true</param>
-                    <param name="subline">true</param>
-                </include>
-            </control>
-            <control type="group">
-                <visible>Integer.IsEqual(Container($PARAM[id]).NumItems,4)</visible>
-                <bottom>160</bottom>
-                <include content="Dialog_Foreground_Side">
-                    <param name="topline">true</param>
-                    <param name="subline">true</param>
-                </include>
-            </control>
-            <control type="group">
-                <visible>Integer.IsEqual(Container($PARAM[id]).NumItems,3)</visible>
-                <bottom>240</bottom>
-                <include content="Dialog_Foreground_Side">
-                    <param name="topline">true</param>
-                    <param name="subline">true</param>
-                </include>
-            </control>
-            <control type="group">
-                <visible>Integer.IsEqual(Container($PARAM[id]).NumItems,2)</visible>
-                <bottom>320</bottom>
-                <include content="Dialog_Foreground_Side">
-                    <param name="topline">true</param>
-                    <param name="subline">true</param>
-                </include>
-            </control>
-            <control type="group">
-                <visible>Integer.IsEqual(Container($PARAM[id]).NumItems,1)</visible>
-                <bottom>400</bottom>
-                <include content="Dialog_Foreground_Side">
-                    <param name="topline">true</param>
-                    <param name="subline">true</param>
-                </include>
-            </control>
-
-            <animation effect="fade" start="100" end="0" time="1" condition="ControlGroup($PARAM[id]).HasFocus()">WindowClose</animation>
-
-            <include content="Animation_SlideIn_Dialog">
-                <param name="windowopen_condition">false</param>
-            </include>
-
-            <!-- Header -->
-            <include content="Dialog_Head">
-                <param name="id">0</param>
-                <param name="label">$LOCALIZE[33063]</param>
-            </include>
-
-            <!-- Content -->
-            <control type="group">
-                <include>Dimension_Dialog_Body</include>
                 <control type="group">
-                    <include>Dimension_Dialog_Body_Group</include>
-                    <control type="grouplist" id="$PARAM[id]">
-                        <onback>$PARAM[onback]</onback>
-                        <onleft>$PARAM[onback]</onleft>
-                        <onright>$PARAM[onback]</onright>
-                        <include>$PARAM[include]</include>
+                    <include content="Object_Right" condition="$PARAM[include_hintlabel]">
+                        <param name="right">400</param>
+                    </include>
+                    <control type="image">
+                        <left>-25</left>
+                        <width>50</width>
+                        <bordersize>icon_item_bordersize</bordersize>
+                        <texture colordiffuse="$PARAM[colordiffuse]">special://skin/extras/icons/info2.png</texture>
+                    </control>
+                    <control type="textbox" id="$PARAM[id]">
+                        <font>font_tiny</font>
+                        <left>40</left>
+                        <height>55</height>
+                        <centertop>50%</centertop>
+                        <aligny>center</aligny>
+                        <textcolor>$PARAM[colordiffuse]</textcolor>
+                        <label fallback="$PARAM[fallback]">$PARAM[label]</label>
+                    </control>
+                </control>
+
+                <control type="group">
+                    <right>0</right>
+                    <width>400</width>
+                    <visible>$PARAM[include_hintlabel]</visible>
+
+                    <control type="group">
+                        <left>0</left>
+                        <control type="image">
+                            <right>-25</right>
+                            <width>50</width>
+                            <bordersize>icon_item_bordersize</bordersize>
+                            <texture colordiffuse="$PARAM[colordiffuse]">special://skin/extras/icons/arrow-right-to-bracket.png</texture>
+                        </control>
+                        <control type="textbox">
+                            <font>font_tiny</font>
+                            <right>40</right>
+                            <height>55</height>
+                            <centertop>50%</centertop>
+                            <aligny>center</aligny>
+                            <align>right</align>
+                            <textcolor>$PARAM[colordiffuse]</textcolor>
+                            <label fallback="$PARAM[fallback]">$LOCALIZE[31592]</label>
+                        </control>
                     </control>
                 </control>
             </control>
-
-        </control>
+        </definition>
     </include>
 
     <include name="Dialog_Options">

@@ -35,6 +35,11 @@
         <include>Horz_Red_Line</include>
     </include>
 
+    <variable name="Overlay_InfoLabel_HasModal">
+        <value condition="System.HasActiveModalDialog">True</value>
+        <value>False</value>
+    </variable>
+
     <variable name="Overlay_InfoLabel_WidgetContainer">
         <value condition="Window.IsVisible(musicinformation)"> -musicinformation- $INFO[Window(musicinformation).Property(Widgets.ResetPosition), -reset: ,] $INFO[Window(musicinformation).Property(TMDBHelper.WidgetContainer), -tmdb: ]$INFO[Window(musicinformation).Property(Slide.WidgetContainer), -slide: ,]$INFO[Window(musicinformation).Property(List.ViewContainer), -list: ,]$INFO[Window(musicinformation).Property(Focus.ControlID), -focus.controlID: ,]</value>
         <value condition="Window.IsVisible(movieinformation)"> -movieinformation- $INFO[Window(movieinformation).Property(Widgets.ResetPosition), -reset: ,] $INFO[Window(movieinformation).Property(TMDBHelper.WidgetContainer), -tmdb: ]$INFO[Window(movieinformation).Property(Slide.WidgetContainer), -slide: ,]$INFO[Window(movieinformation).Property(List.ViewContainer), -list: ,]$INFO[Window(movieinformation).Property(Focus.ControlID), -focus.controlID: ,]</value>
@@ -305,11 +310,11 @@
                 <align>top</align>
                 <orientation>vertical</orientation>
                 <include content="Overlay_InfoLabel">
-                    <label> -system.currentcontrolid: $INFO[System.CurrentControlID,, | ]$INFO[System.CurrentControl,, | ]$INFO[System.CurrentWindow]</label>
+                    <label> -system.currentcontrolid: $INFO[System.CurrentControlID,, | ]$INFO[System.CurrentControl,, | ]$INFO[System.CurrentWindow,, | ]$VAR[Overlay_InfoLabel_HasModal,has_modal: ,]</label>
                     <textcolor>yellowgreen</textcolor>
                 </include>
                 <include content="Overlay_InfoLabel">
-                    <label> -tmdbhelper.windowmanager: $INFO[Window(Home).Property(TMDbHelper.Instance),instance: , ]$INFO[Window(Home).Property(TMDBHelper.Position),position: , ]</label>
+                    <label> -tmdbhelper.windowmanager: $INFO[Window(Home).Property(TMDBHelper.ListItem.Monitor.TMDb_ID),TMDb_ID: , ]$INFO[Window(Home).Property(TMDBHelper.ListItem.Monitor.TMDb_Type),TMDb_Type: , ]$INFO[Window(Home).Property(TMDBHelper.ListItem.Monitor.Season),Season: , ]$INFO[Window(Home).Property(TMDBHelper.ListItem.Monitor.Episode),Episode: , ]$INFO[Window(Home).Property(TMDbHelper.Instance),instance: , ]$INFO[Window(Home).Property(TMDBHelper.Position),position: , ]</label>
                     <textcolor>yellowgreen</textcolor>
                 </include>
                 <include content="Overlay_InfoLabel">
@@ -335,7 +340,7 @@
                 <align>bottom</align>
                 <orientation>vertical</orientation>
                 <include content="Overlay_InfoLabel">
-                    <label> -content.dbtype:$INFO[Container.Content, container: , |]$INFO[ListItem.DBType, listitem: ,]$INFO[ListItem.Property(tmdb_type), (,)]$INFO[Window(Home).Property(TMDbHelper.ListItem.base_dbtype), | TMDbHelper: , ]$INFO[Window(Home).Property(TMDbHelper.ListItem.TMDB_Type),(,)]$INFO[Container(55).ListItem.Property(param.info)]</label>
+                    <label> -content.dbtype:$INFO[Container.Content, container: , |]$INFO[ListItem.DBType, listitem: ,]$INFO[ListItem.Property(tmdb_type), (,)]$INFO[Window(Home).Property(TMDbHelper.ListItem.base_dbtype), | TMDbHelper: , ]$INFO[Window(Home).Property(TMDbHelper.ListItem.Monitor.TMDb_Type),(,)]$INFO[Container(55).ListItem.Property(param.info)]</label>
                     <textcolor>cyan</textcolor>
                 </include>
                 <include content="Overlay_InfoLabel">

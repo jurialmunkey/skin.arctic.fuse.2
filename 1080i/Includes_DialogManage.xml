@@ -1,0 +1,303 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<includes>
+
+    <!--
+
+    Options dialog top right popup for menu button
+
+    -->
+
+    <include name="Dialog_Manage_Dim">
+        <param name="id">9800</param>
+        <param name="dim_id">9896</param>
+        <param name="hidden_id">9898</param>
+        <definition>
+            <control type="button" id="$PARAM[dim_id]">
+                <onclick>SetFocus($PARAM[onback])</onclick>
+                <visible>[ControlGroup($PARAM[id]).HasFocus() | Control.HasFocus($PARAM[dim_id]) | Control.HasFocus($PARAM[hidden_id])]</visible>
+                <include content="Animation_Fade_In">
+                    <param name="type">Visible</param>
+                    <param name="reversible">true</param>
+                </include>
+                <include content="Animation_Fade_Out">
+                    <param name="type">Hidden</param>
+                    <param name="reversible">true</param>
+                </include>
+                <include content="Animation_Fade_Out">
+                    <param name="type">WindowClose</param>
+                    <param name="reversible">true</param>
+                    <param name="condition">[ControlGroup($PARAM[id]).HasFocus() | Control.HasFocus($PARAM[dim_id]) | Control.HasFocus($PARAM[hidden_id])]</param>
+                </include>
+                <texturenofocus colordiffuse="shadow_back">common/white.png</texturenofocus>
+                <texturefocus colordiffuse="shadow_back">common/white.png</texturefocus>
+            </control>
+        </definition>
+    </include>
+
+    <include name="Dialog_Manage">
+        <param name="id">9800</param>
+        <param name="dim_id">9896</param>
+        <param name="bounce_id">9897</param>
+        <param name="hidden_id">9898</param>
+        <param name="exit_id">9894</param>
+        <param name="focus_id">9800</param>
+        <param name="confirm_exit">false</param>
+        <param name="confirm_exit_condition">true</param>
+        <param name="confirm_buttons">Dialog_Manage_Confirm_Buttons</param>
+        <param name="confirm_id">909881</param>
+        <param name="trigger_id">9893</param>
+
+        <param name="has_dim">true</param>
+
+        <definition>
+
+            <include content="Object_Hidden_Button">
+                <param name="id">$PARAM[bounce_id]</param>
+                <onfocus>SetFocus($PARAM[onback])</onfocus>
+            </include>
+
+            <include content="Object_Hidden_Button">
+                <param name="id">$PARAM[hidden_id]</param>
+                <onfocus>SetFocus($PARAM[focus_id])</onfocus>
+            </include>
+
+            <include content="Object_Hidden_Button">
+                <param name="id">$PARAM[trigger_id]</param>
+                <onfocus condition="[[$PARAM[confirm_exit]] + [$PARAM[confirm_exit_condition]]]">SetFocus($PARAM[confirm_id])</onfocus>
+                <onfocus condition="![[$PARAM[confirm_exit]] + [$PARAM[confirm_exit_condition]]]">PreviousMenu</onfocus>
+            </include>
+
+            <include content="Dialog_Manage_Dim" condition="$PARAM[has_dim]">
+                <param name="id">$PARAM[id]</param>
+                <param name="dim_id">$PARAM[dim_id]</param>
+                <param name="hidden_id">$PARAM[hidden_id]</param>
+                <param name="onback">$PARAM[onback]</param>
+            </include>
+
+            <control type="group">
+                <include>Dimension_DialogPopUpMenu</include>
+                <visible>[ControlGroup($PARAM[id]).HasFocus() | Control.HasFocus($PARAM[dim_id]) | Control.HasFocus($PARAM[hidden_id])]</visible>
+
+                <control type="group">
+                    <visible>Integer.IsGreater(Container($PARAM[id]).NumItems,7)</visible>
+                    <include content="Dialog_Foreground_Side">
+                        <param name="topline">true</param>
+                        <param name="subline">true</param>
+                    </include>
+                </control>
+                <control type="group">
+                    <visible>Integer.IsEqual(Container($PARAM[id]).NumItems,7)</visible>
+                    <bottom>80</bottom>
+                    <include content="Dialog_Foreground_Side">
+                        <param name="topline">true</param>
+                        <param name="subline">true</param>
+                    </include>
+                </control>
+                <control type="group">
+                    <visible>Integer.IsEqual(Container($PARAM[id]).NumItems,6)</visible>
+                    <bottom>160</bottom>
+                    <include content="Dialog_Foreground_Side">
+                        <param name="topline">true</param>
+                        <param name="subline">true</param>
+                    </include>
+                </control>
+                <control type="group">
+                    <visible>Integer.IsEqual(Container($PARAM[id]).NumItems,5)</visible>
+                    <bottom>240</bottom>
+                    <include content="Dialog_Foreground_Side">
+                        <param name="topline">true</param>
+                        <param name="subline">true</param>
+                    </include>
+                </control>
+                <control type="group">
+                    <visible>Integer.IsEqual(Container($PARAM[id]).NumItems,4)</visible>
+                    <bottom>320</bottom>
+                    <include content="Dialog_Foreground_Side">
+                        <param name="topline">true</param>
+                        <param name="subline">true</param>
+                    </include>
+                </control>
+                <control type="group">
+                    <visible>Integer.IsEqual(Container($PARAM[id]).NumItems,3)</visible>
+                    <bottom>400</bottom>
+                    <include content="Dialog_Foreground_Side">
+                        <param name="topline">true</param>
+                        <param name="subline">true</param>
+                    </include>
+                </control>
+                <control type="group">
+                    <visible>Integer.IsEqual(Container($PARAM[id]).NumItems,2)</visible>
+                    <bottom>480</bottom>
+                    <include content="Dialog_Foreground_Side">
+                        <param name="topline">true</param>
+                        <param name="subline">true</param>
+                    </include>
+                </control>
+                <control type="group">
+                    <visible>Integer.IsEqual(Container($PARAM[id]).NumItems,1)</visible>
+                    <bottom>560</bottom>
+                    <include content="Dialog_Foreground_Side">
+                        <param name="topline">true</param>
+                        <param name="subline">true</param>
+                    </include>
+                </control>
+
+                <animation effect="fade" start="100" end="0" time="1" condition="[ControlGroup($PARAM[id]).HasFocus() | Control.HasFocus($PARAM[dim_id]) | Control.HasFocus($PARAM[hidden_id])]">WindowClose</animation>
+
+                <include content="Animation_SlideIn_Dialog">
+                    <param name="windowopen_condition">false</param>
+                </include>
+
+                <!-- Header -->
+                <include content="Dialog_Head">
+                    <param name="id">0</param>
+                    <param name="label">$LOCALIZE[33063]</param>
+                </include>
+
+                <!-- Content -->
+                <control type="group">
+                    <include>Dimension_Dialog_Body</include>
+                    <control type="group">
+                        <include>Dimension_Dialog_Body_Group</include>
+                        <control type="grouplist" id="$PARAM[id]">
+                            <onback>$PARAM[bounce_id]</onback>
+                            <onleft>$PARAM[bounce_id]</onleft>
+                            <onright>$PARAM[bounce_id]</onright>
+                            <include>$PARAM[include]</include>
+                        </control>
+                    </control>
+                </control>
+            </control>
+
+            <control type="group">
+                <visible>[ControlGroup($PARAM[id]).HasFocus() | Control.HasFocus($PARAM[dim_id]) | Control.HasFocus($PARAM[hidden_id])]</visible>
+                <include content="Animation_Fade_In">
+                    <param name="type">Visible</param>
+                    <param name="reversible">true</param>
+                </include>
+                <animation effect="fade" start="100" end="0" time="1" condition="[ControlGroup($PARAM[id]).HasFocus() | Control.HasFocus($PARAM[dim_id]) | Control.HasFocus($PARAM[hidden_id])]">WindowClose</animation>
+                <control type="group">
+                    <right>60</right>
+                    <centertop>100</centertop>
+                    <height>80</height>
+                    <width>80</width>
+                    <control type="image">
+                        <visible>[ControlGroup($PARAM[id]).HasFocus() | Control.HasFocus($PARAM[dim_id]) | Control.HasFocus($PARAM[hidden_id])]</visible>
+                        <include>Texture_Circle_Highlight_V</include>
+                    </control>
+                    <control type="image">
+                        <bordersize>12</bordersize>
+                        <texture colordiffuse="$VAR[ColorSelected]">special://skin/extras/icons/sliders.png</texture>
+                    </control>
+                </control>
+            </control>
+
+            <include content="Dialog_Confirm" condition="$PARAM[confirm_exit]">
+                <param name="include_header">Dialog_Manage_Confirm_Header</param>
+                <param name="include_textbox">Dialog_Manage_Confirm_Textbox</param>
+                <param name="include_progress">Items_Null</param>
+                <param name="include_buttons">$PARAM[confirm_buttons]</param>
+                <param name="visible">ControlGroup(909880).HasFocus()</param>
+            </include>
+
+        </definition>
+    </include>
+
+    <include name="Dialog_Manage_Confirm_Header">
+        <include content="Dialog_Confirm_Header">
+            <param name="id">909883</param>
+            <param name="label">$LOCALIZE[31589]</param>
+        </include>
+    </include>
+
+    <include name="Dialog_Manage_Confirm_Textbox">
+        <include content="Dialog_Confirm_Textbox">
+            <param name="id">909884</param>
+            <param name="label">$LOCALIZE[31590][CR]$LOCALIZE[31593][CR][CR][COLOR=red][B][UPPERCASE]$LOCALIZE[14117][/UPPERCASE][/B][/COLOR] $LOCALIZE[31591]</param>
+        </include>
+    </include>
+
+    <include name="Dialog_Manage_Confirm_Buttons">
+        <param name="onback">9897</param>
+        <param name="onclick">SendClick(28)</param>
+
+        <definition>
+
+            <include content="Dialog_Tray_Grouplist">
+                <param name="onup">909880</param>
+                <param name="id">909880</param>
+
+                <!-- <onback>$PARAM[onback]</onback> -->
+
+                <include content="Dialog_Button_Expanded">
+                    <param name="id">9881</param>
+                    <param name="icon">special://skin/extras/icons/circle-check.png</param>
+                    <param name="label">$LOCALIZE[31032]</param>
+                    <onclick>$PARAM[onclick]</onclick>
+                </include>
+
+                <include content="Dialog_Button_Expanded">
+                    <param name="id">9883</param>
+                    <param name="icon">special://skin/extras/icons/circle-xmark.png</param>
+                    <param name="label">$LOCALIZE[222]</param>
+                    <onclick>SetFocus($PARAM[onback])</onclick>
+                </include>
+
+                <!-- <include content="Dialog_Button_Expanded">
+                    <param name="id">9882</param>
+                    <param name="icon">special://skin/extras/icons/triangle-exclamation.png</param>
+                    <param name="label">$LOCALIZE[13012]</param>
+                    <onclick>PreviousMenu</onclick>
+                </include> -->
+
+
+
+            </include>
+        </definition>
+
+    </include>
+
+    <include name="Dialog_Manage_Confirm_Buttons_DialogSelect">
+        <include content="Dialog_Manage_Confirm_Buttons">
+            <param name="onclick">SendClick(5)</param>
+        </include>
+    </include>
+
+    <include name="Dialog_Manage_Confirm_Buttons_DialogChannelManager">
+        <include content="Dialog_Manage_Confirm_Buttons">
+            <param name="onclick">SendClick(4)</param>
+        </include>
+    </include>
+
+    <include name="Dialog_Manage_Confirm_Buttons_DialogGroupManager">
+        <include content="Dialog_Manage_Confirm_Buttons">
+            <param name="onclick">SendClick(29)</param>
+        </include>
+    </include>
+
+    <include name="Dialog_Manage_Confirm_Buttons_DialogMediaSource">
+        <include content="Dialog_Manage_Confirm_Buttons">
+            <param name="onclick">SendClick(18)</param>
+        </include>
+    </include>
+
+    <include name="Dialog_Manage_Confirm_Buttons_SmartPlaylistEditor">
+        <include content="Dialog_Manage_Confirm_Buttons">
+            <param name="onclick">SendClick(20)</param>
+        </include>
+    </include>
+
+    <include name="Dialog_Manage_Head_Button">
+        <param name="onclick">SetFocus(9898)</param>
+        <definition>
+            <include content="Dialog_Head_CloseButton">
+                <param name="id">$PARAM[id]</param>
+                <param name="groupid">$PARAM[groupid]</param>
+                <param name="icon">special://skin/extras/icons/sliders.png</param>
+                <param name="onmove">$PARAM[onmove]</param>
+                <param name="onclick">$PARAM[onclick]</param>
+            </include>
+        </definition>
+    </include>
+
+</includes>
