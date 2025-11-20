@@ -204,9 +204,59 @@
         </definition>
     </include>
 
+    <include name="Furniture_Busy_FloatingText_Object">
+        <param name="percentage_visible">false</param>
+        <param name="percentage_label" />
+        <param name="flipped">false</param>
+        <definition>
+            <include content="Object_InfoCircle_Text_Top">
+                <include content="Object_Left" condition="![$PARAM[flipped]]">
+                    <param name="left">0</param>
+                </include>
+                <include content="Object_Right" condition="$PARAM[flipped]">
+                    <param name="right">0</param>
+                </include>
+                <include content="Object_Align" condition="![$PARAM[flipped]]">
+                    <param name="align">left</param>
+                </include>
+                <include content="Object_Align" condition="$PARAM[flipped]">
+                    <param name="align">right</param>
+                </include>
+                <width>$PARAM[width]</width>
+                <label>$PARAM[mainlabel]</label>
+                <textcolor>main_fg_100</textcolor>
+                <shadowcolor>main_bg_30</shadowcolor>
+            </include>
+
+            <control type="grouplist">
+                <orientation>horizontal</orientation>
+                <include content="Object_Align" condition="![$PARAM[flipped]]">
+                    <param name="align">left</param>
+                </include>
+                <include content="Object_Align" condition="$PARAM[flipped]">
+                    <param name="align">right</param>
+                </include>
+                <itemgap>10</itemgap>
+                <include content="Object_InfoCircle_Text_Sub">
+                    <width max="$PARAM[width]">auto</width>
+                    <label>$PARAM[minilabel]</label>
+                    <shadowcolor>main_bg_30</shadowcolor>
+                    <textcolor>main_fg_70</textcolor>
+                </include>
+                <include content="Object_InfoCircle_Text_Sub">
+                    <width max="$PARAM[width]">auto</width>
+                    <label>$PARAM[percentage_label]</label>
+                    <shadowcolor>main_bg_30</shadowcolor>
+                    <textcolor>main_fg_70</textcolor>
+                    <visible>$PARAM[percentage_visible]</visible>
+                </include>
+            </control>
+        </definition>
+    </include>
+
     <include name="Furniture_Busy_FloatingText">
-        <param name="max_single">320</param>
-        <param name="max_double">640</param>
+        <param name="max_single">300</param>
+        <param name="max_double">390</param>
         <param name="percentage_visible">false</param>
         <param name="percentage_label" />
         <param name="flipped">false</param>
@@ -222,45 +272,25 @@
                 <itemgap>10</itemgap>
                 <visible>$PARAM[visible]</visible>
 
-                <include content="Object_InfoCircle_Text_Top">
-                    <include content="Object_Left" condition="![$PARAM[flipped]]">
-                        <param name="left">0</param>
+                <control type="group">
+                    <visible>!$EXP[Exp_HasVisibleFullDialog]</visible>
+                    <include content="Furniture_Busy_FloatingText_Object">
+                        <param name="width">$PARAM[max_double]</param>
+                        <param name="percentage_visible">$PARAM[percentage_visible]</param>
+                        <param name="percentage_label">$PARAM[percentage_label]</param>
+                        <param name="minilabel">$PARAM[minilabel]</param>
+                        <param name="mainlabel">$PARAM[mainlabel]</param>
+                        <param name="flipped">$PARAM[flipped]</param>
                     </include>
-                    <include content="Object_Right" condition="$PARAM[flipped]">
-                        <param name="right">0</param>
-                    </include>
-                    <include content="Object_Align" condition="![$PARAM[flipped]]">
-                        <param name="align">left</param>
-                    </include>
-                    <include content="Object_Align" condition="$PARAM[flipped]">
-                        <param name="align">right</param>
-                    </include>
-                    <width>$PARAM[max_double]</width>
-                    <label>$PARAM[mainlabel]</label>
-                    <textcolor>main_fg_100</textcolor>
-                    <shadowcolor>main_bg_30</shadowcolor>
-                </include>
-                <control type="grouplist">
-                    <orientation>horizontal</orientation>
-                    <include content="Object_Align" condition="![$PARAM[flipped]]">
-                        <param name="align">left</param>
-                    </include>
-                    <include content="Object_Align" condition="$PARAM[flipped]">
-                        <param name="align">right</param>
-                    </include>
-                    <itemgap>10</itemgap>
-                    <include content="Object_InfoCircle_Text_Sub">
-                        <width max="$PARAM[max_double]">auto</width>
-                        <label>$PARAM[minilabel]</label>
-                        <shadowcolor>main_bg_30</shadowcolor>
-                        <textcolor>main_fg_70</textcolor>
-                    </include>
-                    <include content="Object_InfoCircle_Text_Sub">
-                        <width max="$PARAM[max_double]">auto</width>
-                        <label>$PARAM[percentage_label]</label>
-                        <shadowcolor>main_bg_30</shadowcolor>
-                        <textcolor>main_fg_70</textcolor>
-                        <visible>$PARAM[percentage_visible]</visible>
+                </control>
+                <control type="group">
+                    <visible>$EXP[Exp_HasVisibleFullDialog]</visible>
+                    <include content="Furniture_Busy_FloatingText_Object">
+                        <param name="width">$PARAM[max_single]</param>
+                        <param name="percentage_visible">false</param>
+                        <param name="flipped">$PARAM[flipped]</param>
+                        <param name="minilabel">$PARAM[minilabel]</param>
+                        <param name="mainlabel">$PARAM[mainlabel]</param>
                     </include>
                 </control>
             </control>

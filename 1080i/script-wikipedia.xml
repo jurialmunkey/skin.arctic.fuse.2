@@ -3,19 +3,21 @@
     <defaultcontrol always="true">9902</defaultcontrol>
     <onunload condition="Player.Paused + !String.IsEmpty(Window(Home).Property(OSDExtendedInfo))">PlayerControl(Play)</onunload>
     <onunload condition="Player.Paused + !String.IsEmpty(Window(Home).Property(OSDExtendedInfo))">ClearProperty(OSDExtendedInfo,Home)</onunload>
+    <onload>SetProperty(TMDbHelper.ContextMenu,True)</onload>
     <controls>
 
-        <include content="Dialog_Dim_Overlay">
+        <!-- <include content="Dialog_Dim_Overlay">
             <param name="visible">Control.HasFocus(9902)</param>
-        </include>
+        </include> -->
+
+        <include>Dialog_Dim_Overlay</include>
 
         <control type="group">
-            <left>0</left>
-            <include>Dimension_DialogMainMenu</include>
+            <include>Dimension_DialogHugeMenu</include>
             <include>Animation_Right_Delay</include>
 
             <include content="Dialog_Foreground_Side">
-                <param name="dialog_size">Dimension_DialogMainMenu</param>
+                <param name="dialog_size">Dimension_DialogHugeMenu</param>
                 <param name="topline">false</param>
                 <param name="subline">false</param>
             </include>
@@ -30,6 +32,7 @@
 
             <!-- Content -->
             <control type="group">
+                <bottom>160</bottom>
                 <include>Dimension_Dialog_Body</include>
 
                 <control type="group">
@@ -37,11 +40,11 @@
                     <include content="List_DialogSelect">
                         <param name="id">9902</param>
                         <onright>61</onright>
-                        <width>480</width>
+                        <width>settings_category_w</width>
                     </include>
 
                     <control type="group">
-                        <width>480</width>
+                        <width>settings_category_w</width>
                         <control type="group">
                             <top>-20</top>
                             <bottom>-20</bottom>
@@ -60,29 +63,52 @@
                     </control>
 
                     <control type="group">
-                        <left>480</left>
+                        <left>settings_category_w</left>
                         <include content="Dialog_Outline_InnerBox">
                             <top>-20</top>
                             <bottom>-20</bottom>
                             <left>20</left>
                             <right>20</right>
                             <control type="group">
-                                <bottom>120</bottom>
                                 <include content="Dimension_Padding">
                                     <param name="pad">40</param>
                                 </include>
-                                <control type="textbox" id="9903">
-                                    <align>left</align>
-                                    <textcolor>main_fg_70</textcolor>
-                                    <font>font_main_plot</font>
-                                    <pagecontrol>61</pagecontrol>
-                                    <autoscroll delay="8000" time="4000" repeat="12000">!Control.HasFocus(61)</autoscroll>
-                                    <right>360</right>
-                                </control>
 
                                 <control type="group">
+                                    <!-- <right>240</right> -->
+                                    <control type="textbox" id="9903">
+                                        <align>left</align>
+                                        <textcolor>main_fg_70</textcolor>
+                                        <font>font_main_plot</font>
+                                        <pagecontrol>61</pagecontrol>
+                                        <autoscroll delay="8000" time="4000" repeat="12000">!Control.HasFocus(61)</autoscroll>
+                                        <!-- <right>40</right> -->
+                                        <visible>!Control.HasFocus(9061)</visible>
+                                    </control>
+                                    <control type="group">
+                                        <right>0</right>
+                                        <visible>Control.HasFocus(9061)</visible>
+                                        <visible>!String.IsEmpty(Window.Property(Image))</visible>
+                                        <control type="image">
+                                            <aspectratio align="center" aligny="top">keep</aspectratio>
+                                            <texture background="true">$INFO[Window.Property(Image)]</texture>
+                                            <bottom>160</bottom>
+                                        </control>
+                                        <control type="textbox">
+                                            <aligny>center</aligny>
+                                            <align>center</align>
+                                            <height>160</height>
+                                            <bottom>0</bottom>
+                                            <textcolor>main_fg_70</textcolor>
+                                            <font>font_main_plot</font>
+                                            <label>$INFO[Window.Property(ImageText)]</label>
+                                        </control>
+                                    </control>
+                                </control>
+
+                                <!-- <control type="group">
                                     <right>0</right>
-                                    <width>280</width>
+                                    <width>240</width>
                                     <top>0</top>
                                     <visible>!String.IsEmpty(Window.Property(Image))</visible>
                                     <control type="image">
@@ -99,31 +125,42 @@
                                         <font>font_tiny</font>
                                         <label>$INFO[Window.Property(ImageText)]</label>
                                     </control>
-                                </control>
-                            </control>
-                            <control type="group">
-                                <bottom>100</bottom>
-                                <left>0</left>
-                                <right>40</right>
-                                <include content="Dialog_InfoText">
-                                    <param name="label">$INFO[Control.GetLabel(9904)]</param>
-                                </include>
-                                <control type="image" id="9905">
-                                    <width>200</width>
-                                    <height>40</height>
-                                    <bottom>-60</bottom>
-                                    <right>0</right>
-                                    <aspectratio align="right">keep</aspectratio>
-                                </control>
+                                </control> -->
                             </control>
                         </include>
                     </control>
                 </control>
 
+                <control type="group">
+                    <right>40</right>
+                    <include content="Dialog_InfoText">
+                        <param name="label">$INFO[Control.GetLabel(9904)]</param>
+                        <param name="include_hintlabel">false</param>
+                    </include>
+                    <control type="image" id="9905">
+                        <width>200</width>
+                        <height>40</height>
+                        <centerbottom>-60</centerbottom>
+                        <right>0</right>
+                        <aspectratio align="right">keep</aspectratio>
+                    </control>
+                </control>
+
+
+                <include content="Object_Hidden_Button">
+                    <param name="id">9061</param>
+                    <onleft>61</onleft>
+                    <onup>61</onup>
+                    <ondown>61</ondown>
+                    <onback>61</onback>
+                    <onclick>SetFocus(61)</onclick>
+                </include>
+
                 <include content="Dialog_Scrollbar">
                     <param name="id">61</param>
                     <param name="inset">true</param>
                     <onleft>9902</onleft>
+                    <onright condition="!String.IsEmpty(Window.Property(Image))">9061</onright>
                 </include>
             </control>
         </control>
