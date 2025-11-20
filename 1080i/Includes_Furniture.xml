@@ -37,9 +37,29 @@
         </control>
     </include>
 
+    <include name="Furniture_Left_Sliding">
+        <!-- <animation effect="slide" start="0" end="80" tween="back" easing="out" time="400" reversible="false" condition="[[$EXP[Exp_HasActiveNotificationIcon] | $EXP[Exp_HasActiveNotificationText]] + $EXP[Exp_HasVisibleDialog]]">Conditional</animation>
+        <animation effect="slide" start="80" end="0" tween="back" easing="out" time="400" reversible="false" condition="![[$EXP[Exp_HasActiveNotificationIcon] | $EXP[Exp_HasActiveNotificationText]] + $EXP[Exp_HasVisibleDialog]]">Conditional</animation> -->
+    </include>
+    <include name="Furniture_Left_Fading">
+        <!-- <animation effect="fade" start="100" end="0" tween="sine" time="200" reversible="false" condition="[$EXP[Exp_HasActiveNotificationText] + $EXP[Exp_HasVisibleDialog]]">Conditional</animation>
+        <animation effect="fade" start="0" end="100" tween="sine" delay="200" time="200" reversible="false" condition="![$EXP[Exp_HasActiveNotificationText] + $EXP[Exp_HasVisibleDialog]]">Conditional</animation> -->
+    </include>
+
+    <include name="Furniture_Right_Sliding">
+        <animation effect="slide" start="0" end="-80" tween="back" easing="out" time="400" reversible="false" condition="[$EXP[Exp_HasActiveNotificationIcon] + !$EXP[Exp_HasVisibleDialog]]">Conditional</animation>
+        <animation effect="slide" start="-80" end="0" tween="back" easing="out" time="400" reversible="false" condition="![$EXP[Exp_HasActiveNotificationIcon] + !$EXP[Exp_HasVisibleDialog]]">Conditional</animation>
+    </include>
+    <include name="Furniture_Right_Fading">
+        <animation effect="fade" start="100" end="0" tween="sine" time="200" reversible="false" condition="[$EXP[Exp_HasActiveNotificationText] + !$EXP[Exp_HasVisibleDialog]]">Conditional</animation>
+        <animation effect="fade" start="0" end="100" tween="sine" delay="200" time="200" reversible="false" condition="![$EXP[Exp_HasActiveNotificationText] + !$EXP[Exp_HasVisibleDialog]]">Conditional</animation>
+    </include>
+
     <include name="Furniture_Bottom_Right">
         <control type="group">
             <include>Dimension_Bottombar</include>
+            <include>Furniture_Right_Fading</include>
+            <include>Furniture_Right_Sliding</include>
             <control type="group">
                 <include>Dimension_Furniture_Gutters</include>
                 <control type="group">
@@ -68,6 +88,8 @@
     <include name="_Furniture_Bottom_Left">
         <control type="group">
             <include>Dimension_Bottombar</include>
+            <include>Furniture_Left_Fading</include>
+            <include>Furniture_Left_Sliding</include>
             <control type="group">
                 <include>Dimension_Furniture_Gutters</include>
                 <include content="View_Furniture_Bottom_ViewLine" condition="Window.IsMedia + !Window.IsVisible(addonbrowser) + !Window.IsVisible(eventlog) + !Window.IsVisible(MyMusicPlaylistEditor.xml)">
@@ -107,12 +129,7 @@
 
     <include name="Furniture_Busy_Spinner">
         <control type="image">
-            <visible>$PARAM[spinnervisible]</visible>
             <bordersize>-4</bordersize>
-            <include content="Animation_Fade_Out">
-                <param name="type">hidden</param>
-                <param name="delay">200</param>
-            </include>
             <include content="Defs_BusySpinner_Image">
                 <param name="spinspinner">$PARAM[spinspinner]</param>
             </include>
@@ -126,17 +143,23 @@
         <param name="icon">special://skin/extras/icons/kodi.png</param>
         <param name="spinspinner">false</param>
         <param name="spinnervisible">true</param>
-        <param name="include_right">false</param>
-        <param name="right">0</param>
         <param name="flipspinner">true</param>
+        <param name="flipped">false</param>
+        <param name="visible">true</param>
         <definition>
             <control type="group">
                 <description>Busy animation</description>
                 <width>50</width>
                 <height>50</height>
                 <centertop>50%</centertop>
-                <include content="Object_Right" condition="$PARAM[include_right]">
-                    <param name="right">$PARAM[right]</param>
+
+                <visible>$PARAM[visible]</visible>
+
+                <include content="Object_Left" condition="![$PARAM[flipped]]">
+                    <param name="left">15</param>
+                </include>
+                <include content="Object_Right" condition="$PARAM[flipped]">
+                    <param name="right">15</param>
                 </include>
 
                 <control type="group">
@@ -151,8 +174,8 @@
                         <centertop>50%</centertop>
                         <width>100</width>
                         <height>100</height>
+                        <visible>$PARAM[spinnervisible]</visible>
                         <include content="Furniture_Busy_Spinner" condition="$PARAM[hasspinner]">
-                            <param name="spinnervisible">$PARAM[spinnervisible]</param>
                             <param name="spinspinner">$PARAM[spinspinner]</param>
                         </include>
                         <include content="Object_Control" condition="$PARAM[hasprogress]">
@@ -160,11 +183,6 @@
                             <description>Busy animation</description>
                             <animation effect="rotate" condition="$PARAM[spinspinner]" start="0" end="-360" loop="true" time="2000" center="auto">Conditional</animation>
                             <description>Busy animation</description>
-                            <visible>$PARAM[spinnervisible]</visible>
-                            <include content="Animation_Fade_Out">
-                                <param name="type">hidden</param>
-                                <param name="delay">200</param>
-                            </include>
                             <control type="image">
                                 <bordersize>-4</bordersize>
                                 <texture colordiffuse="$VAR[ColorHighlight]" flipx="$PARAM[flipspinner]" flipy="$PARAM[flipspinner]">$INFO[$PARAM[progress],progress/circle/p,.png]</texture>
@@ -187,37 +205,63 @@
     </include>
 
     <include name="Furniture_Busy_FloatingText">
-        <param name="max">320</param>
+        <param name="max_single">320</param>
+        <param name="max_double">640</param>
         <param name="percentage_visible">false</param>
         <param name="percentage_label" />
+        <param name="flipped">false</param>
+        <param name="visible">true</param>
         <definition>
-            <control type="grouplist">
-                <left>20</left>
-                <right>80</right>
-                <orientation>horizontal</orientation>
-                <align>right</align>
+            <control type="group">
+                <include content="Object_Left" condition="![$PARAM[flipped]]">
+                    <param name="left">95</param>
+                </include>
+                <include content="Object_Right" condition="$PARAM[flipped]">
+                    <param name="right">95</param>
+                </include>
                 <itemgap>10</itemgap>
-                <control type="label" id="$PARAM[mainlabel_id]">
-                    <font>font_tiny_bold</font>
-                    <width max="$PARAM[max]">auto</width>
+                <visible>$PARAM[visible]</visible>
+
+                <include content="Object_InfoCircle_Text_Top">
+                    <include content="Object_Left" condition="![$PARAM[flipped]]">
+                        <param name="left">0</param>
+                    </include>
+                    <include content="Object_Right" condition="$PARAM[flipped]">
+                        <param name="right">0</param>
+                    </include>
+                    <include content="Object_Align" condition="![$PARAM[flipped]]">
+                        <param name="align">left</param>
+                    </include>
+                    <include content="Object_Align" condition="$PARAM[flipped]">
+                        <param name="align">right</param>
+                    </include>
+                    <width>$PARAM[max_double]</width>
                     <label>$PARAM[mainlabel]</label>
                     <textcolor>main_fg_100</textcolor>
                     <shadowcolor>main_bg_30</shadowcolor>
-                </control>
-                <control type="label" id="$PARAM[minilabel_id]">
-                    <font>font_tiny</font>
-                    <width max="$PARAM[max]">auto</width>
-                    <label>$PARAM[minilabel]</label>
-                    <shadowcolor>main_bg_30</shadowcolor>
-                    <textcolor>main_fg_70</textcolor>
-                </control>
-                <control type="label">
-                    <font>font_tiny</font>
-                    <width max="$PARAM[max]">auto</width>
-                    <label>$PARAM[percentage_label]</label>
-                    <shadowcolor>main_bg_30</shadowcolor>
-                    <textcolor>main_fg_70</textcolor>
-                    <visible>$PARAM[percentage_visible]</visible>
+                </include>
+                <control type="grouplist">
+                    <orientation>horizontal</orientation>
+                    <include content="Object_Align" condition="![$PARAM[flipped]]">
+                        <param name="align">left</param>
+                    </include>
+                    <include content="Object_Align" condition="$PARAM[flipped]">
+                        <param name="align">right</param>
+                    </include>
+                    <itemgap>10</itemgap>
+                    <include content="Object_InfoCircle_Text_Sub">
+                        <width max="$PARAM[max_double]">auto</width>
+                        <label>$PARAM[minilabel]</label>
+                        <shadowcolor>main_bg_30</shadowcolor>
+                        <textcolor>main_fg_70</textcolor>
+                    </include>
+                    <include content="Object_InfoCircle_Text_Sub">
+                        <width max="$PARAM[max_double]">auto</width>
+                        <label>$PARAM[percentage_label]</label>
+                        <shadowcolor>main_bg_30</shadowcolor>
+                        <textcolor>main_fg_70</textcolor>
+                        <visible>$PARAM[percentage_visible]</visible>
+                    </include>
                 </control>
             </control>
         </definition>
@@ -244,11 +288,29 @@
                 <param name="progress">$PARAM[progress]</param>
                 <param name="progress_id">$PARAM[progress_id]</param>
                 <param name="spinnervisible">$PARAM[spinnervisible]</param>
-                <param name="include_right">true</param>
-                <param name="right">15</param>
+                <param name="flipped">false</param>
+                <param name="visible">$EXP[Exp_HasVisibleDialog]</param>
+            </include>
+
+            <include content="Furniture_Busy_Icon">
+                <param name="hasspinner">$PARAM[hasspinner]</param>
+                <param name="hasprogress">$PARAM[hasprogress]</param>
+                <param name="hasicon">$PARAM[hasicon]</param>
+                <param name="spinspinner">$PARAM[spinspinner]</param>
+                <param name="flipspinner">$PARAM[flipspinner]</param>
+                <param name="icon">$PARAM[icon]</param>
+                <param name="progress">$PARAM[progress]</param>
+                <param name="progress_id">$PARAM[progress_id]</param>
+                <param name="spinnervisible">$PARAM[spinnervisible]</param>
+                <param name="flipped">true</param>
+                <param name="visible">!$EXP[Exp_HasVisibleDialog]</param>
             </include>
 
         </definition>
+    </include>
+
+    <include name="Furiture_Busy_Reposition">
+        <animation effect="slide" start="0" end="0,-880" condition="[Window.IsActive(DialogSeekBar.xml) + !$EXP[Exp_HasVisibleFullDialog]]">Conditional</animation>
     </include>
 
     <include name="Furniture_Busy_Main">
@@ -259,10 +321,9 @@
         <param name="visible_condition" />
         <param name="windowopen_delay" />
         <param name="windowopen_condition" />
-        <param name="mainlabel_id" />
-        <param name="minilabel_id" />
         <definition>
 
+            <include>Furiture_Busy_Reposition</include>
             <include>Dimension_FurnitureBusy_Floating</include>
 
             <include content="Animation_SlideIn_Dialog">
@@ -273,13 +334,42 @@
                 <param name="posy">48</param>
             </include>
 
+            <include content="Animation_SlideIn_Dialog_Conditional">
+                <param name="visible_delay">400</param>
+                <param name="visible_condition">[$EXP[Exp_HasVisibleDialog] + ![Window.IsActive(DialogSeekBar.xml) + !$EXP[Exp_HasVisibleFullDialog]]]</param>
+                <param name="posy">48</param>
+            </include>
+            <include content="Animation_SlideIn_Dialog_Conditional">
+                <param name="visible_delay">0</param>
+                <param name="visible_condition">[!$EXP[Exp_HasVisibleDialog] + ![Window.IsActive(DialogSeekBar.xml) + !$EXP[Exp_HasVisibleFullDialog]]]</param>
+                <param name="posy">48</param>
+            </include>
+             <include content="Animation_SlideIn_Dialog_Conditional">
+                <param name="visible_delay">400</param>
+                <param name="visible_condition">[$EXP[Exp_HasVisibleDialog] + [Window.IsActive(DialogSeekBar.xml) + !$EXP[Exp_HasVisibleFullDialog]]]</param>
+                <param name="posy">-48</param>
+            </include>
+            <include content="Animation_SlideIn_Dialog_Conditional">
+                <param name="visible_delay">0</param>
+                <param name="visible_condition">[!$EXP[Exp_HasVisibleDialog] + [Window.IsActive(DialogSeekBar.xml) + !$EXP[Exp_HasVisibleFullDialog]]]</param>
+                <param name="posy">-48</param>
+            </include>
+
             <include content="Furniture_Busy_FloatingText" condition="$PARAM[haslabel]">
-                <param name="mainlabel_id">$PARAM[mainlabel_id]</param>
                 <param name="mainlabel">$PARAM[mainlabel]</param>
-                <param name="minilabel_id">$PARAM[minilabel_id]</param>
                 <param name="minilabel">$PARAM[minilabel]</param>
                 <param name="percentage_label">$PARAM[percentage_label]</param>
                 <param name="percentage_visible">$PARAM[percentage_visible]</param>
+                <param name="flipped">false</param>
+                <param name="visible">$EXP[Exp_HasVisibleDialog]</param>
+            </include>
+            <include content="Furniture_Busy_FloatingText" condition="$PARAM[haslabel]">
+                <param name="mainlabel">$PARAM[mainlabel]</param>
+                <param name="minilabel">$PARAM[minilabel]</param>
+                <param name="percentage_label">$PARAM[percentage_label]</param>
+                <param name="percentage_visible">$PARAM[percentage_visible]</param>
+                <param name="flipped">true</param>
+                <param name="visible">!$EXP[Exp_HasVisibleDialog]</param>
             </include>
         </definition>
     </include>
@@ -320,8 +410,6 @@
                     <param name="visible_condition">$PARAM[visible_condition]</param>
                     <param name="windowopen_delay">$PARAM[windowopen_delay]</param>
                     <param name="windowopen_condition">$PARAM[windowopen_condition]</param>
-                    <param name="mainlabel_id">$PARAM[mainlabel_id]</param>
-                    <param name="minilabel_id">$PARAM[minilabel_id]</param>
                     <param name="percentage_label">$PARAM[percentage_label]</param>
                     <param name="percentage_visible">$PARAM[percentage_visible]</param>
                 </include>
