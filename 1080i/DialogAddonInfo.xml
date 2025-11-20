@@ -2,20 +2,21 @@
 <window type="dialog">
 
     <menucontrol>9800</menucontrol>
-    <defaultcontrol always="true">61</defaultcontrol>
-    <onload>AlarmClock(refocus,SetFocus(61),00:00,silent)</onload>
+    <defaultcontrol always="true">9000</defaultcontrol>
+    <onload>AlarmClock(refocus,SetFocus(9000),00:00,silent)</onload>
+
 
     <controls>
 
         <include>Dialog_Dim_Overlay</include>
 
         <control type="group">
-            <include>Dimension_DialogMainMenu</include>
+            <include>Dimension_DialogHugeMenu</include>
             <include>Animation_Right_Delay</include>
 
             <include content="Dialog_Background_Group">
                 <param name="include_glass">true</param>
-                <param name="dialog_size">Dimension_DialogMainMenu</param>
+                <param name="dialog_size">Dimension_DialogHugeMenu</param>
             </include>
 
             <control type="group">
@@ -23,9 +24,7 @@
                 <include content="Dialog_Head">
                     <param name="label">$INFO[ListItem.Label]</param>
                 </include>
-                <include content="Dialog_Manage_Head_Button">
-                    <param name="onclick">SetFocus(9898)</param>
-                </include>
+                <include>Dialog_Manage_Head_Button</include>
 
                 <!-- Content -->
                 <control type="group" id="8000">
@@ -138,6 +137,11 @@
                         <param name="label">$INFO[ListItem.AddonDisclaimer]</param>
                         <param name="fallback">$INFO[System.BuildVersion,Kodi ,]$INFO[System.AddonVersion(skin.arctic.fuse.2), • AF2 v,]</param>
                     </include>
+                    <include content="Object_Hidden_Button">
+                        <param name="id">9000</param>
+                        <onfocus condition="Control.IsVisible(61)">SetFocus(61)</onfocus>
+                        <onright>61</onright>
+                    </include>
                     <include content="Dialog_Scrollbar">
                         <param name="id">61</param>
                         <param name="inset">true</param>
@@ -155,7 +159,7 @@
         </include>
 
         <include content="Dialog_Manage">
-            <param name="onback">61</param>
+            <param name="onback">9000</param>
             <param name="focus_id">99</param>
             <param name="include">Items_DialogAddonInfo</param>
         </include>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <window>
-    <zorder>1000</zorder>
+    <zorder>1002</zorder>
     <controls>
 
         <control type="group">
@@ -9,65 +9,56 @@
                 <param name="hasicon">false</param>
             </include>
 
+            <!-- Left -->
+            <include content="Info_FooterItemIcon">
+                <param name="icon">special://skin/extras/icons/comment-dots.png</param>
+                <param name="flipped">false</param>
+                <param name="left">15</param>
+                <param name="visible">$EXP[Exp_HasVisibleDialog] + String.StartsWith(Control.GetLabel(400),Default)</param>
+                <param name="size">50</param>
+            </include>
+            <include content="Info_FooterItemIcon">
+                <param name="icon">$INFO[Control.GetLabel(400)]</param>
+                <param name="icon_colordiffuse">white</param>
+                <param name="bordersize">2</param>
+                <param name="flipped">false</param>
+                <param name="left">15</param>
+                <param name="visible">$EXP[Exp_HasVisibleDialog] + !String.StartsWith(Control.GetLabel(400),Default)</param>
+                <param name="size">50</param>
+            </include>
+            <!-- Right -->
             <include content="Info_FooterItemIcon">
                 <param name="icon">special://skin/extras/icons/comment-dots.png</param>
                 <param name="flipped">true</param>
                 <param name="right">15</param>
-                <param name="visible">String.StartsWith(Control.GetLabel(400),Default)</param>
+                <param name="visible">!$EXP[Exp_HasVisibleDialog] + String.StartsWith(Control.GetLabel(400),Default)</param>
                 <param name="size">50</param>
             </include>
-
             <include content="Info_FooterItemIcon">
                 <param name="icon">$INFO[Control.GetLabel(400)]</param>
                 <param name="icon_colordiffuse">white</param>
                 <param name="bordersize">2</param>
                 <param name="flipped">true</param>
                 <param name="right">15</param>
-                <param name="visible">!String.StartsWith(Control.GetLabel(400),Default)</param>
+                <param name="visible">!$EXP[Exp_HasVisibleDialog] + !String.StartsWith(Control.GetLabel(400),Default)</param>
                 <param name="size">50</param>
             </include>
 
             <include content="Furniture_Busy_Main">
-                <param name="mainlabel_id">401</param>
-                <param name="minilabel_id">402</param>
-                <param name="visible_condition">!$EXP[Exp_Notification_IsActive]</param>
-                <param name="windowopen_condition">!$EXP[Exp_Notification_IsActive]</param>
-                <param name="reposition">[$EXP[Exp_HasActiveDialog] | $EXP[Exp_OSD_ActiveSlides]]</param>
-                <!-- <param name="reposition">[$EXP[Exp_HasActiveDialog]]</param> -->
+                <param name="minilabel">$INFO[Control.GetLabel(402)]</param>
+                <param name="mainlabel">$INFO[Control.GetLabel(401)]</param>
+                <param name="visible_condition">!$EXP[Exp_FurnitureBusy_AnimationCond_DialogNotification]</param>
+                <param name="windowopen_condition">!$EXP[Exp_FurnitureBusy_AnimationCond_DialogNotification]</param>
             </include>
-
-            <include content="Furniture_Busy_Reposition">
-                <param name="reposition">[$EXP[Exp_HasActiveDialog] | $EXP[Exp_OSD_ActiveSlides]]</param>
-            </include>
-
-            <control type="grouplist">
-                <left>20</left>
-                <right>80</right>
-                <orientation>horizontal</orientation>
-                <align>right</align>
-                <!-- <visible>$EXP[Exp_OSD_ActiveSlides]</visible> -->
-                <include content="Furniture_Busy_Reposition_Fade">
-                    <param name="reposition">[![$EXP[Exp_HasActiveDialog] | $EXP[Exp_OSD_ActiveSlides]]]</param>
-                </include>
-                <control type="label">
-                    <font>font_tiny_bold</font>
-                    <width>auto</width>
-                    <label>$INFO[Control.GetLabel(401),,  ]</label>
-                    <textcolor>main_fg_100</textcolor>
-                    <shadowcolor>main_bg_30</shadowcolor>
-                </control>
-                <control type="label">
-                    <font>font_tiny</font>
-                    <width>auto</width>
-                    <label>$INFO[Control.GetLabel(402)]</label>
-                    <shadowcolor>main_bg_30</shadowcolor>
-                    <textcolor>main_fg_70</textcolor>
-                </control>
-            </control>
-
         </control>
 
         <control type="image" id="400">
+            <include>Object_Hidden_Item_Definition</include>
+        </control>
+        <control type="label" id="401">
+            <include>Object_Hidden_Item_Definition</include>
+        </control>
+        <control type="label" id="402">
             <include>Object_Hidden_Item_Definition</include>
         </control>
     </controls>

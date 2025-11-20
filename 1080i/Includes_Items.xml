@@ -982,14 +982,14 @@
     </include>
 
     <include name="Items_FileBrowser">
-        <!-- <include content="Settings_ButtonImage">
+        <include content="Settings_ButtonImage">
             <param name="id">9001</param>
             <param name="groupid">9101</param>
             <label>$LOCALIZE[31032]</label>
             <param name="icon">special://skin/extras/icons/circle-check.png</param>
             <visible>Control.IsEnabled(413) + Control.IsVisible(413) + Control.IsVisible(450)</visible>
             <onclick>SendClick(413)</onclick>
-        </include> -->
+        </include>
         <include content="Settings_ButtonImage">
             <param name="id">9002</param>
             <param name="groupid">9102</param>
@@ -1061,6 +1061,14 @@
 
     <include name="Items_DialogPVRInfo">
         <definition>
+            <include content="Settings_ButtonImage" description="Switch">
+                <param name="groupid">9205</param>
+                <param name="id">05</param>
+                <param name="icon">special://skin/extras/icons/play2.png</param>
+                <label>$LOCALIZE[19165]</label>
+                <param name="visible">Window.IsActive(PVRGuideInfo) + Control.IsEnabled(5) + Control.IsVisible(5)</param>
+            </include>
+
             <include content="Settings_ButtonImage" description="Play Programme">
                 <param name="groupid">9220</param>
                 <param name="id">10</param>
@@ -1227,11 +1235,11 @@
     <include name="Items_DialogPVRGuideSearch">
         <definition>
             <include content="Settings_ButtonImage">
-                <param name="id">28</param>
-                <param name="groupid">9328</param>
-                <param name="icon">special://skin/extras/icons/triangle-exclamation.png</param>
-                <label>$LOCALIZE[13007]</label>
-                <visible>Control.IsEnabled(28)</visible>
+                <param name="id">9226</param>
+                <param name="groupid">9326</param>
+                <param name="icon">special://skin/extras/icons/search.png</param>
+                <label>$LOCALIZE[137]</label>
+                <onclick>SendClick(26)</onclick>
             </include>
             <include content="Settings_ButtonImage">
                 <param name="id">29</param>
@@ -1240,6 +1248,23 @@
                 <label>$LOCALIZE[190]</label>
                 <visible>Control.IsEnabled(29)</visible>
             </include>
+            <include content="Settings_ButtonImage">
+                <param name="id">9228</param>
+                <param name="groupid">9328</param>
+                <param name="icon">special://skin/extras/icons/triangle-exclamation.png</param>
+                <label>$LOCALIZE[13007]</label>
+                <visible>Control.IsEnabled(28)</visible>
+                <onclick>SendClick(28)</onclick>
+                <onclick>SetFocus(8000)</onclick>
+            </include>
+            <include content="Settings_ButtonImage">
+                <param name="id">9290</param>
+                <param name="groupid">9390</param>
+                <param name="icon">special://skin/extras/icons/circle-xmark.png</param>
+                <label>$LOCALIZE[15067]</label>
+                <onclick>PreviousMenu</onclick>
+            </include>
+
         </definition>
     </include>
 
@@ -1365,6 +1390,37 @@
         </include>
     </include>
 
+    <include name="Items_SmartPlaylistEditor">
+        <definition>
+            <include content="Settings_ButtonImage">
+                <param name="id">15</param>
+                <param name="groupid">9315</param>
+                <label>$LOCALIZE[21435]</label>
+                <param name="icon">special://skin/extras/icons/pencil.png</param>
+                <visible>Control.IsEnabled(15)</visible>
+            </include>
+            <include content="Settings_ButtonImage">
+                <param name="id">14</param>
+                <param name="groupid">9314</param>
+                <label>$LOCALIZE[1210]</label>
+                <param name="icon">special://skin/extras/icons/trash-can.png</param>
+                <visible>Control.IsEnabled(14)</visible>
+            </include>
+            <include content="Settings_ButtonImage">
+                <param name="id">20</param>
+                <param name="groupid">9320</param>
+                <label>$LOCALIZE[190]</label>
+                <param name="icon">special://skin/extras/icons/floppy-disk.png</param>
+            </include>
+            <include content="Settings_ButtonImage">
+                <param name="id">21</param>
+                <param name="groupid">9321</param>
+                <label>$LOCALIZE[15067]</label>
+                <param name="icon">special://skin/extras/icons/circle-xmark.png</param>
+            </include>
+        </definition>
+    </include>
+
     <include name="Items_DialogAddonSettings">
         <definition>
             <include content="Settings_ButtonImage">
@@ -1376,18 +1432,82 @@
                 <onclick>settingslevelchange</onclick>
             </include>
             <include content="Settings_ButtonImage">
-                <param name="id">28</param>
+                <param name="id">9028</param>
                 <param name="groupid">9328</param>
-                <label>$LOCALIZE[186]</label>
+                <label>$LOCALIZE[31032]</label>
                 <param name="icon">special://skin/extras/icons/circle-check.png</param>
+                <onclick>SendClick(28)</onclick>
             </include>
             <include content="Settings_ButtonImage">
-                <param name="id">29</param>
+                <param name="id">9029</param>
                 <param name="groupid">9329</param>
                 <label>$LOCALIZE[15067]</label>
                 <param name="icon">special://skin/extras/icons/circle-xmark.png</param>
+                <onclick>SendClick(29)</onclick>
             </include>
         </definition>
+    </include>
+
+    <include name="Items_DialogContextMenu">
+        <include content="Settings_ButtonImage">
+            <param name="id">9001</param>
+            <param name="groupid">9101</param>
+            <label>$LOCALIZE[207]</label>
+            <param name="icon">special://skin/extras/icons/quote.png</param>
+            <onclick>Close</onclick>
+            <onclick>ActivateWindow(1113)</onclick>
+            <visible>[!String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.base_plot))]</visible>
+        </include>
+
+        <include content="Settings_ButtonImage">
+            <param name="id">9002</param>
+            <param name="groupid">9102</param>
+            <label>$LOCALIZE[31066]</label>
+            <param name="icon">special://skin/extras/icons/binoculars.png</param>
+            <visible>[!String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.base_title))]</visible>
+            <onclick>Dialog.Close(contextmenu,true)</onclick>
+            <onclick>SetProperty(CustomSearchTerm,$VAR[Dialog_ContextMenu_SideButtons_WikiTitle],Home)</onclick>
+            <onclick>SetProperty(ReplaceWindow,1105,Home)</onclick>
+            <onclick condition="!Window.IsActive(1105)">ActivateWindow(1105)</onclick>
+            <onclick condition="Window.IsActive(1105)">ReplaceWindow(1197)</onclick>
+        </include>
+        <include content="Settings_ButtonImage">
+            <param name="id">9003</param>
+            <param name="groupid">9103</param>
+            <label>Wiki</label>
+            <param name="icon">special://skin/extras/icons/globe.png</param>
+            <visible>[!String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.base_title))]</visible>
+            <onclick>Dialog.Close(contextmenu,true)</onclick>
+            <onclick>runscript(script.wikipedia,wikipedia=$VAR[Dialog_ContextMenu_SideButtons_WikiTitle]$VAR[Dialog_ContextMenu_SideButtons_WikiType])</onclick>
+        </include>
+        <include content="Settings_ButtonImage">
+            <param name="id">9004</param>
+            <param name="groupid">9104</param>
+            <label>$LOCALIZE[31041]</label>
+            <param name="icon">special://skin/extras/icons/fire2.png</param>
+            <visible>[String.IsEqual(Window(Home).Property(TMDbHelper.ListItem.base_dbtype),tvshow) | String.IsEqual(Window(Home).Property(TMDbHelper.ListItem.base_dbtype),season) | String.IsEqual(Window(Home).Property(TMDbHelper.ListItem.base_dbtype),episode) | String.IsEqual(Window(Home).Property(TMDbHelper.ListItem.base_dbtype),movie)]</visible>
+            <onclick>Dialog.Close(contextmenu,true)</onclick>
+            <onclick>RunScript(plugin.video.themoviedb.helper,related_lists,query=$VAR[Path_ContextParams_Query],tmdb_type=$VAR[Path_ContextParams_TMDbType])</onclick>
+        </include>
+        <include content="Settings_ButtonImage">
+            <param name="id">9005</param>
+            <param name="groupid">9105</param>
+            <label>$LOCALIZE[31393]</label>
+            <param name="icon">special://skin/extras/icons/video.png</param>
+            <visible>[!String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.Trailer))]</visible>
+            <onclick>Dialog.Close(contextmenu,true)</onclick>
+            <onclick>SetProperty(PlayTrailerItems,$VAR[Path_VideoInfo_Trailers],Home)</onclick>
+            <onclick>RunScript(script.skinvariables,run_executebuiltin=special://skin/shortcuts/builtins/skinvariables-playtrailer.json,use_rules)</onclick>
+        </include>
+        <include content="Settings_ButtonImage">
+            <param name="id">9006</param>
+            <param name="groupid">9106</param>
+            <label>$LOCALIZE[33061]</label>
+            <param name="icon">special://skin/extras/icons/circle-plus.png</param>
+            <visible>ListItem.IsFolder</visible>
+            <onclick>Dialog.Close(contextmenu,true)</onclick>
+            <onclick>RunScript(script.skinvariables,set_listitem_to_menunode=sidemenu||1101menu||1102menu||1103menu||1104menu||1106menu||1107menu||1108menu||1109menu||powermainmenu,skin=$VAR[Path_SkinVariables_SkinFolder])</onclick>
+        </include>
     </include>
 
     <include name="Items_DialogAddonInfo">
@@ -1773,7 +1893,7 @@
                 <param name="label">$LOCALIZE[40000]</param>
                 <param name="icon">special://skin/extras/icons/bookmarks.png</param>
                 <param name="visible">[ListItem.HasVideoVersions]</param>
-                <onclick>SetFocus(8908)</onclick>
+                <onclick>SendClick(14)</onclick>
             </include>
 
             <!-- Extras -->
