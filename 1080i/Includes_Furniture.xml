@@ -200,7 +200,6 @@
         <param name="flipspinner">true</param>
         <param name="flipped">false</param>
         <param name="visible">true</param>
-        <param name="percentage_visible">false</param>
         <definition>
             <control type="group">
                 <description>Busy animation</description>
@@ -222,20 +221,7 @@
                         <param name="icon">$PARAM[icon]</param>
                         <param name="centered">true</param>
                         <param name="size">50</param>
-                        <param name="icon_visible">![$PARAM[percentage_visible]]</param>
                     </include>
-
-                    <control type="group">
-                        <visible>$PARAM[percentage_visible]</visible>
-                        <control type="label">
-                            <font>font_hint_bold</font>
-                            <label>$PARAM[percentage_label]%</label>
-                            <textcolor>main_bg_90</textcolor>
-                            <align>center</align>
-                            <aligny>center</aligny>
-                        </control>
-                    </control>
-
                     <control type="group">
                         <centerleft>50%</centerleft>
                         <centertop>50%</centertop>
@@ -273,6 +259,7 @@
 
     <include name="Furniture_Busy_FloatingText">
         <param name="visible">true</param>
+        <param name="percentage_visible">false</param>
         <definition>
             <control type="group">
                 <height>180</height>
@@ -287,7 +274,7 @@
                 </include>
                 <control type="group">
                     <left>70</left>
-                    <right>140</right>
+                    <right>135</right>
                     <height>80</height>
                     <centertop>50%</centertop>
                     <control type="label">
@@ -296,12 +283,26 @@
                         <label>$PARAM[mainlabel]</label>
                         <height>55</height>
                     </control>
-                    <control type="label">
-                        <font>font_tiny</font>
-                        <textcolor>dialog_fg_70</textcolor>
-                        <label>$PARAM[minilabel]</label>
+                    <control type="grouplist">
+                        <orientation>horizontal</orientation>
                         <bottom>0</bottom>
                         <height>45</height>
+
+                        <control type="label">
+                            <width max="340">auto</width>
+                            <font>font_tiny</font>
+                            <textcolor>dialog_fg_70</textcolor>
+                            <label>$PARAM[minilabel]</label>
+                        </control>
+
+                        <control type="label">
+                            <font>font_tiny</font>
+                            <textcolor>dialog_fg_70</textcolor>
+                            <label>$PARAM[percentage_label]</label>
+                            <width>auto</width>
+                            <visible>$PARAM[percentage_visible]</visible>
+                        </control>
+
                     </control>
                 </control>
             </control>
@@ -330,8 +331,6 @@
                 <param name="progress_id">$PARAM[progress_id]</param>
                 <param name="spinnervisible">$PARAM[spinnervisible]</param>
                 <param name="flipped">true</param>
-                <param name="percentage_label">$PARAM[percentage_label]</param>
-                <param name="percentage_visible">$PARAM[percentage_visible]</param>
             </include>
 
         </definition>
@@ -374,6 +373,8 @@
             <include content="Furniture_Busy_FloatingText" condition="$PARAM[haslabel]">
                 <param name="mainlabel">$PARAM[mainlabel]</param>
                 <param name="minilabel">$PARAM[minilabel]</param>
+                <param name="percentage_label">$PARAM[percentage_label]</param>
+                <param name="percentage_visible">$PARAM[percentage_visible]</param>
             </include>
         </definition>
     </include>
@@ -400,6 +401,8 @@
                     <param name="visible_condition">$PARAM[visible_condition]</param>
                     <param name="windowopen_delay">$PARAM[windowopen_delay]</param>
                     <param name="windowopen_condition">$PARAM[windowopen_condition]</param>
+                    <param name="percentage_label">$PARAM[percentage_label]</param>
+                    <param name="percentage_visible">$PARAM[percentage_visible]</param>
                 </include>
 
                 <include content="Furniture_Busy_Base">
@@ -412,8 +415,6 @@
                     <param name="icon">$PARAM[icon]</param>
                     <param name="progress">$PARAM[progress]</param>
                     <param name="progress_id">$PARAM[progress_id]</param>
-                    <param name="percentage_label">$PARAM[percentage_label]</param>
-                    <param name="percentage_visible">$PARAM[percentage_visible]</param>
                 </include>
             </control>
 
