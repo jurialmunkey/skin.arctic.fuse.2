@@ -337,6 +337,19 @@
         </definition>
     </include>
 
+    <include name="Furniture_Busy_Reposition">
+        <animation effect="slide" start="0" end="notification_reposition" condition="$EXP[Exp_HasActiveDialog]">Conditional</animation>
+        <animation type="Conditional" reversible="false" condition="$EXP[Exp_HasActiveDialog]">
+            <effect type="fade" start="0" end="100" time="300" delay="400"/>
+            <effect type="slide" start="0,-48" end="0" center="auto" tween="back" easing="out" time="400" delay="400"/>
+        </animation>
+        <animation type="Conditional" reversible="false" condition="!$EXP[Exp_HasActiveDialog]">
+            <effect type="fade" start="0" end="100" time="300" delay="400"/>
+            <effect type="slide" start="0,-48" end="0" center="auto" tween="back" easing="out" time="400" delay="400"/>
+        </animation>
+    </include>
+
+
     <include name="Furniture_Busy_Main">
         <param name="mainlabel">$LOCALIZE[20186]</param>
         <param name="minilabel">$LOCALIZE[31023]...</param>
@@ -348,20 +361,7 @@
         <definition>
 
             <include>Dimension_DialogNotification</include>
-
-            <animation effect="slide" start="0" end="notification_reposition" condition="$EXP[Exp_HasActiveDialog]">Conditional</animation>
-
-            <animation type="Conditional" reversible="false" condition="$EXP[Exp_HasActiveDialog]">
-                <effect type="fade" start="0" end="100" time="300" delay="400"/>
-                <effect type="slide" start="0,-48" end="0" center="auto" tween="back" easing="out" time="400" delay="400"/>
-            </animation>
-            <animation type="Conditional" reversible="false" condition="!$EXP[Exp_HasActiveDialog]">
-                <effect type="fade" start="0" end="100" time="300" delay="400"/>
-                <effect type="slide" start="0,-48" end="0" center="auto" tween="back" easing="out" time="400" delay="400"/>
-            </animation>
-
-            <!-- <animation effect="slide" start="0" end="-580" time="400" delay="400" tween="cubic" easing="out" reversible="false" condition="Window.IsActive(1170)">Conditional</animation> -->
-            <!-- <animation effect="slide" end="0" start="-580" time="400" delay="0" tween="cubic" easing="out" reversible="false" condition="!Window.IsActive(1170)">Conditional</animation> -->
+            <include condition="$PARAM[haslabel]">Furniture_Busy_Reposition</include>
 
             <include content="Animation_SlideIn_Dialog">
                 <param name="visible_delay">$PARAM[visible_delay]</param>
