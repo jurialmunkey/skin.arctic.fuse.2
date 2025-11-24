@@ -54,6 +54,27 @@
         </control>
     </include>
 
+    <include name="OSD_CastInfo_HintText_DirectionLabel">
+        <control type="label">
+            <textcolor>main_fg_30</textcolor>
+            <width>auto</width>
+            <font>font_tiny_bold</font>
+            <label>$PARAM[label]:  </label>
+        </control>
+    </include>
+
+    <include name="OSD_CastInfo_HintText_DirectionLabel_down">
+        <include content="OSD_CastInfo_HintText_DirectionLabel">
+            <param name="label">$LOCALIZE[31594]</param>
+        </include>
+    </include>
+
+    <include name="OSD_CastInfo_HintText_DirectionLabel_right">
+        <include content="OSD_CastInfo_HintText_DirectionLabel">
+            <param name="label">$LOCALIZE[31595]</param>
+        </include>
+    </include>
+
     <include name="OSD_CastInfo_HintText">
         <param name="centerbottom">20</param>
         <param name="fade_in">true</param>
@@ -82,12 +103,7 @@
                         <aspectratio>keep</aspectratio>
                         <texture colordiffuse="main_fg_30">special://skin/extras/icons/arrow-$PARAM[arrow_direction].png</texture>
                     </control>
-                    <control type="label">
-                        <textcolor>main_fg_30</textcolor>
-                        <width>auto</width>
-                        <font>font_tiny_bold</font>
-                        <label>Press $PARAM[arrow_direction]:  </label>
-                    </control>
+                    <include>OSD_CastInfo_HintText_DirectionLabel_$PARAM[arrow_direction]</include>
                     <control type="label">
                         <top>-2</top>
                         <textcolor>main_fg_30</textcolor>
@@ -95,7 +111,6 @@
                         <font>font_tiny</font>
                         <label>$PARAM[label]</label>
                     </control>
-
                 </control>
             </control>
         </definition>
