@@ -545,8 +545,6 @@
 
     <include name="View_Scrollbar_Count">
         <control type="group">
-            <include>Furniture_Right_Fading</include>
-            <include>Furniture_Right_Sliding</include>
             <include content="View_Furniture_Bottom_ViewLine">
                 <param name="label">$LOCALIZE[31135]$INFO[Container.CurrentPage, , $LOCALIZE[20163] ]$INFO[Container.NumPages]</param>
                 <param name="visible">$EXP[Exp_View_ScrollFilter_HasFocus]</param>
@@ -587,8 +585,8 @@
             <right>view_poster_itemlayout_w</right>
 
             <control type="group">
-                <left>view_poster_itemlayout_w</left>
-                <right>view_poster_itemlayout_w</right>
+                <!-- <left>view_poster_itemlayout_w</left>
+                <right>view_poster_itemlayout_w</right> -->
                 <visible allowhiddenfocus="true">Control.HasFocus(60) | Control.HasFocus(610)</visible>
                 <visible>!$EXP[Exp_View_Scrollbar_Midi_V]</visible>
                 <visible>!$EXP[Exp_View_Scrollbar_Mini_V]</visible>
@@ -1044,8 +1042,9 @@
             <control type="group">
                 <visible>!$EXP[Exp_InfoDialogs]</visible>
                 <control type="group">
-                    <visible>!$EXP[Exp_View_ScrollFilter_HasFocus]</visible>
-                    <include>Furniture_Bottom_Right</include>
+                    <include content="Furniture_Bottom_Right">
+                        <param name="visible">!$EXP[Exp_View_ScrollFilter_HasFocus]</param>
+                    </include>
                 </control>
             </control>
         </control>

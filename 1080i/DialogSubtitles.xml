@@ -1,15 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <window>
 
-    <defaultcontrol always="true">9001</defaultcontrol>
+    <defaultcontrol always="true">120</defaultcontrol>
     <include content="Action_OSD_SuspendAutoClose">
         <param name="window">DialogSubtitles.xml</param>
     </include>
     <controls>
-
-        <control type="label" id="140" description="Textbox">
-            <visible>false</visible>
-        </control>
 
         <include>Dialog_Dim_Overlay</include>
 
@@ -17,113 +13,50 @@
             <include>Dimension_DialogHugeMenu</include>
             <include>Animation_Right_Delay</include>
 
-            <include content="Dialog_Background_Group">
-                <param name="include_glass">true</param>
+            <include content="Dialog_Foreground_Side">
                 <param name="dialog_size">Dimension_DialogHugeMenu</param>
+                <param name="subline">false</param>
             </include>
+
+            <control type="image">
+                <bottom>160</bottom>
+                <height>1</height>
+                <left>80</left>
+                <right>80</right>
+                <texture colordiffuse="$VAR[Color_DialogBorder]">common/white.png</texture>
+            </control>
 
             <control type="group">
                 <!-- Header -->
                 <include content="Dialog_Head">
                     <param name="id">100</param>
                 </include>
-                <include>Dialog_Head_CloseButton</include>
+                <include>Dialog_Manage_Head_Button</include>
 
                 <!-- Content -->
                 <control type="group" id="8000">
                     <bottom>160</bottom>
                     <include>Dimension_Dialog_Body</include>
-                    <control type="group">
-                        <left>settings_category_w</left>
-                        <include content="Dialog_Outline_InnerBox">
-                            <left>40</left>
-                            <right>40</right>
-                            <control type="group">
-                                <include>Dimension_Dialog_Body_Group</include>
-                                <include content="List_DialogSelect">
-                                    <param name="id">120</param>
-                                    <param name="itemlayout_include">Layout_DialogSubtitles</param>
-                                    <param name="item_height">120</param>
-                                    <param name="textcolor">dialog_fg</param>
-                                    <onleft>150</onleft>
-                                    <onright>61</onright>
-                                    <pagecontrol>61</pagecontrol>
-                                </include>
 
-                            </control>
-                        </include>
-                    </control>
-
-                    <control type="group">
+                    <include content="List_DialogSelect">
+                        <param name="id">120</param>
+                        <param name="itemlayout_include">Layout_DialogSubtitles</param>
+                        <param name="item_height">120</param>
+                        <param name="textcolor">dialog_fg</param>
+                        <onright>61</onright>
+                        <pagecontrol>61</pagecontrol>
                         <include>Dimension_Dialog_Body_Group</include>
-
-                        <control type="group">
-                            <width>settings_category_w</width>
-
-                            <control type="group">
-                                <right>20</right>
-                                <left>20</left>
-                                <top>-20</top>
-                                <bottom>-20</bottom>
-                                <control type="image">
-                                    <top>0</top>
-                                    <height>1</height>
-                                    <texture colordiffuse="$VAR[Color_DialogBorder]">common/white.png</texture>
-                                    <right>$PARAM[lines_right]</right>
-                                </control>
-                                <control type="image">
-                                    <bottom>0</bottom>
-                                    <height>1</height>
-                                    <texture colordiffuse="$VAR[Color_DialogBorder]">common/white.png</texture>
-                                    <right>$PARAM[lines_right]</right>
-                                </control>
-                            </control>
-
-                            <control type="button" id="160">
-                                <height>80</height>
-                                <ondown>150</ondown>
-                                <onright>120</onright>
-                                <label>$LOCALIZE[137]</label>
-                                <texturenofocus />
-                                <align>left</align>
-                                <font>font_main</font>
-                                <textoffsetx>40</textoffsetx>
-                                <include>defs_dialog_button</include>
-                            </control>
-
-                            <include content="List_DialogSelect">
-                                <param name="id">150</param>
-                                <param name="textcolor">dialog_fg</param>
-                                <onright>120</onright>
-                                <top>80</top>
-                                <onup>160</onup>
-                            </include>
-
-                            <control type="image" id="110" description="Service Logo">
-                                <height>dialog_button_w</height>
-                                <bottom>0</bottom>
-                                <aspectratio aligny="bottom">keep</aspectratio>
-                            </control>
-
-                            <control type="label" id="130" description="Textbox">
-                                <height>40</height>
-                                <font>font_tiny</font>
-                                <align>center</align>
-                                <top>-40</top>
-                                <textcolor>dialog_fg_70</textcolor>
-                            </control>
-                        </control>
-                    </control>
+                    </include>
 
                     <include content="Dialog_Scrollbar">
                         <param name="id">61</param>
-                        <param name="inset">true</param>
                         <onleft>120</onleft>
+                        <onright>9898</onright>
                     </include>
 
                     <include content="Dialog_InfoText">
-                        <param name="label">$INFO[Player.FileName]$INFO[Control.GetLabel(140),[CR],]</param>
-                        <param name="include_hintlabel">false</param>
+                        <param name="label">$INFO[Player.FileName,,[CR]]$INFO[Control.GetLabel(140)]$INFO[Control.GetLabel(130), - ,]</param>
+                        <param name="include_hintlabel">true</param>
                     </include>
 
 
@@ -134,6 +67,30 @@
 
         </control>
 
+        <include content="Object_Hidden_List">
+            <param name="id">150</param>
+            <onright>120</onright>
+            <onleft>120</onleft>
+            <onup>120</onup>
+            <ondown>120</ondown>
+        </include>
+
+        <control type="image" id="110" description="Service Logo">
+            <visible>false</visible>
+        </control>
+
+        <control type="label" id="130" description="Textbox">
+            <visible>false</visible>
+        </control>
+
+        <control type="label" id="140" description="Textbox">
+            <visible>false</visible>
+        </control>
+
+        <include content="Dialog_Manage">
+            <param name="onback">120</param>
+            <param name="include">Items_DialogSubtitles</param>
+        </include>
 
     </controls>
 </window>
