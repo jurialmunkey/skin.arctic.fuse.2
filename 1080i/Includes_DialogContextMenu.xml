@@ -23,13 +23,13 @@
                     <include>Dimension_Dialog_Body_Group</include>
 
 
-                    <include content="Object_Control" condition="$EXP[Exp_Context_Expanded]">
+                    <include content="Object_Control" condition="!String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.base_fanart))">
                         <param name="control">group</param>
 
                         <include content="Dialog_Outline_Box">
                             <height>120</height>
                             <control type="image">
-                                <texture diffuse="diffuse/banner_w560_h100.png" colordiffuse="main_logo">$VAR[Image_ContextFanart]</texture>
+                                <texture diffuse="diffuse/banner_w560_h100.png" colordiffuse="main_logo" background="true">$VAR[Image_ContextFanart]</texture>
                                 <aspectratio scalediffuse="false">scale</aspectratio>
                             </control>
                             <control type="group">
@@ -37,43 +37,19 @@
                                     <param name="pad">20</param>
                                 </include>
                                 <control type="image">
-                                    <texture>$INFO[Window(Home).Property(TMDbHelper.ListItem.base_clearlogo)]</texture>
+                                    <texture background="true">$VAR[Image_ContextClearlogo]</texture>
                                     <aspectratio>keep</aspectratio>
-                                    <visible>!String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.base_clearlogo))</visible>
                                     <left>20</left>
                                     <right>20</right>
                                 </control>
                             </control>
                         </include>
-                        <control type="group">
-                            <top>160</top>
-                            <control type="group">
-                                <top>-20</top>
-                                <height>80</height>
-                                <left>20</left>
-                                <include content="ButtonMenu_MediaTray">
-                                    <param name="include">ButtonMenu_ContextControls</param>
-                                    <onup>SetFocus(996)</onup>
-                                    <onup>PageDown</onup>
-                                    <onup>PageDown</onup>
-                                    <onup>PageDown</onup>
-                                    <onup>PageDown</onup>
-                                    <onup>PageDown</onup>
-                                    <ondown>SetFocus(996)</ondown>
-                                    <ondown>PageUp</ondown>
-                                    <ondown>PageUp</ondown>
-                                    <ondown>PageUp</ondown>
-                                    <ondown>PageUp</ondown>
-                                    <ondown>PageUp</ondown>
-                                </include>
-                            </control>
-                        </control>
                     </include>
 
                     <control type="group">
 
-                        <include content="Object_Top" condition="$EXP[Exp_Context_Expanded]">
-                            <param name="top">240</param>
+                        <include content="Object_Top" condition="!String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.base_fanart))">
+                            <param name="top">160</param>
                         </include>
 
                         <control type="image">
@@ -85,8 +61,6 @@
                         </control>
 
                         <control type="grouplist" id="996">
-                            <onup condition="$EXP[Exp_Context_Expanded]">6099</onup>
-                            <ondown condition="$EXP[Exp_Context_Expanded]">6099</ondown>
                             <pagecontrol>61</pagecontrol>
                             <onright>61</onright>
                         </control>
@@ -98,6 +72,7 @@
                             <include content="Dialog_Scrollbar">
                                 <param name="id">61</param>
                                 <onleft>996</onleft>
+                                <onright>9898</onright>
                             </include>
                         </control>
 
@@ -141,7 +116,7 @@
                         <param name="label">$PARAM[header]</param>
                     </include>
 
-                    <include>Dialog_Head_CloseButton</include>
+                    <include>Dialog_Manage_Head_Button</include>
 
                     <!-- Content -->
                     <include>Dialog_ContextMenu_BodyContent</include>
@@ -149,6 +124,11 @@
                 </control>
 
             </control>
+
+            <include content="Dialog_Manage">
+                <param name="onback">996</param>
+                <param name="include">Items_DialogContextMenu</param>
+            </include>
 
             <include content="Settings_Button">
                 <param name="id">1000</param>
