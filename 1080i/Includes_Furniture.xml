@@ -266,43 +266,57 @@
                 <centertop>50%</centertop>
                 <left>-50</left>
                 <right>-50</right>
-                <include content="Dialog_Foreground_Side">
-                    <param name="dialog_size">Dimension_DialogNotification</param>
-                    <param name="topline">false</param>
-                    <param name="subline">false</param>
-                    <param name="transparency">true</param>
-                </include>
+                <control type="group">
+                    <include content="Dimension_Padding">
+                        <param name="pad">10</param>
+                    </include>
+                    <include content="Dialog_Foreground_Side">
+                        <param name="dialog_size">Dimension_DialogNotification</param>
+                        <param name="topline">false</param>
+                        <param name="subline">false</param>
+                        <param name="transparency">true</param>
+                    </include>
+                </control>
                 <control type="group">
                     <left>70</left>
                     <right>135</right>
                     <height>80</height>
                     <centertop>50%</centertop>
-                    <control type="label">
-                        <font>font_midi_bold</font>
-                        <textcolor>dialog_fg_90</textcolor>
-                        <label>$PARAM[mainlabel]</label>
-                        <height>55</height>
+                    <control type="group">
+                        <top>17</top>
+                        <height>20</height>
+                        <control type="label">
+                            <font>font_main_bold</font>
+                            <textcolor>dialog_fg_90</textcolor>
+                            <label>$PARAM[mainlabel]</label>
+                            <height>80</height>
+                            <centertop>50%</centertop>
+                        </control>
                     </control>
-                    <control type="grouplist">
-                        <orientation>horizontal</orientation>
-                        <bottom>0</bottom>
-                        <height>45</height>
+                    <control type="group">
+                        <bottom>17</bottom>
+                        <height>20</height>
+                        <control type="grouplist">
+                            <orientation>horizontal</orientation>
+                            <height>80</height>
+                            <centertop>50%</centertop>
 
-                        <control type="label">
-                            <width max="340">auto</width>
-                            <font>font_tiny</font>
-                            <textcolor>dialog_fg_70</textcolor>
-                            <label>$PARAM[minilabel]</label>
+                            <control type="label">
+                                <width max="340">auto</width>
+                                <font>font_tiny</font>
+                                <textcolor>dialog_fg_70</textcolor>
+                                <label>$PARAM[minilabel]</label>
+                            </control>
+
+                            <control type="label">
+                                <font>font_tiny</font>
+                                <textcolor>dialog_fg_70</textcolor>
+                                <label>$PARAM[percentage_label]</label>
+                                <width>auto</width>
+                                <visible>$PARAM[percentage_visible]</visible>
+                            </control>
+
                         </control>
-
-                        <control type="label">
-                            <font>font_tiny</font>
-                            <textcolor>dialog_fg_70</textcolor>
-                            <label>$PARAM[percentage_label]</label>
-                            <width>auto</width>
-                            <visible>$PARAM[percentage_visible]</visible>
-                        </control>
-
                     </control>
                 </control>
             </control>
