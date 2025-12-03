@@ -174,6 +174,7 @@
         <value condition="!String.IsEmpty(Container(450).ListItem.Property(fallback.icon))">$INFO[Container(450).ListItem.Property(fallback.icon)]</value>
     </variable>
     <variable name="Image_Poster">
+        <value condition="String.StartsWith(ListItem.FolderPath,pvr://) + !String.IsEmpty(ListItem.EPGEventIcon)">$INFO[ListItem.EPGEventIcon]</value>
         <value condition="!String.IsEmpty(ListItem.Property(override_poster))">$INFO[ListItem.Property(override_poster)]</value>
         <value condition="!String.IsEmpty(ListItem.Art(poster))">$INFO[ListItem.Art(poster)]</value>
         <value condition="!String.IsEmpty(ListItem.Art(season.poster))">$INFO[ListItem.Art(season.poster)]</value>
@@ -263,6 +264,7 @@
         <value condition="!String.IsEmpty(Container(450).ListItem.Icon)">$INFO[Container(450).ListItem.Icon]</value>
     </variable>
     <variable name="Image_Landscape">
+        <value condition="String.StartsWith(ListItem.FolderPath,pvr://) + !String.IsEmpty(ListItem.EPGEventIcon) +!String.IsEmpty(ListItem.Icon)">$INFO[ListItem.Icon]</value>
         <value condition="String.IsEqual(ListItem.Property(tmdb_type),person)"/>
         <value condition="!String.IsEmpty(ListItem.Property(override_landscape))">$INFO[ListItem.Property(override_landscape)]</value>
         <value condition="[String.IsEqual(ListItem.DBType,episode) | String.IsEqual(ListItem.DBType,video) | String.IsEqual(ListItem.DBType,musicvideo)] + !String.IsEmpty(ListItem.Art(thumb)) + !String.IsEqual(ListItem.Icon,ListItem.Art(fanart)) + !String.IsEqual(ListItem.Icon,OverlaySpoiler.png) + !String.IsEqual(ListItem.Art(thumb),ListItem.Art(poster)) + !String.IsEqual(ListItem.Art(thumb),ListItem.Art(tvshow.poster))">$INFO[ListItem.Art(thumb)]</value>
