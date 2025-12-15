@@ -182,13 +182,13 @@
     <expression name="Exp_SettingsSwitcherWindows_Next">[Window.Next(SettingsCategory.xml) | Window.Next(SkinSettings.xml) | Window.Next(SettingsProfile.xml) | Window.Next(SettingsSystemInfo.xml)]</expression>
     <expression name="Exp_SettingsSwitcherWindows_Prev">[Window.Previous(SettingsCategory.xml) | Window.Previous(SkinSettings.xml) | Window.Previous(SettingsProfile.xml) | Window.Previous(SettingsSystemInfo.xml)]</expression>
 
-    <expression name="Exp_FullPanelWindows_Next">[Window.Next(1105) | Window.Next(1185) | [[[$EXP[Exp_HomeHub_IsNext] + Skin.HasSetting(Hub.Home.DisableSubmenu)] | Window.Next(1115)] + $EXP[Exp_HomeMenu_IsExpanded]]]</expression>
-    <expression name="Exp_FullPanelWindows_Prev">[Window.Previous(1105) | Window.Previous(1185) | [[[$EXP[Exp_HomeHub_IsPrevious] + Skin.HasSetting(Hub.Home.DisableSubmenu)] | Window.Previous(1115)] + $EXP[Exp_HomeMenu_IsExpanded]]]</expression>
-    <expression name="Exp_FullPanelWindows">[Window.IsVisible(1105) | Window.IsVisible(1185) | [[[$EXP[Exp_HomeHub_IsVisible]] | Window.IsVisible(1115)] + $EXP[Exp_HomeMenu_IsExpanded]]]</expression>
+    <expression name="Exp_FullPanelWindows_Next">[[[[$EXP[Exp_HomeHub_IsNext] + Skin.HasSetting(Hub.Home.DisableSubmenu)]] + $EXP[Exp_HomeMenu_IsExpanded]]]</expression>
+    <expression name="Exp_FullPanelWindows_Prev">[[[[$EXP[Exp_HomeHub_IsPrevious] + Skin.HasSetting(Hub.Home.DisableSubmenu)]] + $EXP[Exp_HomeMenu_IsExpanded]]]</expression>
+    <expression name="Exp_FullPanelWindows">[[[[$EXP[Exp_HomeHub_IsVisible]]] + $EXP[Exp_HomeMenu_IsExpanded]]]</expression>
 
-    <expression name="Exp_MiniPanelWindows_Next">[[[[$EXP[Exp_HomeHub_IsNext] + Skin.HasSetting(Hub.Home.DisableSubmenu)] | Window.IsVisible(1115)] + !$EXP[Exp_HomeMenu_IsExpanded]] | $EXP[Exp_SettingsSwitcherWindows_Next]]</expression>
-    <expression name="Exp_MiniPanelWindows_Prev">[[[[$EXP[Exp_HomeHub_IsPrevious] + Skin.HasSetting(Hub.Home.DisableSubmenu)] | Window.Previous(1115)] + !$EXP[Exp_HomeMenu_IsExpanded]] | $EXP[Exp_SettingsSwitcherWindows_Prev]]</expression>
-    <expression name="Exp_MiniPanelWindows">[[[[$EXP[Exp_HomeHub_IsVisible]] | Window.IsVisible(1115)] + !$EXP[Exp_HomeMenu_IsExpanded]] | $EXP[Exp_SettingsSwitcherWindows]]</expression>
+    <expression name="Exp_MiniPanelWindows_Next">[[[[$EXP[Exp_HomeHub_IsNext] + Skin.HasSetting(Hub.Home.DisableSubmenu)]] + !$EXP[Exp_HomeMenu_IsExpanded]] | $EXP[Exp_SettingsSwitcherWindows_Next]]</expression>
+    <expression name="Exp_MiniPanelWindows_Prev">[[[[$EXP[Exp_HomeHub_IsPrevious] + Skin.HasSetting(Hub.Home.DisableSubmenu)]] + !$EXP[Exp_HomeMenu_IsExpanded]] | $EXP[Exp_SettingsSwitcherWindows_Prev]]</expression>
+    <expression name="Exp_MiniPanelWindows">[[[[$EXP[Exp_HomeHub_IsVisible]]] + !$EXP[Exp_HomeMenu_IsExpanded]] | $EXP[Exp_SettingsSwitcherWindows]]</expression>
 
     <expression name="Exp_NonePanelWindows_Next">[!$EXP[Exp_MiniPanelWindows_Next] + !$EXP[Exp_FullPanelWindows_Next]]</expression>
     <expression name="Exp_NonePanelWindows_Prev">[!$EXP[Exp_MiniPanelWindows_Prev] + !$EXP[Exp_FullPanelWindows_Prev]]</expression>

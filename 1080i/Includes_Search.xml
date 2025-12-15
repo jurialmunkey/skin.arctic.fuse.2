@@ -4,11 +4,11 @@
     <include name="Search_Term_DoubleEncoder">
         <include content="Object_Hidden_List">
             <param name="id">99099</param>
-            <content>$INFO[Control.GetLabel(9099).index(1),plugin://script.skinvariables/?info=get_encoded_string&amp;unencoded_paths=true&amp;&amp;,]</content>
+            <content>plugin://script.skinvariables/?info=get_encoded_string&amp;unencoded_paths=true&amp;&amp;$INFO[Control.GetLabel(9099).index(1)]</content>
         </include>
         <include content="Object_Hidden_List">
             <param name="id">99098</param>
-            <content>$INFO[Container(99099).ListItem.Label,plugin://script.skinvariables/?info=get_encoded_string&amp;unencoded_paths=true&amp;&amp;,]</content>
+            <content>plugin://script.skinvariables/?info=get_encoded_string&amp;unencoded_paths=true&amp;&amp;$INFO[Container(99099).ListItem.Label]</content>
         </include>
     </include>
 
@@ -18,59 +18,57 @@
 
         <include>Background</include>
 
-        <control type="group">
-            <include>Search_Group</include>
-
-            <include content="Recommendations_Group">
+        <include content="Recommendations_Group">
+            <control type="group">
                 <control type="group">
-                    <control type="group">
-                        <visible>!String.IsEmpty(Container(5099).ListItem.Property(guid))</visible>
-                        <include>Recommendations_InfoPanel</include>
-                    </control>
+                    <visible>!String.IsEmpty(Container(5099).ListItem.Property(guid))</visible>
+                    <include>Recommendations_InfoPanel</include>
+                </control>
 
-                    <control type="group">
-                        <animation effect="slide" start="0" end="0,440" condition="!String.IsEmpty(Container(5099).ListItem.Property(guid))">Conditional</animation>
-                        <include content="Recommendations_Widgets_Grouplist">
-                            <param name="onup">333</param>
-                            <param name="widget_windowchange_animation">false</param>
-                            <include>skinvariables-searchmenu-widgets</include>
-                            <include>Widget_End_Bumper</include>
-                        </include>
-                    </control>
-
-                    <visible>!String.IsEmpty(Control.GetLabel(9099).index(1))</visible>
-                    <include content="Animation_ConditionalFade">
-                        <param name="condition">[String.IsEmpty(Control.GetLabel(9099).index(1)) | Integer.IsEqual(Container(5000).NumItems,0)]</param>
+                <control type="group">
+                    <animation effect="slide" start="0" end="0,440" condition="!String.IsEmpty(Container(5099).ListItem.Property(guid))">Conditional</animation>
+                    <include content="Recommendations_Widgets_Grouplist">
+                        <param name="onup">9090</param>
+                        <param name="ondown">9090</param>
+                        <param name="widget_windowchange_animation">false</param>
+                        <include>skinvariables-searchmenu-widgets</include>
+                        <include>Widget_End_Bumper</include>
                     </include>
-
                 </control>
 
-                <include>Search_Widgets_NoResults</include>
+                <visible>!String.IsEmpty(Control.GetLabel(9099).index(1))</visible>
+                <include content="Animation_ConditionalFade">
+                    <param name="condition">[String.IsEmpty(Control.GetLabel(9099).index(1)) | Integer.IsEqual(Container(5000).NumItems,0)]</param>
+                </include>
+
+            </control>
+
+            <include>Search_Widgets_NoResults</include>
+            <control type="group">
+                <visible>String.IsEmpty(Control.GetLabel(9099).index(1)) | Integer.IsEqual(Container(5000).NumItems,0)</visible>
+                <include>Furniture_Top_Left</include>
+            </control>
+
+            <control type="group">
+                <include>Dimension_Bottombar</include>
                 <control type="group">
-                    <visible>String.IsEmpty(Control.GetLabel(9099).index(1)) | Integer.IsEqual(Container(5000).NumItems,0)</visible>
-                    <include>Furniture_Top_Left</include>
+                    <include>Dimension_Furniture_Gutters</include>
+                    <include content="View_Furniture_Bottom_ViewLine">
+                        <param name="visible">true</param>
+                        <param name="label">$INFO[Container(5099).ListItem.Property(widget_numitems),, $LOCALIZE[31022]]</param>
+                    </include>
                 </control>
+            </control>
 
-                <control type="group">
-                    <include>Dimension_Bottombar</include>
-                    <control type="group">
-                        <include>Dimension_Furniture_Gutters</include>
-                        <include content="View_Furniture_Bottom_ViewLine">
-                            <param name="visible">true</param>
-                            <param name="label">$INFO[Container(5099).ListItem.Property(widget_numitems),, $LOCALIZE[31022]]</param>
-                        </include>
-                    </control>
-                </control>
+        </include>
 
-            </include>
 
-            <include>Search_Panel</include>
 
-        </control>
         <control type="group">
             <visible>!$EXP[Exp_InfoDialogs]</visible>
             <include>Furniture_Bottom_Right</include>
         </control>
+        <include>Search_Panel</include>
 
         <include>View_Dialog_Plot</include>
     </include>
@@ -82,10 +80,10 @@
                 <control type="group">
                     <include>Dimension_Bottombar</include>
                     <control type="group">
-                        <left>-20</left>
                         <animation effect="fade" start="100" end="70" condition="true">Conditional</animation>
                         <include>Dimension_Furniture_Gutters</include>
                         <control type="group">
+                            <top>5</top>
                             <include content="View_Furniture_Bottom_ViewLine">
                                 <param name="label">$INFO[Container(5099).NumItems,, $LOCALIZE[31304]]</param>
                                 <param name="fade_condition">false</param>
@@ -95,10 +93,10 @@
                     </control>
                 </control>
                 <control type="image">
-                    <bottom>160</bottom>
+                    <bottom>140</bottom>
                     <height>1</height>
-                    <left>60</left>
-                    <right>60</right>
+                    <left>80</left>
+                    <right>80</right>
                     <texture colordiffuse="$VAR[Color_DialogBorder]">common/white.png</texture>
                 </control>
             </control>
@@ -125,9 +123,9 @@
                 <onup>SetProperty(TMDbHelper.WidgetContainer,$INFO[ListItem.Property(widget_id)])</onup>
                 <onup>5098</onup>
                 <ondown>noop</ondown>
-                <left>40</left>
-                <right>40</right>
-                <top>500</top>
+                <left>60</left>
+                <right>60</right>
+                <top>440</top>
                 <bottom>160</bottom>
                 <content>
                     <item>
@@ -153,99 +151,103 @@
 
         <include>Background</include>
 
-        <control type="group">
-            <include>Search_Group</include>
+        <include content="Recommendations_Group">
+            <control type="group">
+                <include>Recommendations_InfoPanel</include>
+                <include content="Recommendations_Widgets_Grouplist">
+                    <!-- <param name="onup">333</param> -->
+                    <param name="onup">9090</param>
+                    <param name="ondown">9090</param>
+                    <param name="widget_windowchange_animation">false</param>
 
+                    <animation effect="slide" start="0" end="0,440" condition="true">Conditional</animation>
 
-            <include content="Recommendations_Group">
-                <control type="group">
-                    <include>Recommendations_InfoPanel</include>
-                    <include content="Recommendations_Widgets_Grouplist">
-                        <param name="onup">333</param>
-                        <param name="widget_windowchange_animation">false</param>
+                    <include content="_Widget_Row">
+                        <param name="id">5001</param>
+                        <param name="groupid">5101</param>
+                        <param name="label">$INFO[window(home).property(tmdbhelper.userdiscover.folderpath.name)]$INFO[Control.GetLabel(9099).index(1), [COLOR=main_fg_30]&gt;[/COLOR] [CAPITALIZE],[/CAPITALIZE]]</param>
+                        <param name="include">List_Poster_Row</param>
+                        <param name="visible">True</param>
+                        <param name="detailed">String.IsEqual(ListItem.Label,$LOCALIZE[31046])</param>
 
-                        <animation effect="slide" start="0" end="0,440" condition="true">Conditional</animation>
+                        <param name="altvisible">[[Control.HasFocus(9099) | ControlGroup(9090).HasFocus()] + System.IdleTime(1) + !System.IdleTime(2)]</param>
+                        <param name="busy_isupdating">[[Control.HasFocus(9099) | ControlGroup(9090).HasFocus()] + System.IdleTime(1) + !System.IdleTime(2)]</param>
+                        <param name="busy_visible">[Integer.IsEqual(Container(5001).NumItems,0) | Container(5001).IsUpdating]</param>
 
-                        <include content="_Widget_Row">
+                        <param name="widgetfade_include">true</param>
+                        <param name="widget_showoverlay">false</param>
+
+                        <!-- <include content="Action_View_Movement_OnLeftRight">
                             <param name="id">5001</param>
-                            <param name="groupid">5101</param>
-                            <param name="label">$INFO[window(home).property(tmdbhelper.userdiscover.folderpath.name)]$INFO[Control.GetLabel(9099).index(1), [COLOR=main_fg_30]&gt;[/COLOR] [CAPITALIZE],[/CAPITALIZE]]</param>
-                            <param name="include">List_Poster_Row</param>
-                            <param name="visible">True</param>
-                            <param name="detailed">String.IsEqual(ListItem.Label,$LOCALIZE[31046])</param>
+                            <param name="backid">5000</param>
+                            <param name="menuid">9090</param>
+                            <param name="onback">[Integer.IsEqual(Container(5001).CurrentItem,1)]</param>
+                        </include> -->
 
-                            <param name="altvisible">[[Control.HasFocus(9099) | ControlGroup(9090).HasFocus()] + System.IdleTime(1) + !System.IdleTime(2)]</param>
-                            <param name="busy_isupdating">[[Control.HasFocus(9099) | ControlGroup(9090).HasFocus()] + System.IdleTime(1) + !System.IdleTime(2)]</param>
-                            <param name="busy_visible">[Integer.IsEqual(Container(5001).NumItems,0) | Container(5001).IsUpdating]</param>
-
-                            <param name="widgetfade_include">true</param>
-                            <param name="widget_showoverlay">false</param>
-
-                            <include content="Action_View_Movement_OnLeft">
-                                <param name="id">5001</param>
-                                <param name="menuid">9090</param>
-                                <param name="onwrap">[False]</param>
-                            </include>
-                            <include content="Action_View_Movement_OnRight">
-                                <param name="id">5001</param>
-                                <param name="menuid">9090</param>
-                                <param name="onwrap">[False]</param>
-                                <param name="onbump">[True]</param>
-                            </include>
-                            <include content="Action_View_Movement_OnBack">
-                                <param name="id">5001</param>
-                                <param name="backid">5000</param>
-                                <param name="menuid">9090</param>
-                                <param name="onback">[Integer.IsEqual(Container(5001).CurrentItem,1)]</param>
-                            </include>
-
-                            <onfocus>SetProperty(TMDbHelper.WidgetContainer,5001)</onfocus>
-                            <onfocus>ClearProperty(Background.ShowOverlay,Home)</onfocus>
-
-                            <!-- <content>
-                                <item>
-                                    <label>$LOCALIZE[31046]</label>
-                                    <icon>fallback/no-results.png</icon>
-                                    <visible>Integer.IsEqual(Container(5001).NumItems,0) | [Integer.IsEqual(Container(5001).NumItems,1) + String.IsEqual(Container(5001).ListItemAbsolute(0).Label,$LOCALIZE[31046])]</visible>
-                                </item>
-                            </content> -->
-
-                            <content browse="$VAR[Defs_BrowseLimitedLists]" target="videos">$INFO[window(home).property(tmdbhelper.userdiscover.folderpath)]$INFO[Container(99098).ListItem.Label,&amp;with_text_query=,]</content>
-
+                        <include content="Action_View_Movement_OnLeft">
+                            <param name="id">5001</param>
+                            <param name="menuid">9090</param>
+                            <param name="onwrap">[False]</param>
                         </include>
-
-                        <include>Widget_End_Bumper</include>
-                    </include>
-                    <include content="Animation_ConditionalFade">
-                        <param name="condition">[Integer.IsEqual(Container(5000).NumItems,0)]</param>
-                    </include>
-                </control>
-
-                <include>Search_Widgets_NoResults</include>
-                <control type="group">
-                    <visible>Integer.IsEqual(Container(5000).NumItems,0)</visible>
-                    <include>Furniture_Top_Left</include>
-                </control>
-                <control type="group">
-                    <include>Dimension_Bottombar</include>
-                    <control type="group">
-                        <include>Dimension_Furniture_Gutters</include>
-                        <include content="View_Furniture_Bottom_ViewLine">
-                            <param name="visible">true</param>
-                            <param name="label">$INFO[Container(5001).NumItems,, $LOCALIZE[31022]]</param>
+                        <include content="Action_View_Movement_OnRight">
+                            <param name="id">5001</param>
+                            <param name="menuid">9090</param>
+                            <param name="onwrap">[False]</param>
                         </include>
-                    </control>
+                        <!-- <include content="Action_View_Movement_OnBack">
+                            <param name="id">5001</param>
+                            <param name="backid">5000</param>
+                            <param name="menuid">9090</param>
+                            <param name="onback">[Integer.IsEqual(Container(5001).CurrentItem,1)]</param>
+                        </include> -->
+
+                        <onfocus>SetProperty(TMDbHelper.WidgetContainer,5001)</onfocus>
+                        <onfocus>ClearProperty(Background.ShowOverlay,Home)</onfocus>
+
+                        <!-- <content>
+                            <item>
+                                <label>$LOCALIZE[31046]</label>
+                                <icon>fallback/no-results.png</icon>
+                                <visible>Integer.IsEqual(Container(5001).NumItems,0) | [Integer.IsEqual(Container(5001).NumItems,1) + String.IsEqual(Container(5001).ListItemAbsolute(0).Label,$LOCALIZE[31046])]</visible>
+                            </item>
+                        </content> -->
+
+                        <content browse="$VAR[Defs_BrowseLimitedLists]" target="videos">$INFO[window(home).property(tmdbhelper.userdiscover.folderpath)]$INFO[Container(99098).ListItem.Label,&amp;with_text_query=,]</content>
+
+                    </include>
+
+                    <include>Widget_End_Bumper</include>
+                </include>
+                <include content="Animation_ConditionalFade">
+                    <param name="condition">[Integer.IsEqual(Container(5000).NumItems,0)]</param>
+                </include>
+            </control>
+
+            <include>Search_Widgets_NoResults</include>
+            <control type="group">
+                <visible>Integer.IsEqual(Container(5000).NumItems,0)</visible>
+                <include>Furniture_Top_Left</include>
+            </control>
+            <control type="group">
+                <include>Dimension_Bottombar</include>
+                <control type="group">
+                    <include>Dimension_Furniture_Gutters</include>
+                    <include content="View_Furniture_Bottom_ViewLine">
+                        <param name="visible">true</param>
+                        <param name="label">$INFO[Container(5001).NumItems,, $LOCALIZE[31022]]</param>
+                    </include>
                 </control>
-            </include>
+            </control>
+        </include>
 
-            <include>Search_Panel</include>
 
-        </control>
+
 
         <control type="group">
             <visible>!$EXP[Exp_InfoDialogs]</visible>
             <include>Furniture_Bottom_Right</include>
         </control>
+        <include>Search_Panel</include>
 
         <include>View_Dialog_Plot</include>
 
@@ -257,14 +259,19 @@
         <menucontrol>9992</menucontrol>
         <include>Action_Blur_Onload</include>
 
-        <onload condition="$EXP[Exp_FullPanelWindows_Prev] + String.IsEmpty(Window(Home).Property(CustomSearchTerm)) + !Window.Previous(1185) + !Window.Previous(1105)">SetFocus(9992)</onload>
-        <onload condition="$EXP[Exp_FullPanelWindows_Prev] + String.IsEmpty(Window(Home).Property(CustomSearchTerm)) + [Window.Previous(1185) | Window.Previous(1105)]">SetFocus(9994,0,absolute)</onload>
-
+        <onload condition="String.IsEmpty(Window(Home).Property(CustomSearchTerm)) + !Window.Previous(MyVideoNav.xml)">SetFocus(9992,0,absolute)</onload>
 
         <onload condition="!String.IsEmpty(Window(Home).Property(CustomSearchTerm))">SetFocus(9099)</onload>
         <onload condition="!String.IsEmpty(Window(Home).Property(CustomSearchTerm)) + Window.IsVisible(1105)">AlarmClock(refocus,RunScript(script.skinvariables,set_editcontrol=9099,window_id=1105,setfocus=9992,text=$INFO[Window(Home).Property(CustomSearchTerm)]),00:01,silent)</onload>
         <onload condition="!String.IsEmpty(Window(Home).Property(CustomSearchTerm)) + Window.IsVisible(1185)">AlarmClock(refocus,RunScript(script.skinvariables,set_editcontrol=9099,window_id=1185,setfocus=9992,text=$INFO[Window(Home).Property(CustomSearchTerm)]),00:01,silent)</onload>
         <onload>ClearProperty(CustomSearchTerm,Home)</onload>
+
+        <!-- <onload condition="$EXP[Exp_FullPanelWindows_Prev] + String.IsEmpty(Window(Home).Property(CustomSearchTerm)) + !Window.Previous(1185) + !Window.Previous(1105)">SetFocus(9992)</onload>
+        <onload condition="$EXP[Exp_FullPanelWindows_Prev] + String.IsEmpty(Window(Home).Property(CustomSearchTerm)) + [Window.Previous(1185) | Window.Previous(1105)]">SetFocus(9994,0,absolute)</onload>
+        <onload condition="!String.IsEmpty(Window(Home).Property(CustomSearchTerm))">SetFocus(9099)</onload>
+        <onload condition="!String.IsEmpty(Window(Home).Property(CustomSearchTerm)) + Window.IsVisible(1105)">AlarmClock(refocus,RunScript(script.skinvariables,set_editcontrol=9099,window_id=1105,setfocus=9992,text=$INFO[Window(Home).Property(CustomSearchTerm)]),00:01,silent)</onload>
+        <onload condition="!String.IsEmpty(Window(Home).Property(CustomSearchTerm)) + Window.IsVisible(1185)">AlarmClock(refocus,RunScript(script.skinvariables,set_editcontrol=9099,window_id=1185,setfocus=9992,text=$INFO[Window(Home).Property(CustomSearchTerm)]),00:01,silent)</onload>
+        <onload>ClearProperty(CustomSearchTerm,Home)</onload> -->
 
         <onunload condition="!String.IsEmpty(Control.GetLabel(9099).index(1))">RunScript(script.skinvariables,add_skinstring_history=SearchHistory,value=$VAR[Path_SearchTerm])</onunload>
     </include>
@@ -272,18 +279,18 @@
     <include name="Search_Panel_Edit">
         <control type="edit" id="9099">
             <height>80</height>
-            <left>40</left>
-            <right>40</right>
+            <left>60</left>
+            <right>60</right>
             <centertop>100</centertop>
             <textcolor>dialog_fg_70</textcolor>
             <font>font_midi_bold</font>
             <textoffsetx>40</textoffsetx>
             <align>left</align>
             <ondown>9992</ondown>
+            <onleft>5000</onleft>
             <onright>5000</onright>
             <onleft>noop</onleft>
-            <onfocus condition="Skin.String(Home.MenuStyle,Ribbon)">SetProperty(Background.ShowOverlay,True,Home)</onfocus>
-            <onfocus condition="![Skin.String(Home.MenuStyle,Ribbon)]">ClearProperty(Background.ShowOverlay,Home)</onfocus>
+            <onfocus>ClearProperty(Background.ShowOverlay,Home)</onfocus>
         </control>
     </include>
 
@@ -297,14 +304,18 @@
             <orientation>vertical</orientation>
             <onup>9099</onup>
             <ondown>9994</ondown>
+            <onleft>5000</onleft>
             <onright>5000</onright>
-            <onleft>noop</onleft>
-            <width>360</width>
-            <height>180</height>
+            <onback>5000</onback>
+            <!-- <width>360</width>
+            <height>180</height> -->
+
+            <width>560</width>
+            <height>120</height>
+
             <centerleft>50%</centerleft>
 
-            <onfocus condition="Skin.String(Home.MenuStyle,Ribbon)">SetProperty(Background.ShowOverlay,True,Home)</onfocus>
-            <onfocus condition="![Skin.String(Home.MenuStyle,Ribbon)]">ClearProperty(Background.ShowOverlay,Home)</onfocus>
+            <onfocus>ClearProperty(Background.ShowOverlay,Home)</onfocus>
 
             <itemlayout width="40" height="60">
                 <control type="label">
@@ -539,14 +550,14 @@
             <orientation>horizontal</orientation>
             <onup>9992</onup>
             <ondown>SetFocus(9993,0,absolute)</ondown>
+            <onleft>5000</onleft>
             <onright>5000</onright>
             <onleft>noop</onleft>
             <top>-10</top>
             <width>240</width>
             <height>60</height>
             <centerleft>50%</centerleft>
-            <onfocus condition="Skin.String(Home.MenuStyle,Ribbon)">SetProperty(Background.ShowOverlay,True,Home)</onfocus>
-            <onfocus condition="![Skin.String(Home.MenuStyle,Ribbon)]">ClearProperty(Background.ShowOverlay,Home)</onfocus>
+            <onfocus>ClearProperty(Background.ShowOverlay,Home)</onfocus>
 
             <itemlayout width="60" height="60">
                 <control type="label">
@@ -622,7 +633,9 @@
                     <onclick>SetFocus(9099)</onclick>
                     <onclick condition="Window.Isvisible(1185)">RunScript(script.skinvariables,set_editcontrol=9099,window_id=1185,setfocus=9994)</onclick>
                     <onclick condition="Window.Isvisible(1105)">RunScript(script.skinvariables,set_editcontrol=9099,window_id=1105,setfocus=9994)</onclick>
-                    <onclick condition="Window.IsVisible(1105)">RunPlugin(plugin://plugin.video.themoviedb.helper/?info=user_discover&amp;tmdb_type=movie)</onclick>
+                    <onclick condition="Window.Isvisible(1105)">SetProperty(TMDbHelper.UserDiscover.FolderPath,plugin://plugin.video.themoviedb.helper/?info=discover&amp;with_id=True&amp;tmdb_type=movie,Home)</onclick>
+                    <onclick condition="Window.Isvisible(1105)">SetProperty(TMDbHelper.UserDiscover.FolderPath.Name,$LOCALIZE[467] $LOCALIZE[342],Home)</onclick>
+                    <onclick condition="Window.Isvisible(1105)">SetProperty(TMDbHelper.UserDiscover.Folderpath.ParamString,tmdb_type=movie,Home)</onclick>
                     <include>Search_Panel_UpdateSearchRows_Onclick</include>
                 </item>
             </content>
@@ -632,12 +645,10 @@
     <include name="Search_Panel_Autocomplete">
         <control type="fixedlist" id="9993">
             <onup>5098</onup>
-            <onback>SetFocus(9993,0,absolute)</onback>
-            <onback>5098</onback>
+            <onback>5000</onback>
+            <onleft>5000</onleft>
             <onright>5000</onright>
-            <onleft>noop</onleft>
-            <onfocus condition="Skin.String(Home.MenuStyle,Ribbon)">SetProperty(Background.ShowOverlay,True,Home)</onfocus>
-            <onfocus condition="![Skin.String(Home.MenuStyle,Ribbon)]">ClearProperty(Background.ShowOverlay,Home)</onfocus>
+            <onfocus>ClearProperty(Background.ShowOverlay,Home)</onfocus>
             <visible>!Control.HasFocus(5099)</visible>
 
             <orientation>vertical</orientation>
@@ -646,9 +657,9 @@
             <movement>4</movement>
 
             <top>-30</top>
-            <height>540</height>
-            <width>360</width>
-            <centerleft>50%</centerleft>
+            <height>600</height>
+            <left>80</left>
+            <right>80</right>
 
             <onclick>SetFocus(9099)</onclick>
             <onclick>RunScript(script.skinvariables,set_editcontrol=9099,window_id=1105,setfocus=9993,text=$INFO[Container(9993).ListItem.Label])</onclick>
@@ -700,10 +711,10 @@
     <include name="Search_Panel_DiscoverFilter">
         <control type="list" id="9993">
             <onup>9994</onup>
+            <onleft>5000</onleft>
             <onright>5000</onright>
-            <onleft>noop</onleft>
-            <onfocus condition="Skin.String(Home.MenuStyle,Ribbon)">SetProperty(Background.ShowOverlay,True,Home)</onfocus>
-            <onfocus condition="![Skin.String(Home.MenuStyle,Ribbon)]">ClearProperty(Background.ShowOverlay,Home)</onfocus>
+            <onback>5000</onback>
+            <onfocus>ClearProperty(Background.ShowOverlay,Home)</onfocus>
 
             <orientation>vertical</orientation>
 
@@ -711,10 +722,12 @@
             <movement>4</movement>
 
             <top>-30</top>
-            <height>540</height>
+            <height>600</height>
+            <left>80</left>
+            <right>80</right>
 
-            <width>360</width>
-            <centerleft>50%</centerleft>
+            <!-- <width>360</width>
+            <centerleft>50%</centerleft> -->
 
             <onclick>SetProperty(TMDbHelper.UserDiscover.Folderpath,$ESCINFO[Container(9993).ListItem.FolderPath],Home)</onclick>
             <onclick>SetProperty(TMDbHelper.UserDiscover.Folderpath.Name,$ESCINFO[Container(9993).ListItem.Label],Home)</onclick>
@@ -759,105 +772,94 @@
                 </control>
             </focusedlayout>
 
-            <content limit="9">plugin://plugin.video.themoviedb.helper/?info=dir_custom_node&amp;filename=TMDb Discover.json&amp;basedir=special://profile/addon_data/plugin.video.themoviedb.helper/nodes/&amp;reload=$INFO[Window(Home).Property(TMDbHelper.UserDiscover.Folderpath.Reload)]</content>
+            <content>plugin://plugin.video.themoviedb.helper/?info=dir_custom_node&amp;filename=TMDb Discover.json&amp;basedir=special://profile/addon_data/plugin.video.themoviedb.helper/nodes/&amp;reload=$INFO[Window(Home).Property(TMDbHelper.UserDiscover.Folderpath.Reload)]</content>
         </control>
     </include>
 
-    <include name="Search_Group">
-        <include content="Hub_Menu_Slide">
-            <param name="condition">!ControlGroup(5000).HasFocus() + !Control.HasFocus(330) + !Control.HasFocus(332) + !Control.HasFocus(333)</param>
-        </include>
-        <include content="Hub_Left_Bezier_Object" condition="!Skin.String(Home.MenuStyle,Ribbon)">
-            <param name="visible">!ControlGroup(5000).HasFocus() + !Control.HasFocus(330) + !Control.HasFocus(332) + !Control.HasFocus(333)</param>
-        </include>
-    </include>
-
-
     <include name="Search_Panel">
+        <include content="Dialog_Dim_Overlay">
+            <param name="visible">[!ControlGroup(5000).HasFocus() + !Control.HasFocus(330) + !Control.HasFocus(332) + !Control.HasFocus(333)]</param>
+        </include>
         <control type="group">
-            <left>view_menu_main_pad_x</left>
-            <include>Animation_Search_Fade</include>
-            <control type="group">
-                <left>view_menu_main_offset_x</left>
-                <include content="Home_Menu_Vert_Background">
-                    <param name="left">-view_menu_main</param>
-                    <param name="width">view_menu_main</param>
-                    <param name="subline_visible">false</param>
-                    <param name="include_ribbon">Skin.String(Home.MenuStyle,Ribbon)</param>
-                    <param name="include_dialog">!Skin.String(Home.MenuStyle,Ribbon)</param>
-                    <param name="include_mask">!Skin.String(Home.MenuStyle,Ribbon)</param>
-                </include>
-            </control>
-            <control type="group">
-                <left>-view_menu_main</left>
-                <width>view_menu_main</width>
+            <visible allowhiddenfocus="true">[!ControlGroup(5000).HasFocus() + !Control.HasFocus(330) + !Control.HasFocus(332) + !Control.HasFocus(333)]</visible>
 
-                <include content="Hub_Menu_Fade">
-                    <param name="condition">[!ControlGroup(5000).HasFocus() + !Control.HasFocus(330) + !Control.HasFocus(332) + !Control.HasFocus(333)]</param>
-                </include>
+            <include content="Animation_Right_Delay">
+                <!-- <param name="windowclose_condition">false</param> -->
+            </include>
 
-                <include>Search_Panel_Edit</include>
+            <include>Dimension_DialogSideMenu</include>
+            <include content="Dialog_Foreground_Side">
+                <param name="dialog_size">Dimension_DialogSideMenu</param>
+                <param name="lines_right">0</param>
+                <param name="topline">true</param>
+                <param name="subline">false</param>
+            </include>
 
-                <control type="grouplist" id="9090">
-                    <top>180</top>
-                    <onup>9099</onup>
-                    <ondown>noop</ondown>
-                    <include>Search_Panel_Keyboard</include>
+            <include>Search_Panel_Edit</include>
 
-                    <control type="grouplist" id="5092">
-                        <height>120</height>
-                        <align>center</align>
+            <control type="grouplist" id="9090">
+                <top>180</top>
+                <onup>9099</onup>
+                <ondown>noop</ondown>
+                <onback>5000</onback>
+                <include>Search_Panel_Keyboard</include>
+
+                <control type="grouplist" id="5092">
+                    <height>120</height>
+                    <align>center</align>
+                    <ondown>SetFocus(9993,0,absolute)</ondown>
+                    <onup>9994</onup>
+                    <onright>5000</onright>
+                    <onleft>5000</onleft>
+                    <onback>5000</onback>
+                    <orientation>horizontal</orientation>
+                    <control type="button" id="5098">
                         <ondown>SetFocus(9993,0,absolute)</ondown>
                         <onup>9994</onup>
+                        <onleft>5000</onleft>
                         <onright>5000</onright>
-                        <orientation>horizontal</orientation>
-                        <control type="button" id="5098">
-                            <ondown>SetFocus(9993,0,absolute)</ondown>
-                            <onup>9994</onup>
-                            <onright>5000</onright>
-                            <top>-4</top>
-                            <height>60</height>
-                            <textoffsety>-5</textoffsety>
-                            <textoffsetx>-20</textoffsetx>
-                            <width>auto</width>
-                            <centerleft>50%</centerleft>
-                            <include>Texture_Highlight_Underline_H</include>
-                            <align>center</align>
-                            <font>font_main</font>
-                            <textcolor>dialog_fg_70</textcolor>
-                            <selectedcolor>dialog_fg_70</selectedcolor>
-                            <focusedcolor>dialog_fg_100</focusedcolor>
+                        <onback>5000</onback>
+                        <top>-4</top>
+                        <height>60</height>
+                        <textoffsety>-5</textoffsety>
+                        <textoffsetx>-20</textoffsetx>
+                        <width>auto</width>
+                        <centerleft>50%</centerleft>
+                        <include>Texture_Highlight_Underline_H</include>
+                        <align>center</align>
+                        <font>font_main</font>
+                        <textcolor>dialog_fg_70</textcolor>
+                        <selectedcolor>dialog_fg_70</selectedcolor>
+                        <focusedcolor>dialog_fg_100</focusedcolor>
 
-                            <include content="Object_Label" condition="Window.IsVisible(1185)">
-                                <param name="label">$LOCALIZE[31324]: $INFO[Container(5099).ListItem.Label]</param>
-                            </include>
-                            <include content="Object_Label" condition="Window.IsVisible(1105)">
-                                <param name="label">$LOCALIZE[21435] $LOCALIZE[587]</param>
-                            </include>
+                        <include content="Object_Label" condition="Window.IsVisible(1185)">
+                            <param name="label">$LOCALIZE[31324]: $INFO[Container(5099).ListItem.Label]</param>
+                        </include>
+                        <include content="Object_Label" condition="Window.IsVisible(1105)">
+                            <param name="label">$LOCALIZE[21435] $LOCALIZE[587]</param>
+                        </include>
 
-                            <onfocus condition="Skin.String(Home.MenuStyle,Ribbon)">SetProperty(Background.ShowOverlay,True,Home)</onfocus>
-                            <onfocus condition="![Skin.String(Home.MenuStyle,Ribbon)]">ClearProperty(Background.ShowOverlay,Home)</onfocus>
+                        <onfocus>ClearProperty(Background.ShowOverlay,Home)</onfocus>
 
-                            <onclick condition="Window.IsVisible(1185)">SetFocus(5099)</onclick>
-                            <onclick condition="Window.IsVisible(1105)">RunPlugin(plugin://plugin.video.themoviedb.helper/?info=user_discover$INFO[Window(Home).Property(TMDbHelper.UserDiscover.Folderpath.ParamString),&amp;,])</onclick>
-                        </control>
+                        <onclick condition="Window.IsVisible(1185)">SetFocus(5099)</onclick>
+                        <onclick condition="Window.IsVisible(1105)">RunPlugin(plugin://plugin.video.themoviedb.helper/?info=user_discover$INFO[Window(Home).Property(TMDbHelper.UserDiscover.Folderpath.ParamString),&amp;,])</onclick>
                     </control>
-
-                    <include condition="Window.IsVisible(1185)">Search_Panel_Autocomplete</include>
-                    <include condition="Window.IsVisible(1105)">Search_Panel_DiscoverFilter</include>
                 </control>
 
-                <control type="image">
-                    <top>480</top>
-                    <height>1</height>
-                    <left>60</left>
-                    <right>60</right>
-                    <texture colordiffuse="$VAR[Color_DialogBorder]">common/white.png</texture>
-                </control>
-
-                <include condition="Window.IsVisible(1185)">Search_View_Selector</include>
-
+                <include condition="Window.IsVisible(1185)">Search_Panel_Autocomplete</include>
+                <include condition="Window.IsVisible(1105)">Search_Panel_DiscoverFilter</include>
             </control>
+
+            <control type="image">
+                <top>420</top>
+                <height>1</height>
+                <left>80</left>
+                <right>80</right>
+                <texture colordiffuse="$VAR[Color_DialogBorder]">common/white.png</texture>
+            </control>
+
+            <include condition="Window.IsVisible(1185)">Search_View_Selector</include>
+
         </control>
     </include>
 
