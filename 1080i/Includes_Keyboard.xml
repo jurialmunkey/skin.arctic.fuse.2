@@ -574,8 +574,8 @@
     <include name="Keyboard_Numeric_Row_Grouplist">
         <control type="grouplist">
             <orientation>horizontal</orientation>
-            <itemgap>keyboard_pad</itemgap>
-            <height>keyboard_numeric</height>
+            <itemgap>keyboard_numeric_pad</itemgap>
+            <height>keyboard_numeric_height</height>
             <nested />
         </control>
     </include>
@@ -595,12 +595,6 @@
             <param name="id">13</param>
             <label>$NUMBER[3]</label>
             <ondown>16</ondown>
-        </include>
-        <include content="Object_Numeric_Button" description="Back">
-            <param name="id">23</param>
-            <label>&#xf55a;</label>
-            <font>font_midi_iconic</font>
-            <ondown>99</ondown>
         </include>
     </include>
 
@@ -622,14 +616,6 @@
             <label>$NUMBER[6]</label>
             <onup>13</onup>
             <ondown>19</ondown>
-        </include>
-        <include content="Object_Numeric_Button" description="Back">
-            <param name="id">99</param>
-            <label>&#xf05c;</label>
-            <font>font_midi_iconic</font>
-            <onup>23</onup>
-            <ondown>21</ondown>
-            <onclick>PreviousMenu</onclick>
         </include>
 
     </include>
@@ -653,13 +639,7 @@
             <onup>16</onup>
             <ondown>22</ondown>
         </include>
-        <include content="Object_Numeric_Button" description="Confirm">
-            <param name="id">21</param>
-            <label>&#xf058;</label>
-            <font>font_midi_iconic</font>
-            <onup>99</onup>
-            <ondown>22</ondown>
-        </include>
+
     </include>
 
     <include name="Keyboard_Numeric_Row_000">
@@ -668,36 +648,57 @@
             <font>font_midi_iconic</font>
             <label>&#xf0a8;</label>
             <onup>17</onup>
+            <ondown>23</ondown>
         </include>
         <include content="Object_Numeric_Button" description="Number">
             <param name="id">10</param>
             <label>$NUMBER[0]</label>
             <onup>18</onup>
+            <ondown>21</ondown>
         </include>
         <include content="Object_Numeric_Button" description="Right">
             <param name="id">22</param>
             <font>font_midi_iconic</font>
             <label>&#xf0a9;</label>
             <onup>19</onup>
+            <ondown>99</ondown>
         </include>
     </include>
 
+    <include name="Keyboard_Numeric_Row_ABC">
+        <include content="Object_Numeric_Button" description="Back">
+            <param name="id">23</param>
+            <label>&#xf55a;</label>
+            <font>font_midi_iconic</font>
+            <onup>20</onup>
+        </include>
+        <include content="Object_Numeric_Button" description="Confirm">
+            <param name="id">21</param>
+            <label>&#xf058;</label>
+            <font>font_midi_iconic</font>
+            <onup>10</onup>
+        </include>
+        <include content="Object_Numeric_Button" description="Back">
+            <param name="id">99</param>
+            <label>&#xf05c;</label>
+            <font>font_midi_iconic</font>
+            <onup>22</onup>
+            <onclick>PreviousMenu</onclick>
+        </include>
+
+    </include>
+
     <include name="Keyboard_Numeric">
-        <control type="image">
-            <include>Animation_FadeIn</include>
-            <include>Animation_FadeOut</include>
-            <texture colordiffuse="panel_bg_70">common/white.png</texture>
-        </control>
+        <include>Dialog_Dim_Overlay</include>
         <control type="group">
-            <include>Animation_SlideIn_Dialog</include>
+            <include>Animation_Right_Delay</include>
             <control type="group">
-                <include>Dimension_DialogNumeric</include>
+                <include>Dimension_DialogMiniMenu</include>
                 <include content="Dialog_Foreground_Side">
-                    <param name="dialog_size">Dimension_DialogNumeric</param>
+                    <param name="dialog_size">Dimension_DialogMiniMenu</param>
                     <param name="topline">true</param>
                     <param name="subline">true</param>
                 </include>
-                <!-- <include>Dialog_Overlay_Tray</include> -->
                 <control type="group">
                     <!-- Header -->
                     <include>Dialog_Head</include>
@@ -712,43 +713,47 @@
                             <bottom>20</bottom>
                             <top>20</top>
                             <control type="group">
-                                <height>160</height> <!-- 280 -->
+                                <height>280</height>
                                 <control type="image">
                                     <texture colordiffuse="$VAR[Color_DialogBorder]" border="40">common/menu.png</texture>
-                                    <bottom>40</bottom>
                                 </control>
                                 <control type="label" id="4">
                                     <align>center</align>
                                     <textoffset>40</textoffset>
                                     <width>100%</width>
                                     <disabledcolor>dialog_bg_30</disabledcolor>
-                                    <bottom>40</bottom>
                                     <font>font_head</font>
                                 </control>
                                 <control type="image">
                                     <height>1</height>
-                                    <centerbottom>20</centerbottom>
+                                    <centerbottom>-20</centerbottom>
                                     <left>20</left>
                                     <right>20</right>
                                     <texture colordiffuse="$VAR[Color_DialogBorder]">common/white.png</texture>
                                 </control>
                             </control>
-                            <control type="grouplist">
-                                <top>160</top> <!-- 280 -->
-                                <orientation>vertical</orientation>
-                                <itemgap>keyboard_pad</itemgap>
-                                <include content="Keyboard_Numeric_Row_Grouplist">
-                                    <include>Keyboard_Numeric_Row_123</include>
-                                </include>
-                                <include content="Keyboard_Numeric_Row_Grouplist">
-                                    <include>Keyboard_Numeric_Row_456</include>
-                                </include>
-                                <include content="Keyboard_Numeric_Row_Grouplist">
-                                    <include>Keyboard_Numeric_Row_789</include>
-                                </include>
-                                <include content="Keyboard_Numeric_Row_Grouplist">
-                                    <include>Keyboard_Numeric_Row_000</include>
-                                </include>
+                            <control type="group">
+                                <top>280</top>
+                                <control type="grouplist">
+                                    <top>40</top>
+                                    <orientation>vertical</orientation>
+                                    <itemgap>keyboard_numeric_pad</itemgap>
+                                    <include content="Keyboard_Numeric_Row_Grouplist">
+                                        <include>Keyboard_Numeric_Row_123</include>
+                                    </include>
+                                    <include content="Keyboard_Numeric_Row_Grouplist">
+                                        <include>Keyboard_Numeric_Row_456</include>
+                                    </include>
+                                    <include content="Keyboard_Numeric_Row_Grouplist">
+                                        <include>Keyboard_Numeric_Row_789</include>
+                                    </include>
+                                    <include content="Keyboard_Numeric_Row_Grouplist">
+                                        <include>Keyboard_Numeric_Row_000</include>
+                                    </include>
+                                    <include content="Keyboard_Numeric_Row_Grouplist">
+                                        <include>Keyboard_Numeric_Row_ABC</include>
+                                    </include>
+                                </control>
                             </control>
                         </control>
                     </control>

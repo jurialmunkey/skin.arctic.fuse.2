@@ -1,6 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <includes>
 
+    <variable name="Label_DialogConfirm_Heading">
+        <value condition="Control.IsVisible(20)">$LOCALIZE[20186]...</value>
+        <value condition="Control.IsVisible(11) + !Control.IsVisible(10) + !Control.IsVisible(12)">$LOCALIZE[19033]</value>
+        <value>$LOCALIZE[31597]</value>
+    </variable>
+
     <variable name="Label_SkinSettings_Level">
         <value condition="Integer.IsEqual(Skin.String(Skin.SettingsLevel),3)">$LOCALIZE[10039]</value>
         <value condition="Integer.IsEqual(Skin.String(Skin.SettingsLevel),2)">$LOCALIZE[10038]</value>
@@ -175,12 +181,12 @@
     </variable>
 
     <variable name="Label_Plot_Episode_Type_TMDBHelper">
-        <value condition="String.IsEqual(Window(Home).Property(TMDbHelper.ListItem.Monitor.Episode_type),series_premiere)">$LOCALIZE[31210]</value>
-        <value condition="String.IsEqual(Window(Home).Property(TMDbHelper.ListItem.Monitor.Episode_type),season_premiere)">$LOCALIZE[31211]</value>
-        <value condition="String.IsEqual(Window(Home).Property(TMDbHelper.ListItem.Monitor.Episode_type),mid_season_premiere)">$LOCALIZE[31212]</value>
-        <value condition="String.IsEqual(Window(Home).Property(TMDbHelper.ListItem.Monitor.Episode_type),series_finale)">$LOCALIZE[31214]</value>
-        <value condition="String.IsEqual(Window(Home).Property(TMDbHelper.ListItem.Monitor.Episode_type),season_finale)">$LOCALIZE[31215]</value>
-        <value condition="String.IsEqual(Window(Home).Property(TMDbHelper.ListItem.Monitor.Episode_type),mid_season_finale)">$LOCALIZE[31218]</value>
+        <value condition="String.IsEqual(Window(Home).Property(TMDbHelper.ListItem.Episode_type),series_premiere)">$LOCALIZE[31210]</value>
+        <value condition="String.IsEqual(Window(Home).Property(TMDbHelper.ListItem.Episode_type),season_premiere)">$LOCALIZE[31211]</value>
+        <value condition="String.IsEqual(Window(Home).Property(TMDbHelper.ListItem.Episode_type),mid_season_premiere)">$LOCALIZE[31212]</value>
+        <value condition="String.IsEqual(Window(Home).Property(TMDbHelper.ListItem.Episode_type),series_finale)">$LOCALIZE[31214]</value>
+        <value condition="String.IsEqual(Window(Home).Property(TMDbHelper.ListItem.Episode_type),season_finale)">$LOCALIZE[31215]</value>
+        <value condition="String.IsEqual(Window(Home).Property(TMDbHelper.ListItem.Episode_type),mid_season_finale)">$LOCALIZE[31218]</value>
     </variable>
 
     <variable name="Label_Shortcut_EnableDisable">
@@ -334,9 +340,10 @@
 
     <variable name="Label_Setting_BackgroundBlur">
         <value condition="Skin.String(Background.ArtworkStyle,Simple)">$LOCALIZE[31438] ($LOCALIZE[31254])</value>
-        <value condition="Skin.String(Background.ArtworkStyle,Fanart)">$LOCALIZE[20445] ($LOCALIZE[31254])</value>
-        <value condition="!Skin.HasSetting(TMDbHelper.EnableBlur)">$LOCALIZE[31268] $LOCALIZE[39173] ($LOCALIZE[31254])</value>
-        <value>$LOCALIZE[31269] $LOCALIZE[39173] ($LOCALIZE[31267])</value>
+        <value condition="!Skin.HasSetting(TMDbHelper.EnableBlur)">$LOCALIZE[20445] ($LOCALIZE[31254])</value>
+        <value condition="Skin.String(TMDbHelper.Blur.Size,1080)">$LOCALIZE[39173] ($LOCALIZE[13508] $LOCALIZE[31267])</value>
+        <value condition="Skin.String(TMDbHelper.Blur.Size,720)">$LOCALIZE[39173] ($LOCALIZE[13507] $LOCALIZE[31267])</value>
+        <value>$LOCALIZE[39173] ($LOCALIZE[571] $LOCALIZE[31267])</value>
     </variable>
 
     <variable name="Label_Setting_ForegroundLogo">
@@ -508,11 +515,6 @@
         <value condition="Player.Forwarding">FF</value>
         <value condition="Player.Rewinding">RW</value>
         <value>$LOCALIZE[208]</value>
-    </variable>
-
-    <variable name="Label_Discover_TMDbType">
-        <value condition="Skin.String(Discover.TMDbType,movie)">$LOCALIZE[20342]</value>
-        <value condition="Skin.String(Discover.TMDbType,tv)">$LOCALIZE[20343]</value>
     </variable>
 
     <variable name="Label_Setting_SeekbarPauseBehaviour">
@@ -815,6 +817,11 @@
         <value condition="!String.IsEmpty(Window(Home).Property(TMDbHelper.Player.Studio.3.Name))">$INFO[Window(Home).Property(TMDbHelper.Player.Studio.3.Name)]</value>
         <value condition="!String.IsEmpty(VideoPlayer.Studio)">$INFO[VideoPlayer.Studio]</value>
 
+    </variable>
+
+    <variable name="Label_Language">
+        <value condition="!String.IsEmpty(ListItem.Property(Language))">$INFO[ListItem.Property(Language)]</value>
+        <value condition="!String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.Language))">$INFO[Window(Home).Property(TMDbHelper.ListItem.Language)]</value>
     </variable>
 
     <variable name="Label_Country">
